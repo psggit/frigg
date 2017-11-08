@@ -4,6 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "clean": "rimraf ./core/client/build",
+    "start:dev": "NODE_ENV=development node index.js",
+    "start:hearsay": "NODE_ENV=hearsay node index.js",
+    "start": "NODE_ENV=production node index.js",
+    "build:hearsay": "NODE_ENV=hearsay webpack --config webpack.config.js --progress",
+    "build": "NODE_ENV=hearsay webpack --config webpack.config.js --progress",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Madhur Garg",
