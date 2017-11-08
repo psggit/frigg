@@ -1,3 +1,3 @@
-const foo = () => {
-  return 1
+const multiply = (a, b) => {
+  return a * b
 }

@@ -1,7 +1,7 @@
 const path = require('path')
 const webpack = require('webpack')
 
-let loaders = [
+const loaders = [
   {
     test: /\.js$/,
     loader: 'babel-loader',
@@ -13,14 +13,14 @@ let loaders = [
   },
   {
     test: /\.jpe?g$|\.gif$|\.png$|\.otf$/i,
-    loader: "url-loader?limit=10000"
+    loader: 'url-loader?limit=10000'
   }
 ]
 
-let devLoaders = loaders.concat([
+const devLoaders = loaders.concat([
   {
     test: /\.scss$/,
-    loader: "style!css!sass",
+    loader: 'style!css!sass',
     exclude: /node_modules/
   }
 ])
@@ -31,11 +31,11 @@ let devLoaders = loaders.concat([
 //   }
 // ])
 
-let plugins = [
-  new webpack.BannerPlugin("Copyright 2017 Hipbar Pvt. Ltd.")
+const plugins = [
+  new webpack.BannerPlugin('Copyright 2017 Hipbar Pvt. Ltd.')
 ]
 
-let productionPlugins = plugins.concat([
+const productionPlugins = plugins.concat([
   new webpack.optimize.UglifyJsPlugin()
 ])
 
@@ -49,7 +49,8 @@ let productionPlugins = plugins.concat([
 
 function createWebpackConfig(ENV, entryPoints) {
   // webpack plugins and loaders based on runtime environment
-  let _loaders, _plugins
+  let _loaders
+  let _plugins
   switch (ENV) {
     case 'development':
       _plugins = devPlugins
