@@ -32,8 +32,21 @@ const devLoaders = loaders.concat([
 // ])
 
 const plugins = [
+  /**
+   * # DefinePlugin
+   * Set ENV for compilation process
+   */
+  new webpack.DefinePlugin({
+    "process.env": {
+      NODE_ENV: JSON.stringify(process.env.NODE_ENV)
+    }
+  }),
   new webpack.BannerPlugin('Copyright 2017 Hipbar Pvt. Ltd.')
 ]
+
+const devPlugins = plugins.concat([
+  new webpack.HotModuleReplacementPlugin()
+])
 
 const productionPlugins = plugins.concat([
   new webpack.optimize.UglifyJsPlugin()
@@ -53,7 +66,7 @@ function createWebpackConfig(ENV, entryPoints) {
   let _plugins
   switch (ENV) {
     case 'development':
-      _plugins = plugins
+      _plugins = devPlugins
       _loaders = devLoaders
       break
 
