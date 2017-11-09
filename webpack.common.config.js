@@ -53,12 +53,12 @@ function createWebpackConfig(ENV, entryPoints) {
   let _plugins
   switch (ENV) {
     case 'development':
-      _plugins = devPlugins
+      _plugins = plugins
       _loaders = devLoaders
       break
 
     case 'hearsay':
-      _plugins = hearsayPlugins
+      _plugins = plugins
       _loaders = productionLoaders
 
     case 'production':

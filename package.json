@@ -6,9 +6,9 @@
   "scripts": {
     "clean": "rm -rf ./src/client/build",
     "start:dev": "NODE_ENV=development node index.js",
-    "start:hearsay": "NODE_ENV=hearsay node index.js",
+    "start:hearsay": "NODE_ENV=testing node index.js",
     "start": "NODE_ENV=production node index.js",
-    "build:hearsay": "NODE_ENV=hearsay webpack --config webpack.config.js --progress",
+    "build:hearsay": "NODE_ENV=testing webpack --config webpack.config.js --progress",
     "build": "NODE_ENV=production webpack --config webpack.config.js --progress",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -25,7 +25,8 @@
     "react-dom": "^16.0.0",
     "react-redux": "^5.0.6",
     "redux": "^3.7.2",
-    "redux-saga": "^0.16.0"
+    "redux-saga": "^0.16.0",
+    "swig": "^1.4.2"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
@@ -36,6 +37,8 @@
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-jsx-a11y": "^6.0.2",
     "eslint-plugin-react": "^7.4.0",
-    "webpack": "^3.8.1"
+    "webpack": "^3.8.1",
+    "webpack-dev-middleware": "^1.12.0",
+    "webpack-hot-middleware": "^2.20.0"
   }
 }
