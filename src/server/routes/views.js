@@ -10,6 +10,10 @@ function views() {
     res.render('login.html')
   })
 
+  router.get('/home', (req, res) => {
+    res.render('home.html')
+  })
+
   return router
 }
 
