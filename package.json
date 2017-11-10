@@ -20,9 +20,11 @@
   "license": "MIT",
   "dependencies": {
     "express": "^4.16.2",
+    "material-ui": "^0.19.4",
     "prop-types": "^15.6.0",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
+    "react-gmaps": "^1.7.0",
     "react-redux": "^5.0.6",
     "redux": "^3.7.2",
     "redux-saga": "^0.16.0",
