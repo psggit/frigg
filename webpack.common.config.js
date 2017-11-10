@@ -1,3 +1,10 @@
+
+/**
+ * This is a very basic webpack configuration.
+ * You can add further loader and plugins for
+ * your use case.
+ */
+
 const path = require('path')
 const webpack = require('webpack')
 
