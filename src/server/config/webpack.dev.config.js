@@ -9,6 +9,10 @@ const entryPoints = {
   login: [
     'webpack-hot-middleware/client',
     path.join(scriptsBaseDir,  'login.js')
+  ],
+  home: [
+    'webpack-hot-middleware/client',
+    path.join(scriptsBaseDir, 'home.js')
   ]
 }
 module.exports = createWebpackConfig(env, entryPoints)
