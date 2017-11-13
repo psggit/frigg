@@ -87,7 +87,7 @@ class CreateLocality extends React.Component {
           ) : (
             <div>
               <div>{this.getStepContent(stepIndex)}</div>
-              <div style={{marginTop: 12}}>
+              <div style={{marginTop: '30px'}}>
                 <FlatButton
                   label="Back"
                   disabled={stepIndex === 0}

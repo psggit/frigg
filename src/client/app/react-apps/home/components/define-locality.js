@@ -1,14 +1,20 @@
 import React from 'react'
 import { Gmaps } from 'react-gmaps'
+import RaisedButton from 'material-ui/RaisedButton'
 
 class DefineLocality extends React.Component {
   constructor() {
     super()
+    this.state = {
+      deleteShapeState: true
+    }
     this.polygonPoints = []
     this.selectedShape = null
     this.selectedColor = null
     this.handleMapCreation = this.handleMapCreation.bind(this)
     this.clearSelection = this.clearSelection.bind(this)
+    this.setSelection = this.setSelection.bind(this)
+    this.deleteSelectedShape = this.deleteSelectedShape.bind(this)
   }
   setupEventListeners(map) {
     google.maps.event.addListener(this.drawingManager, 'overlaycomplete', (event) => {
@@ -55,7 +61,7 @@ class DefineLocality extends React.Component {
   setSelection(shape) {
     this.clearSelection()
     this.selectedShape = shape
-    // console.log(this);
+    this.setState({ deleteShapeState: false })
     shape.setEditable(true)
     this.selectColor('#333')
   }
@@ -134,22 +140,32 @@ class DefineLocality extends React.Component {
     this.configureDrawingManager(map)
   }
 
+
   render() {
     const coords = {
       lat: 25.774,
       lng: -80.190
     }
+    const { deleteShapeState } = this.state
     return (
-      <Gmaps
-        width={'100%'}
-        height={'600px'}
-        lat={coords.lat}
-        lng={coords.lng}
-        zoom={14}
-        onMapCreated={this.handleMapCreation}
-      >
+      <div>
+        <Gmaps
+          width={'100%'}
+          height={'600px'}
+          lat={coords.lat}
+          lng={coords.lng}
+          zoom={14}
+          onMapCreated={this.handleMapCreation}
+        >
 
-      </Gmaps>
+        </Gmaps>
+        <RaisedButton
+          label="Delete selected locality"
+          disabled={deleteShapeState}
+          onClick={this.deleteSelectedShape}
+          style={{marginRight: 12, marginTop: '10px'}}
+        />
+      </div>
     )
   }
 }
