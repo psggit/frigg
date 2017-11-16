@@ -7,15 +7,17 @@ class ChooseState extends React.Component {
   constructor() {
     super()
     this.state = {
-      value: 17
+      value: 1,
+      city: indiaStates[0]
     }
     this.handleChange = this.handleChange.bind(this)
   }
-  handleChange() {
+  handleChange(e, k, value) {
     this.setState({ value })
+    // console.log(indiaStates[k].name);
+    this.props.setStateData(indiaStates[k].name)
   }
   render() {
-    console.log(indiaStates);
     return (
       <SelectField
         floatingLabelText="Choose state"
