@@ -3,47 +3,84 @@ import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
 import indiaStates from './../constants/india-states'
 import TextField from 'material-ui/TextField'
+import RaisedButton from 'material-ui/RaisedButton'
 
-class ChooseState extends React.Component {
+
+class MapCity extends React.Component {
   constructor() {
     super()
     this.state = {
-      value: 0
+      cityIdx: null,
+      isCreateNew: false
     }
     this.handleChange = this.handleChange.bind(this)
+    this.handleInputChange = this.handleInputChange.bind(this)
+    this.switchCityForms = this.switchCityForms.bind(this)
   }
-  handleChange() {
-    this.setState({ value })
+  handleChange(e, k) {
+    this.setState({ cityIdx: k + 1 })
+    this.props.setCityData(indiaStates[k].name)
+  }
+  handleInputChange(e, value) {
+    this.props.setCityData(value)
+  }
+  switchCityForms(value) {
+    this.props.setCityData(null)
+    this.setState({ isCreateNew: value, cityIdx: null })
   }
   render() {
+    const { isCreateNew } = this.state
     return (
       <div>
-        <SelectField
-          floatingLabelText="Choose city"
-          value={this.state.value}
-          onChange={this.handleChange}
-        >
-          {
-            indiaStates.map((state, i) => {
-              return (
-                <MenuItem
-                  value={i + 1}
-                  key={`state-${i}`}
-                  primaryText={state.name}
+        {
+          isCreateNew
+          ? <div>
+              {/* <h5 style={{marginBottom: '0', fontWeight: '500', fontSize: '14px', color: 'rgba(0, 0, 0, 0.87)'}}>Create new city</h5> */}
+              <TextField
+                defaultValue=""
+                floatingLabelText="Enter city name"
+                onChange={this.handleInputChange}
+              />
+              <div>
+                <p style={{color: '#9b9b9b', margin: '20px 0'}}>or</p>
+                <RaisedButton
+                  label="Choose city"
+                  onClick={() => { this.switchCityForms(false) }}
+                  style={{marginRight: 12, marginTop: '10px'}}
                 />
-              )
-            })
-          }
-        </SelectField>
-        <p style={{color: '#9b9b9b', margin: '40px 0'}}>or</p>
-        <h5 style={{marginBottom: '0', fontWeight: '500', fontSize: '14px', color: 'rgba(0, 0, 0, 0.87)'}}>Create new city</h5>
-        <TextField
-          defaultValue=""
-          floatingLabelText="Enter city name"
-        />
+              </div>
+          </div>
+          : <div>
+              <SelectField
+                  floatingLabelText="Choose city"
+                  value={this.state.cityIdx}
+                  onChange={this.handleChange}
+                >
+                  {
+                    indiaStates.map((state, i) => {
+                      return (
+                        <MenuItem
+                          value={i + 1}
+                          key={`state-${i}`}
+                          primaryText={state.name}
+                        />
+                      )
+                    })
+                  }
+                </SelectField>
+                <p style={{color: '#9b9b9b', margin: '20px 0'}}>or</p>
+                <div>
+                  <RaisedButton
+                    label="Create new city"
+                    onClick={() => { this.switchCityForms(true) }}
+                    style={{marginRight: 12, marginTop: '10px'}}
+                  />
+                </div>
+            </div>
+        }
       </div>
     )
   }
 }
 
-export default ChooseState
+export default MapCity
