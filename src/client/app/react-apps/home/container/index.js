@@ -1,4 +1,6 @@
 import React from 'react'
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import { withRouter } from 'react-router'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import Header from './../components/header'
 import NavigationBar from './../components/navigation-bar'
@@ -23,6 +25,7 @@ class App extends React.Component {
   render() {
     const { isDrawerOpen } = this.state
     return (
+    <BrowserRouter>
       <div>
         <MuiThemeProvider>
           <div>
@@ -36,11 +39,14 @@ class App extends React.Component {
               handleCloseDrawer={this.handleCloseDrawer}
             />
             <DisplayScreen>
-              <CreateLocality />
+                <Switch>
+                  <Route exact path="/home/manage-geofencing" component={CreateLocality} />
+                </Switch>
             </DisplayScreen>
           </div>
         </MuiThemeProvider>
       </div>
+    </BrowserRouter>
     )
   }
 }
