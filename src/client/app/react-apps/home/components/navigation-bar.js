@@ -1,6 +1,6 @@
 import React from 'react'
 import Drawer from 'material-ui/Drawer'
-import Link from './../../../components/link'
+import { NavLink } from 'react-router-dom'
 import MenuItem from 'material-ui/MenuItem'
 
 class NavigationBar extends  React.Component {
@@ -15,9 +15,9 @@ class NavigationBar extends  React.Component {
         open={this.props.isDrawerOpen}
         onRequestChange={this.props.toggleDrawer}
       >
-        <Link url="/manage-geofencing">
+        <NavLink exact to="/home/manage-geofencing">
           <MenuItem onClick={this.props.handleCloseDrawer}>Manage Geofencing</MenuItem>
-        </Link>
+        </NavLink>
       </Drawer>
     )
   }
