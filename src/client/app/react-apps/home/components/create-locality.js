@@ -40,7 +40,21 @@ class CreateLocality extends React.Component {
           />
         )
       case 2:
-        return <DefineLocality city={this.state.city} />
+        return (
+          <DefineLocality
+            zoomLevel={12}
+            city={this.state.city}
+          />
+        )
+
+      case 3:
+        return (
+          <DefineLocality
+            zoomLevel={16}
+            city={this.state.city}
+          />
+        )
+
       default:
         return 'You\'re a long way from home sonny jim!';
     }
@@ -58,7 +72,7 @@ class CreateLocality extends React.Component {
     const { stepIndex } = this.state
     this.setState({
       stepIndex: stepIndex + 1,
-      finished: stepIndex >= 2,
+      finished: stepIndex >= 3,
     })
   }
 
@@ -75,11 +89,12 @@ class CreateLocality extends React.Component {
     const steps = [
       'Select state',
       'Select city',
+      'Define City boundary',
       'Define locality'
     ]
 
     return (
-      <div style={{ width: '100%', maxWidth: 700, margin: 'auto' }}>
+      <div style={{ width: '100%', maxWidth: 1000, margin: 'auto' }}>
         <Stepper activeStep={stepIndex}>
           {
             steps.map((step, i) => {
@@ -115,7 +130,7 @@ class CreateLocality extends React.Component {
                   style={{marginRight: 12}}
                 />
                 <RaisedButton
-                  label={stepIndex === 2 ? 'Finish' : 'Next'}
+                  label={stepIndex === 3 ? 'Finish' : 'Next'}
                   primary={true}
                   onClick={this.handleNext}
                 />

@@ -162,6 +162,7 @@ class DefineLocality extends React.Component {
 
   render() {
     const { lat, lng } = this.state
+    const { zoomLevel } = this.props
     const { deleteShapeState } = this.state
     return (
       <div>
@@ -170,11 +171,10 @@ class DefineLocality extends React.Component {
           height={'600px'}
           lat={lat}
           lng={lng}
-          zoom={14}
+          zoom={zoomLevel}
           params={params}
           onMapCreated={this.handleMapCreation}
         >
-
         </Gmaps>
         <RaisedButton
           label="Delete selected locality"
