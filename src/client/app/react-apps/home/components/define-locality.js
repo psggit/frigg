@@ -2,11 +2,15 @@ import React from 'react'
 import { Gmaps } from 'react-gmaps'
 import RaisedButton from 'material-ui/RaisedButton'
 
+const params = {v: '3.exp', key: 'AIzaSyDpG-NeL-XGYAduQul2JenVr86HIPITEso'}
+
 class DefineLocality extends React.Component {
   constructor() {
     super()
     this.state = {
-      deleteShapeState: true
+      deleteShapeState: true,
+      lat: null,
+      lng: null
     }
     this.polygonPoints = []
     this.selectedShape = null
@@ -53,6 +57,7 @@ class DefineLocality extends React.Component {
       this.polygonPoints = this.getPolygonPoints(this.selectedShape)
       console.log("Polygonpoints", this.polygonPoints)
       // send polygonpoints to server here
+      this.setState({ deleteShapeState: true })
       this.selectedShape.setEditable(false)
       this.selectedShape = null
     }
@@ -71,6 +76,7 @@ class DefineLocality extends React.Component {
     if (this.selectedShape) {
       this.selectedShape.setMap(null)
       // To show:
+      this.setState({ deleteShapeState: true })
       this.drawingManager.setOptions({
         drawingControl: true
       })
@@ -113,6 +119,7 @@ class DefineLocality extends React.Component {
     }
     const drawingManager = new google.maps.drawing.DrawingManager({
       drawingMode: google.maps.drawing.OverlayType.POLYGON,
+      drawingControl: true,
       drawingControlOptions: {
         drawingModes: [
           google.maps.drawing.OverlayType.POLYGON
@@ -132,7 +139,19 @@ class DefineLocality extends React.Component {
   }
 
   handleMapCreation(map) {
-    console.log(map)
+    const { city } = this.props
+    const geocoder = new google.maps.Geocoder()
+
+    geocoder.geocode({
+      address: city
+    }, (res, status) => {
+      if (status === google.maps.GeocoderStatus.OK) {
+        const lat = res[0].geometry.location.lat()
+        const lng = res[0].geometry.location.lng()
+        this.setState({ lat, lng })
+      }
+    })
+
     map.setOptions({
       disableDefaultUI: true,
       zoomControl: true
@@ -142,19 +161,17 @@ class DefineLocality extends React.Component {
 
 
   render() {
-    const coords = {
-      lat: 25.774,
-      lng: -80.190
-    }
+    const { lat, lng } = this.state
     const { deleteShapeState } = this.state
     return (
       <div>
         <Gmaps
           width={'100%'}
           height={'600px'}
-          lat={coords.lat}
-          lng={coords.lng}
+          lat={lat}
+          lng={lng}
           zoom={14}
+          params={params}
           onMapCreated={this.handleMapCreation}
         >
 
