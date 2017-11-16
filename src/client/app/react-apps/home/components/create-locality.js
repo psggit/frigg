@@ -15,23 +15,43 @@ class CreateLocality extends React.Component {
     super()
     this.state = {
       finished: false,
-      stepIndex: 2,
+      stepIndex: 0,
+      city: null,
+      state: null
     }
     this.handleNext = this.handleNext.bind(this)
     this.handlePrev = this.handlePrev.bind(this)
+    this.setStateData = this.setStateData.bind(this)
+    this.setCityData = this.setCityData.bind(this)
   }
 
   getStepContent(stepIndex) {
     switch (stepIndex) {
       case 0:
-        return <ChooseState />
+        return (
+          <ChooseState
+            setStateData={this.setStateData}
+          />
+        )
       case 1:
-        return <MapCity />
+        return (
+          <MapCity
+            setCityData={this.setCityData}
+          />
+        )
       case 2:
-        return <DefineLocality />
+        return <DefineLocality city={this.state.city} />
       default:
         return 'You\'re a long way from home sonny jim!';
     }
+  }
+
+  setStateData(value) {
+    this.setState({ state: value })
+  }
+
+  setCityData(value) {
+    this.setState({ city: value })
   }
 
   handleNext() {
