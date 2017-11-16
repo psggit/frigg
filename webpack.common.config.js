@@ -7,6 +7,8 @@
 
 const path = require('path')
 const webpack = require('webpack')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const AbsolutePathProviderPlugin = require('abspath-webpack-plugin')
 
 const loaders = [
   {
@@ -27,16 +29,27 @@ const loaders = [
 const devLoaders = loaders.concat([
   {
     test: /\.scss$/,
-    loader: 'style!css!sass',
+    loader: 'style-loader!css-loader!sass-loader',
     exclude: /node_modules/
   }
 ])
 
-// let productionLoaders = loaders.concat([
-//   {
-//     test: ''
-//   }
-// ])
+let productionLoaders = loaders.concat([
+  // {
+  //   test: /\.css$/,
+  //   use: ExtractTextPlugin.extract("style-loader", "css-loader"),
+  //   loader:
+  //   exclude: /node_modules/
+  // },
+  {
+    test: /\.scss$/,
+    use: ExtractTextPlugin.extract({
+      fallback: 'style-loader',
+      use: ['css-loader', 'sass-loader']
+    }),
+    exclude: /node_modules/
+  }
+])
 
 const plugins = [
   /**
@@ -48,7 +61,9 @@ const plugins = [
       NODE_ENV: JSON.stringify(process.env.NODE_ENV)
     }
   }),
-  new webpack.BannerPlugin('Copyright 2017 Hipbar Pvt. Ltd.')
+  new webpack.BannerPlugin('Copyright 2017 Hipbar Pvt. Ltd.'),
+  new ExtractTextPlugin("[name].build.css"),
+  new AbsolutePathProviderPlugin(/^@sass/, path.resolve('./src/client/app/sass'))
 ]
 
 const devPlugins = plugins.concat([
@@ -80,10 +95,12 @@ function createWebpackConfig(ENV, entryPoints) {
     case 'hearsay':
       _plugins = plugins
       _loaders = productionLoaders
+      break
 
     case 'production':
       _plugins = productionPlugins
-      _loaders = loaders
+      _loaders = productionLoaders
+      break
 
     default:
       _plugins = productionPlugins
