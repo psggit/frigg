@@ -1,11 +1,11 @@
 import React from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
-import { withRouter } from 'react-router'
+// import { withRouter } from 'react-router'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import Header from './../components/header'
 import NavigationBar from './../components/navigation-bar'
-import DisplayScreen from './../components/display-screen'
-import CreateLocality from './../components/create-locality'
+import DisplayScreen from './display-screen'
+import CreateLocality from './create-locality'
 
 class App extends React.Component {
   constructor() {
