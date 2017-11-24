@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import {
   Step,
   Stepper,
-  StepLabel,
+  StepLabel
 } from 'material-ui/Stepper'
 import RaisedButton from 'material-ui/RaisedButton'
 import FlatButton from 'material-ui/FlatButton'
@@ -19,7 +19,9 @@ class CreateLocality extends React.Component {
     super()
     this.state = {
       finished: false,
-      stepIndex: 2,
+      stepIndex: 0,
+      stateIdx: 1,
+      cityIdx: null,
       city: null,
       state: null,
       center: { lat: null, lng: null },
@@ -30,26 +32,59 @@ class CreateLocality extends React.Component {
     this.setStateData = this.setStateData.bind(this)
     this.setCityData = this.setCityData.bind(this)
     this.setCityCenter =this.setCityCenter.bind(this)
+    this.setStepIndex = this.setStepIndex.bind(this)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    // Object.keys(nextProps).forEach((key) => {
+    //   if (key.indexOf('loading') > -1) {
+    //     this.setState({ isNextDisabled: nextProps[key] })
+    //   }
+    // })
+    if (!this.state.state)
+    this.setState({ state: nextProps.statesData[0] })
+
+    if (!this.state.city)
+    this.setState({ city: nextProps.citiesData[0] })
   }
 
   getStepContent(stepIndex) {
+    const {
+      actions,
+      statesData,
+      citiesData,
+      localities,
+      loadingCities,
+      loadingStates,
+      loadingLocalites
+    } = this.props
+
+    const { state, stateIdx, cityIdx } = this.state
     switch (stepIndex) {
       case 0:
         return (
           <ChooseState
+            stateIdx={stateIdx}
+            statesData={statesData}
+            loadingStates={loadingStates}
+            fetchStates={actions.fetchStates}
             setStateData={this.setStateData}
           />
         )
       case 1:
         return (
           <MapCity
+            cityIdx={cityIdx}
+            citiesData={citiesData}
+            loadingCities={loadingCities}
+            fetchCities={actions.fetchCities}
+            stateShortName={state.short_name}
             setCityData={this.setCityData}
           />
         )
       case 2:
         return (
           <DefineLocality
-            actions={this.props.actions}
             setCityCenter={this.setCityCenter}
             center={this.state.center}
             key="boundary"
@@ -62,6 +97,9 @@ class CreateLocality extends React.Component {
       case 3:
         return (
           <DefineLocality
+            localities={localities}
+            loadingLocalites={loadingLocalites}
+            fetchLocalities={actions.fetchLocalities}
             key="locality"
             center={this.state.center}
             isLocality
@@ -75,16 +113,30 @@ class CreateLocality extends React.Component {
     }
   }
 
+  setStepIndex(i) {
+    this.setState({ stepIndex: i })
+  }
+
   setCityCenter(center) {
     this.setState({ center })
   }
 
-  setStateData(value) {
-    this.setState({ state: value })
+  setStateData(stateObj) {
+    this.setState({
+      state: stateObj.stateData,
+      stateIdx: stateObj.stateIdx
+    })
   }
 
-  setCityData(value) {
-    this.setState({ city: value })
+  setCityData(cityObj) {
+    this.setState({
+      city: cityObj.cityData,
+      cityIdx: cityObj.cityIdx
+    })
+  }
+
+  shouldNextDisabled() {
+
   }
 
   handleNext() {
@@ -114,12 +166,17 @@ class CreateLocality extends React.Component {
 
     return (
       <div style={{ width: '100%', maxWidth: 1000, margin: 'auto' }}>
-        <Stepper activeStep={stepIndex}>
+        <Stepper linear activeStep={stepIndex}>
           {
             steps.map((step, i) => {
               return (
                 <Step key={`step-${i}`}>
-                  <StepLabel>{step}</StepLabel>
+                  <StepLabel
+                    // style={{ cursor: 'pointer' }}
+                    // onClick={() => this.setStepIndex(i)}
+                  >
+                    {step}
+                  </StepLabel>
                 </Step>
               )
             })
@@ -159,11 +216,11 @@ class CreateLocality extends React.Component {
           )}
         </div>
       </div>
-    );
+    )
   }
 }
 
-const mapStateToProps = state => state.reducer
+const mapStateToProps = state => state.main
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(Actions, dispatch)
