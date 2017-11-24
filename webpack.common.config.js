@@ -63,7 +63,11 @@ const plugins = [
   }),
   new webpack.BannerPlugin('Copyright 2017 Hipbar Pvt. Ltd.'),
   new ExtractTextPlugin("[name].build.css"),
-  new AbsolutePathProviderPlugin(/^@sass/, path.resolve('./src/client/app/sass'))
+  new webpack.optimize.CommonsChunkPlugin({
+    name: 'react' // Specify the common bundle's name.
+  }),
+  new AbsolutePathProviderPlugin(/^@sass/, path.resolve('./src/client/app/sass')),
+  new AbsolutePathProviderPlugin(/^@utils/, path.resolve('./src/client/app/utils'))
 ]
 
 const devPlugins = plugins.concat([
