@@ -306,7 +306,7 @@ class DefineLocality extends React.Component {
               onChange={this.handleChange}
             >
               {
-                []].map((state, i) => {
+                [].map((state, i) => {
                   return (
                     <MenuItem
                       value={i + 1}
