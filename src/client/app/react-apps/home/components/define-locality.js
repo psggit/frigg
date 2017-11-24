@@ -4,7 +4,6 @@ import RaisedButton from 'material-ui/RaisedButton'
 import TextField from 'material-ui/TextField'
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
-import indiaStates from './../constants/india-states'
 import '@sass/components/_selectField.scss'
 
 const params = {v: '3.exp', key: 'AIzaSyDpG-NeL-XGYAduQul2JenVr86HIPITEso'}
@@ -12,13 +11,10 @@ const params = {v: '3.exp', key: 'AIzaSyDpG-NeL-XGYAduQul2JenVr86HIPITEso'}
 class DefineLocality extends React.Component {
   constructor(props) {
     super(props)
-    console.log(props);
     this.state = {
-      deleteShapeState: true,
-      cityboundary: false,
       lat: props.center.lat,
       lng: props.center.lng,
-      polygonName: null,
+      polygonName: '',
       localityValue: undefined
     }
     this.polygonPoints = []
@@ -29,8 +25,19 @@ class DefineLocality extends React.Component {
     this.setSelection = this.setSelection.bind(this)
     this.deleteSelectedShape = this.deleteSelectedShape.bind(this)
     this.editPolygon = this.editPolygon.bind(this)
+    this.setPolygonName = this.setPolygonName.bind(this)
     this.configureDrawingManager = this.configureDrawingManager.bind(this)
+    this.getGmap = this.getGmap.bind(this)
   }
+
+  componentDidMount() {
+    if (this.props.fetchLocalities) {
+      this.props.fetchLocalities({
+        city_id: this.props.city.id
+      })
+    }
+  }
+
   setupEventListeners(map) {
     // google.maps.event.addListener(this.drawingManager, 'overlaycomplete', (event) => {
     //   if (event.type === google.maps.drawing.OverlayType.CIRCLE) {
@@ -83,23 +90,9 @@ class DefineLocality extends React.Component {
     this.selectedShape.setEditable(true)
   }
 
-  // selectColor(color) {
-  //   this.selectedColor = color
-  //   console.log(this);
-  //   let polygonOptions = this.drawingManager.get('polygonOptions')
-  //   polygonOptions.fillColor = color
-  //   this.drawingManager.set('polygonOptions', polygonOptions)
-  // }
-
-  // setSelectedShapeColor(color) {
-  //   if (this.selectedShape) {
-  //     if (this.selectedShape.type == google.maps.drawing.OverlayType.POLYLINE) {
-  //       this.selectedShape.set('strokeColor', color)
-  //     } else {
-  //       this.selectedShape.set('fillColor', color)
-  //     }
-  //   }
-  // }
+  setPolygonName(e) {
+    this.setState({ polygonName: e.target.value })
+  }
 
   getPolygonPoints(polygon) {
     let polygonPoints = []
@@ -147,7 +140,7 @@ class DefineLocality extends React.Component {
       new google.maps.Polygon({
         path: polygonCoordiantes,
         geodesic: true,
-        strokeColor: '#FF0000',
+        strokeColor: '#007FFF',
         strokeOpacity: 1.0,
         fillColor: 'transparent',
         strokeWeight: 2,
@@ -155,6 +148,22 @@ class DefineLocality extends React.Component {
       }))
 
     return polygons
+  }
+
+  getPolygonsCoordinates(localities) {
+    let polygonsCoordiantes = []
+    polygonsCoordiantes =  localities.map((locality) => {
+      const points = locality.coordinates.split('~')
+      const polygonCoordiantes = points.map((point) => {
+        const lat = parseFloat(point.split(',')[0])
+        const lng = parseFloat(point.split(',')[1])
+        return { lat, lng }
+      })
+
+      return polygonCoordiantes
+    })
+
+    return polygonsCoordiantes
   }
 
   displayPolygonsOnMap(map, polygons) {
@@ -184,12 +193,18 @@ class DefineLocality extends React.Component {
 
   handleMapCreation(map) {
 
+    // TODO:
+    // 1. City boundary
+    // Set this.selectedShape = cityboundary if cityboundary is there
+    // 2. this.selectedShape = select locality from dropdown
+
     /**
      * 1. Get coordinates of polygons from backend and create polygons out of it.
      * 2. Configure drwaing manager for creating new polygons.
      * 3. Setup event listeners for creating polygons.
      */
-    const { isLocality } = this.props
+    const { isLocality, city, localities } = this.props
+
     const polygonsCoordiantes = [
       [
         { lat: 13.025631437728348, lng: 77.53944396972656 },
@@ -203,16 +218,22 @@ class DefineLocality extends React.Component {
       // ]
     ]
 
+
     if (!isLocality) {
-      const bounds = new google.maps.LatLngBounds()
-      for (let i = 0; i < polygonsCoordiantes[0].length; i += 1) {
-        bounds.extend(polygonsCoordiantes[0][i])
-      }
-
-      const cityCenterLat = bounds.getCenter().lat()
-      const cityCenterLng = bounds.getCenter().lng()
-
-      this.props.setCityCenter({ lat: cityCenterLat, lng: cityCenterLng })
+      // calculate center of city boundary and set as map center for locality
+      // const bounds = new google.maps.LatLngBounds()
+      // for (let i = 0; i < polygonsCoordiantes[0].length; i += 1) {
+      //   bounds.extend(polygonsCoordiantes[0][i])
+      // }
+      //
+      // const cityCenterLat = bounds.getCenter().lat()
+      // const cityCenterLng = bounds.getCenter().lng()
+      const lat = city.gps.split(',')[0]
+      const lng = city.gps.split(',')[1]
+      this.props.setCityCenter({ lat, lng })
+    } else {
+      const polygons = this.createPolygonsFromGPSData(this.getPolygonsCoordinates(localities))
+      this.displayPolygonsOnMap(map, polygons)
     }
 
     if (polygonsCoordiantes.length) {
@@ -226,11 +247,11 @@ class DefineLocality extends React.Component {
       this.setupEventListeners(map)
     }
 
-    const { city } = this.props
     const geocoder = new google.maps.Geocoder()
 
+    // geocoder for locating city on map
     geocoder.geocode({
-      address: 'Bangalore'
+      address: city.name
     }, (res, status) => {
       if (status === google.maps.GeocoderStatus.OK && !isLocality) {
         const lat = res[0].geometry.location.lat()
@@ -245,12 +266,11 @@ class DefineLocality extends React.Component {
     })
   }
 
-
-  render() {
+  getGmap() {
     const { lat, lng } = this.state
     const { zoomLevel } = this.props
-
-    return (
+    const { isLocality, loadingLocalites } = this.props
+    const Gmap = (
       <div>
         <Gmaps
           width="100%"
@@ -262,11 +282,19 @@ class DefineLocality extends React.Component {
           onMapCreated={this.handleMapCreation}
         />
         {/* </Gmaps> */}
-        <TextField
-          value={this.state.polygonName}
-          style={{ marginRight: 12 }}
-          hintText={this.props.isLocality ? 'Enter locality name' : 'Enter city boundary name'}
-        />
+        {
+          this.props.isLocality
+          ? (
+            <TextField
+              onChange={this.setPolygonName}
+              value={this.state.polygonName}
+              style={{ marginRight: 12 }}
+              hintText='Enter locality name'
+            />
+          )
+          : ''
+        }
+
         {
           this.props.isLocality && indiaStates.length
           ? (
@@ -278,7 +306,7 @@ class DefineLocality extends React.Component {
               onChange={this.handleChange}
             >
               {
-                indiaStates.map((state, i) => {
+                []].map((state, i) => {
                   return (
                     <MenuItem
                       value={i + 1}
@@ -303,6 +331,22 @@ class DefineLocality extends React.Component {
           style={{ marginRight: 12 }}
         />
       </div>
+    )
+
+    if (!isLocality) {
+      return Gmap
+    } else {
+      if (!loadingLocalites) {
+        return Gmap
+      } else {
+        return <h2>Loading</h2>
+      }
+    }
+  }
+
+  render() {
+    return (
+      this.getGmap()
     )
   }
 }
