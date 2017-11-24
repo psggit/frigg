@@ -9,9 +9,11 @@ export default function configureStore(initialState) {
     initialState,
     applyMiddleware(sagaMiddleware)
   )
-const storeClone = Object.assign({}, store)
+
+  const storeClone = Object.assign({}, store)
+
   return {
-    storeClone,
+    store: storeClone,
     runSaga: sagaMiddleware.run
   }
 }
