@@ -31,7 +31,7 @@ class CreateLocality extends React.Component {
     this.handlePrev = this.handlePrev.bind(this)
     this.setStateData = this.setStateData.bind(this)
     this.setCityData = this.setCityData.bind(this)
-    this.setCityCenter =this.setCityCenter.bind(this)
+    this.setCityCenter = this.setCityCenter.bind(this)
     this.setStepIndex = this.setStepIndex.bind(this)
   }
 
@@ -126,6 +126,7 @@ class CreateLocality extends React.Component {
       state: stateObj.stateData,
       stateIdx: stateObj.stateIdx
     })
+    this.setCityData({ cityData: null, cityIdx: 0 })
   }
 
   setCityData(cityObj) {

@@ -17,6 +17,7 @@ class DefineLocality extends React.Component {
       polygonName: '',
       localityValue: undefined
     }
+    this.colorMap = ['#FF3B30', '#0083ff', '#020500', '#f23091']
     this.polygonPoints = []
     this.selectedShape = null
     this.selectedColor = null
@@ -152,7 +153,7 @@ class DefineLocality extends React.Component {
 
   getPolygonsCoordinates(localities) {
     let polygonsCoordiantes = []
-    polygonsCoordiantes =  localities.map((locality) => {
+    polygonsCoordiantes = localities.map((locality) => {
       const points = locality.coordinates.split('~')
       const polygonCoordiantes = points.map((point) => {
         const lat = parseFloat(point.split(',')[0])
@@ -167,8 +168,9 @@ class DefineLocality extends React.Component {
   }
 
   displayPolygonsOnMap(map, polygons) {
-    polygons.forEach((polygon) => {
+    polygons.forEach((polygon, i) => {
       polygon.setMap(map)
+      polygon.setOptions({ strokeColor: this.colorMap[i % this.colorMap.length] })
     })
   }
 
@@ -205,18 +207,18 @@ class DefineLocality extends React.Component {
      */
     const { isLocality, city, localities } = this.props
 
-    const polygonsCoordiantes = [
-      [
-        { lat: 13.025631437728348, lng: 77.53944396972656 },
-        { lat: 12.964077856934454, lng: 77.50476837158203 },
-        { lat: 12.902174394671018, lng: 77.63763427734375 }
-      ],
-      // [
-      //   { lat: 12.974783923203109, lng: 77.73719787597656 },
-      //   { lat: 13.06075027268141, lng: 77.68810272216797 },
-      //   { lat: 13.033993517307401, lng: 77.53189086914062 }
-      // ]
-    ]
+    // const polygonsCoordiantes = [
+    //   [
+    //     { lat: 13.025631437728348, lng: 77.53944396972656 },
+    //     { lat: 12.964077856934454, lng: 77.50476837158203 },
+    //     { lat: 12.902174394671018, lng: 77.63763427734375 }
+    //   ],
+    //   [
+    //     { lat: 12.974783923203109, lng: 77.73719787597656 },
+    //     { lat: 13.06075027268141, lng: 77.68810272216797 },
+    //     { lat: 13.033993517307401, lng: 77.53189086914062 }
+    //   ]
+    // ]
 
 
     if (!isLocality) {
@@ -232,17 +234,14 @@ class DefineLocality extends React.Component {
       const lng = city.gps.split(',')[1]
       this.props.setCityCenter({ lat, lng })
     } else {
-      const polygons = this.createPolygonsFromGPSData(this.getPolygonsCoordinates(localities))
-      this.displayPolygonsOnMap(map, polygons)
-    }
-
-    if (polygonsCoordiantes.length) {
+      const polygonsCoordiantes = this.getPolygonsCoordinates(localities)
       const polygons = this.createPolygonsFromGPSData(polygonsCoordiantes)
+      console.log(polygons);
       this.displayPolygonsOnMap(map, polygons)
     }
 
     // enable drawing only if it's a locality or city boundary doesn't exist
-    if (isLocality || (!isLocality && !polygonsCoordiantes.length)) {
+    if (isLocality || (!isLocality && !city.geoboundary)) {
       this.configureDrawingManager(map)
       this.setupEventListeners(map)
     }
@@ -296,7 +295,7 @@ class DefineLocality extends React.Component {
         }
 
         {
-          this.props.isLocality && indiaStates.length
+          this.props.isLocality
           ? (
             <SelectField
               className="select-locality"
@@ -338,9 +337,8 @@ class DefineLocality extends React.Component {
     } else {
       if (!loadingLocalites) {
         return Gmap
-      } else {
-        return <h2>Loading</h2>
       }
+      return <h2>Loading</h2>
     }
   }
 
