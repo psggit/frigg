@@ -97,9 +97,11 @@ class CreateLocality extends React.Component {
       case 3:
         return (
           <DefineLocality
+            setCityCenter={this.setCityCenter}
             localities={localities}
             loadingLocalites={loadingLocalites}
             fetchLocalities={actions.fetchLocalities}
+            sendMarkerGPS={actions.sendMarkerGPS}
             key="locality"
             center={this.state.center}
             isLocality

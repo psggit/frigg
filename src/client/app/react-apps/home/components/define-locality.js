@@ -15,9 +15,9 @@ class DefineLocality extends React.Component {
       lat: props.center.lat,
       lng: props.center.lng,
       polygonName: '',
-      localityValue: undefined
+      polygonIdx: null
     }
-    this.colorMap = ['#FF3B30', '#0083ff', '#020500', '#f23091']
+    this.colorMap = ['#FF3B30', '#0083ff', '#020500', 'yellow']
     this.polygonPoints = []
     this.selectedShape = null
     this.selectedColor = null
@@ -29,6 +29,8 @@ class DefineLocality extends React.Component {
     this.setPolygonName = this.setPolygonName.bind(this)
     this.configureDrawingManager = this.configureDrawingManager.bind(this)
     this.getGmap = this.getGmap.bind(this)
+    this.sendMarkerGPS = this.sendMarkerGPS.bind(this)
+    this.handleLocalityChange = this.handleLocalityChange.bind(this)
   }
 
   componentDidMount() {
@@ -62,7 +64,6 @@ class DefineLocality extends React.Component {
   clearSelection() {
     if (this.selectedShape) {
       // this.polygonPoints = this.getPolygonPoints(this.selectedShape)]
-      this.setState({ deleteShapeState: true })
       this.selectedShape.setEditable(false)
       this.selectedShape = null
     }
@@ -71,7 +72,6 @@ class DefineLocality extends React.Component {
   setSelection(shape) {
     // this.clearSelection()
     this.selectedShape = shape
-    this.setState({ deleteShapeState: false })
     shape.setEditable(true)
   }
 
@@ -116,7 +116,7 @@ class DefineLocality extends React.Component {
       editable: true
     }
     const drawingManager = new google.maps.drawing.DrawingManager({
-      drawingMode: google.maps.drawing.OverlayType.POLYGON,
+      drawingMode: null,
       drawingControl: true,
       drawingControlOptions: {
         drawingModes: [
@@ -137,8 +137,9 @@ class DefineLocality extends React.Component {
   }
 
   createPolygonsFromGPSData(polygonsCoordiantes) {
-    const polygons = polygonsCoordiantes.map(polygonCoordiantes =>
+    const polygons = polygonsCoordiantes.map((polygonCoordiantes, i) =>
       new google.maps.Polygon({
+        polygonId: i + 1,
         path: polygonCoordiantes,
         geodesic: true,
         strokeColor: '#007FFF',
@@ -151,20 +152,15 @@ class DefineLocality extends React.Component {
     return polygons
   }
 
-  getPolygonsCoordinates(localities) {
-    let polygonsCoordiantes = []
-    polygonsCoordiantes = localities.map((locality) => {
-      const points = locality.coordinates.split('~')
-      const polygonCoordiantes = points.map((point) => {
-        const lat = parseFloat(point.split(',')[0])
-        const lng = parseFloat(point.split(',')[1])
-        return { lat, lng }
-      })
-
-      return polygonCoordiantes
+  getCoordinatesInObjects(coordinatesInString) {
+    const points = coordinatesInString.split('~')
+    const coordinatesInObjects = points.map((point) => {
+      const lat = parseFloat(point.split(',')[0])
+      const lng = parseFloat(point.split(',')[1])
+      return { lat, lng }
     })
 
-    return polygonsCoordiantes
+    return coordinatesInObjects
   }
 
   displayPolygonsOnMap(map, polygons) {
@@ -172,6 +168,15 @@ class DefineLocality extends React.Component {
       polygon.setMap(map)
       polygon.setOptions({ strokeColor: this.colorMap[i % this.colorMap.length] })
     })
+  }
+
+  handleLocalityChange(e, k) {
+    if (this.selectedShape) {
+      this.selectedShape.setEditable(false)
+    }
+    this.selectedShape = this.polygons[k]
+    this.selectedShape.setEditable(true)
+    this.setState({ polygonIdx: k + 1 })
   }
 
   update() {
@@ -220,8 +225,11 @@ class DefineLocality extends React.Component {
     //   ]
     // ]
 
-
-    if (!isLocality) {
+    const lat = city.gps.split(',')[0]
+    const lng = city.gps.split(',')[1]
+    const center = { lat, lng }
+    this.props.setCityCenter(center)
+    if (isLocality) {
       // calculate center of city boundary and set as map center for locality
       // const bounds = new google.maps.LatLngBounds()
       // for (let i = 0; i < polygonsCoordiantes[0].length; i += 1) {
@@ -230,13 +238,12 @@ class DefineLocality extends React.Component {
       //
       // const cityCenterLat = bounds.getCenter().lat()
       // const cityCenterLng = bounds.getCenter().lng()
-      const lat = city.gps.split(',')[0]
-      const lng = city.gps.split(',')[1]
-      this.props.setCityCenter({ lat, lng })
-    } else {
-      const polygonsCoordiantes = this.getPolygonsCoordinates(localities)
+      const polygonsCoordiantes = localities.map(locality => (
+        this.getCoordinatesInObjects(locality.coordinates)
+      ))
+
       const polygons = this.createPolygonsFromGPSData(polygonsCoordiantes)
-      console.log(polygons);
+      this.polygons = polygons
       this.displayPolygonsOnMap(map, polygons)
     }
 
@@ -268,7 +275,7 @@ class DefineLocality extends React.Component {
   getGmap() {
     const { lat, lng } = this.state
     const { zoomLevel } = this.props
-    const { isLocality, loadingLocalites } = this.props
+    const { isLocality, loadingLocalites, localities } = this.props
     const Gmap = (
       <div>
         <Gmaps
@@ -298,19 +305,19 @@ class DefineLocality extends React.Component {
           this.props.isLocality
           ? (
             <SelectField
+              value={this.state.polygonIdx}
               className="select-locality"
               style={{ marginRight: 12 }}
               floatingLabelText="Select locality"
-              value={this.state.localityValue}
-              onChange={this.handleChange}
+              onChange={this.handleLocalityChange}
             >
               {
-                [].map((state, i) => {
+                localities.map((locality, i) => {
                   return (
                     <MenuItem
                       value={i + 1}
                       key={`state-${i}`}
-                      primaryText={state.name}
+                      primaryText={locality.name}
                     />
                   )
                 })
@@ -319,14 +326,15 @@ class DefineLocality extends React.Component {
           )
           : ''
         }
-        <RaisedButton
+        <br />
+        {/* <RaisedButton
+          disabled={!canEditPolygon}
           label="Edit city boundary"
           onClick={this.editPolygon}
-          style={{ marginRight: 12 }}
-        />
+          style={{ marginRight: 12, marginTop: 12 }}
+        /> */}
         <RaisedButton
           label="Update"
-          onClick={() => { console.log(this.getPolygonPoints(this.state.cityboundaryPath)); }}
           style={{ marginRight: 12 }}
         />
       </div>
