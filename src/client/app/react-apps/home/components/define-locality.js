@@ -29,7 +29,6 @@ class DefineLocality extends React.Component {
     this.setPolygonName = this.setPolygonName.bind(this)
     this.configureDrawingManager = this.configureDrawingManager.bind(this)
     this.getGmap = this.getGmap.bind(this)
-    this.sendMarkerGPS = this.sendMarkerGPS.bind(this)
     this.handleLocalityChange = this.handleLocalityChange.bind(this)
   }
 
