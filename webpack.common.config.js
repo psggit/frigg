@@ -67,7 +67,8 @@ const plugins = [
     name: 'react' // Specify the common bundle's name.
   }),
   new AbsolutePathProviderPlugin(/^@sass/, path.resolve('./src/client/app/sass')),
-  new AbsolutePathProviderPlugin(/^@utils/, path.resolve('./src/client/app/utils'))
+  new AbsolutePathProviderPlugin(/^@utils/, path.resolve('./src/client/app/utils')),
+  new AbsolutePathProviderPlugin(/^@components/, path.resolve('./src/client/app/components'))
 ]
 
 const devPlugins = plugins.concat([
