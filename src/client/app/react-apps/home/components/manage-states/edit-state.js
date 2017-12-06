@@ -5,36 +5,23 @@ import Dialog from 'material-ui/Dialog'
 import '@sass/components/_button.scss'
 
 class EditState extends React.Component {
-  constructor() {
-    super()
-    this.statesData = [
-      {
-        state_name: 'Bangalore',
-        short_name: 'BLR'
-      }
-    ]
+  constructor(props) {
+    super(props)
     this.state = {
       stateIdx: 0,
       open: true,
-      selectedState: {
-        state_name: null,
-        short_name: null
-      }
+      selectedState: props.stateToBeEdit
     }
+
     this.handleChange = this.handleChange.bind(this)
-    this.handleStateNameChange = this.handleStateNameChange.bind(this)
-    this.handleStateShortNameChange = this.handleStateShortNameChange.bind(this)
     this.handleClose = this.handleClose.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   componentDidMount() {
     setTimeout(() => {
       this.input.focus()
     }, 100)
-  }
-
-  handleChange(e, k) {
-    this.setState({ stateIdx: k + 1, selectedState: this.statesData[k], isStateSelected: true })
   }
 
   handleClose() {
@@ -44,23 +31,33 @@ class EditState extends React.Component {
     }, 500)
   }
 
-  handleStateNameChange(e) {
+  handleChange(e) {
     const { selectedState } = this.state
     this.setState({
-      selectedState: Object.assign({}, selectedState, { state_name: e.target.value })
+      selectedState: Object.assign({}, selectedState, {
+        state_name: e.target.value
+      })
     })
   }
 
-  handleStateShortNameChange(e) {
+  handleSubmit() {
     const { selectedState } = this.state
-    this.setState({
-      selectedState: Object.assign({}, selectedState, { short_name: e.target.value })
+    this.props.updateState({
+      id: selectedState.id,
+      state_name: selectedState.state_name
     })
+
+    this.handleClose()
+    // this.props.setSnackBarOptions({
+    //   open: true,
+    //   message: 'State created successfully'
+    // })
   }
 
   render() {
     return (
       <Dialog
+        autoScrollBodyContent
         title="Edit state"
         contentStyle={{ width: '100%', maxWidth: '500px' }}
         modal={false}
@@ -73,22 +70,24 @@ class EditState extends React.Component {
             <TextField
               ref={(node) => { this.input = node }}
               value={this.state.selectedState.state_name}
-              onChange={this.handleStateNameChange}
+              onChange={this.handleChange}
               hintText="Tamilnadu"
               style={{ marginBottom: '20px' }}
             />
+
             <p style={{ fontWeight: '600' }}>Short name</p>
             <TextField
               disabled
               value={this.state.selectedState.short_name}
-              onChange={this.handleStateShortNameChange}
               hintText="TN"
             />
+
             <br />
             <RaisedButton
               style={{ marginTop: '20px' }}
               label="Submit"
               primary
+              onClick={this.handleSubmit}
             />
           </div>
         </div>
