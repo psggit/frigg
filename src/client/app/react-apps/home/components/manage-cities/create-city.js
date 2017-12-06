@@ -1,6 +1,8 @@
 import React from 'react'
 import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
+import SelectField from 'material-ui/SelectField'
+import MenuItem from 'material-ui/MenuItem'
 import Dialog from 'material-ui/Dialog'
 import '@sass/components/_button.scss'
 
@@ -11,12 +13,6 @@ class CreateCity extends React.Component {
       open: true
     }
     this.handleClose = this.handleClose.bind(this)
-  }
-
-  componentDidMount() {
-    setTimeout(() => {
-      this.input.focus()
-    }, 100)
   }
 
   handleClose() {
@@ -36,9 +32,19 @@ class CreateCity extends React.Component {
         onRequestClose={this.handleClose}
       >
         <div style={{ maxWidth: '256px' }}>
+          <SelectField
+            floatingLabelText="select state"
+            onChange={this.handleChange}
+          >
+            {
+              [].map((state, i) => (
+                <MenuItem
+                />
+              ))
+            }
+          </SelectField>
           <p style={{ fontWeight: '600' }}>City name</p>
           <TextField
-            ref={(node) => { this.input = node }}
             hintText="Tamilnadu"
             style={{ marginBottom: '20px' }}
           />

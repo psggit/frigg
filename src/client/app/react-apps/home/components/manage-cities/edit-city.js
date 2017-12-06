@@ -61,7 +61,7 @@ class EditCity extends React.Component {
   render() {
     return (
       <Dialog
-        title="Edit state"
+        title="Edit City"
         contentStyle={{ width: '100%', maxWidth: '500px' }}
         modal={false}
         open={this.state.open}
