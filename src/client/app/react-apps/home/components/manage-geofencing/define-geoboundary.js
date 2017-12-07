@@ -27,7 +27,8 @@ class DefineGeoboundary extends React.Component {
       lng: null,
       gmapKey: 0,
       isGeoBoundaryExist: false,
-      isEdit: true
+      isEdit: true,
+      isSubmit: false
     }
 
     this.drawingManager = null
@@ -39,22 +40,26 @@ class DefineGeoboundary extends React.Component {
     this.clearSelection = this.clearSelection.bind(this)
     this.getEditOrCancelButton = this.getEditOrCancelButton.bind(this)
     this.changeGmapKey = this.changeGmapKey.bind(this)
+    this.createNewLocality = this.createNewLocality.bind(this)
+    this.callbackUpdate = this.callbackUpdate.bind(this)
   }
 
   componentDidMount() {
     this.props.viewGeoboundary({
-      city_id: this.props.cityId
+      id: this.props.cityId
     })
+    this.props.setGeolocalityLoadingState()
   }
 
   handleUpdateGeoboundary() {
     const polygonPoints = getPolygonPoints(this.geoboundary)
     const coordinatesInString = getCoordinatesInString(polygonPoints)
-
+    // this.setState({ goToButtonDisabled: true })
+    this.props.setGeolocalityLoadingState()
     this.props.updateGeoboundary({
       id: this.props.cityId,
       geoboundary: coordinatesInString,
-    }, this.changeGmapKey)
+    }, this.callbackUpdate)
   }
 
   // enableViewMode() {
@@ -66,11 +71,26 @@ class DefineGeoboundary extends React.Component {
   //   }
   // }
 
+  callbackUpdate() {
+    this.changeGmapKey()
+  }
+
   changeGmapKey() {
     // To call handleMapCreation method again and set new props
     let x = this.state.gmapKey
     x += 1
     this.setState({ gmapKey: x, isEdit: true })
+  }
+
+  createNewLocality() {
+    this.drawingManager.setOptions({
+      drawingControl: true,
+      drawingMode: google.maps.drawing.OverlayType.POLYGON
+    })
+    if (this.geolocality) {
+      this.geolocality.setEditable(false)
+      this.geolocality = null
+    }
   }
 
   clearSelection() {
@@ -85,6 +105,7 @@ class DefineGeoboundary extends React.Component {
 
   setGeoBoundary(shape) {
     this.geoboundary = shape
+    this.setState({ isSubmit: true })
   }
 
   getEditOrCancelButton() {
@@ -117,7 +138,11 @@ class DefineGeoboundary extends React.Component {
 
     if (geoBoundaryData.geoboundary.length) {
       // show geoboundary
-      const polygonCoordiantes = getCoordinatesInObjects(geoBoundaryData.geoboundary)
+      const polygonCoordiantes = {
+        coordinates: getCoordinatesInObjects(geoBoundaryData.geoboundary),
+        color: '#333',
+        stroke: 'blue'
+      }
       const polygon = createPolygonFromCoordinates(polygonCoordiantes)
       this.geoboundary = polygon
       this.setState({ isGeoBoundaryExist: true })
@@ -126,7 +151,9 @@ class DefineGeoboundary extends React.Component {
       //  create new geoboundary
       const drawingManager = configureDrawingManager(map)
       this.drawingManager = drawingManager
-      setupEventListeners(drawingManager, map, this.setGeoBoundary)
+      setupEventListeners(drawingManager, map, {
+        setSelection: this.setGeoBoundary
+      })
     }
 
     map.setOptions({
@@ -146,23 +173,72 @@ class DefineGeoboundary extends React.Component {
             <div>
               <h3>City boundary</h3>
               <Gmaps
+                style={{ position: 'relative' }}
                 width="100%"
                 height="600px"
                 lat={lat}
                 lng={lng}
-                zoom={13}
+                zoom={11}
                 key={this.state.gmapKey}
                 params={params}
                 onMapCreated={this.handleMapCreation}
-              />
+              >
+                {
+                  !this.state.isGeoBoundaryExist
+                  ? (
+                    <div style={{
+                      background: 'rgba(0,0,0,0.8)',
+                      width: '100%',
+                      height: '100%',
+                      position: 'absolute',
+                      top: '0'
+                    }}
+                    >
+                      <div style={{
+                        position: 'absolute',
+                        top: '50%',
+                        left: '50%',
+                        transform: 'translate(-50%, -50%)'
+                      }}
+                      >
+                        <span style={{ color: '#fff', marginRight: '20px' }}>No boundary exist</span>
+                        <RaisedButton
+                          label="Create new"
+                          onClick={this.createNewLocality}
+                        />
+                      </div>
+                    </div>
+                  )
+                  : ''
+                }
+              </Gmaps>
 
               <br />
 
-              <RaisedButton
-                onClick={this.handleUpdateGeoboundary}
-                label="Update"
-                style={{ marginRight: 12 }}
-              />
+              {
+                !this.state.isGeoBoundaryExist
+                ? (
+                  <RaisedButton
+                    disabled={!this.state.isSubmit}
+                    onClick={this.handleUpdateGeoboundary}
+                    label="Submit"
+                    style={{ marginRight: 12 }}
+                  />
+                )
+                : ''
+              }
+
+              {
+                this.state.isGeoBoundaryExist
+                ? (
+                  <RaisedButton
+                    onClick={this.handleUpdateGeoboundary}
+                    label="Update"
+                    style={{ marginRight: 12 }}
+                  />
+                )
+                : ''
+              }
 
 
               {
@@ -171,12 +247,19 @@ class DefineGeoboundary extends React.Component {
                 : ''
               }
 
-              <RaisedButton
-                primary
-                onClick={() => { this.props.setActiveMapName('locality') }}
-                label="Go to locality"
-                style={{ marginRight: 12 }}
-              />
+              {
+                this.state.isGeoBoundaryExist
+                ? (
+                  <RaisedButton
+                    primary
+                    onClick={() => { this.props.setActiveMapName('locality') }}
+                    label="Go to locality"
+                    style={{ marginRight: 12 }}
+                  />
+                )
+                : ''
+              }
+
             </div>
           )
           : 'loading..'

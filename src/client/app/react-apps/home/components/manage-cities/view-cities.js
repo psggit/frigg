@@ -31,7 +31,11 @@ const styles = [
 
 function ViewCities(data) {
   return (
-    <Table className="bordered--table" selectable={false}>
+    <Table
+      className="bordered--table"
+      selectable={false}
+      fixedHeader
+    >
       <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
         <TableRow>
           {

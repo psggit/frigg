@@ -10,7 +10,7 @@ const Header = (props) => {
   return (
     <AppBar
       className='app-bar'
-      title="Super admin"
+      title={props.headerTitle}
       onLeftIconButtonTouchTap={props.toggleDrawer}
       iconElementRight={<FlatButton label="Logout" />}
     />

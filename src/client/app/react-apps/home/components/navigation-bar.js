@@ -7,7 +7,15 @@ class NavigationBar extends  React.Component {
   constructor() {
     super()
   }
+  handleClick(title) {
+    this.props.setHeaderTitle(title)
+    this.props.handleCloseDrawer()
+  }
   render() {
+    const navigationItems = [
+      { name: 'Manage States', path: '/home/manage-states' },
+      { name: 'Manage Cities', path: '/home/manage-cities' }
+    ]
     return (
       <Drawer
         docked={false}
@@ -15,9 +23,13 @@ class NavigationBar extends  React.Component {
         open={this.props.isDrawerOpen}
         onRequestChange={this.props.toggleDrawer}
       >
-        <NavLink exact to="/home/manage-geofencing">
-          <MenuItem onClick={this.props.handleCloseDrawer}>Manage Geofencing</MenuItem>
-        </NavLink>
+        {
+          navigationItems.map((item, i) => (
+            <NavLink href={item.path} key={`nav-item-${i}`} exact to={item.path}>
+              <MenuItem onClick={() => { this.handleClick(item.name) }}>{item.name}</MenuItem>
+            </NavLink>
+          ))
+        }
       </Drawer>
     )
   }

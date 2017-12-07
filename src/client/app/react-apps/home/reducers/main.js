@@ -3,10 +3,12 @@ import * as ActionTypes from './../constants/actions'
 const initialState = {
   loadingStates: true,
   loadingCities: true,
-  loadingLocalites: true,
+  loadingGeolocalities: true,
+  loadingGeoboundary: true,
   statesData: [],
   citiesData: [],
-  localities: []
+  geoLocalitiesData: [],
+  geoBoundaryData: {}
 }
 
 const actionsMap = {
@@ -26,8 +28,27 @@ const actionsMap = {
 
   [ActionTypes.SUCCESS_FETCH_LOCALITIES]: (state, action) => {
     return Object.assign({}, state, {
-      loadingLocalites: false,
-      localities: action.data.fences
+      loadingGeolocalities: false,
+      geoLocalitiesData: action.data
+    })
+  },
+
+  [ActionTypes.SUCCESS_VIEW_GEOBOUNDARY]: (state, action) => {
+    return Object.assign({}, state, {
+      loadingGeoboundary: false,
+      geoBoundaryData: action.data.states
+    })
+  },
+
+  [ActionTypes.SUCCESS_SET_GEOBOUNDARY_LOADING_STATE]: (state, action) => {
+    return Object.assign({}, state, {
+      loadingGeoboundary: true,
+    })
+  },
+
+  [ActionTypes.SUCCESS_SET_GEOLOCALITY_LOADING_STATE]: (state, action) => {
+    return Object.assign({}, state, {
+      loadingGeolocalities: true,
     })
   }
 }

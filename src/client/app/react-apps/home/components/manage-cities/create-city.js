@@ -10,10 +10,19 @@ class CreateCity extends React.Component {
   constructor() {
     super()
     this.state = {
-      open: true
+      open: true,
+      stateIdx: 0
     }
     this.handleClose = this.handleClose.bind(this)
+    this.handleStateChange = this.handleStateChange.bind(this)
   }
+
+  handleStateChange(e, k) {
+    const { statesData } = this.props
+    const stateIdx = k + 1
+    this.setState({ stateIdx })
+  }
+
 
   handleClose() {
     this.setState({ open: false })
@@ -23,6 +32,7 @@ class CreateCity extends React.Component {
   }
 
   render() {
+    const { statesData } = this.props
     return (
       <Dialog
         title="Create City"
@@ -33,12 +43,16 @@ class CreateCity extends React.Component {
       >
         <div style={{ maxWidth: '256px' }}>
           <SelectField
+            value={this.state.stateIdx}
             floatingLabelText="select state"
-            onChange={this.handleChange}
+            onChange={this.handleStateChange}
           >
             {
-              [].map((state, i) => (
+              statesData.map((state, i) => (
                 <MenuItem
+                  value={i + 1}
+                  key={state.id}
+                  primaryText={state.state_name}
                 />
               ))
             }

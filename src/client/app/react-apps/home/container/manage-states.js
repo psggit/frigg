@@ -1,41 +1,40 @@
 import React from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import RoleBasedComponent from '@components/RoleBasedComponent'
+import RaisedButton from 'material-ui/RaisedButton'
+import CircularProgress from 'material-ui/CircularProgress'
+import Snackbar from 'material-ui/Snackbar'
+import '@sass/components/_circular-progress.scss'
+
 import * as Actions from './../actions'
 import CreateState from './../components/manage-states/create-state'
 import EditState from './../components/manage-states/edit-state'
-import RoleBasedComponent from '@components/RoleBasedComponent'
-import RaisedButton from 'material-ui/RaisedButton'
-
-import {
-  Table,
-  TableBody,
-  TableHeader,
-  TableHeaderColumn,
-  TableRow,
-  TableRowColumn,
-} from 'material-ui/Table'
+import ViewStates from './../components/manage-states/view-states'
 
 import * as Roles from './../constants/roles'
-
-const TableHeaderItems = [
-  '',
-  'ID',
-  'NAME',
-  'SHORT_NAME'
-]
 
 class ManageStates extends React.Component {
   constructor() {
     super()
     this.state = {
       shouldMountEditState: false,
-      shouldMountCreateState: false
+      shouldMountCreateState: false,
+      snackBar: { open: false, message: '' }
     }
     this.mountEditStateDialog = this.mountEditStateDialog.bind(this)
     this.unmountEditStateDialog = this.unmountEditStateDialog.bind(this)
     this.mountCreateStateDialog = this.mountCreateStateDialog.bind(this)
     this.unmountCreateStateDialog = this.unmountCreateStateDialog.bind(this)
+    this.setSnackBarOptions = this.setSnackBarOptions.bind(this)
+  }
+
+  componentDidMount() {
+    this.props.actions.fetchStates()
+  }
+
+  setSnackBarOptions(options) {
+    this.setState({ snackBar: options })
   }
 
   mountCreateStateDialog() {
@@ -46,8 +45,11 @@ class ManageStates extends React.Component {
     this.setState({ shouldMountCreateState: false })
   }
 
-  mountEditStateDialog() {
-    this.setState({ shouldMountEditState: true })
+  mountEditStateDialog(stateToBeEdit) {
+    this.setState({
+      shouldMountEditState: true,
+      stateToBeEdit
+    })
   }
 
   unmountEditStateDialog() {
@@ -55,49 +57,29 @@ class ManageStates extends React.Component {
   }
 
   render() {
+    const { loadingStates, statesData } = this.props
+
     return (
       <div style={{ width: '100%', maxWidth: 800, margin: 'auto' }}>
-        <Table selectable={false}>
-          <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
-            <TableRow>
-              {
-                TableHeaderItems.map((item, i) => <TableHeaderColumn key={`table-head-col-${i}`}>{item}</TableHeaderColumn>)
-              }
-            </TableRow>
-          </TableHeader>
-          <TableBody
-            displayRowCheckbox={false}
-            showRowHover
-          >
-            {
-              TableHeaderItems.map((item, i) => (
-                <TableRow key={`table-body-row-${i}`}>
-                  <TableRowColumn>
-                    <button className='btn--icon' onClick={this.mountEditStateDialog}>
-                      <img
-                        src="/images/pencil.svg"
-                        alt="edit"
-                      />
-                    </button>
-                  </TableRowColumn>
-                  <TableRowColumn>1</TableRowColumn>
-                  <TableRowColumn>John Smith</TableRowColumn>
-                  <TableRowColumn>Employed</TableRowColumn>
-                </TableRow>
-              ))
-            }
-          </TableBody>
-        </Table>
         <RaisedButton
-          style={{ marginTop: '40px' }}
+          style={{ marginBottom: '20px' }}
           label="Create new state"
           primary
           onClick={this.mountCreateStateDialog}
         />
+
+        <ViewStates
+          loadingStates={loadingStates}
+          statesData={statesData}
+          mountEditStateDialog={this.mountEditStateDialog}
+        />
+    
         {
           this.state.shouldMountEditState
           ? (
             <EditState
+              updateState={this.props.actions.updateState}
+              stateToBeEdit={this.state.stateToBeEdit}
               shouldMountEditState={this.state.shouldMountEditState}
               unmountEditStateDialog={this.unmountEditStateDialog}
             />
@@ -109,12 +91,20 @@ class ManageStates extends React.Component {
           this.state.shouldMountCreateState
           ? (
             <CreateState
+              setSnackBarOptions={this.setSnackBarOptions}
+              createState={this.props.actions.createState}
               shouldMountCreateState={this.state.shouldMountCreateState}
               unmountCreateStateDialog={this.unmountCreateStateDialog}
             />
           )
           : ''
         }
+        <Snackbar
+          open={this.state.snackBar.open}
+          message={this.state.snackBar.message}
+          autoHideDuration={4000}
+          onRequestClose={this.handleRequestClose}
+        />
       </div>
     )
   }

@@ -9,6 +9,7 @@ import {
 } from 'material-ui/Table'
 
 import CircularProgress from 'material-ui/CircularProgress'
+import '@sass/components/_table.scss'
 
 const TableHeaderItems = [
   '',
@@ -19,7 +20,11 @@ const TableHeaderItems = [
 
 function ViewCities(data) {
   return (
-    <Table selectable={false}>
+    <Table
+      className="bordered--table"
+      selectable={false}
+      fixedHeader
+    >
       <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
         <TableRow>
           {
@@ -37,7 +42,10 @@ function ViewCities(data) {
             data.statesData.map(item => (
               <TableRow key={item.id}>
                 <TableRowColumn >
-                  <button className="btn--icon" onClick={data.mountEditStateDialog}>
+                  <button
+                    className="btn--icon"
+                    onClick={() => { data.mountEditStateDialog(item) }}
+                  >
                     <img
                       src="/images/pencil.svg"
                       alt="edit"

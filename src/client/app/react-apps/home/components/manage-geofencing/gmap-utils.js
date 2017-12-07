@@ -1,16 +1,18 @@
-export function setupEventListeners(drawingManager, map, setSelection) {
+
+
+export function setupEventListeners(drawingManager, map, methods) {
   google.maps.event.addListener(drawingManager, 'overlaycomplete', (e) => {
     drawingManager.setDrawingMode(null)
     drawingManager.setOptions({ drawingControl: false })
     const newShape = e.overlay
     newShape.type = e.type
-    setSelection(newShape)
+    methods.setSelection(newShape)
     google.maps.event.addListener(newShape, 'click', () => {
-      setSelection(newShape)
+      methods.setSelection(newShape)
     })
   })
-  google.maps.event.addListener(drawingManager, 'drawingmode_changed', clearSelection)
-  google.maps.event.addListener(map, 'click', clearSelection)
+  // google.maps.event.addListener(drawingManager, 'drawingmode_changed', clearSelection)
+  // google.maps.event.addListener(map, 'click', clearSelection)
 }
 
 export function clearSelection() {
@@ -57,8 +59,8 @@ export function configureDrawingManager(map) {
     editable: true
   }
   const drawingManager = new google.maps.drawing.DrawingManager({
-    drawingMode: google.maps.drawing.OverlayType.POLYGON,
-    drawingControl: true,
+    drawingMode: null,
+    drawingControl: false,
     drawingControlOptions: {
       drawingModes: [
         google.maps.drawing.OverlayType.POLYGON
@@ -102,14 +104,15 @@ export function getPolygonCenter(poly) {
 }
 
 export function createPolygonFromCoordinates(polygonCoordiantes) {
+  console.log(polygonCoordiantes.color);
   return new google.maps.Polygon({
-    path: polygonCoordiantes,
+    path: polygonCoordiantes.coordinates,
     geodesic: true,
-    strokeColor: '#007FFF',
+    strokeColor: polygonCoordiantes.stroke,
     strokeOpacity: 1.0,
-    fillColor: 'transparent',
+    fillColor: polygonCoordiantes.color,
     strokeWeight: 2,
-    content: '',
+    content: polygonCoordiantes.name || '',
     editable: false
   })
 }
@@ -133,6 +136,12 @@ export function getCoordinatesInString(coordinatesInObjects) {
 }
 
 // const defaultPolygonOptions
+export function labelPolygon(map, polygon) {
+  const infoWindow = new google.maps.InfoWindow
+  infoWindow.setContent(polygon.content)
+  infoWindow.setPosition(getPolygonCenter(polygon))
+  infoWindow.open(map)
+}
 
 export function displayPolygonOnMap(map, polygon) {
   // polygon.setOptions(options)
