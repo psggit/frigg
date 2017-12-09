@@ -2,6 +2,7 @@ import React from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
+
 import * as Actions from './../actions'
 import DefineLocality from './../components/manage-geofencing/define-locality'
 import DefineGeoboundary from './../components/manage-geofencing/define-geoboundary'
@@ -62,16 +63,16 @@ class CreateLocality extends React.Component {
         geoLocalitiesData={geoLocalitiesData}
         loadingGeolocalities={loadingGeolocalities}
         cityId={parseInt(match.params.id)}
+        zoomLevel={11}
       />
     )
   }
 
   render() {
-    const contentStyle = { margin: '0 16px' }
-
+    const contentStyle = { position: 'relative' }
     return (
-      <div style={{ width: '100%', maxWidth: 1000, margin: 'auto' }}>
-        <div style={contentStyle}>
+      <div id="gmap-container" style={contentStyle}>
+        <div style={{ width: '100%', maxWidth: '1000px', margin: 'auto' }}>
           {this.getActiveMapComponent()}
         </div>
       </div>
