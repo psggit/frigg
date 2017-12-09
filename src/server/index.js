@@ -1,6 +1,6 @@
 const express = require('express')
 const chalk = require('chalk')
-const middleWare = require('./middleWare')
+const middleWare = require('./middleware')
 const HipbarServer = require('./hipbar-server')
 
 function init() {
