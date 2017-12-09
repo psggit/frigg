@@ -1,4 +1,15 @@
+const infoWindow = new google.maps.InfoWindow
 
+export function removeLabelFromPolygon(map) {
+  infoWindow.close(map)
+}
+
+// const defaultPolygonOptions
+export function labelPolygon(map, polygon) {
+  infoWindow.setContent(polygon.content)
+  infoWindow.setPosition(getPolygonCenter(polygon))
+  infoWindow.open(map)
+}
 
 export function setupEventListeners(drawingManager, map, methods) {
   google.maps.event.addListener(drawingManager, 'overlaycomplete', (e) => {
@@ -12,8 +23,17 @@ export function setupEventListeners(drawingManager, map, methods) {
     })
   })
   // google.maps.event.addListener(drawingManager, 'drawingmode_changed', clearSelection)
-  // google.maps.event.addListener(map, 'click', clearSelection)
+  google.maps.event.addListener(map, 'click', removeLabelFromPolygon)
 }
+
+export function attachClickEventOnPolygon(polygon, listener) {
+  google.maps.event.addListener(polygon, 'click', listener)
+}
+
+export function attachBlurEventOnPolygon(polygon, listener) {
+  google.maps.event.addListener(polygon, 'mouseout', listener)
+}
+
 
 export function clearSelection() {
   if (this.selectedShape) {
@@ -78,7 +98,7 @@ export function configureDrawingManager(map) {
 }
 
 
-export function getPolygonCenter(poly) {
+export function getPolygonCenter(poly, format = 'latLngObj') {
   let lowx
   let highx
   let lowy
@@ -100,6 +120,12 @@ export function getPolygonCenter(poly) {
   highy = lngs[vertices.length - 1]
   const center_x = lowx + ((highx - lowx) / 2)
   const center_y = lowy + ((highy - lowy) / 2)
+  if (format === 'json') {
+    return {
+      lat: center_x,
+      lng: center_y
+    }
+  }
   return (new google.maps.LatLng(center_x, center_y))
 }
 
@@ -111,6 +137,7 @@ export function createPolygonFromCoordinates(polygonCoordiantes) {
     strokeColor: polygonCoordiantes.stroke,
     strokeOpacity: 1.0,
     fillColor: polygonCoordiantes.color,
+    fillOpacity: 0.6,
     strokeWeight: 2,
     content: polygonCoordiantes.name || '',
     editable: false
@@ -133,14 +160,6 @@ export function getCoordinatesInString(coordinatesInObjects) {
     const pointString = `${point.lat},${point.lng}`
     return pointString
   }).join('~')
-}
-
-// const defaultPolygonOptions
-export function labelPolygon(map, polygon) {
-  const infoWindow = new google.maps.InfoWindow
-  infoWindow.setContent(polygon.content)
-  infoWindow.setPosition(getPolygonCenter(polygon))
-  infoWindow.open(map)
 }
 
 export function displayPolygonOnMap(map, polygon) {
