@@ -27,6 +27,7 @@ class DefineGeoboundary extends React.Component {
       lng: null,
       gmapKey: 0,
       isGeoBoundaryExist: false,
+      newBoundaryPrompt: false,
       isEdit: true,
       isSubmit: false
     }
@@ -40,7 +41,7 @@ class DefineGeoboundary extends React.Component {
     this.clearSelection = this.clearSelection.bind(this)
     this.getEditOrCancelButton = this.getEditOrCancelButton.bind(this)
     this.changeGmapKey = this.changeGmapKey.bind(this)
-    this.createNewLocality = this.createNewLocality.bind(this)
+    this.createNewBoundary = this.createNewBoundary.bind(this)
     this.callbackUpdate = this.callbackUpdate.bind(this)
   }
 
@@ -82,7 +83,8 @@ class DefineGeoboundary extends React.Component {
     this.setState({ gmapKey: x, isEdit: true })
   }
 
-  createNewLocality() {
+  createNewBoundary() {
+    this.setState({ newBoundaryPrompt: false })
     this.drawingManager.setOptions({
       drawingControl: true,
       drawingMode: google.maps.drawing.OverlayType.POLYGON
@@ -149,6 +151,7 @@ class DefineGeoboundary extends React.Component {
       displayPolygonOnMap(map, polygon)
     } else {
       //  create new geoboundary
+      this.setState({ newBoundaryPrompt: true })
       const drawingManager = configureDrawingManager(map)
       this.drawingManager = drawingManager
       setupEventListeners(drawingManager, map, {
@@ -184,7 +187,7 @@ class DefineGeoboundary extends React.Component {
                 onMapCreated={this.handleMapCreation}
               >
                 {
-                  !this.state.isGeoBoundaryExist
+                  this.state.newBoundaryPrompt
                   ? (
                     <div style={{
                       background: 'rgba(0,0,0,0.8)',
@@ -204,7 +207,7 @@ class DefineGeoboundary extends React.Component {
                         <span style={{ color: '#fff', marginRight: '20px' }}>No boundary exist</span>
                         <RaisedButton
                           label="Create new"
-                          onClick={this.createNewLocality}
+                          onClick={this.createNewBoundary}
                         />
                       </div>
                     </div>
