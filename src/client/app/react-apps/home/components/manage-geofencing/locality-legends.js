@@ -7,7 +7,7 @@ import Popover from 'material-ui/Popover'
 import IconMenu from 'material-ui/IconMenu'
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert'
 import {grey400, darkBlack, lightBlack} from 'material-ui/styles/colors'
-import getIcon from './icon-utils'
+import getIcon from './../../components/icon-utils'
 import '@sass/components/_list-item.scss'
 
 // const rightIconMenu = (
