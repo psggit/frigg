@@ -121,6 +121,7 @@ class DefineLocality extends React.Component {
     this.changeGmapKey()
     this.setState({ shouldMountCreateNewLocality: false })
     this.setState({ shouldMountEditLocality: false })
+    this.setState({ isEdit: false })
   }
 
   changeGmapKey() {
