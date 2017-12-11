@@ -18,6 +18,10 @@ class CreateLocality extends React.Component {
     this.setActiveMapName = this.setActiveMapName.bind(this)
   }
 
+  componentDidMount() {
+    window.onpopstate = e => e
+  }
+
   setActiveMapName(activeMapName) {
     this.setState({ activeMapName })
   }
