@@ -14,16 +14,22 @@ class ViewCity extends React.Component {
     super(props)
     this.state = {
       isCityActive: null,
+      cityName: null,
       isEdit: false
     }
     this.handleTextFields = this.handleTextFields.bind(this)
     this.handleCheckboxes = this.handleCheckboxes.bind(this)
     this.enableEditMode = this.enableEditMode.bind(this)
+    this.disableEditMode = this.disableEditMode.bind(this)
+    this.update = this.update.bind(this)
   }
 
   componentWillReceiveProps(nextProps) {
     if (Object.keys(nextProps.geoBoundaryData).length) {
-      this.setState({ isCityActive: nextProps.geoBoundaryData.is_available })
+      this.setState({
+        isCityActive: nextProps.geoBoundaryData.is_available,
+        cityName: nextProps.geoBoundaryData.name
+      })
     }
   }
 
@@ -37,11 +43,25 @@ class ViewCity extends React.Component {
   }
 
   update() {
-
+    const { geoBoundaryData } = this.props
+    const { isCityActive, cityName, queryObj } = this.state
+    this.props.actions.updateCity({
+      id: parseInt(queryObj.id),
+      is_available: isCityActive,
+      deliverable_city: geoBoundaryData.deliverable_city,
+      state_short_name: geoBoundaryData.state_short_name,
+      gps: geoBoundaryData.gps,
+      name: cityName,
+      geoboundary: geoBoundaryData.geoboundary
+    }, this.disableEditMode)
   }
 
   enableEditMode() {
     this.setState({ isEdit: true })
+  }
+
+  disableEditMode() {
+    this.setState({ isEdit: false })
   }
 
   handleCheckboxes(e) {
@@ -67,13 +87,25 @@ class ViewCity extends React.Component {
           !loadingGeoboundary
           ? (
             <div style={{ position: 'absolute', right: '0' }}>
-              <RaisedButton
-                disabled={this.state.isEdit}
-                primary
-                label="Edit City"
-                onClick={this.enableEditMode}
-                style={{ marginRight: '20px' }}
-              />
+              {
+                !this.state.isEdit
+                ? (
+                  <RaisedButton
+                    primary
+                    label="Edit City"
+                    onClick={this.enableEditMode}
+                    style={{ marginRight: '20px' }}
+                  />
+                )
+                : (
+                  <RaisedButton
+                    primary
+                    label="Cancel"
+                    onClick={this.disableEditMode}
+                    style={{ marginRight: '20px' }}
+                  />
+                )
+              }
               {
                 geoBoundaryData.geoboundary.length || geoBoundaryData.geoboundary
                 ? (
@@ -137,7 +169,7 @@ class ViewCity extends React.Component {
                   disabled={!this.state.isEdit}
                   onChange={this.handleTextFields}
                   name="cityName"
-                  value={geoBoundaryData.name}
+                  value={this.state.cityName}
                 />
               </div>
 
@@ -152,13 +184,18 @@ class ViewCity extends React.Component {
                 />
               </div>
 
-              <RaisedButton
-                disabled={!this.state.isEdit}
-                primary
-                label="Update changes"
-                onClick={this.update}
-                style={{ marginTop: '40px' }}
-              />
+              {
+                this.state.isEdit
+                ? (
+                  <RaisedButton
+                    primary
+                    label="Update changes"
+                    onClick={this.update}
+                    style={{ marginTop: '40px' }}
+                  />
+                )
+                : ''
+              }
             </div>
           )
           : 'loading..'
