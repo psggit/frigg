@@ -27,7 +27,6 @@ class DefineGeoboundary extends React.Component {
       lng: null,
       gmapKey: 0,
       isGeoBoundaryExist: false,
-      newBoundaryPrompt: false,
       isEdit: true,
       isSubmit: false
     }
@@ -84,7 +83,6 @@ class DefineGeoboundary extends React.Component {
   }
 
   createNewBoundary() {
-    this.setState({ newBoundaryPrompt: false })
     this.drawingManager.setOptions({
       drawingControl: true,
       drawingMode: google.maps.drawing.OverlayType.POLYGON
@@ -131,14 +129,14 @@ class DefineGeoboundary extends React.Component {
 
   handleMapCreation(map) {
     console.log('handleMapCreation called');
-    const { geoBoundaryData } = this.props
+    const { geoBoundaryData, mode } = this.props
     console.log(geoBoundaryData);
     const lat = geoBoundaryData.gps.split(',')[0]
     const lng = geoBoundaryData.gps.split(',')[1]
 
     this.setState({ lat, lng })
 
-    if (geoBoundaryData.geoboundary.length) {
+    if (mode === 'edit') {
       // show geoboundary
       const polygonCoordiantes = {
         coordinates: getCoordinatesInObjects(geoBoundaryData.geoboundary),
@@ -151,12 +149,13 @@ class DefineGeoboundary extends React.Component {
       displayPolygonOnMap(map, polygon)
     } else {
       //  create new geoboundary
-      this.setState({ newBoundaryPrompt: true })
+      // this.setState({ newBoundaryPrompt: true })
       const drawingManager = configureDrawingManager(map)
       this.drawingManager = drawingManager
       setupEventListeners(drawingManager, map, {
         setSelection: this.setGeoBoundary
       })
+      this.createNewBoundary()
     }
 
     map.setOptions({
@@ -185,41 +184,12 @@ class DefineGeoboundary extends React.Component {
                 key={this.state.gmapKey}
                 params={params}
                 onMapCreated={this.handleMapCreation}
-              >
-                {
-                  this.state.newBoundaryPrompt
-                  ? (
-                    <div style={{
-                      background: 'rgba(0,0,0,0.8)',
-                      width: '100%',
-                      height: '100%',
-                      position: 'absolute',
-                      top: '0'
-                    }}
-                    >
-                      <div style={{
-                        position: 'absolute',
-                        top: '50%',
-                        left: '50%',
-                        transform: 'translate(-50%, -50%)'
-                      }}
-                      >
-                        <span style={{ color: '#fff', marginRight: '20px' }}>No boundary exist</span>
-                        <RaisedButton
-                          label="Create new"
-                          onClick={this.createNewBoundary}
-                        />
-                      </div>
-                    </div>
-                  )
-                  : ''
-                }
-              </Gmaps>
+              />
 
               <br />
 
               {
-                !this.state.isGeoBoundaryExist
+                this.props.mode === 'create'
                 ? (
                   <RaisedButton
                     disabled={!this.state.isSubmit}
@@ -232,7 +202,7 @@ class DefineGeoboundary extends React.Component {
               }
 
               {
-                this.state.isGeoBoundaryExist
+                this.props.mode === 'edit'
                 ? (
                   <RaisedButton
                     onClick={this.handleUpdateGeoboundary}
@@ -245,23 +215,11 @@ class DefineGeoboundary extends React.Component {
 
 
               {
-                this.state.isGeoBoundaryExist
+                this.props.mode === 'edit'
                 ? this.getEditOrCancelButton()
                 : ''
               }
 
-              {
-                this.state.isGeoBoundaryExist
-                ? (
-                  <RaisedButton
-                    primary
-                    onClick={() => { this.props.setActiveMapName('locality') }}
-                    label="Go to locality"
-                    style={{ marginRight: 12 }}
-                  />
-                )
-                : ''
-              }
 
             </div>
           )

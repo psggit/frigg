@@ -338,12 +338,6 @@ class DefineLocality extends React.Component {
                   }
                 </SelectField> */}
 
-                <RaisedButton
-                  primary
-                  onClick={() => { this.props.setActiveMapName('geoboundary') }}
-                  label="Go to city boundary"
-                  style={{ marginRight: 12 }}
-                />
               </div>
 
               {
