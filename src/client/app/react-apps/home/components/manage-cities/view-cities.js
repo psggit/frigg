@@ -20,7 +20,7 @@ const TableHeaderItems = [
   'ID',
   'NAME',
   'SHORT_NAME',
-  ''
+  // ''
 ]
 
 const styles = [
@@ -74,7 +74,7 @@ function ViewCities(data) {
                 <TableRowColumn style={styles[1]}>{item.id}</TableRowColumn>
                 <TableRowColumn style={styles[2]}>{item.name}</TableRowColumn>
                 <TableRowColumn style={styles[3]}>{item.state_short_name}</TableRowColumn>
-                <TableRowColumn style={styles[4]}>
+                {/* <TableRowColumn style={styles[4]}>
                   <NavLink
                     exact
                     to={`/home/manage-cities/localities/${item.id}`}
@@ -84,7 +84,7 @@ function ViewCities(data) {
                       label="Manage locality"
                     />
                   </NavLink>
-                </TableRowColumn>
+                </TableRowColumn> */}
               </TableRow>
             ))
           )
