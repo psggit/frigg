@@ -31,6 +31,7 @@ class ManageStates extends React.Component {
 
   componentDidMount() {
     this.props.actions.fetchStates()
+    this.props.actions.setLoadingState('loadingCities')
   }
 
   setSnackBarOptions(options) {
@@ -73,7 +74,7 @@ class ManageStates extends React.Component {
           statesData={statesData}
           mountEditStateDialog={this.mountEditStateDialog}
         />
-    
+
         {
           this.state.shouldMountEditState
           ? (
