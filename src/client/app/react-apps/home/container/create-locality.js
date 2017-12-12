@@ -6,24 +6,17 @@ import { connect } from 'react-redux'
 import * as Actions from './../actions'
 import DefineLocality from './../components/manage-geofencing/define-locality'
 import DefineGeoboundary from './../components/manage-geofencing/define-geoboundary'
+import { getQueryObj } from '@utils/url-utils'
 
 class CreateLocality extends React.Component {
   constructor() {
     super()
-
-    this.state = {
-      activeMapName: 'geoboundary'
-    }
-
-    this.setActiveMapName = this.setActiveMapName.bind(this)
   }
 
   componentDidMount() {
+    this.props.actions.setLoadingState('loadingCities')
+    this.props.actions.setLoadingState('loadingStates')
     window.onpopstate = e => e
-  }
-
-  setActiveMapName(activeMapName) {
-    this.setState({ activeMapName })
   }
 
   getActiveMapComponent() {
@@ -41,33 +34,40 @@ class CreateLocality extends React.Component {
       match
     } = this.props
 
-    const { activeMapName } = this.state
+    const queryObj = getQueryObj(location.search.slice(1))
+    let mode = ''
+    const localitySlug = location.pathname.split('/')[4]
 
-    if (activeMapName === 'geoboundary') {
+    if (localitySlug == 'create-boundary') {
+      mode = 'create'
+    } else {
+      mode = 'edit'
+    }
+
+    if (localitySlug === 'localities') {
       return (
-        <DefineGeoboundary
-          setGeolocalityLoadingState={actions.setGeolocalityLoadingState}
-          setActiveMapName={this.setActiveMapName}
-          viewGeoboundary={actions.viewGeoboundary}
-          updateGeoboundary={actions.updateGeoboundary}
-          geoBoundaryData={geoBoundaryData}
-          loadingGeoboundary={loadingGeoboundary}
-          isGeolocalityUpdated={isGeolocalityUpdated}
-          cityId={parseInt(match.params.id)}
+        <DefineLocality
+          viewGeolocalities={actions.fetchLocalities}
+          updateGeolocality={actions.updateGeolocality}
+          createGeolocality={actions.createGeolocality}
+          geoLocalitiesData={geoLocalitiesData}
+          loadingGeolocalities={loadingGeolocalities}
+          cityId={parseInt(queryObj.id)}
+          zoomLevel={11}
         />
       )
     }
 
     return (
-      <DefineLocality
-        setActiveMapName={this.setActiveMapName}
-        viewGeolocalities={actions.fetchLocalities}
-        updateGeolocality={actions.updateGeolocality}
-        createGeolocality={actions.createGeolocality}
-        geoLocalitiesData={geoLocalitiesData}
-        loadingGeolocalities={loadingGeolocalities}
-        cityId={parseInt(match.params.id)}
-        zoomLevel={11}
+      <DefineGeoboundary
+        setGeolocalityLoadingState={actions.setGeolocalityLoadingState}
+        viewGeoboundary={actions.viewGeoboundary}
+        updateGeoboundary={actions.updateGeoboundary}
+        geoBoundaryData={geoBoundaryData}
+        loadingGeoboundary={loadingGeoboundary}
+        isGeolocalityUpdated={isGeolocalityUpdated}
+        cityId={parseInt(queryObj.id)}
+        mode={mode}
       />
     )
   }
