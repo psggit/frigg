@@ -50,6 +50,12 @@ const actionsMap = {
     return Object.assign({}, state, {
       loadingGeolocalities: true,
     })
+  },
+
+  [ActionTypes.SUCCESS_SET_LOADING_STATE]: (state, action) => {
+    return Object.assign({}, state, {
+      [action.data]: true,
+    })
   }
 }
 

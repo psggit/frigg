@@ -129,6 +129,14 @@ function* setGeolocalityLoadingState(action) {
   }
 }
 
+function* setLoadingState(action) {
+  try {
+    yield put({ type: ActionTypes.SUCCESS_SET_LOADING_STATE, data: action.data })
+  } catch (err) {
+    console.log(err)
+  }
+}
+
 
 /**
  * Watchers
@@ -211,6 +219,12 @@ function* watchSetGeolocalityLoadingState() {
   }
 }
 
+function* watchSetLoadingState() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_SET_LOADING_STATE, setLoadingState)
+  }
+}
+
 export default function* rootSaga() {
   yield [
     fork(watchFetchStates),
@@ -225,6 +239,7 @@ export default function* rootSaga() {
     fork(watchCreateGeolocality),
     fork(watchUpdateGeolocality),
     fork(watchSetGeoboundaryLoadingState),
-    fork(watchSetGeolocalityLoadingState)
+    fork(watchSetGeolocalityLoadingState),
+    fork(watchSetLoadingState)
   ]
 }

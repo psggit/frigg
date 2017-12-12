@@ -64,3 +64,8 @@ export const setGeoboundaryLoadingState = () => ({
 export const setGeolocalityLoadingState = () => ({
   type: ActionTypes.REQUEST_SET_GEOLOCALITY_LOADING_STATE
 })
+
+export const setLoadingState = data => ({
+  type: ActionTypes.REQUEST_SET_LOADING_STATE,
+  data
+})
