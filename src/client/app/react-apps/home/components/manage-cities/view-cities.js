@@ -9,8 +9,10 @@ import {
 } from 'material-ui/Table'
 
 import RaisedButton from 'material-ui/RaisedButton'
+import FlatButton from 'material-ui/FlatButton'
 import CircularProgress from 'material-ui/CircularProgress'
 import { NavLink } from 'react-router-dom'
+import TableLoadingShell from './../table-loading-shell'
 import '@sass/components/_table.scss'
 
 const TableHeaderItems = [
@@ -53,12 +55,21 @@ function ViewCities(data) {
             data.citiesData.map(item => (
               <TableRow key={item.id}>
                 <TableRowColumn style={styles[0]}>
-                  <button className="btn--icon" onClick={data.mountEditStateDialog}>
+                  {/* <button className="btn--icon" onClick={data.mountEditStateDialog}>
                     <img
                       src="/images/pencil.svg"
                       alt="edit"
                     />
-                  </button>
+                  </button> */}
+                  <NavLink
+                    target="_blank"
+                    exact
+                    to={`/home/manage-cities/${item.name}?id=${item.id}`}
+                    href={`/home/manage-cities/${item.name}?id=${item.id}`}
+                  >
+                    <FlatButton primary label="View" />
+                  </NavLink>
+
                 </TableRowColumn>
                 <TableRowColumn style={styles[1]}>{item.id}</TableRowColumn>
                 <TableRowColumn style={styles[2]}>{item.name}</TableRowColumn>
@@ -77,7 +88,11 @@ function ViewCities(data) {
               </TableRow>
             ))
           )
-          : ''
+          : (
+            [1, 2, 3, 4, 5].map(() => (
+              <TableLoadingShell />
+            ))
+          )
         }
       </TableBody>
     </Table>
