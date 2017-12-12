@@ -6,7 +6,7 @@ import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
 import { NavLink } from 'react-router-dom'
 import Checkbox from 'material-ui/Checkbox'
-import { getQueryObj } from '@utils/query-string-utils'
+import { getQueryObj } from '@utils/url-utils'
 import '@sass/components/_form.scss'
 
 class ViewCity extends React.Component {
