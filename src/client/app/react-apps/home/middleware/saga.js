@@ -1,6 +1,7 @@
 import { takeLatest, delay } from 'redux-saga'
 import { call, fork, put, race, take } from 'redux-saga/effects'
 import * as ActionTypes from './../constants/actions'
+import Notify from '@components/Notification'
 import * as Api from './api'
 
 /**
@@ -37,6 +38,7 @@ function* updateState(action) {
   try {
     const data = yield call(Api.updateState, action)
     yield put({ type: ActionTypes.REQUEST_FETCH_STATES })
+
   } catch (err) {
     console.log(err)
   }
@@ -54,7 +56,8 @@ function* createCity(action) {
 function* updateCity(action) {
   try {
     const data = yield call(Api.updateCity, action)
-    yield put({ type: ActionTypes.REQUEST_FETCH_CITIES })
+    yield put({ type: ActionTypes.REQUEST_VIEW_GEOBOUNDARY, data: { id: action.data.id }, CB: action.CB })
+    Notify("Successfully updated city", "success")
   } catch (err) {
     console.log(err)
   }
@@ -64,6 +67,7 @@ function* updateGeoboundary(action) {
   try {
     const data = yield call(Api.updateGeoboundary, action)
     yield put({ type: ActionTypes.REQUEST_VIEW_GEOBOUNDARY, data: { id: action.data.id }, CB: action.CB })
+    Notify("Successfully updated geoboundary", "success")
   } catch (err) {
     console.log(err)
   }
@@ -99,6 +103,7 @@ function* createGeolocality(action) {
   try {
     const data = yield call(Api.createGeolocality, action)
     yield put({ type: ActionTypes.REQUEST_FETCH_LOCALITIES, data: { city_id: action.data.city_id }, CB: action.CB })
+    Notify("Successfully created locality", "success")
   } catch (err) {
     console.log(err)
   }
@@ -108,7 +113,9 @@ function* updateGeolocality(action) {
   try {
     const data = yield call(Api.updateGeolocality, action)
     yield put({ type: ActionTypes.REQUEST_FETCH_LOCALITIES, data: { city_id: action.data.city_id }, CB: action.CB })
+    Notify("Successfully updated locality", "success")
   } catch (err) {
+    Notify("Couldn't update locality", "warning")
     console.log(err)
   }
 }
