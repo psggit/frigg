@@ -24,9 +24,10 @@ export const createCity = data => ({
   data
 })
 
-export const updateCity = data => ({
+export const updateCity = (data, CB) => ({
   type: ActionTypes.REQUEST_UPDATE_CITY,
-  data
+  data,
+  CB
 })
 
 export const viewGeoboundary = data => ({
