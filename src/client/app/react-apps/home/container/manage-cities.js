@@ -13,7 +13,7 @@ import ViewCities from './../components/manage-cities/view-cities'
 import RoleBasedComponent from '@components/RoleBasedComponent'
 import getIcon from './../components/icon-utils'
 import FilterModal from '@components/filter-modal'
-import { getQueryObj, getQueryUri } from '@utils/query-string-utils'
+import { getQueryObj, getQueryUri } from '@utils/url-utils'
 // import '@sass/components/_button.scss'
 
 import * as Roles from './../constants/roles'
@@ -45,7 +45,10 @@ class ManageCities extends React.Component {
   }
 
   fetchData() {
-    this.props.actions.setGeoboundaryLoadingState()
+    this.props.actions.setLoadingState('loadingCities')
+    this.props.actions.setLoadingState('loadingStates')
+    this.props.actions.setLoadingState('loadingGeoboundary')
+    // this.props.actions.setGeoboundaryLoadingState()
     this.props.actions.fetchStates()
     if (location.search.length) {
       // if query string exists then apply filters
@@ -53,6 +56,7 @@ class ManageCities extends React.Component {
     } else {
       // if there is no query string then fetch defult citiesData/all citiesData
       // this.props.actions.fetchCities()
+      this.setState({ stateIdx: 0 })
     }
   }
 
@@ -148,6 +152,18 @@ class ManageCities extends React.Component {
         {/* <p style={{ color: '#9b9b9b', margin: '20px 0px 0 20px' }}>or</p> */}
 
         <br />
+
+        {
+          !loadingCities && statesData.length
+          ? <h3>Showing cities in {`${statesData[this.state.stateIdx - 1].state_name}`}</h3>
+          : ''
+        }
+
+        {
+          !this.state.stateIdx
+          ? <h3>Showing all cities</h3>
+          : ''
+        }
 
         <ViewCities
           citiesData={citiesData}
