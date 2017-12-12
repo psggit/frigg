@@ -65,7 +65,7 @@ class App extends React.Component {
                   <Route exact path="/home/manage-cities/:citySlug/boundary" component={ManageLocalities} />
                   <Route exact path="/home/manage-cities/:citySlug/create-boundary" component={ManageLocalities} />
                   <Route exact path="/home/manage-cities/localities/edit/:id" component={ViewLocalities} />
-                  <Route exact path="/home/manage-cities/:id" component={ViewCity} />
+                  <Route exact path="/home/manage-cities/:citySlug" component={ViewCity} />
                 </Switch>
             </DisplayScreen>
           </div>
