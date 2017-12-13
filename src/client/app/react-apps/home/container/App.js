@@ -14,16 +14,17 @@ import ManageLocalities from './create-locality'
 import ViewLocalities from './../components/manage-geofencing/view-locality'
 import NotFound from './../../../react-apps/not-found'
 import ViewCity from './../components/manage-cities/view-city-details'
+import CreateCity from './../components/manage-cities/create-city'
 import { getBreadCrumbPath } from '@utils/url-utils'
 // import '@sass/components/_heading.scss'
 
 class App extends React.Component {
   constructor() {
     super()
-    console.log(getBreadCrumbPath());
+    // console.log(getBreadCrumbPath());
     this.state = {
       isDrawerOpen: false,
-      headerTitle: getBreadCrumbPath()
+      headerTitle: getBreadCrumbPath().length ? getBreadCrumbPath() : 'Welcome'
     }
     this.toggleDrawer = this.toggleDrawer.bind(this)
     this.handleCloseDrawer = this.handleCloseDrawer.bind(this)
@@ -60,6 +61,7 @@ class App extends React.Component {
                 <Switch>
                   <Route exact path="/home/manage-geofencing" component={CreateLocality} />
                   <Route exact path="/home/manage-states" component={ManageStates} />
+                  <Route exact path="/home/manage-cities/create-new-city" component={CreateCity} />
                   <Route exact path="/home/manage-cities" component={ManageCities} />
                   <Route exact path="/home/manage-cities/:citySlug/localities" component={ManageLocalities} />
                   <Route exact path="/home/manage-cities/:citySlug/boundary" component={ManageLocalities} />
