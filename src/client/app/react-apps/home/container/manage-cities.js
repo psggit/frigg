@@ -5,10 +5,10 @@ import RaisedButton from 'material-ui/RaisedButton'
 import FlatButton from 'material-ui/FlatButton'
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
-import Snackbar from 'material-ui/Snackbar'
+// import Snackbar from 'material-ui/Snackbar'
 import * as Actions from './../actions'
-import CreateCity from './../components/manage-cities/create-city'
-import EditCity from './../components/manage-cities/edit-city'
+// import CreateCity from './../components/manage-cities/create-city'
+// import EditCity from './../components/manage-cities/edit-city'
 import ViewCities from './../components/manage-cities/view-cities'
 import RoleBasedComponent from '@components/RoleBasedComponent'
 import getIcon from './../components/icon-utils'
@@ -22,16 +22,15 @@ class ManageCities extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      shouldMountEditState: false,
-      shouldMountCreateState: false,
+      // shouldMountEditState: false,
+      // shouldMountCreateState: false,
       shouldMountFilterDialog: false,
       stateIdx: 0,
-      snackBar: { open: false, message: '' }
     }
-    this.mountEditStateDialog = this.mountEditStateDialog.bind(this)
-    this.unmountEditStateDialog = this.unmountEditStateDialog.bind(this)
-    this.mountCreateStateDialog = this.mountCreateStateDialog.bind(this)
-    this.unmountCreateStateDialog = this.unmountCreateStateDialog.bind(this)
+    // this.mountEditStateDialog = this.mountEditStateDialog.bind(this)
+    // this.unmountEditStateDialog = this.unmountEditStateDialog.bind(this)
+    // this.mountCreateStateDialog = this.mountCreateStateDialog.bind(this)
+    // this.unmountCreateStateDialog = this.unmountCreateStateDialog.bind(this)
     this.mountFilterDialog = this.mountFilterDialog.bind(this)
     this.unmountFilterModal = this.unmountFilterModal.bind(this)
     this.handleStateChange = this.handleStateChange.bind(this)
@@ -48,7 +47,7 @@ class ManageCities extends React.Component {
     this.props.actions.setLoadingState('loadingCities')
     this.props.actions.setLoadingState('loadingStates')
     this.props.actions.setLoadingState('loadingGeoboundary')
-    // this.props.actions.setGeoboundaryLoadingState()
+
     this.props.actions.fetchStates()
     if (location.search.length) {
       // if query string exists then apply filters
@@ -71,28 +70,28 @@ class ManageCities extends React.Component {
     })
   }
 
-  setSnackBarOptions(options) {
-    this.setState({ snackBar: options })
-  }
-
-  mountCreateStateDialog() {
-    this.setState({ shouldMountCreateState: true })
-  }
-
-  unmountCreateStateDialog() {
-    this.setState({ shouldMountCreateState: false })
-  }
-
-  mountEditStateDialog(stateToBeEdit) {
-    this.setState({
-      shouldMountEditState: true,
-      stateToBeEdit
-    })
-  }
-
-  unmountEditStateDialog() {
-    this.setState({ shouldMountEditState: false })
-  }
+  // setSnackBarOptions(options) {
+  //   this.setState({ snackBar: options })
+  // }
+  //
+  // mountCreateStateDialog() {
+  //   this.setState({ shouldMountCreateState: true })
+  // }
+  //
+  // unmountCreateStateDialog() {
+  //   this.setState({ shouldMountCreateState: false })
+  // }
+  //
+  // mountEditStateDialog(stateToBeEdit) {
+  //   this.setState({
+  //     shouldMountEditState: true,
+  //     stateToBeEdit
+  //   })
+  // }
+  //
+  // unmountEditStateDialog() {
+  //   this.setState({ shouldMountEditState: false })
+  // }
 
   mountFilterDialog() {
     this.setState({ shouldMountFilterDialog: true })
@@ -136,11 +135,13 @@ class ManageCities extends React.Component {
             justifyContent: 'space-between'
           }}
         >
-          <RaisedButton
-            label="Create new city"
-            primary
-            onClick={this.mountCreateStateDialog}
-          />
+          <a href={`${location.pathname}/create-new-city`} target="_blank">
+            <RaisedButton
+              label="Create new city"
+              primary
+              onClick={this.mountCreateStateDialog}
+            />
+          </a>
 
           <RaisedButton
             onClick={this.mountFilterDialog}
@@ -171,7 +172,7 @@ class ManageCities extends React.Component {
           mountEditStateDialog={this.mountEditStateDialog}
         />
 
-        {
+        {/* {
           this.state.shouldMountEditState
           ? (
             <EditCity
@@ -192,7 +193,7 @@ class ManageCities extends React.Component {
             />
           )
           : ''
-        }
+        } */}
 
         {
           this.state.shouldMountFilterDialog
@@ -230,12 +231,6 @@ class ManageCities extends React.Component {
           )
           : ''
         }
-        <Snackbar
-          open={this.state.snackBar.open}
-          message={this.state.snackBar.message}
-          autoHideDuration={4000}
-          onRequestClose={this.handleRequestClose}
-        />
       </div>
     )
   }
