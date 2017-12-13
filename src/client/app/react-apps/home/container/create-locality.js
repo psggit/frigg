@@ -24,12 +24,13 @@ class CreateLocality extends React.Component {
       actions,
       statesData,
       citiesData,
-      geoBoundaryData,
+      cityDetails,
       geoLocalitiesData,
       loadingCities,
       loadingStates,
-      loadingGeolocalities,
+      loadingCityDetails,
       loadingGeoboundary,
+      loadingGeolocalities,
       isGeolocalityUpdated,
       match
     } = this.props
@@ -60,11 +61,11 @@ class CreateLocality extends React.Component {
 
     return (
       <DefineGeoboundary
-        setGeolocalityLoadingState={actions.setGeolocalityLoadingState}
-        viewGeoboundary={actions.viewGeoboundary}
+        setLoadingState={actions.setLoadingState}
+        fetchCityDetails={actions.fetchCityDetails}
         updateGeoboundary={actions.updateGeoboundary}
-        geoBoundaryData={geoBoundaryData}
-        loadingGeoboundary={loadingGeoboundary}
+        cityDetails={cityDetails}
+        loadingCityDetails={loadingCityDetails}
         isGeolocalityUpdated={isGeolocalityUpdated}
         cityId={parseInt(queryObj.id)}
         mode={mode}

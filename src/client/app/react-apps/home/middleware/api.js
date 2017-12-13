@@ -59,7 +59,7 @@ export const updateCity = action => (
   })
 )
 
-export const viewGeoboundary = action => (
+export const fetchCityDetails = action => (
   POST({
     api: '/cityManagement/cityDetails',
     apiBase: 'odin',

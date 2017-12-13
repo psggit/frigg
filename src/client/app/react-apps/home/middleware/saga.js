@@ -25,6 +25,18 @@ function* fetchCities(action) {
   }
 }
 
+function* fetchCityDetails(action) {
+  try {
+    const data = yield call(Api.fetchCityDetails, action)
+    yield put({ type: ActionTypes.SUCCESS_FETCH_CITY_DETAILS, data })
+    if (action.CB) {
+      action.CB()
+    }
+  } catch (err) {
+    console.log(err)
+  }
+}
+
 function* createState(action) {
   try {
     const data = yield call(Api.createState, action)
@@ -68,18 +80,6 @@ function* updateGeoboundary(action) {
     const data = yield call(Api.updateGeoboundary, action)
     yield put({ type: ActionTypes.REQUEST_VIEW_GEOBOUNDARY, data: { id: action.data.id }, CB: action.CB })
     Notify("Successfully updated geoboundary", "success")
-  } catch (err) {
-    console.log(err)
-  }
-}
-
-function* viewGeoboundary(action) {
-  try {
-    const data = yield call(Api.viewGeoboundary, action)
-    yield put({ type: ActionTypes.SUCCESS_VIEW_GEOBOUNDARY, data })
-    if (action.CB) {
-      action.CB()
-    }
   } catch (err) {
     console.log(err)
   }
@@ -166,6 +166,12 @@ function* watchFetchLocalities() {
   }
 }
 
+function* watchFetchCityDetails() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_FETCH_CITY_DETAILS, fetchCityDetails)
+  }
+}
+
 function* watchCreateState() {
   while (true) {
     yield* takeLatest(ActionTypes.REQUEST_CREATE_STATE, createState)
@@ -193,12 +199,6 @@ function* watchUpdateCity() {
 function* watchUpdateGeoboundary() {
   while (true) {
     yield* takeLatest(ActionTypes.REQUEST_UPDATE_GEOBOUNDARY, updateGeoboundary)
-  }
-}
-
-function* watchViewGeoboundary() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_VIEW_GEOBOUNDARY, viewGeoboundary)
   }
 }
 
@@ -237,12 +237,12 @@ export default function* rootSaga() {
     fork(watchFetchStates),
     fork(watchFetchCities),
     fork(watchFetchLocalities),
+    fork(watchFetchCityDetails),
     fork(watchCreateState),
     fork(watchUpdateState),
     fork(watchCreateCity),
     fork(watchUpdateCity),
     fork(watchUpdateGeoboundary),
-    fork(watchViewGeoboundary),
     fork(watchCreateGeolocality),
     fork(watchUpdateGeolocality),
     fork(watchSetGeoboundaryLoadingState),

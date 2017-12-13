@@ -26,7 +26,7 @@ class DefineGeoboundary extends React.Component {
       lat: null,
       lng: null,
       gmapKey: 0,
-      isGeoBoundaryExist: false,
+      // isGeoBoundaryExist: false,
       isEdit: true,
       isSubmit: false
     }
@@ -45,17 +45,17 @@ class DefineGeoboundary extends React.Component {
   }
 
   componentDidMount() {
-    this.props.viewGeoboundary({
+    this.props.fetchCityDetails({
       id: this.props.cityId
     })
-    this.props.setGeolocalityLoadingState()
+    this.props.setLoadingState('loadingGeoboundary')
   }
 
   handleUpdateGeoboundary() {
     const polygonPoints = getPolygonPoints(this.geoboundary)
     const coordinatesInString = getCoordinatesInString(polygonPoints)
     // this.setState({ goToButtonDisabled: true })
-    this.props.setGeolocalityLoadingState()
+    this.props.setLoadingState('loadingGeoboundary')
     this.props.updateGeoboundary({
       id: this.props.cityId,
       geoboundary: coordinatesInString,
@@ -129,23 +129,23 @@ class DefineGeoboundary extends React.Component {
 
   handleMapCreation(map) {
     console.log('handleMapCreation called');
-    const { geoBoundaryData, mode } = this.props
-    console.log(geoBoundaryData);
-    const lat = geoBoundaryData.gps.split(',')[0]
-    const lng = geoBoundaryData.gps.split(',')[1]
+    const { cityDetails, mode } = this.props
+    // console.log(geoBoundaryData);
+    const lat = cityDetails.gps.split(',')[0]
+    const lng = cityDetails.gps.split(',')[1]
 
     this.setState({ lat, lng })
 
     if (mode === 'edit') {
       // show geoboundary
       const polygonCoordiantes = {
-        coordinates: getCoordinatesInObjects(geoBoundaryData.geoboundary),
+        coordinates: getCoordinatesInObjects(cityDetails.geoboundary),
         color: '#333',
         stroke: 'blue'
       }
       const polygon = createPolygonFromCoordinates(polygonCoordiantes)
       this.geoboundary = polygon
-      this.setState({ isGeoBoundaryExist: true })
+      // this.setState({ isGeoBoundaryExist: true })
       displayPolygonOnMap(map, polygon)
     } else {
       //  create new geoboundary
@@ -170,7 +170,7 @@ class DefineGeoboundary extends React.Component {
     return (
       <div>
         {
-          !this.props.loadingGeoboundary
+          !this.props.loadingCityDetails
           ? (
             <div>
               <h3>City boundary</h3>
