@@ -68,7 +68,7 @@ function* createCity(action) {
 function* updateCity(action) {
   try {
     const data = yield call(Api.updateCity, action)
-    yield put({ type: ActionTypes.REQUEST_VIEW_GEOBOUNDARY, data: { id: action.data.id }, CB: action.CB })
+    yield put({ type: ActionTypes.REQUEST_FETCH_CITY_DETAILS, data: { id: action.data.id }, CB: action.CB })
     Notify("Successfully updated city", "success")
   } catch (err) {
     console.log(err)
@@ -78,7 +78,7 @@ function* updateCity(action) {
 function* updateGeoboundary(action) {
   try {
     const data = yield call(Api.updateGeoboundary, action)
-    yield put({ type: ActionTypes.REQUEST_VIEW_GEOBOUNDARY, data: { id: action.data.id }, CB: action.CB })
+    yield put({ type: ActionTypes.REQUEST_FETCH_CITY_DETAILS, data: { id: action.data.id }, CB: action.CB })
     Notify("Successfully updated geoboundary", "success")
   } catch (err) {
     console.log(err)
@@ -116,22 +116,6 @@ function* updateGeolocality(action) {
     Notify("Successfully updated locality", "success")
   } catch (err) {
     Notify("Couldn't update locality", "warning")
-    console.log(err)
-  }
-}
-
-function* setGeoboundaryLoadingState(action) {
-  try {
-    yield put({ type: ActionTypes.SUCCESS_SET_GEOBOUNDARY_LOADING_STATE })
-  } catch (err) {
-    console.log(err)
-  }
-}
-
-function* setGeolocalityLoadingState(action) {
-  try {
-    yield put({ type: ActionTypes.SUCCESS_SET_GEOLOCALITY_LOADING_STATE, data: action.data })
-  } catch (err) {
     console.log(err)
   }
 }
@@ -214,18 +198,6 @@ function* watchUpdateGeolocality() {
   }
 }
 
-function* watchSetGeoboundaryLoadingState() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_SET_GEOBOUNDARY_LOADING_STATE, setGeoboundaryLoadingState)
-  }
-}
-
-function* watchSetGeolocalityLoadingState() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_SET_GEOLOCALITY_LOADING_STATE, setGeolocalityLoadingState)
-  }
-}
-
 function* watchSetLoadingState() {
   while (true) {
     yield* takeLatest(ActionTypes.REQUEST_SET_LOADING_STATE, setLoadingState)
@@ -245,8 +217,6 @@ export default function* rootSaga() {
     fork(watchUpdateGeoboundary),
     fork(watchCreateGeolocality),
     fork(watchUpdateGeolocality),
-    fork(watchSetGeoboundaryLoadingState),
-    fork(watchSetGeolocalityLoadingState),
     fork(watchSetLoadingState)
   ]
 }

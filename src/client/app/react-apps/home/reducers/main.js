@@ -40,18 +40,6 @@ const actionsMap = {
     })
   },
 
-  [ActionTypes.SUCCESS_SET_GEOBOUNDARY_LOADING_STATE]: (state, action) => {
-    return Object.assign({}, state, {
-      loadingGeoboundary: true,
-    })
-  },
-
-  [ActionTypes.SUCCESS_SET_GEOLOCALITY_LOADING_STATE]: (state, action) => {
-    return Object.assign({}, state, {
-      loadingGeolocalities: true,
-    })
-  },
-
   [ActionTypes.SUCCESS_SET_LOADING_STATE]: (state, action) => {
     return Object.assign({}, state, {
       [action.data]: true,
