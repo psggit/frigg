@@ -77,9 +77,6 @@ const devPlugins = plugins.concat([
 ])
 
 const productionPlugins = plugins.concat([
-  new BundleAnalyzerPlugin({
-    analyzerMode: 'static'
-  }),
   new webpack.optimize.UglifyJsPlugin({
     cache: true,
     uglifyOptions: {
