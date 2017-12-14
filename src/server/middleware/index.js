@@ -14,9 +14,18 @@ function setupMiddleWare(app) {
   // app.use(express.static(path.join(__dirname, '../../client/app/views')))
   app.set("views", path.resolve(__dirname, "../../client/app/views"));
 
+
   routes(app)
   if (env === 'development') {
     setupHotReloading(app)
+  }
+
+  if (env === 'production') {
+    app.get('*.js', (req, res, next) => {
+      req.url += '.gz'
+      res.set('Content-Encoding', 'gzip')
+      next()
+    })
   }
 
   app.use((req, res, next) => {
