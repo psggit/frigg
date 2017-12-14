@@ -9,6 +9,7 @@ const path = require('path')
 const webpack = require('webpack')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const AbsolutePathProviderPlugin = require('abspath-webpack-plugin')
+const CompressionPlugin = require("compression-webpack-plugin")
 
 const loaders = [
   {
@@ -76,7 +77,27 @@ const devPlugins = plugins.concat([
 ])
 
 const productionPlugins = plugins.concat([
-  new webpack.optimize.UglifyJsPlugin()
+  new BundleAnalyzerPlugin({
+    analyzerMode: 'static'
+  }),
+  new webpack.optimize.UglifyJsPlugin({
+    cache: true,
+    uglifyOptions: {
+      ie8: true
+    }
+  }),
+  new webpack.optimize.AggressiveMergingPlugin({
+    minSizeReduce: 1.5,
+    moveToParents: true
+  }),
+  new CompressionPlugin({
+    test: /\.js$|\.css$|\.html$/,
+    asset: "[path].gz[query]",
+    exclude: /node_modules/,
+    algortithm: 'gzip',
+    threshhold: 10240,
+    minRatio: 0.8
+  })
 ])
 
 
