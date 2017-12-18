@@ -14,7 +14,9 @@ import ManageLocalities from './create-locality'
 import ViewLocalities from './../components/manage-geofencing/view-locality'
 import NotFound from './../../../react-apps/not-found'
 import ViewCity from './../components/manage-cities/view-city-details'
+import ViewState from './../components/manage-states/view-state-details'
 import CreateCity from './../components/manage-cities/create-city'
+import CreateState from './../components/manage-states/create-state'
 import { getBreadCrumbPath } from '@utils/url-utils'
 // import '@sass/components/_heading.scss'
 
@@ -61,8 +63,10 @@ class App extends React.Component {
                 <Switch>
                   <Route exact path="/home/manage-geofencing" component={CreateLocality} />
                   <Route exact path="/home/manage-states" component={ManageStates} />
-                  <Route exact path="/home/manage-cities/create-new-city" component={CreateCity} />
+                  <Route exact path="/home/manage-states/create-new-state" component={CreateState} />
+                  <Route exact path="/home/manage-states/:stateSlug" component={ViewState} />
                   <Route exact path="/home/manage-cities" component={ManageCities} />
+                  <Route exact path="/home/manage-cities/create-new-city" component={CreateCity} />
                   <Route exact path="/home/manage-cities/:citySlug/localities" component={ManageLocalities} />
                   <Route exact path="/home/manage-cities/:citySlug/boundary" component={ManageLocalities} />
                   <Route exact path="/home/manage-cities/:citySlug/create-boundary" component={ManageLocalities} />
