@@ -1,4 +1,4 @@
 node_modules
-build
+src/client/build
 .DS_Store
 npm_debug.log
