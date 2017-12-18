@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import RaisedButton from 'material-ui/RaisedButton'
 import '@sass/components/_form.scss'
-import StateDetailsForm from './state-details.form'
+import StateDetailsForm from './state-details-form'
 import IfElse from '@components/declarative-if-else'
 
 class CreateState extends React.Component {

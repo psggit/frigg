@@ -4,12 +4,9 @@ import { connect } from 'react-redux'
 import RoleBasedComponent from '@components/RoleBasedComponent'
 import RaisedButton from 'material-ui/RaisedButton'
 import CircularProgress from 'material-ui/CircularProgress'
-import Snackbar from 'material-ui/Snackbar'
 import '@sass/components/_circular-progress.scss'
 
 import * as Actions from './../actions'
-import CreateState from './../components/manage-states/create-state'
-import EditState from './../components/manage-states/edit-state'
 import ViewStates from './../components/manage-states/view-states'
 
 import * as Roles from './../constants/roles'
@@ -62,12 +59,16 @@ class ManageStates extends React.Component {
 
     return (
       <div style={{ width: '100%', maxWidth: 800, margin: 'auto' }}>
-        <RaisedButton
-          style={{ marginBottom: '20px' }}
-          label="Create new state"
-          primary
-          onClick={this.mountCreateStateDialog}
-        />
+        <a href={`${location.pathname}/create-new-state`} target="_blank">
+          <RaisedButton
+            label="Create new state"
+            primary
+          />
+        </a>
+
+        <br />
+
+        <h3>Showig available states</h3>
 
         <ViewStates
           loadingStates={loadingStates}
@@ -75,37 +76,6 @@ class ManageStates extends React.Component {
           mountEditStateDialog={this.mountEditStateDialog}
         />
 
-        {
-          this.state.shouldMountEditState
-          ? (
-            <EditState
-              updateState={this.props.actions.updateState}
-              stateToBeEdit={this.state.stateToBeEdit}
-              shouldMountEditState={this.state.shouldMountEditState}
-              unmountEditStateDialog={this.unmountEditStateDialog}
-            />
-          )
-          : ''
-        }
-
-        {
-          this.state.shouldMountCreateState
-          ? (
-            <CreateState
-              setSnackBarOptions={this.setSnackBarOptions}
-              createState={this.props.actions.createState}
-              shouldMountCreateState={this.state.shouldMountCreateState}
-              unmountCreateStateDialog={this.unmountCreateStateDialog}
-            />
-          )
-          : ''
-        }
-        <Snackbar
-          open={this.state.snackBar.open}
-          message={this.state.snackBar.message}
-          autoHideDuration={4000}
-          onRequestClose={this.handleRequestClose}
-        />
       </div>
     )
   }

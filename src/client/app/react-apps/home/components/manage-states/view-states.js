@@ -55,14 +55,14 @@ function ViewCities(data) {
             data.statesData.map(item => (
               <TableRow key={item.id}>
                 <TableRowColumn style={styles[0]}>
-                  <NavLink
-                    target="_blank"
-                    exact
-                    to={`/home/manage-states/${item.state_name}?id=${item.id}`}
-                    href={`/home/manage-states/${item.state_name}?id=${item.id}`}
+                  <a
+                    // target="_blank"
+                    // exact
+                    // to={`/home/manage-states/${item.state_name}?id=${item.id}`}
+                    // href={`/home/manage-states/${item.state_name}?id=${item.id}`}
                   >
                     <FlatButton primary label="View" />
-                  </NavLink>
+                  </a>
 
                 </TableRowColumn>
                 <TableRowColumn style={styles[1]}>{item.id}</TableRowColumn>

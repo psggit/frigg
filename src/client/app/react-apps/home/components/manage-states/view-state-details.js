@@ -6,7 +6,7 @@ import RaisedButton from 'material-ui/RaisedButton'
 import { NavLink } from 'react-router-dom'
 import { getQueryObj } from '@utils/url-utils'
 import '@sass/components/_form.scss'
-import StateDetailsForm from './state-details.form'
+import StateDetailsForm from './state-details-form'
 import IfElse from '@components/declarative-if-else'
 
 class ViewState extends React.Component {
