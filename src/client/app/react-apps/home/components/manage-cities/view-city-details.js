@@ -57,12 +57,12 @@ class ViewCity extends React.Component {
   render() {
     const { loadingCityDetails, cityDetails } = this.props
 
-    if (!loadingCityDetails) {
-      let urlArray = location.pathname.split("/")
-      urlArray[3] = cityDetails.name
-      let url = urlArray.join('/')
-      history.pushState(null, null, `${url}?id=${cityDetails.id}`)
-    }
+    // if (!loadingCityDetails) {
+    //   let urlArray = location.pathname.split("/")
+    //   urlArray[3] = cityDetails.name
+    //   let url = urlArray.join('/')
+    //   history.pushState(null, null, `${url}?id=${cityDetails.id}`)
+    // }
     return (
       <div style={{
         position: 'relative',
@@ -93,10 +93,10 @@ class ViewCity extends React.Component {
               </IfElse>
 
               <IfElse conditionMet={cityDetails.geoboundary.length || cityDetails.geoboundary}>
-                <NavLink
-                  target="_blank"
-                  exact
-                  to={`${location.pathname}/boundary?id=${this.state.queryObj.id}`}
+                <a
+                  // target="_blank"
+                  // exact
+                  // to={`${location.pathname}/boundary?id=${this.state.queryObj.id}`}
                   href={`${location.pathname}/boundary?id=${this.state.queryObj.id}`}
                 >
                   <RaisedButton
@@ -104,33 +104,33 @@ class ViewCity extends React.Component {
                     label="View city boundary"
                     style={{ marginRight: '20px' }}
                   />
-                </NavLink>
+                </a>
 
-                <NavLink
-                  target="_blank"
-                  exact
-                  to={`${location.pathname}/create-boundary?id=${this.state.queryObj.id}`}
+                <a
+                  // target="_blank"
+                  // exact
+                  // to={`${location.pathname}/create-boundary?id=${this.state.queryObj.id}`}
                   href={`${location.pathname}/create-boundary?id=${this.state.queryObj.id}`}
                 >
                   <RaisedButton
                     primary
                     label="Create new"
                   />
-                </NavLink>
+                </a>
               </IfElse>
 
               <IfElse conditionMet={cityDetails.geoboundary.length || cityDetails.geoboundary}>
-                <NavLink
-                  target="_blank"
-                  exact
-                  to={`${location.pathname}/localities?id=${this.state.queryObj.id}`}
+                <a
+                  // target="_blank"
+                  // exact
+                  // to={`${location.pathname}/localities?id=${this.state.queryObj.id}`}
                   href={`${location.pathname}/localities?id=${this.state.queryObj.id}`}
                 >
                   <RaisedButton
                     primary
                     label="View localities"
                   />
-                </NavLink>
+                </a>
                 <Fragment />
               </IfElse>
 
@@ -141,7 +141,6 @@ class ViewCity extends React.Component {
 
         <IfElse conditionMet={!loadingCityDetails}>
           <div style={{ paddingTop: '40px' }}>
-
             <CityDetailsForm
               ref={(node) => { this.cityDetailsForm = node }}
               isDisabled={!this.state.isEdit}
@@ -158,7 +157,6 @@ class ViewCity extends React.Component {
               />
               <Fragment />
             </IfElse>
-
           </div>
           <div>loading..</div>
         </IfElse>
