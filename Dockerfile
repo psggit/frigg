@@ -1,5 +1,6 @@
 FROM node:7.6.0
 
+RUN npm i -g npm@5.5.1
 RUN mkdir -p /app
 WORKDIR /app
 
