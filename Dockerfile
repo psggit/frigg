@@ -1,11 +1,11 @@
-FROM node:7.6.0
+FROM node: 8.9.3
 
-RUN npm i -g npm@5.5.1
+RUN npm i -g npm
 RUN mkdir -p /app
 WORKDIR /app
 
 COPY package.json .
-RUN npm install
+RUN npm install --build-from-source
 
 COPY ./ /app
 
