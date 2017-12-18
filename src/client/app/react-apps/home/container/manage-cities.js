@@ -112,7 +112,7 @@ class ManageCities extends React.Component {
     }
 
     history.pushState(queryObj, "city listing", `/home/manage-cities?${getQueryUri(queryObj)}`)
-
+    this.unmountFilterModal()
     this.props.actions.fetchCities({
       state_short_name: statesData[k].short_name
     })
