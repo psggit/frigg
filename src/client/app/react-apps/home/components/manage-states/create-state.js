@@ -1,96 +1,57 @@
-import React from 'react'
-import TextField from 'material-ui/TextField'
+import React, { Fragment } from 'react'
 import RaisedButton from 'material-ui/RaisedButton'
-import Dialog from 'material-ui/Dialog'
-import '@sass/components/_button.scss'
+import '@sass/components/_form.scss'
+import StateDetailsForm from './state-details.form'
+import IfElse from '@components/declarative-if-else'
 
 class CreateState extends React.Component {
-  constructor() {
-    super()
-    this.state = {
-      open: true,
-      state_name: '',
-      short_name: '',
-      isSubmitDisabled: true
-    }
-    this.handleClose = this.handleClose.bind(this)
-    this.handleChange = this.handleChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
+  constructor(props) {
+    super(props)
+
+    this.submit = this.submit.bind(this)
   }
 
-  componentDidMount() {
-    setTimeout(() => {
-      this.input.focus()
-    }, 100)
-  }
+  submit() {
+    const data = this.stateDetailsForm.getData()
 
-  handleClose() {
-    this.setState({ open: false })
-    setTimeout(() => {
-      this.props.unmountCreateStateDialog()
-    }, 500)
-  }
-
-  handleChange(e) {
-    const { state_name, short_name } = this.state
-    if (state_name.length && short_name.length) {
-      this.setState({ isSubmitDisabled: false })
-    }
-    this.setState({ [e.target.name]: e.target.value })
-  }
-
-
-  handleSubmit() {
-    const { state_name, short_name } = this.state
-    this.props.createState({
-      state_name,
-      short_name
-    })
-
-    this.handleClose()
-    this.props.setSnackBarOptions({
-      open: true,
-      message: 'State created successfully'
-    })
+    // this.props.actions.updateState({
+    //   id: data.id,
+    //   is_available: data.isCityActive,
+    //   deliverable_city: data.deliverable_city,
+    //   state_short_name: data.state_short_name,
+    //   gps: data.gps,
+    //   name: data.cityName,
+    //   geoboundary: data.geoboundary
+    // }, this.disableEditMode)
   }
 
   render() {
     return (
-      <Dialog
-        autoScrollBodyContent
-        title="Create state"
-        contentStyle={{ width: '100%', maxWidth: '500px' }}
-        modal={false}
-        open={this.state.open}
-        onRequestClose={this.handleClose}
+      <div style={{
+        position: 'relative',
+        width: '100%',
+        maxWidth: '1000px',
+        margin: '0 auto',
+        padding: '20px 0'
+      }}
       >
-        <div style={{ maxWidth: '256px' }}>
-          <p style={{ fontWeight: '600' }}>State name</p>
-          <TextField
-            ref={(node) => { this.input = node }}
-            hintText="Tamilnadu"
-            style={{ marginBottom: '20px' }}
-            onChange={this.handleChange}
-            name="state_name"
-          />
 
-          <p style={{ fontWeight: '600' }}>Short name</p>
-          <TextField
-            hintText="TN"
-            name="short_name"
-            onChange={this.handleChange}
+        <div style={{ paddingTop: '40px' }}>
+
+          <StateDetailsForm
+            ref={(node) => { this.stateDetailsForm = node }}
           />
-          <br />
 
           <RaisedButton
-            disabled={this.state.isSubmitDisabled}
-            style={{ marginTop: '20px' }}
-            label="Submit"
             primary
-            onClick={this.handleSubmit}
+            label="Submit"
+            onClick={this.submit}
+            style={{ marginTop: '40px' }}
           />
+
         </div>
-      </Dialog>
+
+      </div>
     )
   }
 }
