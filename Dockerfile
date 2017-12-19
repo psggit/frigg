@@ -1,6 +1,5 @@
 FROM node:7.6.0
 
-
 RUN mkdir -p /app
 WORKDIR /app
 

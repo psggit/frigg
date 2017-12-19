@@ -19,6 +19,10 @@ class FilterModal extends React.Component {
     }, 500)
   }
 
+  handleApplyFilter() {
+
+  }
+
   render() {
     const actions = [
       <FlatButton
@@ -29,6 +33,7 @@ class FilterModal extends React.Component {
       <RaisedButton
         primary
         label="Apply filter"
+        onClick={this.handleApplyFilter}
       />
     ]
     return (
