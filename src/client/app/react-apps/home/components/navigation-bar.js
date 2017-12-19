@@ -25,7 +25,7 @@ class NavigationBar extends  React.Component {
       >
         {
           navigationItems.map((item, i) => (
-            <a href={item.path} key={`nav-item-${i}`} exact to={item.path}>
+            <a href={item.path} key={`nav-item-${i}`}>
               <MenuItem onClick={() => { this.handleClick(item.name) }}>{item.name}</MenuItem>
             </a>
           ))
