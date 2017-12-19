@@ -1,6 +1,6 @@
-FROM node:8.9.3
+FROM node:7.6.0
 
-RUN npm i -g npm
+
 RUN mkdir -p /app
 WORKDIR /app
 
