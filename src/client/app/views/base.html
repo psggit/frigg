@@ -6,10 +6,27 @@
     <link rel="shortcut icon" href="https://daks2k3a4ib2z.cloudfront.net/59a41c353e53e400017cc923/59c2876224c8c60001616d35_For%20Webflow-01.png">
     <title>{% block title %}{% endblock %}</title>
     {% block style %}{% endblock %}
+    <style media="screen">
+    body {
+      background: #f6f6f6;
+      height: 100%;
+    }
+      #app-container {
+        position: relative;
+        width: 100%;
+        height: 100vh;
+        overflow: auto;
+        max-width: 1440px;
+        margin: 0 auto;
+        background: #fff;
+      }
+    </style>
   </head>
   <body>
-    {% block body %}{% endblock %}
-    
+    <div id="app-container">
+      {% block body %}{% endblock %}
+    </div>
+
     <script src="/cdn/react.build.js" charset="utf-8"></script>
     {% block script %}{% endblock %}
     {% block links %}{% endblock %}
