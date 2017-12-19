@@ -32,6 +32,10 @@ class App extends React.Component {
     this.handleCloseDrawer = this.handleCloseDrawer.bind(this)
     this.setHeaderTitle = this.setHeaderTitle.bind(this)
   }
+  componentWillMount() {
+    if (!localStorage.getItem('_hipbaru'))
+    location.href = '/login'
+  }
   toggleDrawer() {
     this.setState({ isDrawerOpen: !this.state.isDrawerOpen })
   }
@@ -42,6 +46,7 @@ class App extends React.Component {
     this.setState({ headerTitle })
   }
   handleLogout() {
+    localStorage.clear()
     location.href = '/login'
   }
   render() {
