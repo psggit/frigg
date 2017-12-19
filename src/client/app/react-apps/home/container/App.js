@@ -41,6 +41,9 @@ class App extends React.Component {
   setHeaderTitle(headerTitle) {
     this.setState({ headerTitle })
   }
+  handleLogout() {
+    location.href = '/login'
+  }
   render() {
     const { isDrawerOpen, headerTitle } = this.state
     return (
@@ -49,6 +52,7 @@ class App extends React.Component {
         <MuiThemeProvider>
           <div>
             <Header
+              logout={this.handleLogout}
               isDrawerOpen={isDrawerOpen}
               toggleDrawer={this.toggleDrawer}
               headerTitle={headerTitle}
