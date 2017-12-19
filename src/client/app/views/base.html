@@ -7,9 +7,14 @@
     <title>{% block title %}{% endblock %}</title>
     {% block style %}{% endblock %}
     <style media="screen">
+    a {
+      text-decoration: none;
+    }
     body {
       background: #f6f6f6;
       height: 100%;
+      margin: 0;
+      font-family: 'Open Sans', sans-serif;
     }
       #app-container {
         position: relative;
@@ -29,6 +34,8 @@
 
     <script src="/cdn/react.build.js" charset="utf-8"></script>
     {% block script %}{% endblock %}
-    {% block links %}{% endblock %}
+    {% block links %}
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+    {% endblock %}
   </body>
 </html>
