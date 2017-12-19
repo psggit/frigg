@@ -1,18 +1,6 @@
-const login = (username, password) => {
-  if (username === 'madhur' && password === 'madhur') {
-    console.log('Logged in');
-    return true
-  }
-  return false
-}
-
-login('madhur', 'madhur')
-
+import 'babel-polyfill'
 import React from 'react'
 import { render } from 'react-dom'
-
-function App() {
-  return <h1>login page</h1>
-}
+import App from './../react-apps/login'
 
 render(<App />, document.getElementById('app'))

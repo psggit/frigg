@@ -2,6 +2,8 @@ import React from 'react'
 import Drawer from 'material-ui/Drawer'
 import { NavLink } from 'react-router-dom'
 import MenuItem from 'material-ui/MenuItem'
+import '@sass/components/_menu-item.scss'
+import  { getIcon } from '@utils/icons-utils'
 
 class NavigationBar extends  React.Component {
   constructor() {
@@ -9,7 +11,7 @@ class NavigationBar extends  React.Component {
   }
   handleClick(title) {
     this.props.setHeaderTitle(title)
-    this.props.handleCloseDrawer()
+    // this.props.handleCloseDrawer()
   }
   render() {
     const navigationItems = [
@@ -18,16 +20,20 @@ class NavigationBar extends  React.Component {
     ]
     return (
       <Drawer
+        className="drawer"
         docked={false}
         label="Default"
         open={this.props.isDrawerOpen}
         onRequestChange={this.props.toggleDrawer}
       >
+        <div>
+          <MenuItem className="menu-item-heading">Super admin-v2</MenuItem>
+        </div>
         {
           navigationItems.map((item, i) => (
-            <NavLink href={item.path} key={`nav-item-${i}`} exact to={item.path}>
-              <MenuItem onClick={() => { this.handleClick(item.name) }}>{item.name}</MenuItem>
-            </NavLink>
+            <a href={item.path} key={`nav-item-${i}`}>
+              <MenuItem className="menu-item" onClick={() => { this.handleClick(item.name) }}>{item.name}</MenuItem>
+            </a>
           ))
         }
       </Drawer>

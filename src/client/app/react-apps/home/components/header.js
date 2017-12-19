@@ -12,7 +12,7 @@ const Header = (props) => {
       className='app-bar'
       title={props.headerTitle}
       onLeftIconButtonTouchTap={props.toggleDrawer}
-      iconElementRight={<FlatButton label="Logout" />}
+      iconElementRight={<FlatButton onClick={props.logout} label="Logout" />}
     />
   )
 }

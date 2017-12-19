@@ -135,7 +135,7 @@ class ManageCities extends React.Component {
             justifyContent: 'space-between'
           }}
         >
-          <a href={`${location.pathname}/create-new-city`} target="_blank">
+          <a href={`${location.pathname}/create-new-city`}>
             <RaisedButton
               label="Create new city"
               primary

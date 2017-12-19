@@ -1,0 +1,21 @@
+.menu-item-heading {
+  background: #4fbad1 !important;
+  color: #fff !important;
+  box-shadow: 0 2px 4px 0 #9b9b9b;
+  text-transform: uppercase;
+  padding: 7px 0 !important;
+  svg {
+    fill: #fff;
+    width: 20px !important;
+    height: 20px !important;
+    top: 50% !important;
+    margin: 0 !important;
+    margin-left: 20px !important;
+    transform: translateY(-50%);
+  }
+
+}
+
+.menu-item > div > div {
+  // padding: 0px 16px 0px 62px !important;
+}

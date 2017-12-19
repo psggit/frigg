@@ -1,7 +1,7 @@
 const webpackDevConfig = require('./webpack.dev.config')
 
 const env = process.env.NODE_ENV
-const SERVER_PORT = env === 'development' ? 8001 : 9002
+const SERVER_PORT = env === 'development' ? 8001 : 8080
 
 function ConfigManager() {
   return {
