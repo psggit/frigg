@@ -1,5 +1,6 @@
 import React from 'react'
 import Form from './form'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 
 class Login extends React.Component {
   constructor() {
@@ -12,9 +13,13 @@ class Login extends React.Component {
 
   render() {
     return (
-      <div>
-        <Form />
-      </div>
+      <MuiThemeProvider>
+        <div style={{ padding: '0 10%' }}>
+          <h1 style={{ color: '#333'}}>@hipbar</h1>
+          <hr />
+          <Form />
+        </div>
+      </MuiThemeProvider>
     )
   }
 }
