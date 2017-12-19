@@ -9,7 +9,7 @@ class NavigationBar extends  React.Component {
   }
   handleClick(title) {
     this.props.setHeaderTitle(title)
-    this.props.handleCloseDrawer()
+    // this.props.handleCloseDrawer()
   }
   render() {
     const navigationItems = [
@@ -25,9 +25,9 @@ class NavigationBar extends  React.Component {
       >
         {
           navigationItems.map((item, i) => (
-            <NavLink href={item.path} key={`nav-item-${i}`} exact to={item.path}>
+            <a href={item.path} key={`nav-item-${i}`} exact to={item.path}>
               <MenuItem onClick={() => { this.handleClick(item.name) }}>{item.name}</MenuItem>
-            </NavLink>
+            </a>
           ))
         }
       </Drawer>
