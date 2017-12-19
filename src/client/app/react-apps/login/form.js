@@ -41,7 +41,7 @@ class Form extends React.Component {
       username,
       password
     }
-    const { api } = this.props
+  
     const fetchOptions = {
       method: 'post',
       headers: {
@@ -65,7 +65,7 @@ class Form extends React.Component {
         response.json().then((data) => {
           localStorage.setItem('_hipbaru', JSON.stringify(data))
           createSession(data)
-          location.href = '/home'
+          location.href = document.referrer
         })
       })
       .catch((err) => {
