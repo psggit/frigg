@@ -1,43 +1,6 @@
-/**
- * # Config
- * (module_name = config)
- */
-// const env = process.env.NODE_ENV;
-
-// /**
-//  * # runtime config
-//  * holds all config values based on runtime environment
-//  */
-// const RUNTIME__CONFIG = {
-//   "development": {
-//     host: "https://gremlin.hearsay81.hasura-app.io",
-//     api_version: ""
-//   },
-
-//   "staging": {
-//     host: "https://gremlin.hearsay81.hasura-app.io",
-//     api_version: ""
-//   },
-
-//   "production": {
-//     host: "https://gremlin.hearsay81.hasura-app.io",
-//     api_version: ""
-//   }
-// }
-
-// function getHostServer() {
-//   let config = RUNTIME__CONFIG[env]
-//   return config.host
-// }
-
-// // creates base API url
-// function getApiBaseUrl() {
-//   let config = RUNTIME__CONFIG[env]
-//   return config.host + config.api_version
-// }
 
 function getAPIObj() {
-  if (window.location.href.split(':')[1] === '//localhost' ||  window.location.href.split(':')[1] === '//192.168.10.131') {
+  if (window.location.href.split(':')[1] === '//localhost') {
     let scheme = 'https'
     let baseHost = '.hearsay81.hasura-app.io'
     let appName = 'hearsay81'
@@ -53,9 +16,10 @@ function getAPIObj() {
     let scheme = window.location.href.split(':')[0]
     let baseHost = window.location.hostname.match(/.*?(\..*)/)[1]
     let subdomain = window.location.hostname.split('.')[0]
-    let authUrl = subdomain === 'support' || subdomain === 'delivery'
-                  ? scheme + '://auth' + baseHost
-                  : scheme + '://gremlin' + baseHost
+    // let authUrl = subdomain === 'support' || subdomain === 'delivery'
+    //               ? scheme + '://auth' + baseHost
+    //               : scheme + '://gremlin' + baseHost
+    let authUrl =  scheme + '://auth' + baseHost
 
     return {
       authUrl: authUrl,
