@@ -4,12 +4,14 @@ export function getHasuraRole(data) {
   const rolesMap = {
     "user": 1,
     "admin": 6,
-    "support_person": 3,
-    "support_admin": 5,
-    "support_team_leader": 4,
-    "excise_person": 2,
-    "support_master": 6,
-    "delivery_support_person": 3
+    "dataadmin": 5,
+    "dataentry": 4
+    // "support_person": 3,
+    // "support_admin": 5,
+    // "support_team_leader": 4,
+    // "excise_person": 2,
+    // "support_master": 6,
+    // "delivery_support_person": 3
   }
   let maxRole = rolesMap["user"]
   let xHasuraRole = "user"

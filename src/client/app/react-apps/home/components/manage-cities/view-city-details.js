@@ -7,7 +7,9 @@ import { NavLink } from 'react-router-dom'
 import { getQueryObj } from '@utils/url-utils'
 import '@sass/components/_form.scss'
 import CityDetailsForm from './city-details-form'
+import DefineGeoboundary from './../manage-geofencing/define-geoboundary'
 import IfElse from '@components/declarative-if-else'
+import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card'
 
 class ViewCity extends React.Component {
   constructor(props) {
@@ -55,108 +57,94 @@ class ViewCity extends React.Component {
   }
 
   render() {
-    const { loadingCityDetails, cityDetails } = this.props
+    const {
+      actions,
+      statesData,
+      citiesData,
+      cityDetails,
+      geoLocalitiesData,
+      loadingCities,
+      loadingStates,
+      loadingCityDetails,
+      loadingGeoboundary,
+      loadingGeolocalities,
+      isGeolocalityUpdated,
+      match
+    } = this.props
 
-    // if (!loadingCityDetails) {
-    //   let urlArray = location.pathname.split("/")
-    //   urlArray[3] = cityDetails.name
-    //   let url = urlArray.join('/')
-    //   history.pushState(null, null, `${url}?id=${cityDetails.id}`)
-    // }
+    const queryObj = getQueryObj(location.search.slice(1))
+
     return (
       <div style={{
         position: 'relative',
-        width: '100%',
-        maxWidth: '1000px',
-        margin: '0 auto',
-        padding: '20px 0'
+        width: '100%'
       }}
       >
-        {
-          !loadingCityDetails
-          ? (
-            <div style={{ position: 'absolute', right: '0' }}>
-
-              <IfElse conditionMet={!this.state.isEdit}>
-                <RaisedButton
-                  primary
-                  label="Edit City"
-                  onClick={this.enableEditMode}
-                  style={{ marginRight: '20px' }}
-                />
-                <RaisedButton
-                  primary
-                  label="Cancel"
-                  onClick={this.disableEditMode}
-                  style={{ marginRight: '20px' }}
-                />
-              </IfElse>
-
-              <IfElse conditionMet={cityDetails.geoboundary.length || cityDetails.geoboundary}>
-                <a
-                  // target="_blank"
-                  // exact
-                  // to={`${location.pathname}/boundary?id=${this.state.queryObj.id}`}
-                  href={`${location.pathname}/boundary?id=${this.state.queryObj.id}`}
-                >
-                  <RaisedButton
-                    primary
-                    label="View city boundary"
-                    style={{ marginRight: '20px' }}
-                  />
-                </a>
-
-                <a
-                  // target="_blank"
-                  // exact
-                  // to={`${location.pathname}/create-boundary?id=${this.state.queryObj.id}`}
-                  href={`${location.pathname}/create-boundary?id=${this.state.queryObj.id}`}
-                >
-                  <RaisedButton
-                    primary
-                    label="Create new"
-                  />
-                </a>
-              </IfElse>
-
-              <IfElse conditionMet={cityDetails.geoboundary.length || cityDetails.geoboundary}>
-                <a
-                  // target="_blank"
-                  // exact
-                  // to={`${location.pathname}/localities?id=${this.state.queryObj.id}`}
-                  href={`${location.pathname}/localities?id=${this.state.queryObj.id}`}
-                >
-                  <RaisedButton
-                    primary
-                    label="View localities"
-                  />
-                </a>
-                <Fragment />
-              </IfElse>
-
-            </div>
-          )
-          : ''
-        }
 
         <IfElse conditionMet={!loadingCityDetails}>
-          <div style={{ paddingTop: '40px' }}>
-            <CityDetailsForm
-              ref={(node) => { this.cityDetailsForm = node }}
-              isDisabled={!this.state.isEdit}
-              isCityActive={cityDetails.is_available}
-              cityName={cityDetails.name}
-            />
+          <div>
+            <Card style={{
+              padding: '20px',
+              width: '30%',
+              position: 'relative',
+              display: 'inline-block',
+              verticalAlign: 'top',
+              marginRight: '20px'
+            }}
+            >
+                <IfElse conditionMet={!this.state.isEdit}>
+                  <button
+                    style={{ position: 'absolute', top: '10px', right: '10px' }}
+                    className="btn--icon"
+                    onClick={this.enableEditMode}
+                  >
+                    <img src="/images/pencil.svg" />
+                  </button>
+                  <button
+                    style={{ position: 'absolute', top: '10px', right: '10px' }}
+                    className="btn--icon"
+                    onClick={this.disableEditMode}
+                  >
+                    <img src="/images/cross-blue.svg" />
+                  </button>
 
-            <IfElse conditionMet={this.state.isEdit}>
-              <RaisedButton
-                primary
-                label="Update changes"
-                onClick={this.update}
-                style={{ marginTop: '40px' }}
+                </IfElse>
+              <CityDetailsForm
+                ref={(node) => { this.cityDetailsForm = node }}
+                isDisabled={!this.state.isEdit}
+                isCityActive={cityDetails.is_available}
+                cityName={cityDetails.name}
               />
-              <Fragment />
-            </IfElse>
+
+                <IfElse conditionMet={this.state.isEdit}>
+                  <RaisedButton
+                    primary
+                    label="Update changes"
+                    onClick={this.update}
+                    style={{ marginTop: '40px' }}
+                  />
+                  <Fragment />
+                </IfElse>
+            </Card>
+            <Card style={{
+              padding: '20px',
+              width: 'calc(70% - 20px)',
+              position: 'relative',
+              display: 'inline-block',
+              verticalAlign: 'top'
+            }}
+            >
+              <DefineGeoboundary
+                setLoadingState={actions.setLoadingState}
+                fetchCityDetails={actions.fetchCityDetails}
+                updateGeoboundary={actions.updateGeoboundary}
+                cityDetails={cityDetails}
+                loadingCityDetails={loadingCityDetails}
+                isGeolocalityUpdated={isGeolocalityUpdated}
+                cityId={parseInt(queryObj.id)}
+                mode={'edit'}
+              />
+            </Card>
           </div>
           <div>loading..</div>
         </IfElse>

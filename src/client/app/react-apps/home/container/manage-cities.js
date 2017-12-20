@@ -61,7 +61,9 @@ class ManageCities extends React.Component {
       this.setState({ [item[0]]: item[1] })
     })
     this.props.actions.fetchCities({
-      state_short_name: queryObj.short_name
+      state_short_name: queryObj.short_name,
+      offset: 0,
+      limti: 20
     })
   }
 

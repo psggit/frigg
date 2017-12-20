@@ -157,11 +157,6 @@ class DefineGeoboundary extends React.Component {
       })
       this.createNewBoundary()
     }
-
-    map.setOptions({
-      disableDefaultUI: true,
-      zoomControl: true
-    })
   }
 
   render() {
