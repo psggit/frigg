@@ -44,7 +44,7 @@
 .btn.btn--primary {
   background: #4990e2;
   color: #fff;
-  &:hover:not(&:disabled) {
+  &:hover:not(:disabled) {
     background: #2c70bf;
   }
 }

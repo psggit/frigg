@@ -27,6 +27,7 @@
     "react-alert": "^2.4.0",
     "react-dom": "^16.2.0",
     "react-gmaps": "^1.7.0",
+    "react-js-pagination": "^3.0.0",
     "react-motion": "^0.5.2",
     "react-redux": "^5.0.6",
     "react-router": "^4.1.1",

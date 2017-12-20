@@ -5,10 +5,9 @@ import RaisedButton from 'material-ui/RaisedButton'
 import FlatButton from 'material-ui/FlatButton'
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
-// import Snackbar from 'material-ui/Snackbar'
+import Pagination from '@components/pagination'
+import '@sass/components/_pagination.scss'
 import * as Actions from './../actions'
-// import CreateCity from './../components/manage-cities/create-city'
-// import EditCity from './../components/manage-cities/edit-city'
 import ViewCities from './../components/manage-cities/view-cities'
 import RoleBasedComponent from '@components/RoleBasedComponent'
 import getIcon from './../components/icon-utils'
@@ -22,20 +21,16 @@ class ManageCities extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      // shouldMountEditState: false,
-      // shouldMountCreateState: false,
       shouldMountFilterDialog: false,
       stateIdx: 0,
     }
-    // this.mountEditStateDialog = this.mountEditStateDialog.bind(this)
-    // this.unmountEditStateDialog = this.unmountEditStateDialog.bind(this)
-    // this.mountCreateStateDialog = this.mountCreateStateDialog.bind(this)
-    // this.unmountCreateStateDialog = this.unmountCreateStateDialog.bind(this)
+
     this.mountFilterDialog = this.mountFilterDialog.bind(this)
     this.unmountFilterModal = this.unmountFilterModal.bind(this)
     this.handleStateChange = this.handleStateChange.bind(this)
     this.setQueryParamas = this.setQueryParamas.bind(this)
     this.fetchData = this.fetchData.bind(this)
+    this.setPage = this.setPage.bind(this)
   }
 
   componentDidMount() {
@@ -70,28 +65,9 @@ class ManageCities extends React.Component {
     })
   }
 
-  // setSnackBarOptions(options) {
-  //   this.setState({ snackBar: options })
-  // }
-  //
-  // mountCreateStateDialog() {
-  //   this.setState({ shouldMountCreateState: true })
-  // }
-  //
-  // unmountCreateStateDialog() {
-  //   this.setState({ shouldMountCreateState: false })
-  // }
-  //
-  // mountEditStateDialog(stateToBeEdit) {
-  //   this.setState({
-  //     shouldMountEditState: true,
-  //     stateToBeEdit
-  //   })
-  // }
-  //
-  // unmountEditStateDialog() {
-  //   this.setState({ shouldMountEditState: false })
-  // }
+  setPage(pageObj) {
+    this.setState(pageObj)
+  }
 
   mountFilterDialog() {
     this.setState({ shouldMountFilterDialog: true })
@@ -150,8 +126,6 @@ class ManageCities extends React.Component {
           />
         </div>
 
-        {/* <p style={{ color: '#9b9b9b', margin: '20px 0px 0 20px' }}>or</p> */}
-
         <br />
 
         {
@@ -172,28 +146,17 @@ class ManageCities extends React.Component {
           mountEditStateDialog={this.mountEditStateDialog}
         />
 
-        {/* {
-          this.state.shouldMountEditState
-          ? (
-            <EditCity
-              shouldMountEditState={this.state.shouldMountEditState}
-              unmountEditStateDialog={this.unmountEditStateDialog}
-            />
-          )
+        {
+          !loadingCities && citiesData.length
+          ? <Pagination
+            activePage={this.state.activePage}
+            itemsCountPerPage={10}
+            totalItemsCount={20}
+            pageRangeDisplayed={5}
+            setPage={this.setPage}
+          />
           : ''
         }
-
-        {
-          this.state.shouldMountCreateState
-          ? (
-            <CreateCity
-              statesData={this.props.statesData}
-              shouldMountCreateState={this.state.shouldMountCreateState}
-              unmountCreateStateDialog={this.unmountCreateStateDialog}
-            />
-          )
-          : ''
-        } */}
 
         {
           this.state.shouldMountFilterDialog
