@@ -8,7 +8,7 @@ import MenuItem from 'material-ui/MenuItem'
 import Pagination from '@components/pagination'
 import '@sass/components/_pagination.scss'
 import * as Actions from './../actions'
-import ViewCities from './../components/manage-cities/view-cities'
+import ViewLocalities from './../components/manage-localities/view-localities'
 import RoleBasedComponent from '@components/RoleBasedComponent'
 import getIcon from './../components/icon-utils'
 import FilterModal from '@components/filter-modal'
@@ -18,29 +18,32 @@ import '@sass/components/_form.scss'
 
 import * as Roles from './../constants/roles'
 
-class ManageCities extends React.Component {
+class ManageLocalities extends React.Component {
   constructor(props) {
     super(props)
     this.filter = {
       stateShortName: null,
-      isCityAvailable: false,
-      stateName: null
+      isLocalityAvailable: false,
+      stateName: null,
+      cityId: null
     }
     this.state = {
       shouldMountFilterDialog: false,
       stateIdx: null,
+      cityIdx: null,
       activePage: 1,
-      isCityAvailable: false
+      isLocalityAvailable: false
     }
 
     this.mountFilterDialog = this.mountFilterDialog.bind(this)
     this.unmountFilterModal = this.unmountFilterModal.bind(this)
     this.handleStateChange = this.handleStateChange.bind(this)
+    this.handleCityChange = this.handleCityChange.bind(this)
     this.setQueryParamas = this.setQueryParamas.bind(this)
     this.fetchData = this.fetchData.bind(this)
     this.setPage = this.setPage.bind(this)
     this.applyFilter = this.applyFilter.bind(this)
-    this.handleChangeIsCityAvailable = this.handleChangeIsCityAvailable.bind(this)
+    this.handleChangeIsLocalityAvailable = this.handleChangeIsLocalityAvailable.bind(this)
   }
 
   componentDidMount() {
@@ -60,12 +63,11 @@ class ManageCities extends React.Component {
       this.setQueryParamas()
     } else {
       // if there is no query string then fetch defult citiesData/all citiesData
-      this.props.actions.fetchCities({
-        state_short_name: null,
+      this.props.actions.fetchLocalities({
+        city_id: null,
         is_available: false,
         offset: 0,
         limit: 10,
-        deliverable_city: true,
         no_filter: true
       })
       this.setState({ stateIdx: 0 })
@@ -80,12 +82,11 @@ class ManageCities extends React.Component {
       this.filter[item[0]] = item[1]
     })
 
-    this.props.actions.fetchCities({
-      state_short_name: queryObj.stateShortName || null,
-      offset: queryObj.offset ? parseInt(queryObj.offset) : 0,
+    this.props.actions.fetchLocalities({
+      city_id: parseInt(queryObj.cityId) || null,
+      is_available: queryObj.isLocalityAvailable || false,
+      offset: parseInt(queryObj.offset),
       limit: 10,
-      is_available: queryObj.isCityAvailable ? JSON.parse(queryObj.isCityAvailable) : false,
-      deliverable_city: true,
       no_filter: queryObj.filter ? false : true
     })
   }
@@ -96,19 +97,17 @@ class ManageCities extends React.Component {
     const { statesData } = this.props
 
     this.setState(pageObj)
-    this.props.actions.fetchCities({
-      state_short_name: this.filter.stateShortName,
+    this.props.actions.fetchLocalities({
+      city_id: parseInt(queryObj.cityId) || null,
+      is_available: queryObj.isLocalityAvailable || false,
       offset: pageObj.offset,
       limit: 10,
-      is_available: this.filter.isCityAvailable,
-      deliverable_city: true,
       no_filter: queryObj.filter ? false : true
     })
 
-
     queryObj.activePage = pageObj.activePage
     queryObj.offset = pageObj.offset
-    history.pushState(queryObj, "city listing", `/home/manage-cities?${getQueryUri(queryObj)}`)
+    history.pushState(queryObj, "city listing", `/home/manage-localities?${getQueryUri(queryObj)}`)
   }
 
   mountFilterDialog() {
@@ -119,24 +118,35 @@ class ManageCities extends React.Component {
     this.setState({ shouldMountFilterDialog: false })
   }
 
+  handleCityChange(e, k) {
+    const { citiesData } = this.props
+    const cityIdx = k + 1
+    this.setState({ cityIdx })
+    this.filter.cityId = citiesData[k].id
+    this.filter.cityName = citiesData[k].name
+  }
+
   handleStateChange(e, k) {
     const { statesData } = this.props
     const stateIdx = k + 1
-    this.setState({ stateIdx })
+    this.setState({ stateIdx, cityIdx: null })
 
-    const queryObj = {
-      stateIdx,
-      short_name: statesData[k].short_name,
-      offset: 0,
-      activePage: 1
-    }
 
     this.filter.stateShortName = statesData[k].short_name
     this.filter.stateName = statesData[k].state_name
+
+    this.props.actions.fetchCities({
+      state_short_name: statesData[k].short_name,
+      is_available: false,
+      offset: 0,
+      limit: 999999,
+      deliverable_city: true,
+      no_filter: false
+    })
   }
 
-  handleChangeIsCityAvailable(e) {
-    this.setState({ isCityAvailable: e.target.checked })
+  handleChangeIsLocalityAvailable(e) {
+    this.setState({ isLocalityAvailable: e.target.checked })
     // this.filter.isCityAvailable = e.target.checked
   }
 
@@ -146,26 +156,29 @@ class ManageCities extends React.Component {
     const queryObj = {
       stateIdx: this.state.stateIdx,
       stateShortName: this.filter.stateShortName,
+      cityId: this.filter.cityId,
       stateName: this.filter.stateName,
-      isCityAvailable: this.state.isCityAvailable,
+      isLocalityAvailable: this.state.isLocalityAvailable,
       offset: 0,
       activePage: 1,
       filter: true
     }
 
     this.setState({
+      offset: 0,
+      activePage: 1,
       stateShortName: this.filter.stateShortName,
-      stateName: this.filter.stateName
+      stateName: this.filter.stateName,
+      cityName: this.filter.cityName
     })
 
-    history.pushState(queryObj, "city listing", `/home/manage-cities?${getQueryUri(queryObj)}`)
+    history.pushState(queryObj, "city listing", `/home/manage-localities?${getQueryUri(queryObj)}`)
 
-    this.props.actions.fetchCities({
-      state_short_name: queryObj.stateShortName,
-      is_available: queryObj.isCityAvailable,
+    this.props.actions.fetchLocalities({
+      city_id: queryObj.cityId,
+      is_available: queryObj.isLocalityAvailable,
       offset: 0,
       limit: 10,
-      deliverable_city: true,
       no_filter: false
     })
   }
@@ -176,6 +189,8 @@ class ManageCities extends React.Component {
       citiesData,
       loadingStates,
       citiesCount,
+      geoLocalitiesData,
+      loadingGeolocalities,
       statesData
     } = this.props
 
@@ -188,9 +203,9 @@ class ManageCities extends React.Component {
             justifyContent: 'space-between'
           }}
         >
-          <a href={`${location.pathname}/create-new-city`}>
+          <a href={`${location.pathname}/create-new-locality`}>
             <RaisedButton
-              label="Create new city"
+              label="Create new locality"
               primary
               onClick={this.mountCreateStateDialog}
             />
@@ -206,29 +221,30 @@ class ManageCities extends React.Component {
         <br />
 
         {
-          !loadingCities && statesData.length && this.state.stateName
-          ? <h3>Showing cities in {`${this.state.stateName}`}</h3>
+          !loadingCities && statesData.length && this.state.cityName
+          ? <h3>Showing localities in {`${this.state.cityName}`}</h3>
           : ''
         }
 
         {
           !this.state.stateName
-          ? <h3>Showing all cities</h3>
+          ? <h3>Showing all localities</h3>
           : ''
         }
 
-        <ViewCities
-          citiesData={citiesData}
-          loadingCities={loadingCities}
+        <ViewLocalities
+          geoLocalitiesData={geoLocalitiesData}
+          loadingGeolocalities={loadingGeolocalities}
           mountEditStateDialog={this.mountEditStateDialog}
+          stateIdx={this.state.stateIdx}
         />
 
         {
-          !loadingCities && citiesData.length
+          !loadingGeolocalities && geoLocalitiesData.fences.length
           ? <Pagination
             activePage={parseInt(this.state.activePage)}
             itemsCountPerPage={10}
-            totalItemsCount={citiesCount}
+            totalItemsCount={geoLocalitiesData.count}
             pageRangeDisplayed={5}
             setPage={this.setPage}
           />
@@ -240,7 +256,7 @@ class ManageCities extends React.Component {
           ? (
             <FilterModal
               applyFilter={this.applyFilter}
-              title="Filter Cities"
+              title="Filter localities"
               unmountFilterModal={this.unmountFilterModal}
             >
               <div>
@@ -267,12 +283,35 @@ class ManageCities extends React.Component {
                   </SelectField>
                 </div>
                 <div className="form-group">
+                  <label>City</label><br />
+                  <SelectField
+                    floatingLabelText="Choose state"
+                    disabled={loadingCities || !citiesData.length}
+                    value={parseInt(this.state.cityIdx)}
+                    onChange={this.handleCityChange}
+                  >
+                    {
+                      !loadingCities && citiesData.length
+                      ? (
+                        citiesData.map((city, i) => (
+                          <MenuItem
+                            value={i + 1}
+                            key={city.id}
+                            primaryText={city.name}
+                          />
+                        ))
+                      )
+                      : ''
+                    }
+                  </SelectField>
+                </div>
+                <div className="form-group">
                   <Checkbox
                     style={{ marginTop: '10px' }}
                     // disabled={this.props.isDisabled}
-                    checked={this.state.isCityAvailable}
-                    onCheck={this.handleChangeIsCityAvailable}
-                    name="isCityActive"
+                    checked={this.state.isLocalityAvailable}
+                    onCheck={this.handleChangeIsLocalityAvailable}
+                    name="isLocalityAvailable"
                     label="is_available"
                   />
                 </div>
@@ -295,4 +334,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(ManageCities)
+)(ManageLocalities)

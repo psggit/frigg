@@ -7,16 +7,18 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import Header from './../components/header'
 import NavigationBar from './../components/navigation-bar'
 import DisplayScreen from './display-screen'
-import CreateLocality from './create-locality'
+// import CreateLocality from './create-locality'
 import ManageStates from './manage-states'
 import ManageCities from './manage-cities'
-import ManageLocalities from './create-locality'
+import ManageLocalities from './manage-localities'
 import ViewLocalities from './../components/manage-geofencing/view-locality'
 import NotFound from './../../../react-apps/not-found'
 import ViewCity from './../components/manage-cities/view-city-details'
 import ViewState from './../components/manage-states/view-state-details'
+import ViewLocality from './../components/manage-localities/view-locality-details'
 import CreateCity from './../components/manage-cities/create-city'
 import CreateState from './../components/manage-states/create-state'
+import CreateLocality from './../components/manage-localities/create-locality'
 import { getBreadCrumbPath } from '@utils/url-utils'
 // import '@sass/components/_heading.scss'
 
@@ -33,8 +35,8 @@ class App extends React.Component {
     this.setHeaderTitle = this.setHeaderTitle.bind(this)
   }
   componentWillMount() {
-    if (!localStorage.getItem('_hipbaru'))
-    location.href = '/login'
+    // if (!localStorage.getItem('_hipbaru'))
+    // location.href = '/login'
   }
   toggleDrawer() {
     this.setState({ isDrawerOpen: !this.state.isDrawerOpen })
@@ -70,17 +72,19 @@ class App extends React.Component {
             />
             <DisplayScreen>
                 <Switch>
-                  <Route exact path="/home/manage-geofencing" component={CreateLocality} />
+                  <Route exact path="/home/manage-localities" component={ManageLocalities} />
                   <Route exact path="/home/manage-states" component={ManageStates} />
                   <Route exact path="/home/manage-states/create-new-state" component={CreateState} />
                   <Route exact path="/home/manage-states/:stateSlug" component={ViewState} />
                   <Route exact path="/home/manage-cities" component={ManageCities} />
                   <Route exact path="/home/manage-cities/create-new-city" component={CreateCity} />
-                  <Route exact path="/home/manage-cities/:citySlug/localities" component={ManageLocalities} />
+                  <Route exact path="/home/manage-cities/:citySlug/localities" component={CreateLocality} />
                   <Route exact path="/home/manage-cities/:citySlug/boundary" component={ManageLocalities} />
                   <Route exact path="/home/manage-cities/:citySlug/create-boundary" component={ManageLocalities} />
                   <Route exact path="/home/manage-cities/localities/edit/:id" component={ViewLocalities} />
                   <Route exact path="/home/manage-cities/:citySlug" component={ViewCity} />
+                  <Route exact path="/home/manage-localities/create-new-locality" component={CreateLocality} />
+                  <Route exact path="/home/manage-localities/:localitySlug" component={ViewLocality} />
                 </Switch>
             </DisplayScreen>
           </div>

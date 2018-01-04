@@ -16,7 +16,8 @@ class NavigationBar extends  React.Component {
   render() {
     const navigationItems = [
       { name: 'Manage States', path: '/home/manage-states' },
-      { name: 'Manage Cities', path: '/home/manage-cities' }
+      { name: 'Manage Cities', path: '/home/manage-cities' },
+      { name: 'Manage Localities', path: '/home/manage-localities' }
     ]
     return (
       <Drawer
@@ -27,7 +28,7 @@ class NavigationBar extends  React.Component {
         onRequestChange={this.props.toggleDrawer}
       >
         <div>
-          <MenuItem className="menu-item-heading">Super admin-v2</MenuItem>
+          <a href="/home"><MenuItem className="menu-item-heading">Super admin-v2</MenuItem></a>
         </div>
         {
           navigationItems.map((item, i) => (

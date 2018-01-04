@@ -42,7 +42,7 @@ class DefineLocality extends React.Component {
       isGeolocalityExist: false,
       shouldMountCreateNewLocality: false,
       shouldMountEditLocality: false,
-      isEdit: false,
+      isEdit: true,
       isCreate: true
     }
 
@@ -51,6 +51,7 @@ class DefineLocality extends React.Component {
     this.handleMapCreation = this.handleMapCreation.bind(this)
     this.updateFence = this.updateFence.bind(this)
     this.setGeoLocality = this.setGeoLocality.bind(this)
+    this.setGeoBoundary = this.setGeoBoundary.bind(this)
     this.clearSelection = this.clearSelection.bind(this)
     this.unmountCreateNewLocalityDialog = this.unmountCreateNewLocalityDialog.bind(this)
     this.unmountEditLocalityDialog = this.unmountEditLocalityDialog.bind(this)
@@ -64,20 +65,27 @@ class DefineLocality extends React.Component {
     this.highlightFence = this.highlightFence.bind(this)
     this.unHighlightFence = this.unHighlightFence.bind(this)
     this.focusFence = this.focusFence.bind(this)
-    this.editGeoboundary = this.editGeoboundary.bind(this)
-    // this.highLightLegend = this.highLightLegend.bind(this)
+    this.editGeolocality = this.editGeolocality.bind(this)
+    this.getEditOrCancelButton = this.getEditOrCancelButton.bind(this)
+    this.getData = this.getData.bind(this)
   }
 
   componentDidMount() {
-    this.props.viewGeolocalities({
-      city_id: this.props.cityId
-    })
+    if (this.props.cityId) {
+      this.props.viewGeolocalities({
+        city_id: this.props.cityId,
+        offset: 0,
+        limit: 50,
+        is_available: false,
+        no_filter: false
+      })
+    }
   }
 
   updateFence(data) {
     const { stateIdx, fenceIdx } = this.state
     const { geoLocalitiesData } = this.props
-    const polygonPoints = getPolygonPoints(this.geolocality)
+    const polygonPoints = getPolygonPoints(this.geoLocalities[0])
     const coordinatesInString = getCoordinatesInString(polygonPoints)
 
     this.props.updateGeolocality({
@@ -85,8 +93,17 @@ class DefineLocality extends React.Component {
       city_id: this.props.cityId,
       coordinates: coordinatesInString,
       name: geoLocalitiesData.fences[fenceIdx].name,
-      is_active: geoLocalitiesData.fences[fenceIdx].is_active
+      is_available: geoLocalitiesData.fences[fenceIdx].is_active
     }, this.callbackUpdate)
+  }
+
+  getData() {
+    if (this.geoLocalities[0]) {
+      const polygonPoints = getPolygonPoints(this.geoLocalities[0])
+      const coordinatesInString = getCoordinatesInString(polygonPoints)
+      return coordinatesInString
+    }
+    return null
   }
 
   // handleStateChange(e, k) {
@@ -99,13 +116,9 @@ class DefineLocality extends React.Component {
   //   this.geolocality.setEditable(true)
   // }
 
-  editGeoboundary(fenceIdx) {
-    this.setState({ isEdit: true, fenceIdx })
-    if (this.geolocality) {
-      this.geolocality.setEditable(false)
-    }
-    this.geolocality = this.geoLocalities[fenceIdx]
-    this.geolocality.setEditable(true)
+  editGeolocality() {
+    this.geoLocalities[0].setEditable(true)
+    this.setState({ isEdit: false })
   }
 
   // enableViewMode() {
@@ -132,8 +145,9 @@ class DefineLocality extends React.Component {
   }
 
   clearSelection() {
+    this.setState({ isEdit: true })
     this.changeGmapKey()
-    this.geoboundary.setEditable(false)
+    this.geoLocalities[0].setEditable(false)
   }
 
   setGeoBoundary(map, geoboundary) {
@@ -158,7 +172,7 @@ class DefineLocality extends React.Component {
   createNewLocality() {
     this.drawingManager.setOptions({
       drawingControl: true,
-      drawingMode: google.maps.drawing.OverlayType.POLYGON
+      drawingMode: null
     })
     if (this.geolocality) {
       this.geolocality.setEditable(false)
@@ -216,44 +230,77 @@ class DefineLocality extends React.Component {
     })
   }
 
-  submitNewLocality(localityName) {
+  submitNewLocality(data) {
     // debugger;
     const polygonPoints = getPolygonPoints(this.newLocality)
     const coordinatesInString = getCoordinatesInString(polygonPoints)
     this.props.createGeolocality({
       city_id: this.props.cityId,
       coordinates: coordinatesInString,
-      name: localityName,
-      is_active: true
+      name: data.localityName,
+      is_available: data.isLocalityActive
     }, this.callbackUpdate)
+
+    this.unmountCreateNewLocalityDialog()
+  }
+
+  getEditOrCancelButton() {
+    if (this.state.isEdit) {
+      return (
+        <RaisedButton
+          onClick={this.editGeolocality}
+          label="Edit locality"
+          style={{ marginRight: 12 }}
+        />
+      )
+    }
+    return (
+      <RaisedButton
+        onClick={this.clearSelection}
+        label="Cancel edit"
+        style={{ marginRight: 12 }}
+      />
+    )
   }
 
   handleMapCreation(map) {
-    console.log('handleMapCreation called');
-    const { geoLocalitiesData } = this.props
+    const { geoLocalitiesData, localityId } = this.props
+    let localities = geoLocalitiesData.fences
     const lat = geoLocalitiesData.city.gps.split(',')[0]
     const lng = geoLocalitiesData.city.gps.split(',')[1]
     //
     this.setState({ lat, lng })
 
-    // this.displayRetailers(map)
+    if (localityId) {
+      localities = localities.filter(locality => locality.id === localityId)
+    } else {
+      const drawingManager = configureDrawingManager(map)
+      this.drawingManager = drawingManager
+
+      setupEventListeners(drawingManager, map, {
+        setSelection: this.setGeoLocality
+      })
+      this.createNewLocality()
+    }
+
+    if (geoLocalitiesData.city.geoboundary) {
+      this.setGeoBoundary(map, geoLocalitiesData.city.geoboundary)
+    }
 
     if (geoLocalitiesData.fences.length) {
-      this.setGeoBoundary(map, geoLocalitiesData.city.geoboundary)
-      const polygonsCoordiantes = geoLocalitiesData.fences.map((geoLocalityData, i) => ({
+      const polygonsCoordiantes = localities.map((geoLocalityData, i) => ({
         coordinates: getCoordinatesInObjects(geoLocalityData.coordinates),
-        color: geoLocalityData.is_active ? this.colorMap[i % this.colorMap.length] : '#9b9b9b',
-        stroke: 'transparent',
+        color: geoLocalityData.is_available ? this.colorMap[i % this.colorMap.length] : '#9b9b9b',
+        stroke: geoLocalityData.is_available ? this.colorMap[i % this.colorMap.length] : '#9b9b9b',
         name: geoLocalityData.name
       }))
 
-      const polygons =  polygonsCoordiantes.map(polygonCoordiantes => (
+      const polygons = polygonsCoordiantes.map(polygonCoordiantes => (
         createPolygonFromCoordinates(polygonCoordiantes)
       ))
 
       this.geoLocalities = polygons
-      this.setState({ isGeolocalityExist: true })
-      polygons.forEach((polygon, i) => {
+      polygons.forEach((polygon) => {
         displayPolygonOnMap(map, polygon)
         attachClickEventOnPolygon(polygon, () => {
           labelPolygon(map, polygon)
@@ -262,40 +309,30 @@ class DefineLocality extends React.Component {
           removeLabelFromPolygon(map, polygon)
         })
       })
-      const drawingManager = configureDrawingManager(map)
-      this.drawingManager = drawingManager
-      setupEventListeners(drawingManager, map, {
-        setSelection: this.setGeoLocality
-      })
     }
-
-    map.setOptions({
-      disableDefaultUI: true,
-      zoomControl: true
-    })
   }
 
   render() {
     const { lat, lng, stateIdx } = this.state
 
-    // console.log('render called');
+    const { geoLocalitiesData } = this.props
     return (
       <div>
         {
-          !this.props.loadingGeolocalities
+          !this.props.loadingGeolocalities || !this.props.cityId
           ? (
             <div>
-              <LocalityLegends
+              {/* <LocalityLegends
                 colors={this.colorMap}
                 focusFence={this.focusFence}
                 unHighlightFence={this.unHighlightFence}
                 highlightFence={this.highlightFence}
                 editGeoboundary={this.editGeoboundary}
                 legends={this.props.geoLocalitiesData.fences}
-              />
-              <h3 style={{marginLeft: '100px'}}>City localities</h3>
+              /> */}
+              <h3>Localities in {geoLocalitiesData.city.name}</h3>
               <Gmaps
-                style={{right: '-100px'}}
+                // style={{right: '-100px'}}
                 height="600px"
                 lat={lat}
                 lng={lng}
@@ -307,36 +344,13 @@ class DefineLocality extends React.Component {
 
               <br />
 
-              <div style={{marginLeft: '100px'}}>
-                <RaisedButton
-                  disabled={!this.state.isEdit}
-                  onClick={this.updateFence}
-                  label="Update changes"
-                  style={{ marginRight: 12 }}
-                />
+              <div /* style={{marginLeft: '100px'}} */>
+                {
+                  this.props.localityId
+                  ? this.getEditOrCancelButton()
+                  : ''
+                }
 
-                <RaisedButton
-                  onClick={this.createNewLocality}
-                  label="Create new"
-                  style={{ marginRight: 12 }}
-                />
-
-                {/* <SelectField
-                  style={{ verticalAlign: 'middle', margin: '0 20px' }}
-                  floatingLabelText="Choose state"
-                  value={this.state.stateIdx}
-                  onChange={this.handleStateChange}
-                >
-                  {
-                    this.props.geoLocalitiesData.fences.map((locality, i) => (
-                      <MenuItem
-                        value={i + 1}
-                        key={locality.id}
-                        primaryText={locality.name}
-                      />
-                    ))
-                  }
-                </SelectField> */}
 
               </div>
 

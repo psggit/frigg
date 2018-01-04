@@ -6,66 +6,61 @@ import RaisedButton from 'material-ui/RaisedButton'
 import { NavLink } from 'react-router-dom'
 import { getQueryObj } from '@utils/url-utils'
 import '@sass/components/_form.scss'
-import CityDetailsForm from './city-details-form'
-import DefineGeoboundary from './../manage-geofencing/define-geoboundary'
+import LocalityDetailsForm from './locality-details-form'
+import DefineLocality from './../manage-geofencing/define-locality'
 import IfElse from '@components/declarative-if-else'
-import { Card } from 'material-ui/Card'
+import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card'
 
 class ViewCity extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      isEdit: false,
-      stateIdx: 0
+      isEdit: false
     }
 
     this.enableEditMode = this.enableEditMode.bind(this)
     this.disableEditMode = this.disableEditMode.bind(this)
-    // this.setStateIdxFromShortName = this.setStateIdxFromShortName.bind(this)
     this.update = this.update.bind(this)
+    this.callbackUpdate = this.callbackUpdate.bind(this)
   }
 
   componentDidMount() {
     const { actions, match } = this.props
     const queryObj = getQueryObj(location.search.slice(1))
+
     this.setState({ queryObj })
+
+    actions.fetchLocalities({
+      city_id: parseInt(queryObj.cityId),
+      is_available: false,
+      offset: 0,
+      limit: 50,
+      no_filter: false
+    })
     actions.fetchStates()
     actions.fetchCityDetails({
-      id: parseInt(queryObj.id)
+      id: parseInt(queryObj.cityId)
     })
-  }
-
-  componentWillReceiveProps(nextProps) {
-    console.log(nextProps.loadingStates);
-    const queryObj = getQueryObj(location.search.slice(1))
-    this.setStateIdxFromShortName(queryObj.stateShortName)
-  }
-
-  setStateIdxFromShortName(stateShortName) {
-    const { statesData } = this.props
-    const stateIdx = statesData.map(item => item.short_name).indexOf(stateShortName)
-    // console.log(stateIdx);
-    this.setState({ stateIdx: stateIdx + 1 })
   }
 
   update() {
     const { cityDetails } = this.props
     const { isCityActive, cityName, queryObj } = this.state
-    const data = this.cityDetailsForm.getData()
-    const cityBoundaryData = this.cityBoundary.getData()
-    console.log(data);
+    const data = this.localityDetailsForm.getData()
+    const localityData = this.localityData.getData()
 
-    if (data.cityName) {
-      this.props.actions.updateCity({
-        id: parseInt(queryObj.id),
-        is_available: data.isCityActive || cityDetails.is_available,
-        deliverable_city: data.isCityActive || cityDetails.deliverable_city,
-        state_short_name: data.stateShortName || cityDetails.state_short_name,
-        gps: data.gps || cityDetails.gps,
-        name: data.cityName || cityDetails.name,
-        geoboundary: cityBoundaryData || cityDetails.geoboundary
-      }, this.disableEditMode)
-    }
+    this.props.actions.updateGeolocality({
+      id: parseInt(queryObj.id),
+      city_id: parseInt(queryObj.cityId),
+      coordinates: localityData,
+      name: data.localityName || this.localityName,
+      is_available: data.isLocalityActive || this.isLocalityActive
+    }, this.callbackUpdate)
+  }
+
+  callbackUpdate() {
+    this.disableEditMode()
+    this.localityData.callbackUpdate()
   }
 
   enableEditMode() {
@@ -93,6 +88,14 @@ class ViewCity extends React.Component {
     } = this.props
 
     const queryObj = getQueryObj(location.search.slice(1))
+    let localityName
+    let selectedLocality
+
+    if (!loadingGeolocalities) {
+      selectedLocality = geoLocalitiesData.fences.filter(locality => locality.id === parseInt(queryObj.id))[0]
+      this.localityName = selectedLocality.name
+      this.isLocalityActive = selectedLocality.is_available
+    }
 
     return (
       <div style={{
@@ -101,7 +104,7 @@ class ViewCity extends React.Component {
       }}
       >
 
-        <IfElse conditionMet={!loadingCityDetails && !loadingStates}>
+        <IfElse conditionMet={!loadingCityDetails}>
           <div>
             <div
               style={{
@@ -134,16 +137,12 @@ class ViewCity extends React.Component {
                   </button>
 
                 </IfElse>
-                <CityDetailsForm
-                  ref={(node) => { this.cityDetailsForm = node }}
+                <LocalityDetailsForm
+                  ref={(node) => { this.localityDetailsForm = node }}
                   isDisabled={!this.state.isEdit}
-                  isCityActive={cityDetails.is_available}
-                  isDeliveryActive={cityDetails.deliverable_city}
-                  cityName={cityDetails.name}
-                  statesData={statesData}
-                  stateIdx={this.state.stateIdx}
+                  localityName={this.localityName}
+                  isLocalityActive={this.isLocalityActive}
                 />
-
               </Card>
               <RaisedButton
                 primary
@@ -161,17 +160,21 @@ class ViewCity extends React.Component {
               verticalAlign: 'top'
             }}
             >
-              <DefineGeoboundary
-                ref={(node) => { this.cityBoundary = node }}
-                setLoadingState={actions.setLoadingState}
-                fetchCityDetails={actions.fetchCityDetails}
-                update={this.update}
-                cityDetails={cityDetails}
-                loadingCityDetails={loadingCityDetails}
-                isGeolocalityUpdated={isGeolocalityUpdated}
-                cityId={parseInt(queryObj.id)}
-                zoomLevel={12}
-              />
+              <div id="gmap-container" style={{ position: 'relative' }}>
+                <div style={{ width: '100%', maxWidth: '1000px', margin: 'auto' }}>
+                  <DefineLocality
+                    ref={(node) => this.localityData = node}
+                    viewGeolocalities={actions.fetchLocalities}
+                    updateGeolocality={actions.updateGeolocality}
+                    createGeolocality={actions.createGeolocality}
+                    geoLocalitiesData={geoLocalitiesData}
+                    loadingGeolocalities={loadingGeolocalities}
+                    cityId={parseInt(queryObj.cityId)}
+                    localityId={parseInt(queryObj.id)}
+                    zoomLevel={11}
+                  />
+                </div>
+              </div>
             </Card>
           </div>
           <div>loading..</div>

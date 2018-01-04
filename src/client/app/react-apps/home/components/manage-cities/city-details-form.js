@@ -1,17 +1,46 @@
 import React, { Fragment } from 'react'
 import TextField from 'material-ui/TextField'
 import Checkbox from 'material-ui/Checkbox'
+import SelectField from 'material-ui/SelectField'
+import MenuItem from 'material-ui/MenuItem'
 
 class CityDetailsForm extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      stateIdx: props.stateIdx || 0,
       isCityActive: props.isCityActive || false,
-      cityName: props.cityName || ''
+      isDeliveryActive: props.isDeliveryActive || false,
+      cityName: props.cityName || '',
     }
 
     this.handleTextFields = this.handleTextFields.bind(this)
     this.handleCheckboxes = this.handleCheckboxes.bind(this)
+    this.handleStateChange = this.handleStateChange.bind(this)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({ cityName: nextProps.cityName })
+  }
+
+  handleStateChange(e, k) {
+    const { statesData } = this.props
+    const stateIdx = k + 1
+    this.setState({
+      stateIdx,
+      stateShortName: statesData[k].short_name
+    })
+  }
+
+  setGPSUsingGeocoder(address) {
+    const geocoder = new google.maps.Geocoder()
+    geocoder.geocode({ address }, (res, status) => {
+      if (status === google.maps.GeocoderStatus.OK) {
+        const lat = res[0].geometry.location.lat()
+        const lng = res[0].geometry.location.lng()
+        this.setState({ gps: `${lat},${lng}` })
+      }
+    })
   }
 
   handleCheckboxes(e) {
@@ -19,6 +48,9 @@ class CityDetailsForm extends React.Component {
   }
 
   handleTextFields(e) {
+    if (e.target.name === 'cityName') {
+      this.setGPSUsingGeocoder(e.target.value)
+    }
     this.setState({ [e.target.name]: e.target.value })
   }
 
@@ -30,7 +62,26 @@ class CityDetailsForm extends React.Component {
     return (
       <Fragment>
         <div className="form-group">
-          <p className="label">Name</p>
+          <label className="label">State name</label><br/>
+          <SelectField
+            disabled={this.props.isDisabled}
+            value={this.state.stateIdx}
+            onChange={this.handleStateChange}
+          >
+            {
+              this.props.statesData.map((state, i) => (
+                <MenuItem
+                  value={i + 1}
+                  key={state.id}
+                  primaryText={state.state_name}
+                />
+              ))
+            }
+          </SelectField>
+        </div>
+
+        <div className="form-group">
+          <label className="label">City name</label><br/>
           <TextField
             disabled={this.props.isDisabled}
             onChange={this.handleTextFields}
@@ -40,13 +91,21 @@ class CityDetailsForm extends React.Component {
         </div>
 
         <div className="form-group">
-          <p className="label">Active</p>
           <Checkbox
             disabled={this.props.isDisabled}
             checked={this.state.isCityActive}
             onCheck={this.handleCheckboxes}
             name="isCityActive"
-            label="is_active"
+            label="is_available"
+          />
+
+          <Checkbox
+            style={{ marginTop: '10px' }}
+            disabled={this.props.isDisabled}
+            checked={this.state.isDeliveryActive}
+            onCheck={this.handleCheckboxes}
+            name="isDeliveryActive"
+            label="is_deliverable"
           />
         </div>
       </Fragment>

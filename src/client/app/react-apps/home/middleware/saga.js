@@ -41,6 +41,7 @@ function* createState(action) {
   try {
     const data = yield call(Api.createState, action)
     yield put({ type: ActionTypes.SUCCESS_CREATE_STATE, data })
+    Notify("Successfully created state", "success")
   } catch (err) {
     console.log(err)
   }
@@ -50,7 +51,7 @@ function* updateState(action) {
   try {
     const data = yield call(Api.updateState, action)
     yield put({ type: ActionTypes.REQUEST_FETCH_STATES })
-
+    Notify("Successfully updated state", "success")
   } catch (err) {
     console.log(err)
   }
@@ -60,8 +61,10 @@ function* createCity(action) {
   try {
     const data = yield call(Api.createCity, action)
     yield put({ type: ActionTypes.SUCCESS_CREATE_CITY, data })
+    Notify("Successfully created city", "success")
   } catch (err) {
     console.log(err)
+    // Notify("Successfully updated city", "success")
   }
 }
 
@@ -102,7 +105,17 @@ function* createGeolocality(action) {
   console.log(action);
   try {
     const data = yield call(Api.createGeolocality, action)
-    yield put({ type: ActionTypes.REQUEST_FETCH_LOCALITIES, data: { city_id: action.data.city_id }, CB: action.CB })
+    yield put({
+      type: ActionTypes.REQUEST_FETCH_LOCALITIES,
+      data: {
+        city_id: action.data.city_id,
+        is_available: action.data.is_available,
+        offset: 0,
+        limit: 50,
+        no_filter: false
+      },
+      CB: action.CB
+    })
     Notify("Successfully created locality", "success")
   } catch (err) {
     console.log(err)
@@ -112,7 +125,17 @@ function* createGeolocality(action) {
 function* updateGeolocality(action) {
   try {
     const data = yield call(Api.updateGeolocality, action)
-    yield put({ type: ActionTypes.REQUEST_FETCH_LOCALITIES, data: { city_id: action.data.city_id }, CB: action.CB })
+    yield put({
+      type: ActionTypes.REQUEST_FETCH_LOCALITIES,
+      data: {
+        city_id: action.data.city_id,
+        is_available: action.data.is_available,
+        offset: 0,
+        limit: 50,
+        no_filter: false
+      },
+      CB: action.CB
+    })
     Notify("Successfully updated locality", "success")
   } catch (err) {
     Notify("Couldn't update locality", "warning")

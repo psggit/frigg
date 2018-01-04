@@ -4,6 +4,7 @@ export const fetchStates = action => (
   POST({
     api: '/stateManagement/listStates',
     apiBase: 'odin',
+    handleError: true
   })
     .then(json => json)
 )
@@ -12,16 +13,18 @@ export const fetchCities = action => (
   POST({
     api: '/cityManagement/listCities',
     apiBase: 'odin',
-    data: action.data
+    data: action.data,
+    handleError: true
   })
     .then(json => json)
 )
 
 export const createState = action => (
   POST({
-    api: '/stateManagement/createState',
+    api: '/stateManagement/addState',
     apiBase: 'odin',
-    data: action.data
+    data: action.data,
+    handleError: true
   })
     .then(json => json)
 )
@@ -37,9 +40,10 @@ export const updateState = action => (
 
 export const createCity = action => (
   POST({
-    api: '/cityManagement/createCity',
+    api: '/cityManagement/addCity',
     apiBase: 'odin',
-    data: action.data
+    data: action.data,
+    handleError: true
   })
     .then(json => json)
 )
@@ -76,7 +80,8 @@ export const fetchLocalities = action => (
   POST({
     api: '/fenceManagement/listFences',
     apiBase: 'odin',
-    data: action.data
+    data: action.data,
+    handleError: true
   })
     .then(json => json)
 )

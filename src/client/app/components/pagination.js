@@ -16,7 +16,7 @@ class Pagination extends React.Component {
   }
 
   handlePageChange(activePage) {
-    const offset = this.pagesLimit * (activePage - 1)
+    const offset = this.props.itemsCountPerPage * (activePage - 1)
     this.props.setPage({
       activePage,
       offset

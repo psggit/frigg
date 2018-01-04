@@ -1,18 +1,24 @@
 import React, { Fragment } from 'react'
 import TextField from 'material-ui/TextField'
 import Checkbox from 'material-ui/Checkbox'
-import '@sass/components/_form.scss'
+import SelectField from 'material-ui/SelectField'
+import MenuItem from 'material-ui/MenuItem'
 
-class StateDetailsForm extends React.Component {
+class LocalityDetailsForm extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      stateShortName: props.stateShortName || '',
-      stateName: props.stateName || ''
+      isLocalityActive: props.isLocalityActive || true,
+      cityName: props.cityName || '',
+      localityName: props.localityName || ''
     }
 
     this.handleTextFields = this.handleTextFields.bind(this)
     this.handleCheckboxes = this.handleCheckboxes.bind(this)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({ localityName: nextProps.localityName })
   }
 
   handleCheckboxes(e) {
@@ -31,22 +37,22 @@ class StateDetailsForm extends React.Component {
     return (
       <Fragment>
         <div className="form-group">
-          <label className="label">State name</label><br/>
+          <label className="label">Locality name</label><br/>
           <TextField
             disabled={this.props.isDisabled}
             onChange={this.handleTextFields}
-            name="stateName"
-            value={this.state.stateName}
+            name="localityName"
+            value={this.state.localityName}
           />
         </div>
 
         <div className="form-group">
-          <label className="label">State short name</label><br/>
-          <TextField
+          <Checkbox
             disabled={this.props.isDisabled}
-            onChange={this.handleTextFields}
-            name="stateShortName"
-            value={this.state.stateShortName}
+            checked={this.state.isLocalityActive}
+            onCheck={this.handleCheckboxes}
+            name="isLocalityActive"
+            label="is_available"
           />
         </div>
       </Fragment>
@@ -54,4 +60,4 @@ class StateDetailsForm extends React.Component {
   }
 }
 
-export default StateDetailsForm
+export default LocalityDetailsForm

@@ -1,53 +1,117 @@
 import React, { Fragment } from 'react'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import * as Actions from './../../actions'
 import RaisedButton from 'material-ui/RaisedButton'
 import '@sass/components/_form.scss'
 import CityDetailsForm from './city-details-form'
 import IfElse from '@components/declarative-if-else'
+import { Card } from 'material-ui/Card'
+import DefineGeoboundary from './../manage-geofencing/define-geoboundary'
+import { getQueryObj } from '@utils/url-utils'
 
 class CreateCity extends React.Component {
   constructor(props) {
     super(props)
-
+    this.state = {
+      cityName: ''
+    }
     this.submit = this.submit.bind(this)
+    this.setCityName = this.setCityName.bind(this)
+  }
+
+  componentDidMount() {
+    this.props.actions.fetchStates()
+  }
+
+  setCityName(cityName) {
+    this.setState({ cityName })
   }
 
   submit() {
     const data = this.cityDetailsForm.getData()
+    const cityBoundaryData = this.cityBoundaryData.getData()
 
-    this.props.actions.updateCity({
-      id: data.id,
-      is_available: data.isCityActive,
-      deliverable_city: data.deliverable_city,
-      state_short_name: data.state_short_name,
-      gps: data.gps,
-      name: data.cityName,
-      geoboundary: data.geoboundary
-    }, this.disableEditMode)
+    if (data.cityName && data.stateShortName && cityBoundaryData) {
+      this.props.actions.createCity({
+        is_available: data.isCityActive,
+        deliverable_city: data.isDeliveryActive,
+        state_short_name: data.stateShortName,
+        gps: data.gps,
+        name: data.cityName,
+        geoboundary: cityBoundaryData
+      })
+    }
   }
 
   render() {
+    const {
+      actions,
+      statesData,
+      citiesData,
+      cityDetails,
+      geoLocalitiesData,
+      loadingCities,
+      loadingStates,
+      loadingCityDetails,
+      loadingGeoboundary,
+      loadingGeolocalities,
+      isGeolocalityUpdated,
+      match
+    } = this.props
+
+    const queryObj = getQueryObj(location.search.slice(1))
     return (
       <div style={{
         position: 'relative',
-        width: '100%',
-        maxWidth: '1000px',
-        margin: '0 auto',
-        padding: '20px 0'
+        width: '100%'
       }}
       >
 
-        <div style={{ paddingTop: '40px' }}>
+        <div>
+          <Card style={{
+            padding: '20px',
+            width: '30%',
+            position: 'relative',
+            display: 'inline-block',
+            verticalAlign: 'top',
+            marginRight: '20px'
+          }}
+          >
+            <CityDetailsForm
+              setCityName={this.setCityName}
+              statesData={statesData}
+              ref={(node) => { this.cityDetailsForm = node }}
+            />
 
-          <CityDetailsForm
-            ref={(node) => { this.cityDetailsForm = node }}
-          />
+            <RaisedButton
+              primary
+              label="Submit"
+              onClick={this.submit}
+              style={{ marginTop: '40px' }}
+            />
+          </Card>
 
-          <RaisedButton
-            primary
-            label="Submit"
-            onClick={this.submit}
-            style={{ marginTop: '40px' }}
-          />
+          <Card style={{
+            padding: '20px',
+            paddingTop: '0',
+            width: 'calc(70% - 20px)',
+            position: 'relative',
+            display: 'inline-block',
+            verticalAlign: 'top'
+          }}
+          >
+            <DefineGeoboundary
+              ref={(node) => this.cityBoundaryData = node}
+              setLoadingState={actions.setLoadingState}
+              fetchCityDetails={actions.fetchCityDetails}
+              updateGeoboundary={actions.updateGeoboundary}
+              cityDetails={cityDetails}
+              loadingCityDetails={loadingCityDetails}
+              isGeolocalityUpdated={isGeolocalityUpdated}
+              cityName={this.state.cityName}
+            />
+          </Card>
 
         </div>
 
@@ -56,4 +120,13 @@ class CreateCity extends React.Component {
   }
 }
 
-export default CreateCity
+const mapStateToProps = state => state.main
+
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators(Actions, dispatch)
+})
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(CreateCity)

@@ -22,7 +22,8 @@ const actionsMap = {
   [ActionTypes.SUCCESS_FETCH_CITIES]: (state, action) => {
     return Object.assign({}, state, {
       loadingCities: false,
-      citiesData: action.data.cities
+      citiesData: action.data.cities,
+      citiesCount: action.data.count
     })
   },
 

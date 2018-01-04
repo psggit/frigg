@@ -10,6 +10,7 @@ class FilterModal extends React.Component {
       open: true
     }
     this.handleClose = this.handleClose.bind(this)
+    this.handleApplyFilter = this.handleApplyFilter.bind(this)
   }
 
   handleClose() {
@@ -20,7 +21,11 @@ class FilterModal extends React.Component {
   }
 
   handleApplyFilter() {
-
+    this.props.applyFilter()
+    this.setState({ open: false })
+    setTimeout(() => {
+      this.props.unmountFilterModal()
+    }, 500)
   }
 
   render() {

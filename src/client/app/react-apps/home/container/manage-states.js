@@ -59,16 +59,31 @@ class ManageStates extends React.Component {
 
     return (
       <div style={{ width: '100%', maxWidth: 800, margin: 'auto' }}>
-        <a href={`${location.pathname}/create-new-state`} target="_blank">
-          <RaisedButton
-            label="Create new state"
-            primary
-          />
-        </a>
+        <div
+          style={{
+            marginTop: '40px',
+            display: 'flex',
+            justifyContent: 'space-between'
+          }}
+        >
+          <a href={`${location.pathname}/create-new-state`}>
+            <RaisedButton
+              label="Create new state"
+              primary
+              onClick={this.mountCreateStateDialog}
+            />
+          </a>
+
+          {/* <RaisedButton
+            onClick={this.mountFilterDialog}
+            label="Filter"
+            icon={getIcon('filter')}
+          /> */}
+        </div>
 
         <br />
 
-        <h3>Showig available states</h3>
+        <h3>Showing available states</h3>
 
         <ViewStates
           loadingStates={loadingStates}

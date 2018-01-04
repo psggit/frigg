@@ -59,7 +59,7 @@ function ViewCities(data) {
                     // target="_blank"
                     // exact
                     // to={`/home/manage-states/${item.state_name}?id=${item.id}`}
-                    // href={`/home/manage-states/${item.state_name}?id=${item.id}`}
+                    href={`/home/manage-states/${item.state_name}?id=${item.id}&stateName=${item.state_name}&stateShortName=${item.short_name}`}
                   >
                     <FlatButton primary label="View" />
                   </a>

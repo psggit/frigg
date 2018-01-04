@@ -18,8 +18,7 @@ import '@sass/components/_table.scss'
 const TableHeaderItems = [
   '',
   'ID',
-  'NAME',
-  'SHORT_NAME',
+  'NAME'
   // ''
 ]
 
@@ -50,16 +49,16 @@ function ViewCities(data) {
         showRowHover
       >
         {
-          !data.loadingCities
+          !data.loadingGeolocalities
           ? (
-            data.citiesData.map(item => (
+            data.geoLocalitiesData.fences.map(item => (
               <TableRow key={item.id}>
                 <TableRowColumn style={styles[0]}>
                   <a
                     // target="_blank"
                     // exact
                     // to={`/home/manage-cities/${item.name}?id=${item.id}`}
-                    href={`/home/manage-cities/${item.name}?id=${item.id}&stateShortName=${item.state_short_name}`}
+                    href={`/home/manage-localities/${item.name}?id=${item.id}&cityId=${item.city_id}`}
                   >
                     <FlatButton primary label="View" />
                   </a>
@@ -67,7 +66,6 @@ function ViewCities(data) {
                 </TableRowColumn>
                 <TableRowColumn style={styles[1]}>{item.id}</TableRowColumn>
                 <TableRowColumn style={styles[2]}>{item.name}</TableRowColumn>
-                <TableRowColumn style={styles[3]}>{item.state_short_name}</TableRowColumn>
               </TableRow>
             ))
           )

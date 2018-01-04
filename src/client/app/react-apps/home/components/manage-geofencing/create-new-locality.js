@@ -1,6 +1,7 @@
 import React from 'react'
 import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
+import Checkbox from 'material-ui/Checkbox'
 import Dialog from 'material-ui/Dialog'
 import '@sass/components/_button.scss'
 
@@ -10,10 +11,12 @@ class CreateNewLocality extends React.Component {
 
     this.state = {
       open: true,
-      localityName: ''
+      localityName: '',
+      isLocalityActive: true
     }
 
-    this.handleLocalityNameChange = this.handleLocalityNameChange.bind(this)
+    this.handleTextFields = this.handleTextFields.bind(this)
+    this.handleCheckboxes = this.handleCheckboxes.bind(this)
     this.handleClose = this.handleClose.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
@@ -25,8 +28,11 @@ class CreateNewLocality extends React.Component {
   }
 
   handleSubmit() {
-    const { localityName } = this.state
-    this.props.submitNewLocality(localityName)
+    const { localityName, isLocalityActive } = this.state
+    this.props.submitNewLocality({
+      localityName,
+      isLocalityActive
+    })
   }
 
   handleClose() {
@@ -37,8 +43,12 @@ class CreateNewLocality extends React.Component {
     this.props.changeGmapKey()
   }
 
-  handleLocalityNameChange(e) {
-    this.setState({ localityName: e.target.value })
+  handleCheckboxes(e) {
+    this.setState({ [e.target.name]: e.target.checked })
+  }
+
+  handleTextFields(e) {
+    this.setState({ [e.target.name]: e.target.value })
   }
 
   render() {
@@ -56,11 +66,20 @@ class CreateNewLocality extends React.Component {
             <TextField
               ref={(node) => { this.input = node }}
               value={this.state.localityName}
-              onChange={this.handleLocalityNameChange}
+              onChange={this.handleTextFields}
               hintText="Whitefield"
+              name="localityName"
               style={{ marginBottom: '20px' }}
             />
 
+            <br />
+            <Checkbox
+              style={{ marginTop: '10px' }}
+              checked={this.state.isLocalityActive}
+              onCheck={this.handleCheckboxes}
+              name="isLocalityActive"
+              label="is_available"
+            />
             <br />
             <RaisedButton
               disabled={!this.state.localityName.length}

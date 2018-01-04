@@ -23,12 +23,12 @@ class DefineGeoboundary extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      lat: null,
-      lng: null,
+      lat: 13.278709268693333,
+      lng: 77.80792236328125,
       gmapKey: 0,
-      // isGeoBoundaryExist: false,
       isEdit: true,
-      isSubmit: false
+      isSubmit: false,
+      zoomLevel: props.zoomLevel || 7
     }
 
     this.drawingManager = null
@@ -42,24 +42,38 @@ class DefineGeoboundary extends React.Component {
     this.changeGmapKey = this.changeGmapKey.bind(this)
     this.createNewBoundary = this.createNewBoundary.bind(this)
     this.callbackUpdate = this.callbackUpdate.bind(this)
+    this.setGPSUsingGeocoder = this.setGPSUsingGeocoder.bind(this)
+    this.handleZoomChange = this.handleZoomChange.bind(this)
+    this.handleCenterChange = this.handleCenterChange.bind(this)
   }
 
   componentDidMount() {
-    this.props.fetchCityDetails({
-      id: this.props.cityId
-    })
-    this.props.setLoadingState('loadingGeoboundary')
+    if (this.props.cityId) {
+      this.props.fetchCityDetails({
+        id: this.props.cityId
+      })
+      this.props.setLoadingState('loadingGeoboundary')
+    }
+  }
+
+  getData() {
+    if (this.geoboundary) {
+      const polygonPoints = getPolygonPoints(this.geoboundary)
+      const coordinatesInString = getCoordinatesInString(polygonPoints)
+      return coordinatesInString
+    }
+    return null
   }
 
   handleUpdateGeoboundary() {
     const polygonPoints = getPolygonPoints(this.geoboundary)
     const coordinatesInString = getCoordinatesInString(polygonPoints)
     // this.setState({ goToButtonDisabled: true })
-    this.props.setLoadingState('loadingGeoboundary')
-    this.props.updateGeoboundary({
-      id: this.props.cityId,
-      geoboundary: coordinatesInString,
-    }, this.callbackUpdate)
+    // this.props.setLoadingState('loadingGeoboundary')
+    // this.props.updateGeoboundary({
+    //   id: this.props.cityId,
+    //   geoboundary: coordinatesInString,
+    // }, this.callbackUpdate)
   }
 
   // enableViewMode() {
@@ -73,6 +87,9 @@ class DefineGeoboundary extends React.Component {
 
   callbackUpdate() {
     this.changeGmapKey()
+    // setTimeout(() => {
+    //   location.href = '/home/manage-cities'
+    // })
   }
 
   changeGmapKey() {
@@ -85,7 +102,7 @@ class DefineGeoboundary extends React.Component {
   createNewBoundary() {
     this.drawingManager.setOptions({
       drawingControl: true,
-      drawingMode: google.maps.drawing.OverlayType.POLYGON
+      drawingMode: null
     })
     if (this.geolocality) {
       this.geolocality.setEditable(false)
@@ -95,6 +112,7 @@ class DefineGeoboundary extends React.Component {
 
   clearSelection() {
     this.changeGmapKey()
+    this.setState({ isSubmit: false })
     this.geoboundary.setEditable(false)
   }
 
@@ -127,19 +145,52 @@ class DefineGeoboundary extends React.Component {
     )
   }
 
+  setGPSUsingGeocoder(address) {
+    console.log('fefef');
+    const geocoder = new google.maps.Geocoder()
+    geocoder.geocode({ address }, (res, status) => {
+      if (status === google.maps.GeocoderStatus.OK) {
+        const lat = res[0].geometry.location.lat()
+        const lng = res[0].geometry.location.lng()
+        this.setState({ lat, lng })
+      }
+    })
+  }
+
+  handleZoomChange() {
+    const { zoomLevel } = this.state
+    const newZoome = this.map.getZoom()
+    // console.log(newZoome, zoom)
+    if (zoomLevel !== newZoome) {
+      // console.log('changed')
+      this.setState({ zoomLevel: newZoome })
+    }
+  }
+
+  handleCenterChange() {
+    const { lat, lng } = this.state
+    const center = this.map.getCenter()
+
+    if (lat !== center.lat() || lng !== center.lng()) {
+      this.setState({ lat: center.lat(), lng: center.lng() })
+    }
+  }
+
   handleMapCreation(map) {
     console.log('handleMapCreation called');
-    const { cityDetails, mode } = this.props
-    // console.log(geoBoundaryData);
-    const lat = cityDetails.gps.split(',')[0]
-    const lng = cityDetails.gps.split(',')[1]
+    const { cityDetails, cityId, cityName } = this.props
+    this.map = map
+    // this.setGPSUsingGeocoder(cityName)
 
-    this.setState({ lat, lng })
-
-    if (mode === 'edit') {
+    if (cityId) {
       // show geoboundary
+      const lat = cityDetails.gps.split(',')[0]
+      const lng = cityDetails.gps.split(',')[1]
+
+      this.setState({ lat, lng })
+
       const polygonCoordiantes = {
-        coordinates: getCoordinatesInObjects(cityDetails.geoboundary),
+        coordinates: cityDetails.geoboundary ? getCoordinatesInObjects(cityDetails.geoboundary) : [],
         color: '#333',
         stroke: 'blue'
       }
@@ -165,7 +216,7 @@ class DefineGeoboundary extends React.Component {
     return (
       <div>
         {
-          !this.props.loadingCityDetails
+          !this.props.loadingCityDetails || !this.props.cityId
           ? (
             <div>
               <h3>City boundary</h3>
@@ -175,20 +226,22 @@ class DefineGeoboundary extends React.Component {
                 height="600px"
                 lat={lat}
                 lng={lng}
-                zoom={11}
+                zoom={this.state.zoomLevel}
                 key={this.state.gmapKey}
                 params={params}
                 onMapCreated={this.handleMapCreation}
+                onZoomChanged={this.handleZoomChange}
+                onCenterChanged={this.handleCenterChange}
               />
 
               <br />
 
-              {
-                this.props.mode === 'create'
+              {/* {
+                !this.props.cityId
                 ? (
                   <RaisedButton
                     disabled={!this.state.isSubmit}
-                    onClick={this.handleUpdateGeoboundary}
+                    onClick={this.props.update}
                     label="Submit"
                     style={{ marginRight: 12 }}
                   />
@@ -197,21 +250,33 @@ class DefineGeoboundary extends React.Component {
               }
 
               {
-                this.props.mode === 'edit'
+                this.props.cityId
                 ? (
                   <RaisedButton
-                    onClick={this.handleUpdateGeoboundary}
+                    onClick={this.props.update}
                     label="Update"
                     style={{ marginRight: 12 }}
                   />
                 )
                 : ''
-              }
+              } */}
 
 
               {
-                this.props.mode === 'edit'
+                this.props.cityId
                 ? this.getEditOrCancelButton()
+                : ''
+              }
+
+              {
+                !this.props.cityId
+                ? (
+                  <RaisedButton
+                    onClick={this.clearSelection}
+                    label="Cancel"
+                    style={{ marginRight: 12 }}
+                  />
+                )
                 : ''
               }
 

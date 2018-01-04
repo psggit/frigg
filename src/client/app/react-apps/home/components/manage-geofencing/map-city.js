@@ -17,9 +17,15 @@ class MapCity extends React.Component {
   }
 
   componentDidMount() {
+    this.props.setLoadingState('loadingGeolocalities')
     const { stateShortName } = this.props
     this.props.fetchCities({
-      state_short_name: stateShortName
+      state_short_name: stateShortName,
+      offset: 0,
+      limit: 10,
+      is_available: false,
+      deliverable_city: true,
+      no_filter: false
     })
   }
 
@@ -27,11 +33,7 @@ class MapCity extends React.Component {
     const { citiesData } = this.props
     const cityIdx = k + 1
     this.setState({ cityIdx })
-    this.postData = citiesData[k]
-    this.props.setCityData({
-      cityData: citiesData[k],
-      cityIdx
-    })
+    this.props.setCityId(citiesData[k].id)
   }
 
   render() {

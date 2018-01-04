@@ -17,6 +17,7 @@ class ChooseState extends React.Component {
   }
 
   componentDidMount() {
+    this.props.setLoadingState('loadingGeolocalities')
     this.props.fetchStates()
   }
 
@@ -25,10 +26,8 @@ class ChooseState extends React.Component {
     const stateIdx = k + 1
     this.setState({ stateIdx })
     // this.postData = statesData[k]
-    this.props.setStateData({
-      stateData: statesData[k],
-      stateIdx
-    })
+    this.props.setStateShortName(statesData[k].short_name)
+    this.props.resetCityId()
   }
 
   getData() {

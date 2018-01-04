@@ -93,7 +93,7 @@ class Form extends React.Component {
         <div className="form-group">
           <input
             placeholder="password"
-            type="text"
+            type="password"
             name="password"
             onChange={this.handleChange}
             onKeyDown={this.handlePress}
