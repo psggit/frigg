@@ -42,6 +42,9 @@ function* createState(action) {
     const data = yield call(Api.createState, action)
     yield put({ type: ActionTypes.SUCCESS_CREATE_STATE, data })
     Notify("Successfully created state", "success")
+    setTimeout(() => {
+      location.href = '/home/manage-states'
+    }, 1000)
   } catch (err) {
     console.log(err)
   }
@@ -52,6 +55,9 @@ function* updateState(action) {
     const data = yield call(Api.updateState, action)
     yield put({ type: ActionTypes.REQUEST_FETCH_STATES })
     Notify("Successfully updated state", "success")
+    setTimeout(() => {
+      location.href = '/home/manage-states'
+    }, 1000)
   } catch (err) {
     console.log(err)
   }
@@ -62,6 +68,9 @@ function* createCity(action) {
     const data = yield call(Api.createCity, action)
     yield put({ type: ActionTypes.SUCCESS_CREATE_CITY, data })
     Notify("Successfully created city", "success")
+    setTimeout(() => {
+      location.href = '/home/manage-cities'
+    }, 1000)
   } catch (err) {
     console.log(err)
     // Notify("Successfully updated city", "success")
@@ -73,6 +82,9 @@ function* updateCity(action) {
     const data = yield call(Api.updateCity, action)
     yield put({ type: ActionTypes.REQUEST_FETCH_CITY_DETAILS, data: { id: action.data.id }, CB: action.CB })
     Notify("Successfully updated city", "success")
+    setTimeout(() => {
+      location.href = '/home/manage-cities'
+    }, 1000)
   } catch (err) {
     console.log(err)
   }
@@ -117,6 +129,9 @@ function* createGeolocality(action) {
       CB: action.CB
     })
     Notify("Successfully created locality", "success")
+    setTimeout(() => {
+      location.href = '/home/manage-localities'
+    }, 1000)
   } catch (err) {
     console.log(err)
   }
@@ -137,6 +152,9 @@ function* updateGeolocality(action) {
       CB: action.CB
     })
     Notify("Successfully updated locality", "success")
+    setTimeout(() => {
+      location.href = '/home/manage-localities'
+    }, 1000)
   } catch (err) {
     Notify("Couldn't update locality", "warning")
     console.log(err)
