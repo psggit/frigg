@@ -9,8 +9,8 @@ class CityDetailsForm extends React.Component {
     super(props)
     this.state = {
       stateIdx: props.stateIdx || 0,
-      isCityActive: props.isCityActive || true,
-      isDeliveryActive: props.isDeliveryActive || true,
+      isCityActive: props.isCityActive,
+      isDeliveryActive: props.isDeliveryActive,
       cityName: props.cityName || '',
     }
 

@@ -8,7 +8,7 @@ class LocalityDetailsForm extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      isLocalityActive: props.isLocalityActive || true,
+      isLocalityActive: props.isLocalityActive,
       cityName: props.cityName || '',
       localityName: props.localityName || ''
     }

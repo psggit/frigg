@@ -231,7 +231,6 @@ class DefineLocality extends React.Component {
   }
 
   submitNewLocality(data) {
-    // debugger;
     const polygonPoints = getPolygonPoints(this.newLocality)
     const coordinatesInString = getCoordinatesInString(polygonPoints)
     this.props.createGeolocality({

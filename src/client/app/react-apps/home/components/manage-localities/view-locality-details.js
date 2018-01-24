@@ -54,7 +54,7 @@ class ViewCity extends React.Component {
       city_id: parseInt(queryObj.cityId),
       coordinates: localityData,
       name: data.localityName || this.localityName,
-      is_available: data.isLocalityActive || this.isLocalityActive
+      is_available: data.isLocalityActive
     }, this.callbackUpdate)
   }
 

@@ -17,7 +17,8 @@ class NavigationBar extends  React.Component {
     const navigationItems = [
       { name: 'Manage States', path: '/home/manage-states' },
       { name: 'Manage Cities', path: '/home/manage-cities' },
-      { name: 'Manage Localities', path: '/home/manage-localities' }
+      { name: 'Manage Localities', path: '/home/manage-localities' },
+      { name: 'Manage Deliverers', path: '/home/manage-deliverers' }
     ]
     return (
       <Drawer

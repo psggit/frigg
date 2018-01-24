@@ -44,7 +44,7 @@ function* createState(action) {
     Notify("Successfully created state", "success")
     setTimeout(() => {
       location.href = '/home/manage-states'
-    }, 1000)
+    }, 2000)
   } catch (err) {
     console.log(err)
   }
@@ -57,7 +57,7 @@ function* updateState(action) {
     Notify("Successfully updated state", "success")
     setTimeout(() => {
       location.href = '/home/manage-states'
-    }, 1000)
+    }, 2000)
   } catch (err) {
     console.log(err)
   }
@@ -70,7 +70,7 @@ function* createCity(action) {
     Notify("Successfully created city", "success")
     setTimeout(() => {
       location.href = '/home/manage-cities'
-    }, 1000)
+    }, 2000)
   } catch (err) {
     console.log(err)
     // Notify("Successfully updated city", "success")
@@ -84,7 +84,7 @@ function* updateCity(action) {
     Notify("Successfully updated city", "success")
     setTimeout(() => {
       location.href = '/home/manage-cities'
-    }, 1000)
+    }, 2000)
   } catch (err) {
     console.log(err)
   }
@@ -131,7 +131,7 @@ function* createGeolocality(action) {
     Notify("Successfully created locality", "success")
     setTimeout(() => {
       location.href = '/home/manage-localities'
-    }, 1000)
+    }, 2000)
   } catch (err) {
     console.log(err)
   }
@@ -154,7 +154,7 @@ function* updateGeolocality(action) {
     Notify("Successfully updated locality", "success")
     setTimeout(() => {
       location.href = '/home/manage-localities'
-    }, 1000)
+    }, 2000)
   } catch (err) {
     Notify("Couldn't update locality", "warning")
     console.log(err)

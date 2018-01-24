@@ -8,9 +8,11 @@ import Header from './../components/header'
 import NavigationBar from './../components/navigation-bar'
 import DisplayScreen from './display-screen'
 // import CreateLocality from './create-locality'
+import WelcomeScreen from './welcome-screen'
 import ManageStates from './manage-states'
 import ManageCities from './manage-cities'
 import ManageLocalities from './manage-localities'
+import ManageDeliverers from './manage-deliverers'
 import ViewLocalities from './../components/manage-geofencing/view-locality'
 import NotFound from './../../../react-apps/not-found'
 import ViewCity from './../components/manage-cities/view-city-details'
@@ -72,10 +74,12 @@ class App extends React.Component {
             />
             <DisplayScreen>
                 <Switch>
+                  <Route exact path="/home" component={WelcomeScreen} />
                   <Route exact path="/home/manage-localities" component={ManageLocalities} />
                   <Route exact path="/home/manage-states" component={ManageStates} />
                   <Route exact path="/home/manage-states/create-new-state" component={CreateState} />
                   <Route exact path="/home/manage-states/:stateSlug" component={ViewState} />
+
                   <Route exact path="/home/manage-cities" component={ManageCities} />
                   <Route exact path="/home/manage-cities/create-new-city" component={CreateCity} />
                   <Route exact path="/home/manage-cities/:citySlug/localities" component={CreateLocality} />
@@ -83,8 +87,11 @@ class App extends React.Component {
                   <Route exact path="/home/manage-cities/:citySlug/create-boundary" component={ManageLocalities} />
                   <Route exact path="/home/manage-cities/localities/edit/:id" component={ViewLocalities} />
                   <Route exact path="/home/manage-cities/:citySlug" component={ViewCity} />
+
                   <Route exact path="/home/manage-localities/create-new-locality" component={CreateLocality} />
                   <Route exact path="/home/manage-localities/:localitySlug" component={ViewLocality} />
+
+                  <Route exact path="/home/manage-deliverers/" component={ManageDeliverers} />
                 </Switch>
             </DisplayScreen>
           </div>

@@ -2,8 +2,8 @@
 function getAPIObj() {
   if (window.location.href.split(':')[1] === '//localhost' || window.location.href.split(':')[1] === '//192.168.10.131' || location.host === 'ed92cf5a.ngrok.io') {
     let scheme = 'https'
-    let baseHost = '.claw25.hasura-app.io'
-    let appName = 'claw25'
+    let baseHost = '.amebae21.hasura-app.io'
+    let appName = 'amebae21'
 
     return {
       authUrl: 'https://auth.' + appName + '.hasura-app.io',
