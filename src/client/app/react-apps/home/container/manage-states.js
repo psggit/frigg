@@ -58,10 +58,9 @@ class ManageStates extends React.Component {
     const { loadingStates, statesData } = this.props
 
     return (
-      <div style={{ width: '100%', maxWidth: 800, margin: 'auto' }}>
+      <div style={{ width: '100%', maxWidth: 800 }}>
         <div
           style={{
-            marginTop: '40px',
             display: 'flex',
             justifyContent: 'space-between'
           }}

@@ -91,9 +91,6 @@ class DefineLocality extends React.Component {
         is_available: false,
         no_filter: false
       })
-    } else {
-      this.setState({ lat: null, lng: null })
-      this.changeGmapKey()
     }
   }
 
@@ -369,39 +366,15 @@ class DefineLocality extends React.Component {
               <br />
 
               <div /* style={{marginLeft: '100px'}} */>
-                {
+                {/* {
                   this.props.localityId
                   ? this.getEditOrCancelButton()
                   : ''
-                }
+                } */}
 
 
               </div>
 
-              {/* {
-                this.state.shouldMountCreateNewLocality
-                ? (
-                  <CreateNewLocality
-                    submitNewLocality={this.submitNewLocality}
-                    changeGmapKey={this.changeGmapKey}
-                    unmountCreateNewLocalityDialog={this.unmountCreateNewLocalityDialog}
-                  />
-                )
-                : ''
-              }
-              {
-                this.state.shouldMountEditLocality
-                ? (
-                  <EditLocality
-                    localityName={this.props.geoLocalitiesData.fences[stateIdx - 1].name}
-                    isActive={this.props.geoLocalitiesData.fences[stateIdx - 1].is_active}
-                    updateGeolocality={this.updateGeolocality}
-                    changeGmapKey={this.changeGmapKey}
-                    unmountEditLocalityDialog={this.unmountEditLocalityDialog}
-                  />
-                )
-                : ''
-              } */}
             </div>
           )
           : 'loading..'

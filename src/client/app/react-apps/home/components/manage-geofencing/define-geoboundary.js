@@ -237,38 +237,12 @@ class DefineGeoboundary extends React.Component {
               <br />
 
               {/* {
-                !this.props.cityId
-                ? (
-                  <RaisedButton
-                    disabled={!this.state.isSubmit}
-                    onClick={this.props.update}
-                    label="Submit"
-                    style={{ marginRight: 12 }}
-                  />
-                )
-                : ''
-              }
-
-              {
-                this.props.cityId
-                ? (
-                  <RaisedButton
-                    onClick={this.props.update}
-                    label="Update"
-                    style={{ marginRight: 12 }}
-                  />
-                )
-                : ''
-              } */}
-
-
-              {
                 this.props.cityId
                 ? this.getEditOrCancelButton()
                 : ''
-              }
+              } */}
 
-              {
+              {/* {
                 !this.props.cityId
                 ? (
                   <RaisedButton
@@ -278,7 +252,7 @@ class DefineGeoboundary extends React.Component {
                   />
                 )
                 : ''
-              }
+              } */}
 
 
             </div>

@@ -3,6 +3,7 @@ import Drawer from 'material-ui/Drawer'
 import { NavLink } from 'react-router-dom'
 import MenuItem from 'material-ui/MenuItem'
 import '@sass/components/_menu-item.scss'
+import '@sass/components/_drawer.scss'
 import  { getIcon } from '@utils/icons-utils'
 
 class NavigationBar extends  React.Component {
@@ -23,9 +24,9 @@ class NavigationBar extends  React.Component {
     return (
       <Drawer
         className="drawer"
-        docked={false}
+        docked={true}
         label="Default"
-        open={this.props.isDrawerOpen}
+        open={true}
         onRequestChange={this.props.toggleDrawer}
       >
         <div>

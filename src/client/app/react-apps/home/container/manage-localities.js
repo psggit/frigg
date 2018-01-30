@@ -195,10 +195,9 @@ class ManageLocalities extends React.Component {
     } = this.props
 
     return (
-      <div style={{ width: '100%', maxWidth: 900, margin: 'auto' }}>
+      <div style={{ width: '100%', maxWidth: 900 }}>
         <div
           style={{
-            marginTop: '40px',
             display: 'flex',
             justifyContent: 'space-between'
           }}

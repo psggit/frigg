@@ -69,10 +69,12 @@ class ViewCity extends React.Component {
 
   enableEditMode() {
     this.setState({ isEdit: true })
+    this.cityBoundary.editGeoboundary()
   }
 
   disableEditMode() {
     this.setState({ isEdit: false })
+    this.cityBoundary.clearSelection()
   }
 
   render() {
@@ -102,11 +104,25 @@ class ViewCity extends React.Component {
 
         <IfElse conditionMet={!loadingCityDetails && !loadingStates}>
           <div>
+            <IfElse conditionMet={!this.state.isEdit}>
+              <RaisedButton
+                primary
+                label="Edit"
+                onClick={this.enableEditMode}
+                style={{ marginBottom: '40px' }}
+              />
+              <RaisedButton
+                primary
+                label="Cancel"
+                onClick={this.disableEditMode}
+                style={{ marginBottom: '40px' }}
+              />
+            </IfElse>
             <div
               style={{
                 width: '30%',
                 position: 'relative',
-                display: 'inline-block',
+                display: 'block',
                 verticalAlign: 'top',
                 marginRight: '20px'
               }}
@@ -116,23 +132,6 @@ class ViewCity extends React.Component {
                 width: '100%'
               }}
               >
-                <IfElse conditionMet={!this.state.isEdit}>
-                  <button
-                    style={{ position: 'absolute', top: '10px', right: '10px' }}
-                    className="btn--icon"
-                    onClick={this.enableEditMode}
-                  >
-                    <img src="/images/pencil.svg" />
-                  </button>
-                  <button
-                    style={{ position: 'absolute', top: '10px', right: '10px' }}
-                    className="btn--icon"
-                    onClick={this.disableEditMode}
-                  >
-                    <img src="/images/cross-blue.svg" />
-                  </button>
-
-                </IfElse>
                 <CityDetailsForm
                   ref={(node) => { this.cityDetailsForm = node }}
                   isDisabled={!this.state.isEdit}
@@ -144,17 +143,13 @@ class ViewCity extends React.Component {
                 />
 
               </Card>
-              <RaisedButton
-                primary
-                label="Update changes"
-                onClick={this.update}
-                style={{ marginTop: '40px' }}
-              />
+
             </div>
             <Card style={{
               padding: '20px',
               paddingTop: '0',
-              width: 'calc(70% - 20px)',
+              marginTop: '40px',
+              width: '100%',
               position: 'relative',
               display: 'inline-block',
               verticalAlign: 'top'
@@ -172,6 +167,12 @@ class ViewCity extends React.Component {
                 zoomLevel={12}
               />
             </Card>
+            <RaisedButton
+              primary
+              label="Save changes"
+              onClick={this.update}
+              style={{ marginTop: '40px' }}
+            />
           </div>
           <div>loading..</div>
         </IfElse>

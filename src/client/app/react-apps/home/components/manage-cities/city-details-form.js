@@ -9,8 +9,8 @@ class CityDetailsForm extends React.Component {
     super(props)
     this.state = {
       stateIdx: props.stateIdx || 0,
-      isCityActive: props.isCityActive,
-      isDeliveryActive: props.isDeliveryActive,
+      isCityActive: true,
+      isDeliveryActive: true,
       cityName: props.cityName || '',
     }
 
@@ -21,6 +21,15 @@ class CityDetailsForm extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     this.setState({ cityName: nextProps.cityName })
+
+    if (nextProps.isCityActive !== undefined) {
+      this.setState({ isCityActive: nextProps.isCityActive })
+    }
+
+    if (nextProps.isDeliveryActive !== undefined) {
+      this.setState({ isDeliveryActive: nextProps.isDeliveryActive })
+    }
+
   }
 
   handleStateChange(e, k) {

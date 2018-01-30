@@ -104,7 +104,7 @@ class CreateCity extends React.Component {
           style={{
             width: '30%',
             position: 'relative',
-            display: 'inline-block',
+            display: 'block',
             verticalAlign: 'top',
             marginRight: '20px'
           }}
@@ -154,18 +154,13 @@ class CreateCity extends React.Component {
               ref={(node) => { this.localityDetailsForm = node }}
             />
           </Card>
-          <RaisedButton
-            primary
-            label="Submit"
-            onClick={this.submit}
-            style={{ marginTop: '40px' }}
-          />
         </div>
 
           <Card style={{
             padding: '20px',
             paddingTop: '0',
-            width: 'calc(70% - 20px)',
+            marginTop: '40px',
+            width: '100%',
             position: 'relative',
             display: 'inline-block',
             verticalAlign: 'top'
@@ -182,7 +177,12 @@ class CreateCity extends React.Component {
               cityId={this.state.cityId}
             />
           </Card>
-
+          <RaisedButton
+            primary
+            label="Save"
+            onClick={this.submit}
+            style={{ marginTop: '40px' }}
+          />
         </div>
     )
   }

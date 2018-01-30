@@ -73,7 +73,7 @@ class CreateCity extends React.Component {
             padding: '20px',
             width: '30%',
             position: 'relative',
-            display: 'inline-block',
+            display: 'block',
             verticalAlign: 'top',
             marginRight: '20px'
           }}
@@ -83,19 +83,13 @@ class CreateCity extends React.Component {
               statesData={statesData}
               ref={(node) => { this.cityDetailsForm = node }}
             />
-
-            <RaisedButton
-              primary
-              label="Submit"
-              onClick={this.submit}
-              style={{ marginTop: '40px' }}
-            />
           </Card>
 
           <Card style={{
             padding: '20px',
             paddingTop: '0',
-            width: 'calc(70% - 20px)',
+            width: '100%',
+            marginTop: '40px',
             position: 'relative',
             display: 'inline-block',
             verticalAlign: 'top'
@@ -112,7 +106,18 @@ class CreateCity extends React.Component {
               cityName={this.state.cityName}
             />
           </Card>
+          {/* <RaisedButton
+            onClick={this.clearSelection}
+            label="Cancel"
+            style={{ marginRight: 12 }}
+          /> */}
 
+          <RaisedButton
+            primary
+            label="Save"
+            onClick={this.submit}
+            style={{ marginTop: '40px' }}
+          />
         </div>
 
       </div>
