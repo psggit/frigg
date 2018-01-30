@@ -8,9 +8,8 @@ class LocalityDetailsForm extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      isLocalityActive: props.isLocalityActive,
-      cityName: props.cityName || '',
-      localityName: props.localityName || ''
+      isLocalityActive: false,
+      localityName: ''
     }
 
     this.handleTextFields = this.handleTextFields.bind(this)
@@ -18,7 +17,14 @@ class LocalityDetailsForm extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({ localityName: nextProps.localityName })
+    if (nextProps.localityName) {
+      this.setState({
+        localityName: nextProps.localityName,
+      })
+    }
+    if (nextProps.isLocalityActive !== undefined) {
+      this.setState({ isLocalityActive: nextProps.isLocalityActive })
+    } 
   }
 
   handleCheckboxes(e) {

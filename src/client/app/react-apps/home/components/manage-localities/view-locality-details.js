@@ -52,7 +52,7 @@ class ViewCity extends React.Component {
     this.props.actions.updateGeolocality({
       id: parseInt(queryObj.id),
       city_id: parseInt(queryObj.cityId),
-      coordinates: localityData,
+      coordinates: localityData || this.localityCoordinates,
       name: data.localityName || this.localityName,
       is_available: data.isLocalityActive
     }, this.callbackUpdate)
@@ -95,6 +95,7 @@ class ViewCity extends React.Component {
       selectedLocality = geoLocalitiesData.fences.filter(locality => locality.id === parseInt(queryObj.id))[0]
       this.localityName = selectedLocality.name
       this.isLocalityActive = selectedLocality.is_available
+      this.localityCoordinates = selectedLocality.coordinates
     }
 
     return (

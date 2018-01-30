@@ -82,6 +82,21 @@ class DefineLocality extends React.Component {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.cityId && nextProps.cityId !== this.props.cityId) {
+      this.props.viewGeolocalities({
+        city_id: nextProps.cityId,
+        offset: 0,
+        limit: 50,
+        is_available: false,
+        no_filter: false
+      })
+    } else {
+      this.setState({ lat: null, lng: null })
+      this.changeGmapKey()
+    }
+  }
+
   updateFence(data) {
     const { stateIdx, fenceIdx } = this.state
     const { geoLocalitiesData } = this.props
@@ -98,8 +113,8 @@ class DefineLocality extends React.Component {
   }
 
   getData() {
-    if (this.geoLocalities[0]) {
-      const polygonPoints = getPolygonPoints(this.geoLocalities[0])
+    if (this.newLocality) {
+      const polygonPoints = getPolygonPoints(this.newLocality)
       const coordinatesInString = getCoordinatesInString(polygonPoints)
       return coordinatesInString
     }
@@ -117,7 +132,8 @@ class DefineLocality extends React.Component {
   // }
 
   editGeolocality() {
-    this.geoLocalities[0].setEditable(true)
+    this.newLocality = this.geoLocalities[0]
+    this.newLocality.setEditable(true)
     this.setState({ isEdit: false })
   }
 
@@ -162,7 +178,7 @@ class DefineLocality extends React.Component {
 
   setGeoLocality(shape) {
     this.newLocality = shape
-    this.setState({ shouldMountCreateNewLocality: true })
+    // this.setState({ shouldMountCreateNewLocality: true })
   }
 
   mountEditLocalityDialog() {
@@ -233,14 +249,17 @@ class DefineLocality extends React.Component {
   submitNewLocality(data) {
     const polygonPoints = getPolygonPoints(this.newLocality)
     const coordinatesInString = getCoordinatesInString(polygonPoints)
-    this.props.createGeolocality({
-      city_id: this.props.cityId,
-      coordinates: coordinatesInString,
-      name: data.localityName,
-      is_available: data.isLocalityActive
-    }, this.callbackUpdate)
 
-    this.unmountCreateNewLocalityDialog()
+    if (coordinatesInString.length && data.localityName.length) {
+      this.props.createGeolocality({
+        city_id: this.props.cityId,
+        coordinates: coordinatesInString,
+        name: data.localityName,
+        is_available: data.isLocalityActive
+      }, this.callbackUpdate)
+    }
+
+    // this.unmountCreateNewLocalityDialog()
   }
 
   getEditOrCancelButton() {
@@ -263,16 +282,18 @@ class DefineLocality extends React.Component {
   }
 
   handleMapCreation(map) {
-    const { geoLocalitiesData, localityId } = this.props
+    const { geoLocalitiesData, localityId, cityId } = this.props
     let localities = geoLocalitiesData.fences
-    const lat = geoLocalitiesData.city.gps.split(',')[0]
-    const lng = geoLocalitiesData.city.gps.split(',')[1]
-    //
-    this.setState({ lat, lng })
+    if (cityId) {
+      const lat = geoLocalitiesData.city.gps.split(',')[0]
+      const lng = geoLocalitiesData.city.gps.split(',')[1]
+      //
+      this.setState({ lat, lng })
+    }
 
-    if (localityId) {
+    if (cityId && localityId) {
       localities = localities.filter(locality => locality.id === localityId)
-    } else {
+    } else if (cityId) {
       const drawingManager = configureDrawingManager(map)
       this.drawingManager = drawingManager
 
@@ -282,11 +303,11 @@ class DefineLocality extends React.Component {
       this.createNewLocality()
     }
 
-    if (geoLocalitiesData.city.geoboundary) {
+    if (cityId && geoLocalitiesData.city.geoboundary) {
       this.setGeoBoundary(map, geoLocalitiesData.city.geoboundary)
     }
 
-    if (geoLocalitiesData.fences.length) {
+    if (cityId && geoLocalitiesData.fences.length) {
       const polygonsCoordiantes = localities.map((geoLocalityData, i) => ({
         coordinates: getCoordinatesInObjects(geoLocalityData.coordinates),
         color: geoLocalityData.is_available ? this.colorMap[i % this.colorMap.length] : '#9b9b9b',
@@ -329,7 +350,11 @@ class DefineLocality extends React.Component {
                 editGeoboundary={this.editGeoboundary}
                 legends={this.props.geoLocalitiesData.fences}
               /> */}
-              <h3>Localities in {geoLocalitiesData.city.name}</h3>
+              {
+                this.props.cityId
+                ? <h3>Localities in {geoLocalitiesData.city.name}</h3>
+                : <h3>Select city to show localities</h3>
+              }
               <Gmaps
                 // style={{right: '-100px'}}
                 height="600px"
@@ -353,7 +378,7 @@ class DefineLocality extends React.Component {
 
               </div>
 
-              {
+              {/* {
                 this.state.shouldMountCreateNewLocality
                 ? (
                   <CreateNewLocality
@@ -376,7 +401,7 @@ class DefineLocality extends React.Component {
                   />
                 )
                 : ''
-              }
+              } */}
             </div>
           )
           : 'loading..'

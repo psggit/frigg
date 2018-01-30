@@ -2,76 +2,81 @@ import React, { Fragment } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as Actions from './../../actions'
-import FlatButton from 'material-ui/FlatButton'
 import RaisedButton from 'material-ui/RaisedButton'
+import SelectField from 'material-ui/SelectField'
+import MenuItem from 'material-ui/MenuItem'
 import '@sass/components/_form.scss'
+import LocalityDetailsForm from './locality-details-form'
 import IfElse from '@components/declarative-if-else'
 import { Card } from 'material-ui/Card'
 import DefineLocality from './../manage-geofencing/define-locality'
 import { getQueryObj } from '@utils/url-utils'
-import {
-  Step,
-  Stepper,
-  StepLabel,
-} from 'material-ui/Stepper'
 
-import ChooseState from './../manage-geofencing/choose-state'
-import MapCity from './../manage-geofencing/map-city'
-
-class CreateLocality extends React.Component {
+class CreateCity extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      stepIndex: 0,
-      stateShortName: null,
       cityId: null
     }
     this.submit = this.submit.bind(this)
-    this.handlePrev = this.handlePrev.bind(this)
-    this.handleNext = this.handleNext.bind(this)
-    this.setStateShortName = this.setStateShortName.bind(this)
-    this.setCityId = this.setCityId.bind(this)
-    this.resetCityId = this.resetCityId.bind(this)
+    this.setCityName = this.setCityName.bind(this)
+    this.handleStateChange = this.handleStateChange.bind(this)
+    this.handleCityChange = this.handleCityChange.bind(this)
   }
 
   componentDidMount() {
-    // this.props.actions.fetchStates()
+    this.props.actions.fetchStates()
   }
 
-  setStateShortName(stateShortName) {
-    this.setState({ stateShortName })
+  setCityName(cityName) {
+    this.setState({ cityName })
   }
 
-  setCityId(cityId) {
-    this.setState({ cityId })
+  callbackUpdate() {
+    this.localityData.callbackUpdate()
   }
 
-  resetCityId() {
-    this.setState({ cityId: null })
-  }
+  handleStateChange(e, k) {
+    const { statesData } = this.props
+    const stateIdx = k + 1
+    this.setState({ stateIdx, cityIdx: -1, cityId: null })
 
-  handleNext() {
-    const { stepIndex } = this.state
-    if (!this.state.stateShortName) {
-      return;
-    }
-    if (stepIndex == 1 && !this.state.cityId) {
-      return;
-    }
-    this.setState({
-      stepIndex: stepIndex + 1,
-      finished: stepIndex >= 2,
+    this.props.actions.fetchCities({
+      state_short_name: statesData[k].short_name,
+      is_available: false,
+      offset: 0,
+      limit: 10,
+      deliverable_city: true,
+      no_filter: false
     })
   }
 
-  handlePrev() {
-    const { stepIndex } = this.state
-    if (stepIndex > 0) {
-      this.setState({ stepIndex: stepIndex - 1 })
+  handleCityChange(e, k) {
+    const { citiesData } = this.props
+    const cityIdx = k + 1
+    this.setState({
+      cityIdx,
+      cityId: citiesData[k].id
+    })
+
+    // this.localityData.changeGmapKey()
+  }
+
+  submit() {
+    const data = this.localityDetailsForm.getData()
+    const localityData = this.localityData.getData()
+
+    if (localityData !== null && data.localityName.length) {
+      this.props.actions.createGeolocality({
+        city_id: this.state.cityId,
+        coordinates: localityData,
+        name: data.localityName,
+        is_available: data.isLocalityActive
+      }, this.callbackUpdate)
     }
   }
 
-  getStepContent(stepIndex) {
+  render() {
     const {
       actions,
       statesData,
@@ -87,110 +92,98 @@ class CreateLocality extends React.Component {
       match
     } = this.props
 
-    switch (stepIndex) {
-      case 0:
-        return (
-          <ChooseState
-            setStateShortName={this.setStateShortName}
-            statesData={statesData}
-            loadingStates={loadingStates}
-            fetchStates={actions.fetchStates}
-            setLoadingState={actions.setLoadingState}
-            resetCityId={this.resetCityId}
-          />
-        )
-      case 1:
-        return (
-          <MapCity
-            setCityId={this.setCityId}
-            citiesData={citiesData}
-            loadingCities={loadingCities}
-            stateShortName={this.state.stateShortName}
-            fetchCities={actions.fetchCities}
-            setLoadingState={actions.setLoadingState}
-          />
-        )
-      case 2:
-        return (
-          <DefineLocality
-            viewGeolocalities={actions.fetchLocalities}
-            updateGeolocality={actions.updateGeolocality}
-            createGeolocality={actions.createGeolocality}
-            geoLocalitiesData={geoLocalitiesData}
-            loadingGeolocalities={loadingGeolocalities}
-            zoomLevel={11}
-            cityId={this.state.cityId}
-            mode="create"
-          />
-        )
-      default:
-        return 'You\'re a long way from home sonny jim!';
-    }
-  }
-
-  submit() {
-    const data = this.cityDetailsForm.getData()
-
-    this.props.actions.updateCity({
-      id: data.id,
-      is_available: data.isCityActive,
-      deliverable_city: data.deliverable_city,
-      state_short_name: data.state_short_name,
-      gps: data.gps,
-      name: data.cityName,
-      geoboundary: data.geoboundary
-    }, this.disableEditMode)
-  }
-
-  render() {
-    const {finished, stepIndex} = this.state;
-    const contentStyle = {margin: '0 16px'}
-
     const queryObj = getQueryObj(location.search.slice(1))
     return (
       <div style={{
         position: 'relative',
-        width: '100%',
-        maxWidth: '1000px',
-        margin: '0 auto'
+        width: '100%'
       }}
       >
-        <Stepper activeStep={stepIndex}>
-          <Step>
-            <StepLabel>Select state</StepLabel>
-          </Step>
-          <Step>
-            <StepLabel>Select city</StepLabel>
-          </Step>
-          <Step>
-            <StepLabel>Define locality</StepLabel>
-          </Step>
-        </Stepper>
 
-        <div style={contentStyle}>
-          <div>
-            {this.getStepContent(stepIndex)}
-            <div style={{marginTop: 12}}>
-              <FlatButton
-                label="Back"
-                disabled={stepIndex === 0}
-                onClick={this.handlePrev}
-                style={{marginRight: 12}}
-              />
+        <div
+          style={{
+            width: '30%',
+            position: 'relative',
+            display: 'inline-block',
+            verticalAlign: 'top',
+            marginRight: '20px'
+          }}
+        >
+          <Card style={{
+            padding: '20px',
+            width: '100%'
+          }}
+          >
+            <h3 style={{ marginTop: 0, marginBottom: '40px' }}>Enter city details</h3>
+
+            <label className="label">State name</label><br/>
+            <SelectField
+              value={this.state.stateIdx}
+              onChange={this.handleStateChange}
+            >
               {
-                stepIndex < 2
-                ? <RaisedButton
-                  label="Next"
-                  primary
-                  onClick={this.handleNext}
-                />
-                : ''
+                this.props.statesData.map((state, i) => (
+                  <MenuItem
+                    value={i + 1}
+                    key={state.id}
+                    primaryText={state.state_name}
+                  />
+                ))
               }
-            </div>
-          </div>
+            </SelectField>
+            <br />
+
+            <label className="label">City name</label><br/>
+            <SelectField
+              disabled={this.props.loadingCities}
+              value={this.state.cityIdx}
+              onChange={this.handleCityChange}
+            >
+              {
+                this.props.citiesData.map((city, i) => (
+                  <MenuItem
+                    value={i + 1}
+                    key={city.id}
+                    primaryText={city.name}
+                  />
+                ))
+              }
+            </SelectField>
+
+            <LocalityDetailsForm
+              ref={(node) => { this.localityDetailsForm = node }}
+            />
+          </Card>
+          <RaisedButton
+            primary
+            label="Submit"
+            onClick={this.submit}
+            style={{ marginTop: '40px' }}
+          />
         </div>
 
-      </div>
+          <Card style={{
+            padding: '20px',
+            paddingTop: '0',
+            width: 'calc(70% - 20px)',
+            position: 'relative',
+            display: 'inline-block',
+            verticalAlign: 'top'
+          }}
+          >
+            <DefineLocality
+              ref={(node) => this.localityData = node}
+              viewGeolocalities={actions.fetchLocalities}
+              updateGeolocality={actions.updateGeolocality}
+              createGeolocality={actions.createGeolocality}
+              geoLocalitiesData={geoLocalitiesData}
+              loadingGeolocalities={loadingGeolocalities}
+              zoomLevel={11}
+              cityId={this.state.cityId}
+            />
+          </Card>
+
+        </div>
     )
   }
 }
@@ -204,4 +197,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(CreateLocality)
+)(CreateCity)
