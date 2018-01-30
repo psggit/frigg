@@ -2,6 +2,7 @@ import React from 'react'
 import Drawer from 'material-ui/Drawer'
 import { NavLink } from 'react-router-dom'
 import MenuItem from 'material-ui/MenuItem'
+import { List, ListItem } from 'material-ui/List'
 import '@sass/components/_menu-item.scss'
 import '@sass/components/_drawer.scss'
 import  { getIcon } from '@utils/icons-utils'
@@ -16,10 +17,15 @@ class NavigationBar extends  React.Component {
   }
   render() {
     const navigationItems = [
-      { name: 'Manage States', path: '/home/manage-states' },
-      { name: 'Manage Cities', path: '/home/manage-cities' },
-      { name: 'Manage Localities', path: '/home/manage-localities' },
-      { name: 'Manage Deliverers', path: '/home/manage-deliverers' }
+      {
+        name: 'State management',
+        nestedItems: [
+          { name: 'Manage states', path: '/home/manage-states' },
+          { name: 'Manage Cities', path: '/home/manage-cities' },
+          { name: 'Manage Localities', path: '/home/manage-localities' },
+        ]
+      },
+      { name: 'Manage Deliverers', path: '/home/manage-deliverers', nestedItems: [] }
     ]
     return (
       <Drawer
@@ -33,11 +39,31 @@ class NavigationBar extends  React.Component {
           <a href="/home"><MenuItem className="menu-item-heading">Super admin-v2</MenuItem></a>
         </div>
         {
-          navigationItems.map((item, i) => (
-            <a href={item.path} key={`nav-item-${i}`}>
-              <MenuItem className="menu-item" onClick={() => { this.handleClick(item.name) }}>{item.name}</MenuItem>
-            </a>
-          ))
+          // navigationItems.map((item, i) => (
+          //   <a href={item.path} key={`nav-item-${i}`}>
+          //     <MenuItem className="menu-item" onClick={() => { this.handleClick(item.name) }}>{item.name}</MenuItem>
+          //   </a>
+          // ))
+          <List>
+            {
+              navigationItems.map((item) => {
+                const nestedItems = []
+                item.nestedItems.forEach((nestedItem, i) => {
+                  const nestedItemJSX = <ListItem onClick={() => location.href = nestedItem.path} primaryText={nestedItem.name}></ListItem>
+                  nestedItems.push(nestedItemJSX)
+                })
+
+                return (
+                  <ListItem
+                    primaryText={item.name}
+                    initiallyOpen={true}
+                    primaryTogglesNestedList={true}
+                    nestedItems={nestedItems}
+                  />
+                )
+              })
+            }
+          </List>
         }
       </Drawer>
     )
