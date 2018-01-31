@@ -107,12 +107,6 @@ class CreateCity extends React.Component {
               cityName={this.state.cityName}
             />
           </Card>
-          {/* <RaisedButton
-            onClick={this.clearSelection}
-            label="Cancel"
-            style={{ marginRight: 12 }}
-          /> */}
-
           <RaisedButton
             primary
             label="Save"

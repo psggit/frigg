@@ -29,39 +29,33 @@ class CreateState extends React.Component {
   render() {
     return (
       <div style={{
+        width: '30%',
         position: 'relative',
-        width: '100%',
-        maxWidth: '1000px',
-        margin: '0 auto',
-        padding: '20px 0'
+        display: 'block',
+        verticalAlign: 'top',
+        marginRight: '20px'
       }}
       >
 
         <div>
-          <h3>Create new state</h3>
+
           <Card
             style={{
               padding: '20px',
-              paddingTop: '0',
-              width: '400px',
-              position: 'relative',
-              display: 'inline-block',
-              verticalAlign: 'top'
+              width: '100%'
             }}
           >
+            <h3 style={{ marginTop: 0, marginBottom: '40px' }}>Create new state</h3>
             <StateDetailsForm
               ref={(node) => { this.stateDetailsForm = node }}
             />
-            <RaisedButton
-              primary
-              label="Submit"
-              onClick={this.submit}
-              style={{ marginTop: '40px' }}
-            />
           </Card>
-
-
-
+          <RaisedButton
+            primary
+            label="Save"
+            onClick={this.submit}
+            style={{ marginTop: '40px' }}
+          />
         </div>
 
       </div>

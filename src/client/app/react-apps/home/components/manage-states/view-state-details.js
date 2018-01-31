@@ -12,7 +12,21 @@ import { getQueryObj } from '@utils/url-utils'
 class ViewState extends React.Component {
   constructor(props) {
     super(props)
+    this.state = {
+      isEdit: false,
+    }
     this.submit = this.submit.bind(this)
+    this.enableEditMode = this.enableEditMode.bind(this)
+    this.disableEditMode = this.disableEditMode.bind(this)
+  }
+
+  enableEditMode() {
+    this.setState({ isEdit: true })
+  }
+
+  disableEditMode() {
+    this.setState({ isEdit: false })
+    this.stateDetailsForm.resetState()
   }
 
   submit() {
@@ -32,40 +46,48 @@ class ViewState extends React.Component {
     const queryObj = getQueryObj(location.search.slice(1))
     return (
       <div style={{
+        width: '30%',
         position: 'relative',
-        width: '100%',
-        maxWidth: '1000px',
-        margin: '0 auto',
-        padding: '20px 0'
+        display: 'block',
+        verticalAlign: 'top',
+        marginRight: '20px'
       }}
       >
 
         <div>
+          <IfElse conditionMet={!this.state.isEdit}>
+            <RaisedButton
+              primary
+              label="Edit"
+              onClick={this.enableEditMode}
+              style={{ marginBottom: '40px' }}
+            />
+            <RaisedButton
+              primary
+              label="Cancel"
+              onClick={this.disableEditMode}
+              style={{ marginBottom: '40px' }}
+            />
+          </IfElse>
           <Card
             style={{
               padding: '20px',
-              paddingTop: '0',
-              width: '400px',
-              position: 'relative',
-              display: 'inline-block',
-              verticalAlign: 'top'
+              width: '100%'
             }}
           >
             <StateDetailsForm
+              isDisabled={!this.state.isEdit}
               ref={(node) => { this.stateDetailsForm = node }}
               stateName={queryObj.stateName}
               stateShortName={queryObj.stateShortName}
             />
-            <RaisedButton
-              primary
-              label="Submit"
-              onClick={this.submit}
-              style={{ marginTop: '40px' }}
-            />
           </Card>
-
-
-
+          <RaisedButton
+            primary
+            label="Save Changes"
+            onClick={this.submit}
+            style={{ marginTop: '40px' }}
+          />
         </div>
 
       </div>

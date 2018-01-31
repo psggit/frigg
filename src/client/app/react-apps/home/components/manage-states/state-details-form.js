@@ -6,13 +6,20 @@ import '@sass/components/_form.scss'
 class StateDetailsForm extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
+    this.intitialState = {
       stateShortName: props.stateShortName || '',
       stateName: props.stateName || ''
     }
 
+    this.state = Object.assign({}, this.intitialState)
+
     this.handleTextFields = this.handleTextFields.bind(this)
     this.handleCheckboxes = this.handleCheckboxes.bind(this)
+    this.resetState = this.resetState.bind(this)
+  }
+
+  resetState() {
+    this.setState(this.intitialState)
   }
 
   handleCheckboxes(e) {

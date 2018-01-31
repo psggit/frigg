@@ -101,7 +101,7 @@ class ViewCity extends React.Component {
         width: '100%'
       }}
       >
-
+        {/* <h3>Enter</h3> */}
         <IfElse conditionMet={!loadingCityDetails && !loadingStates}>
           <div>
             <IfElse conditionMet={!this.state.isEdit}>
@@ -167,6 +167,20 @@ class ViewCity extends React.Component {
                 zoomLevel={12}
               />
             </Card>
+            <IfElse conditionMet={!this.state.isEdit}>
+              <RaisedButton
+                primary
+                label="Edit"
+                onClick={this.enableEditMode}
+                style={{ marginBottom: '40px', marginRight: '20px' }}
+              />
+              <RaisedButton
+                primary
+                label="Cancel"
+                onClick={this.disableEditMode}
+                style={{ marginBottom: '40px', marginRight: '20px' }}
+              />
+            </IfElse>
             <RaisedButton
               primary
               label="Save changes"
