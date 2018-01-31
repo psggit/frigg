@@ -78,6 +78,7 @@ class CreateCity extends React.Component {
             marginRight: '20px'
           }}
           >
+            <h3 style={{ marginTop: 0, marginBottom: '40px' }}>Enter city details</h3>
             <CityDetailsForm
               setCityName={this.setCityName}
               statesData={statesData}

@@ -49,7 +49,7 @@ class NavigationBar extends  React.Component {
               navigationItems.map((item) => {
                 const nestedItems = []
                 item.nestedItems.forEach((nestedItem, i) => {
-                  const nestedItemJSX = <ListItem onClick={() => location.href = nestedItem.path} primaryText={nestedItem.name}></ListItem>
+                  const nestedItemJSX = <ListItem onClick={() => location.href = nestedItem.path} primaryText={nestedItem.name} />
                   nestedItems.push(nestedItemJSX)
                 })
 
