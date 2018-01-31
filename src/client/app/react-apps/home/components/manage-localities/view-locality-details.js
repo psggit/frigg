@@ -172,15 +172,29 @@ class ViewCity extends React.Component {
                 </div>
               </div>
             </Card>
+            <IfElse conditionMet={!this.state.isEdit}>
+              <RaisedButton
+                primary
+                label="Edit"
+                onClick={this.enableEditMode}
+                style={{ marginBottom: '40px', marginRight: '20px' }}
+              />
+              <RaisedButton
+                primary
+                label="Cancel"
+                onClick={this.disableEditMode}
+                style={{ marginBottom: '40px', marginRight: '20px' }}
+              />
+            </IfElse>
+            <RaisedButton
+              primary
+              label="Save changes"
+              onClick={this.update}
+              style={{ marginTop: '40px' }}
+            />
           </div>
           <div>loading..</div>
         </IfElse>
-        <RaisedButton
-          primary
-          label="Save changes"
-          onClick={this.update}
-          style={{ marginTop: '40px' }}
-        />
       </div>
     )
   }
