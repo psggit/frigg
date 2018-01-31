@@ -53,19 +53,19 @@ Superadmin follows a pretty simple file structure. It's something like this:
       - **views/** - corresponding html for react apps
 
 1. **server**
-   -  To create the Hipbar server. Both for development and production. The routes, middleware, hot-reload and other settings reside here.
+      -  To create the Hipbar server. Both for development and production. The routes, middleware, hot-reload and other settings reside here.
 
 ### Development
 Please follow the below stated set of instructions while working on the code.
 
 1. Open up your terminal. Go the directory where the `frigg` has been cloned.
 1. Branching:
-   - Checkout to `develop` branch if you're not there, yet. Pull the latest code. Create and checkout to new `feature/` branch based on `develop` to start working on a new feature.
-   - If you're working on a production bug, please pull the latest code to `master`, create and checkout to a new `hotfix/` or `production-fix/` branch and work over there.
+      - Checkout to `develop` branch if you're not there, yet. Pull the latest code. Create and checkout to new `feature/` branch based on `develop` to start working on a new feature.
+      - If you're working on a production bug, please pull the latest code to `master`, create and checkout to a new `hotfix/` or `production-fix/` branch and work over there.
 1. While writing code, please refer to the [JavaScript Style Guide](https://github.com/airbnb/javascript). (semicolons are not used)
 1. Raising a Merge Request (MR): Once you're done working on a feature or bug, please raise an MR.
-   - `feature/` branch - raise an MR to `develop` branch.
-   - `hotfix/` branch - raise an MR to `master` branch.
+      - `feature/` branch - raise an MR to `develop` branch.
+      - `hotfix/` branch - raise an MR to `master` branch.
   Once you've raised an MR, your code will me merged to respective branch after a code review.
 > Please make sure you follow the style guidelines strictly.
 
