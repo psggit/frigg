@@ -83,6 +83,7 @@ class DefineLocality extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    // workaround in else if
     if (nextProps.cityId && nextProps.cityId !== this.props.cityId) {
       this.props.viewGeolocalities({
         city_id: nextProps.cityId,
@@ -91,6 +92,9 @@ class DefineLocality extends React.Component {
         is_available: false,
         no_filter: false
       })
+    } else if(!nextProps.localityId) {
+      this.setState({ lat: null, lng: null })
+      this.changeGmapKey()
     }
   }
 
