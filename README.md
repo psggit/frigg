@@ -45,12 +45,12 @@ Superadmin follows a pretty simple file structure. It's something like this:
 ```
 1. **src/** - Entire app codebase goes in here. It primarily is constructed of two parts - *client* and *server*. The *client* serves the code that will be running in the browser. The *server* serves the code that makes up the Node server running.
 1. **client/app**
-   - **images/** - icons and images.
-   - **sass/** - css styles written in SASS.
-   - **components/** - reusable ReactJS components. These are the react components that are used app-wide for the consistency and reusability. For instance, components like *Dropdown, Select, Notification, Modal box, ..*
-   - **utils/** - consists of JS utilities to make the tasks easy. Mostly, they are the helper methods for the app. For instance, *Session, Requests, Storage, APIs,...*
-   - **react-apps/** - consists of react-redux apps for different pages and utilties.
-   - **views/** - corresponding html for react apps
+      - **images/** - icons and images.
+      - **sass/** - css styles written in SASS.
+      - **components/** - reusable ReactJS components. These are the react components that are used app-wide for the consistency and reusability. For instance, components like *Dropdown, Select, Notification, Modal box, ..*
+      - **utils/** - consists of JS utilities to make the tasks easy. Mostly, they are the helper methods for the app. For instance, *Session, Requests, Storage, APIs,...*
+      - **react-apps/** - consists of react-redux apps for different pages and utilties.
+      - **views/** - corresponding html for react apps
 
 1. **server**
    -  To create the Hipbar server. Both for development and production. The routes, middleware, hot-reload and other settings reside here.
