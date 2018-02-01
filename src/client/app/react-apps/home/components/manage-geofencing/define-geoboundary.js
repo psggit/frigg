@@ -230,8 +230,6 @@ class DefineGeoboundary extends React.Component {
                 key={this.state.gmapKey}
                 params={params}
                 onMapCreated={this.handleMapCreation}
-                onZoomChanged={this.handleZoomChange}
-                onCenterChanged={this.handleCenterChange}
               />
 
               <br />
