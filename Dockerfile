@@ -5,7 +5,7 @@ WORKDIR /app
 
 COPY package.json .
 RUN npm rebuild
-RUN npm install --build-from-source
+RUN npm install --build-from-source --production
 
 COPY ./ /app
 
