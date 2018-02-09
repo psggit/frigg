@@ -118,8 +118,9 @@ export const updateGeolocality = action => (
 export const uploadSearchData = action => (
   POST({
     api: '/index/uploadChennaiSkuData',
-    apiBase: 'gremlin',
+    apiBase: 'gremlinUrl',
     data: action.data,
-    handleError: true
+    handleError: true,
+    type: 'FormData'
   })
 )

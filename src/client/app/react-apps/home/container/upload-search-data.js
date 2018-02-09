@@ -1,6 +1,9 @@
 import React from 'react'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 import RaisedButton from 'material-ui/RaisedButton'
 import getIcon from './../components/icon-utils'
+import * as Actions from './../actions'
 import '@sass/components/_file-uploader.scss'
 
 class UploadSearchData extends React.Component {
@@ -13,10 +16,10 @@ class UploadSearchData extends React.Component {
   }
 
   handleSubmit() {
-    this.props.actions.uploadSearchData({
-      fileName: this.state.data,
-      name: 'data'
-    })
+    const formData = new FormData()
+    formData.append('fileName', this.state.data)
+    formData.append('name', 'data')
+    this.props.actions.uploadSearchData(formData)
   }
 
   handleUploadClick() {
@@ -65,4 +68,13 @@ class UploadSearchData extends React.Component {
   }
 }
 
-export default UploadSearchData
+const mapStateToProps = state => state.main
+
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators(Actions, dispatch)
+})
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(UploadSearchData)

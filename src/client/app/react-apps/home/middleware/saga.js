@@ -187,6 +187,19 @@ function* setLoadingState(action) {
   }
 }
 
+function* uploadSearchData(action) {
+  try {
+    const data = yield call(Api.uploadSearchData, action)
+    yield put({ type: ActionTypes.SUCCESS_UPLOAD_SEARCH_DATA, data })
+    Notify("Successfully uploaded search data", "success")
+    setTimeout(() => {
+      location.href = '/home/upload-search-data'
+    }, 2000)
+  } catch (err) {
+    console.log(err)
+  }
+}
+
 
 /**
  * Watchers
@@ -275,6 +288,12 @@ function* watchSetLoadingState() {
   }
 }
 
+function* watchUploadSearchData() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_UPLOAD_SEARCH_DATA, uploadSearchData)
+  }
+}
+
 export default function* rootSaga() {
   yield [
     fork(watchFetchStates),
@@ -290,6 +309,7 @@ export default function* rootSaga() {
     fork(watchUpdateGeoboundary),
     fork(watchCreateGeolocality),
     fork(watchUpdateGeolocality),
-    fork(watchSetLoadingState)
+    fork(watchSetLoadingState),
+    fork(watchUploadSearchData)
   ]
 }

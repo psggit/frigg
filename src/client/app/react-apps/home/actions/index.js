@@ -72,3 +72,8 @@ export const fetchRetailers = data => ({
   type: ActionTypes.REQUEST_FETCH_RETAILERS,
   data
 })
+
+export const uploadSearchData = data => ({
+  type: ActionTypes.REQUEST_UPLOAD_SEARCH_DATA,
+  data
+})
