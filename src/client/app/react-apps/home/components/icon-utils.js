@@ -32,5 +32,46 @@ export default function getIcon(name) {
         </g>
         </svg>
       )
+    case 'upload':
+      return (
+        <svg style={{ pointerEvents: 'none' }} fill="#dfdfdf" version="1.1" id="Capa_1" x="0px" y="0px" width="100px" height="100px" viewBox="0 0 433.5 433.5">
+        <g>
+        	<g id="file-upload">
+        		<polygon points="140.25,331.5 293.25,331.5 293.25,178.5 395.25,178.5 216.75,0 38.25,178.5 140.25,178.5"/>
+        		<rect x="38.25" y="382.5" width="357" height="51"/>
+        	</g>
+        </g>
+        <g>
+        </g>
+        <g>
+        </g>
+        <g>
+        </g>
+        <g>
+        </g>
+        <g>
+        </g>
+        <g>
+        </g>
+        <g>
+        </g>
+        <g>
+        </g>
+        <g>
+        </g>
+        <g>
+        </g>
+        <g>
+        </g>
+        <g>
+        </g>
+        <g>
+        </g>
+        <g>
+        </g>
+        <g>
+        </g>
+        </svg>
+      )
   }
 }
