@@ -8,7 +8,7 @@ import MenuItem from 'material-ui/MenuItem'
 import Pagination from '@components/pagination'
 import '@sass/components/_pagination.scss'
 import * as Actions from './../actions'
-import ViewCities from './../components/manage-cities/view-cities'
+import ViewDeliverers from './../components/manage-cities/view-cities'
 import RoleBasedComponent from '@components/RoleBasedComponent'
 import getIcon from './../components/icon-utils'
 import FilterModal from '@components/filter-modal'
@@ -216,7 +216,7 @@ class ManageCities extends React.Component {
           : ''
         }
 
-        <ViewCities
+        <ViewDeliverers
           citiesData={citiesData}
           loadingCities={loadingCities}
           mountEditStateDialog={this.mountEditStateDialog}

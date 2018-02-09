@@ -16,6 +16,24 @@ function* fetchStates(action) {
   }
 }
 
+function* fetchDeliverers(action) {
+  try {
+    const data = yield call(Api.fetchDeliverers, action)
+    yield put({ type: ActionTypes.SUCCESS_FETCH_DELIVERERS, data })
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+function* fetchRetailers(action) {
+  try {
+    const data = yield call(Api.fetchRetailers, action)
+    yield put({ type: ActionTypes.SUCCESS_FETCH_RETAILERS, data })
+  } catch (err) {
+    console.log(err)
+  }
+}
+
 function* fetchCities(action) {
   try {
     const data = yield call(Api.fetchCities, action)
@@ -185,6 +203,18 @@ function* watchFetchCities() {
   }
 }
 
+function* watchFetchDeliverers() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_FETCH_DELIVERERS, fetchDeliverers)
+  }
+}
+
+function* watchFetchRetailers() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_FETCH_RETAILERS, fetchRetailers)
+  }
+}
+
 function* watchFetchLocalities() {
   while (true) {
     yield* takeLatest(ActionTypes.REQUEST_FETCH_LOCALITIES, fetchLocalities)
@@ -249,6 +279,8 @@ export default function* rootSaga() {
   yield [
     fork(watchFetchStates),
     fork(watchFetchCities),
+    fork(watchFetchDeliverers),
+    fork(watchFetchRetailers),
     fork(watchFetchLocalities),
     fork(watchFetchCityDetails),
     fork(watchCreateState),

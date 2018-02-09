@@ -18,9 +18,11 @@ import NotFound from './../../../react-apps/not-found'
 import ViewCity from './../components/manage-cities/view-city-details'
 import ViewState from './../components/manage-states/view-state-details'
 import ViewLocality from './../components/manage-localities/view-locality-details'
+import ViewDeliverers from './../components/manage-deliverers/view-deliverer-details'
 import CreateCity from './../components/manage-cities/create-city'
 import CreateState from './../components/manage-states/create-state'
 import CreateLocality from './../components/manage-localities/create-locality'
+import UploadSearchData from './upload-search-data'
 import { getBreadCrumbPath } from '@utils/url-utils'
 // import '@sass/components/_heading.scss'
 
@@ -92,6 +94,9 @@ class App extends React.Component {
                   <Route exact path="/home/manage-localities/:localitySlug" component={ViewLocality} />
 
                   <Route exact path="/home/manage-deliverers/" component={ManageDeliverers} />
+                  <Route exact path="/home/manage-deliverers/:delivererSlug" component={ViewDeliverers} />
+
+                  <Route exact path="/home/upload-search-data" component={UploadSearchData} />
                 </Switch>
             </DisplayScreen>
           </div>

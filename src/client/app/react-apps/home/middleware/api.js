@@ -19,6 +19,26 @@ export const fetchCities = action => (
     .then(json => json)
 )
 
+export const fetchDeliverers = action => (
+  POST({
+    api: '/dp/allDps',
+    apiBase: 'odin',
+    data: action.data,
+    handleError: true
+  })
+    .then(json => json)
+)
+
+export const fetchRetailers = action => (
+  POST({
+    api: '/retailer/allRetailers',
+    apiBase: 'odin',
+    data: action.data,
+    handleError: true
+  })
+    .then(json => json)
+)
+
 export const createState = action => (
   POST({
     api: '/stateManagement/addState',
@@ -95,10 +115,10 @@ export const updateGeolocality = action => (
   })
 )
 
-export const createGeolocality = action => (
+export const uploadSearchData = action => (
   POST({
-    api: '/fenceManagement/addFence',
-    apiBase: 'odin',
+    api: '/index/uploadChennaiSkuData',
+    apiBase: 'gremlin',
     data: action.data,
     handleError: true
   })

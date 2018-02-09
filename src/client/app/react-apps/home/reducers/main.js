@@ -5,8 +5,15 @@ const initialState = {
   loadingCities: true,
   loadingCityDetails: true,
   loadingGeolocalities: true,
+  loadingMappedLocalities: true,
+  loadingMappedRetailers: true,
+  loadingRetailers: true,
+  retailers: [],
+  mappedRetailers: [],
+  mappedLocalities: [],
   statesData: [],
   citiesData: [],
+  deliverers: [],
   geoLocalitiesData: [],
   cityDetails: {}
 }
@@ -44,6 +51,20 @@ const actionsMap = {
   [ActionTypes.SUCCESS_SET_LOADING_STATE]: (state, action) => {
     return Object.assign({}, state, {
       [action.data]: true,
+    })
+  },
+
+  [ActionTypes.SUCCESS_FETCH_DELIVERERS]: (state, action) => {
+    return Object.assign({}, state, {
+      loadingDeliverers: false,
+      deliverers: action.data.dp
+    })
+  },
+
+  [ActionTypes.SUCCESS_FETCH_RETAILERS]: (state, action) => {
+    return Object.assign({}, state, {
+      loadingRetailers: false,
+      retailers: action.data.retailers
     })
   }
 }

@@ -62,3 +62,13 @@ export const setLoadingState = data => ({
   type: ActionTypes.REQUEST_SET_LOADING_STATE,
   data
 })
+
+export const fetchDeliverers = data => ({
+  type: ActionTypes.REQUEST_FETCH_DELIVERERS,
+  data
+})
+
+export const fetchRetailers = data => ({
+  type: ActionTypes.REQUEST_FETCH_RETAILERS,
+  data
+})
