@@ -28,7 +28,7 @@ class NavigationBar extends  React.Component {
           { name: 'Manage Localities', path: '/home/manage-localities' },
         ]
       },
-      { name: 'Manage Deliverers', path: '/home/manage-deliverers', nestedItems: [] },
+      // { name: 'Manage Deliverers', path: '/home/manage-deliverers', nestedItems: [] },
       { name: 'Upload search data', path: '/home/upload-search-data', nestedItems: [] }
     ]
     return (
