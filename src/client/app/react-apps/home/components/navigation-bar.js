@@ -20,14 +20,14 @@ class NavigationBar extends  React.Component {
 
   render() {
     const navigationItems = [
-      {
-        name: 'State management',
-        nestedItems: [
-          { name: 'Manage states', path: '/home/manage-states' },
-          { name: 'Manage Cities', path: '/home/manage-cities' },
-          { name: 'Manage Localities', path: '/home/manage-localities' },
-        ]
-      },
+      // {
+      //   name: 'State management',
+      //   nestedItems: [
+      //     { name: 'Manage states', path: '/home/manage-states' },
+      //     { name: 'Manage Cities', path: '/home/manage-cities' },
+      //     { name: 'Manage Localities', path: '/home/manage-localities' },
+      //   ]
+      // },
       // { name: 'Manage Deliverers', path: '/home/manage-deliverers', nestedItems: [] },
       { name: 'Upload search data', path: '/home/upload-search-data', nestedItems: [] }
     ]
