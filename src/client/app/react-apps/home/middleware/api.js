@@ -39,6 +39,27 @@ export const fetchRetailers = action => (
     .then(json => json)
 )
 
+export const fetchDPRetailerMap = action => (
+  POST({
+    api: '/retailer/retailersByDp',
+    apiBase: 'odin',
+    data: action.data,
+    handleError: true
+  })
+    .then(json => json)
+)
+
+
+export const fetchDPLocalityMap = action => (
+  POST({
+    api: '/dp/localitiesByDp',
+    apiBase: 'odin',
+    data: action.data,
+    handleError: true
+  })
+    .then(json => json)
+)
+
 export const createState = action => (
   POST({
     api: '/stateManagement/addState',

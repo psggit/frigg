@@ -34,6 +34,24 @@ function* fetchRetailers(action) {
   }
 }
 
+function* fetchDPRetailerMap(action) {
+  try {
+    const data = yield call(Api.fetchDPRetailerMap, action)
+    yield put({ type: ActionTypes.SUCCESS_FETCH_DP_RETAILER_MAP, data })
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+function* fetchDPLocalityMap(action) {
+  try {
+    const data = yield call(Api.fetchDPLocalityMap, action)
+    yield put({ type: ActionTypes.SUCCESS_FETCH_DP_LOCALITY_MAP, data })
+  } catch (err) {
+    console.log(err)
+  }
+}
+
 function* fetchCities(action) {
   try {
     const data = yield call(Api.fetchCities, action)
@@ -228,6 +246,18 @@ function* watchFetchRetailers() {
   }
 }
 
+function* watchFetchDPRetailerMap() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_FETCH_DP_RETAILER_MAP, fetchDPRetailerMap)
+  }
+}
+
+function* watchFetchDPLocalityMap() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_FETCH_DP_LOCALITY_MAP, fetchDPLocalityMap)
+  }
+}
+
 function* watchFetchLocalities() {
   while (true) {
     yield* takeLatest(ActionTypes.REQUEST_FETCH_LOCALITIES, fetchLocalities)
@@ -300,6 +330,8 @@ export default function* rootSaga() {
     fork(watchFetchCities),
     fork(watchFetchDeliverers),
     fork(watchFetchRetailers),
+    fork(watchFetchDPRetailerMap),
+    fork(watchFetchDPLocalityMap),
     fork(watchFetchLocalities),
     fork(watchFetchCityDetails),
     fork(watchCreateState),

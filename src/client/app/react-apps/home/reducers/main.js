@@ -66,6 +66,20 @@ const actionsMap = {
       loadingRetailers: false,
       retailers: action.data.retailers
     })
+  },
+
+  [ActionTypes.SUCCESS_FETCH_DP_RETAILER_MAP]: (state, action) => {
+    return Object.assign({}, state, {
+      loadingMappedRetailers: false,
+      mappedRetailers: action.data.retailers
+    })
+  },
+
+  [ActionTypes.SUCCESS_FETCH_DP_LOCALITY_MAP]: (state, action) => {
+    return Object.assign({}, state, {
+      loadingMappedLocalities: false,
+      mappedLocalities: action.data.localities
+    })
   }
 }
 

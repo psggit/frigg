@@ -7,6 +7,7 @@ import ViewMappedLocalities from './view-mapped-localities'
 import ViewMappedRetailers from './view-mapped-retailers'
 import AddLocalityDialog from './add-locality-dialog'
 import AddRetailerDialog from './add-retailer-dialog'
+import { getQueryObj } from '@utils/url-utils'
 
 class DelivererDetails extends React.Component {
   constructor() {
@@ -20,6 +21,15 @@ class DelivererDetails extends React.Component {
     this.mountAddRetailerDialog = this.mountAddRetailerDialog.bind(this)
     this.unmountAddLocalityDialog = this.unmountAddLocalityDialog.bind(this)
     this.unmountAddRetailerDialog = this.unmountAddRetailerDialog.bind(this)
+  }
+  componentDidMount() {
+    const queryObj = getQueryObj(location.search.slice(1))
+    this.props.actions.fetchDPRetailerMap({
+      dp_id: parseInt(queryObj.id)
+    })
+    this.props.actions.fetchDPLocalityMap({
+      dp_id: parseInt(queryObj.id)
+    })
   }
   unmountAddLocalityDialog() {
     this.setState({ shouldMountAddLocalityDialog: false })
@@ -41,7 +51,8 @@ class DelivererDetails extends React.Component {
       loadingMappedLocalities,
       loadingMappedRetailers,
       mappedRetailers,
-      mappedLocalities
+      mappedLocalities,
+      retailers
     } = this.props
 
     return (
@@ -95,6 +106,7 @@ class DelivererDetails extends React.Component {
         {
           this.state.shouldMountAddRetailerDialog &&
           <AddRetailerDialog
+            retailers={retailers}
             unmountAddRetailerDialog={this.unmountAddRetailerDialog}
           />
         }

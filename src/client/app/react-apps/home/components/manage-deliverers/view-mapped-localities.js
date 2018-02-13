@@ -52,17 +52,6 @@ function ViewMappedLocalities(props) {
           ? (
             props.mappedLocalities.map(item => (
               <TableRow key={item.employee_id}>
-                <TableRowColumn style={styles[0]}>
-                  <a
-                    // target="_blank"
-                    // exact
-                    // to={`/home/manage-cities/${item.name}?id=${item.id}`}
-                    href={`/home/manage-deliverers/${item.name}?id=${item.employee_id}`}
-                  >
-                    <FlatButton primary label="View" />
-                  </a>
-
-                </TableRowColumn>
                 <TableRowColumn style={styles[1]}>{item.employee_id}</TableRowColumn>
                 <TableRowColumn style={styles[2]}>{item.name}</TableRowColumn>
               </TableRow>

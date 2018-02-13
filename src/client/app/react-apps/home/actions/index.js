@@ -77,3 +77,13 @@ export const uploadSearchData = data => ({
   type: ActionTypes.REQUEST_UPLOAD_SEARCH_DATA,
   data
 })
+
+export const fetchDPRetailerMap = data => ({
+  type: ActionTypes.REQUEST_FETCH_DP_RETAILER_MAP,
+  data
+})
+
+export const fetchDPLocalityMap = data => ({
+  type: ActionTypes.REQUEST_FETCH_DP_LOCALITY_MAP,
+  data
+})
