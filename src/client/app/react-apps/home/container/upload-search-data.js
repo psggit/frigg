@@ -9,7 +9,9 @@ import '@sass/components/_file-uploader.scss'
 class UploadSearchData extends React.Component {
   constructor() {
     super()
-    this.state = {}
+    this.state = {
+      message: 'Choose a csv file'
+    }
     this.handleChange = this.handleChange.bind(this)
     this.handleUploadClick = this.handleUploadClick.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -27,9 +29,11 @@ class UploadSearchData extends React.Component {
   }
 
   handleChange(e) {
+    this.setState({ message: 'Choose csv file' })
     const file = e.target.files[0]
     this.setState({
       data: file,
+      message: file.name
     })
   }
 
@@ -46,10 +50,7 @@ class UploadSearchData extends React.Component {
           className='file-uploader'
         >
           { getIcon('upload') }
-          {
-            this.state.data &&
-            <p>{ this.state.data.name }</p>
-          }
+          <p>{ this.state.message }</p>
         </div>
         <input
           style={{ display: 'none' }}
