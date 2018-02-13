@@ -20,15 +20,15 @@ class NavigationBar extends  React.Component {
 
   render() {
     const navigationItems = [
-      // {
-      //   name: 'State management',
-      //   nestedItems: [
-      //     { name: 'Manage states', path: '/home/manage-states' },
-      //     { name: 'Manage Cities', path: '/home/manage-cities' },
-      //     { name: 'Manage Localities', path: '/home/manage-localities' },
-      //   ]
-      // },
-      // { name: 'Manage Deliverers', path: '/home/manage-deliverers', nestedItems: [] },
+      {
+        name: 'State management',
+        nestedItems: [
+          { name: 'Manage states', path: '/home/manage-states' },
+          { name: 'Manage Cities', path: '/home/manage-cities' },
+          { name: 'Manage Localities', path: '/home/manage-localities' },
+        ]
+      },
+      { name: 'Manage Deliverers', path: '/home/manage-deliverers', nestedItems: [] },
       { name: 'Upload search data', path: '/home/upload-search-data', nestedItems: [] }
     ]
     return (
@@ -50,7 +50,7 @@ class NavigationBar extends  React.Component {
                 item.nestedItems.forEach((nestedItem, i) => {
                   const nestedItemJSX = (
                     <ListItem
-                      onClick={() => { location.href = nestedItem.path }}
+                      onClick={() => { this.handleMenuItemClick(nestedItem.path) }}
                       primaryText={nestedItem.name}
                     />
                   )
