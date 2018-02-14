@@ -57,7 +57,7 @@ function ViewDeliverers(props) {
                     // target="_blank"
                     // exact
                     // to={`/home/manage-cities/${item.name}?id=${item.id}`}
-                    href={`/home/manage-deliverers/${item.name}?id=${item.employee_id}`}
+                    href={`/home/delivery-map-manager/${item.name}?id=${item.employee_id}`}
                   >
                     <FlatButton primary label="View" />
                   </a>

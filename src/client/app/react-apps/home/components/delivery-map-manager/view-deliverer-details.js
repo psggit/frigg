@@ -57,25 +57,9 @@ class DelivererDetails extends React.Component {
 
     return (
       <div style={{ width: '100%', maxWidth: 900 }}>
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between'
-          }}
-        >
-          <h3>`Showing mapped localities`</h3>
-          <RaisedButton
-            primary
-            label="Add locality"
-            onClick={this.mountAddLocalityDialog}
-            style={{ marginBottom: '40px', marginRight: '20px' }}
-          />
-        </div>
-        <ViewMappedLocalities
-          mappedLocalities={mappedLocalities}
-          loadingMappedLocalities={loadingMappedLocalities}
-        />
-
+        <p style={{ fontSize: '18px' }}>
+          Locality mapped to: Adyar
+        </p>
         <br /><br />
         <div
           style={{
@@ -83,7 +67,7 @@ class DelivererDetails extends React.Component {
             justifyContent: 'space-between'
           }}
         >
-          <h3>`Showing mapped retailers`</h3>
+          <h3 style={{ margin: 0 }}>Showing mapped retailers</h3>
           <RaisedButton
             primary
             label="Add retailer"
