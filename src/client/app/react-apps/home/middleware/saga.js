@@ -115,6 +115,7 @@ function* createCity(action) {
 
 function* updateCity(action) {
   try {
+    action.data.updated_at = (new Date()).toISOString()
     const data = yield call(Api.updateCity, action)
     yield put({ type: ActionTypes.REQUEST_FETCH_CITY_DETAILS, data: { id: action.data.id }, CB: action.CB })
     Notify("Successfully updated city", "success")
@@ -175,6 +176,7 @@ function* createGeolocality(action) {
 
 function* updateGeolocality(action) {
   try {
+    action.data.updated_at = (new Date()).toISOString()
     const data = yield call(Api.updateGeolocality, action)
     yield put({
       type: ActionTypes.REQUEST_FETCH_LOCALITIES,
