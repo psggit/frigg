@@ -19,8 +19,7 @@ class UploadSearchData extends React.Component {
 
   handleSubmit() {
     const formData = new FormData()
-    formData.append('fileName', this.state.data)
-    formData.append('name', 'data')
+    formData.append('data', this.state.data)
     this.props.actions.uploadSearchData(formData)
   }
 
