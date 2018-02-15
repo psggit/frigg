@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import * as Actions from './../../actions'
 import RaisedButton from 'material-ui/RaisedButton'
 import FlatButton from 'material-ui/FlatButton'
-import { getQueryObj } from '@utils/url-utils'
+import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton'
 import {
   Table,
   TableBody,
@@ -31,33 +31,34 @@ const styles = [
   { width: '100px' }
 ]
 
-class ViewRetailers extends React.Component {
+class ViewLocalities extends React.Component {
   constructor() {
     super()
-    this.handleAddRetailerToDpMap = this.handleAddRetailerToDpMap.bind(this)
+    this.state = {
+      selectedLocality: null
+    }
+    this.handleChangeLocality = this.handleChangeLocality.bind(this)
   }
 
   componentDidMount() {
-    const queryObj = getQueryObj(location.search.slice(1))
-    this.props.actions.fetchRetailers({
-      dp_id: parseInt(queryObj.id)
+    this.props.actions.fetchLocalities({
+      city_id: null,
+      is_available: false,
+      offset: 0,
+      limit: 10,
+      no_filter: true
     })
   }
 
-  handleAddRetailerToDpMap(id) {
-    const queryObj = getQueryObj(location.search.slice(1))
-    this.props.actions.updateDPRetailerMap({
-      retailer_id: parseInt(id),
-      dp_id: parseInt(queryObj.id)
-    })
-
-    this.props.handleClose()
+  handleChangeLocality(e) {
+    this.setState({ selectedLocality: parseInt(e.target.value) })
+    this.props.setLocalityId(e.target.value)
   }
 
   render() {
     const {
-      loadingRetailers,
-      retailers
+      loadingGeolocalities,
+      geoLocalitiesData
     } = this.props
 
     return (
@@ -79,20 +80,20 @@ class ViewRetailers extends React.Component {
             showRowHover
           >
             {
-              !loadingRetailers
+              !loadingGeolocalities
               ? (
-                retailers.map(item => (
+                geoLocalitiesData.fences.map(item => (
                   <TableRow key={item.id}>
                     <TableRowColumn style={styles[0]}>{item.id}</TableRowColumn>
-                    <TableRowColumn style={styles[1]}>{item.org_name}</TableRowColumn>
+                    <TableRowColumn style={styles[1]}>{item.name}</TableRowColumn>
                     <TableRowColumn style={styles[2]}>
-                      <FlatButton
-                        label="add"
-                        primary
-                        onClick={() => {
-                          this.handleAddRetailerToDpMap(item.id)
-                        }}
-                      />
+                      <RadioButtonGroup
+                        valueSelected={this.state.selectedLocality}
+                        name="localityId"
+                        onChange={this.handleChangeLocality}
+                      >
+                        <RadioButton value={item.id} />
+                      </RadioButtonGroup>
                     </TableRowColumn>
                   </TableRow>
                 ))
@@ -119,4 +120,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(ViewRetailers)
+)(ViewLocalities)

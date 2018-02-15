@@ -13,6 +13,7 @@ import ManageStates from './manage-states'
 import ManageCities from './manage-cities'
 import ManageLocalities from './manage-localities'
 import DeliveryMapManager from './delivery-map-manager'
+import LocalityMapManager from './locality-map-manager'
 import ViewLocalities from './../components/manage-geofencing/view-locality'
 import NotFound from './../../../react-apps/not-found'
 import ViewCity from './../components/manage-cities/view-city-details'
@@ -92,6 +93,9 @@ class App extends React.Component {
 
                   <Route exact path="/home/manage-localities/create-new-locality" component={CreateLocality} />
                   <Route exact path="/home/manage-localities/:localitySlug" component={ViewLocality} />
+
+                  <Route exact path="/home/delivery-map-manager/" component={DeliveryMapManager} />
+                  <Route exact path="/home/delivery-map-manager/:delivererSlug" component={ViewDeliverer} />
 
                   <Route exact path="/home/delivery-map-manager/" component={DeliveryMapManager} />
                   <Route exact path="/home/delivery-map-manager/:delivererSlug" component={ViewDeliverer} />

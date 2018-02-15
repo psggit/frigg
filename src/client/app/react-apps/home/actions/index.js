@@ -88,17 +88,23 @@ export const fetchDPLocalityMap = data => ({
   data
 })
 
-export const addRetailerToDpMap = data => ({
-  type: ActionTypes.REQUEST_ADD_RETAILER_TO_DP_MAP,
-  data
-})
-
 export const deleteRetailerFromDpMap = data => ({
   type: ActionTypes.REQUEST_DELETE_RETAILER_FROM_DP_MAP,
   data
 })
 
-export const changeLocalityOfDpMap = data => ({
-  type: ActionTypes.REQUEST_CHANGE_LOCALITY_OF_DP_MAP,
+export const updateDPLocalityMap = data => ({
+  type: ActionTypes.REQUEST_UPDATE_DP_LOCALITY_MAP,
   data
+})
+
+export const updateDPRetailerMap = data => ({
+  type: ActionTypes.REQUEST_UPDATE_DP_RETAILER_MAP,
+  data
+})
+
+export const deleteLocalityFromDpMap = (data, newLocalityId) => ({
+  type: ActionTypes.REQUEST_DELETE_LOCALITY_FROM_DP_MAP,
+  data,
+  newLocalityId
 })

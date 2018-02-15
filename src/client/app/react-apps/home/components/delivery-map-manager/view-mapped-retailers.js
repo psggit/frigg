@@ -16,15 +16,14 @@ import TableLoadingShell from './../table-loading-shell'
 import '@sass/components/_table.scss'
 
 const TableHeaderItems = [
-  '',
   'ID',
-  'NAME'
+  'NAME',
+  ''
 ]
 
 const styles = [
   { width: '38px' },
   { width: '60px' },
-  { width: '120px' },
   { width: '38px' },
   { width: '100px' }
 ]
@@ -52,8 +51,17 @@ function ViewMappedRetailers(props) {
           ? (
             props.mappedRetailers.map(item => (
               <TableRow key={item.employee_id}>
-                <TableRowColumn style={styles[1]}>{item.employee_id}</TableRowColumn>
-                <TableRowColumn style={styles[2]}>{item.name}</TableRowColumn>
+                <TableRowColumn style={styles[0]}>{item.id}</TableRowColumn>
+                <TableRowColumn style={styles[1]}>{item.org_name}</TableRowColumn>
+                <TableRowColumn style={styles[2]}>
+                  <FlatButton
+                    label="delete"
+                    primary
+                    onClick={() => {
+                      props.mountConfirmDeleteRetailerFromDpMap(item.id)
+                    }}
+                  />
+                </TableRowColumn>
               </TableRow>
             ))
           )

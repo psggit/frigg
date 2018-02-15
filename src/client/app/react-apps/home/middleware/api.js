@@ -31,7 +31,7 @@ export const fetchDeliverers = action => (
 
 export const fetchRetailers = action => (
   POST({
-    api: '/retailer/allRetailers',
+    api: '/retailer/unmappedRetailersToDp',
     apiBase: 'odin',
     data: action.data,
     handleError: true
@@ -143,5 +143,41 @@ export const uploadSearchData = action => (
     data: action.data,
     handleError: true,
     type: 'FormData'
+  })
+)
+
+export const updateDPLocalityMap = action => (
+  POST({
+    api: '/dp/mapDpToLocality',
+    apiBase: 'odin',
+    data: action.data,
+    handleError: true
+  })
+)
+
+export const updateDPRetailerMap = action => (
+  POST({
+    api: '/retailer/mapRetailerToDp',
+    apiBase: 'odin',
+    data: action.data,
+    handleError: true
+  })
+)
+
+export const deleteRetailerFromDpMap = action => (
+  POST({
+    api: '/retailer/removeRetailerDpMap',
+    apiBase: 'odin',
+    data: action.data,
+    handleError: true
+  })
+)
+
+export const deleteLocalityFromDpMap = action => (
+  POST({
+    api: '/dp/removeDpLocalityMap',
+    apiBase: 'odin',
+    data: action.data,
+    handleError: true
   })
 )

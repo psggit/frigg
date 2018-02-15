@@ -137,6 +137,53 @@ function* updateGeoboundary(action) {
   }
 }
 
+function* updateDPLocalityMap(action) {
+  try {
+    const data = yield call(Api.updateDPLocalityMap, action)
+    yield put({ type: ActionTypes.REQUEST_FETCH_DP_LOCALITY_MAP, data: { dp_id: action.data.dp_id } })
+    Notify("Successfully updated", "success")
+  } catch (err) {
+    Notify("Something went wrong", "warning")
+    console.log(err)
+  }
+}
+
+function* updateDPRetailerMap(action) {
+  console.log(action);
+  try {
+    const data = yield call(Api.updateDPRetailerMap, action)
+    yield put({ type: ActionTypes.REQUEST_FETCH_DP_RETAILER_MAP, data: { dp_id: action.data.dp_id } })
+    Notify("Successfully updated", "success")
+  } catch (err) {
+    Notify("Something went wrong", "warning")
+    console.log(err)
+  }
+}
+
+function* deleteRetailerFromDpMap(action) {
+  console.log(action);
+  try {
+    const data = yield call(Api.deleteRetailerFromDpMap, action)
+    yield put({ type: ActionTypes.REQUEST_FETCH_DP_RETAILER_MAP, data: { dp_id: action.data.dp_id } })
+    Notify("Successfully updated", "success")
+  } catch (err) {
+    Notify("Something went wrong", "warning")
+    console.log(err)
+  }
+}
+
+function* deleteLocalityFromDpMap(action) {
+  console.log(action);
+  try {
+    const data = yield call(Api.deleteLocalityFromDpMap, action)
+    yield put({ type: ActionTypes.REQUEST_UPDATE_DP_LOCALITY_MAP, data: { dp_id: action.data.dp_id, locality_id: action.newLocalityId } })
+    Notify("Successfully updated", "success")
+  } catch (err) {
+    Notify("Something went wrong", "warning")
+    console.log(err)
+  }
+}
+
 function* fetchLocalities(action) {
   console.log(action);
   try {
@@ -326,6 +373,30 @@ function* watchUploadSearchData() {
   }
 }
 
+function* watchUpdateDPLocalityMap() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_UPDATE_DP_LOCALITY_MAP, updateDPLocalityMap)
+  }
+}
+
+function* watchUpdateDPRetailerMap() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_UPDATE_DP_RETAILER_MAP, updateDPRetailerMap)
+  }
+}
+
+function* watchDeleteRetailerFromDpMap() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_DELETE_RETAILER_FROM_DP_MAP, deleteRetailerFromDpMap)
+  }
+}
+
+function* watchDeleteLocalityFromDpMap() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_DELETE_LOCALITY_FROM_DP_MAP, deleteLocalityFromDpMap)
+  }
+}
+
 export default function* rootSaga() {
   yield [
     fork(watchFetchStates),
@@ -344,6 +415,10 @@ export default function* rootSaga() {
     fork(watchCreateGeolocality),
     fork(watchUpdateGeolocality),
     fork(watchSetLoadingState),
-    fork(watchUploadSearchData)
+    fork(watchUploadSearchData),
+    fork(watchUpdateDPLocalityMap),
+    fork(watchUpdateDPRetailerMap),
+    fork(watchDeleteRetailerFromDpMap),
+    fork(watchDeleteLocalityFromDpMap)
   ]
 }
