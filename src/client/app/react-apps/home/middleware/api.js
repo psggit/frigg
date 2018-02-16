@@ -39,6 +39,36 @@ export const fetchRetailers = action => (
     .then(json => json)
 )
 
+export const fetchUnmappedRetailersToLocality = action => (
+  POST({
+    api: '/retailer/unmappedRetailersToLocality',
+    apiBase: 'odin',
+    data: action.data,
+    handleError: true
+  })
+    .then(json => json)
+)
+
+export const fetchUnmappedDpToLocality = action => (
+  POST({
+    api: '/dp/unmappedDpByLocality',
+    apiBase: 'odin',
+    data: action.data,
+    handleError: true
+  })
+    .then(json => json)
+)
+
+export const fetchUnmappedLocalitiesToDp = action => (
+  POST({
+    api: '/dp/unmappedLocalitiesByDp',
+    apiBase: 'odin',
+    data: action.data,
+    handleError: true
+  })
+    .then(json => json)
+)
+
 export const fetchDPRetailerMap = action => (
   POST({
     api: '/retailer/retailersByDp',
@@ -53,6 +83,16 @@ export const fetchDPRetailerMap = action => (
 export const fetchDPLocalityMap = action => (
   POST({
     api: '/dp/localitiesByDp',
+    apiBase: 'odin',
+    data: action.data,
+    handleError: true
+  })
+    .then(json => json)
+)
+
+export const fetchDpByLocality = action => (
+  POST({
+    api: '/dp/dpByLocality',
     apiBase: 'odin',
     data: action.data,
     handleError: true
@@ -173,9 +213,72 @@ export const deleteRetailerFromDpMap = action => (
   })
 )
 
+export const deleteRetailerFromLocalityMap = action => (
+  POST({
+    api: '/retailer/removeRetailerLocalityMap',
+    apiBase: 'odin',
+    data: action.data,
+    handleError: true
+  })
+)
+
 export const deleteLocalityFromDpMap = action => (
   POST({
     api: '/dp/removeDpLocalityMap',
+    apiBase: 'odin',
+    data: action.data,
+    handleError: true
+  })
+)
+
+export const fetchLocalityRetailersMap = action => (
+  POST({
+    api: '/retailer/retailersByLocality',
+    apiBase: 'odin',
+    data: action.data,
+    handleError: true
+  })
+)
+
+export const addRetailerToLocalityMap = action => (
+  POST({
+    api: '/retailer/mapRetailerToLocality',
+    apiBase: 'odin',
+    data: action.data,
+    handleError: true
+  })
+)
+
+export const addDpToLocalityMap = action => (
+  POST({
+    api: '/dp/mapDpToLocality',
+    apiBase: 'odin',
+    data: action.data,
+    handleError: true
+  })
+)
+
+export const deleteDpFromLocalityMap = action => (
+  POST({
+    api: '/dp/removeDpLocalityMap',
+    apiBase: 'odin',
+    data: action.data,
+    handleError: true
+  })
+)
+
+export const mapRetailerToLocalityAsPrime = action => (
+  POST({
+    api: '/retailer/mapRetailerToLocalityAsPrime',
+    apiBase: 'odin',
+    data: action.data,
+    handleError: true
+  })
+)
+
+export const unmapRetailerToLocalityAsPrime = action => (
+  POST({
+    api: '/retailer/unmapRetailerToLocalityAsPrime',
     apiBase: 'odin',
     data: action.data,
     handleError: true

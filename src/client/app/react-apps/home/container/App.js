@@ -20,6 +20,7 @@ import ViewCity from './../components/manage-cities/view-city-details'
 import ViewState from './../components/manage-states/view-state-details'
 import ViewLocality from './../components/manage-localities/view-locality-details'
 import ViewDeliverer from './../components/delivery-map-manager/view-deliverer-details'
+import ViewLocalityMapDetails from './../components/locality-map-manager/view-locality-map-details'
 import CreateCity from './../components/manage-cities/create-city'
 import CreateState from './../components/manage-states/create-state'
 import CreateLocality from './../components/manage-localities/create-locality'
@@ -97,8 +98,8 @@ class App extends React.Component {
                   <Route exact path="/home/delivery-map-manager/" component={DeliveryMapManager} />
                   <Route exact path="/home/delivery-map-manager/:delivererSlug" component={ViewDeliverer} />
 
-                  <Route exact path="/home/delivery-map-manager/" component={DeliveryMapManager} />
-                  <Route exact path="/home/delivery-map-manager/:delivererSlug" component={ViewDeliverer} />
+                  <Route exact path="/home/locality-map-manager/" component={LocalityMapManager} />
+                  <Route exact path="/home/locality-map-manager/:localitySlug" component={ViewLocalityMapDetails} />
 
                   <Route exact path="/home/upload-search-data" component={UploadSearchData} />
                 </Switch>

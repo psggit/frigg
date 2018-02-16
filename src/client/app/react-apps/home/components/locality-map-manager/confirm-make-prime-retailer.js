@@ -1,10 +1,10 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
 import RaisedButton from 'material-ui/RaisedButton'
-import ViewLocalities from './view-localities'
 
-class ConfirmChangeDpLocalityMap extends React.Component {
+class ConfirmMakePrimeRetailer extends React.Component {
   constructor() {
     super()
     this.state = {
@@ -15,7 +15,7 @@ class ConfirmChangeDpLocalityMap extends React.Component {
   handleClose() {
     this.setState({ open: false })
     setTimeout(() => {
-      this.props.unmountConfirmChangeDpLocalityMap()
+      this.props.unmountConfirmMakePrimeRetailer()
     }, 500)
   }
   render() {
@@ -24,7 +24,7 @@ class ConfirmChangeDpLocalityMap extends React.Component {
         label="Save"
         primary
         onClick={() => {
-          this.props.handleChangeDpLocalityMap()
+          this.props.handleMakePrimeRetailer(this.props.retailer_id)
           this.handleClose()
         }}
       />,
@@ -37,14 +37,14 @@ class ConfirmChangeDpLocalityMap extends React.Component {
     return (
       <div>
         <Dialog
-          title="Replace locality"
+          title="Delete retailer"
           actions={actions}
           modal={false}
           open={this.state.open}
           onRequestClose={this.handleClose}
         >
           <p>
-            This will replace the exisiting locality mapped to the delivery agent.<br/>
+            This will replace the exisiting prime retailer for this locality.<br/>
             Are your sure you want to replace?
           </p>
         </Dialog>
@@ -53,4 +53,9 @@ class ConfirmChangeDpLocalityMap extends React.Component {
   }
 }
 
-export default ConfirmChangeDpLocalityMap
+ConfirmMakePrimeRetailer.propTypes = {
+  handleMakePrimeRetailer: PropTypes.func.isRequired,
+  unmountConfirmMakePrimeRetailer: PropTypes.func.isRequired
+}
+
+export default ConfirmMakePrimeRetailer

@@ -2,10 +2,10 @@ import React from 'react'
 import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
 import RaisedButton from 'material-ui/RaisedButton'
-import ViewLocalities from './view-localities'
+import ViewDeliverers from './view-deliverers'
 import ConfirmChangeDpLocalityMap from './confirm-change-dp-locality-map'
 
-class AddLocalityDialog extends React.Component {
+class MapDeliveryAgentDialog extends React.Component {
   constructor() {
     super()
     this.state = {
@@ -13,7 +13,7 @@ class AddLocalityDialog extends React.Component {
       shouldMountConfirmChangeLocalityDpMap: false
     }
     this.handleClose = this.handleClose.bind(this)
-    this.setLocalityId = this.setLocalityId.bind(this)
+    this.setDelivererId = this.setDelivererId.bind(this)
     this.handleChangeDpLocalityMap = this.handleChangeDpLocalityMap.bind(this)
     this.mountConfirmChangeDpLocalityMap = this.mountConfirmChangeDpLocalityMap.bind(this)
     this.unmountConfirmChangeDpLocalityMap = this.unmountConfirmChangeDpLocalityMap.bind(this)
@@ -21,15 +21,22 @@ class AddLocalityDialog extends React.Component {
   handleClose() {
     this.setState({ open: false })
     setTimeout(() => {
-      this.props.unmountAddLocalityDialog()
+      this.props.unmountMapDeliveryAgentDialog()
     }, 500)
   }
   handleChangeDpLocalityMap() {
-    if (this.state.newLocalityId) {
-      this.props.deleteLocalityFromDpMap({
-        dp_id: parseInt(this.props.dp_id),
-        locality_id: this.props.currentLocalityId
-      }, parseInt(this.state.newLocalityId))
+    if (this.props.currentDelivererId) {
+      if (this.state.newDelivererId) {
+        this.props.deleteDpFromLocalityMap({
+          locality_id: parseInt(this.props.locality_id),
+          dp_id: parseInt(this.props.currentDelivererId)
+        }, parseInt(this.state.newDelivererId))
+      }
+    } else {
+      this.props.addDpToLocalityMap({
+        locality_id: parseInt(this.props.locality_id),
+        dp_id: parseInt(this.state.newDelivererId)
+      })
     }
     this.handleClose()
   }
@@ -40,8 +47,8 @@ class AddLocalityDialog extends React.Component {
   unmountConfirmChangeDpLocalityMap() {
     this.setState({ shouldMountConfirmChangeLocalityDpMap: false  })
   }
-  setLocalityId(id) {
-    this.setState({ newLocalityId: id })
+  setDelivererId(id) {
+    this.setState({ newDelivererId: id })
   }
   render() {
     const actions = [
@@ -59,15 +66,15 @@ class AddLocalityDialog extends React.Component {
     return (
       <div>
         <Dialog
-          title="Change locality"
+          title="Change delivery agent"
           actions={actions}
           modal={false}
           open={this.state.open}
           onRequestClose={this.handleClose}
         >
-          <ViewLocalities
-            dp_id={this.props.dp_id}
-            setLocalityId={this.setLocalityId}
+          <ViewDeliverers
+            locality_id={this.props.locality_id}
+            setDelivererId={this.setDelivererId}
           />
 
         </Dialog>
@@ -84,4 +91,4 @@ class AddLocalityDialog extends React.Component {
   }
 }
 
-export default AddLocalityDialog
+export default MapDeliveryAgentDialog

@@ -25,11 +25,11 @@ class AddLocalityDialog extends React.Component {
     }, 500)
   }
   handleChangeDpLocalityMap() {
-    if (this.state.newLocalityId) {
+    if (this.state.selectedLocality) {
       this.props.deleteLocalityFromDpMap({
         dp_id: parseInt(this.props.dp_id),
         locality_id: this.props.currentLocalityId
-      }, parseInt(this.state.newLocalityId))
+      }, parseInt(this.state.selectedLocality))
     }
     this.handleClose()
   }
@@ -41,7 +41,7 @@ class AddLocalityDialog extends React.Component {
     this.setState({ shouldMountConfirmChangeLocalityDpMap: false  })
   }
   setLocalityId(id) {
-    this.setState({ newLocalityId: id })
+    this.setState({ selectedLocality: id })
   }
   render() {
     const actions = [
@@ -65,10 +65,7 @@ class AddLocalityDialog extends React.Component {
           open={this.state.open}
           onRequestClose={this.handleClose}
         >
-          <ViewLocalities
-            dp_id={this.props.dp_id}
-            setLocalityId={this.setLocalityId}
-          />
+          <ViewLocalities setLocalityId={this.setLocalityId} />
 
         </Dialog>
         {

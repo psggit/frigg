@@ -28,7 +28,13 @@ class NavigationBar extends  React.Component {
           { name: 'Manage Localities', path: '/home/manage-localities' },
         ]
       },
-      { name: 'Delivery map manager', path: '/home/delivery-map-manager', nestedItems: [] },
+      {
+        name: 'Map manager',
+        nestedItems: [
+          { name: 'Delivery map manager', path: '/home/delivery-map-manager' },
+          { name: 'Locality map manager', path: '/home/locality-map-manager' },
+        ]
+      },
       { name: 'Upload search data', path: '/home/upload-search-data', nestedItems: [] }
     ]
     return (
@@ -61,7 +67,7 @@ class NavigationBar extends  React.Component {
                   <ListItem
                     onClick={() => { this.handleMenuItemClick(item.path) }}
                     primaryText={item.name}
-                    initiallyOpen
+                    initiallyOpen={true}
                     primaryTogglesNestedList
                     nestedItems={nestedItems}
                   />

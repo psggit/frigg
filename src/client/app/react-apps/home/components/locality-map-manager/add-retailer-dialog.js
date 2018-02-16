@@ -1,10 +1,9 @@
 import React from 'react'
 import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
-import RaisedButton from 'material-ui/RaisedButton'
-import ViewLocalities from './view-localities'
+import ViewRetailers from './view-retailers'
 
-class ConfirmChangeDpLocalityMap extends React.Component {
+class AddRetailerDialog extends React.Component {
   constructor() {
     super()
     this.state = {
@@ -15,42 +14,31 @@ class ConfirmChangeDpLocalityMap extends React.Component {
   handleClose() {
     this.setState({ open: false })
     setTimeout(() => {
-      this.props.unmountConfirmChangeDpLocalityMap()
+      this.props.unmountAddRetailerDialog()
     }, 500)
   }
   render() {
     const actions = [
-      <RaisedButton
-        label="Save"
-        primary
-        onClick={() => {
-          this.props.handleChangeDpLocalityMap()
-          this.handleClose()
-        }}
-      />,
       <FlatButton
         label="Cancel"
-        secondary
+        primary
         onClick={this.handleClose}
       />
     ]
     return (
       <div>
         <Dialog
-          title="Replace locality"
+          title="Add retailer"
           actions={actions}
           modal={false}
           open={this.state.open}
           onRequestClose={this.handleClose}
         >
-          <p>
-            This will replace the exisiting locality mapped to the delivery agent.<br/>
-            Are your sure you want to replace?
-          </p>
+          <ViewRetailers handleClose={this.handleClose} />
         </Dialog>
       </div>
     )
   }
 }
 
-export default ConfirmChangeDpLocalityMap
+export default AddRetailerDialog

@@ -31,30 +31,30 @@ const styles = [
   { width: '100px' }
 ]
 
-class ViewLocalities extends React.Component {
+class ViewDeliverers extends React.Component {
   constructor() {
     super()
     this.state = {
-      selectedLocality: null
+      selectedDeliveryAgent: null
     }
     this.handleChangeLocality = this.handleChangeLocality.bind(this)
   }
 
   componentDidMount() {
-    this.props.actions.fetchUnmappedLocalitiesToDp({
-      dp_id: parseInt(this.props.dp_id)
+    this.props.actions.fetchUnmappedDpToLocality({
+      locality_id: parseInt(this.props.locality_id)
     })
   }
 
   handleChangeLocality(e) {
-    this.setState({ selectedLocality: parseInt(e.target.value) })
-    this.props.setLocalityId(e.target.value)
+    this.setState({ selectedDeliveryAgent: parseInt(e.target.value) })
+    this.props.setDelivererId(e.target.value)
   }
 
   render() {
     const {
-      loadingUnmappedLocalitiesToDp,
-      unmappedLocalitiesToDp
+      unmappedDpToLocality,
+      loadingUnmappedDpToLocality
     } = this.props
 
     return (
@@ -76,15 +76,15 @@ class ViewLocalities extends React.Component {
             showRowHover
           >
             {
-              !loadingUnmappedLocalitiesToDp
+              !loadingUnmappedDpToLocality
               ? (
-                unmappedLocalitiesToDp.map(item => (
+                unmappedDpToLocality.map(item => (
                   <TableRow key={item.id}>
                     <TableRowColumn style={styles[0]}>{item.id}</TableRowColumn>
                     <TableRowColumn style={styles[1]}>{item.name}</TableRowColumn>
                     <TableRowColumn style={styles[2]}>
                       <RadioButtonGroup
-                        valueSelected={this.state.selectedLocality}
+                        valueSelected={this.state.selectedDeliveryAgent}
                         name="localityId"
                         onChange={this.handleChangeLocality}
                       >
@@ -116,4 +116,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(ViewLocalities)
+)(ViewDeliverers)

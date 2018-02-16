@@ -24,7 +24,7 @@ class ConfirmChangeDpLocalityMap extends React.Component {
         label="Save"
         primary
         onClick={() => {
-          this.props.handleChangeDpLocalityMap()
+          this.props.handleChangeDpLocalityMap(this.props.locality_id)
           this.handleClose()
         }}
       />,
@@ -37,14 +37,14 @@ class ConfirmChangeDpLocalityMap extends React.Component {
     return (
       <div>
         <Dialog
-          title="Replace locality"
+          title="Replace delivery agent"
           actions={actions}
           modal={false}
           open={this.state.open}
           onRequestClose={this.handleClose}
         >
           <p>
-            This will replace the exisiting locality mapped to the delivery agent.<br/>
+            This will replace the exisiting delivery agent mapped to the locality.<br/>
             Are your sure you want to replace?
           </p>
         </Dialog>

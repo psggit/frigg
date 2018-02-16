@@ -8,6 +8,16 @@ const initialState = {
   loadingMappedLocalities: true,
   loadingMappedRetailers: true,
   loadingRetailers: true,
+  loadingMappedRetailersToLocality: true,
+  loadingUnmappedRetailersToLocality: true,
+  loadingUnmappedDpToLocality: true,
+  loadingUnmappedLocalitiesToDp: true,
+  loadingMappedDpToLocality: true,
+  unmappedRetailersToLocality: [],
+  unmappedLocalitiesToDp: [],
+  unmappedDpToLocality: [],
+  mappedRetailersToLocality: [],
+  mappedDpToLocality: [],
   retailers: [],
   mappedRetailers: [],
   mappedLocalities: [],
@@ -79,6 +89,41 @@ const actionsMap = {
     return Object.assign({}, state, {
       loadingMappedLocalities: false,
       mappedLocalities: action.data.localities
+    })
+  },
+
+  [ActionTypes.SUCCESS_FETCH_LOCALITY_RETAILERS_MAP]: (state, action) => {
+    return Object.assign({}, state, {
+      loadingMappedRetailersToLocality: false,
+      mappedRetailersToLocality: action.data.retailers
+    })
+  },
+
+  [ActionTypes.SUCCESS_FETCH_UNMAPPED_RETAILERS_TO_LOCALITY]: (state, action) => {
+    return Object.assign({}, state, {
+      loadingUnmappedRetailersToLocality: false,
+      unmappedRetailersToLocality: action.data.retailers
+    })
+  },
+
+  [ActionTypes.SUCCESS_FETCH_UNMAPPED_DP_TO_LOCALITY]: (state, action) => {
+    return Object.assign({}, state, {
+      loadingUnmappedDpToLocality: false,
+      unmappedDpToLocality: action.data.dp
+    })
+  },
+
+  [ActionTypes.SUCCESS_FETCH_UNMAPPED_LOCALITIES_TO_DP]: (state, action) => {
+    return Object.assign({}, state, {
+      loadingUnmappedLocalitiesToDp: false,
+      unmappedLocalitiesToDp: action.data.localities
+    })
+  },
+
+  [ActionTypes.SUCCESS_FETCH_DP_BY_LOCALITY]: (state, action) => {
+    return Object.assign({}, state, {
+      loadingMappedDpToLocality: false,
+      mappedDpToLocality: action.data.dp
     })
   }
 }

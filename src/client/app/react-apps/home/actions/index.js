@@ -73,6 +73,21 @@ export const fetchRetailers = data => ({
   data
 })
 
+export const fetchUnmappedRetailersToLocality = data => ({
+  type: ActionTypes.REQUEST_FETCH_UNMAPPED_RETAILERS_TO_LOCALITY,
+  data
+})
+
+export const fetchUnmappedDpToLocality = data => ({
+  type: ActionTypes.REQUEST_FETCH_UNMAPPED_DP_TO_LOCALITY,
+  data
+})
+
+export const fetchUnmappedLocalitiesToDp = data => ({
+  type: ActionTypes.REQUEST_FETCH_UNMAPPED_LOCALITIES_TO_DP,
+  data
+})
+
 export const uploadSearchData = data => ({
   type: ActionTypes.REQUEST_UPLOAD_SEARCH_DATA,
   data
@@ -107,4 +122,47 @@ export const deleteLocalityFromDpMap = (data, newLocalityId) => ({
   type: ActionTypes.REQUEST_DELETE_LOCALITY_FROM_DP_MAP,
   data,
   newLocalityId
+})
+
+export const fetchLocalityRetailersMap = data => ({
+  type: ActionTypes.REQUEST_FETCH_LOCALITY_RETAILERS_MAP,
+  data
+})
+
+export const deleteRetailerFromLocalityMap = data => ({
+  type: ActionTypes.REQUEST_DELETE_RETAILER_FROM_LOCALITY_MAP,
+  data
+})
+
+
+export const addRetailerToLocalityMap = data => ({
+  type: ActionTypes.REQUEST_ADD_RETAILER_TO_LOCALITY_MAP,
+  data
+})
+
+export const mapRetailerToLocalityAsPrime = data => ({
+  type: ActionTypes.REQUEST_MAP_RETAILER_TO_LOCALITY_AS_PRIME,
+  data
+})
+
+export const unmapRetailerToLocalityAsPrime = (data, newPrimeRetailerId) => ({
+  type: ActionTypes.REQUEST_UNMAP_RETAILER_TO_LOCALITY_AS_PRIME,
+  data,
+  newPrimeRetailerId
+})
+
+export const fetchDpByLocality = data => ({
+  type: ActionTypes.REQUEST_FETCH_DP_BY_LOCALITY,
+  data
+})
+
+export const addDpToLocalityMap = data => ({
+  type: ActionTypes.REQUEST_ADD_DP_TO_LOCALITY_MAP,
+  data
+})
+
+export const deleteDpFromLocalityMap = (data, newDelivererId) => ({
+  type: ActionTypes.REQUEST_DELETE_DP_FROM_LOCALITY_MAP,
+  data,
+  newDelivererId
 })

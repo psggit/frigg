@@ -1,10 +1,10 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
 import RaisedButton from 'material-ui/RaisedButton'
-import ViewLocalities from './view-localities'
 
-class ConfirmChangeDpLocalityMap extends React.Component {
+class ConfirmDeleteRetailer extends React.Component {
   constructor() {
     super()
     this.state = {
@@ -15,7 +15,7 @@ class ConfirmChangeDpLocalityMap extends React.Component {
   handleClose() {
     this.setState({ open: false })
     setTimeout(() => {
-      this.props.unmountConfirmChangeDpLocalityMap()
+      this.props.unmountConfirmDeleteRetailer()
     }, 500)
   }
   render() {
@@ -24,7 +24,7 @@ class ConfirmChangeDpLocalityMap extends React.Component {
         label="Save"
         primary
         onClick={() => {
-          this.props.handleChangeDpLocalityMap()
+          this.props.handleDeleteRetailer(this.props.retailer_id)
           this.handleClose()
         }}
       />,
@@ -37,20 +37,23 @@ class ConfirmChangeDpLocalityMap extends React.Component {
     return (
       <div>
         <Dialog
-          title="Replace locality"
+          title="Delete retailer"
           actions={actions}
           modal={false}
           open={this.state.open}
           onRequestClose={this.handleClose}
         >
-          <p>
-            This will replace the exisiting locality mapped to the delivery agent.<br/>
-            Are your sure you want to replace?
-          </p>
+          <p>Are your sure you want to delete this retailer?</p>
         </Dialog>
       </div>
     )
   }
 }
 
-export default ConfirmChangeDpLocalityMap
+ConfirmDeleteRetailer.propTypes = {
+  retailer_id: PropTypes.string.isRequired,
+  handleDeleteRetailer: PropTypes.func.isRequired,
+  unmountConfirmDeleteRetailer: PropTypes.func.isRequired
+}
+
+export default ConfirmDeleteRetailer
