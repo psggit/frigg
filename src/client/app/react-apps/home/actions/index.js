@@ -77,3 +77,8 @@ export const uploadSearchData = data => ({
   type: ActionTypes.REQUEST_UPLOAD_SEARCH_DATA,
   data
 })
+
+export const indexSearchData = data => ({
+  type: ActionTypes.REQUEST_INDEX_SEARCH_DATA,
+  data
+})

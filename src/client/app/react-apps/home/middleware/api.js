@@ -124,3 +124,13 @@ export const uploadSearchData = action => (
     type: 'FormData'
   })
 )
+
+export const indexSearchData = action => (
+  POST({
+    api: '/index/localSearch',
+    apiBase: 'gremlinUrl',
+    data: action.data,
+    handleError: true,
+    type: 'FormData'
+  })
+)
