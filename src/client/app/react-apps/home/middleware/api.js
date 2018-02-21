@@ -284,3 +284,13 @@ export const unmapRetailerToLocalityAsPrime = action => (
     handleError: true
   })
 )
+
+export const indexSearchData = action => (
+  POST({
+    api: '/index/localSearch',
+    apiBase: 'gremlinUrl',
+    data: action.data,
+    handleError: true,
+    type: 'FormData'
+  })
+)

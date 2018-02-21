@@ -382,6 +382,16 @@ function* uploadSearchData(action) {
   }
 }
 
+function* indexSearchData(action) {
+  try {
+    const data = yield call(Api.indexSearchData, action)
+    yield put({ type: ActionTypes.SUCCESS_INDEX_SEARCH_DATA, data })
+    Notify("Successfully indexed search data", "success")
+  } catch (err) {
+    console.log(err)
+  }
+}
+
 
 /**
  * Watchers
@@ -578,6 +588,12 @@ function* watchUnMapRetailerToLocalityAsPrime() {
   }
 }
 
+function* watchIndexSearchData() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_INDEX_SEARCH_DATA, indexSearchData)
+  }
+}
+
 export default function* rootSaga() {
   yield [
     fork(watchFetchStates),
@@ -611,6 +627,7 @@ export default function* rootSaga() {
     fork(watchAddDpToLocalityMap),
     fork(watchDeleteDpFromLocalityMap),
     fork(watchFetchUnmappedDpToLocality),
-    fork(watchFetchUnmappedLocalitiesToDp)
+    fork(watchFetchUnmappedLocalitiesToDp),
+    fork(watchIndexSearchData)
   ]
 }

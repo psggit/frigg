@@ -15,12 +15,17 @@ class UploadSearchData extends React.Component {
     this.handleChange = this.handleChange.bind(this)
     this.handleUploadClick = this.handleUploadClick.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleIndexSearchData = this.handleIndexSearchData.bind(this)
   }
 
   handleSubmit() {
     const formData = new FormData()
     formData.append('data', this.state.data)
     this.props.actions.uploadSearchData(formData)
+  }
+
+  handleIndexSearchData() {
+    this.props.actions.indexSearchData()
   }
 
   handleUploadClick() {
@@ -62,6 +67,12 @@ class UploadSearchData extends React.Component {
           onClick={this.handleSubmit}
           primary
           label="Save"
+        />
+        <RaisedButton
+          style={{ marginLeft: '20px' }}
+          onClick={this.handleIndexSearchData}
+          primary
+          label="Index"
         />
       </div>
     )

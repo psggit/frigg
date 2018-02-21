@@ -166,3 +166,8 @@ export const deleteDpFromLocalityMap = (data, newDelivererId) => ({
   data,
   newDelivererId
 })
+
+export const indexSearchData = data => ({
+  type: ActionTypes.REQUEST_INDEX_SEARCH_DATA,
+  data
+})
