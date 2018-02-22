@@ -143,6 +143,9 @@ class DefineLocality extends React.Component {
   clearGeoLocality() {
     clearPolygonOnMap(this.map, this.geoLocalities[0])
     this.createNewLocality()
+    if (this.newLocality) {
+      clearPolygonOnMap(this.map, this.newLocality)
+    }
   }
 
   // enableViewMode() {

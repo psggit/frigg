@@ -182,7 +182,7 @@ class ViewCity extends React.Component {
                 primary
                 label="Edit"
                 onClick={this.enableEditMode}
-                style={{ marginBottom: '40px', marginRight: '20px' }}
+                style={{ marginBottom: '40px', marginRight: '20px', marginTop: '40px' }}
               />
               <RaisedButton
                 primary
@@ -191,18 +191,23 @@ class ViewCity extends React.Component {
                 style={{ marginBottom: '40px', marginRight: '20px' }}
               />
             </IfElse>
-            <RaisedButton
-              primary
-              label="Save changes"
-              onClick={this.update}
-              style={{ marginTop: '40px', marginRight: '20px' }}
-            />
-            <RaisedButton
-              primary
-              label="Create from scratch"
-              onClick={this.clearGeoLocality}
-              style={{ marginTop: '40px' }}
-            />
+            {
+              this.state.isEdit &&
+              <Fragment>
+                <RaisedButton
+                  primary
+                  label="Save changes"
+                  onClick={this.update}
+                  style={{ marginTop: '40px', marginRight: '20px' }}
+                />
+                <RaisedButton
+                  primary
+                  label="Create from scratch"
+                  onClick={this.clearGeoLocality}
+                  style={{ marginTop: '40px' }}
+                />
+              </Fragment>
+            }
           </div>
           <div>loading..</div>
         </IfElse>
