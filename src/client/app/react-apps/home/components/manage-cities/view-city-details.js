@@ -21,6 +21,7 @@ class ViewCity extends React.Component {
 
     this.enableEditMode = this.enableEditMode.bind(this)
     this.disableEditMode = this.disableEditMode.bind(this)
+    this.clearGeoboundary = this.clearGeoboundary.bind(this)
     // this.setStateIdxFromShortName = this.setStateIdxFromShortName.bind(this)
     this.update = this.update.bind(this)
   }
@@ -46,6 +47,10 @@ class ViewCity extends React.Component {
     const stateIdx = statesData.map(item => item.short_name).indexOf(stateShortName)
     // console.log(stateIdx);
     this.setState({ stateIdx: stateIdx + 1 })
+  }
+
+  clearGeoboundary() {
+    this.cityBoundary.clearGeoboundary()
   }
 
   update() {
@@ -185,6 +190,12 @@ class ViewCity extends React.Component {
               primary
               label="Save changes"
               onClick={this.update}
+              style={{ marginTop: '40px', marginRight: '20px' }}
+            />
+            <RaisedButton
+              primary
+              label="Create from scratch"
+              onClick={this.clearGeoboundary}
               style={{ marginTop: '40px' }}
             />
           </div>

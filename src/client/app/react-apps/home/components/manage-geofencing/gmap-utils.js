@@ -162,6 +162,10 @@ export function getCoordinatesInString(coordinatesInObjects) {
   }).join('~')
 }
 
+export function clearPolygonOnMap(map, polygon) {
+  polygon.setMap(null)
+}
+
 export function displayPolygonOnMap(map, polygon) {
   // polygon.setOptions(options)
   polygon.setMap(map)

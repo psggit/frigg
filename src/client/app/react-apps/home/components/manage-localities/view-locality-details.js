@@ -22,6 +22,7 @@ class ViewCity extends React.Component {
     this.disableEditMode = this.disableEditMode.bind(this)
     this.update = this.update.bind(this)
     this.callbackUpdate = this.callbackUpdate.bind(this)
+    this.clearGeoLocality = this.clearGeoLocality.bind(this)
   }
 
   componentDidMount() {
@@ -56,6 +57,10 @@ class ViewCity extends React.Component {
       name: data.localityName || this.localityName,
       is_available: data.isLocalityActive
     }, this.callbackUpdate)
+  }
+
+  clearGeoLocality() {
+    this.localityData.clearGeoLocality()
   }
 
   callbackUpdate() {
@@ -190,6 +195,12 @@ class ViewCity extends React.Component {
               primary
               label="Save changes"
               onClick={this.update}
+              style={{ marginTop: '40px', marginRight: '20px' }}
+            />
+            <RaisedButton
+              primary
+              label="Create from scratch"
+              onClick={this.clearGeoLocality}
               style={{ marginTop: '40px' }}
             />
           </div>

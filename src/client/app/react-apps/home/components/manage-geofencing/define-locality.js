@@ -23,7 +23,8 @@ import {
   attachBlurEventOnPolygon,
   attachClickEventOnPolygon,
   removeLabelFromPolygon,
-  labelPolygon
+  labelPolygon,
+  clearPolygonOnMap
 } from './gmap-utils'
 
 const params = { v: '3.exp', key: 'AIzaSyDpG-NeL-XGYAduQul2JenVr86HIPITEso' }
@@ -68,6 +69,7 @@ class DefineLocality extends React.Component {
     this.editGeolocality = this.editGeolocality.bind(this)
     this.getEditOrCancelButton = this.getEditOrCancelButton.bind(this)
     this.getData = this.getData.bind(this)
+    this.clearGeoLocality = this.clearGeoLocality.bind(this)
   }
 
   componentDidMount() {
@@ -136,6 +138,11 @@ class DefineLocality extends React.Component {
     this.newLocality = this.geoLocalities[0]
     this.newLocality.setEditable(true)
     this.setState({ isEdit: false })
+  }
+
+  clearGeoLocality() {
+    clearPolygonOnMap(this.map, this.geoLocalities[0])
+    this.createNewLocality()
   }
 
   // enableViewMode() {
@@ -294,6 +301,12 @@ class DefineLocality extends React.Component {
 
     if (cityId && localityId) {
       localities = localities.filter(locality => locality.id === localityId)
+      const drawingManager = configureDrawingManager(map)
+      this.drawingManager = drawingManager
+
+      setupEventListeners(drawingManager, map, {
+        setSelection: this.setGeoLocality
+      })
     } else if (cityId) {
       const drawingManager = configureDrawingManager(map)
       this.drawingManager = drawingManager

@@ -14,7 +14,8 @@ import {
   createPolygonFromCoordinates,
   configureDrawingManager,
   setupEventListeners,
-  getPolygonPoints
+  getPolygonPoints,
+  clearPolygonOnMap
 } from './gmap-utils'
 
 const params = { v: '3.exp', key: 'AIzaSyDpG-NeL-XGYAduQul2JenVr86HIPITEso' }
@@ -45,6 +46,7 @@ class DefineGeoboundary extends React.Component {
     this.setGPSUsingGeocoder = this.setGPSUsingGeocoder.bind(this)
     this.handleZoomChange = this.handleZoomChange.bind(this)
     this.handleCenterChange = this.handleCenterChange.bind(this)
+    this.clearGeoboundary = this.clearGeoboundary.bind(this)
   }
 
   componentDidMount() {
@@ -108,6 +110,11 @@ class DefineGeoboundary extends React.Component {
       this.geolocality.setEditable(false)
       this.geolocality = null
     }
+  }
+
+  clearGeoboundary() {
+    clearPolygonOnMap(this.map, this.geoboundary)
+    this.createNewBoundary()
   }
 
   clearSelection() {
@@ -181,7 +188,8 @@ class DefineGeoboundary extends React.Component {
     const { cityDetails, cityId, cityName } = this.props
     this.map = map
     // this.setGPSUsingGeocoder(cityName)
-
+    const drawingManager = configureDrawingManager(map)
+    this.drawingManager = drawingManager
     if (cityId) {
       // show geoboundary
       const lat = cityDetails.gps.split(',')[0]
@@ -196,13 +204,16 @@ class DefineGeoboundary extends React.Component {
       }
       const polygon = createPolygonFromCoordinates(polygonCoordiantes)
       this.geoboundary = polygon
+      setupEventListeners(drawingManager, map, {
+        setSelection: this.setGeoBoundary
+      })
       // this.setState({ isGeoBoundaryExist: true })
       displayPolygonOnMap(map, polygon)
     } else {
       //  create new geoboundary
       // this.setState({ newBoundaryPrompt: true })
-      const drawingManager = configureDrawingManager(map)
-      this.drawingManager = drawingManager
+      // const drawingManager = configureDrawingManager(map)
+      // this.drawingManager = drawingManager
       setupEventListeners(drawingManager, map, {
         setSelection: this.setGeoBoundary
       })
