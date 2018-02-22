@@ -5,6 +5,7 @@ import * as Actions from './../../actions'
 import RaisedButton from 'material-ui/RaisedButton'
 import FlatButton from 'material-ui/FlatButton'
 import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton'
+import { getQueryObj } from '@utils/url-utils'
 import {
   Table,
   TableBody,
@@ -37,7 +38,7 @@ class ViewDeliverers extends React.Component {
     this.state = {
       selectedDeliveryAgent: null
     }
-    this.handleChangeLocality = this.handleChangeLocality.bind(this)
+    this.handleAddDpToLocalityMap = this.handleAddDpToLocalityMap.bind(this)
   }
 
   componentDidMount() {
@@ -46,9 +47,12 @@ class ViewDeliverers extends React.Component {
     })
   }
 
-  handleChangeLocality(e) {
-    this.setState({ selectedDeliveryAgent: parseInt(e.target.value) })
-    this.props.setDelivererId(e.target.value)
+  handleAddDpToLocalityMap(id) {
+    this.props.actions.addDpToLocalityMap({
+      dp_id: parseInt(id),
+      locality_id: parseInt(this.props.locality_id)
+    })
+    this.props.handleClose()
   }
 
   render() {
@@ -83,13 +87,13 @@ class ViewDeliverers extends React.Component {
                     <TableRowColumn style={styles[0]}>{item.id}</TableRowColumn>
                     <TableRowColumn style={styles[1]}>{item.name}</TableRowColumn>
                     <TableRowColumn style={styles[2]}>
-                      <RadioButtonGroup
-                        valueSelected={this.state.selectedDeliveryAgent}
-                        name="localityId"
-                        onChange={this.handleChangeLocality}
-                      >
-                        <RadioButton value={item.id} />
-                      </RadioButtonGroup>
+                      <FlatButton
+                        label="add"
+                        primary
+                        onClick={() => {
+                          this.handleAddDpToLocalityMap(item.id)
+                        }}
+                      />
                     </TableRowColumn>
                   </TableRow>
                 ))

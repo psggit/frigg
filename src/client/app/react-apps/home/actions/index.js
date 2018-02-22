@@ -161,10 +161,9 @@ export const addDpToLocalityMap = data => ({
   data
 })
 
-export const deleteDpFromLocalityMap = (data, newDelivererId) => ({
+export const deleteDpFromLocalityMap = data => ({
   type: ActionTypes.REQUEST_DELETE_DP_FROM_LOCALITY_MAP,
-  data,
-  newDelivererId
+  data
 })
 
 export const indexSearchData = data => ({

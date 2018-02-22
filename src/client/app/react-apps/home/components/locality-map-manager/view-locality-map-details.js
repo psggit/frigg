@@ -6,10 +6,13 @@ import RaisedButton from 'material-ui/RaisedButton'
 import * as Actions from './../../actions'
 import { getQueryObj } from '@utils/url-utils'
 import MappedRetailersList from './mapped-retailers-list'
+import MappedDeliveryAgentList from './mapped-delivery-agent-list'
 import ConfirmDeleteRetailer from './confirm-delete-retailer'
+import ConfirmDeleteDp from './confirm-delete-dp'
 import ConfirmMakePrimeRetailer from './confirm-make-prime-retailer'
 import AddRetailerDialog from './add-retailer-dialog'
-import MapDeliveryAgentDialog from './map-delivery-agent-dialog'
+import AddDeliveryAgentDialog from './add-delivery-agent-dialog'
+import { Card } from 'material-ui/Card';
 
 class ViewLocalityMapDetails extends React.Component {
   constructor() {
@@ -18,20 +21,24 @@ class ViewLocalityMapDetails extends React.Component {
       shouldMountConfirmDeleteRetailer: false,
       shouldMountAddRetailerDialog: false,
       shouldMountConfirmMakePrimeRetailer: false,
-      shouldMountMapDeliveryAgentDialog: false
+      shouldMountAddDeliveryAgentDialog: false,
+      shouldMountConfirmDeleteDp: false
     }
 
     this.primeRetailerId = null
     this.mountConfirmDeleteRetailer = this.mountConfirmDeleteRetailer.bind(this)
     this.unmountConfirmDeleteRetailer = this.unmountConfirmDeleteRetailer.bind(this)
+    this.mountConfirmDeleteDp = this.mountConfirmDeleteDp.bind(this)
+    this.unmountConfirmDeleteDp = this.unmountConfirmDeleteDp.bind(this)
     this.handleDeleteRetailer = this.handleDeleteRetailer.bind(this)
+    this.handleDeleteDp = this.handleDeleteDp.bind(this)
     this.mountAddRetailerDialog = this.mountAddRetailerDialog.bind(this)
     this.unmountAddRetailerDialog = this.unmountAddRetailerDialog.bind(this)
     this.mountConfirmMakePrimeRetailer = this.mountConfirmMakePrimeRetailer.bind(this)
     this.unmountConfirmMakePrimeRetailer = this.unmountConfirmMakePrimeRetailer.bind(this)
     this.handleMakePrimeRetailer = this.handleMakePrimeRetailer.bind(this)
-    this.mountMapDeliveryAgentDialog = this.mountMapDeliveryAgentDialog.bind(this)
-    this.unmountMapDeliveryAgentDialog = this.unmountMapDeliveryAgentDialog.bind(this)
+    this.mountAddDeliveryAgentDialog = this.mountAddDeliveryAgentDialog.bind(this)
+    this.unmountAddDeliveryAgentDialog = this.unmountAddDeliveryAgentDialog.bind(this)
   }
   componentDidMount() {
     const queryObj = getQueryObj(location.search.slice(1))
@@ -42,12 +49,23 @@ class ViewLocalityMapDetails extends React.Component {
     this.props.actions.fetchDpByLocality({
       locality_id: parseInt(queryObj.id)
     })
+    this.props.actions.fetchCityDetails({
+      id: parseInt(queryObj.city_id)
+    })
   }
 
   handleDeleteRetailer(id) {
     const queryObj = getQueryObj(location.search.slice(1))
     this.props.actions.deleteRetailerFromLocalityMap({
       retailer_id: id,
+      locality_id: parseInt(queryObj.id)
+    })
+  }
+
+  handleDeleteDp(id) {
+    const queryObj = getQueryObj(location.search.slice(1))
+    this.props.actions.deleteDpFromLocalityMap({
+      dp_id: id,
       locality_id: parseInt(queryObj.id)
     })
   }
@@ -75,6 +93,14 @@ class ViewLocalityMapDetails extends React.Component {
     this.setState({ shouldMountConfirmDeleteRetailer: true, retailer_id })
   }
 
+  unmountConfirmDeleteDp() {
+    this.setState({ shouldMountConfirmDeleteDp: false })
+  }
+
+  mountConfirmDeleteDp(dp_id) {
+    this.setState({ shouldMountConfirmDeleteDp: true, dp_id })
+  }
+
   unmountConfirmMakePrimeRetailer() {
     this.setState({ shouldMountConfirmMakePrimeRetailer: false })
   }
@@ -87,12 +113,12 @@ class ViewLocalityMapDetails extends React.Component {
     this.setState({ shouldMountAddRetailerDialog: true })
   }
 
-  mountMapDeliveryAgentDialog(locality_id) {
-    this.setState({ shouldMountMapDeliveryAgentDialog: true, locality_id })
+  mountAddDeliveryAgentDialog(locality_id) {
+    this.setState({ shouldMountAddDeliveryAgentDialog: true, locality_id })
   }
 
-  unmountMapDeliveryAgentDialog() {
-    this.setState({ shouldMountMapDeliveryAgentDialog: false })
+  unmountAddDeliveryAgentDialog() {
+    this.setState({ shouldMountAddDeliveryAgentDialog: false })
   }
 
   unmountAddRetailerDialog() {
@@ -104,6 +130,8 @@ class ViewLocalityMapDetails extends React.Component {
       mappedRetailersToLocality,
       loadingMappedRetailersToLocality,
       loadingMappedDpToLocality,
+      loadingCityDetails,
+      cityDetails,
       mappedDpToLocality
     } = this.props
 
@@ -115,7 +143,7 @@ class ViewLocalityMapDetails extends React.Component {
 
     return (
       <div style={{ width: '100%', maxWidth: 900 }}>
-        {
+        {/* {
           !loadingMappedDpToLocality && mappedDpToLocality.length > 0
           ? (
             <p style={{ fontSize: '18px' }}>
@@ -149,34 +177,73 @@ class ViewLocalityMapDetails extends React.Component {
                 </span>
             </p>
           )
-        }
-        <br/><br/>
-        <div
+        } */}
+        <Card
           style={{
-            display: 'flex',
-            justifyContent: 'space-between'
+            padding: '20px',
+            width: '30%',
+            marginTop: '0',
+            position: 'relative',
+            display: 'inline-block',
+            verticalAlign: 'top',
+            marginBottom: '40px'
           }}
         >
+          {
+            !loadingCityDetails &&
+            <div>
+              <p><b>Locality name</b>: { this.props.match.params.localitySlug }</p>
+              <p><b>City</b>: { this.props.cityDetails.name }</p>
+              <p><b>is_available</b>: <input disabled type='checkbox' defaultChecked={this.props.cityDetails.is_available} /></p>
+              <p><b>is_deliverable</b>: <input disabled type='checkbox' defaultChecked={this.props.cityDetails.deliverable_city} /></p>
+            </div>
+          }
+        </Card>
+        <div>
+          <h3 style={{ margin: 0 }}>Showing mapped delivery agents</h3>
+          <RaisedButton
+            primary
+            label="Add delivery agent"
+            onClick={this.mountAddDeliveryAgentDialog}
+            style={{ margin: '20px 0' }}
+          />
+          <MappedDeliveryAgentList
+            mappedDpToLocality={mappedDpToLocality}
+            loadingMappedDpToLocality={loadingMappedDpToLocality}
+            mountConfirmDeleteDp={this.mountConfirmDeleteDp}
+          />
+        </div>
+        <br/><br/>
+        <div>
           <h3 style={{ margin: 0 }}>Showing mapped retailers</h3>
           <RaisedButton
             primary
             label="Add retailer"
             onClick={this.mountAddRetailerDialog}
-            style={{ marginBottom: '40px', marginRight: '20px' }}
+            style={{ margin: '20px 0' }}
+          />
+          <MappedRetailersList
+            mappedRetailers={mappedRetailersToLocality}
+            loadingMappedRetailers={loadingMappedRetailersToLocality}
+            mountConfirmDeleteRetailer={this.mountConfirmDeleteRetailer}
+            mountConfirmMakePrimeRetailer={this.mountConfirmMakePrimeRetailer}
           />
         </div>
-        <MappedRetailersList
-          mappedRetailers={mappedRetailersToLocality}
-          loadingMappedRetailers={loadingMappedRetailersToLocality}
-          mountConfirmDeleteRetailer={this.mountConfirmDeleteRetailer}
-          mountConfirmMakePrimeRetailer={this.mountConfirmMakePrimeRetailer}
-        />
         {
           this.state.shouldMountConfirmDeleteRetailer &&
           <ConfirmDeleteRetailer
             retailer_id={this.state.retailer_id}
             unmountConfirmDeleteRetailer={this.unmountConfirmDeleteRetailer}
             handleDeleteRetailer={this.handleDeleteRetailer}
+          />
+        }
+
+        {
+          this.state.shouldMountConfirmDeleteDp &&
+          <ConfirmDeleteDp
+            dp_id={this.state.dp_id}
+            unmountConfirmDeleteDp={this.unmountConfirmDeleteDp}
+            handleDeleteDp={this.handleDeleteDp}
           />
         }
 
@@ -197,13 +264,13 @@ class ViewLocalityMapDetails extends React.Component {
         }
 
         {
-          this.state.shouldMountMapDeliveryAgentDialog &&
-          <MapDeliveryAgentDialog
+          this.state.shouldMountAddDeliveryAgentDialog &&
+          <AddDeliveryAgentDialog
             locality_id={this.locality_id}
             deleteDpFromLocalityMap={this.props.actions.deleteDpFromLocalityMap}
             addDpToLocalityMap={this.props.actions.addDpToLocalityMap}
             currentDelivererId={mappedDpToLocality.length ? mappedDpToLocality[0].id : null}
-            unmountMapDeliveryAgentDialog={this.unmountMapDeliveryAgentDialog}
+            unmountAddDeliveryAgentDialog={this.unmountAddDeliveryAgentDialog}
           />
         }
       </div>
@@ -217,12 +284,12 @@ const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(Actions, dispatch)
 })
 
-ViewLocalityMapDetails.propTypes = {
-  mappedRetailersToLocality: PropTypes.arrayOf(PropTypes.object).isRequired,
-  loadingMappedRetailersToLocality: PropTypes.bool.isRequired,
-  mappedDpToLocality: PropTypes.arrayOf(PropTypes.object).isRequired,
-  loadingMappedDpToLocality: PropTypes.bool.isRequired
-}
+// ViewLocalityMapDetails.propTypes = {
+//   mappedRetailersToLocality: PropTypes.arrayOf(PropTypes.object).isRequired,
+//   loadingMappedRetailersToLocality: PropTypes.bool.isRequired,
+//   mappedDpToLocality: PropTypes.arrayOf(PropTypes.object).isRequired,
+//   loadingMappedDpToLocality: PropTypes.bool.isRequired
+// }
 
 export default connect(
   mapStateToProps,

@@ -43,6 +43,17 @@ class ManageCities extends React.Component {
     this.handleChangeIsCityAvailable = this.handleChangeIsCityAvailable.bind(this)
   }
 
+  // getRequestBody() {
+  //   return {
+  //     state_short_name: null,
+  //     is_available: false,
+  //     offset: 0,
+  //     limit: 10,
+  //     deliverable_city: true,
+  //     no_filter: true
+  //   }
+  // }
+
   componentDidMount() {
     this.fetchData()
     window.onpopstate = this.fetchData

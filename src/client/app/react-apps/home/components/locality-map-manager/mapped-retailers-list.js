@@ -30,7 +30,7 @@ const MappedRetailersList = ({
       <TableRow>
         <TableHeaderColumn>ID</TableHeaderColumn>
         <TableHeaderColumn>NAME</TableHeaderColumn>
-        <TableHeaderColumn />
+        <TableHeaderColumn>isPrime</TableHeaderColumn>
         <TableHeaderColumn />
       </TableRow>
     </TableHeader>

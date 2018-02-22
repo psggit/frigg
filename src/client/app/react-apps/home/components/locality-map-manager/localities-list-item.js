@@ -9,7 +9,7 @@ import {
 const LocalityListItem = ({ locality }) => (
   <TableRow>
     <TableRowColumn>
-      <a href={`/home/locality-map-manager/${locality.name}?id=${locality.id}`}>
+      <a href={`/home/locality-map-manager/${locality.name}?id=${locality.id}&city_id=${locality.city_id}`}>
         <FlatButton label="view" primary />
       </a>
     </TableRowColumn>

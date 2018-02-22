@@ -207,7 +207,7 @@ function* addDpToLocalityMap(action) {
 function* deleteDpFromLocalityMap(action) {
   try {
     const data = yield call(Api.deleteDpFromLocalityMap, action)
-    yield put({ type: ActionTypes.REQUEST_ADD_DP_TO_LOCALITY_MAP, data: { locality_id: action.data.locality_id, dp_id: action.newDelivererId } })
+    yield put({ type: ActionTypes.REQUEST_FETCH_DP_BY_LOCALITY, data: { locality_id: action.data.locality_id } })
     Notify("Successfully updated", "success")
   } catch (err) {
     Notify("Something went wrong", "warning")

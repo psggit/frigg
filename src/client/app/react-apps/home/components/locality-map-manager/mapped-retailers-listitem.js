@@ -6,22 +6,23 @@ import {
   TableRowColumn
 } from 'material-ui/Table'
 
+import Toggle from 'material-ui/Toggle'
+
 const MappedRetailersListItem = ({ mappedRetailer, mountConfirmDeleteRetailer, mountConfirmMakePrimeRetailer }) => (
   <TableRow>
     <TableRowColumn>{ mappedRetailer.id }</TableRowColumn>
     <TableRowColumn>{ mappedRetailer.org_name }</TableRowColumn>
     <TableRowColumn>
-      <FlatButton
-        primary
-        label="delete"
-        onClick={() => { mountConfirmDeleteRetailer(mappedRetailer.id) }}
+      <Toggle
+        toggled={mappedRetailer.is_prime}
+        onToggle={() => { mountConfirmMakePrimeRetailer(mappedRetailer.id) }}
       />
     </TableRowColumn>
     <TableRowColumn>
       <FlatButton
-        primary
-        label="make it prime"
-        onClick={() => { mountConfirmMakePrimeRetailer(mappedRetailer.id) }}
+        secondary
+        label="delete"
+        onClick={() => { mountConfirmDeleteRetailer(mappedRetailer.id) }}
       />
     </TableRowColumn>
   </TableRow>
