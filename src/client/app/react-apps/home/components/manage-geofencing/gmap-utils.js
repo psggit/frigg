@@ -137,7 +137,7 @@ export function createPolygonFromCoordinates(polygonCoordiantes) {
     strokeColor: polygonCoordiantes.stroke,
     strokeOpacity: 1.0,
     fillColor: polygonCoordiantes.color,
-    fillOpacity: 0.6,
+    fillOpacity: 0.3,
     strokeWeight: 2,
     content: polygonCoordiantes.name || '',
     editable: false
