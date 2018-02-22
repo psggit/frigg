@@ -22,6 +22,7 @@ class CreateCity extends React.Component {
     this.setCityName = this.setCityName.bind(this)
     this.handleStateChange = this.handleStateChange.bind(this)
     this.handleCityChange = this.handleCityChange.bind(this)
+    this.callbackUpdate = this.callbackUpdate.bind(this)
   }
 
   componentDidMount() {
@@ -33,6 +34,7 @@ class CreateCity extends React.Component {
   }
 
   callbackUpdate() {
+    console.log(this.localityData);
     this.localityData.callbackUpdate()
   }
 

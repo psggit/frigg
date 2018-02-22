@@ -79,8 +79,8 @@ class DelivererDetails extends React.Component {
     return (
       <div style={{ width: '100%', maxWidth: 900 }}>
         {
-          !loadingMappedLocalities &&
-          <p style={{ fontSize: '18px' }}>
+          !loadingMappedLocalities && mappedLocalities.length > 0
+          ? <p style={{ fontSize: '18px' }}>
             Locality mapped to: <b>{ mappedLocalities[0].name }</b>
             <span
               style={{
@@ -93,6 +93,20 @@ class DelivererDetails extends React.Component {
             >
               Change
             </span>
+          </p>
+          : <p style={{ fontSize: '18px' }}>
+              No locality mapped
+              <span
+                onClick={this.mountAddLocalityDialog}
+                style={{
+                  color: '#4990e2',
+                  fontSize: '16px',
+                  marginLeft: '10px',
+                  cursor: 'pointer'
+                }}
+              >
+                Map new locality
+              </span>
           </p>
         }
         <br /><br />
@@ -116,8 +130,9 @@ class DelivererDetails extends React.Component {
           <AddLocalityDialog
             dp_id={this.state.dp_id}
             deleteLocalityFromDpMap={this.props.actions.deleteLocalityFromDpMap}
+            updateDPLocalityMap={this.props.actions.updateDPLocalityMap}
             unmountAddLocalityDialog={this.unmountAddLocalityDialog}
-            currentLocalityId={mappedLocalities[0].id}
+            currentLocalityId={mappedLocalities.length > 0 ? mappedLocalities[0].id : null}
           />
         }
 

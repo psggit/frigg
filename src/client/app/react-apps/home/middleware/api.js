@@ -176,6 +176,15 @@ export const updateGeolocality = action => (
   })
 )
 
+export const createGeolocality = action => (
+  POST({
+    api: '/fenceManagement/addFence',
+    apiBase: 'odin',
+    data: action.data,
+    handleError: true
+  })
+)
+
 export const uploadSearchData = action => (
   POST({
     api: '/index/uploadLocalSkuData',

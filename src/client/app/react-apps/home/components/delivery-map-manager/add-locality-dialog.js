@@ -25,11 +25,16 @@ class AddLocalityDialog extends React.Component {
     }, 500)
   }
   handleChangeDpLocalityMap() {
-    if (this.state.newLocalityId) {
+    if (this.state.newLocalityId && this.props.currentLocalityId) {
       this.props.deleteLocalityFromDpMap({
         dp_id: parseInt(this.props.dp_id),
         locality_id: this.props.currentLocalityId
       }, parseInt(this.state.newLocalityId))
+    } else if (!this.props.currentLocalityId && this.state.newLocalityId) {
+      this.props.updateDPLocalityMap({
+        dp_id: parseInt(this.props.dp_id),
+        locality_id: this.props.newLocalityId
+      })
     }
     this.handleClose()
   }
@@ -74,6 +79,7 @@ class AddLocalityDialog extends React.Component {
         {
           this.state.shouldMountConfirmChangeLocalityDpMap &&
           <ConfirmChangeDpLocalityMap
+            currentLocalityId={this.props.currentLocalityId}
             handleChangeDpLocalityMap={this.handleChangeDpLocalityMap}
             mountConfirmChangeDpLocalityMap={this.mountConfirmChangeDpLocalityMap}
             unmountConfirmChangeDpLocalityMap={this.unmountConfirmChangeDpLocalityMap}

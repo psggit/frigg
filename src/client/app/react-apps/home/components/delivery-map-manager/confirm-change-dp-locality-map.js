@@ -43,10 +43,17 @@ class ConfirmChangeDpLocalityMap extends React.Component {
           open={this.state.open}
           onRequestClose={this.handleClose}
         >
-          <p>
-            This will replace the exisiting locality mapped to the delivery agent.<br/>
-            Are your sure you want to replace?
-          </p>
+
+          {
+            this.props.currentLocalityId
+            ? <p>
+              This will replace the exisiting locality mapped to the delivery agent.<br/>
+              Are your sure you want to replace?
+              </p>
+            : <p>
+                Are you sure you want to map this locality?
+              </p>
+          }
         </Dialog>
       </div>
     )
