@@ -96,18 +96,13 @@ class DelivererDetails extends React.Component {
           </p>
         }
         <br /><br />
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between'
-          }}
-        >
+        <div>
           <h3 style={{ margin: 0 }}>Showing mapped retailers</h3>
           <RaisedButton
             primary
             label="Add retailer"
             onClick={this.mountAddRetailerDialog}
-            style={{ marginBottom: '40px', marginRight: '20px' }}
+            style={{ margin: '20px 0' }}
           />
         </div>
         <ViewMappedRetailers

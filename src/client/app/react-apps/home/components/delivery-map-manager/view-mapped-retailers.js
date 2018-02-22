@@ -56,7 +56,7 @@ function ViewMappedRetailers(props) {
                 <TableRowColumn style={styles[2]}>
                   <FlatButton
                     label="delete"
-                    primary
+                    secondary
                     onClick={() => {
                       props.mountConfirmDeleteRetailerFromDpMap(item.id)
                     }}

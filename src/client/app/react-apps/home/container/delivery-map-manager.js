@@ -202,11 +202,11 @@ class ManageLocalities extends React.Component {
             /> */}
           </a>
 
-          <RaisedButton
+          {/* <RaisedButton
             onClick={this.mountFilterDialog}
             label="Filter"
             icon={getIcon('filter')}
-          />
+          /> */}
         </div>
 
         <br />

@@ -22,6 +22,7 @@ class LocalityMapManager extends React.Component {
     const { geoLocalitiesData, loadingGeolocalities } = this.props
     return (
       <div style={{ width: '100%', maxWidth: 900 }}>
+        <h3>Showing all localities</h3>
         <LocalitiesList
           localities={geoLocalitiesData.fences}
           loadingLocalities={loadingGeolocalities}
