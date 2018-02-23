@@ -41,9 +41,10 @@ export const updateGeoboundary = (data, CB) => ({
   CB
 })
 
-export const fetchLocalities = data => ({
+export const fetchLocalities = (data, CB) => ({
   type: ActionTypes.REQUEST_FETCH_LOCALITIES,
-  data
+  data,
+  CB
 })
 
 export const createGeolocality = (data, CB) => ({

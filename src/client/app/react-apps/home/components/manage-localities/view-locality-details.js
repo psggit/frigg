@@ -29,6 +29,7 @@ class ViewCity extends React.Component {
     const { actions, match } = this.props
     const queryObj = getQueryObj(location.search.slice(1))
 
+    this.props.actions.setLoadingState()
     this.setState({ queryObj })
 
     actions.fetchLocalities({
@@ -163,17 +164,20 @@ class ViewCity extends React.Component {
             >
               <div id="gmap-container" style={{ position: 'relative' }}>
                 <div style={{ width: '100%', maxWidth: '1000px', margin: 'auto' }}>
-                  <DefineLocality
-                    ref={(node) => this.localityData = node}
-                    viewGeolocalities={actions.fetchLocalities}
-                    updateGeolocality={actions.updateGeolocality}
-                    createGeolocality={actions.createGeolocality}
-                    geoLocalitiesData={geoLocalitiesData}
-                    loadingGeolocalities={loadingGeolocalities}
-                    cityId={parseInt(queryObj.cityId)}
-                    localityId={parseInt(queryObj.id)}
-                    zoomLevel={11}
-                  />
+                  {
+                    !loadingGeolocalities &&
+                    <DefineLocality
+                      ref={(node) => this.localityData = node}
+                      viewGeolocalities={actions.fetchLocalities}
+                      updateGeolocality={actions.updateGeolocality}
+                      createGeolocality={actions.createGeolocality}
+                      geoLocalitiesData={geoLocalitiesData}
+                      loadingGeolocalities={loadingGeolocalities}
+                      cityId={parseInt(queryObj.cityId)}
+                      localityId={parseInt(queryObj.id)}
+                      zoomLevel={11}
+                    />
+                  }
                 </div>
               </div>
             </Card>

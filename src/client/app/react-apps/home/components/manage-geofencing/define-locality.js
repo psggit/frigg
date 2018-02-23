@@ -299,38 +299,29 @@ class DefineLocality extends React.Component {
   }
 
   handleMapCreation(map) {
-    const { geoLocalitiesData, localityId, cityId } = this.props
+    const { geoLocalitiesData, localityId, cityId, loadingGeolocalities } = this.props
     let localities = geoLocalitiesData.fences
-    if (cityId) {
+    console.log(cityId, loadingGeolocalities);
+    if (cityId && !loadingGeolocalities) {
+      const drawingManager = configureDrawingManager(map)
+      this.drawingManager = drawingManager
+
       const lat = geoLocalitiesData.city.gps.split(',')[0]
       const lng = geoLocalitiesData.city.gps.split(',')[1]
       //
       this.setState({ lat, lng })
-    }
-
-    if (cityId && localityId) {
-      localities = localities.filter(locality => locality.id === localityId)
-      const drawingManager = configureDrawingManager(map)
-      this.drawingManager = drawingManager
-
-      setupEventListeners(drawingManager, map, {
-        setSelection: this.setGeoLocality
-      })
-    } else if (cityId) {
-      const drawingManager = configureDrawingManager(map)
-      this.drawingManager = drawingManager
-
-      setupEventListeners(drawingManager, map, {
-        setSelection: this.setGeoLocality
-      })
-      this.createNewLocality()
-    }
-
-    if (cityId && geoLocalitiesData.city.geoboundary) {
       this.setGeoBoundary(map, geoLocalitiesData.city.geoboundary)
-    }
 
-    if (cityId && geoLocalitiesData.fences.length) {
+      if (localityId) {
+        localities = localities.filter(locality => locality.id === localityId)
+
+        setupEventListeners(drawingManager, map, {
+          setSelection: this.setGeoLocality
+        })
+      } else {
+        this.createNewLocality()
+      }
+
       const polygonsCoordiantes = localities.map((geoLocalityData, i) => ({
         coordinates: getCoordinatesInObjects(geoLocalityData.coordinates),
         color: geoLocalityData.is_available ? this.colorMap[i % this.colorMap.length] : '#9b9b9b',
@@ -361,9 +352,6 @@ class DefineLocality extends React.Component {
     const { geoLocalitiesData } = this.props
     return (
       <div>
-        {
-          !this.props.loadingGeolocalities || !this.props.localityId
-          ? (
             <div>
               {/* <LocalityLegends
                 colors={this.colorMap}
@@ -402,9 +390,6 @@ class DefineLocality extends React.Component {
               </div>
 
             </div>
-          )
-          : 'loading..'
-        }
       </div>
     )
   }

@@ -26,6 +26,7 @@ class CreateLocality extends React.Component {
   }
 
   componentDidMount() {
+    this.props.actions.setLoadingState()
     this.props.actions.fetchStates()
   }
 
@@ -60,7 +61,7 @@ class CreateLocality extends React.Component {
       cityIdx,
       cityId: citiesData[k].id,
       cityName: citiesData[k].name
-    }, this.localityData.changeGmapKey())
+    })
 
     this.props.actions.fetchLocalities({
       city_id: citiesData[k].id,
@@ -68,7 +69,7 @@ class CreateLocality extends React.Component {
       limit: 50,
       is_available: false,
       no_filter: false
-    })
+    }, this.localityData.changeGmapKey)
   }
 
   submit() {
