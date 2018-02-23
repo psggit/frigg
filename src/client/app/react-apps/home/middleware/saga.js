@@ -128,6 +128,7 @@ function* createState(action) {
     }, 2000)
   } catch (err) {
     console.log(err)
+    err.response.json().then(json => { Notify(json.message, "warning") })
   }
 }
 
@@ -141,6 +142,7 @@ function* updateState(action) {
     }, 2000)
   } catch (err) {
     console.log(err)
+    err.response.json().then(json => { Notify(json.message, "warning") })
   }
 }
 
@@ -154,7 +156,7 @@ function* createCity(action) {
     }, 2000)
   } catch (err) {
     console.log(err)
-    // Notify("Successfully updated city", "success")
+    err.response.json().then(json => { Notify(json.message, "warning") })
   }
 }
 
@@ -168,6 +170,7 @@ function* updateCity(action) {
       location.href = '/home/manage-cities'
     }, 2000)
   } catch (err) {
+    err.response.json().then(json => { Notify(json.message, "warning") })
     console.log(err)
   }
 }
@@ -178,6 +181,7 @@ function* updateGeoboundary(action) {
     yield put({ type: ActionTypes.REQUEST_FETCH_CITY_DETAILS, data: { id: action.data.id }, CB: action.CB })
     Notify("Successfully updated geoboundary", "success")
   } catch (err) {
+    err.response.json().then(json => { Notify(json.message, "warning") })
     console.log(err)
   }
 }
@@ -188,7 +192,7 @@ function* updateDPLocalityMap(action) {
     yield put({ type: ActionTypes.REQUEST_FETCH_DP_LOCALITY_MAP, data: { dp_id: action.data.dp_id } })
     Notify("Successfully updated", "success")
   } catch (err) {
-    Notify("Something went wrong", "warning")
+    err.response.json().then(json => { Notify(json.message, "warning") })
     console.log(err)
   }
 }
@@ -199,7 +203,7 @@ function* addDpToLocalityMap(action) {
     yield put({ type: ActionTypes.REQUEST_FETCH_DP_BY_LOCALITY, data: { locality_id: action.data.locality_id } })
     Notify("Successfully updated", "success")
   } catch (err) {
-    Notify("Something went wrong", "warning")
+    err.response.json().then(json => { Notify(json.message, "warning") })
     console.log(err)
   }
 }
@@ -210,7 +214,7 @@ function* deleteDpFromLocalityMap(action) {
     yield put({ type: ActionTypes.REQUEST_FETCH_DP_BY_LOCALITY, data: { locality_id: action.data.locality_id } })
     Notify("Successfully updated", "success")
   } catch (err) {
-    Notify("Something went wrong", "warning")
+    err.response.json().then(json => { Notify(json.message, "warning") })
     console.log(err)
   }
 }
@@ -222,7 +226,7 @@ function* updateDPRetailerMap(action) {
     yield put({ type: ActionTypes.REQUEST_FETCH_DP_RETAILER_MAP, data: { dp_id: action.data.dp_id } })
     Notify("Successfully updated", "success")
   } catch (err) {
-    Notify("Something went wrong", "warning")
+    err.response.json().then(json => { Notify(json.message, "warning") })
     console.log(err)
   }
 }
@@ -234,7 +238,7 @@ function* addRetailerToLocalityMap(action) {
     yield put({ type: ActionTypes.REQUEST_FETCH_LOCALITY_RETAILERS_MAP, data: { locality_id: action.data.locality_id } })
     Notify("Successfully updated", "success")
   } catch (err) {
-    Notify("Something went wrong", "warning")
+    err.response.json().then(json => { Notify(json.message, "warning") })
     console.log(err)
   }
 }
@@ -246,7 +250,7 @@ function* deleteRetailerFromDpMap(action) {
     yield put({ type: ActionTypes.REQUEST_FETCH_DP_RETAILER_MAP, data: { dp_id: action.data.dp_id } })
     Notify("Successfully updated", "success")
   } catch (err) {
-    Notify("Something went wrong", "warning")
+    err.response.json().then(json => { Notify(json.message, "warning") })
     console.log(err)
   }
 }
@@ -258,7 +262,7 @@ function* deleteRetailerFromLocalityMap(action) {
     yield put({ type: ActionTypes.REQUEST_FETCH_LOCALITY_RETAILERS_MAP, data: { locality_id: action.data.locality_id } })
     Notify("Successfully updated", "success")
   } catch (err) {
-    Notify("Something went wrong", "warning")
+    err.response.json().then(json => { Notify(json.message, "warning") })
     console.log(err)
   }
 }
@@ -270,7 +274,7 @@ function* deleteLocalityFromDpMap(action) {
     yield put({ type: ActionTypes.REQUEST_UPDATE_DP_LOCALITY_MAP, data: { dp_id: action.data.dp_id, locality_id: action.newLocalityId } })
     Notify("Successfully updated", "success")
   } catch (err) {
-    Notify("Something went wrong", "warning")
+    err.response.json().then(json => { Notify(json.message, "warning") })
     console.log(err)
   }
 }
@@ -282,7 +286,7 @@ function* mapRetailerToLocalityAsPrime(action) {
   yield put({ type: ActionTypes.REQUEST_FETCH_LOCALITY_RETAILERS_MAP, data: { locality_id: action.data.locality_id } })
     Notify("Successfully updated", "success")
   } catch (err) {
-    Notify("Something went wrong", "warning")
+    err.response.json().then(json => { Notify(json.message, "warning") })
     console.log(err)
   }
 }
@@ -294,7 +298,7 @@ function* unmapRetailerToLocalityAsPrime(action) {
   yield put({ type: ActionTypes.REQUEST_MAP_RETAILER_TO_LOCALITY_AS_PRIME, data: { retailer_id: action.newPrimeRetailerId, locality_id: action.data.locality_id } })
     Notify("Successfully updated", "success")
   } catch (err) {
-    Notify("Something went wrong", "warning")
+    err.response.json().then(json => { Notify(json.message, "warning") })
     console.log(err)
   }
 }
@@ -332,7 +336,7 @@ function* createGeolocality(action) {
       location.href = '/home/manage-localities'
     }, 2000)
   } catch (err) {
-    console.log(err)
+    err.response.json().then(json => { Notify(json.message, "warning") })
   }
 }
 
@@ -356,7 +360,7 @@ function* updateGeolocality(action) {
       location.href = '/home/manage-localities'
     }, 2000)
   } catch (err) {
-    Notify("Couldn't update locality", "warning")
+    err.response.json().then(json => { Notify(json.message, "warning") })
     console.log(err)
   }
 }
@@ -378,7 +382,7 @@ function* uploadSearchData(action) {
       location.href = '/home/upload-search-data'
     }, 2000)
   } catch (err) {
-    console.log(err)
+    err.response.json().then(json => { Notify(json.message, "warning") })
   }
 }
 
@@ -388,7 +392,7 @@ function* indexSearchData(action) {
     yield put({ type: ActionTypes.SUCCESS_INDEX_SEARCH_DATA, data })
     Notify("Successfully indexed search data", "success")
   } catch (err) {
-    console.log(err)
+    err.response.json().then(json => { Notify(json.message, "warning") })
   }
 }
 

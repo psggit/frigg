@@ -80,20 +80,14 @@ class DelivererDetails extends React.Component {
       <div style={{ width: '100%', maxWidth: 900 }}>
         {
           !loadingMappedLocalities && mappedLocalities.length > 0
-          ? <p style={{ fontSize: '18px' }}>
-            Locality mapped to: <b>{ mappedLocalities[0].name }</b>
-            <span
-              style={{
-                color: '#4990e2',
-                fontSize: '16px',
-                marginLeft: '10px',
-                cursor: 'pointer'
-              }}
-              onClick={this.mountAddLocalityDialog}
-            >
-              Change
-            </span>
-          </p>
+          ? <div>
+            <h3 style={{ margin: 0 }}>Showing mapped localities</h3>
+              <RaisedButton label="Change" primary style={{ margin: '20px 0' }} onClick={this.mountAddLocalityDialog}/>
+              <ViewMappedLocalities
+                mappedLocalities={mappedLocalities}
+                loadingMappedLocalities={loadingMappedLocalities}
+              />
+          </div>
           : <p style={{ fontSize: '18px' }}>
               No locality mapped
               <span

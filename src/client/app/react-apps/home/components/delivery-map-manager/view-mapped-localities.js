@@ -16,7 +16,6 @@ import TableLoadingShell from './../table-loading-shell'
 import '@sass/components/_table.scss'
 
 const TableHeaderItems = [
-  '',
   'ID',
   'NAME'
 ]
@@ -51,9 +50,9 @@ function ViewMappedLocalities(props) {
             !props.loadingMappedLocalities
           ? (
             props.mappedLocalities.map(item => (
-              <TableRow key={item.employee_id}>
-                <TableRowColumn style={styles[1]}>{item.employee_id}</TableRowColumn>
-                <TableRowColumn style={styles[2]}>{item.name}</TableRowColumn>
+              <TableRow key={item.id}>
+                <TableRowColumn style={styles[0]}>{item.id}</TableRowColumn>
+                <TableRowColumn style={styles[1]}>{item.name}</TableRowColumn>
               </TableRow>
             ))
           )
