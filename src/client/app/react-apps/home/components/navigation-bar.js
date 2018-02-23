@@ -1,6 +1,6 @@
 import React from 'react'
 import Drawer from 'material-ui/Drawer'
-import { NavLink } from 'react-router-dom'
+import { NavLink, withRouter } from 'react-router-dom'
 import MenuItem from 'material-ui/MenuItem'
 import { List, ListItem } from 'material-ui/List'
 import '@sass/components/_menu-item.scss'
@@ -8,34 +8,45 @@ import '@sass/components/_drawer.scss'
 import  { getIcon } from '@utils/icons-utils'
 
 class NavigationBar extends  React.Component {
+  constructor() {
+    super()
+    this.state = {
+      activeItem: 0
+    }
+  }
   handleClick(title) {
     this.props.setHeaderTitle(title)
   }
 
-  handleMenuItemClick(path) {
+  handleMenuItemClick(id, path) {
     if (path) {
-      location.href = path
+      this.setState({ activeItem: id })
+      this.props.history.push(path)
+      this.props.setHeaderTitle()
     }
   }
 
   render() {
+    const activeItemStyle = {
+      backgroundColor: '#dfdfdf'
+    }
     const navigationItems = [
       {
         name: 'State management',
         nestedItems: [
-          { name: 'Manage states', path: '/home/manage-states' },
-          { name: 'Manage Cities', path: '/home/manage-cities' },
-          { name: 'Manage Localities', path: '/home/manage-localities' },
+          { name: 'Manage states', path: '/home/manage-states', id: 1 },
+          { name: 'Manage Cities', path: '/home/manage-cities', id: 2 },
+          { name: 'Manage Localities', path: '/home/manage-localities', id: 3 },
         ]
       },
       {
         name: 'Map manager',
         nestedItems: [
-          { name: 'Delivery map manager', path: '/home/delivery-map-manager' },
-          { name: 'Locality map manager', path: '/home/locality-map-manager' },
+          { name: 'Delivery map manager', path: '/home/delivery-map-manager', id: 4 },
+          { name: 'Locality map manager', path: '/home/locality-map-manager', id: 5 },
         ]
       },
-      { name: 'Upload search data', path: '/home/upload-search-data', nestedItems: [] }
+      { name: 'Upload search data', path: '/home/upload-search-data', id: 6, nestedItems: [] }
     ]
     return (
       <Drawer
@@ -53,10 +64,12 @@ class NavigationBar extends  React.Component {
             {
               navigationItems.map((item) => {
                 const nestedItems = []
-                item.nestedItems.forEach((nestedItem, i) => {
+                item.nestedItems.forEach((nestedItem) => {
                   const nestedItemJSX = (
                     <ListItem
-                      onClick={() => { this.handleMenuItemClick(nestedItem.path) }}
+                      style={nestedItem.id === this.state.activeItem ? activeItemStyle : {}}
+                      value={nestedItem.id}
+                      onClick={() => { this.handleMenuItemClick(nestedItem.id, nestedItem.path) }}
                       primaryText={nestedItem.name}
                     />
                   )
@@ -65,7 +78,8 @@ class NavigationBar extends  React.Component {
 
                 return (
                   <ListItem
-                    onClick={() => { this.handleMenuItemClick(item.path) }}
+                    style={item.id === this.state.activeItem ? activeItemStyle : {}}
+                    onClick={() => { this.handleMenuItemClick(item.id, item.path) }}
                     primaryText={item.name}
                     initiallyOpen={true}
                     primaryTogglesNestedList
@@ -81,4 +95,4 @@ class NavigationBar extends  React.Component {
   }
 }
 
-export default NavigationBar
+export default withRouter(NavigationBar)

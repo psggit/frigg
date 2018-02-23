@@ -53,14 +53,14 @@ function ViewDeliverers(props) {
             props.deliverers.map(item => (
               <TableRow key={item.employee_id}>
                 <TableRowColumn style={styles[0]}>
-                  <a
+                  <NavLink
                     // target="_blank"
                     // exact
                     // to={`/home/manage-cities/${item.name}?id=${item.id}`}
-                    href={`/home/delivery-map-manager/${item.name}?id=${item.id}`}
+                    to={`/home/delivery-map-manager/${item.name}?id=${item.id}`}
                   >
                     <FlatButton primary label="View" />
-                  </a>
+                  </NavLink>
 
                 </TableRowColumn>
                 <TableRowColumn style={styles[1]}>{item.employee_id}</TableRowColumn>

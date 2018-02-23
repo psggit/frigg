@@ -50,8 +50,8 @@ class App extends React.Component {
   handleCloseDrawer() {
     this.setState({ isDrawerOpen: false })
   }
-  setHeaderTitle(headerTitle) {
-    this.setState({ headerTitle })
+  setHeaderTitle() {
+    this.setState({ headerTitle: getBreadCrumbPath() })
   }
   handleLogout() {
     localStorage.clear()

@@ -5,6 +5,7 @@ import RoleBasedComponent from '@components/RoleBasedComponent'
 import RaisedButton from 'material-ui/RaisedButton'
 import CircularProgress from 'material-ui/CircularProgress'
 import '@sass/components/_circular-progress.scss'
+import { NavLink } from 'react-router-dom'
 
 import * as Actions from './../actions'
 import ViewStates from './../components/manage-states/view-states'
@@ -28,7 +29,7 @@ class ManageStates extends React.Component {
 
   componentDidMount() {
     this.props.actions.fetchStates()
-    this.props.actions.setLoadingState('loadingCities')
+    this.props.actions.setLoadingState()
   }
 
   setSnackBarOptions(options) {
@@ -65,13 +66,13 @@ class ManageStates extends React.Component {
             justifyContent: 'space-between'
           }}
         >
-          <a href={`${location.pathname}/create-new-state`}>
+          <NavLink to={`${location.pathname}/create-new-state`}>
             <RaisedButton
               label="Create new state"
               primary
               onClick={this.mountCreateStateDialog}
             />
-          </a>
+          </NavLink>
 
           {/* <RaisedButton
             onClick={this.mountFilterDialog}

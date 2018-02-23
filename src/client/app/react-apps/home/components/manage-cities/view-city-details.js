@@ -37,15 +37,17 @@ class ViewCity extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps.loadingStates);
-    const queryObj = getQueryObj(location.search.slice(1))
-    this.setStateIdxFromShortName(queryObj.stateShortName)
+    if (!nextProps.loadingStates) {
+      const queryObj = getQueryObj(location.search.slice(1))
+      this.setStateIdxFromShortName(queryObj.stateShortName)
+    }
   }
 
   setStateIdxFromShortName(stateShortName) {
+    console.log(stateShortName);
     const { statesData } = this.props
     const stateIdx = statesData.map(item => item.short_name).indexOf(stateShortName)
-    // console.log(stateIdx);
+    console.log(stateIdx);
     this.setState({ stateIdx: stateIdx + 1 })
   }
 

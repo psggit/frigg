@@ -15,6 +15,7 @@ import FilterModal from '@components/filter-modal'
 import { getQueryObj, getQueryUri } from '@utils/url-utils'
 import Checkbox from 'material-ui/Checkbox'
 import '@sass/components/_form.scss'
+import { NavLink } from 'react-router-dom'
 
 import * as Roles from './../constants/roles'
 
@@ -59,9 +60,12 @@ class ManageCities extends React.Component {
     window.onpopstate = this.fetchData
   }
 
+  componentWillUnmount() {
+    window.onpopstate = () => {}
+  }
+
   fetchData() {
-    this.props.actions.setLoadingState('loadingCities')
-    this.props.actions.setLoadingState('loadingStates')
+    this.props.actions.setLoadingState()
     // this.props.actions.setLoadingState('loadingGeoboundary')
 
     this.props.actions.fetchStates()
@@ -198,13 +202,13 @@ class ManageCities extends React.Component {
             justifyContent: 'space-between'
           }}
         >
-          <a href={`${location.pathname}/create-new-city`}>
+          <NavLink to={`${location.pathname}/create-new-city`}>
             <RaisedButton
               label="Create new city"
               primary
               onClick={this.mountCreateStateDialog}
             />
-          </a>
+          </NavLink>
 
           <RaisedButton
             onClick={this.mountFilterDialog}

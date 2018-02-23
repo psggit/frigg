@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import FlatButton from 'material-ui/FlatButton'
+import { NavLink } from 'react-router-dom'
 import {
   TableRow,
   TableRowColumn
@@ -9,9 +10,9 @@ import {
 const LocalityListItem = ({ locality }) => (
   <TableRow>
     <TableRowColumn>
-      <a href={`/home/locality-map-manager/${locality.name}?id=${locality.id}&city_id=${locality.city_id}`}>
+      <NavLink to={`/home/locality-map-manager/${locality.name}?id=${locality.id}&city_id=${locality.city_id}`}>
         <FlatButton label="view" primary />
-      </a>
+      </NavLink>
     </TableRowColumn>
     <TableRowColumn>{ locality.id }</TableRowColumn>
     <TableRowColumn>{ locality.name }</TableRowColumn>

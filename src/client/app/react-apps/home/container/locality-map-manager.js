@@ -9,6 +9,7 @@ import LocalitiesList from './../components/locality-map-manager/localities-list
 
 class LocalityMapManager extends React.Component {
   componentDidMount() {
+    this.props.actions.setLoadingState()
     this.props.actions.fetchLocalities({
       city_id: null,
       is_available: false,

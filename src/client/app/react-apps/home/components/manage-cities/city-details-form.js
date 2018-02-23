@@ -20,7 +20,7 @@ class CityDetailsForm extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({ cityName: nextProps.cityName })
+    this.setState({ cityName: nextProps.cityName, stateIdx: nextProps.stateIdx })
 
     if (nextProps.isCityActive !== undefined) {
       this.setState({ isCityActive: nextProps.isCityActive })

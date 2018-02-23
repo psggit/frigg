@@ -12,7 +12,7 @@ import { Card } from 'material-ui/Card'
 import DefineLocality from './../manage-geofencing/define-locality'
 import { getQueryObj } from '@utils/url-utils'
 
-class CreateCity extends React.Component {
+class CreateLocality extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -58,10 +58,17 @@ class CreateCity extends React.Component {
     const cityIdx = k + 1
     this.setState({
       cityIdx,
-      cityId: citiesData[k].id
-    })
+      cityId: citiesData[k].id,
+      cityName: citiesData[k].name
+    }, this.localityData.changeGmapKey())
 
-    // this.localityData.changeGmapKey()
+    this.props.actions.fetchLocalities({
+      city_id: citiesData[k].id,
+      offset: 0,
+      limit: 50,
+      is_available: false,
+      no_filter: false
+    })
   }
 
   submit() {
@@ -177,6 +184,7 @@ class CreateCity extends React.Component {
               loadingGeolocalities={loadingGeolocalities}
               zoomLevel={11}
               cityId={this.state.cityId}
+              cityName={this.state.cityName}
             />
           </Card>
           <RaisedButton
@@ -199,4 +207,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(CreateCity)
+)(CreateLocality)

@@ -49,14 +49,14 @@ class DefineGeoboundary extends React.Component {
     this.clearGeoboundary = this.clearGeoboundary.bind(this)
   }
 
-  componentDidMount() {
-    if (this.props.cityId) {
-      this.props.fetchCityDetails({
-        id: this.props.cityId
-      })
-      this.props.setLoadingState('loadingGeoboundary')
-    }
-  }
+  // componentDidMount() {
+  //   if (this.props.cityId) {
+  //     this.props.fetchCityDetails({
+  //       id: this.props.cityId
+  //     })
+  //     this.props.setLoadingState('loadingGeoboundary')
+  //   }
+  // }
 
   getData() {
     if (this.geoboundary) {
@@ -130,7 +130,7 @@ class DefineGeoboundary extends React.Component {
 
   setGeoBoundary(shape) {
     this.geoboundary = shape
-    this.setState({ isSubmit: true })
+    // this.setState({ isSubmit: true })
   }
 
   getEditOrCancelButton() {
@@ -223,7 +223,7 @@ class DefineGeoboundary extends React.Component {
 
   render() {
     const { lat, lng } = this.state
-    // console.log('render called');
+    console.log(this.props.cityId);
     return (
       <div>
         {

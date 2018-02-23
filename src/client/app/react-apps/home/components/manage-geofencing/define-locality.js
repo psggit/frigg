@@ -72,30 +72,36 @@ class DefineLocality extends React.Component {
     this.clearGeoLocality = this.clearGeoLocality.bind(this)
   }
 
-  componentDidMount() {
-    if (this.props.cityId) {
-      this.props.viewGeolocalities({
-        city_id: this.props.cityId,
-        offset: 0,
-        limit: 50,
-        is_available: false,
-        no_filter: false
-      })
-    }
-  }
-
+  // componentDidMount() {
+  //   if (this.props.cityId) {
+    //   this.props.viewGeolocalities({
+    //     city_id: this.props.cityId,
+    //     offset: 0,
+    //     limit: 50,
+    //     is_available: false,
+    //     no_filter: false
+    //   })
+    // }
+  // }
+  //
+  // componentWillReceiveProps(nextProps) {
+  //   // workaround in else if
+  //   if (nextProps.cityId && nextProps.cityId !== this.props.cityId) {
+  //     this.props.viewGeolocalities({
+  //       city_id: nextProps.cityId,
+  //       offset: 0,
+  //       limit: 50,
+  //       is_available: false,
+  //       no_filter: false
+  //     })
+  //   } else if(!nextProps.localityId) {
+  //     this.setState({ lat: null, lng: null })
+  //     this.changeGmapKey()
+  //   }
+  // }
+  //
   componentWillReceiveProps(nextProps) {
-    // workaround in else if
-    if (nextProps.cityId && nextProps.cityId !== this.props.cityId) {
-      this.props.viewGeolocalities({
-        city_id: nextProps.cityId,
-        offset: 0,
-        limit: 50,
-        is_available: false,
-        no_filter: false
-      })
-    } else if(!nextProps.localityId) {
-      this.setState({ lat: null, lng: null })
+    if (nextProps.geoLocalitiesData.length) {
       this.changeGmapKey()
     }
   }
@@ -356,7 +362,7 @@ class DefineLocality extends React.Component {
     return (
       <div>
         {
-          !this.props.loadingGeolocalities || !this.props.cityId
+          !this.props.loadingGeolocalities || !this.props.localityId
           ? (
             <div>
               {/* <LocalityLegends
@@ -368,9 +374,9 @@ class DefineLocality extends React.Component {
                 legends={this.props.geoLocalitiesData.fences}
               /> */}
               {
-                this.props.cityId
+                !this.props.loadingGeolocalities
                 ? <h3>Localities in {geoLocalitiesData.city.name}</h3>
-                : <h3>Select city to show localities</h3>
+                : <h3>Select city</h3>
               }
               <Gmaps
                 // style={{right: '-100px'}}

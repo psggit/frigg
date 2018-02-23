@@ -60,7 +60,18 @@ const actionsMap = {
 
   [ActionTypes.SUCCESS_SET_LOADING_STATE]: (state, action) => {
     return Object.assign({}, state, {
-      [action.data]: true,
+      loadingStates: true,
+      loadingCities: true,
+      loadingCityDetails: true,
+      loadingGeolocalities: true,
+      loadingMappedLocalities: true,
+      loadingMappedRetailers: true,
+      loadingRetailers: true,
+      loadingMappedRetailersToLocality: true,
+      loadingUnmappedRetailersToLocality: true,
+      loadingUnmappedDpToLocality: true,
+      loadingUnmappedLocalitiesToDp: true,
+      loadingMappedDpToLocality: true
     })
   },
 

@@ -54,14 +54,14 @@ function ViewCities(data) {
             data.geoLocalitiesData.fences.map(item => (
               <TableRow key={item.id}>
                 <TableRowColumn style={styles[0]}>
-                  <a
+                  <NavLink
                     // target="_blank"
                     // exact
                     // to={`/home/manage-cities/${item.name}?id=${item.id}`}
-                    href={`/home/manage-localities/${item.name}?id=${item.id}&cityId=${item.city_id}`}
+                    to={`/home/manage-localities/${item.name}?id=${item.id}&cityId=${item.city_id}`}
                   >
                     <FlatButton primary label="View" />
-                  </a>
+                  </NavLink>
 
                 </TableRowColumn>
                 <TableRowColumn style={styles[1]}>{item.id}</TableRowColumn>
