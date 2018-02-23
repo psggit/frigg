@@ -17,6 +17,7 @@ class CreateCity extends React.Component {
       cityName: ''
     }
     this.submit = this.submit.bind(this)
+    this.reset = this.reset.bind(this)
     this.setCityName = this.setCityName.bind(this)
   }
 
@@ -26,6 +27,10 @@ class CreateCity extends React.Component {
 
   setCityName(cityName) {
     this.setState({ cityName })
+  }
+
+  reset() {
+    this.cityBoundaryData.changeGmapKey()
   }
 
   submit() {
@@ -112,6 +117,12 @@ class CreateCity extends React.Component {
             label="Save"
             onClick={this.submit}
             style={{ marginTop: '40px' }}
+          />
+          <RaisedButton
+            primary
+            label="Reset"
+            onClick={this.reset}
+            style={{ marginTop: '40px', marginLeft: '20px' }}
           />
         </div>
 

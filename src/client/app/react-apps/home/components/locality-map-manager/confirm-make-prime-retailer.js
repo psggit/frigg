@@ -37,7 +37,7 @@ class ConfirmMakePrimeRetailer extends React.Component {
     return (
       <div>
         <Dialog
-          title="Delete retailer"
+          title="Change prime retailer"
           actions={actions}
           modal={false}
           open={this.state.open}
