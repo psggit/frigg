@@ -311,13 +311,12 @@ class DefineLocality extends React.Component {
       //
       this.setState({ lat, lng })
       this.setGeoBoundary(map, geoLocalitiesData.city.geoboundary)
+      setupEventListeners(drawingManager, map, {
+        setSelection: this.setGeoLocality
+      })
 
       if (localityId) {
         localities = localities.filter(locality => locality.id === localityId)
-
-        setupEventListeners(drawingManager, map, {
-          setSelection: this.setGeoLocality
-        })
       } else {
         this.createNewLocality()
       }
