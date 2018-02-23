@@ -126,39 +126,43 @@ class CreateLocality extends React.Component {
           >
             <h3 style={{ marginTop: 0, marginBottom: '40px' }}>Enter city details</h3>
 
-            <label className="label">State name</label><br/>
-            <SelectField
-              value={this.state.stateIdx}
-              onChange={this.handleStateChange}
-            >
-              {
-                this.props.statesData.map((state, i) => (
-                  <MenuItem
-                    value={i + 1}
-                    key={state.id}
-                    primaryText={state.state_name}
-                  />
-                ))
-              }
-            </SelectField>
+            <div className="form-group">
+              <label className="label">State name</label><br/>
+              <SelectField
+                value={this.state.stateIdx}
+                onChange={this.handleStateChange}
+              >
+                {
+                  this.props.statesData.map((state, i) => (
+                    <MenuItem
+                      value={i + 1}
+                      key={state.id}
+                      primaryText={state.state_name}
+                    />
+                  ))
+                }
+              </SelectField>
+            </div>
             <br />
 
-            <label className="label">City name</label><br/>
-            <SelectField
-              disabled={this.props.loadingCities}
-              value={this.state.cityIdx}
-              onChange={this.handleCityChange}
-            >
-              {
-                this.props.citiesData.map((city, i) => (
-                  <MenuItem
-                    value={i + 1}
-                    key={city.id}
-                    primaryText={city.name}
-                  />
-                ))
-              }
-            </SelectField>
+            <div className="form-group">
+              <label className="label">City name</label><br/>
+              <SelectField
+                disabled={this.props.loadingCities}
+                value={this.state.cityIdx}
+                onChange={this.handleCityChange}
+              >
+                {
+                  this.props.citiesData.map((city, i) => (
+                    <MenuItem
+                      value={i + 1}
+                      key={city.id}
+                      primaryText={city.name}
+                    />
+                  ))
+                }
+              </SelectField>
+            </div>
 
             <LocalityDetailsForm
               ref={(node) => { this.localityDetailsForm = node }}
