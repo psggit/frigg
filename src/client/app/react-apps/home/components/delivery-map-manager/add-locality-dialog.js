@@ -69,6 +69,7 @@ class AddLocalityDialog extends React.Component {
           modal={false}
           open={this.state.open}
           onRequestClose={this.handleClose}
+          autoScrollBodyContent
         >
           <ViewLocalities
             dp_id={this.props.dp_id}

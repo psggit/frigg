@@ -33,6 +33,7 @@ class AddDeliveryAgentDialog extends React.Component {
           modal={false}
           open={this.state.open}
           onRequestClose={this.handleClose}
+          autoScrollBodyContent
         >
           <ViewDeliverers locality_id={this.props.locality_id} handleClose={this.handleClose} />
         </Dialog>

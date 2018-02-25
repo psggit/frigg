@@ -33,6 +33,7 @@ class AddRetailerDialog extends React.Component {
           modal={false}
           open={this.state.open}
           onRequestClose={this.handleClose}
+          autoScrollBodyContent
         >
           <ViewRetailers handleClose={this.handleClose} />
         </Dialog>
