@@ -46,7 +46,8 @@ class NavigationBar extends  React.Component {
           { name: 'Locality map manager', path: '/home/locality-map-manager', id: 5 },
         ]
       },
-      { name: 'Upload search data', path: '/home/upload-search-data', id: 6, nestedItems: [] }
+      { name: 'Upload search data', path: '/home/upload-search-data', id: 6, nestedItems: [] },
+      { name: 'Geo fence check', path: '/home/geo-fence-check', id: 7, nestedItems: [] }
     ]
     return (
       <Drawer

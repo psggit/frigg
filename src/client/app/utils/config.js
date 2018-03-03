@@ -10,6 +10,7 @@ function getAPIObj() {
       blogicUrl: 'https://api1.' + appName + '.hasura-app.io',
       gremlinUrl: scheme + '://gremlin' + baseHost,
       odin: scheme + '://odin' + baseHost,
+      orderman: scheme + '://orderman' + baseHost,
       socketUrl: 'https://livered' + baseHost
     }
   } else {
@@ -26,6 +27,7 @@ function getAPIObj() {
       blogicUrl: scheme + '://api1' + baseHost,
       gremlinUrl: scheme + '://gremlin' + baseHost,
       odin: scheme + '://odin' + baseHost,
+      orderman: scheme + '://orderman' + baseHost,
       socketUrl: scheme + '://livered' + baseHost
     }
   }
