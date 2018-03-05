@@ -12,7 +12,8 @@ class GeoFenceCheck extends React.Component {
       { label: 'Check prime retailer', name: 'check-prime' },
       { label: 'Check delivery agent', name: 'check-da' },
       { label: 'Check delivery agent retailer', name: 'check-da-retailer' },
-      { label: 'Check delivery time', name: 'check-delivery-time' }
+      { label: 'Check delivery time', name: 'check-delivery-time' },
+      { label: 'Check active locality', name: 'check-active-locality' }
     ]
     this.state = {
       isDisabled: false,
@@ -52,8 +53,12 @@ class GeoFenceCheck extends React.Component {
       case 'check-da-retailer':
         this.props.actions.checkDeliveryAgentRetailer({ cityId: 1 })
         break
+
       case 'check-delivery-time':
         this.props.actions.checkDeliveryTimeForLocality({ cityId: 1 })
+
+      case 'check-active-locality':
+        this.props.actions.checkActiveLocalityWithinCity({ cityId: 1 })
 
       default:
         return;
@@ -80,7 +85,7 @@ class GeoFenceCheck extends React.Component {
                 label={button.label}
                 disabled={this.state.disabledButtons.indexOf(i) > -1}
                 name={button.name}
-                style={{ marginRight: '20px' }}
+                style={{ marginRight: '20px', marginBottom: '20px' }}
               />
             )
           })

@@ -42,8 +42,8 @@ class App extends React.Component {
     this.setHeaderTitle = this.setHeaderTitle.bind(this)
   }
   componentWillMount() {
-    // if (!localStorage.getItem('_hipbaru'))
-    // location.href = '/login'
+    if (!localStorage.getItem('_hipbaru'))
+    location.href = '/login'
   }
   toggleDrawer() {
     this.setState({ isDrawerOpen: !this.state.isDrawerOpen })

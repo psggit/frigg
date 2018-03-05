@@ -192,6 +192,10 @@ export const checkDeliveryTimeForLocality = data => ({
   data
 })
 
+export const checkActiveLocalityWithinCity = () => ({
+  type: ActionTypes.REQUEST_CHECK_ACTIVE_LOCALITY_WITHIN_CITY
+})
+
 export const emptyGeoFenceCheckData = () => ({
   type: ActionTypes.REQUEST_EMPTY_GEO_FENCE_CHECK_DATA
 })

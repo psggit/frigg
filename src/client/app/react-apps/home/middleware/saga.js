@@ -436,6 +436,16 @@ function* checkDeliveryTimeForLocality(action) {
   }
 }
 
+function* checkActiveLocalityWithinCity(action) {
+  try {
+    const data = yield call(Api.checkActiveLocalityWithinCity, action)
+    yield put({ type: ActionTypes.SUCCESS_GEO_FENCE_CHECK, data })
+    // Notify("Successfully indexed search data", "success")
+  } catch (err) {
+    // err.response.json().then(json => { Notify(json.message, "warning") })
+  }
+}
+
 function* emptyGeoFenceCheckData(action) {
   try {
     yield put({ type: ActionTypes.SUCCESS_EMPTY_GEO_FENCE_CHECK_DATA })
@@ -671,6 +681,12 @@ function* watchCheckDeliveryTimeForLocality() {
   }
 }
 
+function* watchCheckActiveLocalityWithinCity() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_CHECK_ACTIVE_LOCALITY_WITHIN_CITY, checkActiveLocalityWithinCity)
+  }
+}
+
 function* watchEmptyGeoFenceCheckData() {
   while (true) {
     yield* takeLatest(ActionTypes.REQUEST_EMPTY_GEO_FENCE_CHECK_DATA, emptyGeoFenceCheckData)
@@ -716,6 +732,7 @@ export default function* rootSaga() {
     fork(watchCheckDeliveryAgent),
     fork(watchCheckDeliveryAgentRetailer),
     fork(watchCheckDeliveryTimeForLocality),
-    fork(watchEmptyGeoFenceCheckData)
+    fork(watchEmptyGeoFenceCheckData),
+    fork(watchCheckActiveLocalityWithinCity)
   ]
 }
