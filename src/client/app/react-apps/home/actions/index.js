@@ -196,6 +196,11 @@ export const checkActiveLocalityWithinCity = () => ({
   type: ActionTypes.REQUEST_CHECK_ACTIVE_LOCALITY_WITHIN_CITY
 })
 
+export const listRetailerOutsideLocality = data => ({
+  type: ActionTypes.REQUEST_LIST_RETAILER_OUTSIDE_LOCALITY,
+  data
+})
+
 export const emptyGeoFenceCheckData = () => ({
   type: ActionTypes.REQUEST_EMPTY_GEO_FENCE_CHECK_DATA
 })
