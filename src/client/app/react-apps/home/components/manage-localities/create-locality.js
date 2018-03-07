@@ -26,11 +26,16 @@ class CreateLocality extends React.Component {
     this.handleStateChange = this.handleStateChange.bind(this)
     this.handleCityChange = this.handleCityChange.bind(this)
     this.callbackUpdate = this.callbackUpdate.bind(this)
+    this.removeLocalityErr = this.removeLocalityErr.bind(this)
   }
 
   componentDidMount() {
     this.props.actions.setLoadingState()
     this.props.actions.fetchStates()
+  }
+
+  removeLocalityErr() {
+    this.setState({ localityErr: false })
   }
 
   setCityName(cityName) {
@@ -180,7 +185,7 @@ class CreateLocality extends React.Component {
 
           </Card>
           <Card
-            className={this.state.localityErr && 'animated shake'}
+            className={this.state.localityErr ? 'animated shake' : ''}
             style={{
               padding: '20px',
               width: '300px',
@@ -189,10 +194,11 @@ class CreateLocality extends React.Component {
           >
             <h3 style={{ marginTop: 0, marginBottom: '40px' }}>Enter locality details</h3>
             <LocalityDetailsForm
+              removeLocalityErr={this.removeLocalityErr}
               localityErr={this.state.localityErr}
               ref={(node) => { this.localityDetailsForm = node }}
             />
-            { this.state.localityErr && <p className="error">Please select locality</p> }
+            { this.state.localityErr && <p className="error"> Please enter locality name</p> }
           </Card>
         </div>
 

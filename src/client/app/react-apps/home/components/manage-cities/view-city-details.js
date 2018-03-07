@@ -80,6 +80,7 @@ class ViewCity extends React.Component {
   }
 
   disableEditMode() {
+    this.cityDetailsForm.resetState()
     this.setState({ isEdit: false })
     this.cityBoundary.clearSelection()
   }

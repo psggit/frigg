@@ -8,7 +8,8 @@ class StateDetailsForm extends React.Component {
     super(props)
     this.intitialState = {
       stateShortName: props.stateShortName || '',
-      stateName: props.stateName || ''
+      stateName: props.stateName || '',
+      shouldTrim: true
     }
 
     this.state = Object.assign({}, this.intitialState)
@@ -27,7 +28,17 @@ class StateDetailsForm extends React.Component {
   }
 
   handleTextFields(e) {
-    this.setState({ [e.target.name]: e.target.value })
+    let value = e.target.value
+    if (this.state.shouldTrim) {
+      value = value.trim()
+    }
+
+    if (value.trim().length) {
+      this.setState({ shouldTrim: false })
+    } else {
+      this.setState({ shouldTrim: true })
+    }
+    this.setState({ [e.target.name]: value })
   }
 
   getData() {

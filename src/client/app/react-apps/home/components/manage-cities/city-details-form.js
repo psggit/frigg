@@ -7,16 +7,23 @@ import MenuItem from 'material-ui/MenuItem'
 class CityDetailsForm extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
+    this.initialState = {
       stateIdx: props.stateIdx || 0,
       isCityActive: true,
       isDeliveryActive: true,
       cityName: props.cityName || '',
+      shouldTrim: true
     }
+
+    this.state = Object.assign({}, this.initialState)
 
     this.handleTextFields = this.handleTextFields.bind(this)
     this.handleCheckboxes = this.handleCheckboxes.bind(this)
     this.handleStateChange = this.handleStateChange.bind(this)
+  }
+
+  resetState() {
+    this.setState(this.initialState)
   }
 
   // componentWillReceiveProps(nextProps) {
@@ -57,10 +64,21 @@ class CityDetailsForm extends React.Component {
   }
 
   handleTextFields(e) {
+    let value = e.target.value
+    if (this.state.shouldTrim) {
+      value = value.trim()
+    }
+
+    if (value.trim().length) {
+      this.setState({ shouldTrim: false })
+    } else {
+      this.setState({ shouldTrim: true })
+    }
+
     if (e.target.name === 'cityName') {
       this.setGPSUsingGeocoder(e.target.value)
     }
-    this.setState({ [e.target.name]: e.target.value })
+    this.setState({ [e.target.name]: value })
   }
 
   getData() {

@@ -76,6 +76,7 @@ class ViewCity extends React.Component {
   }
 
   disableEditMode() {
+    this.localityDetailsForm.resetState()
     this.setState({ isEdit: false })
     this.localityData.clearSelection()
   }

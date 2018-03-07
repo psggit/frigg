@@ -7,13 +7,20 @@ import MenuItem from 'material-ui/MenuItem'
 class LocalityDetailsForm extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
+    this.intialState = {
       isLocalityActive: props.isLocalityActive,
-      localityName: props.localityName || ''
+      localityName: props.localityName || '',
+      shouldTrim: true
     }
+
+    this.state = Object.assign({}, this.intialState)
 
     this.handleTextFields = this.handleTextFields.bind(this)
     this.handleCheckboxes = this.handleCheckboxes.bind(this)
+  }
+
+  resetState() {
+    this.setState(this.intialState)
   }
 
   // componentWillReceiveProps(nextProps) {
@@ -32,7 +39,21 @@ class LocalityDetailsForm extends React.Component {
   }
 
   handleTextFields(e) {
-    this.setState({ [e.target.name]: e.target.value })
+    let value = e.target.value
+    if (this.state.shouldTrim) {
+      value = value.trim()
+    }
+
+    if (value.trim().length) {
+      this.setState({ shouldTrim: false })
+    } else {
+      this.setState({ shouldTrim: true })
+    }
+
+    this.setState({ [e.target.name]: value })
+    if (e.target.name === 'localityName' && this.props.removeLocalityErr) {
+      this.props.removeLocalityErr()
+    }
   }
 
   getData() {
