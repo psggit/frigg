@@ -11,7 +11,7 @@ class DisplayScreen extends React.Component {
       background: 'rgba(246, 246, 246, 0.4)'
     }
     return (
-      <div style={displayScreenStyle}>
+      <div id="display-screen" style={displayScreenStyle}>
         {
           this.props.children
         }
