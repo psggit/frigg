@@ -11,13 +11,15 @@ import IfElse from '@components/declarative-if-else'
 import { Card } from 'material-ui/Card'
 import DefineLocality from './../manage-geofencing/define-locality'
 import { getQueryObj } from '@utils/url-utils'
+import '@sass/animations.scss'
 
 class CreateLocality extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       cityId: null,
-      isDisabled: false
+      isDisabled: false,
+      localityErr: false
     }
     this.submit = this.submit.bind(this)
     this.setCityName = this.setCityName.bind(this)
@@ -79,6 +81,11 @@ class CreateLocality extends React.Component {
     const data = this.localityDetailsForm.getData()
     const localityData = this.localityData.getData()
 
+    if (!data.localityName.length) {
+      document.getElementById("display-screen").scrollTop = 0
+      this.setState({ localityErr: true })
+    }
+
     if (localityData !== null && data.localityName.length) {
       this.setState({ isDisabled: true })
       this.props.actions.createGeolocality({
@@ -116,16 +123,19 @@ class CreateLocality extends React.Component {
 
         <div
           style={{
-            width: '30%',
+            width: '80%',
             position: 'relative',
-            display: 'block',
+            display: 'flex',
+            // justifyContent: 'space-between',
             verticalAlign: 'top',
             marginRight: '20px'
           }}
         >
           <Card style={{
             padding: '20px',
-            width: '100%'
+            width: '300px',
+            marginBottom: '20px',
+            marginRight: '20px'
           }}
           >
             <h3 style={{ marginTop: 0, marginBottom: '40px' }}>Enter city details</h3>
@@ -168,9 +178,21 @@ class CreateLocality extends React.Component {
               </SelectField>
             </div>
 
+          </Card>
+          <Card
+            className={this.state.localityErr && 'animated shake'}
+            style={{
+              padding: '20px',
+              width: '300px',
+              height: '100%'
+            }}
+          >
+            <h3 style={{ marginTop: 0, marginBottom: '40px' }}>Enter locality details</h3>
             <LocalityDetailsForm
+              localityErr={this.state.localityErr}
               ref={(node) => { this.localityDetailsForm = node }}
             />
+            { this.state.localityErr && <p className="error">Please select locality</p> }
           </Card>
         </div>
 
