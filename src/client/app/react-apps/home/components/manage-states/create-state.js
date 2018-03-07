@@ -11,18 +11,28 @@ import { Card } from 'material-ui/Card'
 class CreateState extends React.Component {
   constructor(props) {
     super(props)
-
+    this.state = {
+      isDisabled: false
+    }
     this.submit = this.submit.bind(this)
+    this.callbackUpdate = this.callbackUpdate.bind(this)
+  }
+
+  callbackUpdate(status) {
+    if (status) {
+      this.setState({ isDisabled: false })
+    }
   }
 
   submit() {
     const data = this.stateDetailsForm.getData()
     // console.log(data);
     if (data.stateName.length && data.stateShortName.length) {
+      this.setState({ isDisabled: true })
       this.props.actions.createState({
         state_name: data.stateName,
         short_name: data.stateShortName,
-      })
+      }, this.callbackUpdate)
     }
   }
 
@@ -52,6 +62,7 @@ class CreateState extends React.Component {
           </Card>
           <RaisedButton
             primary
+            disabled={this.state.isDisabled}
             label="Save"
             onClick={this.submit}
             style={{ marginTop: '40px' }}

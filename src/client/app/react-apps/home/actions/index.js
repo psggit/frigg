@@ -9,9 +9,10 @@ export const fetchCities = data => ({
   data
 })
 
-export const createState = data => ({
+export const createState = (data, CB) => ({
   type: ActionTypes.REQUEST_CREATE_STATE,
-  data
+  data,
+  CB
 })
 
 export const updateState = data => ({
@@ -19,9 +20,10 @@ export const updateState = data => ({
   data
 })
 
-export const createCity = data => ({
+export const createCity = (data, CB) => ({
   type: ActionTypes.REQUEST_CREATE_CITY,
-  data
+  data,
+  CB
 })
 
 export const updateCity = (data, CB) => ({

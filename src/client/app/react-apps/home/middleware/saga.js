@@ -123,12 +123,14 @@ function* createState(action) {
     const data = yield call(Api.createState, action)
     yield put({ type: ActionTypes.SUCCESS_CREATE_STATE, data })
     Notify("Successfully created state", "success")
+    action.CB(false)
     setTimeout(() => {
       location.href = '/home/manage-states'
     }, 2000)
   } catch (err) {
     console.log(err)
     err.response.json().then(json => { Notify(json.message, "warning") })
+    action.CB(true)
   }
 }
 
@@ -148,15 +150,18 @@ function* updateState(action) {
 
 function* createCity(action) {
   try {
+    action.data.updated_at = (new Date()).toISOString()
     const data = yield call(Api.createCity, action)
     yield put({ type: ActionTypes.SUCCESS_CREATE_CITY, data })
     Notify("Successfully created city", "success")
+    action.CB(false)
     setTimeout(() => {
       location.href = '/home/manage-cities'
     }, 2000)
   } catch (err) {
     console.log(err)
     err.response.json().then(json => { Notify(json.message, "warning") })
+    action.CB(true)
   }
 }
 
@@ -309,7 +314,7 @@ function* fetchLocalities(action) {
     const data = yield call(Api.fetchLocalities, action)
     yield put({ type: ActionTypes.SUCCESS_FETCH_LOCALITIES, data })
     if (action.CB) {
-      action.CB()
+      action.CB(false)
     }
   } catch (err) {
     console.log(err)
@@ -337,6 +342,7 @@ function* createGeolocality(action) {
     }, 2000)
   } catch (err) {
     err.response.json().then(json => { Notify(json.message, "warning") })
+    action.CB(true)
   }
 }
 

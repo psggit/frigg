@@ -19,18 +19,18 @@ class CityDetailsForm extends React.Component {
     this.handleStateChange = this.handleStateChange.bind(this)
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.setState({ cityName: nextProps.cityName, stateIdx: nextProps.stateIdx })
-
-    if (nextProps.isCityActive !== undefined) {
-      this.setState({ isCityActive: nextProps.isCityActive })
-    }
-
-    if (nextProps.isDeliveryActive !== undefined) {
-      this.setState({ isDeliveryActive: nextProps.isDeliveryActive })
-    }
-
-  }
+  // componentWillReceiveProps(nextProps) {
+  //   this.setState({ cityName: nextProps.cityName, stateIdx: nextProps.stateIdx })
+  //
+  //   if (nextProps.isCityActive !== undefined) {
+  //     this.setState({ isCityActive: nextProps.isCityActive })
+  //   }
+  //
+  //   if (nextProps.isDeliveryActive !== undefined) {
+  //     this.setState({ isDeliveryActive: nextProps.isDeliveryActive })
+  //   }
+  //
+  // }
 
   handleStateChange(e, k) {
     const { statesData } = this.props

@@ -16,7 +16,8 @@ class CreateLocality extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      cityId: null
+      cityId: null,
+      isDisabled: false
     }
     this.submit = this.submit.bind(this)
     this.setCityName = this.setCityName.bind(this)
@@ -34,8 +35,10 @@ class CreateLocality extends React.Component {
     this.setState({ cityName })
   }
 
-  callbackUpdate() {
-    console.log(this.localityData);
+  callbackUpdate(status) {
+    if (status) {
+      this.setState({ isDisabled: false })
+    }
     this.localityData.callbackUpdate()
   }
 
@@ -77,6 +80,7 @@ class CreateLocality extends React.Component {
     const localityData = this.localityData.getData()
 
     if (localityData !== null && data.localityName.length) {
+      this.setState({ isDisabled: true })
       this.props.actions.createGeolocality({
         city_id: this.state.cityId,
         coordinates: localityData,
@@ -194,6 +198,7 @@ class CreateLocality extends React.Component {
           </Card>
           <RaisedButton
             primary
+            disabled={this.state.isDisabled}
             label="Save"
             onClick={this.submit}
             style={{ marginTop: '40px' }}

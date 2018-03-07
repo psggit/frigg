@@ -15,7 +15,8 @@ class ViewCity extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      isEdit: false
+      isEdit: false,
+      isDisabled: false
     }
 
     this.enableEditMode = this.enableEditMode.bind(this)
@@ -64,7 +65,7 @@ class ViewCity extends React.Component {
     this.localityData.clearGeoLocality()
   }
 
-  callbackUpdate() {
+  callbackUpdate(status) {
     this.disableEditMode()
     this.localityData.callbackUpdate()
   }
@@ -199,6 +200,7 @@ class ViewCity extends React.Component {
               this.state.isEdit &&
               <Fragment>
                 <RaisedButton
+                  disabled={this.state.isDisabled}
                   primary
                   label="Save changes"
                   onClick={this.update}

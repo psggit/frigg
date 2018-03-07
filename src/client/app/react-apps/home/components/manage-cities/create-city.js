@@ -14,15 +14,24 @@ class CreateCity extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      cityName: ''
+      cityName: '',
+      isDisabled: false
     }
     this.submit = this.submit.bind(this)
     this.reset = this.reset.bind(this)
     this.setCityName = this.setCityName.bind(this)
+    this.callbackUpdate = this.callbackUpdate.bind(this)
   }
 
   componentDidMount() {
     this.props.actions.fetchStates()
+  }
+
+  callbackUpdate(status) {
+    if (status) {
+      this.setState({ isDisabled: false })
+    }
+    this.cityBoundaryData.changeGmapKey()
   }
 
   setCityName(cityName) {
@@ -38,6 +47,7 @@ class CreateCity extends React.Component {
     const cityBoundaryData = this.cityBoundaryData.getData()
 
     if (data.cityName && data.stateShortName && cityBoundaryData) {
+      this.setState({ isDisabled: true })
       this.props.actions.createCity({
         is_available: data.isCityActive,
         deliverable_city: data.isDeliveryActive,
@@ -45,7 +55,7 @@ class CreateCity extends React.Component {
         gps: data.gps,
         name: data.cityName,
         geoboundary: cityBoundaryData
-      })
+      }, this.callbackUpdate)
     }
   }
 
@@ -113,6 +123,7 @@ class CreateCity extends React.Component {
             />
           </Card>
           <RaisedButton
+            disabled={this.state.isDisabled}
             primary
             label="Save"
             onClick={this.submit}
