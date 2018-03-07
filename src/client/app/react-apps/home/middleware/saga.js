@@ -324,6 +324,7 @@ function* fetchLocalities(action) {
 function* createGeolocality(action) {
   console.log(action);
   try {
+    action.data.updated_at = (new Date()).toISOString()
     const data = yield call(Api.createGeolocality, action)
     yield put({
       type: ActionTypes.REQUEST_FETCH_LOCALITIES,
