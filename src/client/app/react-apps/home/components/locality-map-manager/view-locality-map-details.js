@@ -194,8 +194,8 @@ class ViewLocalityMapDetails extends React.Component {
             <div>
               <p><b>Locality name</b>: { this.props.match.params.localitySlug }</p>
               <p><b>City</b>: { this.props.cityDetails.name }</p>
-              <p><b>is_available</b>: <input disabled type='checkbox' defaultChecked={this.props.cityDetails.is_available} /></p>
-              <p><b>is_deliverable</b>: <input disabled type='checkbox' defaultChecked={this.props.cityDetails.deliverable_city} /></p>
+              <p><b>is_available</b>: { this.props.cityDetails.is_available ? 'Yes' : 'No' }</p>
+              <p><b>is_deliverable</b>: { this.props.cityDetails.deliverable_city ? 'Yes' : 'No' }</p>
             </div>
           }
         </Card>

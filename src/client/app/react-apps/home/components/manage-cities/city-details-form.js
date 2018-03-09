@@ -9,8 +9,8 @@ class CityDetailsForm extends React.Component {
     super(props)
     this.initialState = {
       stateIdx: props.stateIdx || 0,
-      isCityActive: true,
-      isDeliveryActive: true,
+      isCityActive: props.isCityActive !== null ? props.isCityActive : true,
+      isDeliveryActive: props.isDeliveryActive !== null ? props.isDeliveryActive : true,
       cityName: props.cityName || '',
       shouldTrim: true
     }
