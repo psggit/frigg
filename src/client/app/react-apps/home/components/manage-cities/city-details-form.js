@@ -60,7 +60,13 @@ class CityDetailsForm extends React.Component {
   }
 
   handleCheckboxes(e) {
-    this.setState({ [e.target.name]: e.target.checked })
+    if (e.target.name === 'isDeliveryActive' && e.target.checked) {
+      this.setState({ isDeliveryActive: true, isCityActive: true })
+    } else if (e.target.name === 'isCityActive' && this.state.isDeliveryActive) {
+      return;
+    } else {
+      this.setState({ [e.target.name]: e.target.checked })
+    }
   }
 
   handleTextFields(e) {
