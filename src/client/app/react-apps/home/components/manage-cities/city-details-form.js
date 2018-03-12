@@ -100,6 +100,7 @@ class CityDetailsForm extends React.Component {
             disabled={this.props.isDisabled}
             value={this.state.stateIdx}
             onChange={this.handleStateChange}
+            iconStyle={{ fill: '#9b9b9b' }}
           >
             {
               this.props.statesData.map((state, i) => (

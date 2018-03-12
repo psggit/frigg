@@ -150,6 +150,7 @@ class CreateLocality extends React.Component {
               <SelectField
                 value={this.state.stateIdx}
                 onChange={this.handleStateChange}
+                iconStyle={{ fill: '#9b9b9b' }}
               >
                 {
                   this.props.statesData.map((state, i) => (

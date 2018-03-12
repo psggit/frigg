@@ -1,5 +1,8 @@
 .form-group {
   margin-top: 20px;
+  hr {
+    border-bottom-color: #9b9b9b !important;
+  }
 }
 
 .form-group > div {
@@ -12,8 +15,4 @@
 .error {
   color: #ff3b34;
   font-style: italic;
-}
-
-hr {
-  border-bottom: 1px solid #9b9b9b !important;
 }

@@ -270,6 +270,7 @@ class ManageLocalities extends React.Component {
                     floatingLabelText="Choose state"
                     value={parseInt(this.state.stateIdx)}
                     onChange={this.handleStateChange}
+                    iconStyle={{ fill: '#9b9b9b' }}
                   >
                     {
                       !loadingStates
