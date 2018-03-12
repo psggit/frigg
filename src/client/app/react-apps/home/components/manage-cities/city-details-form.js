@@ -63,7 +63,7 @@ class CityDetailsForm extends React.Component {
     if (e.target.name === 'isDeliveryActive' && e.target.checked) {
       this.setState({ isDeliveryActive: true, isCityActive: true })
     } else if (e.target.name === 'isCityActive' && this.state.isDeliveryActive) {
-      return;
+      this.setState({ isCityActive: e.target.checked, isDeliveryActive: false })
     } else {
       this.setState({ [e.target.name]: e.target.checked })
     }
