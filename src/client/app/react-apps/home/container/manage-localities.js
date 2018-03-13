@@ -16,6 +16,7 @@ import { getQueryObj, getQueryUri } from '@utils/url-utils'
 import Checkbox from 'material-ui/Checkbox'
 import '@sass/components/_form.scss'
 import { NavLink } from 'react-router-dom'
+import ViewFences from './../components/manage-localities/view-fences'
 
 import * as Roles from './../constants/roles'
 
@@ -30,6 +31,7 @@ class ManageLocalities extends React.Component {
     }
     this.state = {
       shouldMountFilterDialog: false,
+      shouldMountViewFencesDialog: false,
       stateIdx: null,
       cityIdx: null,
       activePage: 1,
@@ -45,9 +47,12 @@ class ManageLocalities extends React.Component {
     this.setPage = this.setPage.bind(this)
     this.applyFilter = this.applyFilter.bind(this)
     this.handleChangeIsLocalityAvailable = this.handleChangeIsLocalityAvailable.bind(this)
+    this.mountViewFencesDialog = this.mountViewFencesDialog.bind(this)
+    this.unmountViewFencesDialog = this.unmountViewFencesDialog.bind(this)
   }
 
   componentDidMount() {
+    console.log('mounting manage localities');
     this.fetchData()
     window.onpopstate = this.fetchData
   }
@@ -55,6 +60,14 @@ class ManageLocalities extends React.Component {
   componentWillUnmount() {
     console.log('unmounting manage localities');
     window.onpopstate = () => {}
+  }
+
+  unmountViewFencesDialog() {
+    this.setState({ shouldMountViewFencesDialog: false })
+  }
+
+  mountViewFencesDialog() {
+    this.setState({ shouldMountViewFencesDialog: true })
   }
 
   fetchData() {
@@ -174,7 +187,8 @@ class ManageLocalities extends React.Component {
       activePage: 1,
       stateShortName: this.filter.stateShortName,
       stateName: this.filter.stateName,
-      cityName: this.filter.cityName
+      cityName: this.filter.cityName,
+      cityId: this.filter.cityId
     })
 
     history.pushState(queryObj, "city listing", `/home/manage-localities?${getQueryUri(queryObj)}`)
@@ -207,13 +221,25 @@ class ManageLocalities extends React.Component {
             justifyContent: 'space-between'
           }}
         >
-          <NavLink to={`${location.pathname}/create-new-locality`}>
-            <RaisedButton
-              label="Create new locality"
-              primary
-              onClick={this.mountCreateStateDialog}
-            />
-          </NavLink>
+          <div>
+            <NavLink to={`${location.pathname}/create-new-locality`}>
+              <RaisedButton
+                label="Create new locality"
+                primary
+                onClick={this.mountCreateStateDialog}
+              />
+            </NavLink>
+
+            {
+              this.state.cityId &&
+              <RaisedButton
+                style={{ marginLeft: '20px' }}
+                label="View fences"
+                primary
+                onClick={this.mountViewFencesDialog}
+              />
+            }
+          </div>
 
           <RaisedButton
             onClick={this.mountFilterDialog}
@@ -253,6 +279,16 @@ class ManageLocalities extends React.Component {
             setPage={this.setPage}
           />
           : ''
+        }
+
+        {
+          this.state.shouldMountViewFencesDialog &&
+          <ViewFences
+            unmountViewFencesDialog={this.unmountViewFencesDialog}
+            cityId={parseInt(this.state.cityId)}
+            geoLocalitiesData={geoLocalitiesData}
+            loadingGeolocalities={loadingGeolocalities}
+          />
         }
 
         {

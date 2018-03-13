@@ -33,6 +33,7 @@ class App extends React.Component {
     super()
     // console.log(getBreadCrumbPath());
     this.state = {
+      key: 0,
       isDrawerOpen: false,
       headerTitle: getBreadCrumbPath().length ? getBreadCrumbPath() : 'Welcome'
     }
@@ -51,7 +52,9 @@ class App extends React.Component {
     this.setState({ isDrawerOpen: false })
   }
   setHeaderTitle() {
-    this.setState({ headerTitle: getBreadCrumbPath() })
+    let x = this.state.key
+    x = x + 1
+    this.setState({ headerTitle: getBreadCrumbPath(), key: x })
   }
   handleLogout() {
     localStorage.clear()
@@ -76,7 +79,7 @@ class App extends React.Component {
               toggleDrawer={this.toggleDrawer}
               handleCloseDrawer={this.handleCloseDrawer}
             />
-            <DisplayScreen>
+            <DisplayScreen key={this.state.key}>
                 <Switch>
                   <Route exact path="/home" component={WelcomeScreen} />
                   <Route exact path="/home/manage-localities" component={ManageLocalities} />
