@@ -4,7 +4,6 @@ import Checkbox from 'material-ui/Checkbox'
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
 import RaisedButton from 'material-ui/RaisedButton'
-import { validateNumType, checkCtrlA } from '@utils/keypress-utils'
 
 class CityDetailsForm extends React.Component {
   constructor(props) {
