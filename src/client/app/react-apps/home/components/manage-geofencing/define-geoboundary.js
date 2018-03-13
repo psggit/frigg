@@ -24,8 +24,8 @@ class DefineGeoboundary extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      lat: 13.278709268693333,
-      lng: 77.80792236328125,
+      lat: props.lat || null,
+      lng: props.lng || null,
       gmapKey: 0,
       isEdit: true,
       isSubmit: false,
@@ -47,6 +47,8 @@ class DefineGeoboundary extends React.Component {
     this.handleZoomChange = this.handleZoomChange.bind(this)
     this.handleCenterChange = this.handleCenterChange.bind(this)
     this.clearGeoboundary = this.clearGeoboundary.bind(this)
+    this.setCenter = this.setCenter.bind(this)
+    this.getCenter = this.getCenter.bind(this)
   }
 
   // componentDidMount() {
@@ -58,13 +60,17 @@ class DefineGeoboundary extends React.Component {
   //   }
   // }
 
-  getData() {
+  getCoordinates() {
     if (this.geoboundary) {
       const polygonPoints = getPolygonPoints(this.geoboundary)
       const coordinatesInString = getCoordinatesInString(polygonPoints)
       return coordinatesInString
     }
     return null
+  }
+
+  getCenter() {
+    return `${this.state.lat},${this.state.lng}`
   }
 
   handleUpdateGeoboundary() {
@@ -94,6 +100,10 @@ class DefineGeoboundary extends React.Component {
     // })
   }
 
+  setCenter(gps) {
+    this.setState({ lat: gps.lat, lng: gps.lng })
+  }
+
   changeGmapKey() {
     // To call handleMapCreation method again and set new props
     let x = this.state.gmapKey
@@ -106,9 +116,9 @@ class DefineGeoboundary extends React.Component {
       drawingControl: true,
       drawingMode: null
     })
-    if (this.geolocality) {
-      this.geolocality.setEditable(false)
-      this.geolocality = null
+    if (this.geoboundary) {
+      this.geoboundary.setEditable(false)
+      this.geoboundary = null
     }
   }
 

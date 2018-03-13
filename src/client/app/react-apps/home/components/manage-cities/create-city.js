@@ -21,6 +21,7 @@ class CreateCity extends React.Component {
     this.reset = this.reset.bind(this)
     this.setCityName = this.setCityName.bind(this)
     this.callbackUpdate = this.callbackUpdate.bind(this)
+    this.setCityGPS = this.setCityGPS.bind(this)
   }
 
   componentDidMount() {
@@ -34,6 +35,10 @@ class CreateCity extends React.Component {
     this.cityBoundaryData.changeGmapKey()
   }
 
+  setCityGPS(gps) {
+    this.cityBoundaryData.setCenter(gps)
+  }
+
   setCityName(cityName) {
     this.setState({ cityName })
   }
@@ -44,15 +49,16 @@ class CreateCity extends React.Component {
 
   submit() {
     const data = this.cityDetailsForm.getData()
-    const cityBoundaryData = this.cityBoundaryData.getData()
+    const cityBoundaryData = this.cityBoundaryData.getCoordinates()
+    const cityGPS = `${data.cityGPS_lat},${data.cityGPS_lng}`
 
-    if (data.cityName && data.stateShortName && cityBoundaryData) {
+    if (data.cityName && data.stateShortName && cityBoundaryData && cityGPS.length) {
       this.setState({ isDisabled: true })
       this.props.actions.createCity({
         is_available: data.isCityActive,
         deliverable_city: data.isDeliveryActive,
         state_short_name: data.stateShortName,
-        gps: data.gps,
+        gps: cityGPS,
         name: data.cityName,
         geoboundary: cityBoundaryData
       }, this.callbackUpdate)
@@ -95,6 +101,7 @@ class CreateCity extends React.Component {
           >
             <h3 style={{ marginTop: 0, marginBottom: '40px' }}>Enter city details</h3>
             <CityDetailsForm
+              setCityGPS={this.setCityGPS}
               setCityName={this.setCityName}
               statesData={statesData}
               ref={(node) => { this.cityDetailsForm = node }}
@@ -117,6 +124,7 @@ class CreateCity extends React.Component {
               fetchCityDetails={actions.fetchCityDetails}
               updateGeoboundary={actions.updateGeoboundary}
               cityDetails={cityDetails}
+              zoomLevel={10}
               loadingCityDetails={loadingCityDetails}
               isGeolocalityUpdated={isGeolocalityUpdated}
               cityName={this.state.cityName}

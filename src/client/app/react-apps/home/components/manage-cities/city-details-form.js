@@ -3,6 +3,8 @@ import TextField from 'material-ui/TextField'
 import Checkbox from 'material-ui/Checkbox'
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
+import RaisedButton from 'material-ui/RaisedButton'
+import { validateNumType, checkCtrlA } from '@utils/keypress-utils'
 
 class CityDetailsForm extends React.Component {
   constructor(props) {
@@ -12,6 +14,8 @@ class CityDetailsForm extends React.Component {
       isCityActive: props.isCityActive !== null ? props.isCityActive : true,
       isDeliveryActive: props.isDeliveryActive !== null ? props.isDeliveryActive : true,
       cityName: props.cityName || '',
+      cityGPS_lat: props.cityGPS.split(',')[0] || '',
+      cityGPS_lng: props.cityGPS.split(',')[1] || '',
       shouldTrim: true
     }
 
@@ -71,6 +75,8 @@ class CityDetailsForm extends React.Component {
 
   handleTextFields(e) {
     let value = e.target.value
+    let name = e.target.name
+
     if (this.state.shouldTrim) {
       value = value.trim()
     }
@@ -81,10 +87,14 @@ class CityDetailsForm extends React.Component {
       this.setState({ shouldTrim: true })
     }
 
-    if (e.target.name === 'cityName') {
-      this.setGPSUsingGeocoder(e.target.value)
-    }
-    this.setState({ [e.target.name]: value })
+    // if (name === 'cityGPS_lat' || name === 'cityGPS_lng') {
+    //   if (validateNumType(e.keyCode) || checkCtrlA(e)) {
+    //     this.setState({ [name]: parseInt(value) })
+    //   } else {
+    //     e.preventDefault()
+    //   }
+    // }
+    this.setState({ [name]: value })
   }
 
   getData() {
@@ -122,6 +132,40 @@ class CityDetailsForm extends React.Component {
             name="cityName"
             value={this.state.cityName}
           />
+        </div>
+
+        <div style={{ marginTop: '30px' }} className="form-group">
+          <label className="label">City gps</label><br/>
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <TextField
+              hintText="latitude"
+              style={{width: '48%'}}
+              disabled={this.props.isDisabled}
+              onChange={this.handleTextFields}
+              name="cityGPS_lat"
+              value={this.state.cityGPS_lat}
+            />
+            <TextField
+              hintText="longitude"
+              style={{width: '48%'}}
+              disabled={this.props.isDisabled}
+              onChange={this.handleTextFields}
+              name="cityGPS_lng"
+              value={this.state.cityGPS_lng}
+            />
+          </div>
+          {
+            !this.props.isDisabled &&
+            <RaisedButton
+              label="set gps"
+              onClick={() => {
+                this.props.setCityGPS({
+                  lat: parseFloat(this.state.cityGPS_lat),
+                  lng: parseFloat(this.state.cityGPS_lng)
+                })
+              }}
+            />
+          }
         </div>
 
         <div className="form-group">

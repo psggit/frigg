@@ -22,7 +22,7 @@ class ViewCity extends React.Component {
     this.enableEditMode = this.enableEditMode.bind(this)
     this.disableEditMode = this.disableEditMode.bind(this)
     this.clearGeoboundary = this.clearGeoboundary.bind(this)
-    // this.setStateIdxFromShortName = this.setStateIdxFromShortName.bind(this)
+    this.setCityGPS = this.setCityGPS.bind(this)
     this.update = this.update.bind(this)
   }
 
@@ -43,6 +43,11 @@ class ViewCity extends React.Component {
     }
   }
 
+  setCityGPS(gps) {
+    this.cityBoundary.setCenter(gps)
+  }
+
+
   setStateIdxFromShortName(stateShortName) {
     console.log(stateShortName);
     const { statesData } = this.props
@@ -59,15 +64,17 @@ class ViewCity extends React.Component {
     const { cityDetails } = this.props
     const { isCityActive, cityName, queryObj } = this.state
     const data = this.cityDetailsForm.getData()
-    const cityBoundaryData = this.cityBoundary.getData()
+    const cityBoundaryData = this.cityBoundary.getCoordinates()
+    const cityGPS = `${data.cityGPS_lat},${data.cityGPS_lng}`
 
-    if (data.cityName) {
+
+    if (data.cityName.length && cityGPS.length && cityBoundaryData) {
       this.props.actions.updateCity({
         id: parseInt(queryObj.id),
         is_available: data.isCityActive,
         deliverable_city: data.isDeliveryActive,
         state_short_name: data.stateShortName || cityDetails.state_short_name,
-        gps: data.gps || cityDetails.gps,
+        gps: cityGPS,
         name: data.cityName || cityDetails.name,
         geoboundary: cityBoundaryData || cityDetails.geoboundary
       }, this.disableEditMode)
@@ -146,7 +153,9 @@ class ViewCity extends React.Component {
                   isCityActive={cityDetails.is_available}
                   isDeliveryActive={cityDetails.deliverable_city}
                   cityName={cityDetails.name}
+                  cityGPS={cityDetails.gps}
                   statesData={statesData}
+                  setCityGPS={this.setCityGPS}
                   stateIdx={this.state.stateIdx}
                 />
 
