@@ -13,8 +13,8 @@ class CityDetailsForm extends React.Component {
       isCityActive: props.isCityActive !== null ? props.isCityActive : true,
       isDeliveryActive: props.isDeliveryActive !== null ? props.isDeliveryActive : true,
       cityName: props.cityName || '',
-      cityGPS_lat: props.cityGPS.split(',')[0] || '',
-      cityGPS_lng: props.cityGPS.split(',')[1] || '',
+      cityGPS_lat: props.cityGPS ? props.cityGPS.split(',')[0] : '',
+      cityGPS_lng: props.cityGPS ? props.cityGPS.split(',')[1] : '',
       shouldTrim: true
     }
 
