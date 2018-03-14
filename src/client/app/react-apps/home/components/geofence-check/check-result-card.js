@@ -17,10 +17,8 @@ class CheckResultCard extends React.Component {
 
   render() {
     const { status, checkName, data } = this.props
-    // if (!data.split('\n').length < 2) {
-    //   data.concat('\n')
-    // }
     const dataList = data.split('\n')
+
     return (
       <Card
         onClick={this.toggleResultCard}
@@ -62,7 +60,7 @@ class CheckResultCard extends React.Component {
           <div style={{ padding: '10px 0' }}>
             <ul>
               {
-                dataList.map((item, i) => {
+                dataList.filter(item => item.length).map((item, i) => {
                   return <li key={i}>{ item }</li>
                 })
               }
