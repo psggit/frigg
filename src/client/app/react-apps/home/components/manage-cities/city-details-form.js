@@ -148,8 +148,8 @@ class CityDetailsForm extends React.Component {
               label="set gps"
               onClick={() => {
                 this.props.setCityGPS({
-                  lat: parseFloat(this.state.cityGPS.split(',')[0]),
-                  lng: parseFloat(this.state.cityGPS.split(',')[1])
+                  lat: this.state.cityGPS.split(',')[0],
+                  lng: this.state.cityGPS.split(',')[1]
                 })
               }}
             />
