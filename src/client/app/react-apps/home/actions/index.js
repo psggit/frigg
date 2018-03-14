@@ -194,12 +194,18 @@ export const checkDeliveryTimeForLocality = data => ({
   data
 })
 
-export const checkActiveLocalityWithinCity = () => ({
-  type: ActionTypes.REQUEST_CHECK_ACTIVE_LOCALITY_WITHIN_CITY
+export const checkActiveLocalityWithinCity = data => ({
+  type: ActionTypes.REQUEST_CHECK_ACTIVE_LOCALITY_WITHIN_CITY,
+  data
 })
 
 export const listRetailerOutsideLocality = data => ({
   type: ActionTypes.REQUEST_LIST_RETAILER_OUTSIDE_LOCALITY,
+  data
+})
+
+export const checkCityFence = data => ({
+  type: ActionTypes.REQUEST_CHECK_CITY_FENCE,
   data
 })
 

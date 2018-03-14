@@ -25,7 +25,7 @@
 [tooltip-position='top']::before{
   left:50%;
 }
-[tooltip-position='buttom']::before{
+[tooltip-position='bottom']::before{
   top:100%;
   margin-top:8px;
   transform: translateX(-50%) translatey(-100%) rotate(-180deg)
@@ -49,6 +49,7 @@
     padding:4px 2px;
     font-size: 12px;
     min-width: 80px;
+    width: 380px;
     border-radius: 5px;
     pointer-events: none;
     padding: 4px 4px;
@@ -65,7 +66,7 @@
 [tooltip-position='top']::after{
   left:50%;
 }
-[tooltip-position='buttom']::after{
+[tooltip-position='bottom']::after{
   top:100%;
   margin-top:8px;
   transform: translateX(-50%) translateY(0%);

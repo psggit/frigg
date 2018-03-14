@@ -368,7 +368,17 @@ export const checkLocalityWithinCity = action => (
 
 export const checkActiveLocalityWithinCity = action => (
   GET({
-    api: `/admin/locality/LocalityCheck`,
+    api: `/admin/locality/LocalityCheck/${action.data.cityId}`,
+    apiBase: 'orderman',
+    data: action.data,
+    handleError: true,
+    type: 'FormData'
+  })
+)
+
+export const checkCityFence = action => (
+  GET({
+    api: `/admin/city/checkfence/${action.data.cityId}`,
     apiBase: 'orderman',
     data: action.data,
     handleError: true,

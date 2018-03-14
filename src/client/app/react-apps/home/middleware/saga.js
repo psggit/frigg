@@ -463,6 +463,16 @@ function* listRetailerOutsideLocality(action) {
   }
 }
 
+function* checkCityFence(action) {
+  try {
+    const data = yield call(Api.checkCityFence, action)
+    yield put({ type: ActionTypes.SUCCESS_GEO_FENCE_CHECK, data })
+    // Notify("Successfully indexed search data", "success")
+  } catch (err) {
+    // err.response.json().then(json => { Notify(json.message, "warning") })
+  }
+}
+
 function* emptyGeoFenceCheckData(action) {
   try {
     yield put({ type: ActionTypes.SUCCESS_EMPTY_GEO_FENCE_CHECK_DATA })
@@ -711,9 +721,14 @@ function* watchEmptyGeoFenceCheckData() {
 }
 
 function* watchListRetailerOutsideLocality() {
-  console.log('098y');
   while (true) {
     yield* takeLatest(ActionTypes.REQUEST_LIST_RETAILER_OUTSIDE_LOCALITY, listRetailerOutsideLocality)
+  }
+}
+
+function* watchCheckCityFence() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_CHECK_CITY_FENCE, checkCityFence)
   }
 }
 
@@ -758,6 +773,7 @@ export default function* rootSaga() {
     fork(watchCheckDeliveryTimeForLocality),
     fork(watchCheckActiveLocalityWithinCity),
     fork(watchEmptyGeoFenceCheckData),
-    fork(watchListRetailerOutsideLocality)
+    fork(watchListRetailerOutsideLocality),
+    fork(watchCheckCityFence)
   ]
 }
