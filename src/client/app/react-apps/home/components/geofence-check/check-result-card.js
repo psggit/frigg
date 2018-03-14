@@ -17,8 +17,10 @@ class CheckResultCard extends React.Component {
 
   render() {
     const { status, checkName, data } = this.props
-    const dataList = data.split('\n')
+    let dataList = data.split('\n')
 
+    dataList = dataList.filter(item => item.length)
+    console.log(dataList);
     return (
       <Card
         onClick={this.toggleResultCard}
@@ -43,24 +45,30 @@ class CheckResultCard extends React.Component {
               { status }
             </span>
           </p>
-          <span
-            style={{
-              float: 'right',
-              position: 'absolute',
-              top: '50%',
-              right: '0px',
-              transform: 'translateY(-50%)'
-            }}
-          >
-            { getIcon('down-arrow')}
-          </span>
+          {
+            dataList.length
+            ? (
+              <span
+                style={{
+                  float: 'right',
+                  position: 'absolute',
+                  top: '50%',
+                  right: '0px',
+                  transform: 'translateY(-50%)'
+                }}
+              >
+                { getIcon('down-arrow')}
+              </span>
+            )
+            : ''
+          }
         </div>
         {
-          this.state.toggled &&
+          this.state.toggled && dataList.length &&
           <div style={{ padding: '10px 0' }}>
             <ul>
               {
-                dataList.filter(item => item.length).map((item, i) => {
+                dataList.map((item, i) => {
                   return <li key={i}>{ item }</li>
                 })
               }
