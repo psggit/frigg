@@ -102,6 +102,12 @@ class DefineGeoboundary extends React.Component {
 
   setCenter(gps) {
     this.setState({ lat: gps.lat, lng: gps.lng })
+    // const bounds = new google.maps.LatLngBounds()
+    // console.log(this.map);
+    // const city = new google.maps.LatLng(gps.lat, gps.lng);
+    // bounds.extend(city)
+    // this.map.fitBounds(bounds)
+    // this.map.panToBounds(bounds)
   }
 
   changeGmapKey() {
@@ -202,10 +208,10 @@ class DefineGeoboundary extends React.Component {
     this.drawingManager = drawingManager
     if (cityId) {
       // show geoboundary
-      const lat = cityDetails.gps.split(',')[0]
-      const lng = cityDetails.gps.split(',')[1]
+      const lat = parseFloat(cityDetails.gps.split(',')[0])
+      const lng = parseFloat(cityDetails.gps.split(',')[1])
 
-      this.setState({ lat, lng })
+      this.setCenter({ lat, lng })
 
       const polygonCoordiantes = {
         coordinates: cityDetails.geoboundary ? getCoordinatesInObjects(cityDetails.geoboundary) : [],

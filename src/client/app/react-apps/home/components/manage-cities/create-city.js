@@ -124,7 +124,7 @@ class CreateCity extends React.Component {
               fetchCityDetails={actions.fetchCityDetails}
               updateGeoboundary={actions.updateGeoboundary}
               cityDetails={cityDetails}
-              zoomLevel={10}
+              zoomLevel={12}
               loadingCityDetails={loadingCityDetails}
               isGeolocalityUpdated={isGeolocalityUpdated}
               cityName={this.state.cityName}

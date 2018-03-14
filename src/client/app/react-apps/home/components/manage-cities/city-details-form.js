@@ -13,8 +13,7 @@ class CityDetailsForm extends React.Component {
       isCityActive: props.isCityActive !== null ? props.isCityActive : true,
       isDeliveryActive: props.isDeliveryActive !== null ? props.isDeliveryActive : true,
       cityName: props.cityName || '',
-      cityGPS_lat: props.cityGPS ? props.cityGPS.split(',')[0] : '',
-      cityGPS_lng: props.cityGPS ? props.cityGPS.split(',')[1] : '',
+      cityGPS: props.cityGPS || '',
       shouldTrim: true
     }
 
@@ -135,32 +134,22 @@ class CityDetailsForm extends React.Component {
 
         <div style={{ marginTop: '30px' }} className="form-group">
           <label className="label">City gps</label><br/>
-          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <TextField
-              hintText="latitude"
+              hintText=""
               style={{width: '48%'}}
               disabled={this.props.isDisabled}
               onChange={this.handleTextFields}
-              name="cityGPS_lat"
-              value={this.state.cityGPS_lat}
+              name="cityGPS"
+              value={this.state.cityGPS}
             />
-            <TextField
-              hintText="longitude"
-              style={{width: '48%'}}
-              disabled={this.props.isDisabled}
-              onChange={this.handleTextFields}
-              name="cityGPS_lng"
-              value={this.state.cityGPS_lng}
-            />
-          </div>
           {
             !this.props.isDisabled &&
             <RaisedButton
               label="set gps"
               onClick={() => {
                 this.props.setCityGPS({
-                  lat: parseFloat(this.state.cityGPS_lat),
-                  lng: parseFloat(this.state.cityGPS_lng)
+                  lat: parseFloat(this.state.cityGPS.split(',')[0]),
+                  lng: parseFloat(this.state.cityGPS.split(',')[1])
                 })
               }}
             />
