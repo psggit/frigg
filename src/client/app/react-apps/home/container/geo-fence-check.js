@@ -126,6 +126,7 @@ class GeoFenceCheck extends React.Component {
   }
 
   handleCityChange(e, k) {
+    this.props.actions.emptyGeoFenceCheckData()
     const cityIdx = k + 1
     const { citiesData } = this.props
     this.setState({
