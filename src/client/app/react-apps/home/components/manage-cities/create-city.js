@@ -50,15 +50,14 @@ class CreateCity extends React.Component {
   submit() {
     const data = this.cityDetailsForm.getData()
     const cityBoundaryData = this.cityBoundaryData.getCoordinates()
-    const cityGPS = `${data.cityGPS_lat},${data.cityGPS_lng}`
 
-    if (data.cityName && data.stateShortName && cityBoundaryData && cityGPS.length) {
+    if (data.cityName && data.stateShortName && cityBoundaryData && data.cityGPS.length) {
       this.setState({ isDisabled: true })
       this.props.actions.createCity({
         is_available: data.isCityActive,
         deliverable_city: data.isDeliveryActive,
         state_short_name: data.stateShortName,
-        gps: cityGPS,
+        gps: data.cityGPS,
         name: data.cityName,
         geoboundary: cityBoundaryData
       }, this.callbackUpdate)

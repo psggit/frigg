@@ -65,16 +65,15 @@ class ViewCity extends React.Component {
     const { isCityActive, cityName, queryObj } = this.state
     const data = this.cityDetailsForm.getData()
     const cityBoundaryData = this.cityBoundary.getCoordinates()
-    const cityGPS = `${data.cityGPS_lat},${data.cityGPS_lng}`
 
 
-    if (data.cityName.length && cityGPS.length && cityBoundaryData) {
+    if (data.cityName.length && data.cityGPS.length && cityBoundaryData) {
       this.props.actions.updateCity({
         id: parseInt(queryObj.id),
         is_available: data.isCityActive,
         deliverable_city: data.isDeliveryActive,
         state_short_name: data.stateShortName || cityDetails.state_short_name,
-        gps: cityGPS,
+        gps: data.cityGPS,
         name: data.cityName || cityDetails.name,
         geoboundary: cityBoundaryData || cityDetails.geoboundary
       }, this.disableEditMode)
