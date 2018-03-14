@@ -17,11 +17,10 @@ class CheckResultCard extends React.Component {
 
   render() {
     const { status, checkName, data } = this.props
-    if (!data.split('\n').length) {
-      data.concat('\n')
-    }
+    // if (!data.split('\n').length < 2) {
+    //   data.concat('\n')
+    // }
     const dataList = data.split('\n')
-    dataList.pop()
     return (
       <Card
         onClick={this.toggleResultCard}
