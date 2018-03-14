@@ -135,7 +135,7 @@ class CityDetailsForm extends React.Component {
         <div style={{ marginTop: '30px' }} className="form-group">
           <label className="label">City gps</label><br/>
             <TextField
-              hintText=""
+              hintText="12.9542946,77.4908533"
               style={{width: '48%'}}
               disabled={this.props.isDisabled}
               onChange={this.handleTextFields}
