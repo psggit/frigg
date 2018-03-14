@@ -82,8 +82,9 @@ class GeoFenceCheck extends React.Component {
     this.props.actions.checkPrimeRetailer({ cityId })
     this.props.actions.checkDeliveryAgent({ cityId })
     this.props.actions.checkDeliveryAgentRetailer({ cityId })
-    this.props.actions.checkDeliveryTimeForLocality({ cityId  })
     this.props.actions.checkActiveLocalityWithinCity({ cityId })
+    this.props.actions.listRetailerOutsideLocality({ cityId })
+    this.props.actions.checkCityFence({ cityId })
   }
 
   handleClick(e, i) {
@@ -102,10 +103,6 @@ class GeoFenceCheck extends React.Component {
 
       case 'check-da-retailer':
         this.props.actions.checkDeliveryAgentRetailer({ cityId })
-        break
-
-      case 'check-delivery-time':
-        this.props.actions.checkDeliveryTimeForLocality({ cityId })
         break
 
       case 'check-active-locality':
