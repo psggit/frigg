@@ -403,6 +403,75 @@ function* indexSearchData(action) {
   }
 }
 
+function* checkPrimeRetailer(action) {
+  try {
+    const data = yield call(Api.checkPrimeRetailer, action)
+    yield put({ type: ActionTypes.SUCCESS_GEO_FENCE_CHECK, data })
+    // Notify("Successfully indexed search data", "success")
+  } catch (err) {
+    // err.response.json().then(json => { Notify(json.message, "warning") })
+  }
+}
+
+function* checkDeliveryAgent(action) {
+  try {
+    const data = yield call(Api.checkDeliveryAgent, action)
+    yield put({ type: ActionTypes.SUCCESS_GEO_FENCE_CHECK, data })
+    // Notify("Successfully indexed search data", "success")
+  } catch (err) {
+    // err.response.json().then(json => { Notify(json.message, "warning") })
+  }
+}
+
+function* checkDeliveryAgentRetailer(action) {
+  try {
+    const data = yield call(Api.checkDeliveryAgentRetailer, action)
+    yield put({ type: ActionTypes.SUCCESS_GEO_FENCE_CHECK, data })
+    // Notify("Successfully indexed search data", "success")
+  } catch (err) {
+    // err.response.json().then(json => { Notify(json.message, "warning") })
+  }
+}
+
+function* checkDeliveryTimeForLocality(action) {
+  try {
+    const data = yield call(Api.checkDeliveryTimeForLocality, action)
+    yield put({ type: ActionTypes.SUCCESS_GEO_FENCE_CHECK, data })
+    // Notify("Successfully indexed search data", "success")
+  } catch (err) {
+    // err.response.json().then(json => { Notify(json.message, "warning") })
+  }
+}
+
+function* checkActiveLocalityWithinCity(action) {
+  try {
+    const data = yield call(Api.checkActiveLocalityWithinCity, action)
+    yield put({ type: ActionTypes.SUCCESS_GEO_FENCE_CHECK, data })
+    // Notify("Successfully indexed search data", "success")
+  } catch (err) {
+    // err.response.json().then(json => { Notify(json.message, "warning") })
+  }
+}
+
+function* listRetailerOutsideLocality(action) {
+  try {
+    const data = yield call(Api.listRetailerOutsideLocality, action)
+    yield put({ type: ActionTypes.SUCCESS_GEO_FENCE_CHECK, data })
+    // Notify("Successfully indexed search data", "success")
+  } catch (err) {
+    // err.response.json().then(json => { Notify(json.message, "warning") })
+  }
+}
+
+function* emptyGeoFenceCheckData(action) {
+  try {
+    yield put({ type: ActionTypes.SUCCESS_EMPTY_GEO_FENCE_CHECK_DATA })
+    // Notify("Successfully indexed search data", "success")
+  } catch (err) {
+    // err.response.json().then(json => { Notify(json.message, "warning") })
+  }
+}
+
 
 /**
  * Watchers
@@ -605,6 +674,49 @@ function* watchIndexSearchData() {
   }
 }
 
+function* watchCheckPrimeRetailer() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_CHECK_PRIME_RETAILER, checkPrimeRetailer)
+  }
+}
+
+function* watchCheckDeliveryAgent() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_CHECK_DELIVERY_AGENT, checkDeliveryAgent)
+  }
+}
+
+function* watchCheckDeliveryAgentRetailer() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_CHECK_DELIVERY_AGENT_RETAILER, checkDeliveryAgentRetailer)
+  }
+}
+
+function* watchCheckDeliveryTimeForLocality() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_CHECK_DELIVERY_TIME_FOR_LOCALITY, checkDeliveryTimeForLocality)
+  }
+}
+
+function* watchCheckActiveLocalityWithinCity() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_CHECK_ACTIVE_LOCALITY_WITHIN_CITY, checkActiveLocalityWithinCity)
+  }
+}
+
+function* watchEmptyGeoFenceCheckData() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_EMPTY_GEO_FENCE_CHECK_DATA, emptyGeoFenceCheckData)
+  }
+}
+
+function* watchListRetailerOutsideLocality() {
+  console.log('098y');
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_LIST_RETAILER_OUTSIDE_LOCALITY, listRetailerOutsideLocality)
+  }
+}
+
 export default function* rootSaga() {
   yield [
     fork(watchFetchStates),
@@ -639,6 +751,13 @@ export default function* rootSaga() {
     fork(watchDeleteDpFromLocalityMap),
     fork(watchFetchUnmappedDpToLocality),
     fork(watchFetchUnmappedLocalitiesToDp),
-    fork(watchIndexSearchData)
+    fork(watchIndexSearchData),
+    fork(watchCheckPrimeRetailer),
+    fork(watchCheckDeliveryAgent),
+    fork(watchCheckDeliveryAgentRetailer),
+    fork(watchCheckDeliveryTimeForLocality),
+    fork(watchCheckActiveLocalityWithinCity),
+    fork(watchEmptyGeoFenceCheckData),
+    fork(watchListRetailerOutsideLocality)
   ]
 }

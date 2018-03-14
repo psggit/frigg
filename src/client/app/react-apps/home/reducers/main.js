@@ -13,6 +13,7 @@ const initialState = {
   loadingUnmappedDpToLocality: true,
   loadingUnmappedLocalitiesToDp: true,
   loadingMappedDpToLocality: true,
+  geoFenceCheckData: [],
   unmappedRetailersToLocality: [],
   unmappedLocalitiesToDp: [],
   unmappedDpToLocality: [],
@@ -135,6 +136,20 @@ const actionsMap = {
     return Object.assign({}, state, {
       loadingMappedDpToLocality: false,
       mappedDpToLocality: action.data.dp
+    })
+  },
+
+  [ActionTypes.SUCCESS_GEO_FENCE_CHECK]: (state, action) => {
+    const geoFenceCheckData = state.geoFenceCheckData.slice()
+    geoFenceCheckData.push(action.data)
+    return Object.assign({}, state, {
+      geoFenceCheckData
+    })
+  },
+
+  [ActionTypes.SUCCESS_EMPTY_GEO_FENCE_CHECK_DATA]: (state) => {
+    return Object.assign({}, state, {
+      geoFenceCheckData: []
     })
   }
 }

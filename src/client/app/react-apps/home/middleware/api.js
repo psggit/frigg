@@ -303,3 +303,75 @@ export const indexSearchData = action => (
     type: 'FormData'
   })
 )
+
+// Geofence check endpoints
+
+export const checkPrimeRetailer = action => (
+  GET({
+    api: `/admin/locality/primeCheck/${action.data.cityId}`,
+    apiBase: 'orderman',
+    data: action.data,
+    handleError: true,
+    type: 'FormData'
+  })
+)
+
+export const checkDeliveryAgent = action => (
+  GET({
+    api: `/admin/locality/daCheck/${action.data.cityId}`,
+    apiBase: 'orderman',
+    data: action.data,
+    handleError: true,
+    type: 'FormData'
+  })
+)
+
+export const checkDeliveryAgentRetailer = action => (
+  GET({
+    api: `/admin/locality/daretailerCheck/${action.data.cityId}`,
+    apiBase: 'orderman',
+    data: action.data,
+    handleError: true,
+    type: 'FormData'
+  })
+)
+
+export const checkDeliveryTimeForLocality = action => (
+  GET({
+    api: `/admin/locality/timeCheck/${action.data.cityId}`,
+    apiBase: 'orderman',
+    data: action.data,
+    handleError: true,
+    type: 'FormData'
+  })
+)
+
+export const listRetailerOutsideLocality = action => (
+  GET({
+    api: `/admin/locality/retaileroutside/${action.data.cityId}`,
+    apiBase: 'orderman',
+    data: action.data,
+    handleError: true,
+    type: 'FormData'
+  })
+)
+
+export const checkLocalityWithinCity = action => (
+  GET({
+    api: `/admin/locality/outsideLocality/${action.data.cityId}`,
+    apiBase: 'orderman',
+    data: action.data,
+    handleError: true,
+    type: 'FormData'
+  })
+)
+
+export const checkActiveLocalityWithinCity = action => (
+  GET({
+    api: `/admin/locality/LocalityCheck`,
+    apiBase: 'orderman',
+    data: action.data,
+    handleError: true,
+    type: 'FormData'
+  })
+)

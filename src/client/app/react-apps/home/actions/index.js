@@ -173,3 +173,36 @@ export const indexSearchData = data => ({
   type: ActionTypes.REQUEST_INDEX_SEARCH_DATA,
   data
 })
+
+export const checkPrimeRetailer = data => ({
+  type: ActionTypes.REQUEST_CHECK_PRIME_RETAILER,
+  data
+})
+
+export const checkDeliveryAgent = data => ({
+  type: ActionTypes.REQUEST_CHECK_DELIVERY_AGENT,
+  data
+})
+
+export const checkDeliveryAgentRetailer = data => ({
+  type: ActionTypes.REQUEST_CHECK_DELIVERY_AGENT_RETAILER,
+  data
+})
+
+export const checkDeliveryTimeForLocality = data => ({
+  type: ActionTypes.REQUEST_CHECK_DELIVERY_TIME_FOR_LOCALITY,
+  data
+})
+
+export const checkActiveLocalityWithinCity = () => ({
+  type: ActionTypes.REQUEST_CHECK_ACTIVE_LOCALITY_WITHIN_CITY
+})
+
+export const listRetailerOutsideLocality = data => ({
+  type: ActionTypes.REQUEST_LIST_RETAILER_OUTSIDE_LOCALITY,
+  data
+})
+
+export const emptyGeoFenceCheckData = () => ({
+  type: ActionTypes.REQUEST_EMPTY_GEO_FENCE_CHECK_DATA
+})

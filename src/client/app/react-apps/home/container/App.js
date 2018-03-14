@@ -25,6 +25,7 @@ import CreateCity from './../components/manage-cities/create-city'
 import CreateState from './../components/manage-states/create-state'
 import CreateLocality from './../components/manage-localities/create-locality'
 import UploadSearchData from './upload-search-data'
+import GeoFenceCheck from './geo-fence-check'
 import { getBreadCrumbPath } from '@utils/url-utils'
 // import '@sass/components/_heading.scss'
 
@@ -42,8 +43,8 @@ class App extends React.Component {
     this.setHeaderTitle = this.setHeaderTitle.bind(this)
   }
   componentWillMount() {
-    // if (!localStorage.getItem('_hipbaru'))
-    // location.href = '/login'
+    if (!localStorage.getItem('_hipbaru'))
+    location.href = '/login'
   }
   toggleDrawer() {
     this.setState({ isDrawerOpen: !this.state.isDrawerOpen })
@@ -105,6 +106,7 @@ class App extends React.Component {
                   <Route exact path="/home/locality-map-manager/:localitySlug" component={ViewLocalityMapDetails} />
 
                   <Route exact path="/home/upload-search-data" component={UploadSearchData} />
+                  <Route exact path="/home/geo-fence-check" component={GeoFenceCheck} />
                 </Switch>
             </DisplayScreen>
           </div>
