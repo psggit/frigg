@@ -23,9 +23,10 @@ const params = { v: '3.exp', key: 'AIzaSyDpG-NeL-XGYAduQul2JenVr86HIPITEso' }
 class DefineGeoboundary extends React.Component {
   constructor(props) {
     super(props)
+
     this.state = {
-      lat: props.lat || null,
-      lng: props.lng || null,
+      lat: props.lat || 20.7685215,
+      lng: props.lng || 73.7225677,
       gmapKey: 0,
       isEdit: true,
       isSubmit: false,
@@ -101,14 +102,11 @@ class DefineGeoboundary extends React.Component {
   }
 
   setCenter(gps) {
-    console.log(gps);
-    this.setState({ lat: gps.lat, lng: gps.lng })
-    // const bounds = new google.maps.LatLngBounds()
-    // console.log(this.map);
-    // const city = new google.maps.LatLng(gps.lat, gps.lng);
-    // bounds.extend(city)
-    // this.map.fitBounds(bounds)
-    // this.map.panToBounds(bounds)
+    this.setState({ lat: gps.lat, lng: gps.lng, zoomLevel: 12 })
+    const cityGPS = new google.maps.LatLng(parseFloat(gps.lat), parseFloat(gps.lng))
+    this.map.setCenter(cityGPS)
+    this.marker.setPosition(cityGPS)
+    this.marker.setMap(this.map)
   }
 
   changeGmapKey() {
@@ -207,6 +205,21 @@ class DefineGeoboundary extends React.Component {
     // this.setGPSUsingGeocoder(cityName)
     const drawingManager = configureDrawingManager(map)
     this.drawingManager = drawingManager
+
+    this.marker = new google.maps.Marker({
+      draggable: true,
+      animation: google.maps.Animation.DROP
+    })
+
+    google.maps.event.addListener(this.marker, 'dragend', () => {
+      const newCityGPS = {
+        lat: this.marker.getPosition().lat().toFixed(6),
+        lng: this.marker.getPosition().lng().toFixed(6)
+      }
+      this.setState(newCityGPS)
+      this.props.setCityGPSInputFromMarker(newCityGPS)
+    })
+
     if (cityId) {
       // show geoboundary
       const lat = cityDetails.gps.split(',')[0]
@@ -214,6 +227,11 @@ class DefineGeoboundary extends React.Component {
       // console.log();
       this.setCenter({ lat, lng })
 
+      const cityGPS = new google.maps.LatLng(parseFloat(lat), parseFloat(lng))
+      // this.map.setCenter(cityGPS)
+      this.marker.setPosition(cityGPS)
+      this.marker.setMap(this.map)
+      this.marker.setDraggable(false)
       const polygonCoordiantes = {
         coordinates: cityDetails.geoboundary ? getCoordinatesInObjects(cityDetails.geoboundary) : [],
         color: '#333',
@@ -227,10 +245,9 @@ class DefineGeoboundary extends React.Component {
       // this.setState({ isGeoBoundaryExist: true })
       displayPolygonOnMap(map, polygon)
     } else {
-      //  create new geoboundary
-      // this.setState({ newBoundaryPrompt: true })
-      // const drawingManager = configureDrawingManager(map)
-      // this.drawingManager = drawingManager
+      const defaultCityGPS = new google.maps.LatLng(20.7685215, 73.7225677)
+      this.marker.setPosition(defaultCityGPS)
+      this.marker.setMap(this.map)
       setupEventListeners(drawingManager, map, {
         setSelection: this.setGeoBoundary
       })

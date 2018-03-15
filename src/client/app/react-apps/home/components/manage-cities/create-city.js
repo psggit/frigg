@@ -22,6 +22,7 @@ class CreateCity extends React.Component {
     this.setCityName = this.setCityName.bind(this)
     this.callbackUpdate = this.callbackUpdate.bind(this)
     this.setCityGPS = this.setCityGPS.bind(this)
+    this.setCityGPSInputFromMarker = this.setCityGPSInputFromMarker.bind(this)
   }
 
   componentDidMount() {
@@ -33,6 +34,10 @@ class CreateCity extends React.Component {
       this.setState({ isDisabled: false })
     }
     this.cityBoundaryData.changeGmapKey()
+  }
+
+  setCityGPSInputFromMarker(gps) {
+    this.cityDetailsForm.setCityGPSInputFromMarker(gps)
   }
 
   setCityGPS(gps) {
@@ -121,9 +126,10 @@ class CreateCity extends React.Component {
               ref={(node) => this.cityBoundaryData = node}
               setLoadingState={actions.setLoadingState}
               fetchCityDetails={actions.fetchCityDetails}
+              setCityGPSInputFromMarker={this.setCityGPSInputFromMarker}
               updateGeoboundary={actions.updateGeoboundary}
               cityDetails={cityDetails}
-              zoomLevel={12}
+              zoomLevel={5}
               loadingCityDetails={loadingCityDetails}
               isGeolocalityUpdated={isGeolocalityUpdated}
               cityName={this.state.cityName}

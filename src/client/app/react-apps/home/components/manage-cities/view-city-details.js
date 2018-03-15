@@ -24,6 +24,7 @@ class ViewCity extends React.Component {
     this.clearGeoboundary = this.clearGeoboundary.bind(this)
     this.setCityGPS = this.setCityGPS.bind(this)
     this.update = this.update.bind(this)
+    this.setCityGPSInputFromMarker = this.setCityGPSInputFromMarker.bind(this)
   }
 
   componentDidMount() {
@@ -80,9 +81,14 @@ class ViewCity extends React.Component {
     }
   }
 
+  setCityGPSInputFromMarker(gps) {
+    this.cityDetailsForm.setCityGPSInputFromMarker(gps)
+  }
+
   enableEditMode() {
     this.setState({ isEdit: true })
     this.cityBoundary.editGeoboundary()
+    this.cityBoundary.marker.setDraggable(true)
   }
 
   disableEditMode() {
@@ -175,6 +181,7 @@ class ViewCity extends React.Component {
                 ref={(node) => { this.cityBoundary = node }}
                 setLoadingState={actions.setLoadingState}
                 fetchCityDetails={actions.fetchCityDetails}
+                setCityGPSInputFromMarker={this.setCityGPSInputFromMarker}
                 update={this.update}
                 cityDetails={cityDetails}
                 loadingCityDetails={loadingCityDetails}

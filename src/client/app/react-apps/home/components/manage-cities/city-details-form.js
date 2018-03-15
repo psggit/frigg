@@ -22,24 +22,16 @@ class CityDetailsForm extends React.Component {
     this.handleTextFields = this.handleTextFields.bind(this)
     this.handleCheckboxes = this.handleCheckboxes.bind(this)
     this.handleStateChange = this.handleStateChange.bind(this)
+    this.setCityGPSInputFromMarker = this.setCityGPSInputFromMarker.bind(this)
   }
 
   resetState() {
     this.setState(this.initialState)
   }
 
-  // componentWillReceiveProps(nextProps) {
-  //   this.setState({ cityName: nextProps.cityName, stateIdx: nextProps.stateIdx })
-  //
-  //   if (nextProps.isCityActive !== undefined) {
-  //     this.setState({ isCityActive: nextProps.isCityActive })
-  //   }
-  //
-  //   if (nextProps.isDeliveryActive !== undefined) {
-  //     this.setState({ isDeliveryActive: nextProps.isDeliveryActive })
-  //   }
-  //
-  // }
+  setCityGPSInputFromMarker(gps) {
+    this.setState({ cityGPS: `${gps.lat},${gps.lng}` })
+  }
 
   handleStateChange(e, k) {
     const { statesData } = this.props
