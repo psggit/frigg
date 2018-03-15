@@ -21,6 +21,7 @@ import '@sass/components/_table.scss'
 const TableHeaderItems = [
   'ID',
   'NAME',
+  'MAPPED LOCALITY',
   ''
 ]
 
@@ -34,7 +35,11 @@ const styles = [
 class ViewRetailers extends React.Component {
   constructor() {
     super()
+    this.state = {
+      clickedCell: -1
+    }
     this.handleAddRetailerToDpMap = this.handleAddRetailerToDpMap.bind(this)
+    this.expandColumn = this.expandColumn.bind(this)
   }
 
   componentDidMount() {
@@ -42,6 +47,10 @@ class ViewRetailers extends React.Component {
     this.props.actions.fetchUnmappedRetailersToLocality({
       locality_id: parseInt(queryObj.id)
     })
+  }
+
+  expandColumn(clickedCell) {
+    this.setState({ clickedCell })
   }
 
   handleAddRetailerToDpMap(id) {
@@ -63,6 +72,7 @@ class ViewRetailers extends React.Component {
     return (
       <div>
         <Table
+          onCellClick={this.expandColumn}
           className="bordered--table"
           selectable={false}
           fixedHeader
@@ -81,10 +91,16 @@ class ViewRetailers extends React.Component {
             {
               !loadingUnmappedRetailersToLocality
               ? (
-                unmappedRetailersToLocality.map(item => (
+                unmappedRetailersToLocality.map((item, i) => (
                   <TableRow key={item.id}>
                     <TableRowColumn style={styles[0]}>{item.id}</TableRowColumn>
                     <TableRowColumn style={styles[1]}>{item.org_name}</TableRowColumn>
+                    <TableRowColumn
+                      className={i === this.state.clickedCell ? 'white-space-wrap' : ''}
+                      style={{ width: '120px', cursor: 'pointer' }}
+                    >
+                      {item.mapped_locality}
+                    </TableRowColumn>
                     <TableRowColumn style={styles[2]}>
                       <FlatButton
                         label="add"

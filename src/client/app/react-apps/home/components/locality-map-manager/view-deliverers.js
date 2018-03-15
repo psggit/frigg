@@ -22,6 +22,7 @@ import '@sass/components/_table.scss'
 const TableHeaderItems = [
   'ID',
   'NAME',
+  'MAPPED LOCALITY',
   ''
 ]
 
@@ -36,15 +37,21 @@ class ViewDeliverers extends React.Component {
   constructor() {
     super()
     this.state = {
-      selectedDeliveryAgent: null
+      selectedDeliveryAgent: null,
+      clickedCell: -1
     }
     this.handleAddDpToLocalityMap = this.handleAddDpToLocalityMap.bind(this)
+    this.expandColumn = this.expandColumn.bind(this)
   }
 
   componentDidMount() {
     this.props.actions.fetchUnmappedDpToLocality({
       locality_id: parseInt(this.props.locality_id)
     })
+  }
+
+  expandColumn(clickedCell) {
+    this.setState({ clickedCell })
   }
 
   handleAddDpToLocalityMap(id) {
@@ -64,6 +71,7 @@ class ViewDeliverers extends React.Component {
     return (
       <div>
         <Table
+          onCellClick={this.expandColumn}
           className="bordered--table"
           selectable={false}
           fixedHeader
@@ -82,10 +90,16 @@ class ViewDeliverers extends React.Component {
             {
               !loadingUnmappedDpToLocality
               ? (
-                unmappedDpToLocality.map(item => (
+                unmappedDpToLocality.map((item, i) => (
                   <TableRow key={item.id}>
                     <TableRowColumn style={styles[0]}>{item.id}</TableRowColumn>
                     <TableRowColumn style={styles[1]}>{item.name}</TableRowColumn>
+                    <TableRowColumn
+                      className={i === this.state.clickedCell ? 'white-space-wrap' : ''}
+                      style={{ width: '120px', cursor: 'pointer' }}
+                    >
+                      {item.mapped_locality}
+                    </TableRowColumn>
                     <TableRowColumn style={styles[2]}>
                       <FlatButton
                         label="add"
