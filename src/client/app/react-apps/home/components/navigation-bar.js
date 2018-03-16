@@ -42,8 +42,8 @@ class NavigationBar extends  React.Component {
       {
         name: 'Map manager',
         nestedItems: [
-          { name: 'Delivery map manager', path: '/home/delivery-map-manager', id: 4 },
-          { name: 'Locality map manager', path: '/home/locality-map-manager', id: 5 },
+          { name: 'Delivery agent mapping', path: '/home/delivery-agent-mapping', id: 4 },
+          { name: 'Locality mapping', path: '/home/locality-mapping', id: 5 },
         ]
       },
       { name: 'Upload search data', path: '/home/upload-search-data', id: 6, nestedItems: [] },

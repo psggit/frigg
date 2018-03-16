@@ -99,11 +99,11 @@ class App extends React.Component {
                   <Route exact path="/home/manage-localities/create-new-locality" component={CreateLocality} />
                   <Route exact path="/home/manage-localities/:localitySlug" component={ViewLocality} />
 
-                  <Route exact path="/home/delivery-map-manager/" component={DeliveryMapManager} />
-                  <Route exact path="/home/delivery-map-manager/:delivererSlug" component={ViewDeliverer} />
+                  <Route exact path="/home/delivery-agent-mapping/" component={DeliveryMapManager} />
+                  <Route exact path="/home/delivery-agent-mapping/:delivererSlug" component={ViewDeliverer} />
 
-                  <Route exact path="/home/locality-map-manager/" component={LocalityMapManager} />
-                  <Route exact path="/home/locality-map-manager/:localitySlug" component={ViewLocalityMapDetails} />
+                  <Route exact path="/home/locality-mapping/" component={LocalityMapManager} />
+                  <Route exact path="/home/locality-mapping/:localitySlug" component={ViewLocalityMapDetails} />
 
                   <Route exact path="/home/upload-search-data" component={UploadSearchData} />
                   <Route exact path="/home/geo-fence-check" component={GeoFenceCheck} />

@@ -57,7 +57,7 @@ function ViewLocalities(props) {
                     // target="_blank"
                     // exact
                     // to={`/home/manage-cities/${item.name}?id=${item.id}`}
-                    href={`/home/locality-map-manager/${item.name}?id=${item.id}`}
+                    href={`/home/locality-mapping/${item.name}?id=${item.id}`}
                   >
                     <FlatButton primary label="View" />
                   </NavLink>

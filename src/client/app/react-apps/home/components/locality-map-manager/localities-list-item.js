@@ -10,7 +10,7 @@ import {
 const LocalityListItem = ({ locality }) => (
   <TableRow>
     <TableRowColumn>
-      <NavLink to={`/home/locality-map-manager/${locality.name}?id=${locality.id}&city_id=${locality.city_id}`}>
+      <NavLink to={`/home/locality-mapping/${locality.name}?id=${locality.id}&city_id=${locality.city_id}`}>
         <FlatButton label="view" primary />
       </NavLink>
     </TableRowColumn>
