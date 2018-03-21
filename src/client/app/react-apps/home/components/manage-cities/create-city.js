@@ -108,6 +108,8 @@ class CreateCity extends React.Component {
               setCityGPS={this.setCityGPS}
               setCityName={this.setCityName}
               statesData={statesData}
+              isCityActive
+              isDeliveryActive={false}
               ref={(node) => { this.cityDetailsForm = node }}
             />
           </Card>
