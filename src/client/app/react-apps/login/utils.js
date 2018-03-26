@@ -9,6 +9,7 @@ export function getHasuraRole(data) {
     support_master: 4,
     support_person: 3,
     business_team: 2,
+    delivery_support_person: 3,
     user: 1
   }
   let maxRole = rolesMap["user"]
