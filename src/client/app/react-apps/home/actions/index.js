@@ -148,10 +148,10 @@ export const mapRetailerToLocalityAsPrime = data => ({
   data
 })
 
-export const unmapRetailerToLocalityAsPrime = (data, newPrimeRetailerId) => ({
+export const unmapRetailerToLocalityAsPrime = (data, CB) => ({
   type: ActionTypes.REQUEST_UNMAP_RETAILER_TO_LOCALITY_AS_PRIME,
   data,
-  newPrimeRetailerId
+  CB
 })
 
 export const fetchDpByLocality = data => ({

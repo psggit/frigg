@@ -15,7 +15,7 @@ const MappedRetailersListItem = ({ mappedRetailer, mountConfirmDeleteRetailer, m
     <TableRowColumn>
       <Toggle
         toggled={mappedRetailer.is_prime}
-        onToggle={() => { mountConfirmMakePrimeRetailer(mappedRetailer.id) }}
+        onToggle={(e, val) => { mountConfirmMakePrimeRetailer(mappedRetailer.id, val) }}
       />
     </TableRowColumn>
     <TableRowColumn>

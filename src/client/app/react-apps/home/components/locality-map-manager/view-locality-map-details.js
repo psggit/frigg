@@ -78,10 +78,22 @@ class ViewLocalityMapDetails extends React.Component {
         locality_id: parseInt(queryObj.id)
       })
     } else {
+      const CB = this.state.isPrime
+        ? () => {
+          this.props.actions.mapRetailerToLocalityAsPrime({
+            retailer_id: id,
+            locality_id: parseInt(queryObj.id)
+          })
+        }
+        : () => {
+          this.props.actions.fetchLocalityRetailersMap({
+            locality_id: parseInt(queryObj.id)
+          })
+        }
       this.props.actions.unmapRetailerToLocalityAsPrime({
         retailer_id: this.primeRetailerId,
         locality_id: parseInt(queryObj.id)
-      }, id)
+      }, CB)
     }
   }
 
@@ -105,8 +117,8 @@ class ViewLocalityMapDetails extends React.Component {
     this.setState({ shouldMountConfirmMakePrimeRetailer: false })
   }
 
-  mountConfirmMakePrimeRetailer(retailer_id) {
-    this.setState({ shouldMountConfirmMakePrimeRetailer: true, retailer_id })
+  mountConfirmMakePrimeRetailer(retailer_id, val) {
+    this.setState({ shouldMountConfirmMakePrimeRetailer: true, retailer_id, isPrime: val })
   }
 
   mountAddRetailerDialog() {

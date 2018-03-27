@@ -300,7 +300,8 @@ function* unmapRetailerToLocalityAsPrime(action) {
   console.log(action);
   try {
     const data = yield call(Api.unmapRetailerToLocalityAsPrime, action)
-  yield put({ type: ActionTypes.REQUEST_MAP_RETAILER_TO_LOCALITY_AS_PRIME, data: { retailer_id: action.newPrimeRetailerId, locality_id: action.data.locality_id } })
+    action.CB()
+    // yield put({ type: ActionTypes.REQUEST_MAP_RETAILER_TO_LOCALITY_AS_PRIME, data: { retailer_id: action.newPrimeRetailerId, locality_id: action.data.locality_id } })
     Notify("Successfully updated", "success")
   } catch (err) {
     err.response.json().then(json => { Notify(json.message, "warning") })
