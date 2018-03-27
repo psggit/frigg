@@ -141,6 +141,9 @@ const actionsMap = {
 
   [ActionTypes.SUCCESS_GEO_FENCE_CHECK]: (state, action) => {
     const geoFenceCheckData = state.geoFenceCheckData.slice()
+    if (action.data.title === 'Retailer outside Locality') {
+      action.data.status = 'warning'
+    }
     geoFenceCheckData.push(action.data)
     return Object.assign({}, state, {
       geoFenceCheckData
