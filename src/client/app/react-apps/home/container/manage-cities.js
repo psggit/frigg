@@ -114,7 +114,7 @@ class ManageCities extends React.Component {
     this.props.actions.fetchCities({
       state_short_name: this.filter.stateShortName,
       offset: pageObj.offset,
-      limit: 10,
+      limit: pageObj.offset + 10,
       is_available: this.filter.isCityAvailable,
       deliverable_city: true,
       no_filter: queryObj.filter ? false : true
@@ -123,7 +123,7 @@ class ManageCities extends React.Component {
 
     queryObj.activePage = pageObj.activePage
     queryObj.offset = pageObj.offset
-    history.pushState(queryObj, "city listing", `/home/manage-cities?${getQueryUri(queryObj)}`)
+    // history.pushState(queryObj, "city listing", `/home/manage-cities?${getQueryUri(queryObj)}`)
   }
 
   mountFilterDialog() {

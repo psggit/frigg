@@ -119,13 +119,13 @@ class ManageLocalities extends React.Component {
       city_id: parseInt(queryObj.cityId) || null,
       is_available: queryObj.isLocalityAvailable || false,
       offset: pageObj.offset,
-      limit: 10,
+      limit: pageObj.offset + 10,
       no_filter: queryObj.filter ? false : true
     })
 
     queryObj.activePage = pageObj.activePage
     queryObj.offset = pageObj.offset
-    history.pushState(queryObj, "city listing", `/home/manage-localities?${getQueryUri(queryObj)}`)
+    // history.pushState(queryObj, "city listing", `/home/manage-localities?${getQueryUri(queryObj)}`)
   }
 
   mountFilterDialog() {
