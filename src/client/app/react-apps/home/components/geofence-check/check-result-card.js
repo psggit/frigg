@@ -34,7 +34,7 @@ class CheckResultCard extends React.Component {
             <b>{ checkName }</b>
             <span style={{
               color: '#fff',
-              background: status === 'system fail' ? '#ff3b34' : '#2fa72f',
+              background: status === 'system fail' ? '#FF9800' : '#2fa72f',
               padding: '5px 20px',
               marginLeft: '20px',
               borderRadius: '29px',
@@ -42,7 +42,7 @@ class CheckResultCard extends React.Component {
               textTransform: 'uppercase'
             }}
             >
-              { status }
+              { status === 'system fail' ? 'warning' : status }
             </span>
           </p>
           {

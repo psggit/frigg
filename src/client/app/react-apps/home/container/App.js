@@ -106,7 +106,7 @@ class App extends React.Component {
                   <Route exact path="/home/locality-mapping/:localitySlug" component={ViewLocalityMapDetails} />
 
                   <Route exact path="/home/upload-search-data" component={UploadSearchData} />
-                  <Route exact path="/home/geo-fence-check" component={GeoFenceCheck} />
+                  <Route exact path="/home/delivery-system-check" component={GeoFenceCheck} />
                 </Switch>
             </DisplayScreen>
           </div>
