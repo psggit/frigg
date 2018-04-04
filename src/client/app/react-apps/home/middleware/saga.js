@@ -404,6 +404,15 @@ function* indexSearchData(action) {
   }
 }
 
+function* getFenceDetails(action) {
+  try {
+    const data = yield call(Api.getFenceDetails, action)
+    yield put({ type: ActionTypes.SUCCESS_GET_FENCE_DETAILS, data })
+  } catch (err) {
+    err.response.json().then((json) => { Notify(json.message, "warning") })
+  }
+}
+
 function* checkPrimeRetailer(action) {
   try {
     const data = yield call(Api.checkPrimeRetailer, action)
@@ -685,6 +694,12 @@ function* watchIndexSearchData() {
   }
 }
 
+function* WatchGetFenceDetails() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_GET_FENCE_DETAILS, getFenceDetails)
+  }
+}
+
 function* watchCheckPrimeRetailer() {
   while (true) {
     yield* takeLatest(ActionTypes.REQUEST_CHECK_PRIME_RETAILER, checkPrimeRetailer)
@@ -768,6 +783,7 @@ export default function* rootSaga() {
     fork(watchFetchUnmappedDpToLocality),
     fork(watchFetchUnmappedLocalitiesToDp),
     fork(watchIndexSearchData),
+    fork(WatchGetFenceDetails),
     fork(watchCheckPrimeRetailer),
     fork(watchCheckDeliveryAgent),
     fork(watchCheckDeliveryAgentRetailer),

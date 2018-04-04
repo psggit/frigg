@@ -4,6 +4,7 @@ const initialState = {
   loadingStates: true,
   loadingCities: true,
   loadingCityDetails: true,
+  loadingFenceDetails: true,
   loadingGeolocalities: true,
   loadingMappedLocalities: true,
   loadingMappedRetailers: true,
@@ -64,6 +65,7 @@ const actionsMap = {
       loadingStates: true,
       loadingCities: true,
       loadingCityDetails: true,
+      loadingFenceDetails: true,
       loadingGeolocalities: true,
       loadingMappedLocalities: true,
       loadingMappedRetailers: true,
@@ -136,6 +138,13 @@ const actionsMap = {
     return Object.assign({}, state, {
       loadingMappedDpToLocality: false,
       mappedDpToLocality: action.data.dp
+    })
+  },
+
+  [ActionTypes.SUCCESS_GET_FENCE_DETAILS]: (state, action) => {
+    return Object.assign({}, state, {
+      loadingFenceDetails: false,
+      fenceDetails: action.data
     })
   },
 

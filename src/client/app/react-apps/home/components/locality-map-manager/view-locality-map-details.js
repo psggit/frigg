@@ -46,11 +46,17 @@ class ViewLocalityMapDetails extends React.Component {
     this.props.actions.fetchLocalityRetailersMap({
       locality_id: parseInt(queryObj.id)
     })
+
     this.props.actions.fetchDpByLocality({
       locality_id: parseInt(queryObj.id)
     })
+
     this.props.actions.fetchCityDetails({
       id: parseInt(queryObj.city_id)
+    })
+
+    this.props.actions.getFenceDetails({
+      id: parseInt(queryObj.id)
     })
   }
 
@@ -143,6 +149,8 @@ class ViewLocalityMapDetails extends React.Component {
       loadingMappedRetailersToLocality,
       loadingMappedDpToLocality,
       loadingCityDetails,
+      loadingFenceDetails,
+      fenceDetails,
       cityDetails,
       mappedDpToLocality
     } = this.props
@@ -202,12 +210,13 @@ class ViewLocalityMapDetails extends React.Component {
           }}
         >
           {
-            !loadingCityDetails &&
+            !loadingCityDetails &&  !loadingFenceDetails &&
             <div>
               <p><b>Locality name</b>: { this.props.match.params.localitySlug }</p>
               <p><b>City</b>: { this.props.cityDetails.name }</p>
-              <p><b>is_available</b>: { this.props.cityDetails.is_available ? 'Yes' : 'No' }</p>
-              <p><b>is_deliverable</b>: { this.props.cityDetails.deliverable_city ? 'Yes' : 'No' }</p>
+              <p><b>City available</b>: { this.props.cityDetails.is_available ? 'Yes' : 'No' }</p>
+              <p><b>City deliverable</b>: { this.props.cityDetails.deliverable_city ? 'Yes' : 'No' }</p>
+              <p><b>Locality available</b>: { this.props.fenceDetails.is_available ? 'Yes' : 'No' }</p>
             </div>
           }
         </Card>

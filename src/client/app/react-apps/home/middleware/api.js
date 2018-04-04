@@ -304,6 +304,15 @@ export const indexSearchData = action => (
   })
 )
 
+export const getFenceDetails = action => (
+  POST({
+    api: '/fenceManagement/getFenceDetails',
+    apiBase: 'odin',
+    data: action.data,
+    handleError: true
+  })
+)
+
 // Geofence check endpoints
 
 export const checkPrimeRetailer = action => (

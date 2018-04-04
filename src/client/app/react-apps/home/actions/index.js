@@ -174,6 +174,11 @@ export const indexSearchData = data => ({
   data
 })
 
+export const getFenceDetails = data => ({
+  type: ActionTypes.REQUEST_GET_FENCE_DETAILS,
+  data
+})
+
 export const checkPrimeRetailer = data => ({
   type: ActionTypes.REQUEST_CHECK_PRIME_RETAILER,
   data
