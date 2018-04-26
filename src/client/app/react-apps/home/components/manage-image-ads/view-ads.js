@@ -23,6 +23,7 @@ const TableHeaderItems = [
   'ACTIVE FROM',
   'ACTIVE TO',
   'STATUS',
+  'CITY',
   'IMAGE',
   'LISTING ORDER'
 ]
@@ -30,10 +31,11 @@ const TableHeaderItems = [
 const styles = [
   { width: '38px' },
   { width: '38px' },
-  { width: '120px' },
+  { width: '80px' },
   { width: '60px', lineHeight: '1.6' },
   { width: '60px', lineHeight: '1.6' },
   { width: '38px' },
+  { width: '60px' },
   { width: '38px' },
   { width: '38px' }
 ]
@@ -79,7 +81,8 @@ function ViewImageAds(data) {
                 <TableRowColumn style={styles[3]}>{isoToNormalDate(item.active_from)}</TableRowColumn>
                 <TableRowColumn style={styles[4]}>{isoToNormalDate(item.active_to)}</TableRowColumn>
                 <TableRowColumn style={styles[5]}>{item.status}</TableRowColumn>
-                <TableRowColumn style={styles[6]}>
+                <TableRowColumn style={styles[6]}>{item.CityName}</TableRowColumn>
+                <TableRowColumn style={styles[7]}>
                   <a target="_blank" href={item.image_url}>
                     <img
                       alt="ad-image"
