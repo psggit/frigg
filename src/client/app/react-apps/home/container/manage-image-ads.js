@@ -83,7 +83,7 @@ class ManageImageAds extends React.Component {
       this.props.actions.fetchImageAds({
         city_id: null,
         offset: 0,
-        limit: 100
+        limit: 10
       })
       this.setState({ stateIdx: 0 })
     }
