@@ -68,7 +68,7 @@ function ViewImageAds(data) {
                         status: item.status === 'Active' ? 'Inactive' : 'Active',
                         ad_id: item.ad_id,
                         city_id: item.city_id
-                      })
+                      }, data.updateImageAdStatusCB)
                     }}
                   >
                     { item.status === 'Active' ? 'Disable' : 'Enable' }

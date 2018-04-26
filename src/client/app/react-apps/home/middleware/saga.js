@@ -521,14 +521,14 @@ function* updateImageAdStatus(action) {
   try {
     const data = yield call(Api.updateImageAdStatus, action)
     Notify(`Successfully ${action.data.status === 'Active' ? 'enabled' : 'disabled'} ad`, "success")
-    yield put({ type: ActionTypes.REQUEST_FETCH_IMAGE_ADS, data: {city_id: null, limit: 100, offset: 0 } })
+    yield put({ type: ActionTypes.SUCCESS_UPDATE_IMAGE_AD_STATUS, data })
+    action.CB()
     // setTimeout(() => {
     //   history.pushState(null,null, '/manage-image-ads')
     // }, 2000)
   } catch (err) {
     console.log(err)
     err.response.json().then(json => { Notify(json.message, "warning") })
-    action.CB(false)
   }
 }
 

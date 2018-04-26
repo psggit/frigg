@@ -229,7 +229,8 @@ export const createImageAd = (data, CB) => ({
   CB
 })
 
-export const updateImageAdStatus = data => ({
+export const updateImageAdStatus = (data, CB) => ({
   type: ActionTypes.REQUEST_UPDATE_IMAGE_AD_STATUS,
-  data
+  data,
+  CB
 })

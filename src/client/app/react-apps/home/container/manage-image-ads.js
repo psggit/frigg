@@ -170,6 +170,7 @@ class ManageImageAds extends React.Component {
       cityId: this.filter.cityId,
       stateName: this.filter.stateName,
       offset: 0,
+      cityName: this.filter.cityName,
       activePage: 1,
       filter: true
     }
@@ -232,7 +233,7 @@ class ManageImageAds extends React.Component {
         <br />
 
         {
-          !loadingCities && statesData.length && this.state.cityName
+          !loadingImageAds && imageAdsData.ads_data.length && this.state.cityName
           ? <h3>Showing ads in {`${this.state.cityName}`}</h3>
           : ''
         }
@@ -247,6 +248,7 @@ class ManageImageAds extends React.Component {
           imageAdsData={imageAdsData.ads_data}
           loadingImageAds={loadingImageAds}
           updateImageAdStatus={this.props.actions.updateImageAdStatus}
+          updateImageAdStatusCB={this.fetchData}
         />
 
         {
