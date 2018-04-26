@@ -110,7 +110,7 @@ class ManageImageAds extends React.Component {
     const { statesData } = this.props
 
     this.setState(pageObj)
-    this.props.actions.fetchLocalities({
+    this.props.actions.fetchImageAds({
       city_id: parseInt(queryObj.cityId) || null,
       offset: pageObj.offset,
       limit: pageObj.offset + 10
