@@ -118,7 +118,7 @@ class ManageImageAds extends React.Component {
 
     queryObj.activePage = pageObj.activePage
     queryObj.offset = pageObj.offset
-    // history.pushState(queryObj, "city listing", `/home/manage-localities?${getQueryUri(queryObj)}`)
+    history.pushState(queryObj, "city listing", `/home/manage-image-ads?${getQueryUri(queryObj)}`)
   }
 
   mountFilterDialog() {
