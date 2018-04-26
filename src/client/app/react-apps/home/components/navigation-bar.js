@@ -47,7 +47,13 @@ class NavigationBar extends  React.Component {
         ]
       },
       { name: 'Upload search data', path: '/home/upload-search-data', id: 6, nestedItems: [] },
-      { name: 'Delivery system check', path: '/home/delivery-system-check', id: 7, nestedItems: [] }
+      { name: 'Delivery system check', path: '/home/delivery-system-check', id: 7, nestedItems: [] },
+      {
+        name: 'Ads management',
+        nestedItems: [
+          { name: 'Manage image ads', path: '/home/manage-image-ads', id: 8 }
+        ]
+      }
     ]
     return (
       <Drawer

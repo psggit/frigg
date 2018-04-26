@@ -3,11 +3,11 @@
   hr:first-child {
     border-bottom-color: #9b9b9b !important;
   }
+  .inline-input div{
+    width: 100% !important;
+  }
 }
 
-.form-group > div {
-  width: 100% !important;
-}
 .label {
   color: #9b9b9b;
 }
@@ -15,4 +15,8 @@
 .error {
   color: #ff3b34;
   font-style: italic;
+}
+
+.mui-checkbox-sm label {
+  font-size: 14px;
 }

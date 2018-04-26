@@ -148,6 +148,7 @@ class GeoFenceCheck extends React.Component {
             <h3>Choose city to check</h3>
             <div className="form-group">
               <SelectField
+                style={{ width: '100%' }}
                 value={parseInt(this.state.cityIdx)}
                 onChange={this.handleCityChange}
                 iconStyle={{ fill: '#9b9b9b' }}

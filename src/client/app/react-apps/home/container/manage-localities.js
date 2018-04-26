@@ -303,6 +303,7 @@ class ManageLocalities extends React.Component {
                 <div className="form-group">
                   <label>State</label><br />
                   <SelectField
+                    style={{ width: '100%' }}
                     floatingLabelText="Choose state"
                     value={parseInt(this.state.stateIdx)}
                     onChange={this.handleStateChange}
@@ -326,6 +327,7 @@ class ManageLocalities extends React.Component {
                 <div className="form-group">
                   <label>City</label><br />
                   <SelectField
+                    style={{ width: '100%' }}
                     floatingLabelText="Choose state"
                     disabled={loadingCities || !citiesData.length}
                     value={parseInt(this.state.cityIdx)}

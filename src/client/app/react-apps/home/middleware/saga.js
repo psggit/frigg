@@ -492,6 +492,46 @@ function* emptyGeoFenceCheckData(action) {
   }
 }
 
+function* fetchImageAds(action) {
+  try {
+    const data = yield call(Api.fetchImageAds, action)
+    yield put({ type: ActionTypes.SUCCESS_FETCH_IMAGE_ADS, data })
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+function* createImageAd(action) {
+  try {
+    const data = yield call(Api.createImageAd, action)
+    yield put({ type: ActionTypes.SUCCESS_CREATE_IMAGE_AD, data })
+    Notify("Successfully created ad", "success")
+    action.CB(false)
+    setTimeout(() => {
+      location.href = '/home/manage-image-ads'
+    }, 2000)
+  } catch (err) {
+    console.log(err)
+    err.response.json().then(json => { Notify(json.message, "warning") })
+    action.CB(false)
+  }
+}
+
+function* updateImageAdStatus(action) {
+  try {
+    const data = yield call(Api.updateImageAdStatus, action)
+    Notify(`Successfully ${action.data.status === 'Active' ? 'enabled' : 'disabled'} ad`, "success")
+    yield put({ type: ActionTypes.REQUEST_FETCH_IMAGE_ADS, data: {city_id: null, limit: 100, offset: 0 } })
+    // setTimeout(() => {
+    //   history.pushState(null,null, '/manage-image-ads')
+    // }, 2000)
+  } catch (err) {
+    console.log(err)
+    err.response.json().then(json => { Notify(json.message, "warning") })
+    action.CB(false)
+  }
+}
+
 
 /**
  * Watchers
@@ -748,6 +788,24 @@ function* watchCheckCityFence() {
   }
 }
 
+function* watchFetchImageAds() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_FETCH_IMAGE_ADS, fetchImageAds)
+  }
+}
+
+function* watchCreateImageAd() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_CREATE_IMAGE_AD, createImageAd)
+  }
+}
+
+function* watchUpdateImageAdStatus() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_UPDATE_IMAGE_AD_STATUS, updateImageAdStatus)
+  }
+}
+
 export default function* rootSaga() {
   yield [
     fork(watchFetchStates),
@@ -791,6 +849,9 @@ export default function* rootSaga() {
     fork(watchCheckActiveLocalityWithinCity),
     fork(watchEmptyGeoFenceCheckData),
     fork(watchListRetailerOutsideLocality),
-    fork(watchCheckCityFence)
+    fork(watchCheckCityFence),
+    fork(watchFetchImageAds),
+    fork(watchCreateImageAd),
+    fork(watchUpdateImageAdStatus)
   ]
 }

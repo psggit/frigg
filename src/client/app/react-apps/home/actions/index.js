@@ -217,3 +217,19 @@ export const checkCityFence = data => ({
 export const emptyGeoFenceCheckData = () => ({
   type: ActionTypes.REQUEST_EMPTY_GEO_FENCE_CHECK_DATA
 })
+
+export const fetchImageAds = data => ({
+  type: ActionTypes.REQUEST_FETCH_IMAGE_ADS,
+  data
+})
+
+export const createImageAd = (data, CB) => ({
+  type: ActionTypes.REQUEST_CREATE_IMAGE_AD,
+  data,
+  CB
+})
+
+export const updateImageAdStatus = data => ({
+  type: ActionTypes.REQUEST_UPDATE_IMAGE_AD_STATUS,
+  data
+})

@@ -14,6 +14,8 @@ const initialState = {
   loadingUnmappedDpToLocality: true,
   loadingUnmappedLocalitiesToDp: true,
   loadingMappedDpToLocality: true,
+  loadingImageAds: true,
+  imageAdsData: [],
   geoFenceCheckData: [],
   unmappedRetailersToLocality: [],
   unmappedLocalitiesToDp: [],
@@ -74,7 +76,8 @@ const actionsMap = {
       loadingUnmappedRetailersToLocality: true,
       loadingUnmappedDpToLocality: true,
       loadingUnmappedLocalitiesToDp: true,
-      loadingMappedDpToLocality: true
+      loadingMappedDpToLocality: true,
+      loadingImageAds: true
     })
   },
 
@@ -145,6 +148,13 @@ const actionsMap = {
     return Object.assign({}, state, {
       loadingFenceDetails: false,
       fenceDetails: action.data
+    })
+  },
+
+  [ActionTypes.SUCCESS_FETCH_IMAGE_ADS]: (state, action) => {
+    return Object.assign({}, state, {
+      loadingImageAds: false,
+      imageAdsData: action.data
     })
   },
 

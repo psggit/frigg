@@ -8,7 +8,7 @@ import MenuItem from 'material-ui/MenuItem'
 import Pagination from '@components/pagination'
 import '@sass/components/_pagination.scss'
 import * as Actions from './../actions'
-import ViewDeliverers from './../components/manage-cities/view-cities'
+import ViewImageAds from './../components/manage-image-ads/view-ads'
 import RoleBasedComponent from '@components/RoleBasedComponent'
 import getIcon from './../components/icon-utils'
 import FilterModal from '@components/filter-modal'
@@ -19,49 +19,54 @@ import { NavLink } from 'react-router-dom'
 
 import * as Roles from './../constants/roles'
 
-class ManageCities extends React.Component {
+class ManageImageAds extends React.Component {
   constructor(props) {
     super(props)
     this.filter = {
       stateShortName: null,
-      isCityAvailable: false,
-      stateName: null
+      isLocalityAvailable: false,
+      stateName: null,
+      cityId: null
     }
     this.state = {
       shouldMountFilterDialog: false,
+      shouldMountViewFencesDialog: false,
       stateIdx: null,
+      cityIdx: null,
       activePage: 1,
-      isCityAvailable: false
+      isLocalityAvailable: false
     }
 
     this.mountFilterDialog = this.mountFilterDialog.bind(this)
     this.unmountFilterModal = this.unmountFilterModal.bind(this)
     this.handleStateChange = this.handleStateChange.bind(this)
+    this.handleCityChange = this.handleCityChange.bind(this)
     this.setQueryParamas = this.setQueryParamas.bind(this)
     this.fetchData = this.fetchData.bind(this)
     this.setPage = this.setPage.bind(this)
     this.applyFilter = this.applyFilter.bind(this)
-    this.handleChangeIsCityAvailable = this.handleChangeIsCityAvailable.bind(this)
+    this.handleChangeIsLocalityAvailable = this.handleChangeIsLocalityAvailable.bind(this)
+    this.mountViewFencesDialog = this.mountViewFencesDialog.bind(this)
+    this.unmountViewFencesDialog = this.unmountViewFencesDialog.bind(this)
   }
 
-  // getRequestBody() {
-  //   return {
-  //     state_short_name: null,
-  //     is_available: false,
-  //     offset: 0,
-  //     limit: 10,
-  //     deliverable_city: true,
-  //     no_filter: true
-  //   }
-  // }
-
   componentDidMount() {
+    console.log('mounting manage localities');
     this.fetchData()
     window.onpopstate = this.fetchData
   }
 
   componentWillUnmount() {
+    console.log('unmounting manage localities');
     window.onpopstate = () => {}
+  }
+
+  unmountViewFencesDialog() {
+    this.setState({ shouldMountViewFencesDialog: false })
+  }
+
+  mountViewFencesDialog() {
+    this.setState({ shouldMountViewFencesDialog: true })
   }
 
   fetchData() {
@@ -75,13 +80,10 @@ class ManageCities extends React.Component {
       this.setQueryParamas()
     } else {
       // if there is no query string then fetch defult citiesData/all citiesData
-      this.props.actions.fetchCities({
-        state_short_name: null,
-        is_available: false,
+      this.props.actions.fetchImageAds({
+        city_id: null,
         offset: 0,
-        limit: 10,
-        deliverable_city: true,
-        no_filter: true
+        limit: 100
       })
       this.setState({ stateIdx: 0 })
     }
@@ -95,13 +97,10 @@ class ManageCities extends React.Component {
       this.filter[item[0]] = item[1]
     })
 
-    this.props.actions.fetchCities({
-      state_short_name: queryObj.stateShortName || null,
-      offset: queryObj.offset ? parseInt(queryObj.offset) : 0,
-      limit: 10,
-      is_available: queryObj.isCityAvailable ? JSON.parse(queryObj.isCityAvailable) : false,
-      deliverable_city: true,
-      no_filter: queryObj.filter ? false : true
+    this.props.actions.fetchImageAds({
+      city_id: parseInt(queryObj.cityId) || null,
+      offset: parseInt(queryObj.offset),
+      limit: 10
     })
   }
 
@@ -111,19 +110,15 @@ class ManageCities extends React.Component {
     const { statesData } = this.props
 
     this.setState(pageObj)
-    this.props.actions.fetchCities({
-      state_short_name: this.filter.stateShortName,
+    this.props.actions.fetchLocalities({
+      city_id: parseInt(queryObj.cityId) || null,
       offset: pageObj.offset,
-      limit: pageObj.offset + 10,
-      is_available: this.filter.isCityAvailable,
-      deliverable_city: true,
-      no_filter: queryObj.filter ? false : true
+      limit: pageObj.offset + 10
     })
-
 
     queryObj.activePage = pageObj.activePage
     queryObj.offset = pageObj.offset
-    // history.pushState(queryObj, "city listing", `/home/manage-cities?${getQueryUri(queryObj)}`)
+    // history.pushState(queryObj, "city listing", `/home/manage-localities?${getQueryUri(queryObj)}`)
   }
 
   mountFilterDialog() {
@@ -134,24 +129,35 @@ class ManageCities extends React.Component {
     this.setState({ shouldMountFilterDialog: false })
   }
 
+  handleCityChange(e, k) {
+    const { citiesData } = this.props
+    const cityIdx = k + 1
+    this.setState({ cityIdx })
+    this.filter.cityId = citiesData[k].id
+    this.filter.cityName = citiesData[k].name
+  }
+
   handleStateChange(e, k) {
     const { statesData } = this.props
     const stateIdx = k + 1
-    this.setState({ stateIdx })
+    this.setState({ stateIdx, cityIdx: null })
 
-    const queryObj = {
-      stateIdx,
-      short_name: statesData[k].short_name,
-      offset: 0,
-      activePage: 1
-    }
 
     this.filter.stateShortName = statesData[k].short_name
     this.filter.stateName = statesData[k].state_name
+
+    this.props.actions.fetchCities({
+      state_short_name: statesData[k].short_name,
+      is_available: false,
+      offset: 0,
+      limit: 999999,
+      deliverable_city: true,
+      no_filter: false
+    })
   }
 
-  handleChangeIsCityAvailable(e) {
-    this.setState({ isCityAvailable: e.target.checked })
+  handleChangeIsLocalityAvailable(e) {
+    this.setState({ isLocalityAvailable: e.target.checked })
     // this.filter.isCityAvailable = e.target.checked
   }
 
@@ -161,27 +167,28 @@ class ManageCities extends React.Component {
     const queryObj = {
       stateIdx: this.state.stateIdx,
       stateShortName: this.filter.stateShortName,
+      cityId: this.filter.cityId,
       stateName: this.filter.stateName,
-      isCityAvailable: this.state.isCityAvailable,
       offset: 0,
       activePage: 1,
       filter: true
     }
 
     this.setState({
+      offset: 0,
+      activePage: 1,
       stateShortName: this.filter.stateShortName,
-      stateName: this.filter.stateName
+      stateName: this.filter.stateName,
+      cityName: this.filter.cityName,
+      cityId: this.filter.cityId
     })
 
-    history.pushState(queryObj, "city listing", `/home/manage-cities?${getQueryUri(queryObj)}`)
+    history.pushState(queryObj, "image-ads listing", `/home/manage-image-ads?${getQueryUri(queryObj)}`)
 
-    this.props.actions.fetchCities({
-      state_short_name: queryObj.stateShortName,
-      is_available: queryObj.isCityAvailable,
+    this.props.actions.fetchImageAds({
+      city_id: queryObj.cityId,
       offset: 0,
-      limit: 10,
-      deliverable_city: true,
-      no_filter: false
+      limit: 10
     })
   }
 
@@ -191,24 +198,29 @@ class ManageCities extends React.Component {
       citiesData,
       loadingStates,
       citiesCount,
+      imageAdsData,
+      loadingImageAds,
       statesData
     } = this.props
 
     return (
-      <div style={{ width: '100%', maxWidth: 900 }}>
+      <div style={{ width: '100%' }}>
         <div
           style={{
             display: 'flex',
             justifyContent: 'space-between'
           }}
         >
-          <NavLink to={`${location.pathname}/create-new-city`}>
-            <RaisedButton
-              label="Create new city"
-              primary
-              onClick={this.mountCreateStateDialog}
-            />
-          </NavLink>
+          <div>
+            <NavLink to={`${location.pathname}/create-new-ad`}>
+              <RaisedButton
+                label="Create new ad"
+                primary
+                onClick={this.mountCreateStateDialog}
+              />
+            </NavLink>
+
+          </div>
 
           <RaisedButton
             onClick={this.mountFilterDialog}
@@ -220,29 +232,29 @@ class ManageCities extends React.Component {
         <br />
 
         {
-          !loadingCities && statesData.length && this.state.stateName
-          ? <h3>Showing cities in {`${this.state.stateName}`}</h3>
+          !loadingCities && statesData.length && this.state.cityName
+          ? <h3>Showing ads in {`${this.state.cityName}`}</h3>
           : ''
         }
 
         {
           !this.state.stateName
-          ? <h3>Showing all cities</h3>
+          ? <h3>Showing all ads</h3>
           : ''
         }
 
-        <ViewDeliverers
-          citiesData={citiesData}
-          loadingCities={loadingCities}
-          mountEditStateDialog={this.mountEditStateDialog}
+        <ViewImageAds
+          imageAdsData={imageAdsData.ads_data}
+          loadingImageAds={loadingImageAds}
+          updateImageAdStatus={this.props.actions.updateImageAdStatus}
         />
 
         {
-          !loadingCities && citiesData.length
+          !loadingImageAds && imageAdsData.ads_data.length
           ? <Pagination
             activePage={parseInt(this.state.activePage)}
             itemsCountPerPage={10}
-            totalItemsCount={citiesCount}
+            totalItemsCount={imageAdsData.count}
             pageRangeDisplayed={5}
             setPage={this.setPage}
           />
@@ -254,7 +266,7 @@ class ManageCities extends React.Component {
           ? (
             <FilterModal
               applyFilter={this.applyFilter}
-              title="Filter Cities"
+              title="Filter ads"
               unmountFilterModal={this.unmountFilterModal}
             >
               <div>
@@ -283,15 +295,39 @@ class ManageCities extends React.Component {
                   </SelectField>
                 </div>
                 <div className="form-group">
+                  <label>City</label><br />
+                  <SelectField
+                    style={{ width: '100%' }}
+                    floatingLabelText="Choose state"
+                    disabled={loadingCities || !citiesData.length}
+                    value={parseInt(this.state.cityIdx)}
+                    onChange={this.handleCityChange}
+                  >
+                    {
+                      !loadingCities && citiesData.length
+                      ? (
+                        citiesData.map((city, i) => (
+                          <MenuItem
+                            value={i + 1}
+                            key={city.id}
+                            primaryText={city.name}
+                          />
+                        ))
+                      )
+                      : ''
+                    }
+                  </SelectField>
+                </div>
+                {/* <div className="form-group">
                   <Checkbox
                     style={{ marginTop: '10px' }}
                     // disabled={this.props.isDisabled}
-                    checked={this.state.isCityAvailable}
-                    onCheck={this.handleChangeIsCityAvailable}
-                    name="isCityActive"
+                    checked={this.state.isLocalityAvailable}
+                    onCheck={this.handleChangeIsLocalityAvailable}
+                    name="isLocalityAvailable"
                     label="is_available"
                   />
-                </div>
+                </div> */}
               </div>
             </FilterModal>
           )
@@ -311,4 +347,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(ManageCities)
+)(ManageImageAds)

@@ -23,7 +23,9 @@ import ViewDeliverer from './../components/delivery-map-manager/view-deliverer-d
 import ViewLocalityMapDetails from './../components/locality-map-manager/view-locality-map-details'
 import CreateCity from './../components/manage-cities/create-city'
 import CreateState from './../components/manage-states/create-state'
+import CreateAd from './../components/manage-image-ads/create-ad'
 import CreateLocality from './../components/manage-localities/create-locality'
+import ManageImageAds from './manage-image-ads'
 import UploadSearchData from './upload-search-data'
 import GeoFenceCheck from './geo-fence-check'
 import { getBreadCrumbPath } from '@utils/url-utils'
@@ -107,6 +109,8 @@ class App extends React.Component {
 
                   <Route exact path="/home/upload-search-data" component={UploadSearchData} />
                   <Route exact path="/home/delivery-system-check" component={GeoFenceCheck} />
+                  <Route exact path="/home/manage-image-ads" component={ManageImageAds} />
+                  <Route exact path="/home/manage-image-ads/create-new-ad" component={CreateAd} />
                 </Switch>
             </DisplayScreen>
           </div>

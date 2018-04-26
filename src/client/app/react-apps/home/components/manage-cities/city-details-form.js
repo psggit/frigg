@@ -133,10 +133,12 @@ class CityDetailsForm extends React.Component {
               onChange={this.handleTextFields}
               name="cityGPS"
               value={this.state.cityGPS}
+              style={{ width: '100%' }}
             />
           {
             !this.props.isDisabled &&
             <RaisedButton
+              style={{ width: '100%' }}
               label="set gps"
               onClick={() => {
                 this.props.setCityGPS({

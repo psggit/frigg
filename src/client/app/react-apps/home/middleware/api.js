@@ -394,3 +394,30 @@ export const checkCityFence = action => (
     type: 'FormData'
   })
 )
+
+export const createImageAd = action => (
+  POST({
+    api: '/marketing/ads/create/image_ads',
+    apiBase: 'odin',
+    data: action.data,
+    handleError: true
+  })
+)
+
+export const fetchImageAds = action => (
+  POST({
+    api: '/marketing/ads/view_all',
+    apiBase: 'odin',
+    data: action.data,
+    handleError: true
+  })
+)
+
+export const updateImageAdStatus = action => (
+  POST({
+    api: '/marketing/ads/status/image_ads',
+    apiBase: 'odin',
+    data: action.data,
+    handleError: true
+  })
+)
