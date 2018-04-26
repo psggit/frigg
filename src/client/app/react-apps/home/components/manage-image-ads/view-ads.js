@@ -79,7 +79,19 @@ function ViewImageAds(data) {
                 <TableRowColumn style={styles[3]}>{isoToNormalDate(item.active_from)}</TableRowColumn>
                 <TableRowColumn style={styles[4]}>{isoToNormalDate(item.active_to)}</TableRowColumn>
                 <TableRowColumn style={styles[5]}>{item.status}</TableRowColumn>
-                <TableRowColumn style={styles[6]}>{item.image_url}</TableRowColumn>
+                <TableRowColumn style={styles[6]}>
+                  <a target="_blank" href={item.image_url}>
+                    <img
+                      alt="ad-image"
+                      style={{
+                        width: '40px',
+                        height: '40px',
+                        objectFit: 'contain'
+                      }}
+                      src={item.image_url}
+                    />
+                  </a>
+                </TableRowColumn>
                 <TableRowColumn style={styles[7]}>{item.listing_order}</TableRowColumn>
               </TableRow>
             ))
