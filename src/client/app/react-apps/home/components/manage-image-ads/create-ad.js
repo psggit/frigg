@@ -252,6 +252,7 @@ class CreateAd extends React.Component {
                 marginLeft: '20px'
               }}
             >
+              <h3 style={{ marginTop: 0, marginBottom: '20px' }}>Select listing order</h3>
               <div>
                 {
                   this.state.citiesStateMap[this.state.selectedState]
