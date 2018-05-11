@@ -14,15 +14,15 @@ class NavigationBar extends  React.Component {
       activeItem: 0
     }
   }
-  handleClick(title) {
-    this.props.setHeaderTitle(title)
-  }
+  // handleClick(title) {
+  //   this.props.setHeaderTitle(title)
+  // }
 
   handleMenuItemClick(id, path) {
     if (path) {
       this.setState({ activeItem: id })
       this.props.history.push(path)
-      this.props.setHeaderTitle()
+      // this.props.setHeaderTitle()
     }
   }
 

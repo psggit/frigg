@@ -1,13 +1,12 @@
 import React from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
-// import { withRouter } from 'react-router'
-// import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme'
+import { Router } from 'react-router'
+import { connect } from 'react-redux'
+import createHistory from 'history/createBrowserHistory'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
-// import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import Header from './../components/header'
 import NavigationBar from './../components/navigation-bar'
 import DisplayScreen from './display-screen'
-// import CreateLocality from './create-locality'
 import WelcomeScreen from './welcome-screen'
 import ManageStates from './manage-states'
 import ManageCities from './manage-cities'
@@ -28,8 +27,10 @@ import CreateLocality from './../components/manage-localities/create-locality'
 import ManageImageAds from './manage-image-ads'
 import UploadSearchData from './upload-search-data'
 import GeoFenceCheck from './geo-fence-check'
-import { getBreadCrumbPath } from '@utils/url-utils'
+import { getBreadCrumbPath, getUriFromBreadCrumb } from '@utils/url-utils'
 // import '@sass/components/_heading.scss'
+
+const history = createHistory()
 
 class App extends React.Component {
   constructor() {
@@ -42,8 +43,23 @@ class App extends React.Component {
     }
     this.toggleDrawer = this.toggleDrawer.bind(this)
     this.handleCloseDrawer = this.handleCloseDrawer.bind(this)
-    this.setHeaderTitle = this.setHeaderTitle.bind(this)
+    // this.setHeaderTitle = this.setHeaderTitle.bind(this)
   }
+
+  componentDidMount() {
+    /**
+     * Listening for route changes to set breadcrumb.
+     * Please keep url and breadcrumb path same e.g.
+     * "/manage-cities/create-city" => "Manage Cities / Create City"
+     */
+    const breadCrumbUri = getUriFromBreadCrumb(this.state.headerTitle)
+    history.listen((location) => {
+      if (location.pathname !== breadCrumbUri) {
+        this.setState({ headerTitle: getBreadCrumbPath(breadCrumbUri) })
+      }
+    })
+  }
+
   componentWillMount() {
     if (!localStorage.getItem('_hipbaru'))
     location.href = '/login'
@@ -54,11 +70,11 @@ class App extends React.Component {
   handleCloseDrawer() {
     this.setState({ isDrawerOpen: false })
   }
-  setHeaderTitle() {
-    let x = this.state.key
-    x = x + 1
-    this.setState({ headerTitle: getBreadCrumbPath(), key: x })
-  }
+  // setHeaderTitle() {
+  //   let x = this.state.key
+  //   x = x + 1
+  //   this.setState({ headerTitle: getBreadCrumbPath(), key: x })
+  // }
   handleLogout() {
     localStorage.clear()
     location.href = '/login'
@@ -66,59 +82,61 @@ class App extends React.Component {
   render() {
     const { isDrawerOpen, headerTitle } = this.state
     return (
-    <BrowserRouter>
-      <div>
-        <MuiThemeProvider>
+      <Router history={history}>
           <div>
-            <Header
-              logout={this.handleLogout}
-              isDrawerOpen={isDrawerOpen}
-              toggleDrawer={this.toggleDrawer}
-              headerTitle={headerTitle}
-            />
-            <NavigationBar
-              setHeaderTitle={this.setHeaderTitle}
-              isDrawerOpen={isDrawerOpen}
-              toggleDrawer={this.toggleDrawer}
-              handleCloseDrawer={this.handleCloseDrawer}
-            />
-            <DisplayScreen key={this.state.key}>
-                <Switch>
-                  <Route exact path="/home" component={WelcomeScreen} />
-                  <Route exact path="/home/manage-localities" component={ManageLocalities} />
-                  <Route exact path="/home/manage-states" component={ManageStates} />
-                  <Route exact path="/home/manage-states/create-new-state" component={CreateState} />
-                  <Route exact path="/home/manage-states/:stateSlug" component={ViewState} />
+            <MuiThemeProvider>
+              <div>
+                <Header
+                  logout={this.handleLogout}
+                  isDrawerOpen={isDrawerOpen}
+                  toggleDrawer={this.toggleDrawer}
+                  headerTitle={headerTitle}
+                />
+                <NavigationBar
+                  setHeaderTitle={this.setHeaderTitle}
+                  isDrawerOpen={isDrawerOpen}
+                  toggleDrawer={this.toggleDrawer}
+                  handleCloseDrawer={this.handleCloseDrawer}
+                />
+                <DisplayScreen key={this.state.key}>
+                    <Switch>
+                      <Route exact path="/home" component={WelcomeScreen} />
+                      <Route exact path="/home/manage-localities" component={ManageLocalities} />
+                      <Route exact path="/home/manage-states" component={ManageStates} />
+                      <Route exact path="/home/manage-states/create-new-state" component={CreateState} />
+                      <Route exact path="/home/manage-states/:stateSlug" component={ViewState} />
 
-                  <Route exact path="/home/manage-cities" component={ManageCities} />
-                  <Route exact path="/home/manage-cities/create-new-city" component={CreateCity} />
-                  <Route exact path="/home/manage-cities/:citySlug/localities" component={CreateLocality} />
-                  <Route exact path="/home/manage-cities/:citySlug/boundary" component={ManageLocalities} />
-                  <Route exact path="/home/manage-cities/:citySlug/create-boundary" component={ManageLocalities} />
-                  <Route exact path="/home/manage-cities/localities/edit/:id" component={ViewLocalities} />
-                  <Route exact path="/home/manage-cities/:citySlug" component={ViewCity} />
+                      <Route exact path="/home/manage-cities" component={ManageCities} />
+                      <Route exact path="/home/manage-cities/create-new-city" component={CreateCity} />
+                      <Route exact path="/home/manage-cities/:citySlug/localities" component={CreateLocality} />
+                      <Route exact path="/home/manage-cities/:citySlug/boundary" component={ManageLocalities} />
+                      <Route exact path="/home/manage-cities/:citySlug/create-boundary" component={ManageLocalities} />
+                      <Route exact path="/home/manage-cities/localities/edit/:id" component={ViewLocalities} />
+                      <Route exact path="/home/manage-cities/:citySlug" component={ViewCity} />
 
-                  <Route exact path="/home/manage-localities/create-new-locality" component={CreateLocality} />
-                  <Route exact path="/home/manage-localities/:localitySlug" component={ViewLocality} />
+                      <Route exact path="/home/manage-localities/create-new-locality" component={CreateLocality} />
+                      <Route exact path="/home/manage-localities/:localitySlug" component={ViewLocality} />
 
-                  <Route exact path="/home/delivery-agent-mapping/" component={DeliveryMapManager} />
-                  <Route exact path="/home/delivery-agent-mapping/:delivererSlug" component={ViewDeliverer} />
+                      <Route exact path="/home/delivery-agent-mapping/" component={DeliveryMapManager} />
+                      <Route exact path="/home/delivery-agent-mapping/:delivererSlug" component={ViewDeliverer} />
 
-                  <Route exact path="/home/locality-mapping/" component={LocalityMapManager} />
-                  <Route exact path="/home/locality-mapping/:localitySlug" component={ViewLocalityMapDetails} />
+                      <Route exact path="/home/locality-mapping/" component={LocalityMapManager} />
+                      <Route exact path="/home/locality-mapping/:localitySlug" component={ViewLocalityMapDetails} />
 
-                  <Route exact path="/home/upload-search-data" component={UploadSearchData} />
-                  <Route exact path="/home/delivery-system-check" component={GeoFenceCheck} />
-                  <Route exact path="/home/manage-image-ads" component={ManageImageAds} />
-                  <Route exact path="/home/manage-image-ads/create-new-ad" component={CreateAd} />
-                </Switch>
-            </DisplayScreen>
+                      <Route exact path="/home/upload-search-data" component={UploadSearchData} />
+                      <Route exact path="/home/delivery-system-check" component={GeoFenceCheck} />
+                      <Route exact path="/home/manage-image-ads" component={ManageImageAds} />
+                      <Route exact path="/home/manage-image-ads/create-new-ad" component={CreateAd} />
+                    </Switch>
+                </DisplayScreen>
+              </div>
+            </MuiThemeProvider>
           </div>
-        </MuiThemeProvider>
-      </div>
-    </BrowserRouter>
+      </Router>
     )
   }
 }
+
+// const mapStateToProps = state => state.main
 
 export default App

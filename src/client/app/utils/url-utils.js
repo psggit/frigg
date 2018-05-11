@@ -7,6 +7,10 @@ export function getQueryUri(queryObj) {
   return queryUri
 }
 
+export function getUriFromBreadCrumb(path) {
+  return path.split('/').map(item => item.split(' ').join('-')).join('/')
+}
+
 export function getQueryObj(queryUri) {
   if (!queryUri.length) return {}
 
