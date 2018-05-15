@@ -2,6 +2,7 @@ const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const AbsolutePathProviderPlugin = require('abspath-webpack-plugin')
+const CompressionPlugin = require("compression-webpack-plugin")
 
 module.exports = {
   entry: {
@@ -16,7 +17,15 @@ module.exports = {
     }),
     new AbsolutePathProviderPlugin(/^@sass/, path.resolve('./src/sass')),
     new AbsolutePathProviderPlugin(/^@utils/, path.resolve('./src/utils')),
-    new AbsolutePathProviderPlugin(/^@components/, path.resolve('./src/components'))
+    new AbsolutePathProviderPlugin(/^@components/, path.resolve('./src/components')),
+    new CompressionPlugin({
+      test: /\.js$|\.css$|\.html$/,
+      asset: "[path].gz[query]",
+      exclude: /node_modules/,
+      algortithm: 'gzip',
+      threshhold: 10240,
+      minRatio: 0.8
+    })
   ],
   output: {
     filename: '[name].[chunkhash].js',

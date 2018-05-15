@@ -8,14 +8,14 @@ const env = process.env.NODE_ENV
 if (env === 'production') {
   app.get('*.js', (req, res, next) => {
     const vendorUrlRegex = /vendor.*.js/
-    console.log(req.url)
+    req.url += '.gz'
+    res.set('Content-Encoding', 'gzip')
     if (vendorUrlRegex.test(req.url)) {
       res.setHeader('Cache-Control', 'private, max-age=31536000')
     }
     next()
   })
 }
-
 app.use(express.static(path.join(__dirname, 'dist')))
 
 app.get('/*', (req, res) => {
