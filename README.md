@@ -6,7 +6,7 @@ Made with :heart: by [Hipbar](http://hipbar.com)!
 
 -----
 # Getting Started
-Make sure you've got NodeJS and NPM installed on your machine. Recommended versions are v7.x for NodeJS and v5.x for NPM. (Use [nvm](https://github.com/creationix/nvm) to install different versions of node)
+Make sure you've got NodeJS and NPM installed on your machine. Recommended versions are >= v8.x for NodeJS and >= v6.x for NPM. (Use [nvm](https://github.com/creationix/nvm) to install different versions of node)
 
 
 1. Open up your terminal
