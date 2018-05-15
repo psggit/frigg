@@ -8,11 +8,11 @@ import Header from './../components/header'
 import NavigationBar from './../components/navigation-bar'
 import DisplayScreen from './display-screen'
 import WelcomeScreen from './welcome-screen'
-// import ManageStates from './manage-states'
-// import ManageCities from './manage-cities'
-// import ManageLocalities from './manage-localities'
-// import DeliveryMapManager from './delivery-map-manager'
-// import LocalityMapManager from './locality-map-manager'
+import ManageStates from './manage-states'
+import ManageCities from './manage-cities'
+import ManageLocalities from './manage-localities'
+import DeliveryMapManager from './delivery-map-manager'
+import LocalityMapManager from './locality-map-manager'
 import ViewLocalities from './../components/manage-geofencing/view-locality'
 import NotFound from './../../../react-apps/not-found'
 import ViewCity from './../components/manage-cities/view-city-details'
@@ -24,9 +24,9 @@ import CreateCity from './../components/manage-cities/create-city'
 import CreateState from './../components/manage-states/create-state'
 import CreateAd from './../components/manage-image-ads/create-ad'
 import CreateLocality from './../components/manage-localities/create-locality'
-// import ManageImageAds from './manage-image-ads'
-// import UploadSearchData from './upload-search-data'
-// import GeoFenceCheck from './geo-fence-check'
+import ManageImageAds from './manage-image-ads'
+import UploadSearchData from './upload-search-data'
+import GeoFenceCheck from './geo-fence-check'
 import { getBreadCrumbPath, getUriFromBreadCrumb } from '@utils/url-utils'
 // import '@sass/components/_heading.scss'
 
@@ -36,14 +36,14 @@ import asyncComponent from './../../asyncComponent'
  * Dynamic imports
  */
 
-const ManageStates = asyncComponent(() => import("./manage-states").then(module => module.default),{ name: "Page 1" })
-const ManageCities = asyncComponent(() => import("./manage-cities").then(module => module.default),{ name: "Page 1" })
-const ManageLocalities = asyncComponent(() => import("./manage-localities").then(module => module.default),{ name: "Page 1" })
-const DeliveryMapManager = asyncComponent(() => import("./delivery-map-manager").then(module => module.default),{ name: "Page 1" })
-const LocalityMapManager = asyncComponent(() => import("./locality-map-manager").then(module => module.default),{ name: "Page 1" })
-const ManageImageAds = asyncComponent(() => import("./manage-image-ads").then(module => module.default),{ name: "Page 1" })
-const UploadSearchData = asyncComponent(() => import("./upload-search-data").then(module => module.default),{ name: "Page 1" })
-const GeoFenceCheck = asyncComponent(() => import("./geo-fence-check").then(module => module.default),{ name: "Page 1" })
+// const ManageStates = asyncComponent(() => import("./manage-states").then(module => module.default),{ name: "Page 1" })
+// const ManageCities = asyncComponent(() => import("./manage-cities").then(module => module.default),{ name: "Page 1" })
+// const ManageLocalities = asyncComponent(() => import("./manage-localities").then(module => module.default),{ name: "Page 1" })
+// const DeliveryMapManager = asyncComponent(() => import("./delivery-map-manager").then(module => module.default),{ name: "Page 1" })
+// const LocalityMapManager = asyncComponent(() => import("./locality-map-manager").then(module => module.default),{ name: "Page 1" })
+// const ManageImageAds = asyncComponent(() => import("./manage-image-ads").then(module => module.default),{ name: "Page 1" })
+// const UploadSearchData = asyncComponent(() => import("./upload-search-data").then(module => module.default),{ name: "Page 1" })
+// const GeoFenceCheck = asyncComponent(() => import("./geo-fence-check").then(module => module.default),{ name: "Page 1" })
 
 const history = createHistory()
 
