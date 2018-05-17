@@ -8,10 +8,7 @@ class Login extends React.Component {
   }
 
   componentWillMount() {
-    if (!location.href.split('/')[3].length) history.pushState(null, null, '/login')
-    if (localStorage.getItem('_hipbaru')) {
-      location.href = '/home'
-    }
+    // if (!location.href.split('/')[3].length) history.pushState(null, null, '/login')
   }
 
   render() {

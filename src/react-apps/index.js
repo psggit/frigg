@@ -10,21 +10,14 @@ import {
 
 const Login = asyncComponent(() => import("./login").then(module => module.default),{ name: "Page 1" })
 const Home = asyncComponent(() => import("./home/container/Root").then(module => module.default),{ name: "Page 1" })
-const loggedIn = localStorage.getItem('_hipbaru') ? true : false
 
 class App extends React.Component {
   render() {
     return (
       <Router>
         <div>
-          <Route exact path="/" render={() => (
-            loggedIn ? (
-              <Redirect to="/home"/>
-            ) : (
-              <Login/>
-            )
-          )}/>
           <Route path='/login' component={Login} />
+          <Route exact path='/' component={Home} />
           <Route path='/home' component={Home} />
         </div>
       </Router>

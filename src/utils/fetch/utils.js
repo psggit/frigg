@@ -10,7 +10,7 @@ import { Api } from "./../config"
  */
 
 const getToken = () => ({
-  "Authorization": `Bearer ${localStorage.getItem('auth-token')}`,
+  // "Authorization": `Bearer ${localStorage.getItem('auth-token')}`,
   "x-hasura-role": `${localStorage.getItem('x-hasura-role')}`
 })
 
@@ -73,6 +73,7 @@ export function constructFetchUtility(options) {
   // construct options for creating `window.fetch` instance
   let fetchOptions = {
     method,
+    credentials: 'include',
     headers: getHeaders(type),
   }
 

@@ -76,8 +76,8 @@ class App extends React.Component {
   }
 
   componentWillMount() {
-    if (!localStorage.getItem('_hipbaru'))
-    location.href = '/login'
+    // if (!localStorage.getItem('_hipbaru'))
+    // location.href = '/login'
   }
   toggleDrawer() {
     this.setState({ isDrawerOpen: !this.state.isDrawerOpen })
@@ -115,6 +115,7 @@ class App extends React.Component {
                 />
                 <DisplayScreen key={this.state.key}>
                     <Switch>
+                      <Route exact path="/" component={WelcomeScreen} />
                       <Route exact path="/home" component={WelcomeScreen} />
                       <Route exact path="/home/manage-localities" component={ManageLocalities} />
                       <Route exact path="/home/manage-states" component={ManageStates} />
