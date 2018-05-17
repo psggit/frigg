@@ -101,8 +101,6 @@ class App extends React.Component {
       'x-hasura-role': 'user'
     }
 
-
-
     fetch(`${Api.authUrl}/user/logout`, fetchOptions)
       .then((response) => {
         if (response.status !== 200) {
@@ -110,11 +108,14 @@ class App extends React.Component {
           return
         }
         response.json().then((data) => {
+          localStorage.clear()
           location.href = '/login'
         })
       })
       .catch((err) => {
         console.log('Fetch Error :-S', err)
+        localStorage.clear()
+        location.href = '/login'
       })
   }
   render() {
