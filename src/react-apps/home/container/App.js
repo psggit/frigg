@@ -1,5 +1,7 @@
 import React from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import {  Api } from '@utils/config'
+import "whatwg-fetch"
 import { Router } from 'react-router'
 import { connect } from 'react-redux'
 import createHistory from 'history/createBrowserHistory'
@@ -73,6 +75,7 @@ class App extends React.Component {
         this.setState({ headerTitle: getBreadCrumbPath(breadCrumbUri) })
       }
     })
+    console.log(this.props);
   }
 
   componentWillMount() {
@@ -91,8 +94,28 @@ class App extends React.Component {
   //   this.setState({ headerTitle: getBreadCrumbPath(), key: x })
   // }
   handleLogout() {
-    localStorage.clear()
-    location.href = '/login'
+    const fetchOptions = {
+      method: 'get',
+      credentials: 'include',
+      mode: 'cors',
+      'x-hasura-role': 'user'
+    }
+
+
+
+    fetch(`${Api.authUrl}/user/logout`, fetchOptions)
+      .then((response) => {
+        if (response.status !== 200) {
+          console.log(`Looks like there was a problem. Status Code: ${response.status}`)
+          return
+        }
+        response.json().then((data) => {
+          location.href = '/login'
+        })
+      })
+      .catch((err) => {
+        console.log('Fetch Error :-S', err)
+      })
   }
   render() {
     const { isDrawerOpen, headerTitle } = this.state
