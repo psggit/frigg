@@ -105,6 +105,8 @@ class App extends React.Component {
       .then((response) => {
         if (response.status !== 200) {
           console.log(`Looks like there was a problem. Status Code: ${response.status}`)
+          localStorage.clear()
+          location.href = '/login'
           return
         }
         response.json().then((data) => {
