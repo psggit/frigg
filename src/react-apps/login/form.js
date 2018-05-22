@@ -63,7 +63,7 @@ class Form extends React.Component {
           return
         }
         response.json().then((data) => {
-          localStorage.setItem('_hipbaru', JSON.stringify(data))
+          // localStorage.setItem('_hipbaru', JSON.stringify(data))
           createSession(data)
           location.href = '/home'
           // if (document.referrer) {

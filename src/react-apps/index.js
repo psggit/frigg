@@ -3,15 +3,50 @@ import React from 'react'
 import { render } from 'react-dom'
 import { Redirect } from 'react-router'
 import asyncComponent from './asyncComponent'
+import {  Api } from '@utils/config'
 import {
   BrowserRouter as Router,
   Route
 } from 'react-router-dom'
 
+import { createSession } from './login/utils'
+
 const Login = asyncComponent(() => import("./login").then(module => module.default),{ name: "Page 1" })
 const Home = asyncComponent(() => import("./home/container/Root").then(module => module.default),{ name: "Page 1" })
 
 class App extends React.Component {
+  componentWillMount() {
+    const fetchOptions = {
+      method: 'get',
+      credentials: 'include',
+      mode: 'cors',
+      'x-hasura-role': 'user'
+    }
+    // https://auth.hipbar-dev.com/user/account/info
+    fetch(`${Api.authUrl}/user/account/info`, fetchOptions)
+      .then((response) => {
+        if (response.status !== 200) {
+          console.log(`Looks like there was a problem. Status Code: ${response.status}`)
+          if (location.pathname !== '/login') {
+            location.href = '/login'
+          }
+          return
+        }
+        response.json().then((data) => {
+          console.log(data);
+          if (!location.pathname.includes('home')) {
+            // createSession(data)
+            location.href = '/home'
+          }
+        })
+      })
+      .catch((err) => {
+        console.log('Fetch Error :-S', err)
+        if (location.pathname !== '/login') {
+          location.href = '/login'
+        }
+      })
+  }
   render() {
     return (
       <Router>

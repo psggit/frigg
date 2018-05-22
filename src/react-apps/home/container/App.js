@@ -75,13 +75,8 @@ class App extends React.Component {
         this.setState({ headerTitle: getBreadCrumbPath(breadCrumbUri) })
       }
     })
-    console.log(this.props);
   }
-
-  componentWillMount() {
-    // if (!localStorage.getItem('_hipbaru'))
-    // location.href = '/login'
-  }
+  
   toggleDrawer() {
     this.setState({ isDrawerOpen: !this.state.isDrawerOpen })
   }
