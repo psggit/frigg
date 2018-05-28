@@ -29,6 +29,9 @@ import CreateLocality from './../components/manage-localities/create-locality'
 import ManageImageAds from './manage-image-ads'
 import UploadSearchData from './upload-search-data'
 import GeoFenceCheck from './geo-fence-check'
+import DeliveyAgentList from './../components/delivery-management/delivery-agent-list'
+import CreateDeliveryAgent from './../components/delivery-management/create-delivery-agent'
+import ManagePossessionLimits from './../components/delivery-management/manage-possession-limits'
 import { getBreadCrumbPath, getUriFromBreadCrumb } from '@utils/url-utils'
 // import '@sass/components/_heading.scss'
 
@@ -76,7 +79,7 @@ class App extends React.Component {
       }
     })
   }
-  
+
   toggleDrawer() {
     this.setState({ isDrawerOpen: !this.state.isDrawerOpen })
   }
@@ -164,6 +167,10 @@ class App extends React.Component {
                       <Route exact path="/home/delivery-system-check" component={GeoFenceCheck} />
                       <Route exact path="/home/manage-image-ads" component={ManageImageAds} />
                       <Route exact path="/home/manage-image-ads/create-new-ad" component={CreateAd} />
+
+                      <Route exact path="/home/delivery-agents" component={DeliveyAgentList} />
+                      <Route exact path="/home/delivery-agents/create-new-delivery-agent" component={CreateDeliveryAgent} />
+                      <Route exact path="/home/manage-possession-limits" component={ManagePossessionLimits} />
                     </Switch>
                 </DisplayScreen>
               </div>

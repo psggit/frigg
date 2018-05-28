@@ -9,6 +9,7 @@ const initialState = {
   loadingMappedLocalities: true,
   loadingMappedRetailers: true,
   loadingRetailers: true,
+  loadingDeliverers: true,
   loadingMappedRetailersToLocality: true,
   loadingUnmappedRetailersToLocality: true,
   loadingUnmappedDpToLocality: true,

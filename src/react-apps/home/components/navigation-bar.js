@@ -53,6 +53,13 @@ class NavigationBar extends  React.Component {
         nestedItems: [
           { name: 'Manage image ads', path: '/home/manage-image-ads', id: 8 }
         ]
+      },
+      {
+        name: 'Delivery management',
+        nestedItems: [
+          { name: 'Delivery person list', path: '/home/delivery-agents', id: 9 },
+          { name: 'Manage possession limits', path: '/home/manage-possession-limits', id: 10 }
+        ]
       }
     ]
     return (

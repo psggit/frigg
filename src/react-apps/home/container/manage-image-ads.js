@@ -113,7 +113,7 @@ class ManageImageAds extends React.Component {
     this.props.actions.fetchImageAds({
       city_id: parseInt(queryObj.cityId) || null,
       offset: pageObj.offset,
-      limit: pageObj.offset + 10
+      limit: 10
     })
 
     queryObj.activePage = pageObj.activePage
