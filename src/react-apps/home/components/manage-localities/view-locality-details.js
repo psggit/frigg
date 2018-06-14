@@ -103,9 +103,11 @@ class ViewCity extends React.Component {
 
     if (!loadingGeolocalities) {
       selectedLocality = geoLocalitiesData.fences.filter(locality => locality.id === parseInt(queryObj.id))[0]
-      this.localityName = selectedLocality.name
-      this.isLocalityActive = selectedLocality.is_available
-      this.localityCoordinates = selectedLocality.coordinates
+      if (selectedLocality) {
+        this.localityName = selectedLocality.name
+        this.isLocalityActive = selectedLocality.is_available
+        this.localityCoordinates = selectedLocality.coordinates
+      }
     }
 
     return (

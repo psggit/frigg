@@ -76,6 +76,11 @@ export const fetchRetailers = data => ({
   data
 })
 
+export const fetchUnmappedRetailersToDp = data => ({
+  type: ActionTypes.REQUEST_FETCH_UNMAPPED_RETAILERS_TO_DP,
+  data
+})
+
 export const fetchUnmappedRetailersToLocality = data => ({
   type: ActionTypes.REQUEST_FETCH_UNMAPPED_RETAILERS_TO_LOCALITY,
   data
@@ -233,4 +238,20 @@ export const updateImageAdStatus = (data, CB) => ({
   type: ActionTypes.REQUEST_UPDATE_IMAGE_AD_STATUS,
   data,
   CB
+})
+
+export const fetchContactNumbersOfRetailer = data => ({
+  type: ActionTypes.REQUEST_FETCH_CONTACT_NUMBERS_OF_RETAILER,
+  data
+})
+
+export const updateRetailerNumbers = (data, retailer_id) => ({
+  type: ActionTypes.REQUEST_UPDATE_RETAILER_CONTACT_NUMBERS,
+  data,
+  retailer_id
+})
+
+export const addRetailerNumbers = (data, retailer_id) => ({
+  type: ActionTypes.REQUEST_CREATE_NEW_RETAILER_CONTACT,
+  data
 })

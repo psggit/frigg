@@ -22,7 +22,7 @@ class App extends React.Component {
       mode: 'cors',
       'x-hasura-role': 'user'
     }
-    // https://auth.hipbar-dev.com/user/account/info
+    
     fetch(`${Api.authUrl}/user/account/info`, fetchOptions)
       .then((response) => {
         if (response.status !== 200) {
@@ -33,7 +33,6 @@ class App extends React.Component {
           return
         }
         response.json().then((data) => {
-          console.log(data);
           if (!location.pathname.includes('home')) {
             // createSession(data)
             location.href = '/home'

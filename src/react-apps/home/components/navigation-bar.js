@@ -60,6 +60,12 @@ class NavigationBar extends  React.Component {
           { name: 'Delivery person list', path: '/home/delivery-agents', id: 9 },
           { name: 'Manage possession limits', path: '/home/manage-possession-limits', id: 10 }
         ]
+      },
+      {
+        name: 'Manage retailers',
+        nestedItems: [
+          { name: 'Retailers list', path: '/home/manage-retailers/retailers', id: 11 }
+        ]
       }
     ]
     return (
@@ -76,11 +82,12 @@ class NavigationBar extends  React.Component {
         {
           <List>
             {
-              navigationItems.map((item) => {
+              navigationItems.map((item, i) => {
                 const nestedItems = []
                 item.nestedItems.forEach((nestedItem) => {
                   const nestedItemJSX = (
                     <ListItem
+                      key={nestedItem.id}
                       style={nestedItem.id === this.state.activeItem ? activeItemStyle : {}}
                       value={nestedItem.id}
                       onClick={() => { this.handleMenuItemClick(nestedItem.id, nestedItem.path) }}
@@ -92,10 +99,11 @@ class NavigationBar extends  React.Component {
 
                 return (
                   <ListItem
+                    key={i}
                     style={item.id === this.state.activeItem ? activeItemStyle : {}}
                     onClick={() => { this.handleMenuItemClick(item.id, item.path) }}
                     primaryText={item.name}
-                    initiallyOpen={true}
+                    initiallyOpen={false}
                     primaryTogglesNestedList
                     nestedItems={nestedItems}
                   />

@@ -39,7 +39,7 @@ class ViewRetailers extends React.Component {
 
   componentDidMount() {
     const queryObj = getQueryObj(location.search.slice(1))
-    this.props.actions.fetchRetailers({
+    this.props.actions.fetchUnmappedRetailersToDp({
       dp_id: parseInt(queryObj.id)
     })
   }
@@ -56,8 +56,8 @@ class ViewRetailers extends React.Component {
 
   render() {
     const {
-      loadingRetailers,
-      retailers
+      loadingUnmappedRetailersToDp,
+      unmappedRetailersToDp
     } = this.props
 
     return (
@@ -79,9 +79,9 @@ class ViewRetailers extends React.Component {
             showRowHover
           >
             {
-              !loadingRetailers
+              !loadingUnmappedRetailersToDp
               ? (
-                retailers.map(item => (
+                unmappedRetailersToDp.map(item => (
                   <TableRow key={item.id}>
                     <TableRowColumn style={styles[0]}>{item.id}</TableRowColumn>
                     <TableRowColumn style={styles[1]}>{item.org_name}</TableRowColumn>

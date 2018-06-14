@@ -1,5 +1,5 @@
 export function getBreadCrumbPath() {
-  return location.pathname.split('/').slice(2).map(item => item.split('-').join(' ').replace(/%20/g, ' ')).join('  /  ')
+  return location.pathname.split('/').slice(1).map(item => item.split('-').join(' ').replace(/%20/g, ' ')).join('  /  ')
 }
 
 export function getQueryUri(queryObj) {

@@ -34,6 +34,15 @@ function* fetchRetailers(action) {
   }
 }
 
+function* fetchUnmappedRetailersToDp(action) {
+  try {
+    const data = yield call(Api.fetchUnmappedRetailersToDp, action)
+    yield put({ type: ActionTypes.SUCCESS_FETCH_UNMAPPED_RETAILERS_TO_DP, data })
+  } catch (err) {
+    console.log(err)
+  }
+}
+
 function* fetchUnmappedRetailersToLocality(action) {
   try {
     const data = yield call(Api.fetchUnmappedRetailersToLocality, action)
@@ -532,6 +541,35 @@ function* updateImageAdStatus(action) {
   }
 }
 
+function* fetchContactNumbersOfRetailer(action) {
+  try {
+    const data = yield call(Api.fetchContactNumbersOfRetailer, action)
+    yield put({ type: ActionTypes.SUCCESS_FETCH_CONTACT_NUMBERS_OF_RETAILER, data })
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+function* updateRetailerNumbers(action) {
+  try {
+    const data = yield call(Api.updateRetailerNumbers, action)
+    Notify('Successfully updated retailer contacts', 'success')
+    yield put({ type: ActionTypes.REQUEST_FETCH_CONTACT_NUMBERS_OF_RETAILER, data: { retailer_id: action.retailer_id } })
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+function* addRetailerNumbers(action) {
+  try {
+    const data = yield call(Api.addRetailerNumbers, action)
+    Notify('Successfully added new contact', 'success')
+    yield put({ type: ActionTypes.REQUEST_FETCH_CONTACT_NUMBERS_OF_RETAILER, data: { retailer_id: action.data[0].retailer_id } })
+  } catch (err) {
+    console.log(err)
+  }
+}
+
 
 /**
  * Watchers
@@ -557,6 +595,12 @@ function* watchFetchDeliverers() {
 function* watchFetchRetailers() {
   while (true) {
     yield* takeLatest(ActionTypes.REQUEST_FETCH_RETAILERS, fetchRetailers)
+  }
+}
+
+function* watchFetchUnmappedRetailersToDp() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_FETCH_UNMAPPED_RETAILERS_TO_DP, fetchUnmappedRetailersToDp)
   }
 }
 
@@ -806,12 +850,33 @@ function* watchUpdateImageAdStatus() {
   }
 }
 
+function* watchFetchContactNumbersOfRetailer() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_FETCH_CONTACT_NUMBERS_OF_RETAILER, fetchContactNumbersOfRetailer)
+  }
+}
+
+function* watchUpdateRetailerNumbers() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_UPDATE_RETAILER_CONTACT_NUMBERS, updateRetailerNumbers)
+  }
+}
+
+function* watchAddRetailerNumbers() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_CREATE_NEW_RETAILER_CONTACT, addRetailerNumbers)
+  }
+}
+
 export default function* rootSaga() {
   yield [
     fork(watchFetchStates),
     fork(watchFetchCities),
     fork(watchFetchDeliverers),
     fork(watchFetchRetailers),
+    fork(watchUpdateRetailerNumbers),
+    fork(watchAddRetailerNumbers),
+    fork(watchFetchUnmappedRetailersToDp),
     fork(watchFetchDPRetailerMap),
     fork(watchFetchDPLocalityMap),
     fork(watchFetchLocalities),
@@ -852,6 +917,7 @@ export default function* rootSaga() {
     fork(watchCheckCityFence),
     fork(watchFetchImageAds),
     fork(watchCreateImageAd),
-    fork(watchUpdateImageAdStatus)
+    fork(watchUpdateImageAdStatus),
+    fork(watchFetchContactNumbersOfRetailer)
   ]
 }

@@ -114,7 +114,7 @@ class ViewCity extends React.Component {
     } = this.props
 
     const queryObj = getQueryObj(location.search.slice(1))
-
+    console.log(cityDetails);
     return (
       <div style={{
         position: 'relative',

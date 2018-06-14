@@ -9,6 +9,7 @@ const initialState = {
   loadingMappedLocalities: true,
   loadingMappedRetailers: true,
   loadingRetailers: true,
+  loadingUnmappedRetailersToDp: true,
   loadingDeliverers: true,
   loadingMappedRetailersToLocality: true,
   loadingUnmappedRetailersToLocality: true,
@@ -16,9 +17,12 @@ const initialState = {
   loadingUnmappedLocalitiesToDp: true,
   loadingMappedDpToLocality: true,
   loadingImageAds: true,
+  loadingContactNumbersOfRetailer: true,
+  contactNumbersOfRetailer: [],
   imageAdsData: [],
   geoFenceCheckData: [],
   unmappedRetailersToLocality: [],
+  unmappedRetailersToDp: [],
   unmappedLocalitiesToDp: [],
   unmappedDpToLocality: [],
   mappedRetailersToLocality: [],
@@ -92,7 +96,7 @@ const actionsMap = {
   [ActionTypes.SUCCESS_FETCH_RETAILERS]: (state, action) => {
     return Object.assign({}, state, {
       loadingRetailers: false,
-      retailers: action.data.retailers
+      retailers: action.data
     })
   },
 
@@ -138,6 +142,13 @@ const actionsMap = {
     })
   },
 
+  [ActionTypes.SUCCESS_FETCH_UNMAPPED_RETAILERS_TO_DP]: (state, action) => {
+    return Object.assign({}, state, {
+      loadingUnmappedRetailersToDp: false,
+      unmappedRetailersToDp: action.data.retailers
+    })
+  },
+
   [ActionTypes.SUCCESS_FETCH_DP_BY_LOCALITY]: (state, action) => {
     return Object.assign({}, state, {
       loadingMappedDpToLocality: false,
@@ -173,6 +184,13 @@ const actionsMap = {
   [ActionTypes.SUCCESS_EMPTY_GEO_FENCE_CHECK_DATA]: (state) => {
     return Object.assign({}, state, {
       geoFenceCheckData: []
+    })
+  },
+
+  [ActionTypes.SUCCESS_FETCH_CONTACT_NUMBERS_OF_RETAILER]: (state, action) => {
+    return Object.assign({}, state, {
+      loadingContactNumbersOfRetailer: false,
+      contactNumbersOfRetailer: action.data
     })
   }
 }

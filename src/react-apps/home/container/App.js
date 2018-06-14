@@ -13,6 +13,7 @@ import WelcomeScreen from './welcome-screen'
 import ManageStates from './manage-states'
 import ManageCities from './manage-cities'
 import ManageLocalities from './manage-localities'
+import ManageRetailers from './manage-retailers'
 import DeliveryMapManager from './delivery-map-manager'
 import LocalityMapManager from './locality-map-manager'
 import ViewLocalities from './../components/manage-geofencing/view-locality'
@@ -25,6 +26,7 @@ import ViewLocalityMapDetails from './../components/locality-map-manager/view-lo
 import CreateCity from './../components/manage-cities/create-city'
 import CreateState from './../components/manage-states/create-state'
 import CreateAd from './../components/manage-image-ads/create-ad'
+import UpdateRetailerContact from './../components/manage-retailers/update-contact'
 import CreateLocality from './../components/manage-localities/create-locality'
 import ManageImageAds from './manage-image-ads'
 import UploadSearchData from './upload-search-data'
@@ -74,6 +76,8 @@ class App extends React.Component {
      */
     const breadCrumbUri = getUriFromBreadCrumb(this.state.headerTitle)
     history.listen((location) => {
+      const { key } = this.state
+      this.setState({ key: key + 1 })
       if (location.pathname !== breadCrumbUri) {
         this.setState({ headerTitle: getBreadCrumbPath(breadCrumbUri) })
       }
@@ -171,6 +175,9 @@ class App extends React.Component {
                       <Route exact path="/home/delivery-agents" component={DeliveyAgentList} />
                       <Route exact path="/home/delivery-agents/create-new-delivery-agent" component={CreateDeliveryAgent} />
                       <Route exact path="/home/manage-possession-limits" component={ManagePossessionLimits} />
+
+                      <Route exact path="/home/manage-retailers/retailers" component={ManageRetailers} />
+                      <Route exact path="/home/manage-retailers/update-retailer-contact/:retailerSlug" component={UpdateRetailerContact} />
                     </Switch>
                 </DisplayScreen>
               </div>

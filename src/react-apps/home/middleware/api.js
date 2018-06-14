@@ -31,6 +31,66 @@ export const fetchDeliverers = action => (
 
 export const fetchRetailers = action => (
   POST({
+    api: '/retailer/fetch',
+    apiBase: 'odin',
+    data: action.data,
+    handleError: true
+  })
+    .then(json => json)
+)
+
+export const fetchContactNumbersOfRetailer = action => (
+  /**
+   *  Request Payload:
+   *  { retailer_id <int> }
+   */
+  POST({
+    api: '/retailer/getAssociatedNumbers',
+    apiBase: 'odin',
+    data: action.data,
+    handleError: true
+  })
+    .then(json => json)
+)
+
+export const addRetailerNumbers = action => (
+  /**
+   * Request Payload:
+   * [{
+   *  retailer_id <int>
+   *  mobile_number: <string>
+   *  is_active: <boolean>
+   * }]
+   */
+  POST({
+    api: '/retailer/addRetailerNumbers',
+    apiBase: 'odin',
+    data: action.data,
+    handleError: true
+  })
+    .then(json => json)
+)
+
+export const updateRetailerNumbers = action => (
+  /**
+   * Request Payload:
+   * [{
+   *  id <int>
+   *  mobile_number: <string>
+   *  is_active: <boolean>
+   * }]
+   */
+  POST({
+    api: '/retailer/updateRetailerNumbers',
+    apiBase: 'odin',
+    data: action.data,
+    handleError: true
+  })
+    .then(json => json)
+)
+
+export const fetchUnmappedRetailersToDp = action => (
+  POST({
     api: '/retailer/unmappedRetailersToDp',
     apiBase: 'odin',
     data: action.data,

@@ -18,8 +18,9 @@ import '@sass/components/_table.scss'
 const TableHeaderItems = [
   '',
   'ID',
-  'NAME'
-  // ''
+  'NAME',
+  'MOBILE NUMBER',
+  'QR CODE'
 ]
 
 const styles = [
@@ -30,7 +31,7 @@ const styles = [
   { width: '100px' }
 ]
 
-function ViewLocalities(data) {
+function ViewRetailers(data) {
   return (
     <Table
       className="bordered--table"
@@ -39,9 +40,11 @@ function ViewLocalities(data) {
     >
       <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
         <TableRow>
-          {
-            TableHeaderItems.map((item, i) => <TableHeaderColumn style={styles[i]} key={`table-head-col-${i}`}>{item}</TableHeaderColumn>)
-          }
+          <TableHeaderColumn style={styles[0]}></TableHeaderColumn>
+          <TableHeaderColumn style={styles[1]}>ID</TableHeaderColumn>
+          <TableHeaderColumn style={styles[2]}>NAME</TableHeaderColumn>
+          <TableHeaderColumn style={styles[2]}>MOBILE NUMBER</TableHeaderColumn>
+          <TableHeaderColumn style={styles[2]}>QR CODE</TableHeaderColumn>
         </TableRow>
       </TableHeader>
       <TableBody
@@ -49,23 +52,22 @@ function ViewLocalities(data) {
         showRowHover
       >
         {
-          !data.loadingGeolocalities
+          !data.loadingRetailers
           ? (
-            data.geoLocalitiesData.fences.map(item => (
+            data.retailersData.map(item => (
               <TableRow key={item.id}>
                 <TableRowColumn style={styles[0]}>
                   <NavLink
-                    // target="_blank"
-                    // exact
-                    // to={`/home/manage-cities/${item.name}?id=${item.id}`}
-                    to={`/home/manage-localities/${item.name}?id=${item.id}&cityId=${item.city_id}`}
+                    to={`/home/manage-retailers/update-retailer-contact/${item.retailer_name}?id=${item.id}`}
                   >
                     <FlatButton primary label="View" />
                   </NavLink>
 
                 </TableRowColumn>
-                <TableRowColumn style={styles[1]}>{item.id}</TableRowColumn>
-                <TableRowColumn style={styles[2]}>{item.name}</TableRowColumn>
+                <TableRowColumn style={styles[0]}>{item.id}</TableRowColumn>
+                <TableRowColumn style={styles[2]}>{item.retailer_name}</TableRowColumn>
+                <TableRowColumn style={styles[2]}>{item.mobile_number}</TableRowColumn>
+                <TableRowColumn style={styles[2]}>{item.qr_code}</TableRowColumn>
               </TableRow>
             ))
           )
@@ -80,4 +82,4 @@ function ViewLocalities(data) {
   )
 }
 
-export default ViewLocalities
+export default ViewRetailers

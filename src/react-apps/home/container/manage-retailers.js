@@ -8,7 +8,7 @@ import MenuItem from 'material-ui/MenuItem'
 import Pagination from '@components/pagination'
 import '@sass/components/_pagination.scss'
 import * as Actions from './../actions'
-import ViewDeliverers from './../components/manage-cities/view-cities'
+import ViewRetailers from './../components/manage-retailers/view-retailers'
 import RoleBasedComponent from '@components/RoleBasedComponent'
 import getIcon from './../components/icon-utils'
 import FilterModal from '@components/filter-modal'
@@ -19,41 +19,36 @@ import { NavLink } from 'react-router-dom'
 
 import * as Roles from './../constants/roles'
 
-class ManageCities extends React.Component {
+class ManageRetailers extends React.Component {
   constructor(props) {
     super(props)
     this.filter = {
       stateShortName: null,
-      isCityAvailable: false,
-      stateName: null
+      isLocalityAvailable: false,
+      stateName: null,
+      cityId: null
     }
     this.state = {
       shouldMountFilterDialog: false,
+      shouldMountViewFencesDialog: false,
       stateIdx: null,
+      cityIdx: null,
       activePage: 1,
-      isCityAvailable: false
+      isLocalityAvailable: false
     }
 
     this.mountFilterDialog = this.mountFilterDialog.bind(this)
     this.unmountFilterModal = this.unmountFilterModal.bind(this)
     this.handleStateChange = this.handleStateChange.bind(this)
+    this.handleCityChange = this.handleCityChange.bind(this)
     this.setQueryParamas = this.setQueryParamas.bind(this)
     this.fetchData = this.fetchData.bind(this)
     this.setPage = this.setPage.bind(this)
     this.applyFilter = this.applyFilter.bind(this)
-    this.handleChangeIsCityAvailable = this.handleChangeIsCityAvailable.bind(this)
+    this.handleChangeIsLocalityAvailable = this.handleChangeIsLocalityAvailable.bind(this)
+    this.mountViewFencesDialog = this.mountViewFencesDialog.bind(this)
+    this.unmountViewFencesDialog = this.unmountViewFencesDialog.bind(this)
   }
-
-  // getRequestBody() {
-  //   return {
-  //     state_short_name: null,
-  //     is_available: false,
-  //     offset: 0,
-  //     limit: 10,
-  //     deliverable_city: true,
-  //     no_filter: true
-  //   }
-  // }
 
   componentDidMount() {
     this.fetchData()
@@ -62,6 +57,14 @@ class ManageCities extends React.Component {
 
   componentWillUnmount() {
     window.onpopstate = () => {}
+  }
+
+  unmountViewFencesDialog() {
+    this.setState({ shouldMountViewFencesDialog: false })
+  }
+
+  mountViewFencesDialog() {
+    this.setState({ shouldMountViewFencesDialog: true })
   }
 
   fetchData() {
@@ -75,13 +78,10 @@ class ManageCities extends React.Component {
       this.setQueryParamas()
     } else {
       // if there is no query string then fetch defult citiesData/all citiesData
-      this.props.actions.fetchCities({
-        state_short_name: null,
-        is_available: false,
+      this.props.actions.fetchRetailers({
+        city_id: null,
         offset: 0,
-        limit: 10,
-        deliverable_city: true,
-        no_filter: true
+        limit: 10
       })
       this.setState({ stateIdx: 0 })
     }
@@ -95,13 +95,10 @@ class ManageCities extends React.Component {
       this.filter[item[0]] = item[1]
     })
 
-    this.props.actions.fetchCities({
-      state_short_name: queryObj.stateShortName || null,
-      offset: queryObj.offset ? parseInt(queryObj.offset) : 0,
-      limit: 10,
-      is_available: queryObj.isCityAvailable ? JSON.parse(queryObj.isCityAvailable) : false,
-      deliverable_city: true,
-      no_filter: queryObj.filter ? false : true
+    this.props.actions.fetchRetailers({
+      city_id: parseInt(queryObj.cityId) || null,
+      offset: parseInt(queryObj.offset),
+      limit: 10
     })
   }
 
@@ -111,19 +108,17 @@ class ManageCities extends React.Component {
     const { statesData } = this.props
 
     this.setState(pageObj)
-    this.props.actions.fetchCities({
-      state_short_name: this.filter.stateShortName,
+    this.props.actions.fetchRetailers({
+      city_id: parseInt(queryObj.cityId) || null,
+      is_available: queryObj.isLocalityAvailable || false,
       offset: pageObj.offset,
       limit: pageObj.offset + 10,
-      is_available: this.filter.isCityAvailable,
-      deliverable_city: true,
       no_filter: queryObj.filter ? false : true
     })
 
-
     queryObj.activePage = pageObj.activePage
     queryObj.offset = pageObj.offset
-    // history.pushState(queryObj, "city listing", `/home/manage-cities?${getQueryUri(queryObj)}`)
+    // history.pushState(queryObj, "city listing", `/home/manage-localities?${getQueryUri(queryObj)}`)
   }
 
   mountFilterDialog() {
@@ -134,24 +129,35 @@ class ManageCities extends React.Component {
     this.setState({ shouldMountFilterDialog: false })
   }
 
+  handleCityChange(e, k) {
+    const { citiesData } = this.props
+    const cityIdx = k + 1
+    this.setState({ cityIdx })
+    this.filter.cityId = citiesData[k].id
+    this.filter.cityName = citiesData[k].name
+  }
+
   handleStateChange(e, k) {
     const { statesData } = this.props
     const stateIdx = k + 1
-    this.setState({ stateIdx })
+    this.setState({ stateIdx, cityIdx: null })
 
-    const queryObj = {
-      stateIdx,
-      short_name: statesData[k].short_name,
-      offset: 0,
-      activePage: 1
-    }
 
     this.filter.stateShortName = statesData[k].short_name
     this.filter.stateName = statesData[k].state_name
+
+    this.props.actions.fetchCities({
+      state_short_name: statesData[k].short_name,
+      is_available: false,
+      offset: 0,
+      limit: 999999,
+      deliverable_city: true,
+      no_filter: false
+    })
   }
 
-  handleChangeIsCityAvailable(e) {
-    this.setState({ isCityAvailable: e.target.checked })
+  handleChangeIsLocalityAvailable(e) {
+    this.setState({ isLocalityAvailable: e.target.checked })
     // this.filter.isCityAvailable = e.target.checked
   }
 
@@ -161,27 +167,29 @@ class ManageCities extends React.Component {
     const queryObj = {
       stateIdx: this.state.stateIdx,
       stateShortName: this.filter.stateShortName,
+      cityId: this.filter.cityId,
       stateName: this.filter.stateName,
-      isCityAvailable: this.state.isCityAvailable,
+      isLocalityAvailable: this.state.isLocalityAvailable,
       offset: 0,
       activePage: 1,
       filter: true
     }
 
     this.setState({
+      offset: 0,
+      activePage: 1,
       stateShortName: this.filter.stateShortName,
-      stateName: this.filter.stateName
+      stateName: this.filter.stateName,
+      cityName: this.filter.cityName,
+      cityId: this.filter.cityId
     })
 
-    history.pushState(queryObj, "city listing", `/home/manage-cities?${getQueryUri(queryObj)}`)
+    history.pushState(queryObj, "city listing", `/home/manage-retailers/retailers?${getQueryUri(queryObj)}`)
 
-    this.props.actions.fetchCities({
-      state_short_name: queryObj.stateShortName,
-      is_available: queryObj.isCityAvailable,
+    this.props.actions.fetchRetailers({
+      city_id: queryObj.cityId,
       offset: 0,
       limit: 10,
-      deliverable_city: true,
-      no_filter: false
     })
   }
 
@@ -191,6 +199,8 @@ class ManageCities extends React.Component {
       citiesData,
       loadingStates,
       citiesCount,
+      retailers,
+      loadingRetailers,
       statesData
     } = this.props
 
@@ -202,14 +212,7 @@ class ManageCities extends React.Component {
             justifyContent: 'space-between'
           }}
         >
-          <NavLink to={`${location.pathname}/create-new-city`}>
-            <RaisedButton
-              label="Create new city"
-              primary
-              onClick={this.mountCreateStateDialog}
-            />
-          </NavLink>
-
+          <div></div>
           <RaisedButton
             onClick={this.mountFilterDialog}
             label="Filter"
@@ -219,44 +222,30 @@ class ManageCities extends React.Component {
 
         <br />
 
-        {
-          !loadingCities && statesData.length && this.state.stateName
-          ? <h3>Showing cities in {`${this.state.stateName}`}</h3>
-          : ''
-        }
-
-        {
-          !this.state.stateName
-          ? <h3>Showing all cities</h3>
-          : ''
-        }
-
-        <ViewDeliverers
-          citiesData={citiesData}
-          loadingCities={loadingCities}
+        <ViewRetailers
+          retailersData={retailers}
+          loadingRetailers={loadingRetailers}
           mountEditStateDialog={this.mountEditStateDialog}
         />
 
         {
-          !loadingCities && citiesData.length
+          !loadingRetailers && retailers.length
           ? <Pagination
             activePage={parseInt(this.state.activePage)}
             itemsCountPerPage={10}
-            totalItemsCount={citiesCount}
+            totalItemsCount={retailers.count}
             pageRangeDisplayed={5}
             setPage={this.setPage}
           />
           : ''
         }
-        {
-          // TODO: Filter modal needs to be fixed it's total bullcrap now.
-        }
+
         {
           this.state.shouldMountFilterDialog
           ? (
             <FilterModal
               applyFilter={this.applyFilter}
-              title="Filter Cities"
+              title="Filter localities"
               unmountFilterModal={this.unmountFilterModal}
             >
               <div>
@@ -285,12 +274,36 @@ class ManageCities extends React.Component {
                   </SelectField>
                 </div>
                 <div className="form-group">
+                  <label>City</label><br />
+                  <SelectField
+                    style={{ width: '100%' }}
+                    floatingLabelText="Choose state"
+                    disabled={loadingCities || !citiesData.length}
+                    value={parseInt(this.state.cityIdx)}
+                    onChange={this.handleCityChange}
+                  >
+                    {
+                      !loadingCities && citiesData.length
+                      ? (
+                        citiesData.map((city, i) => (
+                          <MenuItem
+                            value={i + 1}
+                            key={city.id}
+                            primaryText={city.name}
+                          />
+                        ))
+                      )
+                      : ''
+                    }
+                  </SelectField>
+                </div>
+                <div className="form-group">
                   <Checkbox
                     style={{ marginTop: '10px' }}
                     // disabled={this.props.isDisabled}
-                    checked={this.state.isCityAvailable}
-                    onCheck={this.handleChangeIsCityAvailable}
-                    name="isCityActive"
+                    checked={this.state.isLocalityAvailable}
+                    onCheck={this.handleChangeIsLocalityAvailable}
+                    name="isLocalityAvailable"
                     label="is_available"
                   />
                 </div>
@@ -313,4 +326,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(ManageCities)
+)(ManageRetailers)
