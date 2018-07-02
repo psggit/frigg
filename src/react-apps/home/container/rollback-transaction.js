@@ -179,7 +179,7 @@ class RollbackTransaction extends React.Component {
       .then(json => {
         this.setState({
           loadingTransactions: false,
-          transactions: json.transaction || [],
+          transactions: json.transaction,
           message: json.message
         })
       })
@@ -204,9 +204,10 @@ class RollbackTransaction extends React.Component {
         />
          <div style={{ marginTop: '20px' }}>
            {
-             !this.state.loadingTransactions &&
+             !this.state.loadingTransactions && this.state.transactions &&
              ViewTransactions(this.state.transactions, this.mountConfirmModal)
            }
+           <p>{ this.state.message }</p>
            {
              this.state.shouldMountModal &&
              <ConfirmRollback
