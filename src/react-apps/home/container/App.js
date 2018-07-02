@@ -34,6 +34,7 @@ import GeoFenceCheck from './geo-fence-check'
 import DeliveyAgentList from './../components/delivery-management/delivery-agent-list'
 import CreateDeliveryAgent from './../components/delivery-management/create-delivery-agent'
 import ManagePossessionLimits from './../components/delivery-management/manage-possession-limits'
+import RollbackTransaction from './rollback-transaction'
 import { getBreadCrumbPath, getUriFromBreadCrumb } from '@utils/url-utils'
 // import '@sass/components/_heading.scss'
 
@@ -178,6 +179,8 @@ class App extends React.Component {
 
                       <Route exact path="/home/manage-retailers/retailers" component={ManageRetailers} />
                       <Route exact path="/home/manage-retailers/update-retailer-contact/:retailerSlug" component={UpdateRetailerContact} />
+
+                      <Route exact path="/home/hipbar-pay/rollback-transaction" component={RollbackTransaction} />
                     </Switch>
                 </DisplayScreen>
               </div>

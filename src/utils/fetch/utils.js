@@ -11,7 +11,8 @@ import { Api } from "./../config"
 
 const getToken = () => ({
   // "Authorization": `Bearer ${localStorage.getItem('auth-token')}`,
-  "x-hasura-role": `${localStorage.getItem('x-hasura-role')}`
+  "x-hasura-role": `${localStorage.getItem('x-hasura-role')}`,
+  "hasura-id": `${localStorage.getItem('hasura-id')}`
 })
 
 function getHeaders(type) {
