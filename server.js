@@ -18,6 +18,7 @@ if (env === 'production') {
     const vendorUrlRegex = /vendor.*.js/
     req.url += '.gz'
     res.set('Content-Encoding', 'gzip')
+    res.set('Content-Type', 'text/javascript')
     if (vendorUrlRegex.test(req.url)) {
       res.setHeader('Cache-Control', 'private, max-age=31536000')
     }
