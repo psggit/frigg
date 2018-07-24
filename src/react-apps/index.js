@@ -22,7 +22,7 @@ class App extends React.Component {
       mode: 'cors',
       'x-hasura-role': 'user'
     }
-    
+
     fetch(`${Api.authUrl}/user/account/info`, fetchOptions)
       .then((response) => {
         if (response.status !== 200) {
@@ -33,8 +33,8 @@ class App extends React.Component {
           return
         }
         response.json().then((data) => {
+          createSession(data)
           if (!location.pathname.includes('home')) {
-            // createSession(data)
             location.href = '/home'
           }
         })
