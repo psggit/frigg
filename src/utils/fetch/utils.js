@@ -80,7 +80,7 @@ export function constructFetchUtility(options) {
 
   if(cors) fetchOptions.mode = 'cors'
   // add data to request
-  if (data) {
+  if (data && method !== "GET") {
     fetchOptions.body = constructBody({type, data})
   }
 
