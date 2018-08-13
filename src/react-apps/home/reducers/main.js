@@ -34,7 +34,8 @@ const initialState = {
   citiesData: [],
   deliverers: [],
   geoLocalitiesData: [],
-  cityDetails: {}
+  cityDetails: {},
+  transactionCodes: []
 }
 
 const actionsMap = {
@@ -191,6 +192,12 @@ const actionsMap = {
     return Object.assign({}, state, {
       loadingContactNumbersOfRetailer: false,
       contactNumbersOfRetailer: action.data
+    })
+  },
+
+  [ActionTypes.SUCCESS_TRANSACTION_CODE]: (state, action) => {
+    return Object.assign({}, state, {
+      transactionCodes: action.data
     })
   }
 }

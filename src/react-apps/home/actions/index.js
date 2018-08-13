@@ -255,3 +255,7 @@ export const addRetailerNumbers = (data, retailer_id) => ({
   type: ActionTypes.REQUEST_CREATE_NEW_RETAILER_CONTACT,
   data
 })
+
+export const fetchTrasactionCode = () => ({
+  type: ActionTypes.REQUEST_TRANSACTION_CODE
+})

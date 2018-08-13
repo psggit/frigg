@@ -71,6 +71,8 @@ export function constructFetchUtility(options) {
   // construct request url
   const url = prependBaseUrl ? `${Api[apiBase]}${api}` : api
 
+  console.log("url", url);
+
   // construct options for creating `window.fetch` instance
   let fetchOptions = {
     method,

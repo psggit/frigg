@@ -481,3 +481,11 @@ export const updateImageAdStatus = action => (
     handleError: true
   })
 )
+
+export const fetchTransactionCode = () => (
+  GET({
+    api: '/consumer/list/transaction_code',
+    apiBase: 'odin',
+    handleError: true
+  })
+)

@@ -570,6 +570,17 @@ function* addRetailerNumbers(action) {
   }
 }
 
+function* fetchTransactionCode() {
+  console.log("fetch")
+  try {
+    const data = yield call(Api.fetchTransactionCode)
+    console.log("data", data)
+    yield put({ type: ActionTypes.SUCCESS_TRANSACTION_CODE, data })
+  } catch (err) {
+    console.log(err)
+  }
+}
+
 
 /**
  * Watchers
@@ -868,6 +879,14 @@ function* watchAddRetailerNumbers() {
   }
 }
 
+function* watchFetchTransactionCode() {
+  console.log("watch");
+  while (true) {
+    console.log("true");
+    yield* takeLatest(ActionTypes.REQUEST_TRANSACTION_CODE, fetchTransactionCode)
+  }
+}
+
 export default function* rootSaga() {
   yield [
     fork(watchFetchStates),
@@ -918,6 +937,7 @@ export default function* rootSaga() {
     fork(watchFetchImageAds),
     fork(watchCreateImageAd),
     fork(watchUpdateImageAdStatus),
-    fork(watchFetchContactNumbersOfRetailer)
+    fork(watchFetchContactNumbersOfRetailer),
+    fork(watchFetchTransactionCode)
   ]
 }
