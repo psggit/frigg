@@ -13,6 +13,8 @@ import WelcomeScreen from './welcome-screen'
 import ManageStates from './manage-states'
 import ManageCities from './manage-cities'
 import ManageLocalities from './manage-localities'
+import CustomerTransactions from './customer-transactions'
+import AddCredits from './add-credits'
 import ManageRetailers from './manage-retailers'
 import DeliveryMapManager from './delivery-map-manager'
 import LocalityMapManager from './locality-map-manager'
@@ -150,6 +152,9 @@ class App extends React.Component {
                       <Route exact path="/home/manage-states" component={ManageStates} />
                       <Route exact path="/home/manage-states/create-new-state" component={CreateState} />
                       <Route exact path="/home/manage-states/:stateSlug" component={ViewState} />
+
+                      <Route exact path="/home/customer-transactions" component={CustomerTransactions} />
+                      <Route exact path="/home/customer-transactions/add-credits" component={AddCredits} />
 
                       <Route exact path="/home/manage-cities" component={ManageCities} />
                       <Route exact path="/home/manage-cities/create-new-city" component={CreateCity} />
