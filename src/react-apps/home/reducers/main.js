@@ -19,6 +19,7 @@ const initialState = {
   loadingImageAds: true,
   loadingContactNumbersOfRetailer: true,
   loadingTransactionCode: true,
+  verifyingTransaction: true,
   contactNumbersOfRetailer: [],
   imageAdsData: [],
   geoFenceCheckData: [],
@@ -36,7 +37,9 @@ const initialState = {
   deliverers: [],
   geoLocalitiesData: [],
   cityDetails: {},
-  transactionCodes: []
+  transactionCodes: [],
+  addCreditsFormDetails: {},
+  customerDetails: []
 }
 
 const actionsMap = {
@@ -201,6 +204,41 @@ const actionsMap = {
     return Object.assign({}, state, {
       loadingTransactionCode: false,
       transactionCodes: action.data
+    })
+  },
+
+  [ActionTypes.SUCCESS_VERIFY_TRANSACTION]: (state, action) => {
+    
+    let transactions = [];
+
+    transactions = state.addCreditsFormDetails.emailIds.map((email, i) => {
+      let transactionDetail = {
+        id : '',
+        fullname : ''
+      }
+      transactionDetail = action.data.filter((transaction) => {
+        if(transaction.email === email) {
+          return transaction
+        }
+      })
+
+      return {
+        id : transactionDetail[0].id,
+        name: transactionDetail[0].full_name,
+        email,
+        transactionId: state.addCreditsFormDetails.transactionId,
+        transactionCode: state.addCreditsFormDetails.transactionCode,
+        amount: state.addCreditsFormDetails.amount,
+        batchNo: state.addCreditsFormDetails.batchNo,
+        reason: state.addCreditsFormDetails.comment
+      }
+    })
+
+    console.log("verify trans", transactions, "state", state)
+
+    return Object.assign({}, state, {
+      verifyingTransaction: false,
+      customerDetails: transactions
     })
   }
 }

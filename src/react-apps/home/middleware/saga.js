@@ -3,7 +3,9 @@ import { call, fork, put, race, take } from 'redux-saga/effects'
 import * as ActionTypes from './../constants/actions'
 import Notify from '@components/Notification'
 import * as Api from './api'
-import { transactionCodes } from '../components/mockData';
+//import { transactionCodes } from '../components/mockData';
+//import { verifyTransaction } from '../actions';
+import { verifyTransactions } from '../components/mockData';
 
 /**
  * Handlers
@@ -581,6 +583,26 @@ function* fetchTransactionCode() {
   }
 }
 
+function* verifyTransaction(action) {
+  try {
+    //const data = yield call(Api.verifyTransaction, action.data)
+    const data = verifyTransactions
+    yield put({ type: ActionTypes.SUCCESS_VERIFY_TRANSACTION, data })
+    action.CB(data)
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+// function* verifyTransaction(action) {
+//   try {
+//     const data = yield call(Api.verifyTransaction, action.data)
+//     //const data = transactionCodes
+//     yield put({ type: ActionTypes.SUCCESS_VERIFY_TRANSACTION, data })
+//   } catch (err) {
+//     console.log(err)
+//   }
+// }
 
 /**
  * Watchers
@@ -885,6 +907,12 @@ function* watchFetchTransactionCode() {
   }
 }
 
+function* watchVerifyTransaction() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_VERIFY_TRANSACTION, verifyTransaction)
+  }
+}
+
 export default function* rootSaga() {
   yield [
     fork(watchFetchStates),
@@ -936,6 +964,7 @@ export default function* rootSaga() {
     fork(watchCreateImageAd),
     fork(watchUpdateImageAdStatus),
     fork(watchFetchContactNumbersOfRetailer),
-    fork(watchFetchTransactionCode)
+    fork(watchFetchTransactionCode),
+    fork(watchVerifyTransaction)
   ]
 }

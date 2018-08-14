@@ -489,3 +489,12 @@ export const fetchTransactionCode = () => (
     handleError: true
   })
 )
+
+export const verifyTransaction = (action) => (
+  POST({
+    api: '/consumer/verify/transaction',
+    apiBase: 'odin',
+    data: action.data,
+    handleError: true
+  })
+)

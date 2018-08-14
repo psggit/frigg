@@ -67,22 +67,59 @@ class AddCredits extends React.Component {
     return ({status: false, value: ''})
   }
 
+  mountConfirmCredits(data) {
+    console.log("confirmCredutsModal", data, "props", this.props, this.props.data.customerDetails)
+  }
+
   validateForm() {
-    // console.log("validate form");
-    const { amount, transactionCode } = this.state
+
+    const { amount, transactionCode, batchNo, comment } = this.state
     this.setState({ amountErr : this.validateAmount(amount) })
     this.setState({ transactionCodeErr: this.validateTransactionCode(transactionCode) })
     const { amountErr, transactionCodeErr } = this.state
 
+  
+    let transactionId = this.props.data.transactionCodes.filter((item) => {
+  
+      if(transactionCode === item.code) {
+        return item
+      }
+       
+    })
+
     if (!amountErr.status && !transactionCodeErr.status) {
-      return true
-    } else {
-      return false
+
+      let emailIds = [] 
+      emailIds = this.state.emailIds.replace(/\s/g, '')
+      emailIds = emailIds.split(',')
+      emailIds = [...new Set(emailIds.map((id) => { return id}))]
+
+      this.props.data.addCreditsFormDetails = {
+        transactionId : transactionId[0].id,
+        transactionCode,
+        amount,
+        batchNo,
+        comment,
+        emailIds
+      }
+
+      emailIds = emailIds.map((email) => {
+        return {
+          email
+        }
+      })
+      
+      this.props.actions.verifyTransaction({
+        mail_ids: emailIds
+      }, (response) => {
+        this.mountConfirmCredits(response)
+      })
+
     }
+
   }
 
   handleChangeWithValidation(e) {
-
     const errName = `${e.target.name}Err`
     const fnExp = eval(`this.validate${this.inputNameMap[e.target.name]}`)
     this.setState({
@@ -109,12 +146,12 @@ class AddCredits extends React.Component {
         <div className="input-field">
           <span>Transaction Code</span>
           <select onChange={this.handleChangeWithValidation} value={this.state.transactionCode} name="transactionCode">
-            <option> Select transaction code </option>
+            {/* <option> Select transaction code </option> */}
             {!this.props.data.loadingTransactionCode && 
               this.renderTransactionCode()
             }
           </select>
-          {transactionCodeErr.status && <p className="form-group__error">{transactionCodeErr.value}</p>}
+          {transactionCodeErr.status && <p className="field-error">{transactionCodeErr.value}</p>}
         </div>
         <div className="input-field">
           <span>Batch Number</span>
@@ -123,11 +160,11 @@ class AddCredits extends React.Component {
         <div className="input-field">
           <span>Amount</span>
           <input className="field-value" onChange={this.handleChangeWithValidation} value={this.state.amount} name="amount" type="text"/>
-          {amountErr.status && <p className="form-group__error">{amountErr.value}</p>}
+          {amountErr.status && <p className="field-error">{amountErr.value}</p>}
         </div>
         <div className="input-field">
           <span>Comment</span>
-          <input className="field-value" onChange={this.handleChange} value={this.state.comment} name="comment" type="text"/>
+          <textarea className="field-value" onChange={this.handleChange} value={this.state.comment} name="comment" rows="4" cols="40"></textarea>
         </div>
         <div className={`submit-button`} onClick={this.validateForm}>
           <button> Create </button>

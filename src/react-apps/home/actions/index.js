@@ -259,3 +259,9 @@ export const addRetailerNumbers = (data, retailer_id) => ({
 export const fetchTrasactionCode = () => ({
   type: ActionTypes.REQUEST_TRANSACTION_CODE
 })
+
+export const verifyTransaction = (data, CB) => ({
+  type: ActionTypes.REQUEST_VERIFY_TRANSACTION,
+  data,
+  CB
+})
