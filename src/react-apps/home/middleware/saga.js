@@ -3,6 +3,7 @@ import { call, fork, put, race, take } from 'redux-saga/effects'
 import * as ActionTypes from './../constants/actions'
 import Notify from '@components/Notification'
 import * as Api from './api'
+import { transactionCodes } from '../components/mockData';
 
 /**
  * Handlers
@@ -571,10 +572,9 @@ function* addRetailerNumbers(action) {
 }
 
 function* fetchTransactionCode() {
-  console.log("fetch")
   try {
     const data = yield call(Api.fetchTransactionCode)
-    console.log("data", data)
+    //const data = transactionCodes
     yield put({ type: ActionTypes.SUCCESS_TRANSACTION_CODE, data })
   } catch (err) {
     console.log(err)
@@ -880,9 +880,7 @@ function* watchAddRetailerNumbers() {
 }
 
 function* watchFetchTransactionCode() {
-  console.log("watch");
   while (true) {
-    console.log("true");
     yield* takeLatest(ActionTypes.REQUEST_TRANSACTION_CODE, fetchTransactionCode)
   }
 }

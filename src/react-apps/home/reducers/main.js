@@ -18,6 +18,7 @@ const initialState = {
   loadingMappedDpToLocality: true,
   loadingImageAds: true,
   loadingContactNumbersOfRetailer: true,
+  loadingTransactionCode: true,
   contactNumbersOfRetailer: [],
   imageAdsData: [],
   geoFenceCheckData: [],
@@ -196,7 +197,9 @@ const actionsMap = {
   },
 
   [ActionTypes.SUCCESS_TRANSACTION_CODE]: (state, action) => {
+    //console.log("action", action, action.data)
     return Object.assign({}, state, {
+      loadingTransactionCode: false,
       transactionCodes: action.data
     })
   }
