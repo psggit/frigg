@@ -588,7 +588,9 @@ function* verifyTransaction(action) {
     //const data = yield call(Api.verifyTransaction, action.data)
     const data = verifyTransactions
     yield put({ type: ActionTypes.SUCCESS_VERIFY_TRANSACTION, data })
-    action.CB(data)
+    setTimeout(() => {
+      action.CB()
+    }, 500)
   } catch (err) {
     console.log(err)
   }

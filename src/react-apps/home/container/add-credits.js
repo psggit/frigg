@@ -3,6 +3,8 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import './../../../sass/add-credits.scss'
 import * as Actions from './../actions'
+import { mountModal, unMountModal } from '@components/ModalBox/utils'
+import ConfirmCredits from '../components/confirm-credits';
 
 class AddCredits extends React.Component {
 
@@ -67,8 +69,11 @@ class AddCredits extends React.Component {
     return ({status: false, value: ''})
   }
 
-  mountConfirmCredits(data) {
-    console.log("confirmCredutsModal", data, "props", this.props, this.props.data.customerDetails)
+  mountConfirmCredits() {
+    console.log("confirmCredutsModal", "props", this.props, this.props.data.customerDetails)
+    mountModal(ConfirmCredits({
+      customerDetails: this.props.data.customerDetails
+    }))
   }
 
   validateForm() {

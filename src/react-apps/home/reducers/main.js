@@ -208,7 +208,7 @@ const actionsMap = {
   },
 
   [ActionTypes.SUCCESS_VERIFY_TRANSACTION]: (state, action) => {
-    
+
     let transactions = [];
 
     transactions = state.addCreditsFormDetails.emailIds.map((email, i) => {
@@ -230,11 +230,10 @@ const actionsMap = {
         transactionCode: state.addCreditsFormDetails.transactionCode,
         amount: state.addCreditsFormDetails.amount,
         batchNo: state.addCreditsFormDetails.batchNo,
-        reason: state.addCreditsFormDetails.comment
+        reason: state.addCreditsFormDetails.comment,
+        valid: transactionDetail[0].id ? true : false
       }
     })
-
-    console.log("verify trans", transactions, "state", state)
 
     return Object.assign({}, state, {
       verifyingTransaction: false,
