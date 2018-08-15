@@ -37,11 +37,11 @@ export const verifyTransactions = [
         full_name: 'sabarish',
         email: 'sabarish@hipbar.com'
     },
-    {
-        id: 2,
-        full_name: 'aparna',
-        email: 'aparna.chinnaiah@hipbar.com'
-    },
+    // {
+    //     id: 2,
+    //     full_name: 'aparna',
+    //     email: 'aparna.chinnaiah@hipbar.com'
+    // },
     {
         id: 3,
         full_name: 'madhur',

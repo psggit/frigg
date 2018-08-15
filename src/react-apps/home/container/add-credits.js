@@ -70,7 +70,7 @@ class AddCredits extends React.Component {
   }
 
   mountConfirmCredits() {
-    console.log("confirmCredutsModal", "props", this.props, this.props.data.customerDetails)
+    //console.log("confirmCredutsModal", "props", this.props, this.props.data.customerDetails)
     mountModal(ConfirmCredits({
       customerDetails: this.props.data.customerDetails
     }))

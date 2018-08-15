@@ -200,7 +200,6 @@ const actionsMap = {
   },
 
   [ActionTypes.SUCCESS_TRANSACTION_CODE]: (state, action) => {
-    //console.log("action", action, action.data)
     return Object.assign({}, state, {
       loadingTransactionCode: false,
       transactionCodes: action.data
@@ -221,17 +220,17 @@ const actionsMap = {
           return transaction
         }
       })
-
+      
       return {
-        id : transactionDetail[0].id,
-        name: transactionDetail[0].full_name,
+        id : transactionDetail.length > 0 ? transactionDetail[0].id : '',
+        name: transactionDetail.length > 0 ? transactionDetail[0].full_name : 'NOT FOUND',
         email,
         transactionId: state.addCreditsFormDetails.transactionId,
         transactionCode: state.addCreditsFormDetails.transactionCode,
         amount: state.addCreditsFormDetails.amount,
         batchNo: state.addCreditsFormDetails.batchNo,
         reason: state.addCreditsFormDetails.comment,
-        valid: transactionDetail[0].id ? true : false
+        valid: transactionDetail.length > 0 && transactionDetail[0].id > 0 ? true : false
       }
     })
 

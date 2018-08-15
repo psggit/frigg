@@ -585,8 +585,8 @@ function* fetchTransactionCode() {
 
 function* verifyTransaction(action) {
   try {
-    //const data = yield call(Api.verifyTransaction, action.data)
-    const data = verifyTransactions
+    const data = yield call(Api.verifyTransaction, action)
+    //const data = verifyTransactions
     yield put({ type: ActionTypes.SUCCESS_VERIFY_TRANSACTION, data })
     setTimeout(() => {
       action.CB()

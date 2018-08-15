@@ -4,27 +4,26 @@ import ModalFooter from '@components/ModalBox/ModalFooter'
 import ModalBody from '@components/ModalBox/ModalBody'
 import ModalBox from '@components/ModalBox'
 import * as Actions from './../actions'
+import './../../../sass/confirm-credits.scss'
 
 export default function ConfirmCredits(data) {
   return class ConfirmCredits extends React.Component {
 
     constructor(props) {
       super(props)
-      console.log("data", data)
     }
 
     renderAllCustomers() {
       return data.customerDetails.map((item,i) => {
         return (
-          <tr>
-            <button> delete </button>
-            <td style={{textAlign: 'center'}}> {i+1} </td>
-            {/* <td style={{textAlign: 'center'}}> {item.id} </td> */}
-            <td style={{textAlign: 'center'}}> {item.name} </td>
-            <td style={{textAlign: 'center'}}> {item.email} </td>
-            <td style={{textAlign: 'center'}}> {item.transactionCode} </td>
-            <td style={{textAlign: 'center'}}> {item.amount} </td>
-            <td style={{textAlign: 'center'}}> {item.batchNo} </td>
+          <tr className={`row ${item.valid ? '' : 'highlight'}`} >
+            <td className="col"> <button> delete </button> </td>
+            <td className="col"> {i+1} </td>
+            <td className="col"> {item.name} </td>
+            <td className="col"> {item.email} </td>
+            <td className="col"> {item.transactionCode} </td>
+            <td className="col"> {item.amount} </td>
+            <td className="col"> {item.batchNo} </td>
           </tr>
         )
       })
@@ -45,14 +44,14 @@ export default function ConfirmCredits(data) {
           <ModalBody>
             <table>
               <tbody>
-                <tr>
-                  <td></td>
-                  <td style={{textAlign: 'center', fontWeight: '600'}}> ID </td>
-                  <td style={{textAlign: 'center', fontWeight: '600'}}> NAME </td>
-                  <td style={{textAlign: 'center', fontWeight: '600'}}> EMAIL ID </td>
-                  <td style={{textAlign: 'center', fontWeight: '600'}}> TRANSACTION CODE </td>
-                  <td style={{textAlign: 'center', fontWeight: '600'}}> AMOUNT </td>
-                  <td style={{textAlign: 'center', fontWeight: '600'}}> BATCH NO </td>
+                <tr className="header">
+                  <td className="col"></td>
+                  <td className="col"> ID </td>
+                  <td className="col"> NAME </td>
+                  <td className="col"> EMAIL ID </td>
+                  <td className="col"> TRANSACTION CODE </td>
+                  <td className="col"> AMOUNT </td>
+                  <td className="col"> BATCH NO </td>
                 </tr>
                 {
                   this.renderAllCustomers()
