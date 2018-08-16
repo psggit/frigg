@@ -517,3 +517,12 @@ export const requestTrigger = (action) => {
   })
 }
 
+export const viewCredits = (action) => {
+  return POST({
+    api: '/admin/transaction/consumer/trigger',
+    apiBase: 'blogicUrl',
+    data:  action.data,
+    handleError: true
+  })
+}
+

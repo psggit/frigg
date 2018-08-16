@@ -5,10 +5,10 @@ import './../../../sass/add-credits.scss'
 import * as Actions from './../actions'
 import { mountModal, unMountModal } from '@components/ModalBox/utils'
 import ConfirmCredits from '../components/confirm-credits'
-import createHistory from 'history/createBrowserHistory'
+//import createHistory from 'history/createBrowserHistory'
 
 
-const history = createHistory()
+//const history = createHistory()
 
 class AddCredits extends React.Component {
 

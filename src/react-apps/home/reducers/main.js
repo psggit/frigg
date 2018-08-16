@@ -209,7 +209,6 @@ const actionsMap = {
 
   [ActionTypes.SUCCESS_VIEW_CREDITS]: (state, action) => {
     return Object.assign({}, state, {
-      //loadingTransactionCode: false,
       validCredits: action.data
     })
   },

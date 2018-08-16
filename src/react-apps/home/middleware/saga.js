@@ -617,7 +617,8 @@ function* requestTrigger(action) {
 
 function* viewCredits(action) {
   try {
-    const data = yield call(Api.viewCredits, action)
+    //const data = yield call(Api.viewCredits, action)
+    const data = [];
     yield put({ type: ActionTypes.SUCCESS_VIEW_CREDITS, data })
   } catch(err) {
     console.log(err)
