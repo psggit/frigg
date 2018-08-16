@@ -4,7 +4,11 @@ import { connect } from 'react-redux'
 import './../../../sass/add-credits.scss'
 import * as Actions from './../actions'
 import { mountModal, unMountModal } from '@components/ModalBox/utils'
-import ConfirmCredits from '../components/confirm-credits';
+import ConfirmCredits from '../components/confirm-credits'
+import createHistory from 'history/createBrowserHistory'
+
+
+const history = createHistory()
 
 class AddCredits extends React.Component {
 
@@ -73,6 +77,10 @@ class AddCredits extends React.Component {
     unMountModal()
   }
 
+  // viewCredits() {
+  //   console.log("view credits")
+  // }
+
   createTransaction() {
   
     let validTransactions = this.props.data.customerDetails.filter((item) => {
@@ -94,9 +102,11 @@ class AddCredits extends React.Component {
 
     this.props.actions.createTransaction({
       data : validTransactionsDetails
-    }, (response) => {
-      //this.mountConfirmCredits(response)
-      console.log("response", response)
+    // }, (response) => {
+    //   //this.mountConfirmCredits(response)
+    //   console.log("response", response)
+    //   this.viewCredits()
+    // } 
     })
 
   }

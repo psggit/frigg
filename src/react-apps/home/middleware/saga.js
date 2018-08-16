@@ -599,8 +599,7 @@ function* verifyTransaction(action) {
 function* createTransaction(action) {
   try {
     const data = yield call(Api.createTransaction, action)
-    yield put({ type: ActionTypes.REQUEST_TRIGGER, data: { id: [{"id":'123'}], callback: action.CB } })
-
+    yield put({ type: ActionTypes.REQUEST_TRIGGER, data })
   } catch (err) {
     Notify('Error in creating transaction', 'warning')
     console.log(err)
@@ -610,7 +609,16 @@ function* createTransaction(action) {
 function* requestTrigger(action) {
   try {
     const data = yield call(Api.requestTrigger, action)
-    action.data.callback(data)
+    window.location.href = '/home/customer-transactions/view-credits'
+  } catch(err) {
+    console.log(err)
+  }
+}
+
+function* viewCredits(action) {
+  try {
+    const data = yield call(Api.viewCredits, action)
+    yield put({ type: ActionTypes.SUCCESS_VIEW_CREDITS, data })
   } catch(err) {
     console.log(err)
   }
@@ -947,6 +955,12 @@ function* watchRequestTrigger() {
   }
 }
 
+function* watchRequestViewCredits() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_VIEW_CREDITS, viewCredits)
+  }
+}
+
 export default function* rootSaga() {
   yield [
     fork(watchFetchStates),
@@ -1001,6 +1015,7 @@ export default function* rootSaga() {
     fork(watchFetchTransactionCode),
     fork(watchVerifyTransaction),
     fork(watchCreateTransaction),
-    fork(watchRequestTrigger)
+    fork(watchRequestTrigger),
+    fork(watchRequestViewCredits)
   ]
 }

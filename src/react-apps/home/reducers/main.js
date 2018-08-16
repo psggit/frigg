@@ -39,7 +39,8 @@ const initialState = {
   cityDetails: {},
   transactionCodes: [],
   addCreditsFormDetails: {},
-  customerDetails: []
+  customerDetails: [],
+  validCredits: []
 }
 
 const actionsMap = {
@@ -203,6 +204,13 @@ const actionsMap = {
     return Object.assign({}, state, {
       loadingTransactionCode: false,
       transactionCodes: action.data
+    })
+  },
+
+  [ActionTypes.SUCCESS_VIEW_CREDITS]: (state, action) => {
+    return Object.assign({}, state, {
+      //loadingTransactionCode: false,
+      validCredits: action.data
     })
   },
 

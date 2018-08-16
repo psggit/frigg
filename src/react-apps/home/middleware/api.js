@@ -512,7 +512,7 @@ export const requestTrigger = (action) => {
   return POST({
     api: '/admin/transaction/consumer/trigger',
     apiBase: 'blogicUrl',
-    data:  action.data.id,
+    data:  action.data,
     handleError: true
   })
 }
