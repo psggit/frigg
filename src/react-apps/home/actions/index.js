@@ -265,3 +265,9 @@ export const verifyTransaction = (data, CB) => ({
   data,
   CB
 })
+
+export const createTransaction = (data, CB) => ({
+  type: ActionTypes.REQUEST_CREATE_TRANSACTION,
+  data,
+  CB
+})

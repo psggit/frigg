@@ -498,5 +498,22 @@ export const verifyTransaction = (action) => {
     handleError: true
   })
 }
-  
+
+export const createTransaction = (action) => {
+  return POST({
+    api: '/consumer/create/transaction',
+    apiBase: 'odin',
+    data: action.data,
+    handleError: true
+  })
+}
+ 
+export const requestTrigger = (action) => {
+  return POST({
+    api: '/admin/transaction/consumer/trigger',
+    apiBase: 'blogicUrl',
+    data:  action.data.id,
+    handleError: true
+  })
+}
 

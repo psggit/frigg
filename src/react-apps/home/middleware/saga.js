@@ -596,6 +596,26 @@ function* verifyTransaction(action) {
   }
 }
 
+function* createTransaction(action) {
+  try {
+    const data = yield call(Api.createTransaction, action)
+    yield put({ type: ActionTypes.REQUEST_TRIGGER, data: { id: [{"id":'123'}], callback: action.CB } })
+
+  } catch (err) {
+    Notify('Error in creating transaction', 'warning')
+    console.log(err)
+  }
+}
+
+function* requestTrigger(action) {
+  try {
+    const data = yield call(Api.requestTrigger, action)
+    action.data.callback(data)
+  } catch(err) {
+    console.log(err)
+  }
+}
+
 // function* verifyTransaction(action) {
 //   try {
 //     const data = yield call(Api.verifyTransaction, action.data)
@@ -915,6 +935,18 @@ function* watchVerifyTransaction() {
   }
 }
 
+function* watchCreateTransaction() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_CREATE_TRANSACTION, createTransaction)
+  }
+}
+
+function* watchRequestTrigger() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_TRIGGER, requestTrigger)
+  }
+}
+
 export default function* rootSaga() {
   yield [
     fork(watchFetchStates),
@@ -967,6 +999,8 @@ export default function* rootSaga() {
     fork(watchUpdateImageAdStatus),
     fork(watchFetchContactNumbersOfRetailer),
     fork(watchFetchTransactionCode),
-    fork(watchVerifyTransaction)
+    fork(watchVerifyTransaction),
+    fork(watchCreateTransaction),
+    fork(watchRequestTrigger)
   ]
 }

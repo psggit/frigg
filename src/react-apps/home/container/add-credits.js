@@ -29,12 +29,14 @@ class AddCredits extends React.Component {
       transactionCodeErr: {
         status: false,
         value: ''
-      }
+      },
+      duplicateEmailIdCount: 0
     }
 
     this.validateForm = this.validateForm.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.handleChangeWithValidation = this.handleChangeWithValidation.bind(this)
+    this.createTransaction = this.createTransaction.bind(this)
   }
 
   componentDidMount() {
@@ -54,7 +56,6 @@ class AddCredits extends React.Component {
   // }
 
   validateAmount(amount) {
-    // console.log('amount', amount, amount.length);
     if(amount <= 0) {
       return ({status: true, value: 'Amount is required'})
     }
@@ -62,17 +63,50 @@ class AddCredits extends React.Component {
   }
 
   validateTransactionCode(transactionCode) {
-    // console.log("transaction code", transactionCode, transactionCode.length)
     if(!transactionCode.length) {
       return ({status: true, value: 'Trasanction code is required'})
     }
     return ({status: false, value: ''})
   }
 
+  unMountModal() {
+    unMountModal()
+  }
+
+  createTransaction() {
+  
+    let validTransactions = this.props.data.customerDetails.filter((item) => {
+      if(item.valid) {
+        return item;
+      }
+    })
+
+    let validTransactionsDetails = validTransactions.map((transaction) => {
+      return {
+        email: transaction.email,
+        id: transaction.id.toString(),
+        amount: parseInt(transaction.amount),
+        reason: transaction.reason,
+        transaction_code_id: transaction.transactionId,
+        batch_number: transaction.batchNo
+      }
+    })
+
+    this.props.actions.createTransaction({
+      data : validTransactionsDetails
+    }, (response) => {
+      //this.mountConfirmCredits(response)
+      console.log("response", response)
+    })
+
+  }
+
   mountConfirmCredits() {
-    //console.log("confirmCredutsModal", "props", this.props, this.props.data.customerDetails)
     mountModal(ConfirmCredits({
-      customerDetails: this.props.data.customerDetails
+      customerDetails: this.props.data.customerDetails,
+      handleClickOnCancel: this.unMountModal,
+      handleClickOnConfirm: this.createTransaction,
+      duplicateEmailIDCount: this.state.duplicateEmailIDCount
     }))
   }
 
@@ -94,10 +128,12 @@ class AddCredits extends React.Component {
 
     if (!amountErr.status && !transactionCodeErr.status) {
 
-      let emailIds = [] 
-      emailIds = this.state.emailIds.replace(/\s/g, '')
-      emailIds = emailIds.split(',')
-      emailIds = [...new Set(emailIds.map((id) => { return id}))]
+      let emailIdsWithDuplicates = [], uniqueEmailIds = []
+      emailIdsWithDuplicates = this.state.emailIds.replace(/\s/g, '')
+      emailIdsWithDuplicates = emailIdsWithDuplicates.split(',')
+      uniqueEmailIds = [...new Set(emailIdsWithDuplicates.map((id) => { return id}))]
+
+      this.setState({duplicateEmailIDCount : emailIdsWithDuplicates.length -uniqueEmailIds.length })
 
       this.props.data.addCreditsFormDetails = {
         transactionId : transactionId[0].id,
@@ -105,17 +141,17 @@ class AddCredits extends React.Component {
         amount,
         batchNo,
         comment,
-        emailIds
+        emailIds: uniqueEmailIds
       }
 
-      emailIds = emailIds.map((email) => {
+      uniqueEmailIds = uniqueEmailIds.map((email) => {
         return {
           email
         }
       })
       
       this.props.actions.verifyTransaction({
-        mail_ids: emailIds
+        mail_ids: uniqueEmailIds
       }, (response) => {
         this.mountConfirmCredits(response)
       })
@@ -131,7 +167,6 @@ class AddCredits extends React.Component {
       [e.target.name]: e.target.value,
       [errName]: fnExp(e.target.value)
     })
-    // console.log("err", fnExp(e.target.value))
   }
 
   handleChange(e) {
@@ -151,7 +186,7 @@ class AddCredits extends React.Component {
         <div className="input-field">
           <span>Transaction Code</span>
           <select onChange={this.handleChangeWithValidation} value={this.state.transactionCode} name="transactionCode">
-            {/* <option> Select transaction code </option> */}
+            <option> Select transaction code </option>
             {!this.props.data.loadingTransactionCode && 
               this.renderTransactionCode()
             }

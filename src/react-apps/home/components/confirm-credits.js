@@ -11,13 +11,28 @@ export default function ConfirmCredits(data) {
 
     constructor(props) {
       super(props)
+
+      this.state = {
+        totalConsumers : 0,
+        invalidEmails : 0,
+        totalCredits: 0
+      }
+    }
+
+    componentDidMount() {
+      let invalidEmail = data.customerDetails.filter((item) => {
+        if(!item.valid) {
+          return item;
+        }
+      })
+      this.setState({totalConsumers: data.customerDetails.length, totalCredits: data.customerDetails[0].amount, invalidEmails: invalidEmail.length})
     }
 
     renderAllCustomers() {
       return data.customerDetails.map((item,i) => {
         return (
           <tr className={`row ${item.valid ? '' : 'highlight'}`} >
-            <td className="col"> <button> delete </button> </td>
+            <td className="col"> <button style={{padding: '5px 10px'}}> delete </button> </td>
             <td className="col"> {i+1} </td>
             <td className="col"> {item.name} </td>
             <td className="col"> {item.email} </td>
@@ -38,43 +53,45 @@ export default function ConfirmCredits(data) {
           marginBottom: '10px', 
           borderBottom: '1px solid #f6f6f6'
       }
+      const { totalConsumers, invalidEmails, totalCredits } = this.state
       return (
         <ModalBox>
           <ModalHeader> CUSTOMERS </ModalHeader>
           <ModalBody>
-            <table>
-              <tbody>
-                <tr className="header">
-                  <td className="col"></td>
-                  <td className="col"> ID </td>
-                  <td className="col"> NAME </td>
-                  <td className="col"> EMAIL ID </td>
-                  <td className="col"> TRANSACTION CODE </td>
-                  <td className="col"> AMOUNT </td>
-                  <td className="col"> BATCH NO </td>
-                </tr>
-                {
-                  this.renderAllCustomers()
-                }
-              </tbody>
-            </table>
+            <div id="table-wrapper">
+              <div id="table-scroll">
+                <table>
+                  <thead>
+                    <tr className="header">
+                      <td className="col"></td>
+                      <td className="col">ID</td>
+                      <td className="col">NAME</td>
+                      <td className="col">EMAIL ID</td>
+                      <td className="col">TRANSACTION CODE</td>
+                      <td className="col">AMOUNT</td>
+                      <td className="col">BATCH NO</td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {
+                      this.renderAllCustomers()
+                    }
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </ModalBody>
-          {/* <ModalFooter>
-            <div style={style}>
-              <div style={{fontWeight: '600'}}>
-                Cart total: {data.cartTotal}
-              </div>
-              <div style={{fontWeight: '600'}}>
-                Delivery fee: {data.deliveryFee}
-              </div>
+          <ModalFooter>
+            <div className="summary">
+              <div className="field"> Number of Consumers: <span> {totalConsumers + data.duplicateEmailIDCount} </span></div>
+              <div className="field"> Total Credits: <span> {totalCredits} </span></div>
+              <div className="field"> Invalid Emails: <span> {invalidEmails + data.duplicateEmailIDCount} </span></div>
             </div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontWeight: '600' }}>
-              <div>
-                Total: {data.total}
-              </div>
-              <button onClick={() => data.handleClick()}> PLACE ORDER </button>
+            <div style={{display: 'flex', margin: '10px', justifyContent: 'space-evenly'}}>
+              <button onClick={data.handleClickOnCancel} style={{padding: '10px 20px', fontSize: '15px', cursor:'pointer'}}> Cancel </button>
+              <button onClick={data.handleClickOnConfirm} style={{padding: '10px 20px', fontSize: '15px', cursor:'pointer'}}> Confirm </button>
             </div>
-          </ModalFooter> */}
+          </ModalFooter>
         </ModalBox>
       )
     }
