@@ -38,6 +38,7 @@ import DeliveyAgentList from './../components/delivery-management/delivery-agent
 import CreateDeliveryAgent from './../components/delivery-management/create-delivery-agent'
 import ManagePossessionLimits from './../components/delivery-management/manage-possession-limits'
 import RollbackTransaction from './rollback-transaction'
+import ConfirmCredits from './../components/confirm-credits'
 import { getBreadCrumbPath, getUriFromBreadCrumb } from '@utils/url-utils'
 // import '@sass/components/_heading.scss'
 
@@ -188,6 +189,8 @@ class App extends React.Component {
                       <Route exact path="/home/manage-retailers/update-retailer-contact/:retailerSlug" component={UpdateRetailerContact} />
 
                       <Route exact path="/home/hipbar-pay/rollback-transaction" component={RollbackTransaction} />
+
+                      <Route exact path="/home/customer-transactions/confirm-credits" component={ConfirmCredits} />
                     </Switch>
                 </DisplayScreen>
               </div>

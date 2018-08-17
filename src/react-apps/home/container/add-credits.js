@@ -5,10 +5,6 @@ import './../../../sass/add-credits.scss'
 import * as Actions from './../actions'
 import { mountModal, unMountModal } from '@components/ModalBox/utils'
 import ConfirmCredits from '../components/confirm-credits'
-//import createHistory from 'history/createBrowserHistory'
-
-
-//const history = createHistory()
 
 class AddCredits extends React.Component {
 
@@ -34,13 +30,16 @@ class AddCredits extends React.Component {
         status: false,
         value: ''
       },
-      duplicateEmailIdCount: 0
+      duplicateEmailIdCount: 0,
+      shouldMountConfirmCredits: false
     }
 
     this.validateForm = this.validateForm.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.handleChangeWithValidation = this.handleChangeWithValidation.bind(this)
     this.createTransaction = this.createTransaction.bind(this)
+    this.unMountModal = this.unMountModal.bind(this)
+    //this.deleteCredit =  this.deleteCredit.bind(this) 
   }
 
   componentDidMount() {
@@ -53,7 +52,41 @@ class AddCredits extends React.Component {
         <option key={i} value={item.code}>{item.code}</option>
       )
     })
-  }  
+  }
+  
+  // deleteCredit(consumerId) {
+
+    
+  //   // const { duplicateEmailIdCount } = this.state
+  //   console.log("delete id", consumerId)
+
+  
+  //   let emailIdsWithDuplicates = []
+  //   emailIdsWithDuplicates = this.state.emailIds.replace(/\s/g, '')
+  //   emailIdsWithDuplicates = emailIdsWithDuplicates.split(',')
+  //   //if(emailIdsWithDuplicates.indexof())
+
+  //   let transactions = this.props.data.customerDetails.filter((item) => {
+  //     console.log("item", item.email)
+      
+
+  //     if(item.email !== consumerId) {
+  //       console.log("found", item.email)
+  //       return item
+  //     }
+
+  //   })
+
+  //   // if(emailIdsWithDuplicates.indexOf(consumerId) > -1) {
+  //   //   if(duplicateEmailIdCount > 0) {
+  //   //     this.setState({duplicateEmailIdCount : duplicateEmailIdCount - 1})
+  //   //   }    
+  //   // }
+
+  //   this.props.data.customerDetails = transactions
+
+  //   console.log("delte trans",  this.props.data.customerDetails)
+  // }
 
   // onDropdownSelected(e) {
   //   this.setState({transactionCode : e.target.value})
@@ -74,12 +107,8 @@ class AddCredits extends React.Component {
   }
 
   unMountModal() {
-    unMountModal()
+    this.setState({ shouldMountConfirmCredits: false })
   }
-
-  // viewCredits() {
-  //   console.log("view credits")
-  // }
 
   createTransaction() {
   
@@ -112,17 +141,19 @@ class AddCredits extends React.Component {
   }
 
   mountConfirmCredits() {
-    mountModal(ConfirmCredits({
-      customerDetails: this.props.data.customerDetails,
-      handleClickOnCancel: this.unMountModal,
-      handleClickOnConfirm: this.createTransaction,
-      duplicateEmailIDCount: this.state.duplicateEmailIDCount
-    }))
+    // mountModal(ConfirmCredits({
+    //   customerDetails: this.props.data.customerDetails,
+    //   handleClickOnCancel: this.unMountModal,
+    //   handleClickOnConfirm: this.createTransaction,
+    //   duplicateEmailIDCount: this.state.duplicateEmailIDCount
+    // }))
+
+    this.setState({ shouldMountConfirmCredits: true })
   }
 
   validateForm() {
 
-    const { amount, transactionCode, batchNo, comment } = this.state
+    const { amount, transactionCode, batchNo, comment} = this.state
     this.setState({ amountErr : this.validateAmount(amount) })
     this.setState({ transactionCodeErr: this.validateTransactionCode(transactionCode) })
     const { amountErr, transactionCodeErr } = this.state
@@ -143,7 +174,7 @@ class AddCredits extends React.Component {
       emailIdsWithDuplicates = emailIdsWithDuplicates.split(',')
       uniqueEmailIds = [...new Set(emailIdsWithDuplicates.map((id) => { return id}))]
 
-      this.setState({duplicateEmailIDCount : emailIdsWithDuplicates.length -uniqueEmailIds.length })
+      this.setState({ duplicateEmailIdCount : emailIdsWithDuplicates.length - uniqueEmailIds.length })
 
       this.props.data.addCreditsFormDetails = {
         transactionId : transactionId[0].id,
@@ -186,8 +217,9 @@ class AddCredits extends React.Component {
   }
 
   render() {
-    const { transactionCodeErr, amountErr } = this.state
+    const { transactionCodeErr, amountErr, duplicateEmailIdCount} = this.state
     return (
+      <div>
       <div className="form">
         <div className="input-field">
           <span>Consumer Email Ids</span>
@@ -219,6 +251,17 @@ class AddCredits extends React.Component {
         <div className={`submit-button`} onClick={this.validateForm}>
           <button> Create </button>
         </div>
+      </div>
+      {
+        this.state.shouldMountConfirmCredits &&
+        <ConfirmCredits 
+          data={this.props.data.customerDetails} 
+          handleClickOnCancel= {this.unMountModal} 
+          handleClickOnConfirm = {this.createTransaction}
+          duplicateEmailIdCount = {duplicateEmailIdCount} 
+          deleteCredit={this.deleteCredit} 
+        />
+      }
       </div>
     )
   }
