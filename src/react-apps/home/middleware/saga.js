@@ -615,11 +615,11 @@ function* requestTrigger(action) {
   }
 }
 
-function* viewCredits(action) {
+function* fetchCredits(action) {
   try {
-    //const data = yield call(Api.viewCredits, action)
-    const data = [];
-    yield put({ type: ActionTypes.SUCCESS_VIEW_CREDITS, data })
+    const data = yield call(Api.fetchCredits, action)
+    //const data = [];
+    yield put({ type: ActionTypes.SUCCESS_FETCH_CREDITS, data })
   } catch(err) {
     console.log(err)
   }
@@ -956,9 +956,9 @@ function* watchRequestTrigger() {
   }
 }
 
-function* watchRequestViewCredits() {
+function* watchRequestFetchCredits() {
   while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_VIEW_CREDITS, viewCredits)
+    yield* takeLatest(ActionTypes.REQUEST_FETCH_CREDITS, fetchCredits)
   }
 }
 
@@ -1017,6 +1017,6 @@ export default function* rootSaga() {
     fork(watchVerifyTransaction),
     fork(watchCreateTransaction),
     fork(watchRequestTrigger),
-    fork(watchRequestViewCredits)
+    fork(watchRequestFetchCredits)
   ]
 }

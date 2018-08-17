@@ -517,10 +517,10 @@ export const requestTrigger = (action) => {
   })
 }
 
-export const viewCredits = (action) => {
+export const fetchCredits = (action) => {
   return POST({
-    api: '/admin/transaction/consumer/trigger',
-    apiBase: 'blogicUrl',
+    api: '/consumer/view/credits',
+    apiBase: 'odin',
     data:  action.data,
     handleError: true
   })

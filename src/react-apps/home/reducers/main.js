@@ -20,6 +20,7 @@ const initialState = {
   loadingContactNumbersOfRetailer: true,
   loadingTransactionCode: true,
   verifyingTransaction: true,
+  loadingCredits: true,
   contactNumbersOfRetailer: [],
   imageAdsData: [],
   geoFenceCheckData: [],
@@ -40,7 +41,8 @@ const initialState = {
   transactionCodes: [],
   addCreditsFormDetails: {},
   customerDetails: [],
-  validCredits: []
+  validCreditsData: [],
+  validCreditsCount: 0
 }
 
 const actionsMap = {
@@ -207,9 +209,11 @@ const actionsMap = {
     })
   },
 
-  [ActionTypes.SUCCESS_VIEW_CREDITS]: (state, action) => {
+  [ActionTypes.SUCCESS_FETCH_CREDITS]: (state, action) => {
     return Object.assign({}, state, {
-      validCredits: action.data
+      loadingCredits: false,
+      validCreditsData: action.data.data,
+      validCreditsCount: action.data.count
     })
   },
 

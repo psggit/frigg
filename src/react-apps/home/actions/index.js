@@ -271,6 +271,7 @@ export const createTransaction = (data) => ({
   data
 })
 
-export const viewCredits = () => ({
-  type: ActionTypes.REQUEST_VIEW_CREDITS
+export const fetchCredits = (data) => ({
+  type: ActionTypes.REQUEST_FETCH_CREDITS,
+  data
 })
