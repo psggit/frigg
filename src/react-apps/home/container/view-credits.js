@@ -7,6 +7,7 @@ import DatePicker from './../../../components/DatePicker'
 import Moment from 'moment'
 import Pagination from '@components/pagination'
 import ViewValidCredits from './../components/customer-management/view-credits'
+import getIcon from './../components/icon-utils'
 
 class ViewCredits extends React.Component {
 
@@ -29,7 +30,9 @@ class ViewCredits extends React.Component {
     this.handlePageChange = this.handlePageChange.bind(this)
     // this.handleClick = this.handleClick.bind(this)
     // this.getData = this.getData.bind(this)
-    // this.setDate = this.setDate.bind(this)
+    this.setDate = this.setDate.bind(this)
+    this.handleClearDate = this.handleClearDate.bind(this)
+
     this.handleChooseDate = this.handleChooseDate.bind(this)
   }
 
@@ -62,6 +65,41 @@ class ViewCredits extends React.Component {
       to: this.state.toDate
     })
 
+  }
+
+  setDate(fromDate, toDate) {
+    this.setState({
+      fromDate,
+      toDate,
+      dateChanged: true
+    })
+    this.props.actions.fetchCredits({
+      limit: this.pagesLimit,
+      offset: 0,
+      from: fromDate,
+      to: toDate
+    })
+  }
+
+  handleClearDate() {
+    const today = new Date()
+    today.setUTCHours(0, 0, 0, 0)
+    const tommorrow = new Date(today.getTime())
+    tommorrow.setDate(tommorrow.getDate() + 1)
+    tommorrow.setUTCHours(0, 0, 0, 0)
+
+    this.setState({
+      fromDate: today,
+      toDate: tommorrow,
+      dateChanged: false
+    })
+
+    this.props.actions.fetchCredits({
+      limit: this.pagesLimit,
+      offset: 0,
+      from: today,
+      to: tommorrow
+    })
   }
 
   render() {
@@ -102,6 +140,20 @@ class ViewCredits extends React.Component {
               - ${ Moment(new Date(toDate).toJSON().slice(0, 10)).format('MMM Do YYYY') }`
             }
           </span>
+          {
+            dateChanged &&
+            <button
+              onClick={this.handleClearDate}
+              style={{
+                padding: '5px',
+                borderColor: '#333',
+                borderLeft: '0',
+                borderTopLeftRadius: '0',
+                borderBottomLeftRadius: '0'
+              }}>
+              <span title="Clear date" style={{ position: 'relative', top: '2px' }}>{ getIcon('gear') }</span>
+            </button>
+          }
           <ViewValidCredits 
             creditsData={validCreditsData}
             loadingCredits={loadingCredits}
