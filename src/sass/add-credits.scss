@@ -51,10 +51,11 @@
       font-weight: 600;
       cursor: pointer;
     }
-
-    &.hide {
+    
+    button.disable {
       opacity: 0.55;
       cursor: progress;
+      pointer-events: none;
     }
   }
 }

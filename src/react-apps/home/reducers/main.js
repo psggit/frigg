@@ -19,7 +19,7 @@ const initialState = {
   loadingImageAds: true,
   loadingContactNumbersOfRetailer: true,
   loadingTransactionCode: true,
-  verifyingTransaction: true,
+  //verifyingTransaction: true,
   loadingCredits: true,
   contactNumbersOfRetailer: [],
   imageAdsData: [],
@@ -246,7 +246,7 @@ const actionsMap = {
     })
 
     return Object.assign({}, state, {
-      verifyingTransaction: false,
+      //verifyingTransaction: false,
       customerDetails: transactions
     })
   }

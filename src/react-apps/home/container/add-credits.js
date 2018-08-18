@@ -31,7 +31,8 @@ class AddCredits extends React.Component {
         value: ''
       },
       duplicateEmailIdCount: 0,
-      shouldMountConfirmCredits: false
+      shouldMountConfirmCredits: false,
+      verifyingTransaction: false
     }
 
     this.validateForm = this.validateForm.bind(this)
@@ -154,7 +155,7 @@ class AddCredits extends React.Component {
   validateForm() {
 
     const { amount, transactionCode, batchNo, comment} = this.state
-    this.setState({ amountErr : this.validateAmount(amount) })
+    this.setState({ amountErr : this.validateAmount(amount), verifyingTransaction: true })
     this.setState({ transactionCodeErr: this.validateTransactionCode(transactionCode) })
     const { amountErr, transactionCodeErr } = this.state
 
@@ -194,6 +195,7 @@ class AddCredits extends React.Component {
       this.props.actions.verifyTransaction({
         mail_ids: uniqueEmailIds
       }, (response) => {
+        this.setState({verifyingTransaction: false})
         this.mountConfirmCredits(response)
       })
 
@@ -217,7 +219,7 @@ class AddCredits extends React.Component {
   }
 
   render() {
-    const { transactionCodeErr, amountErr, duplicateEmailIdCount} = this.state
+    const { transactionCodeErr, amountErr, duplicateEmailIdCount, verifyingTransaction} = this.state
     return (
       <div>
       <div className="form">
@@ -249,8 +251,8 @@ class AddCredits extends React.Component {
           <span>Comment</span>
           <textarea className="field-value" onChange={this.handleChange} value={this.state.comment} name="comment" rows="4" cols="40"></textarea>
         </div>
-        <div className={`submit-button`} onClick={this.validateForm}>
-          <button> Create </button>
+        <div className="submit-button" onClick={this.validateForm}>
+          <button className={`${verifyingTransaction ? 'disable' : ''}`}> {verifyingTransaction} Create </button>
         </div>
       </div>
       {
