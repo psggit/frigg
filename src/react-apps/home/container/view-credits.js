@@ -28,8 +28,6 @@ class ViewCredits extends React.Component {
       dateChanged: false
     }
     this.handlePageChange = this.handlePageChange.bind(this)
-    // this.handleClick = this.handleClick.bind(this)
-    // this.getData = this.getData.bind(this)
     this.setDate = this.setDate.bind(this)
     this.handleClearDate = this.handleClearDate.bind(this)
 
@@ -113,47 +111,48 @@ class ViewCredits extends React.Component {
     return(
       <React.Fragment>
         <div style={{ width: '100%', maxWidth: 900 }}>
-        
-          <button
-            style={{
-              textTransform: 'capitalize',
-              color: '#333',
-              marginTop: '20px',
-              borderColor: '#333'
-            }}
-            onClick={this.handleChooseDate}
-          >
-            Choose date
-          </button>
-          <span style={{
-            margin: '20px 0 0 40px',
-            fontSize: '14px',
-            border: '1px solid #333',
-            padding: '10px 10px',
-            borderRadius: '2px',
-            color: '#333',
-            borderTopRightRadius: dateChanged ? '0' : '2px',
-            borderBottomRightRadius: dateChanged ? '0' : '2px'
-          }}>
-            {
-              `${ Moment(new Date(fromDate).toJSON().slice(0, 10)).format('MMM Do YYYY') }
-              - ${ Moment(new Date(toDate).toJSON().slice(0, 10)).format('MMM Do YYYY') }`
-            }
-          </span>
-          {
-            dateChanged &&
+          <div style={{'marginBottom': '20px'}}>
             <button
-              onClick={this.handleClearDate}
               style={{
-                padding: '5px',
-                borderColor: '#333',
-                borderLeft: '0',
-                borderTopLeftRadius: '0',
-                borderBottomLeftRadius: '0'
-              }}>
-              <span title="Clear date" style={{ position: 'relative', top: '2px' }}>{ getIcon('gear') }</span>
+                textTransform: 'capitalize',
+                color: '#333',
+                marginTop: '20px',
+                borderColor: '#333'
+              }}
+              onClick={this.handleChooseDate}
+            >
+              Choose date
             </button>
-          }
+            <span style={{
+              margin: '20px 0 0 40px',
+              fontSize: '14px',
+              border: '1px solid #333',
+              padding: '11px 10px',
+              borderRadius: '2px',
+              color: '#333',
+              borderTopRightRadius: dateChanged ? '0' : '2px',
+              borderBottomRightRadius: dateChanged ? '0' : '2px'
+            }}>
+              {
+                `${ Moment(new Date(fromDate).toJSON().slice(0, 10)).format('MMM Do YYYY') }
+                - ${ Moment(new Date(toDate).toJSON().slice(0, 10)).format('MMM Do YYYY') }`
+              }
+            </span>
+            {
+              dateChanged &&
+              <button
+                onClick={this.handleClearDate}
+                style={{
+                  padding: '5px',
+                  borderColor: '#333',
+                  borderLeft: '0',
+                  borderTopLeftRadius: '0',
+                  borderBottomLeftRadius: '0'
+                }}>
+                <span title="Clear date" style={{ position: 'relative', top: '2px' }}>{ getIcon('gear') }</span>
+              </button>
+            }
+          </div>
           <ViewValidCredits 
             creditsData={validCreditsData}
             loadingCredits={loadingCredits}
