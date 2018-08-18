@@ -21,7 +21,7 @@ import FlatButton from 'material-ui/FlatButton'
         open: true
       }
 
-      this.handleClickOpen = this.handleClickOpen.bind(this)
+      //this.handleClickOpen = this.handleClickOpen.bind(this)
       this.handleClose = this.handleClose.bind(this)
     }
 
@@ -34,12 +34,23 @@ import FlatButton from 'material-ui/FlatButton'
       this.setState({totalConsumers: this.props.data.length, totalCredits: this.props.data[0].amount, invalidEmails: invalidEmail.length})
     }
 
-    handleClickOpen() {
-      this.setState({ open: true });
-    }
+    // handleClickOpen() {
+    //   this.setState({ open: true });
+    // }
   
     handleClose() {
       this.setState({ open: false });
+      setTimeout(() => {
+        this.props.unMountModal()
+      }, 500)
+    }
+
+    handleClick() {
+      this.props.handleClickOnConfirm()
+      this.setState({ open: false })
+      setTimeout(() => {
+        this.props.unMountModal()
+      }, 500)
     }
 
     // componentWillReceiveProps() {
@@ -105,13 +116,13 @@ import FlatButton from 'material-ui/FlatButton'
       const actions = [
         <FlatButton
           label="Cancel"
-          onClick={this.props.handleClickOnCancel}
+          onClick={this.props.unMountModal}
         />,
   
         <RaisedButton
           primary
           label="Confirm"
-          onClick={this.props.handleClickOnConfirm}
+          onClick={this.handleClick}
         />
       ]
       const { totalConsumers, invalidEmails, totalCredits } = this.state
@@ -190,6 +201,7 @@ import FlatButton from 'material-ui/FlatButton'
             <div className="field"> Total Credits: <span> {totalCredits} </span></div>
             <div className="field"> Invalid Emails: <span> {invalidEmails + this.props.duplicateEmailIdCount} </span></div>
           </div>
+          {/* <div > test </div> */}
         </Dialog>
       )
     }

@@ -39,6 +39,7 @@ class AddCredits extends React.Component {
     this.handleChangeWithValidation = this.handleChangeWithValidation.bind(this)
     this.createTransaction = this.createTransaction.bind(this)
     this.unMountModal = this.unMountModal.bind(this)
+    this.mountConfirmCredits = this.mountConfirmCredits.bind(this)
     //this.deleteCredit =  this.deleteCredit.bind(this) 
   }
 
@@ -147,7 +148,6 @@ class AddCredits extends React.Component {
     //   handleClickOnConfirm: this.createTransaction,
     //   duplicateEmailIDCount: this.state.duplicateEmailIDCount
     // }))
-
     this.setState({ shouldMountConfirmCredits: true })
   }
 
@@ -223,7 +223,8 @@ class AddCredits extends React.Component {
       <div className="form">
         <div className="input-field">
           <span>Consumer Email Ids</span>
-          <input className="field-value" onChange={this.handleChange} name="emailIds" value={this.state.emailIds} type="text"/>
+          {/* <input className="field-value" onChange={this.handleChange} name="emailIds" value={this.state.emailIds} type="text"/> */}
+          <textarea className="field-value" onChange={this.handleChange} value={this.state.emailIds} name="emailIds" rows="2" cols="40"></textarea>
         </div>
         <div className="input-field">
           <span>Transaction Code</span>
@@ -256,10 +257,10 @@ class AddCredits extends React.Component {
         this.state.shouldMountConfirmCredits &&
         <ConfirmCredits 
           data={this.props.data.customerDetails} 
-          handleClickOnCancel= {this.unMountModal} 
+          unMountModal= {this.unMountModal} 
           handleClickOnConfirm = {this.createTransaction}
           duplicateEmailIdCount = {duplicateEmailIdCount} 
-          deleteCredit={this.deleteCredit} 
+          // deleteCredit={this.deleteCredit} 
         />
       }
       </div>
