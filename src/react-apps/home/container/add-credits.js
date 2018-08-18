@@ -113,6 +113,8 @@ class AddCredits extends React.Component {
   }
 
   createTransaction() {
+
+    this.setState({verifyingTransaction: true})
   
     let validTransactions = this.props.data.customerDetails.filter((item) => {
       if(item.valid) {
@@ -133,11 +135,8 @@ class AddCredits extends React.Component {
 
     this.props.actions.createTransaction({
       data : validTransactionsDetails
-    // }, (response) => {
-    //   //this.mountConfirmCredits(response)
-    //   console.log("response", response)
-    //   this.viewCredits()
-    // } 
+    }, (response) => {
+      this.setState({verifyingTransaction: false})
     })
 
   }
@@ -195,7 +194,7 @@ class AddCredits extends React.Component {
       this.props.actions.verifyTransaction({
         mail_ids: uniqueEmailIds
       }, (response) => {
-        this.setState({verifyingTransaction: false})
+        this.setState({verifyingTransaction :false})
         this.mountConfirmCredits(response)
       })
 

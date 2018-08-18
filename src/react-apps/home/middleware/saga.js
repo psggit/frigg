@@ -599,7 +599,7 @@ function* verifyTransaction(action) {
 function* createTransaction(action) {
   try {
     const data = yield call(Api.createTransaction, action)
-    yield put({ type: ActionTypes.REQUEST_TRIGGER, data })
+    yield put({ type: ActionTypes.REQUEST_TRIGGER, data: {transaction: data, CB: action.CB} })
   } catch (err) {
     Notify('Error in creating transaction', 'warning')
     console.log(err)
@@ -607,10 +607,13 @@ function* createTransaction(action) {
 }
 
 function* requestTrigger(action) {
+  console.log("data", action.data, action.data.transaction)
   try {
     const data = yield call(Api.requestTrigger, action)
     window.location.href = '/home/customer-transactions/view-credits'
+    action.data.CB()
   } catch(err) {
+    action.data.CB()
     console.log(err)
   }
 }

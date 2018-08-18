@@ -509,10 +509,11 @@ export const createTransaction = (action) => {
 }
  
 export const requestTrigger = (action) => {
+  console.log("data api", action)
   return POST({
     api: '/admin/transaction/consumer/trigger',
     apiBase: 'blogicUrl',
-    data:  action.data,
+    data:  action.data.transaction,
     handleError: true
   })
 }

@@ -21,7 +21,7 @@ import FlatButton from 'material-ui/FlatButton'
         open: true
       }
 
-      //this.handleClickOpen = this.handleClickOpen.bind(this)
+      this.handleClick = this.handleClick.bind(this)
       this.handleClose = this.handleClose.bind(this)
     }
 
