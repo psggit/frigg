@@ -53,6 +53,10 @@ import FlatButton from 'material-ui/FlatButton'
       }, 500)
     }
 
+    componentWillReceiveProps(newProps) {
+      console.log("new props", newProps)
+    }
+
     // componentWillReceiveProps() {
     //   console.log("confirm credits data", this.props.data)
 
@@ -92,7 +96,7 @@ import FlatButton from 'material-ui/FlatButton'
       return this.props.data.map((item,i) => {
         return (
           <tr className={`row ${item.valid ? '' : 'highlight'}`} >
-            <td className="col"> <FlatButton label="Delete" onClick={this.props.handleClickOnCancel}/></td>
+            <td className="col"> <FlatButton label="Delete" onClick={() => this.props.deleteCredit(item.email)}/></td>
             <td className="col"> {item.id} </td>
             <td className="col"> {item.name} </td>
             <td className="col"> {item.email} </td>

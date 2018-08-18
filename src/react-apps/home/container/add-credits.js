@@ -41,7 +41,7 @@ class AddCredits extends React.Component {
     this.createTransaction = this.createTransaction.bind(this)
     this.unMountModal = this.unMountModal.bind(this)
     this.mountConfirmCredits = this.mountConfirmCredits.bind(this)
-    //this.deleteCredit =  this.deleteCredit.bind(this) 
+    this.deleteCredit =  this.deleteCredit.bind(this) 
   }
 
   componentDidMount() {
@@ -56,11 +56,11 @@ class AddCredits extends React.Component {
     })
   }
   
-  // deleteCredit(consumerId) {
+  deleteCredit(consumerId) {
 
     
   //   // const { duplicateEmailIdCount } = this.state
-  //   console.log("delete id", consumerId)
+  console.log("delete id", consumerId)
 
   
   //   let emailIdsWithDuplicates = []
@@ -68,16 +68,16 @@ class AddCredits extends React.Component {
   //   emailIdsWithDuplicates = emailIdsWithDuplicates.split(',')
   //   //if(emailIdsWithDuplicates.indexof())
 
-  //   let transactions = this.props.data.customerDetails.filter((item) => {
-  //     console.log("item", item.email)
+    let transactions = this.props.data.customerDetails.filter((item) => {
+      console.log("item", item.email)
       
 
-  //     if(item.email !== consumerId) {
-  //       console.log("found", item.email)
-  //       return item
-  //     }
+      if(item.email !== consumerId) {
+        console.log("found", item.email)
+        return item
+      }
 
-  //   })
+    })
 
   //   // if(emailIdsWithDuplicates.indexOf(consumerId) > -1) {
   //   //   if(duplicateEmailIdCount > 0) {
@@ -85,10 +85,10 @@ class AddCredits extends React.Component {
   //   //   }    
   //   // }
 
-  //   this.props.data.customerDetails = transactions
+  this.props.data.customerDetails = transactions
 
-  //   console.log("delte trans",  this.props.data.customerDetails)
-  // }
+  console.log("delte trans",  this.props.data.customerDetails)
+  }
 
   // onDropdownSelected(e) {
   //   this.setState({transactionCode : e.target.value})
@@ -261,7 +261,7 @@ class AddCredits extends React.Component {
           unMountModal= {this.unMountModal} 
           handleClickOnConfirm = {this.createTransaction}
           duplicateEmailIdCount = {duplicateEmailIdCount} 
-          // deleteCredit={this.deleteCredit} 
+          deleteCredit={this.deleteCredit} 
         />
       }
       </div>
