@@ -5,7 +5,7 @@ import Notify from '@components/Notification'
 import * as Api from './api'
 //import { transactionCodes } from '../components/mockData';
 //import { verifyTransaction } from '../actions';
-import { verifyTransactions } from '../components/mockData';
+//import { verifyTransactions } from '../components/mockData';
 
 /**
  * Handlers
@@ -599,17 +599,16 @@ function* verifyTransaction(action) {
 function* createTransaction(action) {
   try {
     const data = yield call(Api.createTransaction, action)
-    yield put({ type: ActionTypes.REQUEST_TRIGGER, data: {transaction: data, CB: action.CB} })
+    yield put({ type: ActionTypes.REQUEST_TRIGGER_SMS, data: {transaction: data, CB: action.CB} })
   } catch (err) {
     Notify('Error in creating transaction', 'warning')
     console.log(err)
   }
 }
 
-function* requestTrigger(action) {
-  console.log("data", action.data, action.data.transaction)
+function* requestTriggerSMS(action) {
   try {
-    const data = yield call(Api.requestTrigger, action)
+    const data = yield call(Api.requestTriggerSMS, action)
     window.location.href = '/home/customer-transactions/view-credits'
     action.data.CB()
   } catch(err) {
@@ -953,9 +952,9 @@ function* watchCreateTransaction() {
   }
 }
 
-function* watchRequestTrigger() {
+function* watchRequestTriggerSMS() {
   while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_TRIGGER, requestTrigger)
+    yield* takeLatest(ActionTypes.REQUEST_TRIGGER_SMS, requestTriggerSMS)
   }
 }
 
@@ -1019,7 +1018,7 @@ export default function* rootSaga() {
     fork(watchFetchTransactionCode),
     fork(watchVerifyTransaction),
     fork(watchCreateTransaction),
-    fork(watchRequestTrigger),
+    fork(watchRequestTriggerSMS),
     fork(watchRequestFetchCredits)
   ]
 }

@@ -4,6 +4,10 @@ import { connect } from 'react-redux'
 import './../../../sass/add-credits.scss'
 import * as Actions from './../actions'
 import { mountModal, unMountModal } from '@components/ModalBox/utils'
+import ModalHeader from '@components/ModalBox/ModalHeader'
+import ModalFooter from '@components/ModalBox/ModalFooter'
+import ModalBody from '@components/ModalBox/ModalBody'
+import ModalBox from '@components/ModalBox'
 import ConfirmCredits from '../components/confirm-credits'
 
 class AddCredits extends React.Component {
@@ -32,14 +36,16 @@ class AddCredits extends React.Component {
       },
       duplicateEmailIdCount: 0,
       shouldMountConfirmCredits: false,
-      verifyingTransaction: false
+      verifyingTransaction: false,
+      showNotification: false
     }
 
+    //this.showNotification = false
     this.validateForm = this.validateForm.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.handleChangeWithValidation = this.handleChangeWithValidation.bind(this)
     this.createTransaction = this.createTransaction.bind(this)
-    this.unMountModal = this.unMountModal.bind(this)
+    this.unMountConfirmCreditsModal = this.unMountConfirmCreditsModal.bind(this)
     this.mountConfirmCredits = this.mountConfirmCredits.bind(this)
     this.deleteCredit =  this.deleteCredit.bind(this) 
   }
@@ -108,19 +114,25 @@ class AddCredits extends React.Component {
     return ({status: false, value: ''})
   }
 
-  unMountModal() {
+  unMountConfirmCreditsModal() {
     this.setState({ shouldMountConfirmCredits: false })
+  }
+
+  getValidTransactions() {
+
+    let validTransactions = this.props.data.customerDetails.filter((item) => {
+      if(item.valid) {
+        return item;
+      }
+    })
+    return validTransactions;
   }
 
   createTransaction() {
 
     this.setState({verifyingTransaction: true})
   
-    let validTransactions = this.props.data.customerDetails.filter((item) => {
-      if(item.valid) {
-        return item;
-      }
-    })
+    let validTransactions = this.getValidTransactions()
 
     let validTransactionsDetails = validTransactions.map((transaction) => {
       return {
@@ -194,10 +206,19 @@ class AddCredits extends React.Component {
       this.props.actions.verifyTransaction({
         mail_ids: uniqueEmailIds
       }, (response) => {
-        this.setState({verifyingTransaction :false})
-        this.mountConfirmCredits(response)
-      })
 
+        this.setState({verifyingTransaction :false})
+
+        let validTransactions = this.getValidTransactions()
+
+        if(validTransactions.length) {
+          this.mountConfirmCredits(response)
+        } else {
+          this.setState({showNotification : true})
+        }
+        
+      })
+    
     }
 
   }
@@ -215,6 +236,10 @@ class AddCredits extends React.Component {
     this.setState({
       [e.target.name]: e.target.value
     })  
+  }
+
+  unMountErrorModal() {
+    this.setState({showNotification: false})
   }
 
   render() {
@@ -243,7 +268,7 @@ class AddCredits extends React.Component {
         </div>
         <div className="input-field">
           <span>Amount</span>
-          <input className="field-value" onChange={this.handleChangeWithValidation} value={this.state.amount} name="amount" type="text"/>
+          <input className="field-value" onChange={this.handleChangeWithValidation} value={this.state.amount} name="amount" type="number"/>
           {amountErr.status && <p className="field-error">{amountErr.value}</p>}
         </div>
         <div className="input-field">
@@ -258,11 +283,21 @@ class AddCredits extends React.Component {
         this.state.shouldMountConfirmCredits &&
         <ConfirmCredits 
           data={this.props.data.customerDetails} 
-          unMountModal= {this.unMountModal} 
+          unMountModal= {this.unMountConfirmCreditsModal} 
           handleClickOnConfirm = {this.createTransaction}
           duplicateEmailIdCount = {duplicateEmailIdCount} 
           deleteCredit={this.deleteCredit} 
         />
+      }
+      {
+        this.state.showNotification && 
+        <ModalBox>
+          <ModalHeader>Notification</ModalHeader>
+          <ModalBody>Sorry! no customer found</ModalBody>
+          <ModalFooter>
+            <button className="btn btn-secondary" onClick={() => this.unMountErrorModal()}> Cancel </button>
+          </ModalFooter>
+        </ModalBox>
       }
       </div>
     )

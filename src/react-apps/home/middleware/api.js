@@ -508,8 +508,7 @@ export const createTransaction = (action) => {
   })
 }
  
-export const requestTrigger = (action) => {
-  console.log("data api", action)
+export const requestTriggerSMS = (action) => {
   return POST({
     api: '/admin/transaction/consumer/trigger',
     apiBase: 'blogicUrl',
