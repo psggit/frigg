@@ -118,7 +118,8 @@ class ViewCredits extends React.Component {
                 color: '#333',
                 marginTop: '20px',
                 borderColor: '#333',
-                height: '40px'
+                height: '40px',
+                cursor: 'pointer'
               }}
               onClick={this.handleChooseDate}
             >
@@ -151,7 +152,8 @@ class ViewCredits extends React.Component {
                   borderBottomLeftRadius: '0',
                   position: 'relative',
                   top: '1px',
-                  height: '40px'
+                  height: '40px',
+                  cursor: 'pointer'
                 }}>
                 <span title="Clear date" style={{ position: 'relative', top: '2px' }}>{ getIcon('cross') }</span>
               </button>

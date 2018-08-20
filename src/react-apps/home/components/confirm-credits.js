@@ -73,7 +73,10 @@ import FlatButton from 'material-ui/FlatButton'
       return this.props.data.map((item,i) => {
         return (
           <tr className={`row ${item.valid ? '' : 'highlight'}`} >
-            <td className="col"> <FlatButton primary style={{ fontSize: '13px' }} label="Delete" onClick={() => this.props.deleteCredit(item.email)}/></td>
+            <td className="col"> 
+              {/* <FlatButton primary style={{ fontSize: '13px' }} label="Delete" onClick={() => this.props.deleteCredit(item.email)}/> */}
+              <button style={{ fontSize: '11px', height: '20px', padding: '1px 7px 2px', cursor: 'pointer' }} onClick={() => this.props.deleteCredit(item.email)}> delete </button>
+            </td>
             <td className="col"> {item.id} </td>
             <td className="col"> {item.name} </td>
             <td className="col"> {item.email} </td>
