@@ -24,11 +24,11 @@ const TableHeaderItems = [
 ]
 
 const styles = [
-  { width: '120px', textAlign: 'center' },
-  { width: '100px', textAlign: 'center' },
-  { width: '38px', textAlign: 'center' },
-  { width: '60px', textAlign: 'center' },
-  { width: '38px', textAlign: 'center' }
+  { width: '120px', textAlign: 'left' },
+  { width: '100px', textAlign: 'left' },
+  { width: '38px', textAlign: 'left' },
+  { width: '60px', textAlign: 'left' },
+  { width: '38px', textAlign: 'left' }
 ]
 
 function ViewCredits(data) {

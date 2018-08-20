@@ -276,3 +276,8 @@ export const fetchCredits = (data) => ({
   type: ActionTypes.REQUEST_FETCH_CREDITS,
   data
 })
+
+export const updateAddCreditTrasactionList = (data) => ({
+  type: ActionTypes.REQUEST_UPDATE_TRANSACTION_LIST,
+  data
+})

@@ -9,6 +9,7 @@ import ModalFooter from '@components/ModalBox/ModalFooter'
 import ModalBody from '@components/ModalBox/ModalBody'
 import ModalBox from '@components/ModalBox'
 import ConfirmCredits from '../components/confirm-credits'
+//import ConfirmModal from '@components/ModalBox/ConfirmModal'
 
 class AddCredits extends React.Component {
 
@@ -64,36 +65,10 @@ class AddCredits extends React.Component {
   
   deleteCredit(consumerId) {
 
-    
-  //   // const { duplicateEmailIdCount } = this.state
-  console.log("delete id", consumerId)
-
-  
-  //   let emailIdsWithDuplicates = []
-  //   emailIdsWithDuplicates = this.state.emailIds.replace(/\s/g, '')
-  //   emailIdsWithDuplicates = emailIdsWithDuplicates.split(',')
-  //   //if(emailIdsWithDuplicates.indexof())
-
-    let transactions = this.props.data.customerDetails.filter((item) => {
-      console.log("item", item.email)
-      
-
-      if(item.email !== consumerId) {
-        console.log("found", item.email)
-        return item
-      }
-
+    this.props.actions.updateAddCreditTrasactionList({
+      data : consumerId
     })
 
-  //   // if(emailIdsWithDuplicates.indexOf(consumerId) > -1) {
-  //   //   if(duplicateEmailIdCount > 0) {
-  //   //     this.setState({duplicateEmailIdCount : duplicateEmailIdCount - 1})
-  //   //   }    
-  //   // }
-
-  this.props.data.customerDetails = transactions
-
-  console.log("delte trans",  this.props.data.customerDetails)
   }
 
   // onDropdownSelected(e) {
@@ -130,26 +105,36 @@ class AddCredits extends React.Component {
 
   createTransaction() {
 
-    this.setState({verifyingTransaction: true})
-  
     let validTransactions = this.getValidTransactions()
 
-    let validTransactionsDetails = validTransactions.map((transaction) => {
-      return {
-        email: transaction.email,
-        id: transaction.id.toString(),
-        amount: parseInt(transaction.amount),
-        reason: transaction.reason,
-        transaction_code_id: transaction.transactionId,
-        batch_number: transaction.batchNo
-      }
-    })
+    if(validTransactions.length) {
 
-    this.props.actions.createTransaction({
-      data : validTransactionsDetails
-    }, (response) => {
-      this.setState({verifyingTransaction: false})
-    })
+      this.setState({verifyingTransaction: true})
+
+      let validTransactionsDetails = validTransactions.map((transaction) => {
+        return {
+          email: transaction.email,
+          id: transaction.id.toString(),
+          amount: parseInt(transaction.amount),
+          reason: transaction.reason,
+          transaction_code_id: transaction.transactionId,
+          batch_number: transaction.batchNo
+        }
+      })
+
+      this.props.actions.createTransaction({
+        data : validTransactionsDetails
+      }, (response) => {
+        this.setState({verifyingTransaction: false})
+      })
+    } else {
+      this.unMountConfirmCreditsModal()
+      this.setState({showNotification: true})
+      // mountModal(ConfirmModal({
+      //   heading: 'Notification',
+      //   confirmMessage: 'Sorry! no valid customers found',
+      // }))
+    }
 
   }
 
@@ -215,6 +200,10 @@ class AddCredits extends React.Component {
           this.mountConfirmCredits(response)
         } else {
           this.setState({showNotification : true})
+          // mountModal(ConfirmModal({
+          //   heading: 'Notification',
+          //   confirmMessage: 'Sorry! no valid customers found',
+          // }))
         }
         
       })
@@ -293,7 +282,7 @@ class AddCredits extends React.Component {
         this.state.showNotification && 
         <ModalBox>
           <ModalHeader>Notification</ModalHeader>
-          <ModalBody>Sorry! no customer found</ModalBody>
+          <ModalBody>Sorry! no valid customer found</ModalBody>
           <ModalFooter>
             <button className="btn btn-secondary" onClick={() => this.unMountErrorModal()}> Cancel </button>
           </ModalFooter>

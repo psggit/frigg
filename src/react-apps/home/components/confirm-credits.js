@@ -54,43 +54,20 @@ import FlatButton from 'material-ui/FlatButton'
     }
 
     componentWillReceiveProps(newProps) {
-      console.log("new props", newProps)
-    }
+      
+      let invalidEmail = newProps.data.filter((item) => {
+        if(!item.valid) {
+          return item;
+        }
+      })
+      if(newProps.data.length === 0  || newProps.data.length === invalidEmail.length) {
+        this.setState({totalCredits: 0})
+      } else {
+        this.setState({totalCredits: 0})
+      }
+      this.setState({totalConsumers: newProps.data.length, invalidEmails: invalidEmail.length})
 
-    // componentWillReceiveProps() {
-    //   console.log("confirm credits data", this.props.data)
-
-    //   const {totalConsumers, invalidEmails} = this.state
-
-    //   let invalidEmail = this.props.data.map((item) => {
-    //     console.log("email", item.email);
-    //     if(item && !item.valid) {
-    //       console.log("1")
-    //       return item;
-    //     }
-    //   })
-
-    //   console.log("index", invalidEmail, invalidEmail.length)
-
-
-    //   if(invalidEmails > 0) {
-    //     this.setState({invalidEmails: invalidEmail.length})
-    //     this.setState({totalConsumers: this.props.data.length})
-    //   }
-     
-    // }
-
-    // deleteCredit(emailId) {
-
-    //   // let invalidEmail = this.props.data.map((item) => {
-    //   //   if(!item.valid) {
-    //   //     return item;
-    //   //   }
-    //   // })
-
-    //   this.props.deleteCredit(emailId)
-    
-    // }
+     }
 
     renderAllCustomers() {
       return this.props.data.map((item,i) => {
@@ -205,7 +182,6 @@ import FlatButton from 'material-ui/FlatButton'
             <div className="field"> Total Credits: <span> {totalCredits} </span></div>
             <div className="field"> Invalid Emails: <span> {invalidEmails + this.props.duplicateEmailIdCount} </span></div>
           </div>
-          {/* <div > test </div> */}
         </Dialog>
       )
     }

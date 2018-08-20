@@ -3,6 +3,7 @@ import { call, fork, put, race, take } from 'redux-saga/effects'
 import * as ActionTypes from './../constants/actions'
 import Notify from '@components/Notification'
 import * as Api from './api'
+//import { updateTransactionList } from '../actions';
 //import { transactionCodes } from '../components/mockData';
 //import { verifyTransaction } from '../actions';
 //import { verifyTransactions } from '../components/mockData';
@@ -627,6 +628,14 @@ function* fetchCredits(action) {
   }
 }
 
+function* updateTransactionList(action) {
+  try {
+    yield put({ type: ActionTypes.SUCCESS_UPDATE_TRANSACTION_LIST, data: action.data })
+  } catch(err) {
+    console.log(err)
+  }
+}
+
 // function* verifyTransaction(action) {
 //   try {
 //     const data = yield call(Api.verifyTransaction, action.data)
@@ -964,6 +973,12 @@ function* watchRequestFetchCredits() {
   }
 }
 
+function* watchRequestUpdateTransactionList() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_UPDATE_TRANSACTION_LIST, updateTransactionList)
+  }
+}
+
 export default function* rootSaga() {
   yield [
     fork(watchFetchStates),
@@ -1019,6 +1034,7 @@ export default function* rootSaga() {
     fork(watchVerifyTransaction),
     fork(watchCreateTransaction),
     fork(watchRequestTriggerSMS),
-    fork(watchRequestFetchCredits)
+    fork(watchRequestFetchCredits),
+    fork(watchRequestUpdateTransactionList)
   ]
 }

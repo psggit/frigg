@@ -209,6 +209,18 @@ const actionsMap = {
     })
   },
 
+  [ActionTypes.SUCCESS_UPDATE_TRANSACTION_LIST]: (state, action) => {
+    let customerDetails = state.customerDetails.filter((item) => {
+      if(item.email !== action.data.data) {
+        return item
+      }
+    })
+
+    return Object.assign({}, state, {
+      customerDetails: customerDetails,
+    })
+  },
+
   [ActionTypes.SUCCESS_FETCH_CREDITS]: (state, action) => {
     return Object.assign({}, state, {
       loadingCredits: false,
