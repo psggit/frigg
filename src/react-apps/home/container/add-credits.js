@@ -264,8 +264,8 @@ class AddCredits extends React.Component {
           <span>Comment</span>
           <textarea className="field-value" onChange={this.handleChange} value={this.state.comment} name="comment" rows="4" cols="40"></textarea>
         </div>
-        <div className="submit-button" onClick={this.validateForm}>
-          <button className={`${verifyingTransaction ? 'disable' : ''}`}> {verifyingTransaction} Create </button>
+        <div className={`submit-button ${verifyingTransaction ? 'disable' : ''}`} onClick={this.validateForm}>
+          <button onClick={this.validateForm}> {verifyingTransaction} Create </button>
         </div>
       </div>
       {

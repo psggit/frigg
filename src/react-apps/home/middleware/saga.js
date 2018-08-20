@@ -610,8 +610,13 @@ function* createTransaction(action) {
 function* requestTriggerSMS(action) {
   try {
     const data = yield call(Api.requestTriggerSMS, action)
-    window.location.href = '/home/customer-transactions/view-credits'
-    action.data.CB()
+    Notify('Successfully created the transaction', 'success')
+    setTimeout(() => {
+      window.location.href = '/home/customer-transactions/view-credits'
+    }, 1000)
+    setTimeout(() => {
+      action.data.CB()
+    }, 3000)
   } catch(err) {
     action.data.CB()
     console.log(err)

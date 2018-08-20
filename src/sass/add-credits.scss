@@ -50,11 +50,12 @@
       font-size: 15px;
       font-weight: 600;
       cursor: pointer;
+      // float: right;
     }
     
-    button.disable {
+    &.disable {
       opacity: 0.55;
-      cursor: progress;
+      cursor: not-allowed;
       pointer-events: none;
     }
   }

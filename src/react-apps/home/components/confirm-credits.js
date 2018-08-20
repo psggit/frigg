@@ -73,7 +73,7 @@ import FlatButton from 'material-ui/FlatButton'
       return this.props.data.map((item,i) => {
         return (
           <tr className={`row ${item.valid ? '' : 'highlight'}`} >
-            <td className="col"> <FlatButton label="Delete" onClick={() => this.props.deleteCredit(item.email)}/></td>
+            <td className="col"> <FlatButton primary style={{ fontSize: '13px' }} label="Delete" onClick={() => this.props.deleteCredit(item.email)}/></td>
             <td className="col"> {item.id} </td>
             <td className="col"> {item.name} </td>
             <td className="col"> {item.email} </td>
@@ -148,7 +148,7 @@ import FlatButton from 'material-ui/FlatButton'
         // </ModalBox>
         <Dialog
           autoScrollBodyContent
-          title="CUSTOMERS"
+          title="Customers"
           contentStyle={{ width: '100%', maxWidth: '700px' }}
           modal={false}
           open={this.state.open}

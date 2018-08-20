@@ -7,7 +7,7 @@ import DatePicker from './../../../components/DatePicker'
 import Moment from 'moment'
 import Pagination from '@components/pagination'
 import ViewValidCredits from './../components/customer-management/view-credits'
-import getIcon from './../components/icon-utils'
+import { getIcon } from '@components/utils'
 
 class ViewCredits extends React.Component {
 
@@ -117,7 +117,8 @@ class ViewCredits extends React.Component {
                 textTransform: 'capitalize',
                 color: '#333',
                 marginTop: '20px',
-                borderColor: '#333'
+                borderColor: '#333',
+                height: '40px'
               }}
               onClick={this.handleChooseDate}
             >
@@ -147,9 +148,12 @@ class ViewCredits extends React.Component {
                   borderColor: '#333',
                   borderLeft: '0',
                   borderTopLeftRadius: '0',
-                  borderBottomLeftRadius: '0'
+                  borderBottomLeftRadius: '0',
+                  position: 'relative',
+                  top: '1px',
+                  height: '40px'
                 }}>
-                <span title="Clear date" style={{ position: 'relative', top: '2px' }}>{ getIcon('gear') }</span>
+                <span title="Clear date" style={{ position: 'relative', top: '2px' }}>{ getIcon('cross') }</span>
               </button>
             }
           </div>
