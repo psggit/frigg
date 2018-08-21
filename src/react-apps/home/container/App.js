@@ -29,11 +29,13 @@ import CreateAd from './../components/manage-image-ads/create-ad'
 import UpdateRetailerContact from './../components/manage-retailers/update-contact'
 import CreateLocality from './../components/manage-localities/create-locality'
 import ManageImageAds from './manage-image-ads'
+import ManageCollections from './manage-collections'
 import UploadSearchData from './upload-search-data'
 import GeoFenceCheck from './geo-fence-check'
 import DeliveyAgentList from './../components/delivery-management/delivery-agent-list'
 import CreateDeliveryAgent from './../components/delivery-management/create-delivery-agent'
 import ManagePossessionLimits from './../components/delivery-management/manage-possession-limits'
+import ViewCollection from './../components/manage-collections/view-collection-details'
 import RollbackTransaction from './rollback-transaction'
 import { getBreadCrumbPath, getUriFromBreadCrumb } from '@utils/url-utils'
 // import '@sass/components/_heading.scss'
@@ -181,6 +183,9 @@ class App extends React.Component {
                       <Route exact path="/home/manage-retailers/update-retailer-contact/:retailerSlug" component={UpdateRetailerContact} />
 
                       <Route exact path="/home/hipbar-pay/rollback-transaction" component={RollbackTransaction} />
+
+                      <Route exact path="/home/manage-collections" component={ManageCollections} />
+                      <Route exact path="/home/manage-collections/create-new" component={ViewCollection} />
                     </Switch>
                 </DisplayScreen>
               </div>
