@@ -481,3 +481,31 @@ export const updateImageAdStatus = action => (
     handleError: true
   })
 )
+
+
+export const addBrandToCollection = action => (
+  POST({
+    api: '/collection/add',
+    apiBase: 'odin',
+    data: action.data,
+    handleError: true
+  })
+)
+
+export const removeBrandFromCollection = action => (
+  POST({
+    api: '/collection/remove',
+    apiBase: 'odin',
+    data: action.data,
+    handleError: true
+  })
+)
+
+export const createCollection = action => (
+  POST({
+    api: '/collection/create',
+    apiBase: 'odin',
+    data: action.data,
+    handleError: true
+  })
+)

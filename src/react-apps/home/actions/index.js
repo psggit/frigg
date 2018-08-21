@@ -255,3 +255,18 @@ export const addRetailerNumbers = (data, retailer_id) => ({
   type: ActionTypes.REQUEST_CREATE_NEW_RETAILER_CONTACT,
   data
 })
+
+export const addBrandToCollection = (data) => ({
+  type: ActionTypes.REQUEST_ADD_BRAND_TO_COLLECTION,
+  data
+})
+
+export const removeBrandFromCollection = (data) => ({
+  type: ActionTypes.REQUEST_REMOVE_BRAND_FROM_COLLECTION,
+  data
+})
+
+export const createCollection = (data) => ({
+  type: ActionTypes.REQUEST_CREATE_COLLECTION,
+  data
+})

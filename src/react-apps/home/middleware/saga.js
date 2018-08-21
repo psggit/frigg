@@ -3,6 +3,7 @@ import { call, fork, put, race, take } from 'redux-saga/effects'
 import * as ActionTypes from './../constants/actions'
 import Notify from '@components/Notification'
 import * as Api from './api'
+//import { addBrandToCollection } from '../actions';
 
 /**
  * Handlers
@@ -570,6 +571,36 @@ function* addRetailerNumbers(action) {
   }
 }
 
+function* addBrandToCollection(action) {
+  try {
+    const data = yield call(Api.addBrandToCollection, action)
+    Notify('Successfully added brand', 'success')
+    //yield put({ type: ActionTypes.REQUEST_FETCH_CONTACT_NUMBERS_OF_RETAILER, data: { retailer_id: action.data[0].retailer_id } })
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+function* removeBrandFromCollection(action) {
+  try {
+    const data = yield call(Api.removeBrandFromCollection, action)
+    Notify('Successfully removed brand', 'success')
+    //yield put({ type: ActionTypes.REQUEST_FETCH_CONTACT_NUMBERS_OF_RETAILER, data: { retailer_id: action.data[0].retailer_id } })
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+function* createCollection(action) {
+  try {
+    const data = yield call(Api.createCollection, action)
+    Notify('Successfully created collection', 'success')
+    //yield put({ type: ActionTypes.REQUEST_FETCH_CONTACT_NUMBERS_OF_RETAILER, data: { retailer_id: action.data[0].retailer_id } })
+  } catch (err) {
+    console.log(err)
+  }
+}
+
 
 /**
  * Watchers
@@ -868,6 +899,24 @@ function* watchAddRetailerNumbers() {
   }
 }
 
+function* watchRequestAddBrandToCollection() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_ADD_BRAND_TO_COLLECTION , addBrandToCollection)
+  }
+}
+
+function* watchRequestRemoveBrandFromCollection() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_REMOVE_BRAND_FROM_COLLECTION , removeBrandFromCollection)
+  }
+}
+
+function* watchRequestCreateCollection() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_CREATE_COLLECTION , createCollection)
+  }
+}
+
 export default function* rootSaga() {
   yield [
     fork(watchFetchStates),
@@ -918,6 +967,9 @@ export default function* rootSaga() {
     fork(watchFetchImageAds),
     fork(watchCreateImageAd),
     fork(watchUpdateImageAdStatus),
-    fork(watchFetchContactNumbersOfRetailer)
+    fork(watchFetchContactNumbersOfRetailer),
+    fork(watchRequestAddBrandToCollection),
+    fork(watchRequestRemoveBrandFromCollection),
+    fork(watchRequestCreateCollection)
   ]
 }
