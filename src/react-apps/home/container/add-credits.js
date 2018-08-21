@@ -253,7 +253,7 @@ class AddCredits extends React.Component {
         </div>
         <div className="input-field">
           <span>Batch Number</span>
-          <input className="field-value" onChange={this.handleChange} value={this.state.batchNo} name="batchNo" type="text" maxLength={15} />
+          <input className="field-value" onChange={this.handleChange} value={this.state.batchNo} name="batchNo" maxLength={15} type="text"/>
         </div>
         <div className="input-field">
           <span>Amount</span>
