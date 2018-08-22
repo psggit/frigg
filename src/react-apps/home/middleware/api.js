@@ -509,3 +509,12 @@ export const createCollection = action => (
     handleError: true
   })
 )
+
+export const fetchCollections = action => (
+  POST({
+    api: '/collection/view_all',
+    apiBase: 'odin',
+    data: action.data,
+    handleError: true
+  })
+)

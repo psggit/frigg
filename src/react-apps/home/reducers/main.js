@@ -18,6 +18,7 @@ const initialState = {
   loadingMappedDpToLocality: true,
   loadingImageAds: true,
   loadingContactNumbersOfRetailer: true,
+  loadingAllCollections: true,
   contactNumbersOfRetailer: [],
   imageAdsData: [],
   geoFenceCheckData: [],
@@ -34,6 +35,7 @@ const initialState = {
   citiesData: [],
   deliverers: [],
   geoLocalitiesData: [],
+  collectionsList: {},
   cityDetails: {}
 }
 
@@ -191,6 +193,13 @@ const actionsMap = {
     return Object.assign({}, state, {
       loadingContactNumbersOfRetailer: false,
       contactNumbersOfRetailer: action.data
+    })
+  },
+
+  [ActionTypes.SUCCESS_FETCH_COLLECTIONS]: (state, action) => {
+    return Object.assign({}, state, {
+      loadingAllCollections: false,
+      collectionsList: action.data
     })
   }
 }

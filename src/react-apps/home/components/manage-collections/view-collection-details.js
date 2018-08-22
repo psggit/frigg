@@ -76,10 +76,12 @@ class ViewCollection extends React.Component {
       }
     })
     this.props.actions.createCollection({
-      name: this.state.name,
-      display_name: this.state.display_name,
-      is_active: this.state.is_active,
-      brand_data: brandData
+      collection_data: {
+        name: this.state.name,
+        display_name: this.state.display_name,
+        is_active: this.state.is_active,
+        brand_data: brandData
+      }
     })
   }
 

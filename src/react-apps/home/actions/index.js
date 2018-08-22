@@ -270,3 +270,8 @@ export const createCollection = (data) => ({
   type: ActionTypes.REQUEST_CREATE_COLLECTION,
   data
 })
+
+export const fetchCollections = (data) => ({
+  type: ActionTypes.REQUEST_FETCH_COLLECTIONS,
+  data
+})

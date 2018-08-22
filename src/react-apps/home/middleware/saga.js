@@ -601,6 +601,16 @@ function* createCollection(action) {
   }
 }
 
+function* fetchCollections(action) {
+  try {
+    const data = yield call(Api.fetchCollections, action)
+    //Notify('Successfully created collection', 'success')
+    //yield put({ type: ActionTypes.REQUEST_FETCH_CONTACT_NUMBERS_OF_RETAILER, data: { retailer_id: action.data[0].retailer_id } })
+  } catch (err) {
+    console.log(err)
+  }
+}
+
 
 /**
  * Watchers
@@ -917,6 +927,12 @@ function* watchRequestCreateCollection() {
   }
 }
 
+function* watchRequestFetchCollection() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_FETCH_COLLECTIONS , fetchCollections)
+  }
+}
+
 export default function* rootSaga() {
   yield [
     fork(watchFetchStates),
@@ -970,6 +986,7 @@ export default function* rootSaga() {
     fork(watchFetchContactNumbersOfRetailer),
     fork(watchRequestAddBrandToCollection),
     fork(watchRequestRemoveBrandFromCollection),
-    fork(watchRequestCreateCollection)
+    fork(watchRequestCreateCollection),
+    fetch(watchRequestFetchCollection)
   ]
 }
