@@ -1,0 +1,31 @@
+table {
+  width: 100%;
+  border-collapse: collapse;
+ //  border: 1px solid #f6f6f6;
+  tr {
+    border-bottom: 1px solid #f6f6f6;
+
+    &:hover {
+      background: #eaeaea;
+      td {
+        background: #eaeaea !important;
+      }
+    }
+  }
+  thead td {
+    color: #333;
+    font-weight: 600;
+  }
+  td {
+    font-size: 16px;
+    padding: 10px;
+    color: #4a4a4a;
+
+    button {
+      cursor: pointer;
+      font-size: 14px;
+      text-transform: uppercase;
+      font-family: "Source Sans Pro", sans-serif;
+    }
+  }
+}

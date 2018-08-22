@@ -1,0 +1,174 @@
+
+.order-detail-container {
+  padding: 20px;
+  margin: 1px 38px;
+  height: calc(100vh - 140px);
+  overflow: auto;
+  background: #fff;
+  box-shadow: 0 1px 2px 0 #9b9b9b;
+  clear: both;
+}
+hr {
+  margin-bottom: 0 !important;
+  margin-top: 1rem !important;
+}
+
+.left, .right {
+  display: inline-block;
+  width: calc(50% - 40px);
+  vertical-align: top;
+}
+.left {
+  margin: 0 20px;
+}
+.right {
+  margin: 0 20px;
+}
+
+.order-detail {
+  // button {
+  //   padding: 5px 20px;
+  //   border: 1px solid #dfdfdf;
+  //   border-radius: 2px;
+  //   background-color: #f2f2f2;
+  //   color: #757575;
+  //   font-weight: 600;
+  //   &:focus {
+  //     outline: 0;
+  //   }
+  //   &:hover {
+  //     border-color: #c6c6c6;
+  //     background-image: -webkit-linear-gradient(top,#f8f8f8,#f1f1f1);
+  //     background-color: #f8f8f8;
+  //     box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+  //     color: #333;
+  //   }
+  // }
+  .order-detail-head {
+    position: relative;
+    margin: 0 38px;
+    background: #fff;
+    padding: 20px;
+    box-shadow: 0 0px 2px 0 #9b9b9b;
+  }
+  position: fixed;
+  z-index: 2;
+  top: 65px;
+  left: 50%;
+  width: 100%;
+  max-width: 1440px;
+  height: 100%;
+  background: #f6f6f6;
+  transform: translateX(-50%);
+  // padding-top: 20px;
+  background: #f6f6f6;
+
+  .return-to-list {
+    vertical-align: top;
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+    cursor: pointer;
+    margin-right: 20px;
+    svg {
+      pointer-events: none;
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+.card {
+  margin-bottom: 20px;
+  box-shadow: 0 0px 2px #9b9b9b;
+  background: #fff;
+  border-radius: 2px;
+  .card-head {
+    padding: 0px 20px 5px 20px;
+    background-color: rgba(0,0,0,0.74);
+    background-image: url("https://www.transparenttextures.com/patterns/az-subtle.png");
+    color: #fff;
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+    text-transform: uppercase;
+    h4 {
+      display: inline-block;
+      vertical-align: middle;
+      font-size: 14px;
+      font-weight: normal;
+      margin-right: 20px;
+    }
+    img {
+      display: inline-block;
+      position: relative;
+      top: 3px;
+      height: 16px;
+    }
+  }
+  .card-body {
+    padding: 20px;
+  }
+  .card-footer {
+    padding: 5px 20px 10px 20px;
+    border-top: 1px solid #dfdfdf;
+    button {
+      margin-right: 10px;
+      &:disabled {
+        opacity: 0.6;
+      }
+    }
+  }
+  p {
+    color: #4a4a4a;
+    font-size: 14px;
+  }
+  .subhead {
+    font-size: 16px;
+    display: inline-block;
+    margin-bottom: 5px;
+    font-weight: 600;
+  }
+  h4 {
+    font-size: 18px;
+    font-weight: normal;
+    display: inline-block;
+    margin: 0;
+  }
+ table {
+   width: 100%;
+  //  border: 1px solid #f6f6f6;
+   tr {
+     border-bottom: 1px solid #f6f6f6;
+   }
+   thead td {
+     color: #333;
+     font-weight: 600;
+   }
+   td {
+     font-size: 14px;
+     padding: 10px;
+     color: #4a4a4a;
+   }
+ }
+}
+
+.MapWrapper {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+hr {
+  opacity: 0.3;
+}
+
+@media only screen and (max-width: 1390px) {
+  .order-detail-container {
+    margin: 1px 2%;
+  }
+  .order-detail .order-detail-head {
+    margin: 0 2%;
+  }
+}

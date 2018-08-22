@@ -37,19 +37,31 @@ class ViewCollection extends React.Component {
   }
 
   addBrand(newBrand) {
-    this.setState({ selectedBrand: [...this.state.selectedBrand, newBrand] })
-    this.props.actions.addBrandToCollection({
-      brand_id: newBrand.brand_id,
-      short_name: newBrand.short_name
-    })
+    unMountModal()
+    let brandIdFound = false
+
+    for(let i in this.state.selectedBrand) {
+      if(this.state.selectedBrand[i].brand_id === newBrand.brand_id) {
+        brandIdFound = true
+      }
+    }
+
+    if(!brandIdFound) {
+      this.setState({ selectedBrand: [...this.state.selectedBrand, newBrand] })
+    }
+    
+    // this.props.actions.addBrandToCollection({
+    //   brand_id: newBrand.brand_id,
+    //   short_name: this.state.display_name
+    // })
   }
 
   removeBrand(brand) {
 
-    this.props.actions.removeBrandFromCollection({
-      brand_id: brand.brand_id,
-      short_name: brand.short_name
-    })
+    // this.props.actions.removeBrandFromCollection({
+    //   brand_id: brand.brand_id,
+    //   short_name: brand.short_name
+    // })
 
     this.setState({
       selectedBrand: this.state.selectedBrand.filter((item) => item.brand_id !== brand.brand_id)

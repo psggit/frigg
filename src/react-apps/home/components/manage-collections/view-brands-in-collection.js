@@ -31,14 +31,16 @@ import '@sass/components/_table.scss'
 const TableHeaderItems = [
   '',
   'ID',
-  'SHORT_NAME',
+  'BRAND_NAME',
+  'BRAND_SHORT_NAME',
   // ''
 ]
 
 const styles = [
-  { width: '38px' },
-  { width: '60px' },
-  { width: '120px' },
+  { width: '38px'},
+  { width: '60px'},
+  { width: '120px'},
+  { width: '120px'},
 ]
 
 function ViewBrandsInCollection(data) {
@@ -73,10 +75,11 @@ function ViewBrandsInCollection(data) {
                   >
                     <FlatButton primary label="View" />
                   </NavLink> */}
-                  <button onClick={() => data.removeBrand({brand_id: item.brand_id, short_name: item.short_name})}> delete </button>
+                  <button onClick={() => data.removeBrand({brand_id: item.brand_id, short_name: item.short_name}) } style={{fontSize: '13px'}}> delete </button>
                 </TableRowColumn>
                 <TableRowColumn style={styles[1]}>{item.brand_id}</TableRowColumn>
-                <TableRowColumn style={styles[2]}>{item.short_name}</TableRowColumn>
+                <TableRowColumn style={styles[2]}>{item.brand}</TableRowColumn>
+                <TableRowColumn style={styles[3]}>{item.short_name}</TableRowColumn>
       
               </TableRow>
             ))

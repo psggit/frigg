@@ -135,7 +135,6 @@ export default function AddBrandDialog(data) {
     }
 
     componentDidMount() {
-      console.log("data", data)
       this.listGenres()
       this.listBrandsUsingGenre('beer')
       //console.log("brand", this.brands )
@@ -342,7 +341,7 @@ export default function AddBrandDialog(data) {
                             {/* <td style={{ textAlign: 'center' }}>{getIcon('down-arrow')}</td> */}
                             <td>
                               <button
-                                onClick={() => { data.addBrand({brand_id: item.id, short_name: item.shortName}) }}
+                                onClick={() => { data.addBrand({brand_id: item.id, brand: item.brand, short_name: item.shortName}) }}
                                 style={{
                                   padding: '2px 20px'
                                 }}
