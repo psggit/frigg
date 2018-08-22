@@ -62,6 +62,12 @@ class ViewCollection extends React.Component {
 
   render() {
     const { loadingBrandsInCollection, brandList, brandCount } = this.props.data
+    const styles = {
+      boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.08)',
+      display: 'flex',
+      justifyContent: 'flex-start',
+      padding: '20px'
+    }
     return (
       <React.Fragment>
         <div style={{ width: '100%', maxWidth: 900 }}>
@@ -104,6 +110,11 @@ class ViewCollection extends React.Component {
               />
             </React.Fragment>
             // : <div> No brands found </div>
+          }
+          {
+            !loadingBrandsInCollection && brandList.length === 0
+            &&
+            <div style={styles}> No brands found in the collection </div>
           }
         </div>
       </React.Fragment>
