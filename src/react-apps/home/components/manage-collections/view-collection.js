@@ -80,18 +80,21 @@ class ViewCollection extends React.Component {
             }}
           >
             <h3> Collection name: {this.collectionName} </h3>
+            {
+              !loadingBrandsInCollection && brandList.length > 0
+              &&
+              <div>
 
-            <div>
+                <NavLink to={`/home/manage-collections/edit-collection/${this.state.collectionShortName}?collectionName=${this.collectionName}&collectionDisplayName=${this.collectionDisplayName}`}>
+                  <RaisedButton
+                    label="EDIT"
+                    primary
+                  // onClick={() => this.editCollection()}
+                  />
+                </NavLink>
 
-              <NavLink to={`/home/manage-collections/edit-collection/${this.state.collectionShortName}?collectionName=${this.collectionName}&collectionDisplayName=${this.collectionDisplayName}`}>
-                <RaisedButton
-                  label="EDIT"
-                  primary
-                // onClick={() => this.editCollection()}
-                />
-              </NavLink>
-
-            </div>
+              </div>
+            }
           </div>
 
           {
@@ -109,7 +112,6 @@ class ViewCollection extends React.Component {
                 setPage={this.handlePageChange}
               />
             </React.Fragment>
-            // : <div> No brands found </div>
           }
           {
             !loadingBrandsInCollection && brandList.length === 0

@@ -244,7 +244,6 @@ export default function AddBrandDialog(data) {
         })
           .then(json => {
             this.brands = json.brands.map(item => {
-              console.log("item", item)
               return {
                 id: item.id,
                 brand: item.brand_name,

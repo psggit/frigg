@@ -151,7 +151,7 @@ class EditCollection extends React.Component {
           </div>
         </Card>
         <br />
-        <RaisedButton style={{ marginTop: '40px' }} label="Save" primary />
+        <RaisedButton style={{ marginTop: '40px' }} label="Save" primary disabled={true} />
         <RaisedButton
           style={{ marginTop: '40px', marginLeft: '20px' }}
           onClick={this.fetchBrandList}
