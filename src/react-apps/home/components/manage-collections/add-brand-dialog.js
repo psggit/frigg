@@ -105,6 +105,9 @@ import { GET, POST } from '@utils/fetch'
 import Search from '@components/SearchInput'
 import '@sass/OrdersPage/ShowNotified.scss'
 import '@sass/components/_spinner.scss'
+import SelectField from 'material-ui/SelectField'
+import { Card } from 'material-ui/Card'
+import MenuItem from 'material-ui/MenuItem'
 //import { getIcon } from './../utils'
 
 export default function AddBrandDialog(data) {
@@ -121,7 +124,9 @@ export default function AddBrandDialog(data) {
         loadingGenres: true,
         loadingBrands: true,
         loadingSKU: true,
-        searchQuery: ''
+        searchQuery: '',
+        citiesData: [],
+        cityId: ''
       }
 
       this.selectedBrand = []
@@ -129,15 +134,36 @@ export default function AddBrandDialog(data) {
       this.setActiveAccordian = this.setActiveAccordian.bind(this)
       this.listGenres = this.listGenres.bind(this)
       this.listBrandsUsingGenre = this.listBrandsUsingGenre.bind(this)
-      this.listSKUUsingBrand = this.listSKUUsingBrand.bind(this)
+      // this.listSKUUsingBrand = this.listSKUUsingBrand.bind(this)
       this.searchBrands = this.searchBrands.bind(this)
       this.setSearchQuery = this.setSearchQuery.bind(this)
+      this.handleCityChange = this.handleCityChange.bind(this)
     }
 
     componentDidMount() {
-      this.listGenres()
-      this.listBrandsUsingGenre('beer')
+      this.fetchCities()
+
       //console.log("brand", this.brands )
+    }
+
+    fetchCities() {
+
+      POST({
+        api: `/cityManagement/listCities`,
+        handleError: true,
+        apiBase: 'odin',
+        data: {
+          state_short_name: null,
+          is_available: null,
+          offset: 0,
+          limit: 50,
+          deliverable_city: null,
+          no_filter: true
+        }
+      })
+        .then(json => {
+          this.setState({ citiesData: json.cities })
+        })
     }
 
     setActiveAccordian(i, genreShortName, brandName) {
@@ -152,58 +178,19 @@ export default function AddBrandDialog(data) {
           isAccordianOpen: true,
           loadingSKU: true
         })
-        this.listSKUUsingBrand(genreShortName, brandName)
+        //this.listSKUUsingBrand(genreShortName, brandName)
       }
-
-      // this.listSKUUsingBrand(this.brands[i].shortName)
     }
 
-    listSKUUsingBrand(genreShortName, brandName) {
+    listBrandsUsingGenre(genre, cityId) {
       POST({
-        api: `/support/browse/stores/${genreShortName}/${brandName}`,
+        api: `/support/browse/bucket/genre/${genre}`,
         handleError: true,
         apiBase: 'catman',
         data: {
           from: 0,
           size: 9999,
-          km: '40km',
-          gps: data.gps,
-          is_featured: false,
-          stateName: 'TN'
-        }
-      })
-        .then(json => {
-          let id
-          let type
-          let cashbackTitle
-          this.skus = json.brand.skus.map(item => {
-            id = item.offer ? item.offer.cash_back_offer_id : item.sku_pricing_id
-            type = item.offer ? 'cashback' : 'normal'
-            cashbackTitle = item.offer ? item.offer.title : ''
-            return {
-              id,
-              volume: item.volume,
-              price: item.price,
-              type,
-              cashbackTitle
-            }
-          })
-          this.setState({ loadingSKU: false })
-        })
-    }
-
-    listBrandsUsingGenre(genre) {
-      POST({
-        api: `/support/browse/genre/${genre}`,
-        handleError: true,
-        apiBase: 'catman',
-        data: {
-          from: 0,
-          size: 9999,
-          km: '40km',
-          gps: data.gps,
-          is_featured: false,
-          stateName: 'TN'
+          city_id: parseInt(cityId),
         }
       })
         .then(json => {
@@ -219,13 +206,13 @@ export default function AddBrandDialog(data) {
         })
     }
 
-    listGenres() {
+    listGenres(cityId) {
       POST({
-        api: '/support/browse/stores',
+        api: '/support/browse/bucket/stores',
         handleError: true,
         apiBase: 'catman',
         data: {
-          gps: data.gps
+          city_id: parseInt(cityId),
         }
       })
         .then(json => {
@@ -240,11 +227,6 @@ export default function AddBrandDialog(data) {
         })
     }
 
-    // addItemToCart(item, brand) {
-    //   data.addItemToCart(item, brand)
-    //   // unMountModal()
-    // }
-
     searchBrands(searchText) {
       this.setState({ loadingBrands: true, isAccordianOpen: false, activeAccordian: -1 })
       if (searchText.length) {
@@ -255,7 +237,7 @@ export default function AddBrandDialog(data) {
           data: {
             searchText,
             km: '40km',
-            gps: data.gps,
+            id: this.state.cityId,
             is_featured: false,
             stateName: 'TN'
           }
@@ -287,11 +269,38 @@ export default function AddBrandDialog(data) {
       this.setState({ searchQuery })
     }
 
+    handleCityChange(e) {
+      this.setState({ cityId: e.target.value })
+      this.listGenres(e.target.value)
+      this.listBrandsUsingGenre('beer', e.target.value)
+    }
+
     render() {
       return (
         <React.Fragment>
           <ModalBox>
             <ModalHeader>Browse Catalogue</ModalHeader>
+            {
+              <div style={{ display: 'flex', flexDirection: 'column', borderBottom: '1px solid #f6f6f6' }}>
+                <h3>Choose city to list genre</h3>
+
+                <select
+                  style={{ marginRight: '20px', marginBottom: '20px', height: '46px', fontSize: '16px', width: '50%' }}
+                  value={this.state.cityId}
+                  onChange={this.handleCityChange}
+                >
+                  {
+                    this.state.citiesData.length > 0 &&
+                    this.state.citiesData.map(item => (
+                      <option
+                        key={item.id} value={item.id}>
+                        {item.name}
+                      </option>
+                    ))
+                  }
+                </select>
+              </div>
+            }
             <div style={{ display: 'flex', margin: '20px 0' }}>
               {
                 !this.state.loadingGenres &&
@@ -338,10 +347,9 @@ export default function AddBrandDialog(data) {
                             style={{ cursor: 'pointer' }} key={i}
                           >
                             <td>{item.brand}</td>
-                            {/* <td style={{ textAlign: 'center' }}>{getIcon('down-arrow')}</td> */}
                             <td>
                               <button
-                                onClick={() => { data.addBrand({brand_id: item.id, brand: item.brand, short_name: item.shortName}) }}
+                                onClick={() => { data.addBrand({ brand_id: item.id, brand: item.brand, short_name: item.shortName }) }}
                                 style={{
                                   padding: '2px 20px'
                                 }}

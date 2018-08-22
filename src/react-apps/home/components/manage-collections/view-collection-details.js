@@ -8,7 +8,6 @@ import { mountModal, unMountModal } from '@components/ModalBox/utils'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as Actions from './../../actions'
-//import ViewBrandsInCollection from './../manage-collections/view-collections'
 
 class ViewCollection extends React.Component {
   constructor() {
@@ -25,7 +24,7 @@ class ViewCollection extends React.Component {
     this.fetchBrandList = this.fetchBrandList.bind(this)
     this.addBrand = this.addBrand.bind(this)
     this.removeBrand = this.removeBrand.bind(this),
-    this.handleCheckboxes = this.handleCheckboxes.bind(this)
+      this.handleCheckboxes = this.handleCheckboxes.bind(this)
   }
 
   mountCollectionDialog() {
@@ -40,28 +39,18 @@ class ViewCollection extends React.Component {
     unMountModal()
     let brandIdFound = false
 
-    for(let i in this.state.selectedBrand) {
-      if(this.state.selectedBrand[i].brand_id === newBrand.brand_id) {
+    for (let i in this.state.selectedBrand) {
+      if (this.state.selectedBrand[i].brand_id === newBrand.brand_id) {
         brandIdFound = true
       }
     }
 
-    if(!brandIdFound) {
+    if (!brandIdFound) {
       this.setState({ selectedBrand: [...this.state.selectedBrand, newBrand] })
     }
-    
-    // this.props.actions.addBrandToCollection({
-    //   brand_id: newBrand.brand_id,
-    //   short_name: this.state.display_name
-    // })
   }
 
   removeBrand(brand) {
-
-    // this.props.actions.removeBrandFromCollection({
-    //   brand_id: brand.brand_id,
-    //   short_name: brand.short_name
-    // })
 
     this.setState({
       selectedBrand: this.state.selectedBrand.filter((item) => item.brand_id !== brand.brand_id)
@@ -79,7 +68,7 @@ class ViewCollection extends React.Component {
       collection_data: {
         name: this.state.name,
         display_name: this.state.display_name,
-        is_active: this.state.is_active, 
+        is_active: this.state.is_active,
       },
       brand_data: brandData
     })
@@ -92,13 +81,13 @@ class ViewCollection extends React.Component {
   fetchBrandList() {
     mountModal(AddBrandDialog({
       heading: 'Browse catalogue',
-      gps: '13.009625760868293,80.25397762656212',
+      //gps: '13.009625760868293,80.25397762656212',
       addBrand: this.addBrand
     }))
   }
 
   handleChange(e) {
-    this.setState({[e.target.name]: e.target.value});
+    this.setState({ [e.target.name]: e.target.value });
   }
 
   render() {
@@ -113,7 +102,7 @@ class ViewCollection extends React.Component {
         >
           <div className="form-group">
             <label className="label">Name</label><br />
-            <input style={{ marginTop: '10px' }} name="name" value={this.state.name} onChange={(e) => this.handleChange(e)}/>
+            <input style={{ marginTop: '10px' }} name="name" value={this.state.name} onChange={(e) => this.handleChange(e)} />
           </div>
 
           <div className="form-group">
@@ -135,18 +124,10 @@ class ViewCollection extends React.Component {
         <RaisedButton style={{ marginTop: '40px' }} onClick={() => this.createCollection()} label="Save" primary />
         <RaisedButton
           style={{ marginTop: '40px', marginLeft: '20px' }}
-          // onClick={this.mountCollectionDialog}
           onClick={this.fetchBrandList}
           label="Add item"
           primary
         />
-        {/* <ViewBrandsInCollection /> */}
-        {/* {
-          this.state.shouldMountCollectionDialog &&
-          <AddBrandDialog
-            unmountCollectionDialog={this.unmountCollectionDialog}
-          />
-        } */}
         {
           this.state.selectedBrand.length > 0 &&
           <div style={{ width: '100%', maxWidth: 900 }}>

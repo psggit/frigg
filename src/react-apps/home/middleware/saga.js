@@ -574,8 +574,7 @@ function* addRetailerNumbers(action) {
 function* addBrandToCollection(action) {
   try {
     const data = yield call(Api.addBrandToCollection, action)
-    Notify('Successfully added brand', 'success')
-    //yield put({ type: ActionTypes.REQUEST_FETCH_CONTACT_NUMBERS_OF_RETAILER, data: { retailer_id: action.data[0].retailer_id } })
+    Notify('Successfully added brand to the collection', 'success')
   } catch (err) {
     console.log(err)
   }
@@ -584,8 +583,7 @@ function* addBrandToCollection(action) {
 function* removeBrandFromCollection(action) {
   try {
     const data = yield call(Api.removeBrandFromCollection, action)
-    Notify('Successfully removed brand', 'success')
-    //yield put({ type: ActionTypes.REQUEST_FETCH_CONTACT_NUMBERS_OF_RETAILER, data: { retailer_id: action.data[0].retailer_id } })
+    Notify('Successfully removed brand from the collection', 'success')
   } catch (err) {
     console.log(err)
   }
@@ -594,11 +592,10 @@ function* removeBrandFromCollection(action) {
 function* createCollection(action) {
   try {
     const data = yield call(Api.createCollection, action)
-    Notify('Successfully created collection', 'success')
-    // setTimeout(() => {
-    //   location.href = '/home/manage-collections'
-    // }, 2000)
-    //yield put({ type: ActionTypes.REQUEST_FETCH_CONTACT_NUMBERS_OF_RETAILER, data: { retailer_id: action.data[0].retailer_id } })
+    Notify('Created collection successfully', 'success')
+    setTimeout(() => {
+      location.href = '/home/manage-collections'
+    }, 2000)
   } catch (err) {
     console.log(err)
   }
@@ -607,7 +604,6 @@ function* createCollection(action) {
 function* fetchCollections(action) {
   try {
     const data = yield call(Api.fetchCollections, action)
-    //Notify('Successfully created collection', 'success')
     yield put({ type: ActionTypes.SUCCESS_FETCH_COLLECTIONS, data })
   } catch (err) {
     console.log(err)
@@ -617,7 +613,6 @@ function* fetchCollections(action) {
 function* fetchBrandsInCollection(action) {
   try {
     const data = yield call(Api.fetchBrandsInCollections, action)
-    //Notify('Successfully created collection', 'success')
     yield put({ type: ActionTypes.SUCCESS_FETCH_BRANDS_IN_COLLECTION, data })
   } catch (err) {
     console.log(err)

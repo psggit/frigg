@@ -8,9 +8,7 @@ import {
   TableRowColumn,
 } from 'material-ui/Table'
 
-import RaisedButton from 'material-ui/RaisedButton'
 import FlatButton from 'material-ui/FlatButton'
-import CircularProgress from 'material-ui/CircularProgress'
 import { NavLink } from 'react-router-dom'
 import TableLoadingShell from './../table-loading-shell'
 import '@sass/components/_table.scss'
@@ -32,7 +30,6 @@ const styles = [
 ]
 
 function ViewCollectionList(data) {
-  console.log("col list", data)
   return (
     <Table
       className="bordered--table"
@@ -55,14 +52,8 @@ function ViewCollectionList(data) {
           ? (
             data.collectionsList.map(item => (
               <TableRow key={item.short_name}>
-                {/* <TableRowColumn style={styles[0]}>
-                  {item.consumer_name}
-                </TableRowColumn> */}
                 <TableRowColumn style={styles[0]}>
                   <NavLink
-                    // target="_blank"
-                    // exact
-                    // to={`/home/manage-states/${item.state_name}?id=${item.id}`}
                     to={`/home/manage-collections/view-collection/${item.short_name}?collectionName=${item.short_name}&collectionDisplayName=${item.display_name}`}
                   >
                     <FlatButton primary label="View" />

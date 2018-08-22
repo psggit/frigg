@@ -56,6 +56,7 @@ class EditCollection extends React.Component {
   }
 
   addBrand(newBrand) {
+
     unMountModal()
     let brandIdFound = false
 
@@ -93,7 +94,7 @@ class EditCollection extends React.Component {
     let pageNumber = pageObj.activePage
     let offset = this.pagesLimit * (pageNumber - 1)
     this.setState({ activePage: pageNumber, pageOffset: offset, loadingBrand: true })
-    console.log("action", this.props.action)
+  
     this.props.actions.fetchBrandsInCollection({
       collectionShortName: collectionShortName,
       data: {
@@ -111,7 +112,6 @@ class EditCollection extends React.Component {
   fetchBrandList() {
     mountModal(AddBrandDialog({
       heading: 'Browse catalogue',
-      gps: '13.009625760868293,80.25397762656212',
       addBrand: this.addBrand
     }))
   }
@@ -142,8 +142,8 @@ class EditCollection extends React.Component {
 
           <div className="form-group">
             <Checkbox
-              disabled={false}
-              checked={this.state.is_active}
+              disabled={true}
+              checked={true}
               onCheck={this.handleCheckboxes}
               name="is_active"
               label="is_active"
@@ -151,10 +151,9 @@ class EditCollection extends React.Component {
           </div>
         </Card>
         <br />
-        <RaisedButton style={{ marginTop: '40px' }} onClick={() => this.createCollection()} label="Save" primary />
+        <RaisedButton style={{ marginTop: '40px' }} label="Save" primary />
         <RaisedButton
           style={{ marginTop: '40px', marginLeft: '20px' }}
-          // onClick={this.mountCollectionDialog}
           onClick={this.fetchBrandList}
           label="Add item"
           primary

@@ -520,7 +520,6 @@ export const fetchCollections = action => (
 )
 
 export const fetchBrandsInCollections = (action) => {
-  console.log("action in api", action)
   return POST({
     api: `/bucket/browse/list/${action.data.collectionShortName}`,
     apiBase: 'catman',

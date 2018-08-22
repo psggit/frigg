@@ -19,6 +19,7 @@ const initialState = {
   loadingImageAds: true,
   loadingContactNumbersOfRetailer: true,
   loadingAllCollections: true,
+  loadingBrandsInCollection: true,
   contactNumbersOfRetailer: [],
   imageAdsData: [],
   geoFenceCheckData: [],
@@ -36,11 +37,10 @@ const initialState = {
   deliverers: [],
   geoLocalitiesData: [],
   collectionsList: {},
+  brandList: {},
   cityDetails: {},
   collectionsCount: 0,
-  loadingBrandsInCollection: true,
-  brandCount: 0,
-  brandList: {}
+  brandCount: 0
 }
 
 const actionsMap = {
@@ -209,7 +209,6 @@ const actionsMap = {
   },
 
   [ActionTypes.SUCCESS_FETCH_BRANDS_IN_COLLECTION]: (state, action) => {
-    console.log("success", action)
     return Object.assign({}, state, {
       loadingBrandsInCollection: false,
       brandList: action.data.bucket,
