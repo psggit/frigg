@@ -275,3 +275,8 @@ export const fetchCollections = (data) => ({
   type: ActionTypes.REQUEST_FETCH_COLLECTIONS,
   data
 })
+
+export const fetchBrandsInCollection = (data) => ({
+  type: ActionTypes.REQUEST_FETCH_BRANDS_IN_COLLECTION,
+  data
+})

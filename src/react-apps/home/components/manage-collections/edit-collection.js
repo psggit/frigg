@@ -8,32 +8,51 @@ import { mountModal, unMountModal } from '@components/ModalBox/utils'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as Actions from './../../actions'
-//import ViewBrandsInCollection from './../manage-collections/view-collections'
+import { getQueryObj } from '@utils/url-utils'
+import Pagination from '@components/pagination'
 
-class ViewCollection extends React.Component {
-  constructor() {
-    super()
+class EditCollection extends React.Component {
+  constructor(props) {
+    super(props)
     this.state = {
       shouldMountCollectionDialog: false,
       selectedBrand: [],
       is_active: false,
       name: '',
-      display_name: ''
+      display_name: '',
+      short_name: '',
+      activePage: 1,
+      pageOffset: 0,
     }
-    this.mountCollectionDialog = this.mountCollectionDialog.bind(this)
-    this.unmountCollectionDialog = this.unmountCollectionDialog.bind(this)
+    this.brandCount = 0,
+    this.pagesLimit = 5
     this.fetchBrandList = this.fetchBrandList.bind(this)
     this.addBrand = this.addBrand.bind(this)
-    this.removeBrand = this.removeBrand.bind(this),
-    this.handleCheckboxes = this.handleCheckboxes.bind(this)
+    this.removeBrand = this.removeBrand.bind(this)
+
   }
 
-  mountCollectionDialog() {
-    this.setState({ shouldMountCollectionDialog: true, open: true })
-  }
+  componentDidMount() {
 
-  unmountCollectionDialog() {
-    this.setState({ shouldMountCollectionDialog: false })
+    const { collectionShortName } = this.props.match.params
+    this.setState({ short_name: collectionShortName })
+
+    const queryObj = getQueryObj(location.search.slice(1))
+
+    if(queryObj && queryObj.collectionName.length && queryObj.collectionDisplayName.length) {
+      this.setState({name: queryObj.collectionName, display_name: queryObj.collectionDisplayName})
+    }
+
+    let brandList = this.props.brandList.map((item) => {
+      return {
+        brand_id:item.brand_id,
+        brand: item.brand_name,
+        short_name: item.brand_short_name
+      }
+    })
+
+    this.setState({selectedBrand: brandList})
+    
   }
 
   addBrand(newBrand) {
@@ -50,18 +69,18 @@ class ViewCollection extends React.Component {
       this.setState({ selectedBrand: [...this.state.selectedBrand, newBrand] })
     }
     
-    // this.props.actions.addBrandToCollection({
-    //   brand_id: newBrand.brand_id,
-    //   short_name: this.state.display_name
-    // })
+    this.props.actions.addBrandToCollection({
+      brand_id: newBrand.brand_id,
+      short_name: this.state.short_name
+    })
   }
 
   removeBrand(brand) {
 
-    // this.props.actions.removeBrandFromCollection({
-    //   brand_id: brand.brand_id,
-    //   short_name: brand.short_name
-    // })
+    this.props.actions.removeBrandFromCollection({
+      brand_id: brand.brand_id,
+      short_name: this.state.short_name
+    })
 
     this.setState({
       selectedBrand: this.state.selectedBrand.filter((item) => item.brand_id !== brand.brand_id)
@@ -69,25 +88,25 @@ class ViewCollection extends React.Component {
 
   }
 
-  createCollection() {
-    let brandData = this.state.selectedBrand.map((item) => {
-      return {
-        brand_id: item.brand_id
+  handlePageChange(pageObj) {
+
+    let pageNumber = pageObj.activePage
+    let offset = this.pagesLimit * (pageNumber - 1)
+    this.setState({ activePage: pageNumber, pageOffset: offset, loadingBrand: true })
+    console.log("action", this.props.action)
+    this.props.actions.fetchBrandsInCollection({
+      collectionShortName: collectionShortName,
+      data: {
+        from: pageObj.offset,
+        size: this.pagesLimit
       }
     })
-    this.props.actions.createCollection({
-      collection_data: {
-        name: this.state.name,
-        display_name: this.state.display_name,
-        is_active: this.state.is_active, 
-      },
-      brand_data: brandData
-    })
+
   }
 
-  handleCheckboxes(e) {
-    this.setState({ [e.target.name]: e.target.checked })
-  }
+  // handleCheckboxes(e) {
+  //   this.setState({ [e.target.name]: e.target.checked })
+  // }
 
   fetchBrandList() {
     mountModal(AddBrandDialog({
@@ -113,12 +132,12 @@ class ViewCollection extends React.Component {
         >
           <div className="form-group">
             <label className="label">Name</label><br />
-            <input style={{ marginTop: '10px' }} name="name" value={this.state.name} onChange={(e) => this.handleChange(e)}/>
+            <input style={{ marginTop: '10px' }} name="name" value={this.state.name} onChange={(e) => this.handleChange(e)} disabled/>
           </div>
 
           <div className="form-group">
             <label className="label">Display name</label><br />
-            <input style={{ marginTop: '10px' }} name="display_name" value={this.state.display_name} onChange={(e) => this.handleChange(e)} />
+            <input style={{ marginTop: '10px' }} name="display_name" value={this.state.display_name} onChange={(e) => this.handleChange(e)} disabled/>
           </div>
 
           <div className="form-group">
@@ -140,13 +159,7 @@ class ViewCollection extends React.Component {
           label="Add item"
           primary
         />
-        {/* <ViewBrandsInCollection /> */}
-        {/* {
-          this.state.shouldMountCollectionDialog &&
-          <AddBrandDialog
-            unmountCollectionDialog={this.unmountCollectionDialog}
-          />
-        } */}
+
         {
           this.state.selectedBrand.length > 0 &&
           <div style={{ width: '100%', maxWidth: 900 }}>
@@ -156,6 +169,13 @@ class ViewCollection extends React.Component {
               removeBrand={this.removeBrand}
               showDelete={true}
             ></ViewBrandsInCollection>
+            <Pagination
+              activePage={parseInt(this.state.activePage)}
+              itemsCountPerPage={this.pagesLimit}
+              totalItemsCount={this.props.brandCount}
+              pageRangeDisplayed={5}
+              setPage={this.handlePageChange}
+            />
           </div>
         }
       </div>
@@ -172,7 +192,7 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(ViewCollection)
+)(EditCollection)
 
 
 

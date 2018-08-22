@@ -67,11 +67,9 @@ export function checkStatus(response) {
  */
 export function constructFetchUtility(options) {
   const { api, data, method, type, cors, prependBaseUrl = true, apiBase } = options
-  console.log("api base", apiBase)
 
   // construct request url
   const url = prependBaseUrl ? `${Api[apiBase]}${api}` : api
-  console.log("url", url)
 
   // construct options for creating `window.fetch` instance
   let fetchOptions = {

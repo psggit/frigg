@@ -5,6 +5,8 @@ import * as Actions from './../../actions'
 import ViewBrandsInCollection from './view-brands-in-collection'
 import { GET, POST } from '@utils/fetch'
 import { getQueryObj } from '@utils/url-utils'
+import RaisedButton from 'material-ui/RaisedButton'
+import { NavLink } from 'react-router-dom'
 
 import Pagination from '@components/pagination'
 
@@ -16,49 +18,62 @@ class ViewCollection extends React.Component {
     super(props)
 
     this.state = {
-      collectionName: '',
-      loadingBrand: false,
+      collectionShortName: '',
+      // loadingBrand: false,
       activePage: 1,
       pageOffset: 0
     },
-    this.brandList = [],
-    this.brandCount = 0,
-    this.pagesLimit = 5
+      // this.brandList = [],
+      this.collectionName = '',
+      this.collectionDisplayName = '',
+      // this.brandCount = 0,
+      this.pagesLimit = 5
   }
 
   componentDidMount() {
-    // const queryObj = getQueryObj(location.search.slice(1))
-    // console.log("query", queryObj)
-    const { collectionName } = this.props.match.params
-    this.setState({ collectionName,loadingBrand: true })
+
+    const { collectionShortName } = this.props.match.params
+    this.setState({ collectionShortName, loadingBrand: true })
+
+    const queryObj = getQueryObj(location.search.slice(1))
+
+    this.collectionName = queryObj.collectionName
+    this.collectionDisplayName = queryObj.collectionDisplayName
 
     // this.props.actions.getSpecificCollections({
     //   from: 0,
     //   size: 10
     // })
-    console.log("collection name", collectionName);
-    POST({
-      api: `/bucket/browse/list/${collectionName}`,
-      handleError: true,
-      apiBase: 'catman',
+    //console.log("collection name", collectionName);
+    this.props.actions.fetchBrandsInCollection({
+      collectionShortName: collectionShortName,
       data: {
         from: 0,
         size: 9
       }
     })
-    .then(json => {
-      console.log("json", json)
-      this.brandList = json.bucket
-      this.brandCount = json.count
-      this.setState({ loadingBrand: false })
-    })
+    // POST({
+    //   api: `/bucket/browse/list/${collectionShortName}`,
+    //   handleError: true,
+    //   apiBase: 'catman',
+    //   data: {
+    //     from: 0,
+    //     size: 9
+    //   }
+    // })
+    //   .then(json => {
+    //     console.log("json", json)
+    //     this.brandList = json.bucket
+    //     this.brandCount = json.count
+    //     this.setState({ loadingBrand: false })
+    //   })
   }
 
   handlePageChange(pageObj) {
 
     let pageNumber = pageObj.activePage
     let offset = this.pagesLimit * (pageNumber - 1)
-    this.setState({ activePage: pageNumber, pageOffset: offset, loadingBrand:true })
+    this.setState({ activePage: pageNumber, pageOffset: offset, loadingBrand: true })
 
     // this.props.actions.fetchCollections({
     //   offset: pageObj.offset,
@@ -66,38 +81,53 @@ class ViewCollection extends React.Component {
     //   // from: this.state.fromDate,
     //   // to: this.state.toDate
     // })
-    POST({
-      api: `/bucket/browse/list/${collectionName}`,
-      handleError: true,
-      apiBase: 'catman',
+    // POST({
+    //   api: `/bucket/browse/list/${collectionShortName}`,
+    //   handleError: true,
+    //   apiBase: 'catman',
+    //   data: {
+    //     from: pageObj.offset,
+    //     size: this.pagesLimit
+    //   }
+    // })
+    //   .then(json => {
+    //     console.log("json", json)
+    //     this.brandList = json.bucket.map((item) => {
+    //       return item
+    //     })
+    //     this.brandCount = json.count
+    //     this.setState({ loadingBrand: false })
+    //   })
+    this.props.actions.fetchBrandsInCollection({
+      collectionShortName: collectionShortName,
       data: {
         from: pageObj.offset,
         size: this.pagesLimit
       }
     })
-    .then(json => {
-      console.log("json", json)
-      this.brandList = json.bucket.map((item) => {
-        return item
-      })
-      this.brandCount = json.count
-      this.setState({ loadingBrand: false })
-    })
 
+  }
+  
+  editCollection() {
+    console.log("edit collection")
   }
 
   render() {
+    let {loadingBrandsInCollection, brandList, brandCount} = this.props.data
+    //console.log("view collection", loadingBrandsInCollection, brandList, brandCount)
+    console.log("view collection", loadingBrandsInCollection, brandList, brandCount)
     return (
       <React.Fragment>
         <div style={{ width: '100%', maxWidth: 900 }}>
 
-          {/* <div
+          <div
             style={{
               display: 'flex',
-              justifyContent: 'space-between'
+              justifyContent: 'space-between',
+              alignItems: 'center'
             }}
           >
-            <div>
+            {/* <div>
               <NavLink to={`${location.pathname}/create-new`}>
                 <RaisedButton
                   label="Create new collection"
@@ -106,35 +136,44 @@ class ViewCollection extends React.Component {
                 />
               </NavLink>
 
-            </div>
+            </div> */}
 
-            <RaisedButton
-              onClick={this.mountFilterDialog}
-              label="Filter"
-              icon={getIcon('filter')}
-            />
-          </div> */}
-          <h3> Collection name: {this.state.collectionName} </h3>
+            <h3> Collection name: {this.collectionName} </h3>
+
+            <div>
+           
+              <NavLink to={`/home/manage-collections/edit-collection/${this.state.collectionShortName}?collectionName=${this.collectionName}&collectionDisplayName=${this.collectionDisplayName}`}>
+                <RaisedButton
+                  label="EDIT"
+                  primary
+                  // onClick={() => this.editCollection()}
+                />
+              </NavLink>
+
+            </div>
+          </div>
+
           {/* <ViewCollectionList
             loadingAllCollections={loadingAllCollections}
             collectionsList={collectionsList}
           /> */}
-          <ViewBrandsInCollection
-            brandList={this.brandList}
-          />
+
           {
-            !this.loadingBrand
+            !loadingBrandsInCollection && brandList.length > 0
               ?
               <React.Fragment>
+                <ViewBrandsInCollection
+                  brandList={brandList}
+                />
                 <Pagination
                   activePage={parseInt(this.state.activePage)}
                   itemsCountPerPage={this.pagesLimit}
-                  totalItemsCount={this.brandCount}
+                  totalItemsCount={brandCount}
                   pageRangeDisplayed={5}
                   setPage={this.handlePageChange}
                 />
               </React.Fragment>
-              : ''
+              : <div> No brands found </div>
           }
         </div>
       </React.Fragment>

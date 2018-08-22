@@ -36,6 +36,7 @@ import DeliveyAgentList from './../components/delivery-management/delivery-agent
 import CreateDeliveryAgent from './../components/delivery-management/create-delivery-agent'
 import ManagePossessionLimits from './../components/delivery-management/manage-possession-limits'
 import CreateCollection from './../components/manage-collections/view-collection-details'
+import EditCollection from './../components/manage-collections/edit-collection'
 // import ViewCollectionList from './../components/manage-collections/view-collections'
 import ViewCollection from './../components/manage-collections/view-collection'
 import RollbackTransaction from './rollback-transaction'
@@ -188,8 +189,8 @@ class App extends React.Component {
 
                       <Route exact path="/home/manage-collections" component={ManageCollections} />
                       <Route exact path="/home/manage-collections/create-new" component={CreateCollection} />
-                      {/* <Route exact path="/home/manage-collections/view-collections" component={ViewCollectionList} /> */}
-                      <Route exact path="/home/manage-collections/view-collection/:collectionName" component={ViewCollection} />
+                      <Route exact path="/home/manage-collections/edit-collection/:collectionShortName" component={EditCollection} />
+                      <Route exact path="/home/manage-collections/view-collection/:collectionShortName" component={ViewCollection} />
                     </Switch>
                 </DisplayScreen>
               </div>

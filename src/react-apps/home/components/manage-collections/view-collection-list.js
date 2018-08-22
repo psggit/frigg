@@ -20,7 +20,7 @@ const TableHeaderItems = [
   'NAME',
   'SHORT NAME',
   'DISPLAY NAME',
-  'ACTIVE',
+  'COLLECTION ACTIVE',
 ]
 
 const styles = [
@@ -28,7 +28,7 @@ const styles = [
   { width: '120px', textAlign: 'left' },
   { width: '120px', textAlign: 'left' },
   { width: '120px', textAlign: 'left' },
-  { width: '60px', textAlign: 'left' },
+  { width: '120px', textAlign: 'left' },
 ]
 
 function ViewCollectionList(data) {
@@ -63,7 +63,7 @@ function ViewCollectionList(data) {
                     // target="_blank"
                     // exact
                     // to={`/home/manage-states/${item.state_name}?id=${item.id}`}
-                    to={`/home/manage-collections/view-collection/${item.name}`}
+                    to={`/home/manage-collections/view-collection/${item.short_name}?collectionName=${item.short_name}&collectionDisplayName=${item.display_name}`}
                   >
                     <FlatButton primary label="View" />
                   </NavLink>

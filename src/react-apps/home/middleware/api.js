@@ -518,3 +518,15 @@ export const fetchCollections = action => (
     handleError: true
   })
 )
+
+export const fetchBrandsInCollections = (action) => {
+  console.log("action in api", action)
+  return POST({
+    api: `/bucket/browse/list/${action.data.collectionShortName}`,
+    apiBase: 'catman',
+    data: action.data.data,
+    handleError: true
+  })
+}
+  
+

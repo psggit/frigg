@@ -595,9 +595,9 @@ function* createCollection(action) {
   try {
     const data = yield call(Api.createCollection, action)
     Notify('Successfully created collection', 'success')
-    setTimeout(() => {
-      location.href = '/home/manage-collections'
-    }, 2000)
+    // setTimeout(() => {
+    //   location.href = '/home/manage-collections'
+    // }, 2000)
     //yield put({ type: ActionTypes.REQUEST_FETCH_CONTACT_NUMBERS_OF_RETAILER, data: { retailer_id: action.data[0].retailer_id } })
   } catch (err) {
     console.log(err)
@@ -609,6 +609,16 @@ function* fetchCollections(action) {
     const data = yield call(Api.fetchCollections, action)
     //Notify('Successfully created collection', 'success')
     yield put({ type: ActionTypes.SUCCESS_FETCH_COLLECTIONS, data })
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+function* fetchBrandsInCollection(action) {
+  try {
+    const data = yield call(Api.fetchBrandsInCollections, action)
+    //Notify('Successfully created collection', 'success')
+    yield put({ type: ActionTypes.SUCCESS_FETCH_BRANDS_IN_COLLECTION, data })
   } catch (err) {
     console.log(err)
   }
@@ -935,6 +945,12 @@ function* watchRequestFetchCollections() {
   }
 }
 
+function* watchRequestFetchBrandsInCollection() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_FETCH_BRANDS_IN_COLLECTION , fetchBrandsInCollection)
+  }
+}
+
 export default function* rootSaga() {
   yield [
     fork(watchFetchStates),
@@ -989,6 +1005,7 @@ export default function* rootSaga() {
     fork(watchRequestAddBrandToCollection),
     fork(watchRequestRemoveBrandFromCollection),
     fork(watchRequestCreateCollection),
-    fork(watchRequestFetchCollections)
+    fork(watchRequestFetchCollections),
+    fork(watchRequestFetchBrandsInCollection)
   ]
 }
