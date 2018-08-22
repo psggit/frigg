@@ -595,6 +595,9 @@ function* createCollection(action) {
   try {
     const data = yield call(Api.createCollection, action)
     Notify('Successfully created collection', 'success')
+    setTimeout(() => {
+      location.href = '/home/manage-collections'
+    }, 2000)
     //yield put({ type: ActionTypes.REQUEST_FETCH_CONTACT_NUMBERS_OF_RETAILER, data: { retailer_id: action.data[0].retailer_id } })
   } catch (err) {
     console.log(err)
@@ -602,19 +605,14 @@ function* createCollection(action) {
 }
 
 function* fetchCollections(action) {
-  console.log("fetch collection", action)
   try {
     const data = yield call(Api.fetchCollections, action)
-    // setTimeout(() => {
-    //   location.href = '/home/manage-collections/create-new'
-    // }, 2000)
     //Notify('Successfully created collection', 'success')
     yield put({ type: ActionTypes.SUCCESS_FETCH_COLLECTIONS, data })
   } catch (err) {
     console.log(err)
   }
 }
-
 
 /**
  * Watchers

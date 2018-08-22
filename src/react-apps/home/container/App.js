@@ -35,8 +35,9 @@ import GeoFenceCheck from './geo-fence-check'
 import DeliveyAgentList from './../components/delivery-management/delivery-agent-list'
 import CreateDeliveryAgent from './../components/delivery-management/create-delivery-agent'
 import ManagePossessionLimits from './../components/delivery-management/manage-possession-limits'
-import ViewCollection from './../components/manage-collections/view-collection-details'
-import ViewCollectionList from './../components/manage-collections/view-collections'
+import CreateCollection from './../components/manage-collections/view-collection-details'
+// import ViewCollectionList from './../components/manage-collections/view-collections'
+import ViewCollection from './../components/manage-collections/view-collection'
 import RollbackTransaction from './rollback-transaction'
 import { getBreadCrumbPath, getUriFromBreadCrumb } from '@utils/url-utils'
 // import '@sass/components/_heading.scss'
@@ -186,8 +187,9 @@ class App extends React.Component {
                       <Route exact path="/home/hipbar-pay/rollback-transaction" component={RollbackTransaction} />
 
                       <Route exact path="/home/manage-collections" component={ManageCollections} />
-                      <Route exact path="/home/manage-collections/create-new" component={ViewCollection} />
-                      <Route exact path="/home/manage-collections/view-collections" component={ViewCollectionList} />
+                      <Route exact path="/home/manage-collections/create-new" component={CreateCollection} />
+                      {/* <Route exact path="/home/manage-collections/view-collections" component={ViewCollectionList} /> */}
+                      <Route exact path="/home/manage-collections/view-collection/:collectionName" component={ViewCollection} />
                     </Switch>
                 </DisplayScreen>
               </div>

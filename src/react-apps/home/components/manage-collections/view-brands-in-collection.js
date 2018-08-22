@@ -28,7 +28,7 @@ import { NavLink } from 'react-router-dom'
 import TableLoadingShell from './../table-loading-shell'
 import '@sass/components/_table.scss'
 
-const TableHeaderItems = [
+const TableHeaderItemsWithButton = [
   '',
   'ID',
   'BRAND_NAME',
@@ -36,7 +36,20 @@ const TableHeaderItems = [
   // ''
 ]
 
+const TableHeaderItems = [
+  'ID',
+  'BRAND_NAME',
+  'BRAND_SHORT_NAME',
+  // ''
+]
+
 const styles = [
+  { width: '60px'},
+  { width: '120px'},
+  { width: '120px'},
+]
+
+const headerStyles = [
   { width: '38px'},
   { width: '60px'},
   { width: '120px'},
@@ -44,6 +57,7 @@ const styles = [
 ]
 
 function ViewBrandsInCollection(data) {
+  console.log("data", data)
   return (
     <Table
       className="bordered--table"
@@ -53,7 +67,10 @@ function ViewBrandsInCollection(data) {
       <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
         <TableRow>
           {
+            data.showDelete ?
+            TableHeaderItemsWithButton.map((item, i) => <TableHeaderColumn style={headerStyles[i]} key={`table-head-col-${i}`}>{item}</TableHeaderColumn>) :
             TableHeaderItems.map((item, i) => <TableHeaderColumn style={styles[i]} key={`table-head-col-${i}`}>{item}</TableHeaderColumn>)
+            
           }
         </TableRow>
       </TableHeader>
@@ -62,11 +79,11 @@ function ViewBrandsInCollection(data) {
         showRowHover
       >
         {
-          // data.brandList.length > 0
-          // ? (
+          data.showDelete
+          ? (
             data.brandList.map(item => (
               <TableRow key={item.brand_id}>
-                <TableRowColumn style={styles[0]}>
+                <TableRowColumn style={headerStyles[0]}>
                   {/* <NavLink
                     // target="_blank"
                     // exact
@@ -77,18 +94,22 @@ function ViewBrandsInCollection(data) {
                   </NavLink> */}
                   <button onClick={() => data.removeBrand({brand_id: item.brand_id, short_name: item.short_name}) } style={{fontSize: '13px'}}> delete </button>
                 </TableRowColumn>
-                <TableRowColumn style={styles[1]}>{item.brand_id}</TableRowColumn>
-                <TableRowColumn style={styles[2]}>{item.brand}</TableRowColumn>
-                <TableRowColumn style={styles[3]}>{item.short_name}</TableRowColumn>
+                <TableRowColumn style={headerStyles[1]}>{item.brand_id}</TableRowColumn>
+                <TableRowColumn style={headerStyles[2]}>{item.brand}</TableRowColumn>
+                <TableRowColumn style={headerStyles[3]}>{item.short_name}</TableRowColumn>
       
               </TableRow>
             ))
-          // )
-          // : (
-          //   [1, 2, 3, 4, 5].map(() => (
-          //     <TableLoadingShell />
-          //   ))
-          // )
+          )
+          : (
+            data.brandList.map(item => (
+              <TableRow key={item.brand_id}>
+                <TableRowColumn style={styles[0]}>{item.brand_id}</TableRowColumn>
+                <TableRowColumn style={styles[1]}>{item.brand_name}</TableRowColumn>
+                <TableRowColumn style={styles[2]}>{item.brand_short_name}</TableRowColumn>
+              </TableRow>
+            ))
+          )
         }
       </TableBody>
     </Table>

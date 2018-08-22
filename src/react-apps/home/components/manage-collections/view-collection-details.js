@@ -154,6 +154,7 @@ class ViewCollection extends React.Component {
             <ViewBrandsInCollection
               brandList={this.state.selectedBrand}
               removeBrand={this.removeBrand}
+              showDelete={true}
             ></ViewBrandsInCollection>
           </div>
         }
