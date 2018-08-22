@@ -1,15 +1,13 @@
 import React from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import * as Actions from './../actions'
-import { mountModal } from '@components/ModalBox/utils'
-import DatePicker from './../../../components/DatePicker'
-import Moment from 'moment'
-import Pagination from '@components/pagination'
-import ViewValidCredits from './../components/customer-management/view-credits'
-import { getIcon } from '@components/utils'
+import * as Actions from './../../actions'
 
-class ViewCredits extends React.Component {
+import Pagination from '@components/pagination'
+
+import ViewCollectionList from './view-collection-list'
+
+class ViewCollections extends React.Component {
 
   constructor(props) {
 
@@ -104,13 +102,14 @@ class ViewCredits extends React.Component {
     const { activePage } = this.state
     const {
       loadingAllCollections,
-      collectionsList
+      collectionsList,
+      collectionsCount
     } = this.props.data
 
     return(
       <React.Fragment>
         <div style={{ width: '100%', maxWidth: 900 }}>
-          <ViewCollectionsList
+          <ViewCollectionList
             loadingAllCollections={loadingAllCollections}
             collectionsList={collectionsList}
           />
@@ -121,7 +120,7 @@ class ViewCredits extends React.Component {
                 <Pagination
                   activePage={parseInt(activePage)}
                   itemsCountPerPage={this.pagesLimit}
-                  // totalItemsCount={validCreditsCount}
+                  totalItemsCount={collectionsCount}
                   pageRangeDisplayed={5}
                   setPage={this.handlePageChange}
                 />
@@ -148,6 +147,6 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(ViewCredits)
+)(ViewCollections)
 
 //export default ViewCredits

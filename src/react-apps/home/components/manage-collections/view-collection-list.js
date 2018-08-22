@@ -30,6 +30,7 @@ const styles = [
 ]
 
 function ViewCollectionList(data) {
+  console.log("col list", data)
   return (
     <Table
       className="bordered--table"
@@ -55,10 +56,21 @@ function ViewCollectionList(data) {
                 {/* <TableRowColumn style={styles[0]}>
                   {item.consumer_name}
                 </TableRowColumn> */}
+                 {/* <TableRowColumn style={styles[0]}>
+                  <NavLink
+                    // target="_blank"
+                    // exact
+                    // to={`/home/manage-states/${item.state_name}?id=${item.id}`}
+                    to={`/home/manage-collections/${item.state_name}?id=${item.id}&stateName=${item.state_name}&stateShortName=${item.short_name}`}
+                  >
+                    <FlatButton primary label="View" />
+                  </NavLink>
+
+                </TableRowColumn> */}
                 <TableRowColumn style={styles[0]}>{item.name}</TableRowColumn>
                 <TableRowColumn style={styles[1]}>{item.short_name}</TableRowColumn>
                 <TableRowColumn style={styles[2]}>{item.display_name}</TableRowColumn>
-                <TableRowColumn style={styles[3]}>{item.is_active}</TableRowColumn>
+                <TableRowColumn style={styles[3]}>{`${item.is_active}`}</TableRowColumn>
               </TableRow>
             ))
           )

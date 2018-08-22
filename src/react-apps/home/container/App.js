@@ -36,6 +36,7 @@ import DeliveyAgentList from './../components/delivery-management/delivery-agent
 import CreateDeliveryAgent from './../components/delivery-management/create-delivery-agent'
 import ManagePossessionLimits from './../components/delivery-management/manage-possession-limits'
 import ViewCollection from './../components/manage-collections/view-collection-details'
+import ViewCollectionList from './../components/manage-collections/view-collections'
 import RollbackTransaction from './rollback-transaction'
 import { getBreadCrumbPath, getUriFromBreadCrumb } from '@utils/url-utils'
 // import '@sass/components/_heading.scss'
@@ -186,6 +187,7 @@ class App extends React.Component {
 
                       <Route exact path="/home/manage-collections" component={ManageCollections} />
                       <Route exact path="/home/manage-collections/create-new" component={ViewCollection} />
+                      <Route exact path="/home/manage-collections/view-collections" component={ViewCollectionList} />
                     </Switch>
                 </DisplayScreen>
               </div>

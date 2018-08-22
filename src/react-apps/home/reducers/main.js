@@ -36,7 +36,8 @@ const initialState = {
   deliverers: [],
   geoLocalitiesData: [],
   collectionsList: {},
-  cityDetails: {}
+  cityDetails: {},
+  collectionsCount: 0
 }
 
 const actionsMap = {
@@ -199,7 +200,8 @@ const actionsMap = {
   [ActionTypes.SUCCESS_FETCH_COLLECTIONS]: (state, action) => {
     return Object.assign({}, state, {
       loadingAllCollections: false,
-      collectionsList: action.data
+      collectionsList: action.data.ads_data,
+      collectionsCount: action.data.count
     })
   }
 }
