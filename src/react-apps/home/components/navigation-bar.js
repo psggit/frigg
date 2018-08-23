@@ -71,6 +71,7 @@ class NavigationBar extends  React.Component {
       {
         name: 'HipBar Pay',
         nestedItems: [
+          { name: 'Rollback transaction', path: '/home/hipbar-pay/rollback-transaction', id: 12 }
         ]
       },
       {
