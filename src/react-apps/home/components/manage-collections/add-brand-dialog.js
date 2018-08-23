@@ -277,7 +277,7 @@ export default function AddBrandDialog(data) {
     render() {
       return (
         <React.Fragment>
-          <ModalBox>
+          <ModalBox maxHeight="80vh">
             <ModalHeader>Browse Catalogue</ModalHeader>
             {
               <div style={{ display: 'flex', flexDirection: 'column', borderBottom: '1px solid #f6f6f6' }}>
@@ -374,4 +374,3 @@ export default function AddBrandDialog(data) {
     }
   }
 }
-
