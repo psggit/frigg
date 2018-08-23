@@ -29,11 +29,11 @@ class EditCollection extends React.Component {
     this.fetchBrandList = this.fetchBrandList.bind(this)
     this.addBrand = this.addBrand.bind(this)
     this.removeBrand = this.removeBrand.bind(this)
+    this.handlePageChange = this.handlePageChange.bind(this)
 
   }
 
   componentDidMount() {
-    console.log("mount", this.props)
     const { collectionShortName } = this.props.match.params
     this.setState({ short_name: collectionShortName })
 
@@ -47,7 +47,7 @@ class EditCollection extends React.Component {
       collectionShortName: collectionShortName,
       data: {
         from: 0,
-        size: 9
+        size: 5
       }
     }, (response) => {
       let brandList = this.props.brandList.map((item) => {
@@ -99,6 +99,8 @@ class EditCollection extends React.Component {
 
   handlePageChange(pageObj) {
 
+    const { collectionShortName } = this.props.match.params
+
     let pageNumber = pageObj.activePage
     let offset = this.pagesLimit * (pageNumber - 1)
     this.setState({ activePage: pageNumber, pageOffset: offset, loadingBrand: true })
@@ -109,6 +111,16 @@ class EditCollection extends React.Component {
         from: pageObj.offset,
         size: this.pagesLimit
       }
+    }, () => {
+      let brandList = this.props.brandList.map((item) => {
+        return {
+          brand_id:item.brand_id,
+          brand: item.brand_name,
+          short_name: item.brand_short_name
+        }
+      })
+  
+      this.setState({selectedBrand: brandList})
     })
 
   }
@@ -129,6 +141,7 @@ class EditCollection extends React.Component {
   }
 
   render() {
+    console.log("edit collection", this.state.selectedBrand)
     return (
       <div>
         <Card

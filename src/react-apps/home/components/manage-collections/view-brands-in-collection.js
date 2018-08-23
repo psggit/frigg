@@ -38,6 +38,7 @@ const headerStyles = [
 ]
 
 function ViewBrandsInCollection(data) {
+  console.log("view brands", data)
   return (
     <Table
       className="bordered--table"

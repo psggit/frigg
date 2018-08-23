@@ -19,9 +19,12 @@ class ViewCollection extends React.Component {
       pageOffset: 0
     },
 
-      this.collectionName = '',
-      this.collectionDisplayName = '',
-      this.pagesLimit = 5
+    this.collectionName = '',
+    this.collectionDisplayName = '',
+    this.pagesLimit = 5
+
+    this.handlePageChange = this.handlePageChange.bind(this)
+
   }
 
   componentDidMount() {
@@ -37,14 +40,16 @@ class ViewCollection extends React.Component {
       collectionShortName: collectionShortName,
       data: {
         from: 0,
-        size: 9
+        size: 5
       }
     }, () => {
-      
+
     })
   }
 
   handlePageChange(pageObj) {
+
+    const { collectionShortName } = this.props.match.params
     let pageNumber = pageObj.activePage
     let offset = this.pagesLimit * (pageNumber - 1)
     this.setState({ activePage: pageNumber, pageOffset: offset, loadingBrand: true })
@@ -55,6 +60,8 @@ class ViewCollection extends React.Component {
         from: pageObj.offset,
         size: this.pagesLimit
       }
+    }, () => {
+
     })
   }
 
@@ -64,6 +71,7 @@ class ViewCollection extends React.Component {
 
   render() {
     const { loadingBrandsInCollection, brandList, brandCount } = this.props.data
+    console.log("brand list", brandList)
     const styles = {
       boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.08)',
       display: 'flex',
@@ -105,6 +113,7 @@ class ViewCollection extends React.Component {
             <React.Fragment>
               <ViewBrandsInCollection
                 brandList={brandList}
+                showDelete={false}
               />
               <Pagination
                 activePage={parseInt(this.state.activePage)}
