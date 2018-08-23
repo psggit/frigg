@@ -48,7 +48,8 @@ class ViewCollection extends React.Component {
 
   unMountBrandListModal() {
     unMountModal()
-    this.setState({ selectedBrand: [...this.brandList.slice(0, this.brandList.length - 1)]})
+    this.brandList = [...this.brandList.slice(0, this.brandList.length - 1)]
+    //this.setState({ selectedBrand: [...this.brandList.slice(0, this.brandList.length - 1)]})
   }
 
   addBrand(newBrand) {
