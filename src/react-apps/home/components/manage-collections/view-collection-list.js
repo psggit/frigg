@@ -18,7 +18,7 @@ const TableHeaderItems = [
   'NAME',
   'SHORT NAME',
   'DISPLAY NAME',
-  'COLLECTION ACTIVE',
+  'STATUS',
 ]
 
 const styles = [
@@ -63,7 +63,7 @@ function ViewCollectionList(data) {
                 <TableRowColumn style={styles[1]}>{item.name}</TableRowColumn>
                 <TableRowColumn style={styles[2]}>{item.short_name}</TableRowColumn>
                 <TableRowColumn style={styles[3]}>{item.display_name}</TableRowColumn>
-                <TableRowColumn style={styles[4]}>{`${item.is_active}`}</TableRowColumn>
+                <TableRowColumn style={styles[4]}>{ item.is_active ? 'ACTIVE' : 'INACTIVE' }</TableRowColumn>
               </TableRow>
             ))
           )
