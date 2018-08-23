@@ -519,9 +519,26 @@ export const addBrandToCollection = action => (
   })
 )
 
+export const fetchTransactionCode = () => (
+  GET({
+    api: '/consumer/list/transaction_code',
+    apiBase: 'odin',
+    handleError: true
+  })
+)
+
 export const removeBrandFromCollection = action => (
   POST({
     api: '/collection/remove',
+    apiBase: 'odin',
+    data: action.data,
+    handleError: true
+  })
+)
+
+export const verifyTransaction = action => (
+  POST({
+    api: '/consumer/verify/transaction',
     apiBase: 'odin',
     data: action.data,
     handleError: true
@@ -537,6 +554,15 @@ export const createCollection = action => (
   })
 )
 
+export const createTransaction = action => (
+  POST({
+    api: '/consumer/create/transaction',
+    apiBase: 'odin',
+    data: action.data,
+    handleError: true
+  })
+)
+
 export const fetchCollections = action => (
   POST({
     api: '/collection/view_all',
@@ -546,11 +572,29 @@ export const fetchCollections = action => (
   })
 )
 
-export const fetchBrandsInCollections = (action) => {
-  return POST({
+export const fetchBrandsInCollections = action => (
+  POST({
     api: `/bucket/browse/list/${action.data.collectionShortName}`,
     apiBase: 'catman',
     data: action.data.data,
+    handleError: true
+  })
+)
+
+export const requestTriggerSMS = (action) => {
+  POST({
+    api: '/admin/transaction/consumer/trigger',
+    apiBase: 'blogicUrl',
+    data:  action.data.transaction,
+    handleError: true
+  })
+}
+
+export const fetchCredits = (action) => {
+  POST({
+    api: '/consumer/view/credits',
+    apiBase: 'odin',
+    data:  action.data,
     handleError: true
   })
 }

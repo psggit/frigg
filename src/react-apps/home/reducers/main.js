@@ -21,6 +21,9 @@ const initialState = {
   loadingContactNumbersOfRetailer: true,
   loadingAllCollections: true,
   loadingBrandsInCollection: true,
+  loadingTransactionCode: true,
+  //verifyingTransaction: true,
+  loadingCredits: true,
   contactNumbersOfRetailer: [],
   imageAdsData: [],
   collectionAdsData: [],
@@ -42,7 +45,13 @@ const initialState = {
   brandList: {},
   cityDetails: {},
   collectionsCount: 0,
-  brandCount: 0
+  brandCount: 0,
+  cityDetails: {},
+  transactionCodes: [],
+  addCreditsFormDetails: {},
+  customerDetails: [],
+  validCreditsData: [],
+  validCreditsCount: 0
 }
 
 const actionsMap = {
@@ -229,6 +238,67 @@ const actionsMap = {
       loadingBrandsInCollection: false,
       brandList: action.data.bucket,
       brandCount: action.data.count
+    })
+  },
+
+  [ActionTypes.SUCCESS_TRANSACTION_CODE]: (state, action) => {
+    return Object.assign({}, state, {
+      loadingTransactionCode: false,
+      transactionCodes: action.data
+    })
+  },
+
+  [ActionTypes.SUCCESS_UPDATE_TRANSACTION_LIST]: (state, action) => {
+    let customerDetails = state.customerDetails.filter((item) => {
+      if(item.email !== action.data.data) {
+        return item
+      }
+    })
+
+    return Object.assign({}, state, {
+      customerDetails: customerDetails,
+    })
+  },
+
+  [ActionTypes.SUCCESS_FETCH_CREDITS]: (state, action) => {
+    return Object.assign({}, state, {
+      loadingCredits: false,
+      validCreditsData: action.data.data,
+      validCreditsCount: action.data.count
+    })
+  },
+
+  [ActionTypes.SUCCESS_VERIFY_TRANSACTION]: (state, action) => {
+
+    let transactions = [];
+
+    transactions = state.addCreditsFormDetails.emailIds.map((email, i) => {
+      let transactionDetail = {
+        id : '',
+        fullname : ''
+      }
+      transactionDetail = action.data.filter((transaction) => {
+        if(transaction.email === email) {
+          return transaction
+        }
+      })
+
+      return {
+        id : transactionDetail.length > 0 ? transactionDetail[0].id : '',
+        name: transactionDetail.length > 0 ? transactionDetail[0].full_name : 'NOT FOUND',
+        email,
+        transactionId: state.addCreditsFormDetails.transactionId,
+        transactionCode: state.addCreditsFormDetails.transactionCode,
+        amount: state.addCreditsFormDetails.amount,
+        batchNo: state.addCreditsFormDetails.batchNo,
+        reason: state.addCreditsFormDetails.comment,
+        valid: transactionDetail.length > 0 && transactionDetail[0].id > 0 ? true : false
+      }
+    })
+
+    return Object.assign({}, state, {
+      //verifyingTransaction: false,
+      customerDetails: transactions
     })
   }
 }

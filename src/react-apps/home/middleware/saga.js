@@ -3,7 +3,6 @@ import { call, fork, put, race, take } from 'redux-saga/effects'
 import * as ActionTypes from './../constants/actions'
 import Notify from '@components/Notification'
 import * as Api from './api'
-//import { addBrandToCollection } from '../actions';
 
 /**
  * Handlers
@@ -616,6 +615,16 @@ function* addBrandToCollection(action) {
   try {
     const data = yield call(Api.addBrandToCollection, action)
     Notify('Successfully added brand to the collection', 'success')
+  } catch(err) {
+    console.log(err)
+  }
+}
+
+function* fetchTransactionCode() {
+  try {
+    const data = yield call(Api.fetchTransactionCode)
+    //const data = transactionCodes
+    yield put({ type: ActionTypes.SUCCESS_TRANSACTION_CODE, data })
   } catch (err) {
     console.log(err)
   }
@@ -625,6 +634,19 @@ function* removeBrandFromCollection(action) {
   try {
     const data = yield call(Api.removeBrandFromCollection, action)
     Notify('Successfully removed brand from the collection', 'success')
+  } catch(err) {
+    console.log(err)
+  }
+}
+
+function* verifyTransaction(action) {
+  try {
+    const data = yield call(Api.verifyTransaction, action)
+    //const data = verifyTransactions
+    yield put({ type: ActionTypes.SUCCESS_VERIFY_TRANSACTION, data })
+    setTimeout(() => {
+      action.CB()
+    }, 500)
   } catch (err) {
     console.log(err)
   }
@@ -642,11 +664,37 @@ function* createCollection(action) {
   }
 }
 
+function* createTransaction(action) {
+  try {
+    const data = yield call(Api.createTransaction, action)
+    yield put({ type: ActionTypes.REQUEST_TRIGGER_SMS, data: {transaction: data, CB: action.CB} })
+  } catch (err) {
+    Notify('Error in creating transaction', 'warning')
+    console.log(err)
+  }
+}
+
 function* fetchCollections(action) {
   try {
     const data = yield call(Api.fetchCollections, action)
     yield put({ type: ActionTypes.SUCCESS_FETCH_COLLECTIONS, data })
   } catch (err) {
+    console.log(err)
+  }
+}
+
+function* requestTriggerSMS(action) {
+  try {
+    const data = yield call(Api.requestTriggerSMS, action)
+    Notify('Successfully created the transaction', 'success')
+    setTimeout(() => {
+      window.location.href = '/home/customer-transactions/view-credits'
+    }, 1000)
+    setTimeout(() => {
+      action.data.CB()
+    }, 3000)
+  } catch(err) {
+    action.data.CB()
     console.log(err)
   }
 }
@@ -660,6 +708,34 @@ function* fetchBrandsInCollection(action) {
     console.log(err)
   }
 }
+
+function* fetchCredits(action) {
+  try {
+    const data = yield call(Api.fetchCredits, action)
+    //const data = [];
+    yield put({ type: ActionTypes.SUCCESS_FETCH_CREDITS, data })
+  } catch(err) {
+    console.log(err)
+  }
+}
+
+function* updateTransactionList(action) {
+  try {
+    yield put({ type: ActionTypes.SUCCESS_UPDATE_TRANSACTION_LIST, data: action.data })
+  } catch(err) {
+    console.log(err)
+  }
+}
+
+// function* verifyTransaction(action) {
+//   try {
+//     const data = yield call(Api.verifyTransaction, action.data)
+//     //const data = transactionCodes
+//     yield put({ type: ActionTypes.SUCCESS_VERIFY_TRANSACTION, data })
+//   } catch (err) {
+//     console.log(err)
+//   }
+// }
 
 /**
  * Watchers
@@ -1006,6 +1082,42 @@ function* watchRequestFetchBrandsInCollection() {
   }
 }
 
+function* watchFetchTransactionCode() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_TRANSACTION_CODE, fetchTransactionCode)
+  }
+}
+
+function* watchVerifyTransaction() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_VERIFY_TRANSACTION, verifyTransaction)
+  }
+}
+
+function* watchCreateTransaction() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_CREATE_TRANSACTION, createTransaction)
+  }
+}
+
+function* watchRequestTriggerSMS() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_TRIGGER_SMS, requestTriggerSMS)
+  }
+}
+
+function* watchRequestFetchCredits() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_FETCH_CREDITS, fetchCredits)
+  }
+}
+
+function* watchRequestUpdateTransactionList() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_UPDATE_TRANSACTION_LIST, updateTransactionList)
+  }
+}
+
 export default function* rootSaga() {
   yield [
     fork(watchFetchStates),
@@ -1064,6 +1176,13 @@ export default function* rootSaga() {
     fork(watchRequestRemoveBrandFromCollection),
     fork(watchRequestCreateCollection),
     fork(watchRequestFetchCollections),
-    fork(watchRequestFetchBrandsInCollection)
+    fork(watchRequestFetchBrandsInCollection),
+    fork(watchFetchContactNumbersOfRetailer),
+    fork(watchFetchTransactionCode),
+    fork(watchVerifyTransaction),
+    fork(watchCreateTransaction),
+    fork(watchRequestTriggerSMS),
+    fork(watchRequestFetchCredits),
+    fork(watchRequestUpdateTransactionList)
   ]
 }

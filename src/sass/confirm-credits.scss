@@ -1,0 +1,62 @@
+#table-wrapper {
+  //position: relative;
+
+  #table-scroll {
+    // height:150px;
+    // overflow:auto;  
+    margin-top:20px;
+    //border-bottom: 1px solid #dfdfdf;
+
+    table {
+      width: 100%;
+      border: 1px solid #dfdfdf;
+
+      .header {
+        .col {
+          // position: absolute;
+          text-align: center;
+          font-weight: 600;
+          font-size: 12px;
+          padding: 10px;
+        }
+      }
+      
+      .row {
+        .col {
+          text-align: center;
+          font-size: 13px;
+        }
+
+        span {
+          font-size: 15px;
+        }
+    
+        &.highlight {
+          .col {
+            color: red;
+            text-align: center;
+            font-size: 13px;
+          }
+        }
+      }
+    }
+  }
+
+}
+
+.summary {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-around;
+  margin-top: 24px;
+
+  .field {
+    font-size: 13px;
+    font-weight: 600;
+  }
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 15px;
+}

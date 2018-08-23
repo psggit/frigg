@@ -13,6 +13,9 @@ import WelcomeScreen from './welcome-screen'
 import ManageStates from './manage-states'
 import ManageCities from './manage-cities'
 import ManageLocalities from './manage-localities'
+import CustomerTransactions from './customer-transactions'
+import AddCredits from './add-credits'
+import ViewCredits from '../container/view-credits'
 import ManageRetailers from './manage-retailers'
 import DeliveryMapManager from './delivery-map-manager'
 import LocalityMapManager from './locality-map-manager'
@@ -42,6 +45,7 @@ import EditCollection from './../components/manage-collections/edit-collection'
 // import ViewCollectionList from './../components/manage-collections/view-collections'
 import ViewCollection from './../components/manage-collections/view-collection'
 import RollbackTransaction from './rollback-transaction'
+import ConfirmCredits from './../components/confirm-credits'
 import { getBreadCrumbPath, getUriFromBreadCrumb } from '@utils/url-utils'
 // import '@sass/components/_heading.scss'
 
@@ -158,6 +162,10 @@ class App extends React.Component {
                       <Route exact path="/home/manage-states/create-new-state" component={CreateState} />
                       <Route exact path="/home/manage-states/:stateSlug" component={ViewState} />
 
+                      <Route exact path="/home/customer-transactions" component={CustomerTransactions} />
+                      <Route exact path="/home/customer-transactions/add-credits" component={AddCredits} />
+                      <Route exact path="/home/customer-transactions/view-credits" component={ViewCredits} />
+
                       <Route exact path="/home/manage-cities" component={ManageCities} />
                       <Route exact path="/home/manage-cities/create-new-city" component={CreateCity} />
                       <Route exact path="/home/manage-cities/:citySlug/localities" component={CreateLocality} />
@@ -196,6 +204,8 @@ class App extends React.Component {
                       <Route exact path="/home/manage-collections/create-new" component={CreateCollection} />
                       <Route exact path="/home/manage-collections/edit-collection/:collectionShortName" component={EditCollection} />
                       <Route exact path="/home/manage-collections/view-collection/:collectionShortName" component={ViewCollection} />
+
+                      <Route exact path="/home/customer-transactions/confirm-credits" component={ConfirmCredits} />
                     </Switch>
                 </DisplayScreen>
               </div>
