@@ -28,7 +28,8 @@ class ViewCollection extends React.Component {
     this.addBrand = this.addBrand.bind(this)
     this.removeBrand = this.removeBrand.bind(this),
     this.handleCheckboxes = this.handleCheckboxes.bind(this)
-    this.unMountBrandListCatelogue = this.unMountBrandListCatelogue.bind(this)
+    this.addBrandToList = this.addBrandToList.bind(this)
+    this.unMountBrandListModal = this.unMountBrandListModal.bind(this)
   }
 
   mountCollectionDialog() {
@@ -39,9 +40,14 @@ class ViewCollection extends React.Component {
     this.setState({ shouldMountCollectionDialog: false })
   }
 
-  unMountBrandListCatelogue() {
+  addBrandToList() {
     unMountModal()
     this.setState({selectedBrand: this.brandList})
+    this.brandList = []
+  }
+
+  unMountBrandListModal() {
+    unMountModal()
     this.brandList = []
   }
 
@@ -110,7 +116,8 @@ class ViewCollection extends React.Component {
       //gps: '13.009625760868293,80.25397762656212',
       addBrand: this.addBrand,
       multiSelect: true,
-      unMountModal: this.unMountBrandListCatelogue
+      unMountModal: this.unMountBrandListModal,
+      addBrandToList: this.addBrandToList
     }))
   }
 

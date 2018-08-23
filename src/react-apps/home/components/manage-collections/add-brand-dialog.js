@@ -9,8 +9,7 @@ import { GET, POST } from '@utils/fetch'
 import Search from '@components/SearchInput'
 import '@sass/OrdersPage/ShowNotified.scss'
 import '@sass/components/_spinner.scss'
-import {getIcon} from './../../../../utils/icons-utils'
-
+import {getIcon} from '@components/utils'
 
 class ListItem extends React.Component {
   constructor(props) {
@@ -225,9 +224,9 @@ export default function AddBrandDialog(data) {
         <React.Fragment>
           <ModalBox maxHeight="80vh">
             <ModalHeader>
-              <div style={{display: 'flex'}}>
+              <div style={{display: 'flex', justifyContent: 'space-between', cursor: 'pointer'}}>
                 <div> Browse Catalogue </div>
-                <div>{getIcon('cross')} </div>
+                <div onClick={data.unMountModal}>{getIcon('cross')} </div>
               </div>
             </ModalHeader>
             {
@@ -339,7 +338,7 @@ export default function AddBrandDialog(data) {
             <ModalFooter>
             {
               data.multiSelect &&
-              <button className='btn btn-primary' onClick={data.unMountModal}>ADD BRAND</button>
+              <button className='btn btn-primary' onClick={data.addBrandToList}>ADD BRAND</button>
             }
             {
               !data.multiSelect &&
