@@ -10,6 +10,7 @@ import {
 } from 'material-ui/Table'
 
 import '@sass/components/_table.scss'
+import TableLoadingShell from './../table-loading-shell'
 
 const TableHeaderItemsWithButton = [
   '',
@@ -38,6 +39,12 @@ const headerStyles = [
 ]
 
 function ViewBrandsInCollection(data) {
+  const notificationStyle = {
+    boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.08)',
+    display: 'flex',
+    justifyContent: 'center',
+    padding: '20px'
+  }
   return (
     <Table
       className="bordered--table"
@@ -58,8 +65,8 @@ function ViewBrandsInCollection(data) {
         displayRowCheckbox={false}
         showRowHover
       >
-        {
-          data.showDelete
+        {/* {
+          data.showDelete && data.brandList && data.brandList.length > 0
           ? (
             data.brandList.map(item => (
               <TableRow key={item.brand_id}>
@@ -82,7 +89,45 @@ function ViewBrandsInCollection(data) {
               </TableRow>
             ))
           )
+        } */}
+        {
+          data.loadingBrandsInCollection &&
+          [1, 2, 3, 4, 5].map(() => {
+            return <TableLoadingShell />
+          })
         }
+        {
+           data.showDelete && data.brandList && data.brandList.length > 0
+           &&
+             data.brandList.map(item => (
+               <TableRow key={item.brand_id}>
+                 <TableRowColumn style={headerStyles[0]}>
+                   <button onClick={() => data.removeBrand({brand_id: item.brand_id, short_name: item.short_name}) } style={{fontSize: '13px', textTransform: 'none'}}> Delete </button>
+                 </TableRowColumn>
+                 <TableRowColumn style={headerStyles[1]}>{item.brand_id}</TableRowColumn>
+                 <TableRowColumn style={headerStyles[2]}>{item.brand}</TableRowColumn>
+                 <TableRowColumn style={headerStyles[3]}>{item.short_name}</TableRowColumn>
+       
+               </TableRow>
+             ))
+        }
+        {
+            !data.showDelete && data.brandList && data.brandList.length > 0
+            &&
+            data.brandList.map(item => (
+              <TableRow key={item.brand_id}>
+                <TableRowColumn style={styles[0]}>{item.brand_id}</TableRowColumn>
+                <TableRowColumn style={styles[1]}>{item.brand}</TableRowColumn>
+                <TableRowColumn style={styles[2]}>{item.short_name}</TableRowColumn>
+              </TableRow>
+            ))
+        }
+        {
+          !data.loadingBrandsInCollection  && data.brandList.length === 0
+          &&
+          <div style={notificationStyle}> No brands found in the collection </div>
+        }
+        
       </TableBody>
     </Table>
   )

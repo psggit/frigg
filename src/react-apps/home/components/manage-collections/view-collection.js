@@ -91,7 +91,7 @@ class ViewCollection extends React.Component {
     const styles = {
       boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.08)',
       display: 'flex',
-      justifyContent: 'flex-start',
+      justifyContent: 'center',
       padding: '20px'
     }
     return (
@@ -107,8 +107,8 @@ class ViewCollection extends React.Component {
           >
             <h3> Collection name: {this.collectionName} </h3>
             {
-              !this.state.loadingBrands && this.state.brandList.length > 0
-              &&
+              // !this.state.loadingBrands && this.state.brandList.length > 0
+              // &&
               <div>
 
                 <NavLink to={`/home/manage-collections/edit-collection/${this.state.collectionShortName}?collectionName=${this.collectionName}&collectionDisplayName=${this.collectionDisplayName}`}>
@@ -122,15 +122,15 @@ class ViewCollection extends React.Component {
               </div>
             }
           </div>
-
+          <ViewBrandsInCollection
+            brandList={this.state.brandList}
+            showDelete={false}
+            loadingBrandsInCollection={this.state.loadingBrands}
+          />
           {
             !this.state.loadingBrands && this.state.brandList.length > 0
             &&
             <React.Fragment>
-              <ViewBrandsInCollection
-                brandList={this.state.brandList}
-                showDelete={false}
-              />
               <Pagination
                 activePage={parseInt(this.state.activePage)}
                 itemsCountPerPage={this.pagesLimit}
@@ -140,11 +140,11 @@ class ViewCollection extends React.Component {
               />
             </React.Fragment>
           }
-          {
+          {/* {
             !this.state.loadingBrands && this.state.brandList.length === 0
             &&
             <div style={styles}> No brands found in the collection </div>
-          }
+          } */}
         </div>
       </React.Fragment>
     )

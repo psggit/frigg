@@ -23,6 +23,7 @@ class EditCollection extends React.Component {
       short_name: '',
       activePage: 1,
       pageOffset: 0,
+      loadingBrands: false
     }
     this.brandCount = 0,
     this.pagesLimit = 5
@@ -35,7 +36,7 @@ class EditCollection extends React.Component {
 
   componentDidMount() {
     const { collectionShortName } = this.props.match.params
-    this.setState({ short_name: collectionShortName })
+    this.setState({ short_name: collectionShortName, loadingBrands: true})
 
     const queryObj = getQueryObj(location.search.slice(1))
 
@@ -58,7 +59,7 @@ class EditCollection extends React.Component {
         }
       })
   
-      this.setState({selectedBrand: brandList})
+      this.setState({selectedBrand: brandList, loadingBrands: false})
     })
     
   }
@@ -103,7 +104,7 @@ class EditCollection extends React.Component {
 
     let pageNumber = pageObj.activePage
     let offset = this.pagesLimit * (pageNumber - 1)
-    this.setState({ activePage: pageNumber, pageOffset: offset, loadingBrand: true, selectedBrand:[] })
+    this.setState({ activePage: pageNumber, pageOffset: offset, loadingBrand: true, selectedBrand:[], loadingBrands: true})
   
     this.props.actions.fetchBrandsInCollection({
       collectionShortName: collectionShortName,
@@ -120,7 +121,7 @@ class EditCollection extends React.Component {
         }
       })
   
-      this.setState({selectedBrand: brandList})
+      this.setState({selectedBrand: brandList, loadingBrands: false})
     })
 
   }
@@ -180,21 +181,26 @@ class EditCollection extends React.Component {
         />
 
         {
-          !this.props.loadingBrandsInCollection && this.state.selectedBrand.length > 0 &&
+          // !this.props.loadingBrandsInCollection && this.state.selectedBrand.length > 0 &&
           <div style={{ width: '100%', maxWidth: 900 }}>
             <h3>Listing all brands</h3>
             <ViewBrandsInCollection
               brandList={this.state.selectedBrand}
               removeBrand={this.removeBrand}
               showDelete={true}
+              loadingBrandsInCollection={this.state.loadingBrands}
             ></ViewBrandsInCollection>
-            <Pagination
+            {
+              this.state.selectedBrand.length > 0 &&
+              <Pagination
               activePage={parseInt(this.state.activePage)}
               itemsCountPerPage={this.pagesLimit}
               totalItemsCount={this.props.brandCount}
               pageRangeDisplayed={5}
               setPage={this.handlePageChange}
             />
+            }
+           
           </div>
         }
       </div>
