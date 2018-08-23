@@ -88,7 +88,9 @@ const actionsMap = {
       loadingUnmappedDpToLocality: true,
       loadingUnmappedLocalitiesToDp: true,
       loadingMappedDpToLocality: true,
-      loadingImageAds: true
+      loadingImageAds: true,
+      loadingAllCollections: true,
+      loadingBrandsInCollection: true,
     })
   },
 
@@ -210,7 +212,7 @@ const actionsMap = {
 
   [ActionTypes.SUCCESS_FETCH_BRANDS_IN_COLLECTION]: (state, action) => {
     return Object.assign({}, state, {
-      loadingBrandsInCollection: false,
+      //loadingBrandsInCollection: false,
       brandList: action.data.bucket,
       brandCount: action.data.count
     })

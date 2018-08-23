@@ -17,7 +17,8 @@ class ViewCollection extends React.Component {
       collectionShortName: '',
       activePage: 1,
       pageOffset: 0,
-      brandList: []
+      brandList: [],
+      loadingBrands: false
     },
 
     this.collectionName = '',
@@ -31,7 +32,7 @@ class ViewCollection extends React.Component {
   componentDidMount() {
 
     const { collectionShortName } = this.props.match.params
-    this.setState({ collectionShortName, loadingBrand: true })
+    this.setState({ collectionShortName, loadingBrands: true })
 
     const queryObj = getQueryObj(location.search.slice(1))
 
@@ -52,7 +53,7 @@ class ViewCollection extends React.Component {
           short_name: item.brand_short_name
         }
       })
-      this.setState({brandList: brandList})
+      this.setState({brandList: brandList, loadingBrands: false})
     })
   }
 
@@ -61,7 +62,7 @@ class ViewCollection extends React.Component {
     const { collectionShortName } = this.props.match.params
     let pageNumber = pageObj.activePage
     let offset = this.pagesLimit * (pageNumber - 1)
-    this.setState({ activePage: pageNumber, pageOffset: offset, loadingBrand: true, brandList:[] })
+    this.setState({ activePage: pageNumber, pageOffset: offset, brandList:[], loadingBrands:true })
 
     this.props.actions.fetchBrandsInCollection({
       collectionShortName: collectionShortName,
@@ -77,7 +78,7 @@ class ViewCollection extends React.Component {
           short_name: item.brand_short_name
         }
       })
-      this.setState({brandList: brandList})
+      this.setState({brandList: brandList, loadingBrands: false})
     })
   }
 
@@ -86,7 +87,7 @@ class ViewCollection extends React.Component {
   // }
 
   render() {
-    const { loadingBrandsInCollection, brandCount } = this.props.data
+    const { brandCount } = this.props.data
     const styles = {
       boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.08)',
       display: 'flex',
@@ -106,7 +107,7 @@ class ViewCollection extends React.Component {
           >
             <h3> Collection name: {this.collectionName} </h3>
             {
-              !loadingBrandsInCollection && this.state.brandList.length > 0
+              !this.state.loadingBrands && this.state.brandList.length > 0
               &&
               <div>
 
@@ -123,7 +124,7 @@ class ViewCollection extends React.Component {
           </div>
 
           {
-            !loadingBrandsInCollection && this.state.brandList.length > 0
+            !this.state.loadingBrands && this.state.brandList.length > 0
             &&
             <React.Fragment>
               <ViewBrandsInCollection
@@ -140,7 +141,7 @@ class ViewCollection extends React.Component {
             </React.Fragment>
           }
           {
-            !loadingBrandsInCollection && this.state.brandList.length === 0
+            !this.state.loadingBrands && this.state.brandList.length === 0
             &&
             <div style={styles}> No brands found in the collection </div>
           }

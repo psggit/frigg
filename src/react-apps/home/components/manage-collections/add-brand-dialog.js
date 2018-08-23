@@ -1,99 +1,3 @@
-// import React from 'react'
-// import RaisedButton from 'material-ui/RaisedButton'
-// import FlatButton from 'material-ui/FlatButton'
-// import Dialog from 'material-ui/Dialog'
-// import { bindActionCreators } from 'redux'
-// import { connect } from 'react-redux'
-// import * as Actions from './../../actions'
-
-// class AddBrandDialog extends React.Component {
-//   constructor() {
-//     super()
-//     this.state = {
-//       open: true,
-//       data: [1, 2, 3, 4, 5],
-//       // selectedBrand: []
-//     }
-
-//     this.selectedBrand = []
-//     this.handleClose = this.handleClose.bind(this)
-//     this.renderBrandList = this.renderBrandList.bind(this)
-//   }
-
-//   componentDidMount() {
-//     this.props.actions.fetchBrandList()
-//   }
-
-//   handleClose() {
-//     this.setState({ open: false })
-//     setTimeout(() => {
-//       this.props.unmountCollectionDialog()
-//     }, 500)
-//   }
-
-//   handleChange(e) {
-//     this.selectedBrand.push(e.currentTarget.value)
-//     console.log("selected brands", this.selectedBrand)
-//   }
-
-//   renderBrandList() {
-//     return this.state.data.map((item, i) => {
-//       return (
-//         <div>
-//           <label style={{ cursor: 'pointer' }} for={`brand_${i}`}><input style={{ cursor: 'pointer' }} id={`brand_${i}`} type="checkbox" name="brand" value={item} onChange={(e) => this.handleChange(e)} />
-//             {item}
-//           </label>
-//         </div>
-//       )
-//     })
-//   }
-
-//   render() {
-//     const actions = [
-//       <RaisedButton
-//         label="Add"
-//         primary
-//         onClick={this.mountConfirmChangeDpLocalityMap}
-//       />,
-//       <FlatButton
-//         label="Cancel"
-//         secondary
-//         onClick={this.handleClose}
-//       />
-//     ]
-
-//     return (
-//       <div>
-//         <Dialog
-//           title="Select brand to add"
-//           actions={actions}
-//           modal={false}
-//           open={this.state.open}
-//           onRequestClose={this.handleClose}
-//           autoScrollBodyContent
-//         >
-//           {
-//             this.renderBrandList()
-//           }
-//         </Dialog>
-//       </div>
-//     )
-//   }
-// }
-
-// const mapStateToProps = state => state.main
-
-// const mapDispatchToProps = dispatch => ({
-//   actions: bindActionCreators(Actions, dispatch)
-// })
-
-// export default connect(
-//   mapStateToProps,
-//   mapDispatchToProps
-// )(AddBrandDialog)
-
-//export default AddBrandDialog
-
 
 import React, { Fragment } from 'react'
 import { unMountModal } from '@components/ModalBox/utils'
@@ -105,10 +9,6 @@ import { GET, POST } from '@utils/fetch'
 import Search from '@components/SearchInput'
 import '@sass/OrdersPage/ShowNotified.scss'
 import '@sass/components/_spinner.scss'
-import SelectField from 'material-ui/SelectField'
-import { Card } from 'material-ui/Card'
-import MenuItem from 'material-ui/MenuItem'
-//import { getIcon } from './../utils'
 
 export default function AddBrandDialog(data) {
   return class AddBrandDialog extends React.Component {
@@ -142,8 +42,6 @@ export default function AddBrandDialog(data) {
 
     componentDidMount() {
       this.fetchCities()
-
-      //console.log("brand", this.brands )
     }
 
     fetchCities() {
@@ -161,9 +59,9 @@ export default function AddBrandDialog(data) {
           no_filter: true
         }
       })
-        .then(json => {
-          this.setState({ citiesData: json.cities })
-        })
+      .then(json => {
+        this.setState({ citiesData: json.cities })
+      })
     }
 
     setActiveAccordian(i, genreShortName, brandName) {
