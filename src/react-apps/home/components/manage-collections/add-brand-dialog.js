@@ -254,14 +254,14 @@ export default function AddBrandDialog(data) {
             this.setState({ loadingBrands: false })
           })
       } else {
-        this.listBrandsUsingGenre(this.state.genreShortName)
+        this.listBrandsUsingGenre(this.state.genreShortName, this.state.cityId)
       }
     }
 
     handleChange(e) {
       const genreShortName = this.shortNamesMap[e.target.value]
       this.setState({ genre: e.target.value, genreShortName, loadingBrands: true })
-      this.listBrandsUsingGenre(genreShortName)
+      this.listBrandsUsingGenre(genreShortName, this.state.cityId)
     }
 
     setSearchQuery(searchQuery) {
