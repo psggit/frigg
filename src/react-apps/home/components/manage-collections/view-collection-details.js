@@ -17,7 +17,9 @@ class ViewCollection extends React.Component {
       selectedBrand: [],
       is_active: false,
       name: '',
-      display_name: ''
+      display_name: '',
+      nameErr: false,
+      displayNameErr: false
     }
     this.mountCollectionDialog = this.mountCollectionDialog.bind(this)
     this.unmountCollectionDialog = this.unmountCollectionDialog.bind(this)
@@ -59,19 +61,29 @@ class ViewCollection extends React.Component {
   }
 
   createCollection() {
-    let brandData = this.state.selectedBrand.map((item) => {
-      return {
-        brand_id: item.brand_id
-      }
-    })
-    this.props.actions.createCollection({
-      collection_data: {
-        name: this.state.name,
-        display_name: this.state.display_name,
-        is_active: this.state.is_active,
-      },
-      brand_data: brandData
-    })
+
+    if(this.state.name.length && this.state.display_name.length) {
+      let brandData = this.state.selectedBrand.map((item) => {
+        return {
+          brand_id: item.brand_id
+        }
+      })
+      this.props.actions.createCollection({
+        collection_data: {
+          name: this.state.name,
+          display_name: this.state.display_name,
+          is_active: this.state.is_active,
+        },
+        brand_data: brandData
+      })
+    } else if(this.state.name.length === 0 && this.state.display_name.length > 0) {
+      this.setState({nameErr: true})
+    } else if(this.state.name.length > 0 && this.state.display_name.length === 0) {
+      this.setState({displayNameErr: true})
+    } else {
+      this.setState({nameErr: true, displayNameErr: true})
+    }
+    
   }
 
   handleCheckboxes(e) {
@@ -103,11 +115,19 @@ class ViewCollection extends React.Component {
           <div className="form-group">
             <label className="label">Name</label><br />
             <input style={{ marginTop: '10px' }} name="name" value={this.state.name} onChange={(e) => this.handleChange(e)} />
+            {
+              this.state.nameErr &&
+              <p style={{color: '#ff3b34'}}> Name is required </p>
+            }
           </div>
 
           <div className="form-group">
             <label className="label">Display name</label><br />
             <input style={{ marginTop: '10px' }} name="display_name" value={this.state.display_name} onChange={(e) => this.handleChange(e)} />
+            {
+              this.state.displayNameErr &&
+              <p style={{color: '#ff3b34'}}> Display name is required </p>
+            }
           </div>
 
           <div className="form-group">
