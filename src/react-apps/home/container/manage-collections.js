@@ -78,7 +78,7 @@ class ManageCollections extends React.Component {
               icon={getIcon('filter')}
             /> */}
           </div>
-          <h3> Showing All Collections </h3>
+          <h3> Showing all collections </h3>
           <ViewCollectionList
             loadingAllCollections={loadingAllCollections}
             collectionsList={collectionsList}
