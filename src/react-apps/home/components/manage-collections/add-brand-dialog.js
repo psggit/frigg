@@ -277,7 +277,7 @@ export default function AddBrandDialog(data) {
                 </Fragment>
               }
             </div>
-            <ModalBody height='560px'>
+            <ModalBody height='200px'>
               {
                 !this.state.loadingGenres && !this.state.loadingBrands &&
                 <table className='table--hovered'>
@@ -337,12 +337,12 @@ export default function AddBrandDialog(data) {
             </ModalBody>
             <ModalFooter>
             {
-              data.multiSelect &&
-              <button className='btn btn-primary' onClick={data.addBrandToList}>ADD BRAND</button>
+              data.multiSelect &&  !this.state.loadingGenres && !this.state.loadingBrands &&
+              <button style={{padding: '10px 20px', fontSize: '13px', cursor: 'pointer'}} onClick={data.addBrandToList}>ADD BRANDS</button>
             }
             {
               !data.multiSelect &&
-              <button className='btn btn-primary' onClick={data.unMountModal}>CLOSE</button>
+              <button style={{padding: '10px 20px', fontSize: '13px', cursor: 'pointer'}} onClick={data.unMountModal}>CLOSE</button>
             }
             </ModalFooter>
           </ModalBox>
