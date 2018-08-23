@@ -43,12 +43,12 @@ class ViewCollection extends React.Component {
   addBrandToList() {
     unMountModal()
     this.setState({selectedBrand: this.brandList})
-    this.brandList = []
+    // this.brandList = []
   }
 
   unMountBrandListModal() {
     unMountModal()
-    this.brandList = []
+    this.setState({ selectedBrand: [...this.brandList.slice(0, this.brandList.length - 1)]})
   }
 
   addBrand(newBrand) {
@@ -103,6 +103,7 @@ class ViewCollection extends React.Component {
     } else {
       this.setState({nameErr: true, displayNameErr: true})
     }
+    this.brandList = []
     
   }
 
