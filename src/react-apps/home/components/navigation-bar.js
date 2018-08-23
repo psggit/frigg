@@ -76,8 +76,14 @@ class NavigationBar extends  React.Component {
       {
         name: 'Customer management',
         nestedItems: [
-          { name: 'Customer Transactions', path: '/home/customer-transactions', id: 13 },
+          { name: 'Customer Transactions', path: '/home/customer-transactions', id: 14 },
         ]
+      },
+      {
+        name: 'Manage Collections',
+        path: '/home/manage-collections',
+        id: 15,
+        nestedItems: []
       }
     ]
     return (

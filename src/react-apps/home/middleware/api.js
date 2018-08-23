@@ -581,20 +581,20 @@ export const fetchBrandsInCollections = action => (
   })
 )
 
-export const requestTriggerSMS = (action) => {
+export const requestTriggerSMS = (action) => (
   POST({
     api: '/admin/transaction/consumer/trigger',
     apiBase: 'blogicUrl',
     data:  action.data.transaction,
     handleError: true
   })
-}
+)
 
-export const fetchCredits = (action) => {
+export const fetchCredits = (action) => (
   POST({
     api: '/consumer/view/credits',
     apiBase: 'odin',
     data:  action.data,
     handleError: true
   })
-}
+)

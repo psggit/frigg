@@ -3,7 +3,7 @@
 
   #table-scroll {
     // height:150px;
-    // overflow:auto;  
+    // overflow:auto;
     margin-top:20px;
     //border-bottom: 1px solid #dfdfdf;
 
@@ -20,7 +20,7 @@
           padding: 10px;
         }
       }
-      
+
       .row {
         .col {
           text-align: center;
@@ -30,7 +30,7 @@
         span {
           font-size: 15px;
         }
-    
+
         &.highlight {
           .col {
             color: red;
@@ -57,6 +57,7 @@
 }
 
 button {
-  padding: 10px 20px;
-  font-size: 15px;
+  cursor: pointer;
+  // padding: 10px 20px;
+  // font-size: 15px;
 }
