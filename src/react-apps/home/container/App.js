@@ -26,9 +26,11 @@ import ViewLocalityMapDetails from './../components/locality-map-manager/view-lo
 import CreateCity from './../components/manage-cities/create-city'
 import CreateState from './../components/manage-states/create-state'
 import CreateAd from './../components/manage-image-ads/create-ad'
+import CreateCollectionAd from './../components/manage-collection-ads/create-ad'
 import UpdateRetailerContact from './../components/manage-retailers/update-contact'
 import CreateLocality from './../components/manage-localities/create-locality'
 import ManageImageAds from './manage-image-ads'
+import ManageCollectionAds from './manage-collection-ads'
 import ManageCollections from './manage-collections'
 import UploadSearchData from './upload-search-data'
 import GeoFenceCheck from './geo-fence-check'
@@ -177,6 +179,9 @@ class App extends React.Component {
                       <Route exact path="/home/delivery-system-check" component={GeoFenceCheck} />
                       <Route exact path="/home/manage-image-ads" component={ManageImageAds} />
                       <Route exact path="/home/manage-image-ads/create-new-ad" component={CreateAd} />
+
+                      <Route exact path="/home/manage-collection-ads" component={ManageCollectionAds} />
+                      <Route exact path="/home/manage-collection-ads/create-new-ad" component={CreateCollectionAd} />
 
                       <Route exact path="/home/delivery-agents" component={DeliveyAgentList} />
                       <Route exact path="/home/delivery-agents/create-new-delivery-agent" component={CreateDeliveryAgent} />

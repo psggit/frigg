@@ -240,6 +240,23 @@ export const updateImageAdStatus = (data, CB) => ({
   CB
 })
 
+export const fetchCollectionAds = data => ({
+  type: ActionTypes.REQUEST_FETCH_COLLECTION_ADS,
+  data
+})
+
+export const createCollectionAd = (data, CB) => ({
+  type: ActionTypes.REQUEST_CREATE_COLLECTION_AD,
+  data,
+  CB
+})
+
+export const updateCollectionAdStatus = (data, CB) => ({
+  type: ActionTypes.REQUEST_UPDATE_COLLECTION_AD_STATUS,
+  data,
+  CB
+})
+
 export const fetchContactNumbersOfRetailer = data => ({
   type: ActionTypes.REQUEST_FETCH_CONTACT_NUMBERS_OF_RETAILER,
   data

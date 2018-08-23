@@ -482,6 +482,33 @@ export const updateImageAdStatus = action => (
   })
 )
 
+export const createCollectionAd = action => (
+  POST({
+    api: '/marketing/ads/collection/create/collection_ads',
+    apiBase: 'odin',
+    data: action.data,
+    handleError: true
+  })
+)
+
+export const fetchCollectionAds = action => (
+  POST({
+    api: '/marketing/ads/collection/view_all',
+    apiBase: 'odin',
+    data: action.data,
+    handleError: true
+  })
+)
+
+export const updateCollectionAdStatus = action => (
+  POST({
+    api: '/marketing/ads/collection/status/image_ads',
+    apiBase: 'odin',
+    data: action.data,
+    handleError: true
+  })
+)
+
 
 export const addBrandToCollection = action => (
   POST({
@@ -527,5 +554,3 @@ export const fetchBrandsInCollections = (action) => {
     handleError: true
   })
 }
-  
-

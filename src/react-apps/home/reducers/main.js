@@ -17,11 +17,13 @@ const initialState = {
   loadingUnmappedLocalitiesToDp: true,
   loadingMappedDpToLocality: true,
   loadingImageAds: true,
+  loadingCollectionAds: true,
   loadingContactNumbersOfRetailer: true,
   loadingAllCollections: true,
   loadingBrandsInCollection: true,
   contactNumbersOfRetailer: [],
   imageAdsData: [],
+  collectionAdsData: [],
   geoFenceCheckData: [],
   unmappedRetailersToLocality: [],
   unmappedRetailersToDp: [],
@@ -74,6 +76,11 @@ const actionsMap = {
   },
 
   [ActionTypes.SUCCESS_SET_LOADING_STATE]: (state, action) => {
+    if (action.data) {
+      return Object.assign({}, state, {
+        [action.data]: true
+      })
+    }
     return Object.assign({}, state, {
       loadingStates: true,
       loadingCities: true,
@@ -175,6 +182,13 @@ const actionsMap = {
     return Object.assign({}, state, {
       loadingImageAds: false,
       imageAdsData: action.data
+    })
+  },
+
+  [ActionTypes.SUCCESS_FETCH_COLLECTION_ADS]: (state, action) => {
+    return Object.assign({}, state, {
+      loadingCollectionAds: false,
+      collectionAdsData: action.data
     })
   },
 

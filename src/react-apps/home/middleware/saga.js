@@ -542,6 +542,47 @@ function* updateImageAdStatus(action) {
   }
 }
 
+
+function* fetchCollectionAds(action) {
+  try {
+    const data = yield call(Api.fetchCollectionAds, action)
+    yield put({ type: ActionTypes.SUCCESS_FETCH_COLLECTION_ADS, data })
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+function* createCollectionAd(action) {
+  try {
+    const data = yield call(Api.createCollectionAd, action)
+    yield put({ type: ActionTypes.SUCCESS_CREATE_COLLECTION_AD, data })
+    Notify("Successfully created ad", "success")
+    action.CB(false)
+    setTimeout(() => {
+      location.href = '/home/manage-collection-ads'
+    }, 2000)
+  } catch (err) {
+    console.log(err)
+    err.response.json().then(json => { Notify(json.message, "warning") })
+    action.CB(false)
+  }
+}
+
+function* updateCollectionAdStatus(action) {
+  try {
+    const data = yield call(Api.updateCollectionAdStatus, action)
+    Notify(`Successfully ${action.data.status === 'Active' ? 'enabled' : 'disabled'} ad`, "success")
+    yield put({ type: ActionTypes.SUCCESS_UPDATE_COLLECTION_AD_STATUS, data })
+    action.CB()
+    // setTimeout(() => {
+    //   history.pushState(null,null, '/manage-image-ads')
+    // }, 2000)
+  } catch (err) {
+    console.log(err)
+    err.response.json().then(json => { Notify(json.message, "warning") })
+  }
+}
+
 function* fetchContactNumbersOfRetailer(action) {
   try {
     const data = yield call(Api.fetchContactNumbersOfRetailer, action)
@@ -899,6 +940,24 @@ function* watchUpdateImageAdStatus() {
   }
 }
 
+function* watchFetchCollectionAds() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_FETCH_COLLECTION_ADS, fetchCollectionAds)
+  }
+}
+
+function* watchCreateCollectionAd() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_CREATE_COLLECTION_AD, createCollectionAd)
+  }
+}
+
+function* watchUpdateCollectionAdStatus() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_UPDATE_COLLECTION_AD_STATUS, updateCollectionAdStatus)
+  }
+}
+
 function* watchFetchContactNumbersOfRetailer() {
   while (true) {
     yield* takeLatest(ActionTypes.REQUEST_FETCH_CONTACT_NUMBERS_OF_RETAILER, fetchContactNumbersOfRetailer)
@@ -997,6 +1056,9 @@ export default function* rootSaga() {
     fork(watchFetchImageAds),
     fork(watchCreateImageAd),
     fork(watchUpdateImageAdStatus),
+    fork(watchFetchCollectionAds),
+    fork(watchCreateCollectionAd),
+    fork(watchUpdateCollectionAdStatus),
     fork(watchFetchContactNumbersOfRetailer),
     fork(watchRequestAddBrandToCollection),
     fork(watchRequestRemoveBrandFromCollection),
