@@ -3,11 +3,11 @@ import './index.scss'
 import { unmountComponentAtNode } from 'react-dom'
 
 class ModalBox extends React.Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
-      width: "46%",
-      maxHeight: '95vh'
+      width: props.width || '46%',
+      maxHeight: props.maxHeight || '95vh'
     }
   }
   handleClick(e) {
@@ -39,7 +39,7 @@ class ModalBox extends React.Component {
   render () {
     return (
       <div className='modal-overlay'>
-        <div className='modal-container' style={{ width: this.state.width, maxHeight: this.state.maxHeight }}>
+        <div className='modal-container' style={{ width: this.state.width, maxHeight: this.state.maxHeight, overflow: 'auto' }}>
           { this.props.children }
         </div>
       </div>
