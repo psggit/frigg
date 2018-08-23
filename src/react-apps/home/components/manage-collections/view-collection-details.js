@@ -21,12 +21,15 @@ class ViewCollection extends React.Component {
       nameErr: false,
       displayNameErr: false
     }
+    this.brandList = []
     this.mountCollectionDialog = this.mountCollectionDialog.bind(this)
     this.unmountCollectionDialog = this.unmountCollectionDialog.bind(this)
     this.fetchBrandList = this.fetchBrandList.bind(this)
     this.addBrand = this.addBrand.bind(this)
     this.removeBrand = this.removeBrand.bind(this),
     this.handleCheckboxes = this.handleCheckboxes.bind(this)
+    this.addBrandToList = this.addBrandToList.bind(this)
+    this.unMountBrandListModal = this.unMountBrandListModal.bind(this)
   }
 
   mountCollectionDialog() {
@@ -37,18 +40,35 @@ class ViewCollection extends React.Component {
     this.setState({ shouldMountCollectionDialog: false })
   }
 
-  addBrand(newBrand) {
+  addBrandToList() {
     unMountModal()
-    let brandIdFound = false
+    this.setState({selectedBrand: this.brandList})
+    this.brandList = []
+  }
 
-    for (let i in this.state.selectedBrand) {
-      if (this.state.selectedBrand[i].brand_id === newBrand.brand_id) {
-        brandIdFound = true
-      }
-    }
+  unMountBrandListModal() {
+    unMountModal()
+    this.brandList = []
+  }
 
-    if (!brandIdFound) {
-      this.setState({ selectedBrand: [...this.state.selectedBrand, newBrand] })
+  addBrand(newBrand) {
+    //unMountModal()
+    // let brandIdFound = false
+
+    // for (let i in this.state.selectedBrand) {
+    //   if (this.state.selectedBrand[i].brand_id === newBrand.brand_id) {
+    //     brandIdFound = true
+    //   }
+    // }
+
+    // if (!brandIdFound) {
+    //   this.setState({ selectedBrand: [...this.state.selectedBrand, newBrand] })
+    // }
+
+    if(newBrand.brandChecked) {
+      this.brandList.push(newBrand)
+    } else {
+      this.brandList = this.brandList.filter((item) => item.brand_id !== newBrand.brand_id)
     }
   }
 
@@ -94,7 +114,10 @@ class ViewCollection extends React.Component {
     mountModal(AddBrandDialog({
       heading: 'Browse catalogue',
       //gps: '13.009625760868293,80.25397762656212',
-      addBrand: this.addBrand
+      addBrand: this.addBrand,
+      multiSelect: true,
+      unMountModal: this.unMountBrandListModal,
+      addBrandToList: this.addBrandToList
     }))
   }
 

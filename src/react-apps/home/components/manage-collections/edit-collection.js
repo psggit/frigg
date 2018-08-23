@@ -98,6 +98,10 @@ class EditCollection extends React.Component {
 
   }
 
+  unMountBrandListCatelogue() {
+    unMountModal()
+  }
+
   handlePageChange(pageObj) {
 
     const { collectionShortName } = this.props.match.params
@@ -133,7 +137,9 @@ class EditCollection extends React.Component {
   fetchBrandList() {
     mountModal(AddBrandDialog({
       heading: 'Browse catalogue',
-      addBrand: this.addBrand
+      addBrand: this.addBrand,
+      multiSelect: false,
+      unMountModal: this.unMountBrandListCatelogue
     }))
   }
 
