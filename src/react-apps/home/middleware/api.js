@@ -521,8 +521,8 @@ export const fetchCollections = action => (
 
 export const fetchBrandsInCollections = (action) => {
   return POST({
-    api: `/bucket/browse/list/${action.data.collectionShortName}`,
-    apiBase: 'catman',
+    api: `/collection/list/${action.data.collectionShortName}`,
+    apiBase: 'odin',
     data: action.data.data,
     handleError: true
   })

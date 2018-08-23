@@ -47,8 +47,8 @@ class EditCollection extends React.Component {
     this.props.actions.fetchBrandsInCollection({
       collectionShortName: collectionShortName,
       data: {
-        from: 0,
-        size: 5
+        offset: 0,
+        limit: 5
       }
     }, (response) => {
       let brandList = this.props.brandList.map((item) => {
@@ -113,8 +113,8 @@ class EditCollection extends React.Component {
     this.props.actions.fetchBrandsInCollection({
       collectionShortName: collectionShortName,
       data: {
-        from: pageObj.offset,
-        size: this.pagesLimit
+        offset: pageObj.offset,
+        limit: this.pagesLimit
       }
     }, () => {
       let brandList = this.props.brandList.map((item) => {
