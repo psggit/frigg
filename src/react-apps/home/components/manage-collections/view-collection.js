@@ -39,6 +39,8 @@ class ViewCollection extends React.Component {
         from: 0,
         size: 9
       }
+    }, () => {
+      
     })
   }
 

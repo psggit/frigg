@@ -614,6 +614,7 @@ function* fetchBrandsInCollection(action) {
   try {
     const data = yield call(Api.fetchBrandsInCollections, action)
     yield put({ type: ActionTypes.SUCCESS_FETCH_BRANDS_IN_COLLECTION, data })
+    action.CB()
   } catch (err) {
     console.log(err)
   }

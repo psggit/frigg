@@ -276,7 +276,8 @@ export const fetchCollections = (data) => ({
   data
 })
 
-export const fetchBrandsInCollection = (data) => ({
+export const fetchBrandsInCollection = (data, CB) => ({
   type: ActionTypes.REQUEST_FETCH_BRANDS_IN_COLLECTION,
-  data
+  data,
+  CB
 })

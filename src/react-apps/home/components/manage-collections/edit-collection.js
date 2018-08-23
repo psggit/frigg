@@ -33,7 +33,7 @@ class EditCollection extends React.Component {
   }
 
   componentDidMount() {
-
+    console.log("mount", this.props)
     const { collectionShortName } = this.props.match.params
     this.setState({ short_name: collectionShortName })
 
@@ -43,15 +43,23 @@ class EditCollection extends React.Component {
       this.setState({name: queryObj.collectionName, display_name: queryObj.collectionDisplayName})
     }
 
-    let brandList = this.props.brandList.map((item) => {
-      return {
-        brand_id:item.brand_id,
-        brand: item.brand_name,
-        short_name: item.brand_short_name
+    this.props.actions.fetchBrandsInCollection({
+      collectionShortName: collectionShortName,
+      data: {
+        from: 0,
+        size: 9
       }
+    }, (response) => {
+      let brandList = this.props.brandList.map((item) => {
+        return {
+          brand_id:item.brand_id,
+          brand: item.brand_name,
+          short_name: item.brand_short_name
+        }
+      })
+  
+      this.setState({selectedBrand: brandList})
     })
-
-    this.setState({selectedBrand: brandList})
     
   }
 
