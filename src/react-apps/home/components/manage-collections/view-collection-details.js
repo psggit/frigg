@@ -26,7 +26,7 @@ class ViewCollection extends React.Component {
     this.fetchBrandList = this.fetchBrandList.bind(this)
     this.addBrand = this.addBrand.bind(this)
     this.removeBrand = this.removeBrand.bind(this),
-      this.handleCheckboxes = this.handleCheckboxes.bind(this)
+    this.handleCheckboxes = this.handleCheckboxes.bind(this)
   }
 
   mountCollectionDialog() {
