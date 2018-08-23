@@ -9,6 +9,46 @@ import { GET, POST } from '@utils/fetch'
 import Search from '@components/SearchInput'
 import '@sass/OrdersPage/ShowNotified.scss'
 import '@sass/components/_spinner.scss'
+import {getIcon} from './../../../../utils/icons-utils'
+
+
+class ListItem extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      brand: this.props.brand, 
+      brand_id: this.props.brand_id, 
+      short_name: this.props.short_name, 
+      brandCheck: false,
+     
+    }
+    this.handleChange = this.handleChange.bind(this)
+  }
+
+  handleChange(event) {
+
+    const target = event.target;
+    const name = target.name;
+    const value = target.checked
+  
+    this.setState({
+      [name]: value
+    });
+
+    this.props.handleBrandChange({brandChecked: value, brand_id: this.props.brand_id, brand: this.props.brand, short_name: this.props.short_name})
+  }
+
+  render() {
+    return(
+      <td>
+        <div style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
+          <input id={this.props.brand_id} style={{ width: '30px', cursor: 'pointer', marginRight: '20px' }} name="brandCheck" type="checkbox" checked={this.state.brandCheck} value={this.props.brand_id}  onChange={(e) => this.handleChange(e)} />
+          <label style={{cursor: 'pointer'}} for={this.props.brand_id} >{this.props.brand}</label>
+        </div> 
+      </td>
+    )
+  }
+}
 
 export default function AddBrandDialog(data) {
   return class AddBrandDialog extends React.Component {
@@ -26,7 +66,8 @@ export default function AddBrandDialog(data) {
         loadingSKU: true,
         searchQuery: '',
         citiesData: [],
-        cityId: ''
+        cityId: '',
+        brandCheck: false
       }
 
       this.selectedBrand = []
@@ -38,6 +79,7 @@ export default function AddBrandDialog(data) {
       this.searchBrands = this.searchBrands.bind(this)
       this.setSearchQuery = this.setSearchQuery.bind(this)
       this.handleCityChange = this.handleCityChange.bind(this)
+      this.handleBrandChange = this.handleBrandChange.bind(this)
     }
 
     componentDidMount() {
@@ -59,9 +101,9 @@ export default function AddBrandDialog(data) {
           no_filter: true
         }
       })
-      .then(json => {
-        this.setState({ citiesData: json.cities })
-      })
+        .then(json => {
+          this.setState({ citiesData: json.cities })
+        })
     }
 
     setActiveAccordian(i, genreShortName, brandName) {
@@ -172,11 +214,22 @@ export default function AddBrandDialog(data) {
       this.listBrandsUsingGenre('beer', e.target.value)
     }
 
+    handleBrandChange(brand) {
+      const { brandCheck } = this.state
+      this.setState({brandCheck: !brandCheck})
+      data.addBrand(brand)
+    }
+
     render() {
       return (
         <React.Fragment>
           <ModalBox maxHeight="80vh">
-            <ModalHeader>Browse Catalogue</ModalHeader>
+            <ModalHeader>
+              <div style={{display: 'flex'}}>
+                <div> Browse Catalogue </div>
+                <div>{getIcon('cross')} </div>
+              </div>
+            </ModalHeader>
             {
               <div style={{ display: 'flex', flexDirection: 'column', borderBottom: '1px solid #f6f6f6' }}>
                 <h3>Choose city to list genre</h3>
@@ -236,12 +289,33 @@ export default function AddBrandDialog(data) {
                     </tr>
                   </thead>
                   <tbody>
+
                     {
+                      data.multiSelect &&
                       this.brands.map((item, i) => {
                         return <Fragment key={item.id}>
                           <tr
                             onClick={() => { this.setActiveAccordian(i, item.genreShortName, item.shortName) }}
-                            style={{ cursor: 'pointer' }} key={i}
+                            style={{ cursor: 'pointer' }} key={item.id}
+                          >
+                            {/* <td>
+                              <div style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
+                                <input id={item.id} style={{ width: '0px', cursor: 'pointer', marginRight: '20px' }} name="brandCheck" type="checkbox" name={item.id} value={item.id}  onChange={(e) => this.handleBrandChange({ event: e, brand_id: item.id, brand: item.brand, short_name: item.shortName})} />
+                                <label style={{cursor: 'pointer'}} for={item.id} >{item.brand}</label>
+                              </div>
+                            </td> */}
+                            <ListItem brand={item.brand} brand_id={item.id} short_name={item.shortName} handleBrandChange={this.handleBrandChange} />
+                          </tr>
+                        </Fragment>
+                      })
+                    }
+                    {
+                      !data.multiSelect &&
+                      this.brands.map((item, i) => {
+                        return <Fragment key={item.id}>
+                          <tr
+                            onClick={() => { this.setActiveAccordian(i, item.genreShortName, item.shortName) }}
+                            style={{ cursor: 'pointer' }} key={item.id}
                           >
                             <td>{item.brand}</td>
                             <td>
@@ -250,8 +324,8 @@ export default function AddBrandDialog(data) {
                                 style={{
                                   padding: '2px 20px'
                                 }}
-                              >
-                                add
+                                  >
+                                    add
                               </button>
                             </td>
                           </tr>
@@ -263,7 +337,14 @@ export default function AddBrandDialog(data) {
               }
             </ModalBody>
             <ModalFooter>
-              <button className='btn btn-primary' onClick={unMountModal}>Close</button>
+            {
+              data.multiSelect &&
+              <button className='btn btn-primary' onClick={data.unMountModal}>ADD BRAND</button>
+            }
+            {
+              !data.multiSelect &&
+              <button className='btn btn-primary' onClick={data.unMountModal}>CLOSE</button>
+            }
             </ModalFooter>
           </ModalBox>
 
