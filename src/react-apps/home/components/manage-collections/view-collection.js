@@ -16,7 +16,8 @@ class ViewCollection extends React.Component {
     this.state = {
       collectionShortName: '',
       activePage: 1,
-      pageOffset: 0
+      pageOffset: 0,
+      brandList: []
     },
 
     this.collectionName = '',
@@ -28,6 +29,7 @@ class ViewCollection extends React.Component {
   }
 
   componentDidMount() {
+
     const { collectionShortName } = this.props.match.params
     this.setState({ collectionShortName, loadingBrand: true })
 
@@ -43,7 +45,14 @@ class ViewCollection extends React.Component {
         size: 5
       }
     }, () => {
-
+      let brandList = this.props.data.brandList.map((item) => {
+        return {
+          brand_id:item.brand_id,
+          brand: item.brand_name,
+          short_name: item.brand_short_name
+        }
+      })
+      this.setState({brandList: brandList})
     })
   }
 
@@ -52,7 +61,7 @@ class ViewCollection extends React.Component {
     const { collectionShortName } = this.props.match.params
     let pageNumber = pageObj.activePage
     let offset = this.pagesLimit * (pageNumber - 1)
-    this.setState({ activePage: pageNumber, pageOffset: offset, loadingBrand: true })
+    this.setState({ activePage: pageNumber, pageOffset: offset, loadingBrand: true, brandList:[] })
 
     this.props.actions.fetchBrandsInCollection({
       collectionShortName: collectionShortName,
@@ -61,7 +70,14 @@ class ViewCollection extends React.Component {
         size: this.pagesLimit
       }
     }, () => {
-
+      let brandList = this.props.data.brandList.map((item) => {
+        return {
+          brand_id: item.brand_id,
+          brand: item.brand_name,
+          short_name: item.brand_short_name
+        }
+      })
+      this.setState({brandList: brandList})
     })
   }
 
@@ -70,8 +86,7 @@ class ViewCollection extends React.Component {
   // }
 
   render() {
-    const { loadingBrandsInCollection, brandList, brandCount } = this.props.data
-    console.log("brand list", brandList)
+    const { loadingBrandsInCollection, brandCount } = this.props.data
     const styles = {
       boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.08)',
       display: 'flex',
@@ -91,7 +106,7 @@ class ViewCollection extends React.Component {
           >
             <h3> Collection name: {this.collectionName} </h3>
             {
-              !loadingBrandsInCollection && brandList.length > 0
+              !loadingBrandsInCollection && this.state.brandList.length > 0
               &&
               <div>
 
@@ -108,11 +123,11 @@ class ViewCollection extends React.Component {
           </div>
 
           {
-            !loadingBrandsInCollection && brandList.length > 0
+            !loadingBrandsInCollection && this.state.brandList.length > 0
             &&
             <React.Fragment>
               <ViewBrandsInCollection
-                brandList={brandList}
+                brandList={this.state.brandList}
                 showDelete={false}
               />
               <Pagination
@@ -125,7 +140,7 @@ class ViewCollection extends React.Component {
             </React.Fragment>
           }
           {
-            !loadingBrandsInCollection && brandList.length === 0
+            !loadingBrandsInCollection && this.state.brandList.length === 0
             &&
             <div style={styles}> No brands found in the collection </div>
           }

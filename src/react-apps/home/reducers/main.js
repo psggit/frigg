@@ -209,7 +209,6 @@ const actionsMap = {
   },
 
   [ActionTypes.SUCCESS_FETCH_BRANDS_IN_COLLECTION]: (state, action) => {
-    console.log("acton", action)
     return Object.assign({}, state, {
       loadingBrandsInCollection: false,
       brandList: action.data.bucket,

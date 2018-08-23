@@ -103,7 +103,7 @@ class EditCollection extends React.Component {
 
     let pageNumber = pageObj.activePage
     let offset = this.pagesLimit * (pageNumber - 1)
-    this.setState({ activePage: pageNumber, pageOffset: offset, loadingBrand: true })
+    this.setState({ activePage: pageNumber, pageOffset: offset, loadingBrand: true, selectedBrand:[] })
   
     this.props.actions.fetchBrandsInCollection({
       collectionShortName: collectionShortName,
@@ -141,7 +141,6 @@ class EditCollection extends React.Component {
   }
 
   render() {
-    console.log("edit collection", this.state.selectedBrand)
     return (
       <div>
         <Card
@@ -181,7 +180,7 @@ class EditCollection extends React.Component {
         />
 
         {
-          this.state.selectedBrand.length > 0 &&
+          !this.props.loadingBrandsInCollection && this.state.selectedBrand.length > 0 &&
           <div style={{ width: '100%', maxWidth: 900 }}>
             <h3>Listing all brands</h3>
             <ViewBrandsInCollection

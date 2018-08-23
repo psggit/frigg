@@ -38,7 +38,6 @@ const headerStyles = [
 ]
 
 function ViewBrandsInCollection(data) {
-  console.log("view brands", data)
   return (
     <Table
       className="bordered--table"
@@ -78,8 +77,8 @@ function ViewBrandsInCollection(data) {
             data.brandList.map(item => (
               <TableRow key={item.brand_id}>
                 <TableRowColumn style={styles[0]}>{item.brand_id}</TableRowColumn>
-                <TableRowColumn style={styles[1]}>{item.brand_name}</TableRowColumn>
-                <TableRowColumn style={styles[2]}>{item.brand_short_name}</TableRowColumn>
+                <TableRowColumn style={styles[1]}>{item.brand}</TableRowColumn>
+                <TableRowColumn style={styles[2]}>{item.short_name}</TableRowColumn>
               </TableRow>
             ))
           )
