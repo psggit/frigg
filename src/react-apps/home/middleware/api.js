@@ -482,12 +482,47 @@ export const updateImageAdStatus = action => (
   })
 )
 
+export const createCollectionAd = action => (
+  POST({
+    api: '/marketing/ads/collection/create/collection_ads',
+    apiBase: 'odin',
+    data: action.data,
+    handleError: true
+  })
+)
+
+export const fetchCollectionAds = action => (
+  POST({
+    api: '/marketing/ads/collection/view_all',
+    apiBase: 'odin',
+    data: action.data,
+    handleError: true
+  })
+)
+
+export const updateCollectionAdStatus = action => (
+  POST({
+    api: '/marketing/ads/collection/status/image_ads',
+    apiBase: 'odin',
+    data: action.data,
+    handleError: true
+  })
+)
+
 
 export const addBrandToCollection = action => (
   POST({
     api: '/collection/add',
     apiBase: 'odin',
     data: action.data,
+    handleError: true
+  })
+)
+
+export const fetchTransactionCode = () => (
+  GET({
+    api: '/consumer/list/transaction_code',
+    apiBase: 'odin',
     handleError: true
   })
 )
@@ -501,9 +536,27 @@ export const removeBrandFromCollection = action => (
   })
 )
 
+export const verifyTransaction = action => (
+  POST({
+    api: '/consumer/verify/transaction',
+    apiBase: 'odin',
+    data: action.data,
+    handleError: true
+  })
+)
+
 export const createCollection = action => (
   POST({
     api: '/collection/create',
+    apiBase: 'odin',
+    data: action.data,
+    handleError: true
+  })
+)
+
+export const createTransaction = action => (
+  POST({
+    api: '/consumer/create/transaction',
     apiBase: 'odin',
     data: action.data,
     handleError: true
@@ -527,5 +580,21 @@ export const fetchBrandsInCollections = (action) => {
     handleError: true
   })
 }
-  
 
+export const requestTriggerSMS = (action) => (
+  POST({
+    api: '/admin/transaction/consumer/trigger',
+    apiBase: 'blogicUrl',
+    data:  action.data.transaction,
+    handleError: true
+  })
+)
+
+export const fetchCredits = (action) => (
+  POST({
+    api: '/consumer/view/credits',
+    apiBase: 'odin',
+    data:  action.data,
+    handleError: true
+  })
+)

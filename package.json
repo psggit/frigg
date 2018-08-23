@@ -27,6 +27,7 @@
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
     "react-alert": "^2.4.0",
+    "react-day-picker": "^7.1.10",
     "react-dom": "^16.2.0",
     "react-gmaps": "^1.7.0",
     "react-js-pagination": "^3.0.0",

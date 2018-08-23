@@ -51,7 +51,8 @@ class NavigationBar extends  React.Component {
       {
         name: 'Ads management',
         nestedItems: [
-          { name: 'Manage image ads', path: '/home/manage-image-ads', id: 8 }
+          { name: 'Manage image ads', path: '/home/manage-image-ads', id: 8 },
+          { name: 'Manage collection ads', path: '/home/manage-collection-ads', id: 13 }
         ]
       },
       {
@@ -70,14 +71,19 @@ class NavigationBar extends  React.Component {
       {
         name: 'HipBar Pay',
         nestedItems: [
-          { name: 'Rollback transaction', path: '/home/hipbar-pay/rollback-transaction', id: 12 }
         ]
       },
       {
-        name: 'Manage collections',
+        name: 'Customer management',
+        nestedItems: [
+          { name: 'Customer Transactions', path: '/home/customer-transactions', id: 14 },
+        ]
+      },
+      {
+        name: 'Manage Collections',
         path: '/home/manage-collections',
-        id: 13,
-        nestedItems: [],
+        id: 15,
+        nestedItems: []
       }
     ]
     return (

@@ -240,6 +240,23 @@ export const updateImageAdStatus = (data, CB) => ({
   CB
 })
 
+export const fetchCollectionAds = data => ({
+  type: ActionTypes.REQUEST_FETCH_COLLECTION_ADS,
+  data
+})
+
+export const createCollectionAd = (data, CB) => ({
+  type: ActionTypes.REQUEST_CREATE_COLLECTION_AD,
+  data,
+  CB
+})
+
+export const updateCollectionAdStatus = (data, CB) => ({
+  type: ActionTypes.REQUEST_UPDATE_COLLECTION_AD_STATUS,
+  data,
+  CB
+})
+
 export const fetchContactNumbersOfRetailer = data => ({
   type: ActionTypes.REQUEST_FETCH_CONTACT_NUMBERS_OF_RETAILER,
   data
@@ -280,4 +297,30 @@ export const fetchBrandsInCollection = (data, CB) => ({
   type: ActionTypes.REQUEST_FETCH_BRANDS_IN_COLLECTION,
   data,
   CB
+})
+
+export const fetchTrasactionCode = () => ({
+  type: ActionTypes.REQUEST_TRANSACTION_CODE
+})
+
+export const verifyTransaction = (data, CB) => ({
+  type: ActionTypes.REQUEST_VERIFY_TRANSACTION,
+  data,
+  CB
+})
+
+export const createTransaction = (data, CB) => ({
+  type: ActionTypes.REQUEST_CREATE_TRANSACTION,
+  data,
+  CB
+})
+
+export const fetchCredits = (data) => ({
+  type: ActionTypes.REQUEST_FETCH_CREDITS,
+  data
+})
+
+export const updateAddCreditTrasactionList = (data) => ({
+  type: ActionTypes.REQUEST_UPDATE_TRANSACTION_LIST,
+  data
 })
