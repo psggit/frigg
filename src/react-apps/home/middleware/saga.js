@@ -615,6 +615,7 @@ function* addBrandToCollection(action) {
   try {
     const data = yield call(Api.addBrandToCollection, action)
     Notify('Successfully added brand to the collection', 'success')
+    action.CB()
   } catch(err) {
     console.log(err)
   }
@@ -634,6 +635,7 @@ function* removeBrandFromCollection(action) {
   try {
     const data = yield call(Api.removeBrandFromCollection, action)
     Notify('Successfully removed brand from the collection', 'success')
+    action.CB()
   } catch(err) {
     console.log(err)
   }

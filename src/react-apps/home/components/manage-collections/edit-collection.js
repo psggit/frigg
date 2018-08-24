@@ -67,35 +67,73 @@ class EditCollection extends React.Component {
   addBrand(newBrand) {
 
     unMountModal()
-    let brandIdFound = false
+    // let brandIdFound = false
 
-    for (let i in this.state.selectedBrand) {
-      if (this.state.selectedBrand[i].brand_id === newBrand.brand_id) {
-        brandIdFound = true
-      }
-    }
+    // for (let i in this.state.selectedBrand) {
+    //   if (this.state.selectedBrand[i].brand_id === newBrand.brand_id) {
+    //     brandIdFound = true
+    //   }
+    // }
 
-    if (!brandIdFound) {
-      this.setState({ selectedBrand: [...this.state.selectedBrand, newBrand] })
-    }
+    // if (!brandIdFound) {
+    //   this.setState({ selectedBrand: [...this.state.selectedBrand, newBrand] })
+    // }
+
+    const { collectionShortName } = this.props.match.params
 
     this.props.actions.addBrandToCollection({
       brand_id: newBrand.brand_id,
       short_name: this.state.short_name
+    }, () => {
+      this.props.actions.fetchBrandsInCollection({
+        collectionShortName: collectionShortName,
+        data: {
+          offset: 0,
+          limit: 5
+        }
+      }, (response) => {
+        let brandList = this.props.brandList.map((item) => {
+          return {
+            brand_id: item.brand_id,
+            brand: item.brand_name,
+            short_name: item.brand_short_name
+          }
+        })
+  
+        this.setState({ selectedBrand: brandList, loadingBrands: false })
+      })
     })
   }
 
   removeBrand(brand) {
 
+    const { collectionShortName } = this.props.match.params
+
     this.props.actions.removeBrandFromCollection({
       brand_id: brand.brand_id,
       short_name: this.state.short_name
+    }, () => {
+      this.props.actions.fetchBrandsInCollection({
+        collectionShortName: collectionShortName,
+        data: {
+          offset: 0,
+          limit: 5
+        }
+      }, (response) => {
+        let brandList = this.props.brandList.map((item) => {
+          return {
+            brand_id: item.brand_id,
+            brand: item.brand_name,
+            short_name: item.brand_short_name
+          }
+        })
+  
+        this.setState({ selectedBrand: brandList, loadingBrands: false })
+      })
     })
-
-    this.setState({
-      selectedBrand: this.state.selectedBrand.filter((item) => item.brand_id !== brand.brand_id)
-    })
-
+    // this.setState({
+    //   selectedBrand: this.state.selectedBrand.filter((item) => item.brand_id !== brand.brand_id)
+    // })
   }
 
   unMountBrandListCatelogue() {
