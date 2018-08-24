@@ -74,8 +74,8 @@ function ViewBrandsInCollection(data) {
         {
           data.showDelete && data.brandList && data.brandList.length > 0
           &&
-          data.brandList.map(item => (
-            <TableRow key={item.brand_id}>
+          data.brandList.map((item, i) => {
+            return <TableRow key={i}>
               <TableRowColumn style={headerStyles[0]}>
                 <button onClick={() => data.removeBrand({ brand_id: item.brand_id, short_name: item.short_name })} style={{ fontSize: '13px', textTransform: 'none' }}> Delete </button>
               </TableRowColumn>
@@ -84,18 +84,18 @@ function ViewBrandsInCollection(data) {
               <TableRowColumn style={headerStyles[3]}>{item.short_name}</TableRowColumn>
 
             </TableRow>
-          ))
+          })
         }
         {
           !data.showDelete && data.brandList && data.brandList.length > 0
           &&
-          data.brandList.map(item => (
-            <TableRow key={item.brand_id}>
+          data.brandList.map((item, i) => {
+            return <TableRow key={i}>
               <TableRowColumn style={styles[0]}>{item.brand_id}</TableRowColumn>
               <TableRowColumn style={styles[1]}>{item.brand}</TableRowColumn>
               <TableRowColumn style={styles[2]}>{item.short_name}</TableRowColumn>
             </TableRow>
-          ))
+          })
         }
         {
           !data.loadingBrandsInCollection && data.brandList.length === 0

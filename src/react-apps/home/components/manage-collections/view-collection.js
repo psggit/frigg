@@ -62,7 +62,7 @@ class ViewCollection extends React.Component {
     let pageNumber = pageObj.activePage
     let offset = this.pagesLimit * (pageNumber - 1)
     this.setState({ activePage: pageNumber, pageOffset: offset, brandList:[], loadingBrands:true })
-
+  
     this.props.actions.fetchBrandsInCollection({
       collectionShortName: collectionShortName,
       data: {
