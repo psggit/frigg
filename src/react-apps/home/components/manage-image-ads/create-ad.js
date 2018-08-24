@@ -283,7 +283,7 @@ class CreateAd extends React.Component {
                           }
                           type='number'
                           onChange={(e) => { this.handleSetListingOrder(e, item.id) }}
-                          style={{ width: '40px', textAlign: 'center' }}
+                          style={{ width: '40px', textAlign: 'center', height: '20px', borderRadius: '0' }}
                         />
                       </div>
                   ))
