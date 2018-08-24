@@ -662,6 +662,7 @@ function* createCollection(action) {
       location.href = '/home/manage-collections'
     }, 2000)
   } catch (err) {
+    err.response.json().then(json => { Notify(json.message, "warning") })
     console.log(err)
   }
 }
