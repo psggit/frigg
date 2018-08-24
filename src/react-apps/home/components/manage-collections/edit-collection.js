@@ -26,7 +26,7 @@ class EditCollection extends React.Component {
       loadingBrands: false
     }
     this.brandCount = 0,
-    this.pagesLimit = 5
+      this.pagesLimit = 5
     this.fetchBrandList = this.fetchBrandList.bind(this)
     this.addBrand = this.addBrand.bind(this)
     this.removeBrand = this.removeBrand.bind(this)
@@ -36,12 +36,12 @@ class EditCollection extends React.Component {
 
   componentDidMount() {
     const { collectionShortName } = this.props.match.params
-    this.setState({ short_name: collectionShortName, loadingBrands: true})
+    this.setState({ short_name: collectionShortName, loadingBrands: true })
 
     const queryObj = getQueryObj(location.search.slice(1))
 
-    if(queryObj && queryObj.collectionName.length && queryObj.collectionDisplayName.length) {
-      this.setState({name: queryObj.collectionName, display_name: queryObj.collectionDisplayName})
+    if (queryObj && queryObj.collectionName.length && queryObj.collectionDisplayName.length) {
+      this.setState({ name: queryObj.collectionName, display_name: queryObj.collectionDisplayName })
     }
 
     this.props.actions.fetchBrandsInCollection({
@@ -53,15 +53,15 @@ class EditCollection extends React.Component {
     }, (response) => {
       let brandList = this.props.brandList.map((item) => {
         return {
-          brand_id:item.brand_id,
+          brand_id: item.brand_id,
           brand: item.brand_name,
           short_name: item.brand_short_name
         }
       })
-  
-      this.setState({selectedBrand: brandList, loadingBrands: false})
+
+      this.setState({ selectedBrand: brandList, loadingBrands: false })
     })
-    
+
   }
 
   addBrand(newBrand) {
@@ -69,16 +69,16 @@ class EditCollection extends React.Component {
     unMountModal()
     let brandIdFound = false
 
-    for(let i in this.state.selectedBrand) {
-      if(this.state.selectedBrand[i].brand_id === newBrand.brand_id) {
+    for (let i in this.state.selectedBrand) {
+      if (this.state.selectedBrand[i].brand_id === newBrand.brand_id) {
         brandIdFound = true
       }
     }
 
-    if(!brandIdFound) {
+    if (!brandIdFound) {
       this.setState({ selectedBrand: [...this.state.selectedBrand, newBrand] })
     }
-    
+
     this.props.actions.addBrandToCollection({
       brand_id: newBrand.brand_id,
       short_name: this.state.short_name
@@ -108,8 +108,8 @@ class EditCollection extends React.Component {
 
     let pageNumber = pageObj.activePage
     let offset = this.pagesLimit * (pageNumber - 1)
-    this.setState({ activePage: pageNumber, pageOffset: offset, loadingBrand: true, selectedBrand:[], loadingBrands: true})
-  
+    this.setState({ activePage: pageNumber, pageOffset: offset, loadingBrand: true, selectedBrand: [], loadingBrands: true })
+
     this.props.actions.fetchBrandsInCollection({
       collectionShortName: collectionShortName,
       data: {
@@ -119,13 +119,13 @@ class EditCollection extends React.Component {
     }, () => {
       let brandList = this.props.brandList.map((item) => {
         return {
-          brand_id:item.brand_id,
+          brand_id: item.brand_id,
           brand: item.brand_name,
           short_name: item.brand_short_name
         }
       })
-  
-      this.setState({selectedBrand: brandList, loadingBrands: false})
+
+      this.setState({ selectedBrand: brandList, loadingBrands: false })
     })
 
   }
@@ -144,7 +144,7 @@ class EditCollection extends React.Component {
   }
 
   handleChange(e) {
-    this.setState({[e.target.name]: e.target.value});
+    this.setState({ [e.target.name]: e.target.value });
   }
 
   render() {
@@ -159,12 +159,12 @@ class EditCollection extends React.Component {
         >
           <div className="form-group">
             <label className="label">Name</label><br />
-            <input style={{ marginTop: '10px' }} name="name" value={this.state.name} onChange={(e) => this.handleChange(e)} disabled/>
+            <input style={{ marginTop: '10px' }} name="name" value={this.state.name} onChange={(e) => this.handleChange(e)} disabled />
           </div>
 
           <div className="form-group">
             <label className="label">Display name</label><br />
-            <input style={{ marginTop: '10px' }} name="display_name" value={this.state.display_name} onChange={(e) => this.handleChange(e)} disabled/>
+            <input style={{ marginTop: '10px' }} name="display_name" value={this.state.display_name} onChange={(e) => this.handleChange(e)} disabled />
           </div>
 
           <div className="form-group">
@@ -199,14 +199,14 @@ class EditCollection extends React.Component {
             {
               this.state.selectedBrand.length > 0 &&
               <Pagination
-              activePage={parseInt(this.state.activePage)}
-              itemsCountPerPage={this.pagesLimit}
-              totalItemsCount={this.props.brandCount}
-              pageRangeDisplayed={5}
-              setPage={this.handlePageChange}
-            />
+                activePage={parseInt(this.state.activePage)}
+                itemsCountPerPage={this.pagesLimit}
+                totalItemsCount={this.props.brandCount}
+                pageRangeDisplayed={5}
+                setPage={this.handlePageChange}
+              />
             }
-           
+
           </div>
         }
       </div>

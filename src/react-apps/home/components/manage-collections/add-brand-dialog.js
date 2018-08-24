@@ -24,17 +24,11 @@ class ListItem extends React.Component {
     this.handleChange = this.handleChange.bind(this)
   }
 
-  handleChange(event) {
-
-    const target = event.target;
-    const name = target.name;
-    const value = target.checked
-  
+  handleChange(e) {
     this.setState({
-      [name]: value
+      [e.target.name]: e.target.checked
     });
-
-    this.props.handleBrandChange({brandChecked: value, brand_id: this.props.brand_id, brand: this.props.brand, short_name: this.props.short_name})
+    this.props.handleBrandChange({brandChecked: e.target.checked, brand_id: this.props.brand_id, brand: this.props.brand, short_name: this.props.short_name})
   }
 
   render() {
@@ -69,7 +63,7 @@ export default function AddBrandDialog(data) {
         brandCheck: false
       }
 
-      this.selectedBrand = []
+      this.brandList = []
       this.handleChange = this.handleChange.bind(this)
       this.setActiveAccordian = this.setActiveAccordian.bind(this)
       this.listGenres = this.listGenres.bind(this)
@@ -79,6 +73,7 @@ export default function AddBrandDialog(data) {
       this.setSearchQuery = this.setSearchQuery.bind(this)
       this.handleCityChange = this.handleCityChange.bind(this)
       this.handleBrandChange = this.handleBrandChange.bind(this)
+      this.addBrand = this.addBrand.bind(this)
     }
 
     componentDidMount() {
@@ -216,7 +211,15 @@ export default function AddBrandDialog(data) {
     handleBrandChange(brand) {
       const { brandCheck } = this.state
       this.setState({brandCheck: !brandCheck})
-      data.addBrand(brand)
+      this.addBrand(brand)
+    }
+
+    addBrand(newBrand) {
+      if(newBrand.brandChecked) {
+        this.brandList.push(newBrand)
+      } else {
+        this.brandList = this.brandList.filter((item) => item.brand_id !== newBrand.brand_id)
+      }
     }
 
     render() {
@@ -234,7 +237,7 @@ export default function AddBrandDialog(data) {
                 <h3>Choose city to list genre</h3>
 
                 <select
-                  style={{ marginRight: '20px', marginBottom: '20px', height: '46px', fontSize: '16px', width: '50%' }}
+                  style={{ marginRight: '20px', marginBottom: '20px', height: '46px', fontSize: '16px', width: '50%'}}
                   value={this.state.cityId}
                   onChange={this.handleCityChange}
                 >
@@ -297,12 +300,6 @@ export default function AddBrandDialog(data) {
                             onClick={() => { this.setActiveAccordian(i, item.genreShortName, item.shortName) }}
                             style={{ cursor: 'pointer' }} key={item.id}
                           >
-                            {/* <td>
-                              <div style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
-                                <input id={item.id} style={{ width: '0px', cursor: 'pointer', marginRight: '20px' }} name="brandCheck" type="checkbox" name={item.id} value={item.id}  onChange={(e) => this.handleBrandChange({ event: e, brand_id: item.id, brand: item.brand, short_name: item.shortName})} />
-                                <label style={{cursor: 'pointer'}} for={item.id} >{item.brand}</label>
-                              </div>
-                            </td> */}
                             <ListItem brand={item.brand} brand_id={item.id} short_name={item.shortName} handleBrandChange={this.handleBrandChange} />
                           </tr>
                         </Fragment>
@@ -323,8 +320,8 @@ export default function AddBrandDialog(data) {
                                 style={{
                                   padding: '2px 20px'
                                 }}
-                                  >
-                                    add
+                              >
+                                  add
                               </button>
                             </td>
                           </tr>
@@ -338,7 +335,7 @@ export default function AddBrandDialog(data) {
             <ModalFooter>
             {
               data.multiSelect &&  !this.state.loadingGenres && !this.state.loadingBrands &&
-              <button style={{padding: '10px 20px', fontSize: '13px', cursor: 'pointer'}} onClick={data.addBrandToList}>ADD BRANDS</button>
+              <button style={{padding: '10px 20px', fontSize: '13px', cursor: 'pointer'}} onClick={() => data.addBrandToList(this.brandList)}>ADD BRANDS</button>
             }
             {
               !data.multiSelect &&

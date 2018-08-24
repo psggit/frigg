@@ -26,7 +26,6 @@ class ViewCollection extends React.Component {
     this.pagesLimit = 5
 
     this.handlePageChange = this.handlePageChange.bind(this)
-
   }
 
   componentDidMount() {
@@ -82,10 +81,6 @@ class ViewCollection extends React.Component {
     })
   }
 
-  // editCollection() {
-  //   console.log("edit collection")
-  // }
-
   render() {
     const { brandCount } = this.props.data
     const styles = {
@@ -140,11 +135,6 @@ class ViewCollection extends React.Component {
               />
             </React.Fragment>
           }
-          {/* {
-            !this.state.loadingBrands && this.state.brandList.length === 0
-            &&
-            <div style={styles}> No brands found in the collection </div>
-          } */}
         </div>
       </React.Fragment>
     )
