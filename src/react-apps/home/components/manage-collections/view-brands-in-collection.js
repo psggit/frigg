@@ -26,16 +26,16 @@ const TableHeaderItems = [
 ]
 
 const styles = [
-  { width: '60px'},
-  { width: '120px'},
-  { width: '120px'},
+  { width: '60px' },
+  { width: '120px' },
+  { width: '120px' },
 ]
 
 const headerStyles = [
-  { width: '38px'},
-  { width: '60px'},
-  { width: '120px'},
-  { width: '120px'},
+  { width: '38px' },
+  { width: '60px' },
+  { width: '120px' },
+  { width: '120px' },
 ]
 
 function ViewBrandsInCollection(data) {
@@ -55,9 +55,9 @@ function ViewBrandsInCollection(data) {
         <TableRow>
           {
             data.showDelete ?
-            TableHeaderItemsWithButton.map((item, i) => <TableHeaderColumn style={headerStyles[i]} key={`table-head-col-${i}`}>{item}</TableHeaderColumn>) :
-            TableHeaderItems.map((item, i) => <TableHeaderColumn style={styles[i]} key={`table-head-col-${i}`}>{item}</TableHeaderColumn>)
-            
+              TableHeaderItemsWithButton.map((item, i) => <TableHeaderColumn style={headerStyles[i]} key={`table-head-col-${i}`}>{item}</TableHeaderColumn>) :
+              TableHeaderItems.map((item, i) => <TableHeaderColumn style={styles[i]} key={`table-head-col-${i}`}>{item}</TableHeaderColumn>)
+
           }
         </TableRow>
       </TableHeader>
@@ -65,31 +65,6 @@ function ViewBrandsInCollection(data) {
         displayRowCheckbox={false}
         showRowHover
       >
-        {/* {
-          data.showDelete && data.brandList && data.brandList.length > 0
-          ? (
-            data.brandList.map(item => (
-              <TableRow key={item.brand_id}>
-                <TableRowColumn style={headerStyles[0]}>
-                  <button onClick={() => data.removeBrand({brand_id: item.brand_id, short_name: item.short_name}) } style={{fontSize: '13px', textTransform: 'none'}}> delete </button>
-                </TableRowColumn>
-                <TableRowColumn style={headerStyles[1]}>{item.brand_id}</TableRowColumn>
-                <TableRowColumn style={headerStyles[2]}>{item.brand}</TableRowColumn>
-                <TableRowColumn style={headerStyles[3]}>{item.short_name}</TableRowColumn>
-      
-              </TableRow>
-            ))
-          )
-          : (
-            data.brandList.map(item => (
-              <TableRow key={item.brand_id}>
-                <TableRowColumn style={styles[0]}>{item.brand_id}</TableRowColumn>
-                <TableRowColumn style={styles[1]}>{item.brand}</TableRowColumn>
-                <TableRowColumn style={styles[2]}>{item.short_name}</TableRowColumn>
-              </TableRow>
-            ))
-          )
-        } */}
         {
           data.loadingBrandsInCollection &&
           [1, 2, 3, 4, 5].map(() => {
@@ -97,37 +72,36 @@ function ViewBrandsInCollection(data) {
           })
         }
         {
-           data.showDelete && data.brandList && data.brandList.length > 0
-           &&
-             data.brandList.map(item => (
-               <TableRow key={item.brand_id}>
-                 <TableRowColumn style={headerStyles[0]}>
-                   <button onClick={() => data.removeBrand({brand_id: item.brand_id, short_name: item.short_name}) } style={{fontSize: '13px', textTransform: 'none'}}> Delete </button>
-                 </TableRowColumn>
-                 <TableRowColumn style={headerStyles[1]}>{item.brand_id}</TableRowColumn>
-                 <TableRowColumn style={headerStyles[2]}>{item.brand}</TableRowColumn>
-                 <TableRowColumn style={headerStyles[3]}>{item.short_name}</TableRowColumn>
-       
-               </TableRow>
-             ))
+          data.showDelete && data.brandList && data.brandList.length > 0
+          &&
+          data.brandList.map(item => (
+            <TableRow key={item.brand_id}>
+              <TableRowColumn style={headerStyles[0]}>
+                <button onClick={() => data.removeBrand({ brand_id: item.brand_id, short_name: item.short_name })} style={{ fontSize: '13px', textTransform: 'none' }}> Delete </button>
+              </TableRowColumn>
+              <TableRowColumn style={headerStyles[1]}>{item.brand_id}</TableRowColumn>
+              <TableRowColumn style={headerStyles[2]}>{item.brand}</TableRowColumn>
+              <TableRowColumn style={headerStyles[3]}>{item.short_name}</TableRowColumn>
+
+            </TableRow>
+          ))
         }
         {
-            !data.showDelete && data.brandList && data.brandList.length > 0
-            &&
-            data.brandList.map(item => (
-              <TableRow key={item.brand_id}>
-                <TableRowColumn style={styles[0]}>{item.brand_id}</TableRowColumn>
-                <TableRowColumn style={styles[1]}>{item.brand}</TableRowColumn>
-                <TableRowColumn style={styles[2]}>{item.short_name}</TableRowColumn>
-              </TableRow>
-            ))
+          !data.showDelete && data.brandList && data.brandList.length > 0
+          &&
+          data.brandList.map(item => (
+            <TableRow key={item.brand_id}>
+              <TableRowColumn style={styles[0]}>{item.brand_id}</TableRowColumn>
+              <TableRowColumn style={styles[1]}>{item.brand}</TableRowColumn>
+              <TableRowColumn style={styles[2]}>{item.short_name}</TableRowColumn>
+            </TableRow>
+          ))
         }
         {
-          !data.loadingBrandsInCollection  && data.brandList.length === 0
+          !data.loadingBrandsInCollection && data.brandList.length === 0
           &&
           <div style={notificationStyle}> No brands found in the collection </div>
         }
-        
       </TableBody>
     </Table>
   )

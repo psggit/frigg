@@ -32,7 +32,6 @@ class ManageCollections extends React.Component {
   }
 
   handlePageChange(pageObj) {
-
     let pageNumber = pageObj.activePage
     let offset = this.pagesLimit * (pageNumber - 1)
     this.setState({ activePage: pageNumber, pageOffset: offset })
@@ -118,5 +117,3 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(ManageCollections)
-
-//export default ViewCredits
