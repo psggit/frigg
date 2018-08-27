@@ -9,6 +9,7 @@ import ModalFooter from '@components/ModalBox/ModalFooter'
 import ModalBody from '@components/ModalBox/ModalBody'
 import ModalBox from '@components/ModalBox'
 import ConfirmCredits from '../components/confirm-credits'
+import { validateNumType, checkCtrlA } from './../../utils'
 //import ConfirmModal from '@components/ModalBox/ConfirmModal'
 
 class AddCredits extends React.Component {
@@ -48,7 +49,8 @@ class AddCredits extends React.Component {
     this.createTransaction = this.createTransaction.bind(this)
     this.unMountConfirmCreditsModal = this.unMountConfirmCreditsModal.bind(this)
     this.mountConfirmCredits = this.mountConfirmCredits.bind(this)
-    this.deleteCredit =  this.deleteCredit.bind(this) 
+    this.deleteCredit =  this.deleteCredit.bind(this)
+    this.handleChangeInAmount = this.handleChangeInAmount.bind(this)
   }
 
   componentDidMount() {
@@ -76,10 +78,10 @@ class AddCredits extends React.Component {
   // }
 
   validateAmount(amount) {
-    if(amount <= 0) {
-      return ({status: true, value: 'Amount is required'})
+    if(amount.toString().length) {
+      return ({status: false, value: ''})
     }
-    return ({status: false, value: ''})
+    return ({status: true, value: 'Amount is required'})
   }
 
   validateTransactionCode(transactionCode) {
@@ -151,64 +153,65 @@ class AddCredits extends React.Component {
   validateForm() {
 
     const { amount, transactionCode, batchNo, comment} = this.state
-    this.setState({ amountErr : this.validateAmount(amount), verifyingTransaction: true })
-    this.setState({ transactionCodeErr: this.validateTransactionCode(transactionCode) })
-    const { amountErr, transactionCodeErr } = this.state
 
-  
-    let transactionId = this.props.data.transactionCodes.filter((item) => {
-  
-      if(transactionCode === item.code) {
-        return item
-      }
-       
-    })
-
-    if (!amountErr.status && !transactionCodeErr.status) {
-
-      let emailIdsWithDuplicates = [], uniqueEmailIds = []
-      emailIdsWithDuplicates = this.state.emailIds.replace(/\s/g, '')
-      emailIdsWithDuplicates = emailIdsWithDuplicates.split(',')
-      uniqueEmailIds = [...new Set(emailIdsWithDuplicates.map((id) => { return id}))]
-
-      this.setState({ duplicateEmailIdCount : emailIdsWithDuplicates.length - uniqueEmailIds.length })
-
-      this.props.data.addCreditsFormDetails = {
-        transactionId : transactionId[0].id,
-        transactionCode,
-        amount,
-        batchNo,
-        comment,
-        emailIds: uniqueEmailIds
-      }
-
-      uniqueEmailIds = uniqueEmailIds.map((email) => {
-        return {
-          email
+    this.setState({ 
+      amountErr : this.validateAmount(amount), 
+      transactionCodeErr: this.validateTransactionCode(transactionCode) 
+    },  () => {
+      const { amountErr, transactionCodeErr } = this.state
+      let transactionId = this.props.data.transactionCodes.filter((item) => {
+        if(transactionCode === item.code) {
+          return item
         }
       })
-      
-      this.props.actions.verifyTransaction({
-        mail_ids: uniqueEmailIds
-      }, (response) => {
 
-        this.setState({verifyingTransaction :false})
+      if (!amountErr.status && !transactionCodeErr.status) {
 
-        let validTransactions = this.getValidTransactions()
-
-        if(validTransactions.length) {
-          this.mountConfirmCredits(response)
-        } else {
-          this.setState({showNotification : true})
-          // mountModal(ConfirmModal({
-          //   heading: 'Notification',
-          //   confirmMessage: 'Sorry! no valid customers found',
-          // }))
+        let emailIdsWithDuplicates = [], uniqueEmailIds = []
+        emailIdsWithDuplicates = this.state.emailIds.replace(/\s/g, '')
+        emailIdsWithDuplicates = emailIdsWithDuplicates.split(',')
+        uniqueEmailIds = [...new Set(emailIdsWithDuplicates.map((id) => { return id}))]
+  
+        this.setState({ duplicateEmailIdCount : emailIdsWithDuplicates.length - uniqueEmailIds.length, verifyingTransaction: true})
+  
+        this.props.data.addCreditsFormDetails = {
+          transactionId : transactionId[0].id,
+          transactionCode,
+          amount,
+          batchNo,
+          comment,
+          emailIds: uniqueEmailIds
         }
+  
+        uniqueEmailIds = uniqueEmailIds.map((email) => {
+          return {
+            email
+          }
+        })
         
-      })
-    
-    }
+        this.props.actions.verifyTransaction({
+          mail_ids: uniqueEmailIds
+        }, (response) => {
+  
+          this.setState({verifyingTransaction :false})
+  
+          let validTransactions = this.getValidTransactions()
+  
+          if(validTransactions.length) {
+            this.mountConfirmCredits(response)
+          } else {
+            this.setState({showNotification : true})
+            // mountModal(ConfirmModal({
+            //   heading: 'Notification',
+            //   confirmMessage: 'Sorry! no valid customers found',
+            // }))
+          }
+          
+        })
+      
+      }
+     
+    })
 
   }
 
@@ -219,6 +222,19 @@ class AddCredits extends React.Component {
       [e.target.name]: e.target.value,
       [errName]: fnExp(e.target.value)
     })
+  }
+
+  handleChangeInAmount(e) {
+    const errName = `${e.target.name}Err`
+    const fnExp = eval(`this.validate${this.inputNameMap[e.target.name]}`)
+    if(validateNumType(e.keyCode) || checkCtrlA(e)) {
+      this.setState({ 
+        [e.target.name]: e.target.value,
+        [errName]: fnExp(e.target.value) 
+      })
+    } else {
+      e.preventDefault()
+    }
   }
 
   handleChange(e) {
@@ -257,7 +273,7 @@ class AddCredits extends React.Component {
         </div>
         <div className="input-field">
           <span>Amount</span>
-          <input className="field-value" onChange={this.handleChangeWithValidation} value={this.state.amount} name="amount" type="number"/>
+          <input className="field-value" onKeyDown={this.handleChangeInAmount} onKeyUp={this.handleChangeInAmount} name="amount" />
           {amountErr.status && <p className="field-error">{amountErr.value}</p>}
         </div>
         <div className="input-field">
@@ -265,7 +281,7 @@ class AddCredits extends React.Component {
           <textarea className="field-value" onChange={this.handleChange} value={this.state.comment} name="comment" rows="4" cols="40"></textarea>
         </div>
         <div className={`submit-button ${verifyingTransaction ? 'disable' : ''}`} onClick={this.validateForm}>
-          <button onClick={this.validateForm}> {verifyingTransaction} Create </button>
+          <button> Create </button>
         </div>
       </div>
       {
