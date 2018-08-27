@@ -12,12 +12,18 @@ import * as Actions from './../../actions'
 class ViewCollection extends React.Component {
   constructor() {
     super()
+
+    this.inputNameMap = {
+      displayName: 'DisplayName',
+      name: 'Name'
+    }
+
     this.state = {
       shouldMountCollectionDialog: false,
       selectedBrand: [],
       is_active: false,
       name: '',
-      display_name: '',
+      displayName: '',
       nameErr: false,
       displayNameErr: false
     }
@@ -57,8 +63,22 @@ class ViewCollection extends React.Component {
 
   }
 
+  validateName(name) {
+    if(name.length) {
+      return false
+    }
+    return true
+  }
+
+  validateDisplayName(displayName) {
+    if(displayName.length) {
+      return false
+    }
+    return true
+  }
+
   createCollection() {
-    if(this.state.name.length && this.state.display_name.length) {
+    if(this.state.name.length && this.state.displayName.length) {
       let brandData = this.state.selectedBrand.map((item) => {
         return {
           brand_id: item.brand_id,
@@ -68,14 +88,14 @@ class ViewCollection extends React.Component {
       this.props.actions.createCollection({
         collection_data: {
           name: this.state.name,
-          display_name: this.state.display_name,
+          display_name: this.state.displayName,
           is_active: this.state.is_active,
         },
         brand_data: brandData
       })
-    } else if(this.state.name.length === 0 && this.state.display_name.length > 0) {
+    } else if(this.state.name.length === 0 && this.state.displayName.length > 0) {
       this.setState({nameErr: true})
-    } else if(this.state.name.length > 0 && this.state.display_name.length === 0) {
+    } else if(this.state.name.length > 0 && this.state.displayName.length === 0) {
       this.setState({displayNameErr: true})
     } else {
       this.setState({nameErr: true, displayNameErr: true})
@@ -99,7 +119,14 @@ class ViewCollection extends React.Component {
   }
 
   handleChange(e) {
-    this.setState({ [e.target.name]: e.target.value });
+    //this.setState({ [e.target.name]: e.target.value });
+    const errName = `${e.target.name}Err`
+    const fnExp = eval(`this.validate${this.inputNameMap[e.target.name]}`)
+    console.log("change", e.target.value, e.target.name, `${e.target.name}Err`, `this.validate${this.inputNameMap[e.target.name]}`)
+    this.setState({
+      [e.target.name]: e.target.value,
+      [errName]: fnExp(e.target.value)
+    })
   }
 
   render() {
@@ -123,7 +150,7 @@ class ViewCollection extends React.Component {
 
           <div className="form-group">
             <label className="label">Display name</label><br />
-            <input style={{ marginTop: '10px' }} name="display_name" value={this.state.display_name} onChange={(e) => this.handleChange(e)} />
+            <input style={{ marginTop: '10px' }} name="displayName" value={this.state.displayName} onChange={(e) => this.handleChange(e)} />
             {
               this.state.displayNameErr &&
               <p style={{color: '#ff3b34'}}> Display name is required </p>

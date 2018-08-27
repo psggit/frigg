@@ -64,7 +64,7 @@ class ListItem extends React.Component {
               <label style={{cursor: 'pointer'}} for={this.props.brand_id} >{this.props.brand}</label>
             </div> 
         </td>
-        <td>
+        {/* <td>
           <input
             type="number"  
             onChange={(e) => { this.handleSetBrandListingOrder(e) }} 
@@ -73,7 +73,7 @@ class ListItem extends React.Component {
             //disabled={!(this.props.brandList.indexOf(this.props.brand_id) > -1)}
             disabled={!this.state.brandCheck}
           />
-        </td>
+        </td> */}
       </React.Fragment>
     )
   }
@@ -348,7 +348,7 @@ export default function AddBrandDialog(data) {
                       data.multiSelect &&
                       <tr>
                         <td>Brand name</td>
-                        <td>Listing order</td>
+                        {/* <td>Listing order</td> */}
                       </tr>
                     }
                     {
