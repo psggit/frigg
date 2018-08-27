@@ -93,13 +93,17 @@ class ViewCollection extends React.Component {
         },
         brand_data: brandData
       })
-    } else if(this.state.name.length === 0 && this.state.displayName.length > 0) {
-      this.setState({nameErr: true})
-    } else if(this.state.name.length > 0 && this.state.displayName.length === 0) {
-      this.setState({displayNameErr: true})
     } else {
-      this.setState({nameErr: true, displayNameErr: true})
+      this.setState({nameErr: this.validateName(this.state.name)})
+      this.setState({displayNameErr: this.validateDisplayName(this.state.displayName)})
     }
+    // } else if(this.state.name.length === 0 && this.state.displayName.length > 0) {
+    //   this.setState({nameErr: true})
+    // } else if(this.state.name.length > 0 && this.state.displayName.length === 0) {
+    //   this.setState({displayNameErr: true})
+    // } else {
+    //   this.setState({nameErr: true, displayNameErr: true})
+    // }
     this.brandList = []
     
   }
@@ -122,7 +126,6 @@ class ViewCollection extends React.Component {
     //this.setState({ [e.target.name]: e.target.value });
     const errName = `${e.target.name}Err`
     const fnExp = eval(`this.validate${this.inputNameMap[e.target.name]}`)
-    console.log("change", e.target.value, e.target.name, `${e.target.name}Err`, `this.validate${this.inputNameMap[e.target.name]}`)
     this.setState({
       [e.target.name]: e.target.value,
       [errName]: fnExp(e.target.value)
