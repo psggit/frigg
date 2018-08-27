@@ -54,7 +54,7 @@ class ListItem extends React.Component {
             <div style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
               <input
                 id={this.props.brand_id}
-                style={{ width: '30px', cursor: 'pointer', marginRight: '20px' }}
+                style={{ width: '30px', cursor: 'pointer', marginRight: '20px', height: 'auto' }}
                 name="brandCheck"
                 type="checkbox"
                 checked={this.state.brandCheck}

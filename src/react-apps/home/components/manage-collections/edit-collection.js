@@ -26,7 +26,7 @@ class EditCollection extends React.Component {
       loadingBrands: false
     }
     this.brandCount = 0,
-      this.pagesLimit = 5
+    this.pagesLimit = 40
     this.fetchBrandList = this.fetchBrandList.bind(this)
     this.addBrand = this.addBrand.bind(this)
     this.removeBrand = this.removeBrand.bind(this)
@@ -100,7 +100,7 @@ class EditCollection extends React.Component {
             short_name: item.brand_short_name
           }
         })
-  
+
         this.setState({ selectedBrand: brandList, loadingBrands: false })
       })
     })
@@ -128,7 +128,7 @@ class EditCollection extends React.Component {
             short_name: item.brand_short_name
           }
         })
-  
+
         this.setState({ selectedBrand: brandList, loadingBrands: false })
       })
     })
