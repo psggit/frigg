@@ -60,7 +60,7 @@ class CreateAdForm extends React.Component {
   }
 
   resetUploadImage() {
-    this.setState({ isImageUploaded: false, isImageSelected: false, isImageUploading: false })
+    this.setState({ isImageUploaded: false, isImageSelected: false, isImageUploading: false, image_url: '' })
   }
 
   submitUploadedImage() {
