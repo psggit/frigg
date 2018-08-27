@@ -273,14 +273,16 @@ export const addRetailerNumbers = (data, retailer_id) => ({
   data
 })
 
-export const addBrandToCollection = (data) => ({
+export const addBrandToCollection = (data, CB) => ({
   type: ActionTypes.REQUEST_ADD_BRAND_TO_COLLECTION,
-  data
+  data,
+  CB
 })
 
-export const removeBrandFromCollection = (data) => ({
+export const removeBrandFromCollection = (data, CB) => ({
   type: ActionTypes.REQUEST_REMOVE_BRAND_FROM_COLLECTION,
-  data
+  data,
+  CB
 })
 
 export const createCollection = (data) => ({

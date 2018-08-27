@@ -12,12 +12,18 @@ import * as Actions from './../../actions'
 class ViewCollection extends React.Component {
   constructor() {
     super()
+
+    this.inputNameMap = {
+      displayName: 'DisplayName',
+      name: 'Name'
+    }
+
     this.state = {
       shouldMountCollectionDialog: false,
       selectedBrand: [],
       is_active: false,
       name: '',
-      display_name: '',
+      displayName: '',
       nameErr: false,
       displayNameErr: false
     }
@@ -25,7 +31,6 @@ class ViewCollection extends React.Component {
     this.mountCollectionDialog = this.mountCollectionDialog.bind(this)
     this.unmountCollectionDialog = this.unmountCollectionDialog.bind(this)
     this.fetchBrandList = this.fetchBrandList.bind(this)
-    //this.addBrand = this.addBrand.bind(this)
     this.removeBrand = this.removeBrand.bind(this),
     this.handleCheckboxes = this.handleCheckboxes.bind(this)
     this.addBrandToList = this.addBrandToList.bind(this)
@@ -41,36 +46,14 @@ class ViewCollection extends React.Component {
   }
 
   addBrandToList(brandList) {
+    console.log("add brands", brandList)
     unMountModal()
     this.setState({selectedBrand: [...this.state.selectedBrand, ...brandList]})
   }
 
   unMountBrandListModal() {
     unMountModal()
-    //this.brandList = [...this.brandList.slice(0, this.brandList.length - 1)]
-    //this.setState({ selectedBrand: [...this.brandList.slice(0, this.brandList.length - 1)]})
   }
-
-  // addBrand(newBrand) {
-  //   //unMountModal()
-  //   // let brandIdFound = false
-
-  //   // for (let i in this.state.selectedBrand) {
-  //   //   if (this.state.selectedBrand[i].brand_id === newBrand.brand_id) {
-  //   //     brandIdFound = true
-  //   //   }
-  //   // }
-
-  //   // if (!brandIdFound) {
-  //   //   this.setState({ selectedBrand: [...this.state.selectedBrand, newBrand] })
-  //   // }
-
-  //   if(newBrand.brandChecked) {
-  //     this.brandList.push(newBrand)
-  //   } else {
-  //     this.brandList = this.brandList.filter((item) => item.brand_id !== newBrand.brand_id)
-  //   }
-  // }
 
   removeBrand(brand) {
 
@@ -80,25 +63,39 @@ class ViewCollection extends React.Component {
 
   }
 
-  createCollection() {
+  validateName(name) {
+    if(name.length) {
+      return false
+    }
+    return true
+  }
 
-    if(this.state.name.length && this.state.display_name.length) {
+  validateDisplayName(displayName) {
+    if(displayName.length) {
+      return false
+    }
+    return true
+  }
+
+  createCollection() {
+    if(this.state.name.length && this.state.displayName.length) {
       let brandData = this.state.selectedBrand.map((item) => {
         return {
-          brand_id: item.brand_id
+          brand_id: item.brand_id,
+          //list_no: item.orderListNo
         }
       })
       this.props.actions.createCollection({
         collection_data: {
           name: this.state.name,
-          display_name: this.state.display_name,
+          display_name: this.state.displayName,
           is_active: this.state.is_active,
         },
         brand_data: brandData
       })
-    } else if(this.state.name.length === 0 && this.state.display_name.length > 0) {
+    } else if(this.state.name.length === 0 && this.state.displayName.length > 0) {
       this.setState({nameErr: true})
-    } else if(this.state.name.length > 0 && this.state.display_name.length === 0) {
+    } else if(this.state.name.length > 0 && this.state.displayName.length === 0) {
       this.setState({displayNameErr: true})
     } else {
       this.setState({nameErr: true, displayNameErr: true})
@@ -114,15 +111,22 @@ class ViewCollection extends React.Component {
   fetchBrandList() {
     mountModal(AddBrandDialog({
       heading: 'Browse catalogue',
-      addBrand: this.addBrand,
       multiSelect: true,
       unMountModal: this.unMountBrandListModal,
-      addBrandToList: this.addBrandToList
+      addBrandToList: this.addBrandToList,
+      brandCount: this.state.selectedBrand.length
     }))
   }
 
   handleChange(e) {
-    this.setState({ [e.target.name]: e.target.value });
+    //this.setState({ [e.target.name]: e.target.value });
+    const errName = `${e.target.name}Err`
+    const fnExp = eval(`this.validate${this.inputNameMap[e.target.name]}`)
+    console.log("change", e.target.value, e.target.name, `${e.target.name}Err`, `this.validate${this.inputNameMap[e.target.name]}`)
+    this.setState({
+      [e.target.name]: e.target.value,
+      [errName]: fnExp(e.target.value)
+    })
   }
 
   render() {
@@ -146,7 +150,7 @@ class ViewCollection extends React.Component {
 
           <div className="form-group">
             <label className="label">Display name</label><br />
-            <input style={{ marginTop: '10px' }} name="display_name" value={this.state.display_name} onChange={(e) => this.handleChange(e)} />
+            <input style={{ marginTop: '10px' }} name="displayName" value={this.state.displayName} onChange={(e) => this.handleChange(e)} />
             {
               this.state.displayNameErr &&
               <p style={{color: '#ff3b34'}}> Display name is required </p>

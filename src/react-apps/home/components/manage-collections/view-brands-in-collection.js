@@ -76,14 +76,14 @@ function ViewBrandsInCollection(data) {
           &&
           data.brandList.map((item, i) => {
             return <TableRow key={i}>
-              <TableRowColumn style={headerStyles[0]}>
-                <button onClick={() => data.removeBrand({ brand_id: item.brand_id, short_name: item.short_name })} style={{ fontSize: '13px', textTransform: 'none' }}> Delete </button>
-              </TableRowColumn>
-              <TableRowColumn style={headerStyles[1]}>{item.brand_id}</TableRowColumn>
-              <TableRowColumn style={headerStyles[2]}>{item.brand}</TableRowColumn>
-              <TableRowColumn style={headerStyles[3]}>{item.short_name}</TableRowColumn>
+                      <TableRowColumn style={headerStyles[0]}>
+                        <button onClick={() => data.removeBrand({ brand_id: item.brand_id, short_name: item.short_name })} style={{ fontSize: '13px', textTransform: 'none' }}> Delete </button>
+                      </TableRowColumn>
+                      <TableRowColumn style={headerStyles[1]}>{item.brand_id}</TableRowColumn>
+                      <TableRowColumn style={headerStyles[2]}>{item.brand}</TableRowColumn>
+                      <TableRowColumn style={headerStyles[3]}>{item.short_name}</TableRowColumn>
 
-            </TableRow>
+                    </TableRow>
           })
         }
         {
@@ -91,10 +91,10 @@ function ViewBrandsInCollection(data) {
           &&
           data.brandList.map((item, i) => {
             return <TableRow key={i}>
-              <TableRowColumn style={styles[0]}>{item.brand_id}</TableRowColumn>
-              <TableRowColumn style={styles[1]}>{item.brand}</TableRowColumn>
-              <TableRowColumn style={styles[2]}>{item.short_name}</TableRowColumn>
-            </TableRow>
+                    <TableRowColumn style={styles[0]}>{item.brand_id}</TableRowColumn>
+                    <TableRowColumn style={styles[1]}>{item.brand}</TableRowColumn>
+                    <TableRowColumn style={styles[2]}>{item.short_name}</TableRowColumn>
+                  </TableRow>
           })
         }
         {
