@@ -42,7 +42,7 @@ class ViewCollection extends React.Component {
       collectionShortName: collectionShortName,
       data: {
         offset: 0,
-        limit: 5
+        limit: this.pagesLimit
       }
     }, () => {
       let brandList = this.props.data.brandList.map((item) => {

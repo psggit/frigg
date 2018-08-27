@@ -16,7 +16,7 @@ class ManageCollections extends React.Component {
   constructor(props) {
 
     super(props)
-    this.pagesLimit = 5
+    this.pagesLimit = 40
     this.state = {
       activePage: 1,
       pageOffset: 0,

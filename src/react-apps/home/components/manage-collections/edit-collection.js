@@ -90,7 +90,7 @@ class EditCollection extends React.Component {
         collectionShortName: collectionShortName,
         data: {
           offset: 0,
-          limit: 5
+          limit: this.pagesLimit
         }
       }, (response) => {
         let brandList = this.props.brandList.map((item) => {
