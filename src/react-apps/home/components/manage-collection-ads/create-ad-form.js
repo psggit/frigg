@@ -75,7 +75,8 @@ class CreateAdForm extends React.Component {
       handleError: true
     })
       .then((json) => {
-        this.setState({ isImageUploaded: true, isImageUploading: false, image_url: `${Api.api2}/get?fs_url=${json[0]}` })
+        this.uploadedImageUrl = `${Api.api2}/get?fs_url=${json[0]}`
+        this.setState({ isImageUploaded: true, isImageUploading: false, image_url: json[0] })
       })
   }
 
@@ -194,7 +195,7 @@ class CreateAdForm extends React.Component {
               marginTop: '15px',
               position: 'relative'
             }}>
-              <img src={this.state.image_url} style={{ width: '200px', height: '120px' }} />
+              <img src={this.uploadedImageUrl} style={{ width: '200px', height: '120px' }} />
               <div
                 onClick={this.resetUploadImage}
                 style={{
