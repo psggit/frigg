@@ -15,9 +15,9 @@ class ListItem extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      brand: this.props.brand, 
-      brand_id: this.props.brand_id, 
-      short_name: this.props.short_name, 
+      brand: this.props.brand,
+      brand_id: this.props.brand_id,
+      short_name: this.props.short_name,
       brandCheck: false,
       orderListNo: 0
     }
@@ -29,13 +29,13 @@ class ListItem extends React.Component {
     const targetValue = e.target
     this.setState({
       [e.target.name]: e.target.checked,
-      orderListNo : this.props.list_no + 1 
+      orderListNo : this.props.list_no + 1
     }, () => {
       this.props.handleBrandChange ({
-        brandChecked: targetValue.checked, 
-        brand_id: this.props.brand_id, 
-        brand: this.props.brand, 
-        short_name: this.props.short_name, 
+        brandChecked: targetValue.checked,
+        brand_id: this.props.brand_id,
+        brand: this.props.brand,
+        short_name: this.props.short_name,
         orderListNo: this.state.orderListNo
       })
     })
@@ -52,23 +52,23 @@ class ListItem extends React.Component {
       <React.Fragment>
         <td>
             <div style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
-              <input 
-                id={this.props.brand_id} 
-                style={{ width: '30px', cursor: 'pointer', marginRight: '20px' }} 
-                name="brandCheck" 
-                type="checkbox" 
-                checked={this.state.brandCheck} 
-                value={this.props.brand_id}  
-                onChange={(e) => this.handleChange(e)} 
+              <input
+                id={this.props.brand_id}
+                style={{ width: '30px', cursor: 'pointer', marginRight: '20px', height: 'auto' }}
+                name="brandCheck"
+                type="checkbox"
+                checked={this.state.brandCheck}
+                value={this.props.brand_id}
+                onChange={(e) => this.handleChange(e)}
               />
               <label style={{cursor: 'pointer'}} for={this.props.brand_id} >{this.props.brand}</label>
-            </div> 
+            </div>
         </td>
         {/* <td>
           <input
-            type="number"  
-            onChange={(e) => { this.handleSetBrandListingOrder(e) }} 
-            value={this.state.orderListNo} 
+            type="number"
+            onChange={(e) => { this.handleSetBrandListingOrder(e) }}
+            value={this.state.orderListNo}
             style={{width: '50px'}}
             //disabled={!(this.props.brandList.indexOf(this.props.brand_id) > -1)}
             disabled={!this.state.brandCheck}
@@ -339,7 +339,7 @@ export default function AddBrandDialog(data) {
                 </Fragment>
               }
             </div>
-            <ModalBody height='200px'>
+            <ModalBody maxHeight='400px'>
               {
                 !this.state.loadingGenres && !this.state.loadingBrands &&
                 <table className='table--hovered'>
@@ -370,12 +370,12 @@ export default function AddBrandDialog(data) {
                             onClick={() => { this.setActiveAccordian(i, item.genreShortName, item.shortName) }}
                             style={{ cursor: 'pointer' }} key={item.id}
                           >
-                            <ListItem 
-                              brand={item.brand} 
-                              brand_id={item.id} 
-                              short_name={item.shortName} 
-                              handleBrandChange={this.handleBrandChange} 
-                              list_no={this.brandList.length + data.brandCount} 
+                            <ListItem
+                              brand={item.brand}
+                              brand_id={item.id}
+                              short_name={item.shortName}
+                              handleBrandChange={this.handleBrandChange}
+                              list_no={this.brandList.length + data.brandCount}
                               updateBrandListingOrder={this.updateBrandListingOrder}
                             />
                           </tr>

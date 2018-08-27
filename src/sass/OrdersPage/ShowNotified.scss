@@ -5,7 +5,7 @@
    //  border: 1px solid #f6f6f6;
     tr {
       border-bottom: 1px solid #f6f6f6;
-  
+
       &:hover {
         background: #eaeaea;
         td {
@@ -21,7 +21,7 @@
       font-size: 16px;
       padding: 10px;
       color: #4a4a4a;
-  
+
       button {
         cursor: pointer;
         font-size: 14px;
@@ -30,12 +30,12 @@
       }
     }
 
-    // input[type=number]::-webkit-inner-spin-button, 
-    // input[type=number]::-webkit-outer-spin-button { 
+    // input[type=number]::-webkit-inner-spin-button,
+    // input[type=number]::-webkit-outer-spin-button {
     //     -webkit-appearance: none;
     //     -moz-appearance: none;
     //     appearance: none;
-    //     margin: 0; 
+    //     margin: 0;
     // }
   }
 }
