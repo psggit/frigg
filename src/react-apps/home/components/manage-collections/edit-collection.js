@@ -65,7 +65,7 @@ class EditCollection extends React.Component {
   }
 
   addBrand(newBrand) {
-
+    console.log("add brand", newBrand)
     unMountModal()
     // let brandIdFound = false
 
@@ -83,7 +83,8 @@ class EditCollection extends React.Component {
 
     this.props.actions.addBrandToCollection({
       brand_id: newBrand.brand_id,
-      short_name: this.state.short_name
+      short_name: this.state.short_name,
+      // orderNo : newBrand.orderListNo
     }, () => {
       this.props.actions.fetchBrandsInCollection({
         collectionShortName: collectionShortName,
@@ -177,7 +178,8 @@ class EditCollection extends React.Component {
       heading: 'Browse catalogue',
       addBrand: this.addBrand,
       multiSelect: false,
-      unMountModal: this.unMountBrandListCatelogue
+      unMountModal: this.unMountBrandListCatelogue,
+      brandCount: this.props.brandCount
     }))
   }
 

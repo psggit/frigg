@@ -25,7 +25,6 @@ class ViewCollection extends React.Component {
     this.mountCollectionDialog = this.mountCollectionDialog.bind(this)
     this.unmountCollectionDialog = this.unmountCollectionDialog.bind(this)
     this.fetchBrandList = this.fetchBrandList.bind(this)
-    //this.addBrand = this.addBrand.bind(this)
     this.removeBrand = this.removeBrand.bind(this),
     this.handleCheckboxes = this.handleCheckboxes.bind(this)
     this.addBrandToList = this.addBrandToList.bind(this)
@@ -41,36 +40,14 @@ class ViewCollection extends React.Component {
   }
 
   addBrandToList(brandList) {
+    console.log("add brands", brandList)
     unMountModal()
     this.setState({selectedBrand: [...this.state.selectedBrand, ...brandList]})
   }
 
   unMountBrandListModal() {
     unMountModal()
-    //this.brandList = [...this.brandList.slice(0, this.brandList.length - 1)]
-    //this.setState({ selectedBrand: [...this.brandList.slice(0, this.brandList.length - 1)]})
   }
-
-  // addBrand(newBrand) {
-  //   //unMountModal()
-  //   // let brandIdFound = false
-
-  //   // for (let i in this.state.selectedBrand) {
-  //   //   if (this.state.selectedBrand[i].brand_id === newBrand.brand_id) {
-  //   //     brandIdFound = true
-  //   //   }
-  //   // }
-
-  //   // if (!brandIdFound) {
-  //   //   this.setState({ selectedBrand: [...this.state.selectedBrand, newBrand] })
-  //   // }
-
-  //   if(newBrand.brandChecked) {
-  //     this.brandList.push(newBrand)
-  //   } else {
-  //     this.brandList = this.brandList.filter((item) => item.brand_id !== newBrand.brand_id)
-  //   }
-  // }
 
   removeBrand(brand) {
 
@@ -81,11 +58,11 @@ class ViewCollection extends React.Component {
   }
 
   createCollection() {
-
     if(this.state.name.length && this.state.display_name.length) {
       let brandData = this.state.selectedBrand.map((item) => {
         return {
-          brand_id: item.brand_id
+          brand_id: item.brand_id,
+          //list_no: item.orderListNo
         }
       })
       this.props.actions.createCollection({
@@ -114,10 +91,10 @@ class ViewCollection extends React.Component {
   fetchBrandList() {
     mountModal(AddBrandDialog({
       heading: 'Browse catalogue',
-      addBrand: this.addBrand,
       multiSelect: true,
       unMountModal: this.unMountBrandListModal,
-      addBrandToList: this.addBrandToList
+      addBrandToList: this.addBrandToList,
+      brandCount: this.state.selectedBrand.length
     }))
   }
 
