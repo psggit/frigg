@@ -96,11 +96,13 @@ export default function AddBrandDialog(data) {
         searchQuery: '',
         citiesData: [],
         cityId: '',
-        brandCheck: false,
+        //brandCheck: false,
+        //brandList: [],
+        //activeBrandList: {}
         // orderNo: 0,
       }
 
-      this.brandList = []
+      this.selectedBrandList = []
       this.handleChange = this.handleChange.bind(this)
       this.setActiveAccordian = this.setActiveAccordian.bind(this)
       this.listGenres = this.listGenres.bind(this)
@@ -238,7 +240,7 @@ export default function AddBrandDialog(data) {
     }
 
     updateBrandListingOrder(newOrderNo) {
-      return this.brandList.map((item) => {
+      return this.selectedBrandList.map((item) => {
         if(item.brand_id === newOrderNo.brand_id) {
           item.orderListNo = parseInt(newOrderNo.orderListNo)
         }
@@ -262,24 +264,45 @@ export default function AddBrandDialog(data) {
       this.listBrandsUsingGenre('beer', e.target.value)
     }
 
-    handleBrandChange(brand) {
-      const { brandCheck} = this.state
-      this.setState({brandCheck: !brandCheck})
-      this.addBrandToLocalList(brand)
-    }
+    // handleBrandChange(brand) {
+    //   // const { brandCheck} = this.state
+    //   // this.setState({brandCheck: !brandCheck})
+    //   this.addBrandToLocalList(brand)
+    // }
 
     addBrandToLocalList(newBrand) {
       //console.log("add brand to local", newBrand)
       if(newBrand.brandChecked) {
-        this.brandList.push(newBrand)
+        this.selectedBrandList.push(newBrand)
       } else {
-        this.brandList = this.brandList.filter((item) => item.brand_id !== newBrand.brand_id)
+        this.selectedBrandList = this.selectedBrandList.filter((item) => item.brand_id !== newBrand.brand_id)
       }
     }
 
     // handleChangeInOrderListNumber(e) {
     //   this.setState({orderNo: e.target.value})
     // }
+
+    handleChangeInBrandList(newBrand) {
+      // let updateActiveBrandList = Object.assign({}, this.state.activeBrandList)
+      // updateActiveBrandList[brandId] = this.brands.filter((item) => {
+      //   if(item.id === brandId) {
+      //     return item.checked = e.target.checked
+      //   }
+      // })
+      // console.log("list", updateActiveBrandList)
+      const targetElement = newBrand.event.target
+      this.setState({orderListNo: newBrand.list_no + 1},
+      () => {
+        this.addBrandToLocalList ({
+          brandChecked:  targetElement.checked,
+          brand_id: newBrand.brand_id,
+          brand: newBrand.brand,
+          short_name: newBrand.short_name,
+          orderListNo: this.state.orderListNo
+        })
+      })
+    }
 
     render() {
       return (
@@ -370,14 +393,32 @@ export default function AddBrandDialog(data) {
                             onClick={() => { this.setActiveAccordian(i, item.genreShortName, item.shortName) }}
                             style={{ cursor: 'pointer' }} key={item.id}
                           >
-                            <ListItem
+                            {/* <ListItem
                               brand={item.brand}
                               brand_id={item.id}
                               short_name={item.shortName}
                               handleBrandChange={this.handleBrandChange}
                               list_no={this.brandList.length + data.brandCount}
                               updateBrandListingOrder={this.updateBrandListingOrder}
-                            />
+                            /> */}
+                             <td>
+                                <div style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
+                                  <input
+                                    id={item.id}
+                                    style={{ width: '30px', cursor: 'pointer', marginRight: '20px', height: 'auto' }}
+                                    name="brandCheck"
+                                    type="checkbox"
+                                    // checked={
+                                    //   this.state.updateActiveBrandList.length && this.state.updateActiveBrandList[item.id]
+                                    //   ? this.state.updateActiveBrandList[item.id].checked
+                                    //   : false
+                                    // }
+                                    value={item.id}
+                                    onChange={(e) => this.handleChangeInBrandList({event:e, brand: item.brand, brand_id: item.id, short_name: item.shortName,list_no: this.selectedBrandList.length + data.brandCount})}
+                                  />
+                                  <label style={{cursor: 'pointer'}} for={item.id} >{item.brand}</label>
+                                </div>
+                            </td>
                           </tr>
                         </Fragment>
                       })
@@ -413,7 +454,7 @@ export default function AddBrandDialog(data) {
             <ModalFooter>
             {
               data.multiSelect &&  !this.state.loadingGenres && !this.state.loadingBrands &&
-              <button style={{padding: '10px 20px', fontSize: '13px', cursor: 'pointer'}} onClick={() => data.addBrandToList(this.brandList)}>ADD BRANDS</button>
+              <button style={{padding: '10px 20px', fontSize: '13px', cursor: 'pointer'}} onClick={() => data.addBrandToList(this.selectedBrandList)}>ADD BRANDS</button>
             }
             {
               !data.multiSelect &&
