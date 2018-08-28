@@ -1,6 +1,6 @@
 
 import React, { Fragment } from 'react'
-import { unMountModal } from '@components/ModalBox/utils'
+//import { unMountModal } from '@components/ModalBox/utils'
 import ModalHeader from '@components/ModalBox/ModalHeader'
 import ModalFooter from '@components/ModalBox/ModalFooter'
 import ModalBody from '@components/ModalBox/ModalBody'
@@ -11,73 +11,73 @@ import '@sass/OrdersPage/ShowNotified.scss'
 import '@sass/components/_spinner.scss'
 import {getIcon} from '@components/utils'
 
-class ListItem extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      brand: this.props.brand,
-      brand_id: this.props.brand_id,
-      short_name: this.props.short_name,
-      brandCheck: false,
-      orderListNo: 0
-    }
-    this.handleChange = this.handleChange.bind(this)
-    this.handleSetBrandListingOrder = this.handleSetBrandListingOrder.bind(this)
-  }
+// class ListItem extends React.Component {
+//   constructor(props) {
+//     super(props)
+//     this.state = {
+//       brand: this.props.brand,
+//       brand_id: this.props.brand_id,
+//       short_name: this.props.short_name,
+//       brandCheck: false,
+//       orderListNo: 0
+//     }
+//     this.handleChange = this.handleChange.bind(this)
+//     this.handleSetBrandListingOrder = this.handleSetBrandListingOrder.bind(this)
+//   }
 
-  handleChange(e) {
-    const targetValue = e.target
-    this.setState({
-      [e.target.name]: e.target.checked,
-      orderListNo : this.props.list_no + 1
-    }, () => {
-      this.props.handleBrandChange ({
-        brandChecked: targetValue.checked,
-        brand_id: this.props.brand_id,
-        brand: this.props.brand,
-        short_name: this.props.short_name,
-        orderListNo: this.state.orderListNo
-      })
-    })
-    // this.props.handleBrandChange({brandChecked: e.target.checked, brand_id: this.props.brand_id, brand: this.props.brand, short_name: this.props.short_name, orderListNo: this.props.list_no + 1})
-  }
+//   handleChange(e) {
+//     const targetValue = e.target
+//     this.setState({
+//       [e.target.name]: e.target.checked,
+//       orderListNo : this.props.list_no + 1
+//     }, () => {
+//       this.props.handleBrandChange ({
+//         brandChecked: targetValue.checked,
+//         brand_id: this.props.brand_id,
+//         brand: this.props.brand,
+//         short_name: this.props.short_name,
+//         orderListNo: this.state.orderListNo
+//       })
+//     })
+//     // this.props.handleBrandChange({brandChecked: e.target.checked, brand_id: this.props.brand_id, brand: this.props.brand, short_name: this.props.short_name, orderListNo: this.props.list_no + 1})
+//   }
 
-  handleSetBrandListingOrder(e) {
-    this.setState({orderListNo: e.target.value})
-    this.props.updateBrandListingOrder({orderListNo: e.target.value, brand_id: this.props.brand_id})
-  }
+//   handleSetBrandListingOrder(e) {
+//     this.setState({orderListNo: e.target.value})
+//     this.props.updateBrandListingOrder({orderListNo: e.target.value, brand_id: this.props.brand_id})
+//   }
 
-  render() {
-    return(
-      <React.Fragment>
-        <td>
-            <div style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
-              <input
-                id={this.props.brand_id}
-                style={{ width: '30px', cursor: 'pointer', marginRight: '20px', height: 'auto' }}
-                name="brandCheck"
-                type="checkbox"
-                checked={this.state.brandCheck}
-                value={this.props.brand_id}
-                onChange={(e) => this.handleChange(e)}
-              />
-              <label style={{cursor: 'pointer'}} for={this.props.brand_id} >{this.props.brand}</label>
-            </div>
-        </td>
-        {/* <td>
-          <input
-            type="number"
-            onChange={(e) => { this.handleSetBrandListingOrder(e) }}
-            value={this.state.orderListNo}
-            style={{width: '50px'}}
-            //disabled={!(this.props.brandList.indexOf(this.props.brand_id) > -1)}
-            disabled={!this.state.brandCheck}
-          />
-        </td> */}
-      </React.Fragment>
-    )
-  }
-}
+//   render() {
+//     return(
+//       <React.Fragment>
+//         <td>
+//             <div style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
+//               <input
+//                 id={this.props.brand_id}
+//                 style={{ width: '30px', cursor: 'pointer', marginRight: '20px', height: 'auto' }}
+//                 name="brandCheck"
+//                 type="checkbox"
+//                 checked={this.state.brandCheck}
+//                 value={this.props.brand_id}
+//                 onChange={(e) => this.handleChange(e)}
+//               />
+//               <label style={{cursor: 'pointer'}} for={this.props.brand_id} >{this.props.brand}</label>
+//             </div>
+//         </td>
+//         {/* <td>
+//           <input
+//             type="number"
+//             onChange={(e) => { this.handleSetBrandListingOrder(e) }}
+//             value={this.state.orderListNo}
+//             style={{width: '50px'}}
+//             //disabled={!(this.props.brandList.indexOf(this.props.brand_id) > -1)}
+//             disabled={!this.state.brandCheck}
+//           />
+//         </td> */}
+//       </React.Fragment>
+//     )
+//   }
+// }
 
 export default function AddBrandDialog(data) {
   return class AddBrandDialog extends React.Component {
@@ -98,8 +98,8 @@ export default function AddBrandDialog(data) {
         cityId: '',
         //brandCheck: false,
         //brandList: [],
-        //activeBrandList: {}
-        // orderNo: 0,
+        brandMap: {},
+        //orderListNo: 0
       }
 
       this.selectedBrandList = []
@@ -111,7 +111,7 @@ export default function AddBrandDialog(data) {
       this.searchBrands = this.searchBrands.bind(this)
       this.setSearchQuery = this.setSearchQuery.bind(this)
       this.handleCityChange = this.handleCityChange.bind(this)
-      this.handleBrandChange = this.handleBrandChange.bind(this)
+      //this.handleBrandChange = this.handleBrandChange.bind(this)
       this.addBrandToLocalList = this.addBrandToLocalList.bind(this)
       this.addBrandToExistingList = this.addBrandToExistingList.bind(this)
       this.updateBrandListingOrder = this.updateBrandListingOrder.bind(this)
@@ -170,7 +170,15 @@ export default function AddBrandDialog(data) {
         }
       })
         .then(json => {
+          let brandMap = {}
           this.brands = json.map(item => {
+            brandMap[item.brand_id] = {
+              id: item.brand_id,
+              brand: item.brand_name,
+              shortName: item.brand_short_name,
+              genreShortName: item.genre_short_name,
+              orderListNo: 0
+            }
             return {
               id: item.brand_id,
               brand: item.brand_name,
@@ -178,7 +186,8 @@ export default function AddBrandDialog(data) {
               genreShortName: item.genre_short_name
             }
           })
-          this.setState({ loadingBrands: false })
+          console.log("brandlist", brandMap)
+          this.setState({ brandMap, loadingBrands: false })
         })
     }
 
@@ -240,13 +249,29 @@ export default function AddBrandDialog(data) {
     }
 
     updateBrandListingOrder(newOrderNo) {
+
+      let updateActiveBrandList = Object.assign({}, this.state.brandMap)
+
       return this.selectedBrandList.map((item) => {
+        updateActiveBrandList[newOrderNo.brand_id].orderListNo = item.orderListNo + 1  
+        this.setState({brandMap: updateActiveBrandList})
+
         if(item.brand_id === newOrderNo.brand_id) {
           item.orderListNo = parseInt(newOrderNo.orderListNo)
         }
         return item
       })
     }
+
+    // getAllActiveBrandList() {
+    //   this.selectedBrandList = this.state.activeBrandList.filter((item) => {
+    //     if(item.orderListNo > 0) {
+    //       return item
+    //     }
+    //   })
+
+    //   console.log("selcted list", this.selectedBrandList)
+    // }
 
     handleChange(e) {
       const genreShortName = this.shortNamesMap[e.target.value]
@@ -284,22 +309,23 @@ export default function AddBrandDialog(data) {
     // }
 
     handleChangeInBrandList(newBrand) {
-      // let updateActiveBrandList = Object.assign({}, this.state.activeBrandList)
-      // updateActiveBrandList[brandId] = this.brands.filter((item) => {
-      //   if(item.id === brandId) {
-      //     return item.checked = e.target.checked
-      //   }
-      // })
-      // console.log("list", updateActiveBrandList)
+
       const targetElement = newBrand.event.target
-      this.setState({orderListNo: newBrand.list_no + 1},
+      let updateActiveBrandList = Object.assign({}, this.state.brandMap)
+     
+      updateActiveBrandList[newBrand.brand_id].orderListNo = newBrand.list_no + 1  
+     
+      console.log("list", updateActiveBrandList)
+      
+      this.setState({brandMap: updateActiveBrandList},
       () => {
+        //this.getAllActiveBrandList()
         this.addBrandToLocalList ({
           brandChecked:  targetElement.checked,
           brand_id: newBrand.brand_id,
           brand: newBrand.brand,
           short_name: newBrand.short_name,
-          orderListNo: this.state.orderListNo
+          orderListNo: newBrand.list_no + 1
         })
       })
     }
@@ -371,7 +397,7 @@ export default function AddBrandDialog(data) {
                       data.multiSelect &&
                       <tr>
                         <td>Brand name</td>
-                        {/* <td>Listing order</td> */}
+                        <td>Listing order</td>
                       </tr>
                     }
                     {
@@ -418,6 +444,34 @@ export default function AddBrandDialog(data) {
                                   />
                                   <label style={{cursor: 'pointer'}} for={item.id} >{item.brand}</label>
                                 </div>
+                            </td>
+                            <td>
+                              <input
+                                type="number"
+                                onChange={(e) => this.updateBrandListingOrder({ orderListNo: e.target.value, brand_id: item.id}) }
+                                //value={Object.keys(this.state.activeBrandList).length ? this.state.activeBrandList[item.id] : 0}
+                                // value={
+                                //   Object.keys(this.state.activeBrandList).length
+                                //   ? (
+                                //     this.state.activeBrandList[item.id] && this.state.activeBrandList[item.id].length
+                                //     ? this.state.activeBrandList[item.id][0].orderListNo
+                                //     : this.state.orderListNo
+                                //   )
+                                //   : this.state.orderListNo
+                                // }
+                                style={{width: '100px'}}
+                                disabled={
+                                  // Object.keys(this.state.activeBrandList).length
+                                  //? 
+                                  this.state.brandMap[item.id].orderListNo === 0
+                                  //? this.state.activeBrandList[item.id] && this.state.activeBrandList[item.id].length == 0
+                                  //: true
+                                }
+                                value = {this.state.brandMap[item.id].orderListNo}
+                                //disabled = {}
+                                
+                                //disabled={!this.state.brandCheck}
+                              />
                             </td>
                           </tr>
                         </Fragment>

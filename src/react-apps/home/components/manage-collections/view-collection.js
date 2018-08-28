@@ -49,7 +49,8 @@ class ViewCollection extends React.Component {
         return {
           brand_id:item.brand_id,
           brand: item.brand_name,
-          short_name: item.brand_short_name
+          short_name: item.brand_short_name,
+          orderListNo: item.ordinal_position
         }
       })
       this.setState({brandList: brandList, loadingBrands: false})
@@ -74,7 +75,8 @@ class ViewCollection extends React.Component {
         return {
           brand_id: item.brand_id,
           brand: item.brand_name,
-          short_name: item.brand_short_name
+          short_name: item.brand_short_name,
+          orderListNo: item.ordinal_position
         }
       })
       this.setState({brandList: brandList, loadingBrands: false})

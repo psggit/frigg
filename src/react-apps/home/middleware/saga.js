@@ -658,9 +658,9 @@ function* createCollection(action) {
   try {
     const data = yield call(Api.createCollection, action)
     Notify('Created collection successfully', 'success')
-    setTimeout(() => {
-      location.href = '/home/manage-collections'
-    }, 2000)
+    // setTimeout(() => {
+    //   location.href = '/home/manage-collections'
+    // }, 2000)
   } catch (err) {
     err.response.json().then(json => { Notify(json.message, "warning") })
     console.log(err)

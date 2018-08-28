@@ -17,18 +17,21 @@ const TableHeaderItemsWithButton = [
   'ID',
   'BRAND_NAME',
   'BRAND_SHORT_NAME',
+  'ORDINAL_POSITION'
 ]
 
 const TableHeaderItems = [
   'ID',
   'BRAND_NAME',
   'BRAND_SHORT_NAME',
+  'ORDINAL_POSITION'
 ]
 
 const styles = [
   { width: '60px' },
   { width: '120px' },
   { width: '120px' },
+  { width: '120px' }
 ]
 
 const headerStyles = [
@@ -36,6 +39,7 @@ const headerStyles = [
   { width: '60px' },
   { width: '120px' },
   { width: '120px' },
+  { width: '120px' }
 ]
 
 function ViewBrandsInCollection(data) {
@@ -82,7 +86,7 @@ function ViewBrandsInCollection(data) {
                       <TableRowColumn style={headerStyles[1]}>{item.brand_id}</TableRowColumn>
                       <TableRowColumn style={headerStyles[2]}>{item.brand}</TableRowColumn>
                       <TableRowColumn style={headerStyles[3]}>{item.short_name}</TableRowColumn>
-
+                      <TableRowColumn style={headerStyles[4]}>{item.orderListNo}</TableRowColumn>
                     </TableRow>
           })
         }
@@ -94,6 +98,7 @@ function ViewBrandsInCollection(data) {
                     <TableRowColumn style={styles[0]}>{item.brand_id}</TableRowColumn>
                     <TableRowColumn style={styles[1]}>{item.brand}</TableRowColumn>
                     <TableRowColumn style={styles[2]}>{item.short_name}</TableRowColumn>
+                    <TableRowColumn style={styles[3]}>{item.orderListNo}</TableRowColumn>
                   </TableRow>
           })
         }

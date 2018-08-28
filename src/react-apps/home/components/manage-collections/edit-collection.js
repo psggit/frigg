@@ -55,7 +55,8 @@ class EditCollection extends React.Component {
         return {
           brand_id: item.brand_id,
           brand: item.brand_name,
-          short_name: item.brand_short_name
+          short_name: item.brand_short_name,
+          orderListNo: item.ordinal_position
         }
       })
 
@@ -67,17 +68,6 @@ class EditCollection extends React.Component {
   addBrand(newBrand) {
     console.log("add brand", newBrand)
     unMountModal()
-    // let brandIdFound = false
-
-    // for (let i in this.state.selectedBrand) {
-    //   if (this.state.selectedBrand[i].brand_id === newBrand.brand_id) {
-    //     brandIdFound = true
-    //   }
-    // }
-
-    // if (!brandIdFound) {
-    //   this.setState({ selectedBrand: [...this.state.selectedBrand, newBrand] })
-    // }
 
     const { collectionShortName } = this.props.match.params
 
@@ -97,7 +87,8 @@ class EditCollection extends React.Component {
           return {
             brand_id: item.brand_id,
             brand: item.brand_name,
-            short_name: item.brand_short_name
+            short_name: item.brand_short_name,
+            //orderListNo: item.ordinal_position
           }
         })
 
@@ -132,9 +123,6 @@ class EditCollection extends React.Component {
         this.setState({ selectedBrand: brandList, loadingBrands: false })
       })
     })
-    // this.setState({
-    //   selectedBrand: this.state.selectedBrand.filter((item) => item.brand_id !== brand.brand_id)
-    // })
   }
 
   unMountBrandListCatelogue() {
@@ -160,7 +148,8 @@ class EditCollection extends React.Component {
         return {
           brand_id: item.brand_id,
           brand: item.brand_name,
-          short_name: item.brand_short_name
+          short_name: item.brand_short_name,
+          orderListNo: item.ordinal_position
         }
       })
 
@@ -168,10 +157,6 @@ class EditCollection extends React.Component {
     })
 
   }
-
-  // handleCheckboxes(e) {
-  //   this.setState({ [e.target.name]: e.target.checked })
-  // }
 
   fetchBrandList() {
     mountModal(AddBrandDialog({
@@ -225,7 +210,6 @@ class EditCollection extends React.Component {
           label="Add item"
           primary
         />
-
         {
           // !this.props.loadingBrandsInCollection && this.state.selectedBrand.length > 0 &&
           <div style={{ width: '100%', maxWidth: 900 }}>
