@@ -48,7 +48,7 @@ class EditCollection extends React.Component {
       collectionShortName: collectionShortName,
       data: {
         offset: 0,
-        limit: 5
+        limit: this.pagesLimit
       }
     }, (response) => {
       let brandList = this.props.brandList.map((item) => {
@@ -66,15 +66,13 @@ class EditCollection extends React.Component {
   }
 
   addBrand(newBrand) {
-    console.log("add brand", newBrand)
     unMountModal()
-
     const { collectionShortName } = this.props.match.params
 
     this.props.actions.addBrandToCollection({
       brand_id: newBrand.brand_id,
       short_name: this.state.short_name,
-      // orderNo : newBrand.orderListNo
+      listing_order : newBrand.orderListNo
     }, () => {
       this.props.actions.fetchBrandsInCollection({
         collectionShortName: collectionShortName,
@@ -88,7 +86,7 @@ class EditCollection extends React.Component {
             brand_id: item.brand_id,
             brand: item.brand_name,
             short_name: item.brand_short_name,
-            //orderListNo: item.ordinal_position
+            orderListNo: item.ordinal_position
           }
         })
 
@@ -109,7 +107,7 @@ class EditCollection extends React.Component {
         collectionShortName: collectionShortName,
         data: {
           offset: 0,
-          limit: 5
+          limit: this.pagesLimit
         }
       }, (response) => {
         let brandList = this.props.brandList.map((item) => {

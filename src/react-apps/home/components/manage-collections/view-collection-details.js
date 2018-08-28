@@ -46,7 +46,6 @@ class ViewCollection extends React.Component {
   }
 
   addBrandToList(brandList) {
-    console.log("add brands", brandList)
     unMountModal()
     this.setState({selectedBrand: [...this.state.selectedBrand, ...brandList]})
   }
@@ -78,7 +77,6 @@ class ViewCollection extends React.Component {
   }
 
   createCollection() {
-    console.log("create collec", this.state.selectedBrand)
     if(this.state.name.length && this.state.displayName.length) {
       let brandData = this.state.selectedBrand.map((item) => {
         return {
