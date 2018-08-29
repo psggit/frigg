@@ -123,6 +123,7 @@ class ViewCollection extends React.Component {
             brandList={this.state.brandList}
             showDelete={false}
             loadingBrandsInCollection={this.state.loadingBrands}
+            isUpdatingListingOrder= {true}
           />
           {
             !this.state.loadingBrands && this.state.brandList.length > 0

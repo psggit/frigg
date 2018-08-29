@@ -108,6 +108,7 @@ const actionsMap = {
       loadingImageAds: true,
       loadingAllCollections: true,
       loadingBrandsInCollection: true,
+      updatingListingOrder: true
     })
   },
 

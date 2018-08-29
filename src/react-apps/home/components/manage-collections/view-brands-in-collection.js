@@ -74,7 +74,6 @@ class ViewBrandsInCollection extends React.Component {
   }
 
   componentWillReceiveProps(newProps) {
-  
     if(!newProps.isUpdatingListingOrder) {
       let updatedList = Object.assign({}, this.state.brandMap)
       updatedList[this.state.brandId].modified = false
@@ -159,9 +158,9 @@ class ViewBrandsInCollection extends React.Component {
                         <TableRowColumn style={headerStyles[0]}>
                           <button onClick={() => this.props.removeBrand({ brand_id: item.brand_id, short_name: item.short_name })} style={{ fontSize: '13px', textTransform: 'none' }}> Delete </button>
                         </TableRowColumn>
-                        <TableRowColumn style={headerStyles[1]}>{item.brand_id}</TableRowColumn>
-                        <TableRowColumn style={headerStyles[2]}>{item.brand}</TableRowColumn>
-                        <TableRowColumn style={headerStyles[3]}>{item.short_name}</TableRowColumn>
+                        <TableRowColumn style={headerStyles[1]}>{item.brand_id}{i}</TableRowColumn>
+                        <TableRowColumn style={headerStyles[2]}>{item.brand}{i}</TableRowColumn>
+                        <TableRowColumn style={headerStyles[3]}>{item.short_name}{i}</TableRowColumn>
                         <TableRowColumn style={headerStyles[4]}>
                           <input type="number" value={this.state.brandMap[item.brand_id].orderListNo} onChange={(e) => this.handleChange(e, item.brand_id)} style={!this.state.brandMap[item.brand_id].modified ? editInputStyle : { width: '70px'}} disabled={!this.state.brandMap[item.brand_id].modified} />
                         </TableRowColumn>
