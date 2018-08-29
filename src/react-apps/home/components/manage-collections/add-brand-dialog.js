@@ -374,7 +374,14 @@ export default function AddBrandDialog(data) {
                             </td>
                             <td>
                               <button
-                                onClick={() => { this.addBrandToExistingList({ brand_id: item.id, brand: item.brand, short_name: item.shortName, orderListNo: this.state.brandMap[item.id].orderListNo }) }}
+                                onClick={() => { 
+                                  this.addBrandToExistingList({ 
+                                    brand_id: item.id, 
+                                    brand: item.brand, 
+                                    short_name: item.shortName, 
+                                    orderListNo: this.state.brandMap[item.id].orderListNo 
+                                  }) 
+                                }}
                                 style={{
                                   padding: '2px 20px'
                                 }}
@@ -393,11 +400,21 @@ export default function AddBrandDialog(data) {
             <ModalFooter>
             {
               data.multiSelect &&  !this.state.loadingGenres && !this.state.loadingBrands &&
-              <button style={{padding: '10px 20px', fontSize: '13px', cursor: 'pointer'}} onClick={() => data.addBrandToList(this.selectedBrandList)}>ADD BRANDS</button>
+              <button 
+                style={{padding: '10px 20px', fontSize: '13px', cursor: 'pointer'}} 
+                onClick={() => data.addBrandToList(this.selectedBrandList)}
+              >
+                ADD BRANDS
+              </button>
             }
             {
               !data.multiSelect &&
-              <button style={{padding: '10px 20px', fontSize: '13px', cursor: 'pointer'}} onClick={data.unMountModal}>CLOSE</button>
+              <button 
+                style={{padding: '10px 20px', fontSize: '13px', cursor: 'pointer'}} 
+                onClick={data.unMountModal}
+              >
+                CLOSE
+              </button>
             }
             </ModalFooter>
           </ModalBox>

@@ -148,7 +148,11 @@ class ViewCollection extends React.Component {
         >
           <div className="form-group">
             <label className="label">Name</label><br />
-            <input style={{ marginTop: '10px' }} name="name" value={this.state.name} onChange={(e) => this.handleChange(e)} />
+            <input style={{ marginTop: '10px' }} 
+              name="name" 
+              value={this.state.name} 
+              onChange={(e) => this.handleChange(e)} 
+            />
             {
               this.state.nameErr &&
               <p style={{color: '#ff3b34'}}> Name is required </p>
@@ -157,7 +161,12 @@ class ViewCollection extends React.Component {
 
           <div className="form-group">
             <label className="label">Display name</label><br />
-            <input style={{ marginTop: '10px' }} name="displayName" value={this.state.displayName} onChange={(e) => this.handleChange(e)} />
+            <input 
+              style={{ marginTop: '10px' }} 
+              name="displayName" 
+              value={this.state.displayName} 
+              onChange={(e) => this.handleChange(e)} 
+            />
             {
               this.state.displayNameErr &&
               <p style={{color: '#ff3b34'}}> Display name is required </p>
@@ -175,7 +184,12 @@ class ViewCollection extends React.Component {
           </div>
         </Card>
         <br />
-        <RaisedButton style={{ marginTop: '40px' }} onClick={() => this.createCollection()} label="Save" primary />
+        <RaisedButton 
+          style={{ marginTop: '40px' }} 
+          onClick={() => this.createCollection()} 
+          label="Save" 
+          primary 
+        />
         <RaisedButton
           style={{ marginTop: '40px', marginLeft: '20px' }}
           onClick={this.fetchBrandList}

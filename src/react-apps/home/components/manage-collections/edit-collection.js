@@ -134,7 +134,13 @@ class EditCollection extends React.Component {
 
     let pageNumber = pageObj.activePage
     let offset = this.pagesLimit * (pageNumber - 1)
-    this.setState({ activePage: pageNumber, pageOffset: offset, loadingBrand: true, selectedBrand: [], loadingBrands: true })
+    this.setState({ 
+      activePage: pageNumber, 
+      pageOffset: offset, 
+      loadingBrand: true, 
+      selectedBrand: [], 
+      loadingBrands: true 
+    })
 
     this.props.actions.fetchBrandsInCollection({
       collectionShortName: collectionShortName,
@@ -189,12 +195,24 @@ class EditCollection extends React.Component {
         >
           <div className="form-group">
             <label className="label">Name</label><br />
-            <input style={{ marginTop: '10px' }} name="name" value={this.state.name} onChange={(e) => this.handleChange(e)} disabled />
+            <input 
+              style={{ marginTop: '10px' }} 
+              name="name" 
+              value={this.state.name} 
+              onChange={(e) => this.handleChange(e)} 
+              disabled
+            />
           </div>
 
           <div className="form-group">
             <label className="label">Display name</label><br />
-            <input style={{ marginTop: '10px' }} name="display_name" value={this.state.display_name} onChange={(e) => this.handleChange(e)} disabled />
+            <input 
+              style={{ marginTop: '10px' }} 
+              name="display_name" 
+              value={this.state.display_name} 
+              onChange={(e) => this.handleChange(e)} 
+              disabled 
+            />
           </div>
 
           <div className="form-group">
