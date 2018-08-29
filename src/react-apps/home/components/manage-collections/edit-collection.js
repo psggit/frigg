@@ -221,22 +221,23 @@ class EditCollection extends React.Component {
           // !this.props.loadingBrandsInCollection && this.state.selectedBrand.length > 0 &&
           <div style={{ width: '100%', maxWidth: 900 }}>
             <h3>Listing all brands</h3>
-            {/* <ViewBrandsInCollection
+            <ViewBrandsInCollection
               brandList={this.state.selectedBrand}
               removeBrand={this.removeBrand}
               showDelete={true}
               loadingBrandsInCollection={this.props.loadingBrandsInCollection}
-            ></ViewBrandsInCollection> */}
+              updateListingOrder = {this.updateListingOrder}
+            ></ViewBrandsInCollection>
             {
               this.state.selectedBrand.length > 0 &&
               <React.Fragment>
-                <ViewBrandsInCollection
+                {/* <ViewBrandsInCollection
                   brandList={this.state.selectedBrand}
                   removeBrand={this.removeBrand}
                   showDelete={true}
                   loadingBrandsInCollection={this.state.loadingBrands}
                   updateListingOrder = {this.updateListingOrder}
-                ></ViewBrandsInCollection>
+                ></ViewBrandsInCollection> */}
                 <Pagination
                   activePage={parseInt(this.state.activePage)}
                   itemsCountPerPage={this.pagesLimit}
