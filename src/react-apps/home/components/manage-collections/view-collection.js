@@ -26,10 +26,11 @@ class ViewCollection extends React.Component {
     this.pagesLimit = 40
 
     this.handlePageChange = this.handlePageChange.bind(this)
+    this.handleRouteChange = this.handleRouteChange.bind(this)
   }
 
   componentDidMount() {
-
+    this.handleRouteChange()
     const { collectionShortName } = this.props.match.params
     this.setState({ collectionShortName, loadingBrands: true })
 
@@ -55,6 +56,10 @@ class ViewCollection extends React.Component {
       })
       this.setState({brandList: brandList, loadingBrands: false})
     })
+  }
+
+  handleRouteChange() {
+    this.props.actions.setLoadingState()
   }
 
   handlePageChange(pageObj) {
@@ -123,7 +128,7 @@ class ViewCollection extends React.Component {
             brandList={this.state.brandList}
             showDelete={false}
             loadingBrandsInCollection={this.state.loadingBrands}
-            isUpdatingListingOrder= {true}
+            isUpdatingListingOrder= {this.props.data.updatingListingOrder}
           />
           {
             !this.state.loadingBrands && this.state.brandList.length > 0

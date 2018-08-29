@@ -111,7 +111,7 @@ const actionsMap = {
       updatingListingOrder: true
     })
   },
-
+  
   [ActionTypes.SUCCESS_FETCH_DELIVERERS]: (state, action) => {
     return Object.assign({}, state, {
       loadingDeliverers: false,

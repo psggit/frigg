@@ -66,6 +66,11 @@ export const setLoadingState = data => ({
   data
 })
 
+export const setLoadingAll = data => ({
+  type: ActionTypes.REQUEST_SET_LOADING_ALL,
+  data
+})
+
 export const fetchDeliverers = data => ({
   type: ActionTypes.REQUEST_FETCH_DELIVERERS,
   data

@@ -32,10 +32,12 @@ class EditCollection extends React.Component {
     this.removeBrand = this.removeBrand.bind(this)
     this.handlePageChange = this.handlePageChange.bind(this)
     this.updateListingOrder = this.updateListingOrder.bind(this)
+    this.handleRouteChange = this.handleRouteChange.bind(this)
 
   }
 
   componentDidMount() {
+    this.handleRouteChange()
     const { collectionShortName } = this.props.match.params
     this.setState({ short_name: collectionShortName, loadingBrands: true })
 
@@ -122,6 +124,10 @@ class EditCollection extends React.Component {
         this.setState({ selectedBrand: brandList, loadingBrands: false })
       })
     })
+  }
+
+  handleRouteChange() {
+    this.props.actions.setLoadingState()
   }
 
   unMountBrandListCatelogue() {
