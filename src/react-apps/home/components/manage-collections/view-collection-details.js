@@ -19,7 +19,7 @@ class ViewCollection extends React.Component {
     }
 
     this.state = {
-      shouldMountCollectionDialog: false,
+      //shouldMountCollectionDialog: false,
       selectedBrand: [],
       is_active: false,
       name: '',
@@ -28,8 +28,8 @@ class ViewCollection extends React.Component {
       displayNameErr: false
     }
     this.brandList = []
-    this.mountCollectionDialog = this.mountCollectionDialog.bind(this)
-    this.unmountCollectionDialog = this.unmountCollectionDialog.bind(this)
+    // this.mountCollectionDialog = this.mountCollectionDialog.bind(this)
+    // this.unmountCollectionDialog = this.unmountCollectionDialog.bind(this)
     this.fetchBrandList = this.fetchBrandList.bind(this)
     this.removeBrand = this.removeBrand.bind(this),
     this.handleCheckboxes = this.handleCheckboxes.bind(this)
@@ -38,13 +38,13 @@ class ViewCollection extends React.Component {
     this.updateListingOrder = this.updateListingOrder.bind(this)
   }
 
-  mountCollectionDialog() {
-    this.setState({ shouldMountCollectionDialog: true, open: true })
-  }
+  // mountCollectionDialog() {
+  //   this.setState({ shouldMountCollectionDialog: true, open: true })
+  // }
 
-  unmountCollectionDialog() {
-    this.setState({ shouldMountCollectionDialog: false })
-  }
+  // unmountCollectionDialog() {
+  //   this.setState({ shouldMountCollectionDialog: false })
+  // }
 
   addBrandToList(brandList) {
     unMountModal()

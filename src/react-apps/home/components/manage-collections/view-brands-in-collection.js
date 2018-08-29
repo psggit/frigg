@@ -64,6 +64,7 @@ class ViewBrandsInCollection extends React.Component {
     this.updateState(this.props)
   }
 
+  //update state variable
   updateState(props) {
     let brandMap = {}
     let brandList = props.brandList.map((item, i) => {
