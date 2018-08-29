@@ -178,8 +178,6 @@ class EditCollection extends React.Component {
   }
 
   render() {
-    console.log("state", this.state, "props", this.props)
-    const {loadingBrands} = this.state
     return (
       <div>
         <Card
@@ -225,19 +223,12 @@ class EditCollection extends React.Component {
               brandList={this.state.selectedBrand}
               removeBrand={this.removeBrand}
               showDelete={true}
-              loadingBrandsInCollection={this.props.loadingBrandsInCollection}
+              loadingBrandsInCollection={this.state.loadingBrands}
               updateListingOrder = {this.updateListingOrder}
             ></ViewBrandsInCollection>
             {
               this.state.selectedBrand.length > 0 &&
               <React.Fragment>
-                {/* <ViewBrandsInCollection
-                  brandList={this.state.selectedBrand}
-                  removeBrand={this.removeBrand}
-                  showDelete={true}
-                  loadingBrandsInCollection={this.state.loadingBrands}
-                  updateListingOrder = {this.updateListingOrder}
-                ></ViewBrandsInCollection> */}
                 <Pagination
                   activePage={parseInt(this.state.activePage)}
                   itemsCountPerPage={this.pagesLimit}

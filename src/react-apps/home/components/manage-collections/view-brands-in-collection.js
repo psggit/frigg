@@ -53,19 +53,26 @@ class ViewBrandsInCollection extends React.Component {
     }
 
     this.enableInputBox = this.enableInputBox.bind(this)
+    this.updateState = this.updateState.bind(this)
   }
 
   componentDidMount() {
-    console.log("data", this.props, this.state.brandMap)
+    this.updateState(this.props)
+  }
+
+  updateState(props) {
     let brandMap = {}
-    let brandList = this.props.brandList.map((item) => {
+    let brandList = props.brandList.map((item) => {
       let brand = Object.assign({}, item)
       brand.modified = false
       brandMap[item.brand_id] = brand
       return brand
     })
-
     this.setState({brandMap: brandMap})
+  }
+
+  componentWillReceiveProps(newProps) {
+   this.updateState(newProps)
   }
 
   enableInputBox(brandId) {
@@ -90,9 +97,7 @@ class ViewBrandsInCollection extends React.Component {
   handleChange(e, brandId) {
 
     let updatedList = Object.assign({}, this.state.brandMap)
-
     updatedList[brandId].orderListNo = parseInt(e.target.value)
-  
     this.setState({brandMap: updatedList})
   }
 
@@ -129,7 +134,7 @@ class ViewBrandsInCollection extends React.Component {
           showRowHover
         >
           {
-            this.props.loadingBrandsInCollection || Object.keys(this.state.brandMap).length === 0 &&
+            this.props.loadingBrandsInCollection &&
             [1, 2, 3, 4, 5].map(() => {
               return <TableLoadingShell/>
             })

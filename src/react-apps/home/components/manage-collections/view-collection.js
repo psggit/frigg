@@ -119,20 +119,15 @@ class ViewCollection extends React.Component {
               </div>
             }
           </div>
-          {/* <ViewBrandsInCollection
+          <ViewBrandsInCollection
             brandList={this.state.brandList}
             showDelete={false}
             loadingBrandsInCollection={this.state.loadingBrands}
-          /> */}
+          />
           {
             !this.state.loadingBrands && this.state.brandList.length > 0
             &&
             <React.Fragment>
-              <ViewBrandsInCollection
-                brandList={this.state.brandList}
-                showDelete={false}
-                loadingBrandsInCollection={this.state.loadingBrands}
-              />
               <Pagination
                 activePage={parseInt(this.state.activePage)}
                 itemsCountPerPage={this.pagesLimit}

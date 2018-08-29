@@ -79,7 +79,7 @@ class ViewCollection extends React.Component {
 
   createCollection() {
     if(this.state.name.length && this.state.displayName.length) {
-      console.log("create collection", this.state.selectedBrand)
+      // console.log("create collection", this.state.selectedBrand)
       let brandData = this.state.selectedBrand.map((item) => {
         return {
           brand_id: item.brand_id,
