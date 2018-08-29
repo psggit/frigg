@@ -618,6 +618,7 @@ function* addBrandToCollection(action) {
     action.CB()
   } catch(err) {
     console.log(err)
+    err.response.json().then(json => { Notify(json.message, "warning") })
   }
 }
 
