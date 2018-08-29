@@ -225,6 +225,7 @@ class EditCollection extends React.Component {
               showDelete={true}
               loadingBrandsInCollection={this.state.loadingBrands}
               updateListingOrder = {this.updateListingOrder}
+              isUpdatingListingOrder = {this.props.updateBrandListingOrder}
             ></ViewBrandsInCollection>
             {
               this.state.selectedBrand.length > 0 &&

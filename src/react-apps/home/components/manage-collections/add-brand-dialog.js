@@ -220,12 +220,15 @@ export default function AddBrandDialog(data) {
     }
 
     handleChangeInBrandList(newBrand) {
-
       const targetElement = newBrand.event.target
       let updateActiveBrandList = Object.assign({}, this.state.brandMap)
-     
-      updateActiveBrandList[newBrand.brand_id].orderListNo = newBrand.list_no + 1  
-     
+
+      if(targetElement.checked) {
+        updateActiveBrandList[newBrand.brand_id].orderListNo = newBrand.list_no + 1  
+      } else {
+        updateActiveBrandList[newBrand.brand_id].orderListNo = 0
+      }
+          
       this.setState({brandMap: updateActiveBrandList},
       () => {
         this.addBrandToLocalList ({

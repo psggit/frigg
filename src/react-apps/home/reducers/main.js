@@ -22,6 +22,7 @@ const initialState = {
   loadingAllCollections: true,
   loadingBrandsInCollection: true,
   loadingTransactionCode: true,
+  updatingListingOrder: true,
   //verifyingTransaction: true,
   loadingCredits: true,
   contactNumbersOfRetailer: [],
@@ -265,6 +266,12 @@ const actionsMap = {
       loadingCredits: false,
       validCreditsData: action.data.data,
       validCreditsCount: action.data.count
+    })
+  },
+
+  [ActionTypes.SUCCESS_UPDATE_BRAND_LISTING_ORDER]: (state, action) => {
+    return Object.assign({}, state, {
+      updatingListingOrder: false
     })
   },
 

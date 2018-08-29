@@ -72,7 +72,13 @@ class ViewBrandsInCollection extends React.Component {
   }
 
   componentWillReceiveProps(newProps) {
-   this.updateState(newProps)
+    if(newProps.isUpdatingListingOrder) {
+      let updatedList = Object.assign({}, this.state.brandMap)
+      updatedList[item.brand_id].modified = false
+      this.setState({brandMap: brandMap})
+    } else {
+      this.updateState(newProps)
+    }
   }
 
   enableInputBox(brandId) {
@@ -87,10 +93,10 @@ class ViewBrandsInCollection extends React.Component {
         brand_id: brandId,
         listing_order: updatedList[brandId].orderListNo
       })
-      setTimeout(() => {
-        updatedList[brandId].modified = false
-        this.setState({brandMap: updatedList})
-      }, 1000)
+      // setTimeout(() => {
+      //   updatedList[brandId].modified = false
+      //   this.setState({brandMap: updatedList})
+      // }, 1000)
     }    
   }
 

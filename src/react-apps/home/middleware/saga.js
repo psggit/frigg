@@ -734,7 +734,7 @@ function* updateBrandListingOrder(action) {
   try {
     const data = yield call(Api.updateBrandListingOrder, action)
     Notify('Successfully updated brand listing order', 'success')
-    //yield put({ type: ActionTypes.SUCCESS_UPDATE_BRAND_LISTING_ORDER, data: action.data })
+    yield put({ type: ActionTypes.SUCCESS_UPDATE_BRAND_LISTING_ORDER, data: action.data })
   } catch(err) {
     console.log(err)
   }
