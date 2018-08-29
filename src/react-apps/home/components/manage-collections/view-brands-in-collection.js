@@ -96,6 +96,13 @@ class ViewBrandsInCollection extends React.Component {
         brand_id: brandId,
         listing_order: updatedList[brandId].orderListNo
       })
+      if(!this.props.loadingBrandsInCollection) {
+        setTimeout(() => {
+          let updatedList = Object.assign({}, this.state.brandMap)
+          updatedList[brandId].modified = false
+          this.setState({brandMap: updatedList, disableSave: false})
+        })
+      }
       this.setState({brandId: brandId, disableSave: true})
     }    
   }

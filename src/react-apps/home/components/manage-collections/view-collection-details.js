@@ -192,6 +192,7 @@ class ViewCollection extends React.Component {
               showDelete={true}
               loadingBrandsInCollection={false}
               updateListingOrder = {this.updateListingOrder}
+              isUpdatingListingOrder= {this.props.updatingListingOrder}
             ></ViewBrandsInCollection>
           </div>
         }
