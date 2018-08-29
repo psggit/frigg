@@ -53,7 +53,7 @@ class ViewBrandsInCollection extends React.Component {
       disableSave: false,
       //brandId: 0,
       brandIdIndex: 0,
-      brandList: []
+      //brandList: []
     }
 
     this.enableInputBox = this.enableInputBox.bind(this)
@@ -76,6 +76,7 @@ class ViewBrandsInCollection extends React.Component {
   }
 
   componentWillReceiveProps(newProps) {
+    //after updating listing order enable edit button
     if(!newProps.isUpdatingListingOrder) {
       let updatedList = Object.assign({}, this.state.brandMap)
       updatedList[this.state.brandIdIndex].modified = false
@@ -97,19 +98,20 @@ class ViewBrandsInCollection extends React.Component {
         brand_id: brandId,
         listing_order: updatedList[index].orderListNo
       })
+      this.setState({brandIdIndex: index, disableSave: true})
+
+      //Enable edit button on updating the local list
       if(!this.props.loadingBrandsInCollection) {
         setTimeout(() => {
           let updatedList = Object.assign({}, this.state.brandMap)
           updatedList[index].modified = false
           this.setState({brandMap: updatedList, disableSave: false})
         })
-      }
-      this.setState({brandIdIndex: index, disableSave: true})
+      } 
     }    
   }
 
   handleChange(e, brandId, index) {
-
     let updatedList = Object.assign({}, this.state.brandMap)
     updatedList[index].orderListNo = parseInt(e.target.value)
     this.setState({brandMap: updatedList})
