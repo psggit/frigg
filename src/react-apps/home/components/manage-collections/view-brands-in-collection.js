@@ -51,7 +51,9 @@ class ViewBrandsInCollection extends React.Component {
     this.state = {
       brandMap: {},
       disableSave: false,
-      brandId: 0
+      brandId: 0,
+      brandIdIndex: 0,
+      brandList: []
     }
 
     this.enableInputBox = this.enableInputBox.bind(this)
@@ -64,10 +66,10 @@ class ViewBrandsInCollection extends React.Component {
 
   updateState(props) {
     let brandMap = {}
-    let brandList = props.brandList.map((item) => {
+    let brandList = props.brandList.map((item, i) => {
       let brand = Object.assign({}, item)
       brand.modified = false
-      brandMap[item.brand_id] = brand
+      brandMap[i] = brand
       return brand
     })
     this.setState({brandMap: brandMap})
@@ -76,40 +78,40 @@ class ViewBrandsInCollection extends React.Component {
   componentWillReceiveProps(newProps) {
     if(!newProps.isUpdatingListingOrder) {
       let updatedList = Object.assign({}, this.state.brandMap)
-      updatedList[this.state.brandId].modified = false
+      updatedList[this.state.brandIdIndex].modified = false
       this.setState({brandMap: updatedList, disableSave: false})
     } else {
       this.updateState(newProps)
     }
   }
 
-  enableInputBox(brandId) {
+  enableInputBox(brandId, index) {
 
     let updatedList = Object.assign({}, this.state.brandMap)
 
-    if(!updatedList[brandId].modified) {
-      updatedList[brandId].modified = true
+    if(!updatedList[index].modified) {
+      updatedList[index].modified = true
       this.setState({brandMap: updatedList})
     } else {
       this.props.updateListingOrder({
         brand_id: brandId,
-        listing_order: updatedList[brandId].orderListNo
+        listing_order: updatedList[index].orderListNo
       })
       if(!this.props.loadingBrandsInCollection) {
         setTimeout(() => {
           let updatedList = Object.assign({}, this.state.brandMap)
-          updatedList[brandId].modified = false
+          updatedList[index].modified = false
           this.setState({brandMap: updatedList, disableSave: false})
         })
       }
-      this.setState({brandId: brandId, disableSave: true})
+      this.setState({brandIdIndex: index, disableSave: true})
     }    
   }
 
-  handleChange(e, brandId) {
+  handleChange(e, brandId, index) {
 
     let updatedList = Object.assign({}, this.state.brandMap)
-    updatedList[brandId].orderListNo = parseInt(e.target.value)
+    updatedList[index].orderListNo = parseInt(e.target.value)
     this.setState({brandMap: updatedList})
   }
 
@@ -158,14 +160,14 @@ class ViewBrandsInCollection extends React.Component {
                         <TableRowColumn style={headerStyles[0]}>
                           <button onClick={() => this.props.removeBrand({ brand_id: item.brand_id, short_name: item.short_name })} style={{ fontSize: '13px', textTransform: 'none' }}> Delete </button>
                         </TableRowColumn>
-                        <TableRowColumn style={headerStyles[1]}>{item.brand_id}{i}</TableRowColumn>
-                        <TableRowColumn style={headerStyles[2]}>{item.brand}{i}</TableRowColumn>
-                        <TableRowColumn style={headerStyles[3]}>{item.short_name}{i}</TableRowColumn>
+                        <TableRowColumn style={headerStyles[1]}>{item.brand_id}</TableRowColumn>
+                        <TableRowColumn style={headerStyles[2]}>{item.brand}</TableRowColumn>
+                        <TableRowColumn style={headerStyles[3]}>{item.short_name}</TableRowColumn>
                         <TableRowColumn style={headerStyles[4]}>
-                          <input type="number" value={this.state.brandMap[item.brand_id].orderListNo} onChange={(e) => this.handleChange(e, item.brand_id)} style={!this.state.brandMap[item.brand_id].modified ? editInputStyle : { width: '70px'}} disabled={!this.state.brandMap[item.brand_id].modified} />
+                          <input type="number" value={this.state.brandMap[i].orderListNo} onChange={(e) => this.handleChange(e, item.brand_id, i)} style={!this.state.brandMap[i].modified ? editInputStyle : { width: '70px'}} disabled={!this.state.brandMap[i].modified} />
                         </TableRowColumn>
                         <TableRowColumn style={headerStyles[5]}>
-                          <button onClick={() => this.enableInputBox(item.brand_id)} style={this.state.disableSave ? {opacity: '0.55', pointerEvents: 'none', fontSize: '13px', textTransform: 'none', width: '50px'} : { fontSize: '13px', textTransform: 'none', width: '50px'}}> {!this.state.brandMap[item.brand_id].modified ? 'Edit' : 'Save'}</button>
+                          <button onClick={() => this.enableInputBox(item.brand_id, i)} style={this.state.disableSave ? {opacity: '0.55', pointerEvents: 'none', fontSize: '13px', textTransform: 'none', width: '50px'} : { fontSize: '13px', textTransform: 'none', width: '50px'}}> {!this.state.brandMap[i].modified ? 'Edit' : 'Save'}</button>
                         </TableRowColumn>
                       </TableRow>
             })
