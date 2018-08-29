@@ -50,6 +50,8 @@ class ViewBrandsInCollection extends React.Component {
     super(props)
     this.state = {
       brandMap: {},
+      disableSave: false,
+      brandId: 0
     }
 
     this.enableInputBox = this.enableInputBox.bind(this)
@@ -72,10 +74,11 @@ class ViewBrandsInCollection extends React.Component {
   }
 
   componentWillReceiveProps(newProps) {
-    if(newProps.isUpdatingListingOrder) {
+  
+    if(!newProps.isUpdatingListingOrder) {
       let updatedList = Object.assign({}, this.state.brandMap)
-      updatedList[item.brand_id].modified = false
-      this.setState({brandMap: brandMap})
+      updatedList[this.state.brandId].modified = false
+      this.setState({brandMap: updatedList, disableSave: false})
     } else {
       this.updateState(newProps)
     }
@@ -93,10 +96,7 @@ class ViewBrandsInCollection extends React.Component {
         brand_id: brandId,
         listing_order: updatedList[brandId].orderListNo
       })
-      // setTimeout(() => {
-      //   updatedList[brandId].modified = false
-      //   this.setState({brandMap: updatedList})
-      // }, 1000)
+      this.setState({brandId: brandId, disableSave: true})
     }    
   }
 
@@ -119,7 +119,6 @@ class ViewBrandsInCollection extends React.Component {
       borderWidth: 0,
       width: '70px'
     }
-   
     return (
       <Table
         className="bordered--table"
@@ -160,7 +159,7 @@ class ViewBrandsInCollection extends React.Component {
                           <input type="number" value={this.state.brandMap[item.brand_id].orderListNo} onChange={(e) => this.handleChange(e, item.brand_id)} style={!this.state.brandMap[item.brand_id].modified ? editInputStyle : { width: '70px'}} disabled={!this.state.brandMap[item.brand_id].modified} />
                         </TableRowColumn>
                         <TableRowColumn style={headerStyles[5]}>
-                          <button onClick={() => this.enableInputBox(item.brand_id)} style={{ fontSize: '13px', textTransform: 'none' }}> {!this.state.brandMap[item.brand_id].modified ? 'Edit' : 'Save'} </button>
+                          <button onClick={() => this.enableInputBox(item.brand_id)} style={this.state.disableSave ? {opacity: '0.55', pointerEvents: 'none', fontSize: '13px', textTransform: 'none', width: '50px'} : { fontSize: '13px', textTransform: 'none', width: '50px'}}> {!this.state.brandMap[item.brand_id].modified ? 'Edit' : 'Save'}</button>
                         </TableRowColumn>
                       </TableRow>
             })
