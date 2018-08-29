@@ -326,3 +326,8 @@ export const updateAddCreditTrasactionList = (data) => ({
   type: ActionTypes.REQUEST_UPDATE_TRANSACTION_LIST,
   data
 })
+
+export const updateBrandListingOrder = (data) => ({
+  type: ActionTypes.REQUEST_UPDATE_BRAND_LISTING_ORDER,
+  data
+})

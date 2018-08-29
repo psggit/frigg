@@ -730,6 +730,16 @@ function* updateTransactionList(action) {
   }
 }
 
+function* updateBrandListingOrder(action) {
+  try {
+    const data = yield call(Api.updateBrandListingOrder, action)
+    Notify('Successfully updated brand listing order', 'success')
+    //yield put({ type: ActionTypes.SUCCESS_UPDATE_BRAND_LISTING_ORDER, data: action.data })
+  } catch(err) {
+    console.log(err)
+  }
+}
+
 // function* verifyTransaction(action) {
 //   try {
 //     const data = yield call(Api.verifyTransaction, action.data)
@@ -1121,6 +1131,12 @@ function* watchRequestUpdateTransactionList() {
   }
 }
 
+function* watchRequestUpdateBrandListingOrder() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_UPDATE_BRAND_LISTING_ORDER, updateBrandListingOrder)
+  }
+}
+
 export default function* rootSaga() {
   yield [
     fork(watchFetchStates),
@@ -1186,6 +1202,7 @@ export default function* rootSaga() {
     fork(watchCreateTransaction),
     fork(watchRequestTriggerSMS),
     fork(watchRequestFetchCredits),
-    fork(watchRequestUpdateTransactionList)
+    fork(watchRequestUpdateTransactionList),
+    fork(watchRequestUpdateBrandListingOrder)
   ]
 }

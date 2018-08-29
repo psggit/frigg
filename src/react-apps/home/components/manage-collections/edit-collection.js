@@ -31,6 +31,7 @@ class EditCollection extends React.Component {
     this.addBrand = this.addBrand.bind(this)
     this.removeBrand = this.removeBrand.bind(this)
     this.handlePageChange = this.handlePageChange.bind(this)
+    this.updateListingOrder = this.updateListingOrder.bind(this)
 
   }
 
@@ -170,7 +171,13 @@ class EditCollection extends React.Component {
     this.setState({ [e.target.name]: e.target.value });
   }
 
+  updateListingOrder(brandToUpdate) {
+    this.props.actions.updateBrandListingOrder(brandToUpdate)
+  }
+
   render() {
+    console.log("state", this.state, "props", this.props)
+    const {loadingBrands} = this.state
     return (
       <div>
         <Card
@@ -212,21 +219,30 @@ class EditCollection extends React.Component {
           // !this.props.loadingBrandsInCollection && this.state.selectedBrand.length > 0 &&
           <div style={{ width: '100%', maxWidth: 900 }}>
             <h3>Listing all brands</h3>
-            <ViewBrandsInCollection
+            {/* <ViewBrandsInCollection
               brandList={this.state.selectedBrand}
               removeBrand={this.removeBrand}
               showDelete={true}
-              loadingBrandsInCollection={this.state.loadingBrands}
-            ></ViewBrandsInCollection>
+              loadingBrandsInCollection={this.props.loadingBrandsInCollection}
+            ></ViewBrandsInCollection> */}
             {
               this.state.selectedBrand.length > 0 &&
-              <Pagination
-                activePage={parseInt(this.state.activePage)}
-                itemsCountPerPage={this.pagesLimit}
-                totalItemsCount={this.props.brandCount}
-                pageRangeDisplayed={5}
-                setPage={this.handlePageChange}
-              />
+              <React.Fragment>
+                <ViewBrandsInCollection
+                  brandList={this.state.selectedBrand}
+                  removeBrand={this.removeBrand}
+                  showDelete={true}
+                  loadingBrandsInCollection={this.state.loadingBrands}
+                  updateListingOrder = {this.updateListingOrder}
+                ></ViewBrandsInCollection>
+                <Pagination
+                  activePage={parseInt(this.state.activePage)}
+                  itemsCountPerPage={this.pagesLimit}
+                  totalItemsCount={this.props.brandCount}
+                  pageRangeDisplayed={5}
+                  setPage={this.handlePageChange}
+                />
+              </React.Fragment>
             }
 
           </div>

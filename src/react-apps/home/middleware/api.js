@@ -598,3 +598,12 @@ export const fetchCredits = (action) => (
     handleError: true
   })
 )
+
+export const updateBrandListingOrder = action => (
+  POST({
+    api: '/collection/update',
+    apiBase: 'odin',
+    data: action.data,
+    handleError: true
+  })
+)
