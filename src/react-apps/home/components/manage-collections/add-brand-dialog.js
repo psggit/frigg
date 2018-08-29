@@ -200,7 +200,7 @@ export default function AddBrandDialog(data) {
 
     updateBrandListingOrder(newOrderNo) {
       let updateActiveBrandList = Object.assign({}, this.state.brandMap)
-      updateActiveBrandList[newOrderNo.brand_id].orderListNo += 1 
+      updateActiveBrandList[newOrderNo.brand_id].orderListNo = newOrderNo.orderListNo
       this.setState({brandMap: updateActiveBrandList})
 
       return this.selectedBrandList.map((item) => {

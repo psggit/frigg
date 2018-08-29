@@ -172,6 +172,8 @@ class EditCollection extends React.Component {
   }
 
   updateListingOrder(brandToUpdate) {
+    const { collectionShortName } = this.props.match.params
+    brandToUpdate.short_name = collectionShortName
     this.props.actions.updateBrandListingOrder(brandToUpdate)
   }
 

@@ -78,7 +78,6 @@ class ViewBrandsInCollection extends React.Component {
     } else {
       this.props.updateListingOrder({
         brand_id: brandId,
-        short_name: updatedList[brandId].short_name,
         listing_order: updatedList[brandId].orderListNo
       })
       setTimeout(() => {

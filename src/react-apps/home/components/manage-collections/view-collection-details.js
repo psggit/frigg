@@ -35,6 +35,7 @@ class ViewCollection extends React.Component {
     this.handleCheckboxes = this.handleCheckboxes.bind(this)
     this.addBrandToList = this.addBrandToList.bind(this)
     this.unMountBrandListModal = this.unMountBrandListModal.bind(this)
+    this.updateListingOrder = this.updateListingOrder.bind(this)
   }
 
   mountCollectionDialog() {
@@ -78,6 +79,7 @@ class ViewCollection extends React.Component {
 
   createCollection() {
     if(this.state.name.length && this.state.displayName.length) {
+      console.log("create collection", this.state.selectedBrand)
       let brandData = this.state.selectedBrand.map((item) => {
         return {
           brand_id: item.brand_id,
@@ -96,13 +98,6 @@ class ViewCollection extends React.Component {
       this.setState({nameErr: this.validateName(this.state.name)})
       this.setState({displayNameErr: this.validateDisplayName(this.state.displayName)})
     }
-    // } else if(this.state.name.length === 0 && this.state.displayName.length > 0) {
-    //   this.setState({nameErr: true})
-    // } else if(this.state.name.length > 0 && this.state.displayName.length === 0) {
-    //   this.setState({displayNameErr: true})
-    // } else {
-    //   this.setState({nameErr: true, displayNameErr: true})
-    // }
     this.brandList = []
     
   }
@@ -122,13 +117,23 @@ class ViewCollection extends React.Component {
   }
 
   handleChange(e) {
-    //this.setState({ [e.target.name]: e.target.value });
     const errName = `${e.target.name}Err`
     const fnExp = eval(`this.validate${this.inputNameMap[e.target.name]}`)
     this.setState({
       [e.target.name]: e.target.value,
       [errName]: fnExp(e.target.value)
     })
+  }
+
+  updateListingOrder(brandToUpdate) {
+    let state = Object.assign({}, this.state)
+    let selectedBrand = state.selectedBrand.map((item) => {
+      if(item.brand_id === brandToUpdate.brand_id) {
+        item.orderListNo = brandToUpdate.listing_order
+      }
+      return item
+    })
+    this.setState({selectedBrand})
   }
 
   render() {
@@ -186,6 +191,7 @@ class ViewCollection extends React.Component {
               removeBrand={this.removeBrand}
               showDelete={true}
               loadingBrandsInCollection={false}
+              updateListingOrder = {this.updateListingOrder}
             ></ViewBrandsInCollection>
           </div>
         }
