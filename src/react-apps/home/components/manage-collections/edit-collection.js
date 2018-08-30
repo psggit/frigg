@@ -37,6 +37,7 @@ class EditCollection extends React.Component {
   }
 
   componentDidMount() {
+    console.log("mount", this.props)
     this.handleRouteChange()
     const { collectionShortName } = this.props.match.params
     this.setState({ short_name: collectionShortName, loadingBrands: true })
@@ -54,16 +55,18 @@ class EditCollection extends React.Component {
         limit: this.pagesLimit
       }
     }, (response) => {
-      let brandList = this.props.brandList.map((item) => {
-        return {
-          brand_id: item.brand_id,
-          brand: item.brand_name,
-          short_name: item.brand_short_name,
-          orderListNo: item.ordinal_position
-        }
-      })
-
-      this.setState({ selectedBrand: brandList, loadingBrands: false })
+      //if(this.props.brandList.length) {
+        let brandList = this.props.brandList.map((item) => {
+          return {
+            brand_id: item.brand_id,
+            brand: item.brand_name,
+            short_name: item.brand_short_name,
+            orderListNo: item.ordinal_position
+          }
+        })
+  
+        this.setState({ selectedBrand: brandList, loadingBrands: false })
+      //}
     })
 
   }
@@ -190,6 +193,7 @@ class EditCollection extends React.Component {
   }
 
   render() {
+    console.log("brandlist", this.props.brandList)
     return (
       <div>
         <Card
@@ -271,17 +275,36 @@ class EditCollection extends React.Component {
   }
 }
 
-const mapStateToProps = state => state.main
+// const mapStateToProps = (state) => {
+//   console.log("state", state.main)
+// }
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(Actions, dispatch)
 })
 
+// export default connect(
+//   mapStateToProps,
+//   mapDispatchToProps
+// )(EditCollection)
+
+
 export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(EditCollection)
-
-
-
+  (state) => ({
+    brandList: state.main.brandList,
+    brandCount: state.main.brandCount,
+    updatingListingOrder: state.main.updatingListingOrder
+  }),
+  mapDispatchToProps,
+  null,
+  {
+    areStatesPropsEqual: (next, prev) => {
+      return (
+        prev.main.brandList === next.main.brandList ||
+        prev.main.brandCount === next.main.brandCount ||
+        prev.main.updatingListingOrder === next.main.updatingListingOrder
+      );
+    }
+  }
+)(EditCollection);
 //export default ViewCollection

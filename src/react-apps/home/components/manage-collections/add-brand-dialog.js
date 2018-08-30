@@ -200,7 +200,7 @@ export default function AddBrandDialog(data) {
       const cityId = this.state.citiesData[e.target.value].id
       this.gps = this.state.citiesData[e.target.value].gps
       this.stateShortName = this.state.citiesData[e.target.value].state_short_name
-      this.setState({ cityId: cityId })
+      this.setState({ selectedCityIndex: e.target.value, cityId: cityId })
       this.listGenres(cityId)
       this.listBrandsUsingGenre('beer', cityId)
     }
@@ -257,6 +257,7 @@ export default function AddBrandDialog(data) {
     }
 
     render() {
+      console.log("render",this.state.cityName)
       return (
         <React.Fragment>
           <ModalBox maxHeight="80vh">
@@ -268,11 +269,11 @@ export default function AddBrandDialog(data) {
             </ModalHeader>
             {
               <div style={{ display: 'flex', flexDirection: 'column', borderBottom: '1px solid #f6f6f6' }}>
-                <h3>Choose city to list genre</h3>
+                <h3>Choose city to list genre{this.state.cityName}</h3>
 
                 <select
                   style={{ marginRight: '20px', marginBottom: '20px', height: '46px', fontSize: '16px', width: '50%'}}
-                  value={this.state.cityId}
+                  value={this.state.selectedCityIndex}
                   onChange={this.handleCityChange}
                 >
                   {
