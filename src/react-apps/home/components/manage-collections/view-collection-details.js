@@ -46,9 +46,16 @@ class ViewCollection extends React.Component {
   //   this.setState({ shouldMountCollectionDialog: false })
   // }
 
+  //removes duplaicates from array of object using property
+  removeDuplicates(array, property) {
+    return array.filter((obj, pos, arr) => {
+      return arr.map((mapObj) => mapObj[property]).indexOf(obj[property]) === pos
+    })
+  }
+
   addBrandToList(brandList) {
     unMountModal()
-    this.setState({selectedBrand: [...this.state.selectedBrand, ...brandList]})
+    this.setState({selectedBrand: this.removeDuplicates([...this.state.selectedBrand, ...brandList], "brand_id") })
   }
 
   unMountBrandListModal() {
