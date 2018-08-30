@@ -30,6 +30,9 @@ export default function AddBrandDialog(data) {
         brandMap: {}
       }
 
+      this.gps = '',
+      this.stateShortName = '',
+
       this.selectedBrandList = []
       this.handleChange = this.handleChange.bind(this)
       this.setActiveAccordian = this.setActiveAccordian.bind(this)
@@ -149,13 +152,22 @@ export default function AddBrandDialog(data) {
           data: {
             searchText,
             km: '40km',
-            id: this.state.cityId,
+            gps: this.gps,
             is_featured: false,
-            stateName: 'TN'
+            stateName: this.stateShortName
           }
         })
           .then(json => {
+            let brandMap = {}
             this.brands = json.brands.map(item => {
+              brandMap[item.id] = {
+                id: item.id,
+                brand: item.brand_name,
+                shortName: item.short_name,
+                genreShortName: item.category.genre_short.short_name,
+                orderListNo: 0
+              }
+
               return {
                 id: item.id,
                 brand: item.brand_name,
@@ -163,7 +175,7 @@ export default function AddBrandDialog(data) {
                 genreShortName: item.category.genre_short.short_name
               }
             })
-            this.setState({ loadingBrands: false })
+            this.setState({ brandMap, loadingBrands: false })
           })
       } else {
         this.listBrandsUsingGenre(this.state.genreShortName, this.state.cityId)
@@ -185,9 +197,12 @@ export default function AddBrandDialog(data) {
     }
 
     handleCityChange(e) {
-      this.setState({ cityId: e.target.value })
-      this.listGenres(e.target.value)
-      this.listBrandsUsingGenre('beer', e.target.value)
+      const cityId = this.state.citiesData[e.target.value].id
+      this.gps = this.state.citiesData[e.target.value].gps
+      this.stateShortName = this.state.citiesData[e.target.value].state_short_name
+      this.setState({ cityId: cityId })
+      this.listGenres(cityId)
+      this.listBrandsUsingGenre('beer', cityId)
     }
 
     addBrandToLocalList(newBrand) {
@@ -262,12 +277,12 @@ export default function AddBrandDialog(data) {
                 >
                   {
                     this.state.citiesData.length > 0 &&
-                    this.state.citiesData.map(item => (
-                      <option
-                        key={item.id} value={item.id}>
-                        {item.name}
-                      </option>
-                    ))
+                    this.state.citiesData.map((item, i) => {
+                     return  <option
+                              key={item.id} value={i}>
+                              {item.name}
+                            </option>
+                    })
                   }
                 </select>
               </div>

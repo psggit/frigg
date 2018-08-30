@@ -46,7 +46,7 @@ class ViewCollection extends React.Component {
   //   this.setState({ shouldMountCollectionDialog: false })
   // }
 
-  //removes duplaicates from array of object using property
+  //removes duplicates from array of object using property
   removeDuplicates(array, property) {
     return array.filter((obj, pos, arr) => {
       return arr.map((mapObj) => mapObj[property]).indexOf(obj[property]) === pos
