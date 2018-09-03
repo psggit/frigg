@@ -46,7 +46,7 @@ class ManageLocalities extends React.Component {
     this.fetchData = this.fetchData.bind(this)
     this.setPage = this.setPage.bind(this)
     this.applyFilter = this.applyFilter.bind(this)
-    this.handleChangeIsLocalityAvailable = this.handleChangeIsLocalityAvailable.bind(this)
+    //this.handleChangeIsLocalityAvailable = this.handleChangeIsLocalityAvailable.bind(this)
     this.mountViewFencesDialog = this.mountViewFencesDialog.bind(this)
     this.unmountViewFencesDialog = this.unmountViewFencesDialog.bind(this)
   }
@@ -136,22 +136,25 @@ class ManageLocalities extends React.Component {
     this.setState({ shouldMountFilterDialog: false })
   }
 
-  handleCityChange(e, k) {
+  handleCityChange(k) {
     const { citiesData } = this.props
-    const cityIdx = k + 1
-    this.setState({ cityIdx })
+    // const cityIdx = k + 1
+    // this.setState({ cityIdx })
     this.filter.cityId = citiesData[k].id
     this.filter.cityName = citiesData[k].name
+    console.log("city details",  this.filter.cityId, this.filter.cityName)
   }
 
-  handleStateChange(e, k) {
+  handleStateChange(k) {
     const { statesData } = this.props
-    const stateIdx = k + 1
-    this.setState({ stateIdx, cityIdx: null })
+    // const stateIdx = k + 1
+    // this.setState({ stateIdx, cityIdx: null })
 
 
     this.filter.stateShortName = statesData[k].short_name
     this.filter.stateName = statesData[k].state_name
+
+    console.log("state details", this.filter.stateShortName, this.filter.stateName)
 
     this.props.actions.fetchCities({
       state_short_name: statesData[k].short_name,
@@ -163,12 +166,12 @@ class ManageLocalities extends React.Component {
     })
   }
 
-  handleChangeIsLocalityAvailable(e) {
-    this.setState({ isLocalityAvailable: e.target.checked })
-    // this.filter.isCityAvailable = e.target.checked
-  }
+  // handleChangeIsLocalityAvailable(e) {
+  //   this.setState({ isLocalityAvailable: e.target.checked })
+  //   // this.filter.isCityAvailable = e.target.checked
+  // }
 
-  applyFilter() {
+  applyFilter(stateIdx) {
     const { statesData } = this.props
     console.log(this.filter);
     const queryObj = {
@@ -298,8 +301,18 @@ class ManageLocalities extends React.Component {
               applyFilter={this.applyFilter}
               title="Filter localities"
               unmountFilterModal={this.unmountFilterModal}
+              stateId={parseInt(this.state.stateIdx)}
+              cityId={parseInt(this.state.cityIdx)}
+              handleStateChange={this.handleStateChange}
+              handleCityChange={this.handleCityChange}
+              floatingLabelText="Choose state"
+              citiesData={citiesData}
+              statesData={statesData}
+              loadingCities={loadingCities}
+              loadingStates={loadingStates}
+              //handleChangeIsLocalityAvailable={this.handleChangeIsLocalityAvailable}
             >
-              <div>
+              {/* <div>
                 <div className="form-group">
                   <label>State</label><br />
                   <SelectField
@@ -358,7 +371,7 @@ class ManageLocalities extends React.Component {
                     label="is_available"
                   />
                 </div>
-              </div>
+              </div> */}
             </FilterModal>
           )
           : ''
