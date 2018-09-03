@@ -134,17 +134,17 @@ class ManageCities extends React.Component {
     this.setState({ shouldMountFilterDialog: false })
   }
 
-  handleStateChange(e, k) {
+  handleStateChange(k) {
     const { statesData } = this.props
-    const stateIdx = k + 1
-    this.setState({ stateIdx })
+    //const stateIdx = k + 1
+    // this.setState({ stateIdx })
 
-    const queryObj = {
-      stateIdx,
-      short_name: statesData[k].short_name,
-      offset: 0,
-      activePage: 1
-    }
+    // const queryObj = {
+    //   stateIdx,
+    //   short_name: statesData[k].short_name,
+    //   offset: 0,
+    //   activePage: 1
+    // }
 
     this.filter.stateShortName = statesData[k].short_name
     this.filter.stateName = statesData[k].state_name
@@ -155,14 +155,14 @@ class ManageCities extends React.Component {
     // this.filter.isCityAvailable = e.target.checked
   }
 
-  applyFilter() {
+  applyFilter(stateIdx, isCityAvailable) {
     const { statesData } = this.props
     console.log(this.filter);
     const queryObj = {
-      stateIdx: this.state.stateIdx,
+      stateIdx: stateIdx,
       stateShortName: this.filter.stateShortName,
       stateName: this.filter.stateName,
-      isCityAvailable: this.state.isCityAvailable,
+      isCityAvailable: isCityAvailable,
       offset: 0,
       activePage: 1,
       filter: true
@@ -254,12 +254,18 @@ class ManageCities extends React.Component {
         {
           this.state.shouldMountFilterDialog
           ? (
-            <FilterModal
+             <FilterModal
               applyFilter={this.applyFilter}
               title="Filter Cities"
               unmountFilterModal={this.unmountFilterModal}
+              handleStateChange={this.handleStateChange}
+              floatingLabelText="Choose state"
+              statesData={statesData}
+              loadingStates={loadingStates}
+              filterStateAndCity={false}
+              //handleChangeIsLocalityAvailable={this.handleChangeIsLocalityAvailable}
             >
-              <div>
+              {/* <div>
                 <div className="form-group">
                   <label>State</label><br />
                   <SelectField
@@ -294,7 +300,7 @@ class ManageCities extends React.Component {
                     label="is_available"
                   />
                 </div>
-              </div>
+              </div> */}
             </FilterModal>
           )
           : ''

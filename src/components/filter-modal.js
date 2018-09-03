@@ -12,6 +12,7 @@ class FilterModal extends React.Component {
     this.state = {
       open: true,
       isLocalityAvailable: false,
+      isCityAvailable: false,
       stateIdx: null,
       cityIdx: null
     }
@@ -20,6 +21,7 @@ class FilterModal extends React.Component {
     this.handleStateChange = this.handleStateChange.bind(this)
     this.handleCityChange = this.handleCityChange.bind(this)
     this.handleChangeIsLocalityAvailable = this.handleChangeIsLocalityAvailable.bind(this)
+    this.handleChangeIsCityAvailable = this.handleChangeIsCityAvailable.bind(this)
   }
 
   handleClose() {
@@ -53,6 +55,10 @@ class FilterModal extends React.Component {
     this.setState({ isLocalityAvailable: e.target.checked })
   }
 
+  handleChangeIsCityAvailable(e) {
+    this.setState({ isCityAvailable: e.target.checked })
+  }
+
   render() {
     const actions = [
       <FlatButton
@@ -63,7 +69,11 @@ class FilterModal extends React.Component {
       <RaisedButton
         primary
         label="Apply filter"
-        onClick={() => this.handleApplyFilter(this.state.stateIdx, this.state.isLocalityAvailable)}
+        onClick={
+                this.props.filterStateAndCity ? 
+                () => this.handleApplyFilter(this.state.stateIdx, this.state.isLocalityAvailable) :
+                () => this.handleApplyFilter(this.state.stateIdx, this.state.isCityAvailable)
+              }
       />
     ]
     return (
@@ -77,6 +87,8 @@ class FilterModal extends React.Component {
           actions={actions}
           onRequestClose={this.handleClose}
         >
+         {
+          this.props.filterStateAndCity &&
           <div>
             <div className="form-group">
               <label>State</label><br />
@@ -137,6 +149,46 @@ class FilterModal extends React.Component {
               />
             </div>
           </div>
+         }
+         {
+           !this.props.filterStateAndCity && 
+            <div>
+              <div className="form-group">
+                <label>State</label><br />
+                <SelectField
+                  style={{ width: '100%' }}
+                  floatingLabelText={this.props.floatingLabelText}
+                  value={parseInt(this.state.stateIdx)}
+                  onChange={this.handleStateChange}
+                  iconStyle={{ fill: '#9b9b9b' }}
+                >
+                  {
+                    !this.props.loadingStates
+                    ? (
+                      this.props.statesData.map((state, i) => (
+                        <MenuItem
+                          value={i + 1}
+                          key={state.id}
+                          primaryText={state.state_name}
+                        />
+                      ))
+                    )
+                    : ''
+                  }
+                </SelectField>
+              </div>
+              <div className="form-group">
+                <Checkbox
+                  style={{ marginTop: '10px' }}
+                  // disabled={this.props.isDisabled}
+                  checked={this.state.isCityAvailable}
+                  onCheck={this.handleChangeIsCityAvailable}
+                  name="isCityActive"
+                  label="is_available"
+                />
+              </div>
+            </div>
+         }
         </Dialog>
       </div>
     )

@@ -297,6 +297,7 @@ class ManageLocalities extends React.Component {
               statesData={statesData}
               loadingCities={loadingCities}
               loadingStates={loadingStates}
+              filterStateAndCity={true}
               //handleChangeIsLocalityAvailable={this.handleChangeIsLocalityAvailable}
             >
               {/* <div>
