@@ -152,7 +152,7 @@ class ViewCredits extends React.Component {
                   borderTopLeftRadius: '0',
                   borderBottomLeftRadius: '0',
                   position: 'relative',
-                  top: '1px',
+                  top: '2px',
                   height: '40px',
                   cursor: 'pointer'
                 }}>
