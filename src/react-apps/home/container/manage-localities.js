@@ -33,7 +33,7 @@ class ManageLocalities extends React.Component {
       shouldMountFilterDialog: false,
       shouldMountViewFencesDialog: false,
       stateIdx: null,
-      cityIdx: null,
+      //cityIdx: null,
       activePage: 1,
       isLocalityAvailable: false
     }
@@ -142,7 +142,7 @@ class ManageLocalities extends React.Component {
     // this.setState({ cityIdx })
     this.filter.cityId = citiesData[k].id
     this.filter.cityName = citiesData[k].name
-    console.log("city details",  this.filter.cityId, this.filter.cityName)
+    //console.log("city details",  this.filter.cityId, this.filter.cityName)
   }
 
   handleStateChange(k) {
@@ -154,7 +154,7 @@ class ManageLocalities extends React.Component {
     this.filter.stateShortName = statesData[k].short_name
     this.filter.stateName = statesData[k].state_name
 
-    console.log("state details", this.filter.stateShortName, this.filter.stateName)
+    //console.log("state details", this.filter.stateShortName, this.filter.stateName)
 
     this.props.actions.fetchCities({
       state_short_name: statesData[k].short_name,
@@ -171,15 +171,16 @@ class ManageLocalities extends React.Component {
   //   // this.filter.isCityAvailable = e.target.checked
   // }
 
-  applyFilter(stateIdx) {
+  applyFilter(stateIdx, isLocalityAvailable) {
     const { statesData } = this.props
     console.log(this.filter);
+
     const queryObj = {
-      stateIdx: this.state.stateIdx,
+      stateIdx: stateIdx,
       stateShortName: this.filter.stateShortName,
       cityId: this.filter.cityId,
       stateName: this.filter.stateName,
-      isLocalityAvailable: this.state.isLocalityAvailable,
+      isLocalityAvailable: isLocalityAvailable,
       offset: 0,
       activePage: 1,
       filter: true
@@ -301,8 +302,8 @@ class ManageLocalities extends React.Component {
               applyFilter={this.applyFilter}
               title="Filter localities"
               unmountFilterModal={this.unmountFilterModal}
-              stateId={parseInt(this.state.stateIdx)}
-              cityId={parseInt(this.state.cityIdx)}
+              // stateId={parseInt(this.state.stateIdx)}
+              // cityId={parseInt(this.state.cityIdx)}
               handleStateChange={this.handleStateChange}
               handleCityChange={this.handleCityChange}
               floatingLabelText="Choose state"
