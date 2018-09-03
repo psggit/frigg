@@ -193,7 +193,6 @@ class EditCollection extends React.Component {
   }
 
   render() {
-    console.log("brandlist", this.props.brandList)
     return (
       <div>
         <Card
