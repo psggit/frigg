@@ -119,7 +119,8 @@ class ViewCredits extends React.Component {
                 marginTop: '20px',
                 borderColor: '#333',
                 height: '40px',
-                cursor: 'pointer'
+                cursor: 'pointer',
+                fontSize: '14px'
               }}
               onClick={this.handleChooseDate}
             >
