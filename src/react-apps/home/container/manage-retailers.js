@@ -45,7 +45,7 @@ class ManageRetailers extends React.Component {
     this.fetchData = this.fetchData.bind(this)
     this.setPage = this.setPage.bind(this)
     this.applyFilter = this.applyFilter.bind(this)
-    this.handleChangeIsLocalityAvailable = this.handleChangeIsLocalityAvailable.bind(this)
+    //this.handleChangeIsLocalityAvailable = this.handleChangeIsLocalityAvailable.bind(this)
     this.mountViewFencesDialog = this.mountViewFencesDialog.bind(this)
     this.unmountViewFencesDialog = this.unmountViewFencesDialog.bind(this)
   }
@@ -129,18 +129,18 @@ class ManageRetailers extends React.Component {
     this.setState({ shouldMountFilterDialog: false })
   }
 
-  handleCityChange(e, k) {
+  handleCityChange(k) {
     const { citiesData } = this.props
-    const cityIdx = k + 1
-    this.setState({ cityIdx })
+    // const cityIdx = k + 1
+    // this.setState({ cityIdx })
     this.filter.cityId = citiesData[k].id
     this.filter.cityName = citiesData[k].name
   }
 
-  handleStateChange(e, k) {
+  handleStateChange(k) {
     const { statesData } = this.props
-    const stateIdx = k + 1
-    this.setState({ stateIdx, cityIdx: null })
+    // const stateIdx = k + 1
+    // this.setState({ stateIdx, cityIdx: null })
 
 
     this.filter.stateShortName = statesData[k].short_name
@@ -156,10 +156,10 @@ class ManageRetailers extends React.Component {
     })
   }
 
-  handleChangeIsLocalityAvailable(e) {
-    this.setState({ isLocalityAvailable: e.target.checked })
-    // this.filter.isCityAvailable = e.target.checked
-  }
+  // handleChangeIsLocalityAvailable(e) {
+  //   this.setState({ isLocalityAvailable: e.target.checked })
+  //   // this.filter.isCityAvailable = e.target.checked
+  // }
 
   applyFilter() {
     const { statesData } = this.props
