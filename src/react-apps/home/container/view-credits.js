@@ -19,7 +19,7 @@ class ViewCredits extends React.Component {
     const tommorrow = new Date(today.getTime())
     tommorrow.setDate(tommorrow.getDate() + 1)
     tommorrow.setUTCHours(0, 0, 0, 0)
-    this.pagesLimit = 5
+    this.pagesLimit = 40
     this.state = {
       activePage: 1,
       pageOffset: 0,
