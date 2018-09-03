@@ -55,7 +55,7 @@ class ManageLocalities extends React.Component {
 
   componentWillUnmount() {
     console.log('unmounting manage localities');
-    window.onpopstate = () => {}
+    window.onpopstate = () => { }
   }
 
   unmountViewFencesDialog() {
@@ -140,7 +140,7 @@ class ManageLocalities extends React.Component {
 
   handleStateChange(k) {
     const { statesData } = this.props
-  
+
     this.filter.stateShortName = statesData[k].short_name
     this.filter.stateName = statesData[k].state_name
 
@@ -244,14 +244,14 @@ class ManageLocalities extends React.Component {
 
         {
           !loadingCities && statesData.length && this.state.cityName
-          ? <h3>Showing localities in {`${this.state.cityName}`}</h3>
-          : ''
+            ? <h3>Showing localities in {`${this.state.cityName}`}</h3>
+            : ''
         }
 
         {
           !this.state.stateName
-          ? <h3>Showing all localities</h3>
-          : ''
+            ? <h3>Showing all localities</h3>
+            : ''
         }
 
         <ViewLocalities
@@ -263,14 +263,14 @@ class ManageLocalities extends React.Component {
 
         {
           !loadingGeolocalities && geoLocalitiesData.fences.length
-          ? <Pagination
-            activePage={parseInt(this.state.activePage)}
-            itemsCountPerPage={10}
-            totalItemsCount={geoLocalitiesData.count}
-            pageRangeDisplayed={5}
-            setPage={this.setPage}
-          />
-          : ''
+            ? <Pagination
+              activePage={parseInt(this.state.activePage)}
+              itemsCountPerPage={10}
+              totalItemsCount={geoLocalitiesData.count}
+              pageRangeDisplayed={5}
+              setPage={this.setPage}
+            />
+            : ''
         }
 
         {
@@ -285,22 +285,22 @@ class ManageLocalities extends React.Component {
 
         {
           this.state.shouldMountFilterDialog
-          ? (
-            <FilterModal
-              applyFilter={this.applyFilter}
-              title="Filter localities"
-              unmountFilterModal={this.unmountFilterModal}
-              handleStateChange={this.handleStateChange}
-              handleCityChange={this.handleCityChange}
-              floatingLabelText="Choose state"
-              citiesData={citiesData}
-              statesData={statesData}
-              loadingCities={loadingCities}
-              loadingStates={loadingStates}
-              filterStateAndCity={true}
+            ? (
+              <FilterModal
+                applyFilter={this.applyFilter}
+                title="Filter localities"
+                unmountFilterModal={this.unmountFilterModal}
+                handleStateChange={this.handleStateChange}
+                handleCityChange={this.handleCityChange}
+                floatingLabelText="Choose state"
+                citiesData={citiesData}
+                statesData={statesData}
+                loadingCities={loadingCities}
+                loadingStates={loadingStates}
+                filterStateAndCity={true}
               //handleChangeIsLocalityAvailable={this.handleChangeIsLocalityAvailable}
-            >
-              {/* <div>
+              >
+                {/* <div>
                 <div className="form-group">
                   <label>State</label><br />
                   <SelectField
@@ -360,9 +360,9 @@ class ManageLocalities extends React.Component {
                   />
                 </div>
               </div> */}
-            </FilterModal>
-          )
-          : ''
+              </FilterModal>
+            )
+            : ''
         }
       </div>
     )

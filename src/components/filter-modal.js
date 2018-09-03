@@ -70,9 +70,9 @@ class FilterModal extends React.Component {
         primary
         label="Apply filter"
         onClick={
-                this.props.filterStateAndCity ? 
-                () => this.handleApplyFilter(this.state.stateIdx, this.state.isLocalityAvailable) :
-                () => this.handleApplyFilter(this.state.stateIdx, this.state.isCityAvailable)
+                this.props.filterStateAndCity 
+                ? () => this.handleApplyFilter(this.state.stateIdx, this.state.isLocalityAvailable) 
+                : () => this.handleApplyFilter(this.state.stateIdx, this.state.isCityAvailable)
               }
       />
     ]

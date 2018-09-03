@@ -61,7 +61,7 @@ class ManageCities extends React.Component {
   }
 
   componentWillUnmount() {
-    window.onpopstate = () => {}
+    window.onpopstate = () => { }
   }
 
   fetchData() {
@@ -221,14 +221,14 @@ class ManageCities extends React.Component {
 
         {
           !loadingCities && statesData.length && this.state.stateName
-          ? <h3>Showing cities in {`${this.state.stateName}`}</h3>
-          : ''
+            ? <h3>Showing cities in {`${this.state.stateName}`}</h3>
+            : ''
         }
 
         {
           !this.state.stateName
-          ? <h3>Showing all cities</h3>
-          : ''
+            ? <h3>Showing all cities</h3>
+            : ''
         }
 
         <ViewDeliverers
@@ -239,33 +239,33 @@ class ManageCities extends React.Component {
 
         {
           !loadingCities && citiesData.length
-          ? <Pagination
-            activePage={parseInt(this.state.activePage)}
-            itemsCountPerPage={10}
-            totalItemsCount={citiesCount}
-            pageRangeDisplayed={5}
-            setPage={this.setPage}
-          />
-          : ''
+            ? <Pagination
+              activePage={parseInt(this.state.activePage)}
+              itemsCountPerPage={10}
+              totalItemsCount={citiesCount}
+              pageRangeDisplayed={5}
+              setPage={this.setPage}
+            />
+            : ''
         }
         {
           // TODO: Filter modal needs to be fixed it's total bullcrap now.
         }
         {
           this.state.shouldMountFilterDialog
-          ? (
-             <FilterModal
-              applyFilter={this.applyFilter}
-              title="Filter Cities"
-              unmountFilterModal={this.unmountFilterModal}
-              handleStateChange={this.handleStateChange}
-              floatingLabelText="Choose state"
-              statesData={statesData}
-              loadingStates={loadingStates}
-              filterStateAndCity={false}
+            ? (
+              <FilterModal
+                applyFilter={this.applyFilter}
+                title="Filter Cities"
+                unmountFilterModal={this.unmountFilterModal}
+                handleStateChange={this.handleStateChange}
+                floatingLabelText="Choose state"
+                statesData={statesData}
+                loadingStates={loadingStates}
+                filterStateAndCity={false}
               //handleChangeIsLocalityAvailable={this.handleChangeIsLocalityAvailable}
-            >
-              {/* <div>
+              >
+                {/* <div>
                 <div className="form-group">
                   <label>State</label><br />
                   <SelectField
@@ -301,9 +301,9 @@ class ManageCities extends React.Component {
                   />
                 </div>
               </div> */}
-            </FilterModal>
-          )
-          : ''
+              </FilterModal>
+            )
+            : ''
         }
       </div>
     )
