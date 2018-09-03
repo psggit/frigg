@@ -77,13 +77,12 @@ class FilterModal extends React.Component {
           actions={actions}
           onRequestClose={this.handleClose}
         >
-          {/* { this.props.children } */}
           <div>
             <div className="form-group">
               <label>State</label><br />
               <SelectField
                 style={{ width: '100%' }}
-                floatingLabelText="Choose state"
+                floatingLabelText={this.props.floatingLabelText}
                 value={parseInt(this.state.stateIdx)}
                 onChange={this.handleStateChange}
                 iconStyle={{ fill: '#9b9b9b' }}
@@ -107,7 +106,7 @@ class FilterModal extends React.Component {
               <label>City</label><br />
               <SelectField
                 style={{ width: '100%' }}
-                floatingLabelText="Choose state"
+                floatingLabelText={this.props.floatingLabelText}
                 disabled={this.props.loadingCities || !this.props.citiesData.length}
                 value={parseInt(this.state.cityIdx)}
                 onChange={this.handleCityChange}
