@@ -262,8 +262,7 @@ class ManageCities extends React.Component {
                 floatingLabelText="Choose state"
                 statesData={statesData}
                 loadingStates={loadingStates}
-                filterStateAndCity={false}
-              //handleChangeIsLocalityAvailable={this.handleChangeIsLocalityAvailable}
+                filter="cityWithIsAvailableCheck"
               >
                 {/* <div>
                 <div className="form-group">

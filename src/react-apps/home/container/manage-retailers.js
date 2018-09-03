@@ -131,18 +131,13 @@ class ManageRetailers extends React.Component {
 
   handleCityChange(k) {
     const { citiesData } = this.props
-    // const cityIdx = k + 1
-    // this.setState({ cityIdx })
     this.filter.cityId = citiesData[k].id
     this.filter.cityName = citiesData[k].name
   }
 
   handleStateChange(k) {
     const { statesData } = this.props
-    // const stateIdx = k + 1
-    // this.setState({ stateIdx, cityIdx: null })
-
-
+   
     this.filter.stateShortName = statesData[k].short_name
     this.filter.stateName = statesData[k].state_name
 
@@ -321,7 +316,7 @@ class ManageRetailers extends React.Component {
               loadingCities={loadingCities}
               loadingStates={loadingStates}
               filterStateAndCity={true}
-              //handleChangeIsLocalityAvailable={this.handleChangeIsLocalityAvailable}
+              filter="stateAndCityWithIsAvailableCheck"
             ></FilterModal>
           )
           : ''
