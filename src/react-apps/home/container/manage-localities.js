@@ -2,9 +2,6 @@ import React from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import RaisedButton from 'material-ui/RaisedButton'
-import FlatButton from 'material-ui/FlatButton'
-import SelectField from 'material-ui/SelectField'
-import MenuItem from 'material-ui/MenuItem'
 import Pagination from '@components/pagination'
 import '@sass/components/_pagination.scss'
 import * as Actions from './../actions'
@@ -13,7 +10,6 @@ import RoleBasedComponent from '@components/RoleBasedComponent'
 import getIcon from './../components/icon-utils'
 import FilterModal from '@components/filter-modal'
 import { getQueryObj, getQueryUri } from '@utils/url-utils'
-import Checkbox from 'material-ui/Checkbox'
 import '@sass/components/_form.scss'
 import { NavLink } from 'react-router-dom'
 import ViewFences from './../components/manage-localities/view-fences'
@@ -33,7 +29,7 @@ class ManageLocalities extends React.Component {
       shouldMountFilterDialog: false,
       shouldMountViewFencesDialog: false,
       stateIdx: null,
-      cityIdx: null,
+      //cityIdx: null,
       activePage: 1,
       isLocalityAvailable: false
     }
@@ -46,7 +42,7 @@ class ManageLocalities extends React.Component {
     this.fetchData = this.fetchData.bind(this)
     this.setPage = this.setPage.bind(this)
     this.applyFilter = this.applyFilter.bind(this)
-    this.handleChangeIsLocalityAvailable = this.handleChangeIsLocalityAvailable.bind(this)
+    //this.handleChangeIsLocalityAvailable = this.handleChangeIsLocalityAvailable.bind(this)
     this.mountViewFencesDialog = this.mountViewFencesDialog.bind(this)
     this.unmountViewFencesDialog = this.unmountViewFencesDialog.bind(this)
   }
@@ -59,7 +55,7 @@ class ManageLocalities extends React.Component {
 
   componentWillUnmount() {
     console.log('unmounting manage localities');
-    window.onpopstate = () => {}
+    window.onpopstate = () => { }
   }
 
   unmountViewFencesDialog() {
@@ -136,19 +132,14 @@ class ManageLocalities extends React.Component {
     this.setState({ shouldMountFilterDialog: false })
   }
 
-  handleCityChange(e, k) {
+  handleCityChange(k) {
     const { citiesData } = this.props
-    const cityIdx = k + 1
-    this.setState({ cityIdx })
     this.filter.cityId = citiesData[k].id
     this.filter.cityName = citiesData[k].name
   }
 
-  handleStateChange(e, k) {
+  handleStateChange(k) {
     const { statesData } = this.props
-    const stateIdx = k + 1
-    this.setState({ stateIdx, cityIdx: null })
-
 
     this.filter.stateShortName = statesData[k].short_name
     this.filter.stateName = statesData[k].state_name
@@ -163,20 +154,21 @@ class ManageLocalities extends React.Component {
     })
   }
 
-  handleChangeIsLocalityAvailable(e) {
-    this.setState({ isLocalityAvailable: e.target.checked })
-    // this.filter.isCityAvailable = e.target.checked
-  }
+  // handleChangeIsLocalityAvailable(e) {
+  //   this.setState({ isLocalityAvailable: e.target.checked })
+  //   // this.filter.isCityAvailable = e.target.checked
+  // }
 
-  applyFilter() {
+  applyFilter(stateIdx, isLocalityAvailable) {
     const { statesData } = this.props
     console.log(this.filter);
+
     const queryObj = {
-      stateIdx: this.state.stateIdx,
+      stateIdx: stateIdx,
       stateShortName: this.filter.stateShortName,
       cityId: this.filter.cityId,
       stateName: this.filter.stateName,
-      isLocalityAvailable: this.state.isLocalityAvailable,
+      isLocalityAvailable: isLocalityAvailable,
       offset: 0,
       activePage: 1,
       filter: true
@@ -252,14 +244,14 @@ class ManageLocalities extends React.Component {
 
         {
           !loadingCities && statesData.length && this.state.cityName
-          ? <h3>Showing localities in {`${this.state.cityName}`}</h3>
-          : ''
+            ? <h3>Showing localities in {`${this.state.cityName}`}</h3>
+            : ''
         }
 
         {
           !this.state.stateName
-          ? <h3>Showing all localities</h3>
-          : ''
+            ? <h3>Showing all localities</h3>
+            : ''
         }
 
         <ViewLocalities
@@ -271,14 +263,14 @@ class ManageLocalities extends React.Component {
 
         {
           !loadingGeolocalities && geoLocalitiesData.fences.length
-          ? <Pagination
-            activePage={parseInt(this.state.activePage)}
-            itemsCountPerPage={10}
-            totalItemsCount={geoLocalitiesData.count}
-            pageRangeDisplayed={5}
-            setPage={this.setPage}
-          />
-          : ''
+            ? <Pagination
+              activePage={parseInt(this.state.activePage)}
+              itemsCountPerPage={10}
+              totalItemsCount={geoLocalitiesData.count}
+              pageRangeDisplayed={5}
+              setPage={this.setPage}
+            />
+            : ''
         }
 
         {
@@ -293,13 +285,21 @@ class ManageLocalities extends React.Component {
 
         {
           this.state.shouldMountFilterDialog
-          ? (
-            <FilterModal
-              applyFilter={this.applyFilter}
-              title="Filter localities"
-              unmountFilterModal={this.unmountFilterModal}
-            >
-              <div>
+            ? (
+              <FilterModal
+                applyFilter={this.applyFilter}
+                title="Filter localities"
+                unmountFilterModal={this.unmountFilterModal}
+                handleStateChange={this.handleStateChange}
+                handleCityChange={this.handleCityChange}
+                floatingLabelText="Choose state"
+                citiesData={citiesData}
+                statesData={statesData}
+                loadingCities={loadingCities}
+                loadingStates={loadingStates}
+                filter="stateAndCityWithIsAvailableCheck"
+              >
+                {/* <div>
                 <div className="form-group">
                   <label>State</label><br />
                   <SelectField
@@ -358,10 +358,10 @@ class ManageLocalities extends React.Component {
                     label="is_available"
                   />
                 </div>
-              </div>
-            </FilterModal>
-          )
-          : ''
+              </div> */}
+              </FilterModal>
+            )
+            : ''
         }
       </div>
     )

@@ -43,7 +43,7 @@ class ManageLocalities extends React.Component {
     this.fetchData = this.fetchData.bind(this)
     this.setPage = this.setPage.bind(this)
     this.applyFilter = this.applyFilter.bind(this)
-    this.handleChangeIsLocalityAvailable = this.handleChangeIsLocalityAvailable.bind(this)
+    //this.handleChangeIsLocalityAvailable = this.handleChangeIsLocalityAvailable.bind(this)
   }
 
   componentDidMount() {
@@ -115,20 +115,15 @@ class ManageLocalities extends React.Component {
     this.setState({ shouldMountFilterDialog: false })
   }
 
-  handleCityChange(e, k) {
+  handleCityChange(k) {
     const { citiesData } = this.props
-    const cityIdx = k + 1
-    this.setState({ cityIdx })
     this.filter.cityId = citiesData[k].id
     this.filter.cityName = citiesData[k].name
   }
 
-  handleStateChange(e, k) {
+  handleStateChange(k) {
     const { statesData } = this.props
-    const stateIdx = k + 1
-    this.setState({ stateIdx, cityIdx: null })
-
-
+    
     this.filter.stateShortName = statesData[k].short_name
     this.filter.stateName = statesData[k].state_name
 
@@ -142,10 +137,10 @@ class ManageLocalities extends React.Component {
     })
   }
 
-  handleChangeIsLocalityAvailable(e) {
-    this.setState({ isLocalityAvailable: e.target.checked })
-    // this.filter.isCityAvailable = e.target.checked
-  }
+  // handleChangeIsLocalityAvailable(e) {
+  //   this.setState({ isLocalityAvailable: e.target.checked })
+  //   // this.filter.isCityAvailable = e.target.checked
+  // }
 
   applyFilter() {
     const { statesData } = this.props
@@ -186,7 +181,8 @@ class ManageLocalities extends React.Component {
       deliverers,
       loadingDeliverers,
       loadingStates,
-      statesData
+      statesData,
+      citiesData
     } = this.props
 
     return (
@@ -248,69 +244,82 @@ class ManageLocalities extends React.Component {
         {
           this.state.shouldMountFilterDialog
           ? (
+            // <FilterModal
+            //   applyFilter={this.applyFilter}
+            //   title="Filter localities"
+            //   unmountFilterModal={this.unmountFilterModal}
+            // >
+            //   <div>
+            //     <div className="form-group">
+            //       <label>State</label><br />
+            //       <SelectField
+            //         floatingLabelText="Choose state"
+            //         value={parseInt(this.state.stateIdx)}
+            //         onChange={this.handleStateChange}
+            //       >
+            //         {
+            //           !loadingStates
+            //           ? (
+            //             statesData.map((state, i) => (
+            //               <MenuItem
+            //                 value={i + 1}
+            //                 key={state.id}
+            //                 primaryText={state.state_name}
+            //               />
+            //             ))
+            //           )
+            //           : ''
+            //         }
+            //       </SelectField>
+            //     </div>
+            //     <div className="form-group">
+            //       <label>City</label><br />
+            //       <SelectField
+            //         floatingLabelText="Choose state"
+            //         disabled={loadingCities || !citiesData.length}
+            //         value={parseInt(this.state.cityIdx)}
+            //         onChange={this.handleCityChange}
+            //       >
+            //         {
+            //           !loadingCities && citiesData.length
+            //           ? (
+            //             citiesData.map((city, i) => (
+            //               <MenuItem
+            //                 value={i + 1}
+            //                 key={city.id}
+            //                 primaryText={city.name}
+            //               />
+            //             ))
+            //           )
+            //           : ''
+            //         }
+            //       </SelectField>
+            //     </div>
+            //     <div className="form-group">
+            //       <Checkbox
+            //         style={{ marginTop: '10px' }}
+            //         // disabled={this.props.isDisabled}
+            //         checked={this.state.isLocalityAvailable}
+            //         onCheck={this.handleChangeIsLocalityAvailable}
+            //         name="isLocalityAvailable"
+            //         label="is_available"
+            //       />
+            //     </div>
+            //   </div>
+            // </FilterModal>
             <FilterModal
               applyFilter={this.applyFilter}
               title="Filter localities"
               unmountFilterModal={this.unmountFilterModal}
-            >
-              <div>
-                <div className="form-group">
-                  <label>State</label><br />
-                  <SelectField
-                    floatingLabelText="Choose state"
-                    value={parseInt(this.state.stateIdx)}
-                    onChange={this.handleStateChange}
-                  >
-                    {
-                      !loadingStates
-                      ? (
-                        statesData.map((state, i) => (
-                          <MenuItem
-                            value={i + 1}
-                            key={state.id}
-                            primaryText={state.state_name}
-                          />
-                        ))
-                      )
-                      : ''
-                    }
-                  </SelectField>
-                </div>
-                <div className="form-group">
-                  <label>City</label><br />
-                  <SelectField
-                    floatingLabelText="Choose state"
-                    disabled={loadingCities || !citiesData.length}
-                    value={parseInt(this.state.cityIdx)}
-                    onChange={this.handleCityChange}
-                  >
-                    {
-                      !loadingCities && citiesData.length
-                      ? (
-                        citiesData.map((city, i) => (
-                          <MenuItem
-                            value={i + 1}
-                            key={city.id}
-                            primaryText={city.name}
-                          />
-                        ))
-                      )
-                      : ''
-                    }
-                  </SelectField>
-                </div>
-                <div className="form-group">
-                  <Checkbox
-                    style={{ marginTop: '10px' }}
-                    // disabled={this.props.isDisabled}
-                    checked={this.state.isLocalityAvailable}
-                    onCheck={this.handleChangeIsLocalityAvailable}
-                    name="isLocalityAvailable"
-                    label="is_available"
-                  />
-                </div>
-              </div>
-            </FilterModal>
+              handleStateChange={this.handleStateChange}
+              handleCityChange={this.handleCityChange}
+              floatingLabelText="Choose state"
+              citiesData={citiesData}
+              statesData={statesData}
+              loadingCities={loadingCities}
+              loadingStates={loadingStates}
+              filter="stateAndCityWithIsAvailableCheck"
+            ></FilterModal>
           )
           : ''
         }
