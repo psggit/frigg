@@ -16,6 +16,7 @@ export function checkCtrlA(e) {
 
 export function checkCtrlV(e) {
   if (e.ctrlKey) {
+    console.log("ctrl+v")
     if (e.keyCode == 86 || e.keyCode == 118) {
       return true
     }
