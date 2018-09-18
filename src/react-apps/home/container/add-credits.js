@@ -9,7 +9,7 @@ import ModalFooter from '@components/ModalBox/ModalFooter'
 import ModalBody from '@components/ModalBox/ModalBody'
 import ModalBox from '@components/ModalBox'
 import ConfirmCredits from '../components/confirm-credits'
-import { validateNumType, checkCtrlA } from './../../utils'
+import { validateNumType, checkCtrlA, checkCtrlV } from './../../utils'
 //import ConfirmModal from '@components/ModalBox/ConfirmModal'
 
 class AddCredits extends React.Component {
@@ -227,7 +227,7 @@ class AddCredits extends React.Component {
   handleChangeInAmount(e) {
     const errName = `${e.target.name}Err`
     const fnExp = eval(`this.validate${this.inputNameMap[e.target.name]}`)
-    if(validateNumType(e.keyCode) || checkCtrlA(e)) {
+    if(validateNumType(e.keyCode) || checkCtrlA(e) || checkCtrlV(e)) {
       this.setState({ 
         [e.target.name]: e.target.value,
         [errName]: fnExp(e.target.value) 
