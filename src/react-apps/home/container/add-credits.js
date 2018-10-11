@@ -80,8 +80,8 @@ class AddCredits extends React.Component {
   validateAmount(amount) {
     if(amount.toString().length && (/^[.\d]+$/.test(amount)) && +(amount)) {
       return ({status: false, value: ''})
-    }
-    return ({status: true, value: 'Amount is required'})
+    } 
+    return ({status: true, value: 'Valid amount is required'})
   }
 
   validateTransactionCode(transactionCode) {
