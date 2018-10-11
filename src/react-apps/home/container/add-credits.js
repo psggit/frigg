@@ -78,7 +78,7 @@ class AddCredits extends React.Component {
   // }
 
   validateAmount(amount) {
-    if(amount.toString().length) {
+    if(amount.toString().length && (/^[.\d]+$/.test(amount)) && +(amount)) {
       return ({status: false, value: ''})
     }
     return ({status: true, value: 'Amount is required'})
@@ -117,7 +117,7 @@ class AddCredits extends React.Component {
         return {
           email: transaction.email,
           id: transaction.id.toString(),
-          amount: parseInt(transaction.amount),
+          amount: +(transaction.amount),
           reason: transaction.reason,
           transaction_code_id: transaction.transactionId,
           batch_number: transaction.batchNo
@@ -229,7 +229,7 @@ class AddCredits extends React.Component {
     const fnExp = eval(`this.validate${this.inputNameMap[e.target.name]}`)
     if(validateNumType(e.keyCode) || checkCtrlA(e) || checkCtrlV(e)) {
       this.setState({ 
-        [e.target.name]: e.target.value,
+        [e.target.name]: (e.target.value),
         [errName]: fnExp(e.target.value) 
       })
     } else {
