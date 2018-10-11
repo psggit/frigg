@@ -22,3 +22,31 @@ export function checkCtrlV(e) {
   }
   return false
 }
+
+export function validateFloatKeyPress(evt) {
+  var charCode = (evt.which) ? evt.which : event.keyCode;
+  var number = evt.target.value.split('.');
+  if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57)) {
+      return false;
+  }
+  //just one dot
+  if(number.length>1 && charCode == 46){
+       return false;
+  }
+  //get the carat position
+  var caratPos = getSelectionStart(evt.target);
+  var dotPos = evt.target.value.indexOf(".");
+  if( caratPos > dotPos && dotPos>-1 && (number.length > 0 && number[1].length > 1)){
+      return false;
+  }
+  return true;
+}
+
+export function getSelectionStart(o) {
+  if (o.createTextRange) {
+    var r = document.selection.createRange().duplicate()
+    r.moveEnd('character', o.value.length)
+    if (r.text == '') return o.value.length
+    return o.value.lastIndexOf(r.text)
+  } else return o.selectionStart
+}

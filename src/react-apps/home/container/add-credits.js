@@ -9,7 +9,7 @@ import ModalFooter from '@components/ModalBox/ModalFooter'
 import ModalBody from '@components/ModalBox/ModalBody'
 import ModalBox from '@components/ModalBox'
 import ConfirmCredits from '../components/confirm-credits'
-import { validateNumType, checkCtrlA, checkCtrlV } from './../../utils'
+import { validateNumType, checkCtrlA, checkCtrlV, validateFloatKeyPress } from './../../utils'
 //import ConfirmModal from '@components/ModalBox/ConfirmModal'
 
 class AddCredits extends React.Component {
@@ -43,6 +43,7 @@ class AddCredits extends React.Component {
     }
 
     //this.showNotification = false
+    //this.amountModified = false
     this.validateForm = this.validateForm.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.handleChangeWithValidation = this.handleChangeWithValidation.bind(this)
@@ -50,7 +51,9 @@ class AddCredits extends React.Component {
     this.unMountConfirmCreditsModal = this.unMountConfirmCreditsModal.bind(this)
     this.mountConfirmCredits = this.mountConfirmCredits.bind(this)
     this.deleteCredit =  this.deleteCredit.bind(this)
+    this.validateAmount = this.validateAmount.bind(this)
     this.handleChangeInAmount = this.handleChangeInAmount.bind(this)
+    this.validateDecimalPlace = this.validateDecimalPlace.bind(this)
   }
 
   componentDidMount() {
@@ -77,11 +80,22 @@ class AddCredits extends React.Component {
   //   this.setState({transactionCode : e.target.value})
   // }
 
+  // validateAmount(amount) {
+  //   //if((/((\d+)(\.\d{3}))$/.test(amount)) && amount.indexOf(".") >= 0) {
+  //   //this.amountModified = true
+  //   // if(amount.indexOf(".") >= 0 && amount.split(".")[1].length > 2) {
+  //   //   return ({status: true, value: 'Allowed only two numbers after decimal'})
+  //   // } else if(amount.toString().length) {
+  //   //   return ({status: false, value: ''})
+  //   // } 
+  //   // return ({status: true, value: 'Valid amount is required'})
+  // }
+
   validateAmount(amount) {
-    if(amount.toString().length && (/^[.\d]+$/.test(amount)) && +(amount)) {
+    if(amount.toString().length) {
       return ({status: false, value: ''})
     } 
-    return ({status: true, value: 'Valid amount is required'})
+    return ({status: true, value: 'Amount is required'})
   }
 
   validateTransactionCode(transactionCode) {
@@ -227,12 +241,18 @@ class AddCredits extends React.Component {
   handleChangeInAmount(e) {
     const errName = `${e.target.name}Err`
     const fnExp = eval(`this.validate${this.inputNameMap[e.target.name]}`)
-    if(validateNumType(e.keyCode) || checkCtrlA(e) || checkCtrlV(e)) {
-      this.setState({ 
-        [e.target.name]: (e.target.value),
-        [errName]: fnExp(e.target.value) 
-      })
-    } else {
+    //if((validateNumType(e.keyCode) || checkCtrlA(e) || checkCtrlV(e))) {
+    this.setState({ 
+      [e.target.name]: (e.target.value),
+      [errName]: fnExp(e.target.value)
+    })
+    // } else {
+    //   e.preventDefault()
+    // }
+  }
+
+  validateDecimalPlace(e) {
+    if(!validateFloatKeyPress(e)) {
       e.preventDefault()
     }
   }
@@ -273,7 +293,7 @@ class AddCredits extends React.Component {
         </div>
         <div className="input-field">
           <span>Amount</span>
-          <input className="field-value" onKeyDown={this.handleChangeInAmount} onKeyUp={this.handleChangeInAmount} name="amount" />
+          <input className="field-value" onKeyPress={(e) => this.validateDecimalPlace(e)}  onKeyUp={(e) => this.handleChangeInAmount(e)} name="amount" />
           {amountErr.status && <p className="field-error">{amountErr.value}</p>}
         </div>
         <div className="input-field">
