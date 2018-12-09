@@ -18,6 +18,8 @@ const initialState = {
   loadingMappedDpToLocality: true,
   loadingImageAds: true,
   loadingCollectionAds: true,
+  loadingUrlAds: true,
+  loadingDeepLinkingAds: true,
   loadingContactNumbersOfRetailer: true,
   loadingAllCollections: true,
   loadingBrandsInCollection: true,
@@ -28,6 +30,8 @@ const initialState = {
   contactNumbersOfRetailer: [],
   imageAdsData: [],
   collectionAdsData: [],
+  deepLinkAdsData: [],
+  urlAdsData: [],
   geoFenceCheckData: [],
   unmappedRetailersToLocality: [],
   unmappedRetailersToDp: [],
@@ -107,6 +111,8 @@ const actionsMap = {
       loadingMappedDpToLocality: true,
       loadingImageAds: true,
       loadingAllCollections: true,
+      loadingUrlAds: true,
+      loadingDeepLinkingAds: true,
       loadingBrandsInCollection: true,
       updatingListingOrder: true
     })
@@ -193,6 +199,20 @@ const actionsMap = {
     return Object.assign({}, state, {
       loadingImageAds: false,
       imageAdsData: action.data
+    })
+  },
+
+  [ActionTypes.SUCCESS_FETCH_URL_ADS]: (state, action) => {
+    return Object.assign({}, state, {
+      loadingUrlAds: false,
+      urlAdsData: action.data
+    })
+  },
+
+  [ActionTypes.SUCCESS_FETCH_DEEP_LINK_ADS]: (state, action) => {
+    return Object.assign({}, state, {
+      loadingDeepLinkingAds: false,
+      deepLinkAdsData: action.data
     })
   },
 

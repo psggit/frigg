@@ -33,6 +33,10 @@ import CreateCollectionAd from './../components/manage-collection-ads/create-ad'
 import UpdateRetailerContact from './../components/manage-retailers/update-contact'
 import CreateLocality from './../components/manage-localities/create-locality'
 import ManageImageAds from './manage-image-ads'
+import ManageDeepLinkAds from './manage-deep-link-ads'
+import CreateDeepLinkAd from './../components/manage-deep-link-ads/create-ad'
+import ManageUrlAds from './manage-url-ads'
+import CreateUrlAd from './../components/manage-url-ads/create-ad'
 import ManageCollectionAds from './manage-collection-ads'
 import ManageCollections from './manage-collections'
 import UploadSearchData from './upload-search-data'
@@ -188,6 +192,12 @@ class App extends React.Component {
                       <Route exact path="/home/manage-image-ads" component={ManageImageAds} />
                       <Route exact path="/home/manage-image-ads/create-new-ad" component={CreateAd} />
 
+                      <Route exact path="/home/manage-deep-link-ads" component={ManageDeepLinkAds} />
+                      <Route exact path="/home/manage-deep-link-ads/create-new-deep-link-ad" component={CreateDeepLinkAd} />
+                      
+                      <Route exact path="/home/manage-url-ads" component={ManageUrlAds} />
+                      <Route exact path="/home/manage-url-ads/create-new-url-ad" component={CreateUrlAd} /> 
+
                       <Route exact path="/home/manage-collection-ads" component={ManageCollectionAds} />
                       <Route exact path="/home/manage-collection-ads/create-new-ad" component={CreateCollectionAd} />
 
@@ -199,7 +209,6 @@ class App extends React.Component {
                       <Route exact path="/home/manage-retailers/update-retailer-contact/:retailerSlug" component={UpdateRetailerContact} />
 
                       <Route exact path="/home/hipbar-pay/rollback-transaction" component={RollbackTransaction} />
-
                       <Route exact path="/home/manage-collections" component={ManageCollections} />
                       <Route exact path="/home/manage-collections/create-new" component={CreateCollection} />
                       <Route exact path="/home/manage-collections/edit-collection/:collectionShortName" component={EditCollection} />

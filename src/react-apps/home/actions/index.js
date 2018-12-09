@@ -245,6 +245,40 @@ export const updateImageAdStatus = (data, CB) => ({
   CB
 })
 
+export const fetchUrlAds = data => ({
+  type: ActionTypes.REQUEST_FETCH_URL_ADS,
+  data
+})
+
+export const createUrlAd = (data, CB) => ({
+  type: ActionTypes.REQUEST_CREATE_URL_AD,
+  data,
+  CB
+})
+
+export const updateUrlAdStatus = (data, CB) => ({
+  type: ActionTypes.REQUEST_UPDATE_URL_AD_STATUS,
+  data,
+  CB
+})
+
+export const fetchDeepLinkAds = data => ({
+  type: ActionTypes.REQUEST_FETCH_DEEP_LINK_ADS,
+  data
+})
+
+export const createDeepLinkAd = (data, CB) => ({
+  type: ActionTypes.REQUEST_CREATE_DEEP_LINK_AD,
+  data,
+  CB
+})
+
+export const updateDeepLinkAdStatus = (data, CB) => ({
+  type: ActionTypes.REQUEST_UPDATE_DEEP_LINK_AD_STATUS,
+  data,
+  CB
+})
+
 export const fetchCollectionAds = data => ({
   type: ActionTypes.REQUEST_FETCH_COLLECTION_ADS,
   data

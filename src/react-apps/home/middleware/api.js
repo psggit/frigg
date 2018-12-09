@@ -482,6 +482,60 @@ export const updateImageAdStatus = action => (
   })
 )
 
+export const createUrlAd = action => (
+  POST({
+    api: '/marketing/ads/create/image_ads',
+    apiBase: 'odin',
+    data: action.data,
+    handleError: true
+  })
+)
+
+export const fetchUrlAds = action => (
+  POST({
+    api: '/marketing/ads/view_all',
+    apiBase: 'odin',
+    data: action.data,
+    handleError: true
+  })
+)
+
+export const updateUrlAdStatus = action => (
+  POST({
+    api: '/marketing/ads/status/image_ads',
+    apiBase: 'odin',
+    data: action.data,
+    handleError: true
+  })
+)
+
+export const createDeepLinkAd = action => (
+  POST({
+    api: '/marketing/ads/create/image_ads',
+    apiBase: 'odin',
+    data: action.data,
+    handleError: true
+  })
+)
+
+export const fetchDeepLinkAds = action => (
+  POST({
+    api: '/marketing/ads/view_all',
+    apiBase: 'odin',
+    data: action.data,
+    handleError: true
+  })
+)
+
+export const updateDeepLinkAdStatus = action => (
+  POST({
+    api: '/marketing/ads/status/image_ads',
+    apiBase: 'odin',
+    data: action.data,
+    handleError: true
+  })
+)
+
 export const createCollectionAd = action => (
   POST({
     api: '/marketing/ads/collection/create/collection_ads',

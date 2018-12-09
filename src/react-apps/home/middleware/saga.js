@@ -541,6 +541,86 @@ function* updateImageAdStatus(action) {
   }
 }
 
+function* fetchUrlAds(action) {
+  try {
+    const data = yield call(Api.fetchUrlAds, action)
+    yield put({ type: ActionTypes.SUCCESS_FETCH_URL_ADS, data })
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+function* createUrlAd(action) {
+  try {
+    const data = yield call(Api.createUrlAd, action)
+    yield put({ type: ActionTypes.SUCCESS_CREATE_URL_AD, data })
+    Notify("Successfully created ad", "success")
+    action.CB(false)
+    setTimeout(() => {
+      location.href = '/home/manage-url-ads'
+    }, 2000)
+  } catch (err) {
+    console.log(err)
+    err.response.json().then(json => { Notify(json.message, "warning") })
+    action.CB(false)
+  }
+}
+
+function* updateUrlAdStatus(action) {
+  try {
+    const data = yield call(Api.updateUrlAdStatus, action)
+    Notify(`Successfully ${action.data.status === 'Active' ? 'enabled' : 'disabled'} ad`, "success")
+    yield put({ type: ActionTypes.SUCCESS_UPDATE_URL_AD_STATUS, data })
+    action.CB()
+    // setTimeout(() => {
+    //   history.pushState(null,null, '/manage-image-ads')
+    // }, 2000)
+  } catch (err) {
+    console.log(err)
+    err.response.json().then(json => { Notify(json.message, "warning") })
+  }
+}
+
+function* fetchDeepLinkAds(action) {
+  try {
+    const data = yield call(Api.fetchDeepLinkAds, action)
+    yield put({ type: ActionTypes.SUCCESS_FETCH_DEEP_LINK_ADS, data })
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+function* createDeepLinkAd(action) {
+  try {
+    const data = yield call(Api.createDeepLinkAd, action)
+    yield put({ type: ActionTypes.SUCCESS_CREATE_DEEP_LINK_AD, data })
+    Notify("Successfully created ad", "success")
+    action.CB(false)
+    setTimeout(() => {
+      location.href = '/home/manage-deep-link-ads'
+    }, 2000)
+  } catch (err) {
+    console.log(err)
+    err.response.json().then(json => { Notify(json.message, "warning") })
+    action.CB(false)
+  }
+}
+
+function* updateDeepLinkAdStatus(action) {
+  try {
+    const data = yield call(Api.updateDeepLinkAdStatus, action)
+    Notify(`Successfully ${action.data.status === 'Active' ? 'enabled' : 'disabled'} ad`, "success")
+    yield put({ type: ActionTypes.SUCCESS_UPDATE_DEEP_LINK_AD_STATUS, data })
+    action.CB()
+    // setTimeout(() => {
+    //   history.pushState(null,null, '/manage-image-ads')
+    // }, 2000)
+  } catch (err) {
+    console.log(err)
+    err.response.json().then(json => { Notify(json.message, "warning") })
+  }
+}
+
 
 function* fetchCollectionAds(action) {
   try {
@@ -1030,6 +1110,42 @@ function* watchUpdateImageAdStatus() {
   }
 }
 
+function* watchFetchUrlAds() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_FETCH_URL_ADS, fetchUrlAds)
+  }
+}
+
+function* watchCreateUrlAd() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_CREATE_URL_AD, createUrlAd)
+  }
+}
+
+function* watchUpdateUrlAdStatus() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_UPDATE_URL_AD_STATUS, updateUrlAdStatus)
+  }
+}
+
+function* watchFetchDeepLinkAds() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_FETCH_DEEP_LINK_ADS, fetchDeepLinkAds)
+  }
+}
+
+function* watchCreateDeepLinkAd() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_CREATE_DEEP_LINK_AD, createDeepLinkAd)
+  }
+}
+
+function* watchUpdateDeepLinkAdStatus() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_UPDATE_DEEP_LINK_AD_STATUS, updateDeepLinkAdStatus)
+  }
+}
+
 function* watchFetchCollectionAds() {
   while (true) {
     yield* takeLatest(ActionTypes.REQUEST_FETCH_COLLECTION_ADS, fetchCollectionAds)
@@ -1188,6 +1304,12 @@ export default function* rootSaga() {
     fork(watchFetchImageAds),
     fork(watchCreateImageAd),
     fork(watchUpdateImageAdStatus),
+    fork(watchFetchUrlAds),
+    fork(watchCreateUrlAd),
+    fork(watchUpdateUrlAdStatus),
+    fork(watchFetchDeepLinkAds),
+    fork(watchCreateDeepLinkAd),
+    fork(watchUpdateDeepLinkAdStatus),
     fork(watchFetchCollectionAds),
     fork(watchCreateCollectionAd),
     fork(watchUpdateCollectionAdStatus),
