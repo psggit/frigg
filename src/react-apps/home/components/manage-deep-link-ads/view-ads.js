@@ -66,11 +66,11 @@ function ViewDeepLinkAds(data) {
                 <TableRowColumn style={styles[0]}>
                   <button
                     onClick={() => {
-                      data.updateImageAdStatus({
+                      data.updateDeepLinkAdStatus({
                         status: item.status === 'Active' ? 'Inactive' : 'Active',
                         ad_id: item.ad_id,
                         city_id: item.city_id
-                      }, data.updateImageAdStatusCB)
+                      }, data.updateDeepLinkAdStatusCB)
                     }}
                   >
                     { item.status === 'Active' ? 'Disable' : 'Enable' }

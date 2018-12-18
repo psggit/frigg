@@ -484,7 +484,7 @@ export const updateImageAdStatus = action => (
 
 export const createUrlAd = action => (
   POST({
-    api: '/marketing/ads/create/image_ads',
+    api: '/marketing/ads/create/url_ads',
     apiBase: 'odin',
     data: action.data,
     handleError: true
@@ -493,7 +493,7 @@ export const createUrlAd = action => (
 
 export const fetchUrlAds = action => (
   POST({
-    api: '/marketing/ads/view_all',
+    api: '/marketing/ads/view/url_ads',
     apiBase: 'odin',
     data: action.data,
     handleError: true
@@ -511,7 +511,7 @@ export const updateUrlAdStatus = action => (
 
 export const createDeepLinkAd = action => (
   POST({
-    api: '/marketing/ads/create/image_ads',
+    api: '/marketing/ads/create/deepLink_ads',
     apiBase: 'odin',
     data: action.data,
     handleError: true
@@ -520,21 +520,23 @@ export const createDeepLinkAd = action => (
 
 export const fetchDeepLinkAds = action => (
   POST({
-    api: '/marketing/ads/view_all',
+    api: '/marketing/ads/view/deepLink_ads',
     apiBase: 'odin',
     data: action.data,
     handleError: true
   })
 )
 
-export const updateDeepLinkAdStatus = action => (
-  POST({
-    api: '/marketing/ads/status/image_ads',
+export const updateDeepLinkAdStatus = action => {
+
+  console.log("action", action.data)
+  return POST({
+    api: '/marketing/ads/status/url_ads',
     apiBase: 'odin',
     data: action.data,
     handleError: true
   })
-)
+}
 
 export const createCollectionAd = action => (
   POST({

@@ -41,6 +41,7 @@ class CreateAd extends React.Component {
   componentDidMount() {
     this.props.actions.setLoadingState()
     this.props.actions.fetchStates()
+    //this.props.actions.fetchCollections({ limit: 1000, offset: 0 })
   }
 
   removeLocalityErr() {
@@ -96,7 +97,7 @@ class CreateAd extends React.Component {
     this.setState({ selectedState: id })
     if(this.statesForWhichDataIsFetched.indexOf(id) === -1) {
       this.shouldInitializeActiveCitiesArr = true
-      this.props.actions.setLoadingState()
+      this.props.actions.setLoadingState('loadingCities')
       this.props.actions.fetchCities({
         state_short_name: short_name,
         is_available: false,
@@ -132,27 +133,50 @@ class CreateAd extends React.Component {
   }
 
   submit() {
-    const adData = this.createDeepLinkAdFormData.getData()
+    const adData = this.createDeepLinkAdForm.getData()
     console.log(adData);
     let activeCitiesPayload = []
     const activeCitiesMatrix = Object.entries(this.state.activeCitiesStateMap).map(item => item[1])
     activeCitiesPayload = [].concat.apply([], activeCitiesMatrix)
       .filter(item => item.listing_order > 0)
       .map(item => ({ city_id: item.city_id, listing_order: item.listing_order }))
-
-    if (activeCitiesPayload.length && adData.title.length && adData.active_to && adData.active_from && adData.image_url) {
+    console.log("active cities", activeCitiesPayload)
+    console.log("data", activeCitiesPayload.length
+    ,adData.title.length
+    ,adData.active_to
+    ,adData.active_from
+    ,adData.image_url
+    //&& adData.collectionName
+    ,adData.high_res_image
+    ,adData.low_res_image)
+    if (
+      activeCitiesPayload.length
+      && adData.title.length
+      && adData.active_to
+      && adData.active_from
+      && adData.image_url
+      //&& adData.collectionName
+      //&& adData.high_res_image
+      //&& adData.low_res_image
+    ) {
+      console.log("if)")
       const payload = {
         ad_data: {
           ad_title: adData.title,
           active_from: adData.active_from,
           active_to: adData.active_to,
           status: adData.status ? 'Active' : 'Inactive',
-          image_url: adData.image_url
+          image_url: adData.image_url,
+          high_res_image: adData.high_res_image,
+          low_res_image: adData.low_res_image,
+          //collection_name: adData.collectionName,
         },
         city_data: activeCitiesPayload
       }
       this.setState({ isDisabled: true })
+      console.log("deep, ", payload)
       this.props.actions.createDeepLinkAd(payload, (isDisabled) => {
+        console.log("deep", payload)
         this.setState({ isDisabled })
       })
     }
@@ -217,10 +241,12 @@ class CreateAd extends React.Component {
             }}
           >
             <h3 style={{ marginTop: 0, marginBottom: '40px' }}>Enter ad details</h3>
-            <CreateDeepLinkAdForm
-              ref={(node) => this.createDeepLinkAdFormData = node}
-              status={false}
-            />
+              <CreateDeepLinkAdForm
+                ref={(node) => this.createDeepLinkAdForm = node}
+                status={false}
+                loadingCollections={this.props.loadingAllCollections}
+                collectionsData={this.props.collectionsList}
+              />
           </Card>
 
           <Card
@@ -242,6 +268,7 @@ class CreateAd extends React.Component {
               </List>
             </div>
           </Card>
+
           {
             !loadingCities &&
             <Card
