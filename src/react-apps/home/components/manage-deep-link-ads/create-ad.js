@@ -171,12 +171,15 @@ class CreateAd extends React.Component {
           deep_link_url: adData.deep_link_url,
           high_res_image: adData.high_res_image,
           low_res_image: adData.low_res_image,
+          // city_id: 
+          // CityName: 
+          // listing_order: 
           //collection_name: adData.collectionName,
         },
         city_data: activeCitiesPayload
       }
       this.setState({ isDisabled: true })
-      console.log("deep, ", payload)
+      console.log("deep, ", payload, activeCitiesPayload)
       this.props.actions.createDeepLinkAd(payload, (isDisabled) => {
         console.log("deep", payload)
         this.setState({ isDisabled })

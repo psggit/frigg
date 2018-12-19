@@ -140,23 +140,30 @@ class CreateAd extends React.Component {
       .filter(item => item.listing_order > 0)
       .map(item => ({ city_id: item.city_id, listing_order: item.listing_order }))
 
-    if (activeCitiesPayload.length && adData.title.length && adData.active_to && adData.active_from && adData.image_url && adData.high_res_image && adData.low_res_image) {
-      const payload = {
-        ad_data: {
-          ad_title: adData.title,
-          active_from: adData.active_from,
-          active_to: adData.active_to,
-          status: adData.status ? 'Active' : 'Inactive',
-          image_url: adData.image_url,
-          high_res_image: adData.high_res_image,
-          low_res_image: adData.low_res_image
-        },
-        city_data: activeCitiesPayload
-      }
-      this.setState({ isDisabled: true })
-      this.props.actions.createImageAd(payload, (isDisabled) => {
-        this.setState({ isDisabled })
-      })
+    if (activeCitiesPayload.length 
+      && adData.title.length 
+      && adData.active_to 
+      && adData.active_from 
+      && adData.image_url 
+      //&& adData.high_res_image 
+      //&& adData.low_res_image
+      ) {
+        const payload = {
+          ad_data: {
+            ad_title: adData.title,
+            active_from: adData.active_from,
+            active_to: adData.active_to,
+            status: adData.status ? 'Active' : 'Inactive',
+            image_url: adData.image_url,
+            high_res_image: adData.high_res_image,
+            low_res_image: adData.low_res_image
+          },
+          city_data: activeCitiesPayload
+        }
+        this.setState({ isDisabled: true })
+        this.props.actions.createImageAd(payload, (isDisabled) => {
+          this.setState({ isDisabled })
+        })
     }
     // if (!data.localityName.length) {
     //   document.getElementById("display-screen").scrollTop = 0

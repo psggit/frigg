@@ -17,7 +17,6 @@ import '@sass/components/_table.scss'
 import { isoToNormalDate } from '@utils/date-utils'
 
 const TableHeaderItems = [
-  '',
   'ID',
   'TITLE',
   'ACTIVE FROM',
@@ -25,7 +24,8 @@ const TableHeaderItems = [
   'STATUS',
   'CITY',
   'IMAGE',
-  'LISTING ORDER'
+  'LISTING ORDER',
+  ''
 ]
 
 const styles = [
@@ -63,19 +63,6 @@ function ViewDeepLinkAds(data) {
           ? (
             data.deepLinkAdsData.map(item => (
               <TableRow key={item.id}>
-                <TableRowColumn style={styles[0]}>
-                  <button
-                    onClick={() => {
-                      data.updateDeepLinkAdStatus({
-                        status: item.status === 'Active' ? 'Inactive' : 'Active',
-                        ad_id: item.ad_id,
-                        city_id: item.city_id
-                      }, data.updateDeepLinkAdStatusCB)
-                    }}
-                  >
-                    { item.status === 'Active' ? 'Disable' : 'Enable' }
-                  </button>
-                </TableRowColumn>
                 <TableRowColumn style={styles[1]}>{item.ad_id}</TableRowColumn>
                 <TableRowColumn style={styles[2]}>{item.ad_title}</TableRowColumn>
                 <TableRowColumn style={styles[3]}>{isoToNormalDate(item.active_from)}</TableRowColumn>
@@ -95,7 +82,20 @@ function ViewDeepLinkAds(data) {
                     />
                   </a>
                 </TableRowColumn>
-                <TableRowColumn style={styles[7]}>{item.listing_order}</TableRowColumn>
+                <TableRowColumn style={styles[8]}>{item.listing_order}</TableRowColumn>
+                <TableRowColumn style={styles[0]}>
+                  <button
+                    onClick={() => {
+                      data.updateDeepLinkAdStatus({
+                        status: item.status === 'Active' ? 'Inactive' : 'Active',
+                        ad_id: item.ad_id,
+                        city_id: item.city_id
+                      }, data.updateDeepLinkAdStatusCB)
+                    }}
+                  >
+                    { item.status === 'Active' ? 'Disable' : 'Enable' }
+                  </button>
+                </TableRowColumn>
               </TableRow>
             ))
           )

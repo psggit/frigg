@@ -502,7 +502,7 @@ export const fetchUrlAds = action => (
 
 export const updateUrlAdStatus = action => (
   POST({
-    api: '/marketing/ads/status/image_ads',
+    api: '/marketing/ads/status/url_ads',
     apiBase: 'odin',
     data: action.data,
     handleError: true
@@ -531,7 +531,7 @@ export const updateDeepLinkAdStatus = action => {
 
   console.log("action", action.data)
   return POST({
-    api: '/marketing/ads/status/url_ads',
+    api: '/marketing/ads/status/deepLink_ads',
     apiBase: 'odin',
     data: action.data,
     handleError: true
