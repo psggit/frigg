@@ -155,6 +155,7 @@ class CreateAd extends React.Component {
       && adData.active_to
       && adData.active_from
       && adData.image_url
+      //&& adData.deep_link_url
       //&& adData.collectionName
       //&& adData.high_res_image
       //&& adData.low_res_image
@@ -167,6 +168,7 @@ class CreateAd extends React.Component {
           active_to: adData.active_to,
           status: adData.status ? 'Active' : 'Inactive',
           image_url: adData.image_url,
+          deep_link_url: adData.deep_link_url,
           high_res_image: adData.high_res_image,
           low_res_image: adData.low_res_image,
           //collection_name: adData.collectionName,

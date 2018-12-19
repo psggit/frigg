@@ -148,8 +148,9 @@ class CreateAd extends React.Component {
       && adData.active_from
       && adData.image_url
       //&& adData.collectionName
-      && adData.high_res_image
-      && adData.low_res_image
+      //&& adData.high_res_image
+      //&& adData.low_res_image
+      //&& adData.url
     ) {
       const payload = {
         ad_data: {
@@ -158,6 +159,7 @@ class CreateAd extends React.Component {
           active_to: adData.active_to,
           status: adData.status ? 'Active' : 'Inactive',
           image_url: adData.image_url,
+          url: adData.url,
           high_res_image: adData.high_res_image,
           low_res_image: adData.low_res_image,
           //collection_name: adData.collectionName,

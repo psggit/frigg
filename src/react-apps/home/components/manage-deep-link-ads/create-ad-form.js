@@ -21,6 +21,7 @@ class CreateAdForm extends React.Component {
       active_from: null,
       active_to: null,
       shouldTrim: true,
+      deep_link_url: props.deep_link_url || '',
       //collectionName: 'select-collection',
       isImageUploaded: false,
       isImageUploading: false,
@@ -219,7 +220,7 @@ class CreateAdForm extends React.Component {
           <TextField
             readOnly
             onChange={this.handleTextFields}
-            name="high_res_image"
+            name="image_url"
             hintText="https://cloudfront.ads.johnny_walker.jpg"
             value={this.state.image_url}
             style={{ width: '100%' }}
@@ -246,6 +247,18 @@ class CreateAdForm extends React.Component {
             name="low_res_image"
             hintText="https://cloudfront.ads.johnny_walker.jpg"
             value={this.state.low_res_image}
+            style={{ width: '100%' }}
+          />
+        </div>
+
+        <div className="form-group">
+          <label className="label">Deep link url</label><br />
+          <TextField
+            disabled={this.props.isDisabled}
+            onChange={this.handleTextFields}
+            name="deep_link_url"
+            hintText="https://cloudfront.ads.johnny_walker.jpg"
+            value={this.state.deep_link_url}
             style={{ width: '100%' }}
           />
         </div>

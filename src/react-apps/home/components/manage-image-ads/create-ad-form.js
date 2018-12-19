@@ -10,6 +10,8 @@ class CreateAdForm extends React.Component {
       status: props.status,
       title: props.title || '',
       image_url: props.image_url || '',
+      high_res_image: '',
+      low_res_image: '',
       active_from: null,
       active_to: null,
       shouldTrim: true
@@ -118,6 +120,30 @@ class CreateAdForm extends React.Component {
             name="image_url"
             hintText="https://cloudfront.ads.johnny_walker.jpg"
             value={this.state.image_url}
+            style={{ width: '100%' }}
+          />
+        </div>
+
+        <div className="form-group">
+          <label className="label">High res image</label><br />
+          <TextField
+            disabled={this.props.isDisabled}
+            onChange={this.handleTextFields}
+            name="high_res_image"
+            hintText="https://cloudfront.ads.johnny_walker.jpg"
+            value={this.state.high_res_image}
+            style={{ width: '100%' }}
+          />
+        </div>
+
+        <div className="form-group">
+          <label className="label">Low res image</label><br />
+          <TextField
+            disabled={this.props.isDisabled}
+            onChange={this.handleTextFields}
+            name="low_res_image"
+            hintText="https://cloudfront.ads.johnny_walker.jpg"
+            value={this.state.low_res_image}
             style={{ width: '100%' }}
           />
         </div>
