@@ -157,8 +157,8 @@ class CreateAd extends React.Component {
       && adData.image_url
       && adData.deep_link_url
       //&& adData.collectionName
-      //&& adData.high_res_image
-      //&& adData.low_res_image
+      && adData.high_res_image
+      && adData.low_res_image
     ) {
       const payload = {
         ad_data: {

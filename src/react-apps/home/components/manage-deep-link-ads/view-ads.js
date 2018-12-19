@@ -24,7 +24,7 @@ const TableHeaderItems = [
   'ACTIVE TO',
   'STATUS',
   'CITY',
-  //'IMAGE',
+  'HIGH RES IMAGE',
   'LISTING ORDER',
 ]
 
@@ -36,7 +36,7 @@ const styles = [
   { width: '64px', lineHeight: '1.6' },
   { width: '38px' },
   { width: '60px' },
-  { width: '38px' },
+  { width: '60px' },
   { width: '38px' }
 ]
 
@@ -82,8 +82,8 @@ function ViewDeepLinkAds(data) {
                 <TableRowColumn style={styles[4]}>{isoToNormalDate(item.active_to)}</TableRowColumn>
                 <TableRowColumn style={styles[5]}>{item.status}</TableRowColumn>
                 <TableRowColumn style={styles[6]}>{item.CityName}</TableRowColumn>
-                {/* <TableRowColumn style={styles[7]}>
-                  <a target="_blank" href={item.image_url}>
+                <TableRowColumn style={styles[7]}>
+                  <a target="_blank" href={item.high_res_image}>
                     <img
                       alt="ad-image"
                       style={{
@@ -91,10 +91,10 @@ function ViewDeepLinkAds(data) {
                         height: '40px',
                         objectFit: 'contain'
                       }}
-                      src={item.image_url}
+                      src={item.high_res_image}
                     />
                   </a>
-                </TableRowColumn> */}
+                </TableRowColumn>
                 <TableRowColumn style={styles[8]}>{item.listing_order}</TableRowColumn>
               </TableRow>
             ))
