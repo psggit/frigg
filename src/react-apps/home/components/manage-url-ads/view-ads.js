@@ -17,7 +17,6 @@ import '@sass/components/_table.scss'
 import { isoToNormalDate } from '@utils/date-utils'
 
 const TableHeaderItems = [
-  '',
   'ID',
   'TITLE',
   'ACTIVE FROM',
@@ -25,7 +24,8 @@ const TableHeaderItems = [
   'STATUS',
   'CITY',
   'IMAGE',
-  'LISTING ORDER'
+  'LISTING ORDER',
+  ''
 ]
 
 const styles = [
