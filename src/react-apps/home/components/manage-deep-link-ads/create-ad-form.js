@@ -257,7 +257,7 @@ class CreateAdForm extends React.Component {
             disabled={this.props.isDisabled}
             onChange={this.handleTextFields}
             name="deep_link_url"
-            hintText="https://cloudfront.ads.johnny_walker.jpg"
+            hintText="https://www.hipbarpay.com/pay/#invite/friend"
             value={this.state.deep_link_url}
             style={{ width: '100%' }}
           />

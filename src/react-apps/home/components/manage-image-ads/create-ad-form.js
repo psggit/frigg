@@ -125,18 +125,6 @@ class CreateAdForm extends React.Component {
         </div>
 
         <div className="form-group">
-          <label className="label">High res image</label><br />
-          <TextField
-            disabled={this.props.isDisabled}
-            onChange={this.handleTextFields}
-            name="high_res_image"
-            hintText="https://cloudfront.ads.johnny_walker.jpg"
-            value={this.state.high_res_image}
-            style={{ width: '100%' }}
-          />
-        </div>
-
-        <div className="form-group">
           <label className="label">Low res image</label><br />
           <TextField
             disabled={this.props.isDisabled}
@@ -144,6 +132,18 @@ class CreateAdForm extends React.Component {
             name="low_res_image"
             hintText="https://cloudfront.ads.johnny_walker.jpg"
             value={this.state.low_res_image}
+            style={{ width: '100%' }}
+          />
+        </div>
+
+        <div className="form-group">
+          <label className="label">High res image</label><br />
+          <TextField
+            disabled={this.props.isDisabled}
+            onChange={this.handleTextFields}
+            name="high_res_image"
+            hintText="https://cloudfront.ads.johnny_walker.jpg"
+            value={this.state.high_res_image}
             style={{ width: '100%' }}
           />
         </div>

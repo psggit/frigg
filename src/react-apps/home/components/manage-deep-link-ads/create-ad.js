@@ -155,12 +155,11 @@ class CreateAd extends React.Component {
       && adData.active_to
       && adData.active_from
       && adData.image_url
-      //&& adData.deep_link_url
+      && adData.deep_link_url
       //&& adData.collectionName
       //&& adData.high_res_image
       //&& adData.low_res_image
     ) {
-      console.log("if)")
       const payload = {
         ad_data: {
           ad_title: adData.title,
@@ -179,9 +178,9 @@ class CreateAd extends React.Component {
         city_data: activeCitiesPayload
       }
       this.setState({ isDisabled: true })
-      console.log("deep, ", payload, activeCitiesPayload)
+      // console.log("deep, ", payload, activeCitiesPayload)
       this.props.actions.createDeepLinkAd(payload, (isDisabled) => {
-        console.log("deep", payload)
+        // console.log("deep", payload)
         this.setState({ isDisabled })
       })
     }
@@ -240,7 +239,7 @@ class CreateAd extends React.Component {
             className={this.state.localityErr ? 'animated shake' : ''}
             style={{
               padding: '20px',
-              width: '340px',
+              width: '370px',
               height: '100%',
               marginRight: '20px'
             }}

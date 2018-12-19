@@ -51,10 +51,10 @@ class NavigationBar extends  React.Component {
       {
         name: 'Ads management',
         nestedItems: [
-          { name: 'Manage image ads', path: '/home/manage-image-ads', id: 8 },
+          { name: 'Manage pay image ads', path: '/home/manage-image-ads', id: 8 },
           { name: 'Manage collection ads', path: '/home/manage-collection-ads', id: 13 },
-          { name: 'Manage deep link ads', path: '/home/manage-deep-link-ads', id: 15 },
-          { name: 'Manage url ads', path: '/home/manage-url-ads', id: 16 }
+          { name: 'Manage pay deep link ads', path: '/home/manage-deep-link-ads', id: 15 },
+          { name: 'Manage pay url ads', path: '/home/manage-url-ads', id: 16 }
         ]
       },
       {
