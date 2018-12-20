@@ -94,6 +94,7 @@ function ViewTransactions(data, mountConfirmModal) {
           {/* <TableHeaderColumn style={{ width: '80px' }}>CONSUMER ID</TableHeaderColumn> */}
           <TableHeaderColumn style={{ width: '100px' }}>CONSUMER NAME</TableHeaderColumn>
           <TableHeaderColumn style={{ width: '120px' }}>TRANSACTION TYPE</TableHeaderColumn>
+          <TableHeaderColumn style={{ width: '60px' }}>AMOUNT</TableHeaderColumn>
           <TableHeaderColumn style={{ width: '120px' }}>CREATED AT</TableHeaderColumn>
           {/* <TableHeaderColumn style={{ width: '80px' }}>RETAILER ID</TableHeaderColumn> */}
           <TableHeaderColumn style={{ width: '100px' }}>RETAILER NAME</TableHeaderColumn>
@@ -111,6 +112,7 @@ function ViewTransactions(data, mountConfirmModal) {
               {/* <TableRowColumn style={{ width: '80px' }}>{item.consumer_id}</TableRowColumn> */}
               <TableRowColumn style={{ width: '100px' }}>{item.full_name}</TableRowColumn>
               <TableRowColumn style={{ width: '120px' }}>{item.transaction_type}</TableRowColumn>
+              <TableRowColumn style={{ width: '60px' }}>{item.amount}</TableRowColumn>
               <TableRowColumn style={{ width: '120px' }}>{Moment(item.created_at).format('DD/MM/YYYY, h:mm')}</TableRowColumn>
               {/* <TableRowColumn style={{ width: '80px' }}>{item.retailer_id}</TableRowColumn> */}
               <TableRowColumn style={{ width: '100px' }}>{item.org_name}</TableRowColumn>
