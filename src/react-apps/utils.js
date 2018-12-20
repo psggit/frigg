@@ -52,5 +52,5 @@ export function getSelectionStart(o) {
 }
 
 export function overrideTableStyle() {
-  document.querySelectorAll(".bordered--table")[1].parentElement.style.overflow = "auto"
+  document.querySelectorAll(".bordered--table")[1].parentElement.style.overflow = ""
 }

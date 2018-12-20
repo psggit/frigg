@@ -22,7 +22,7 @@ class ViewTransactions extends React.Component {
     render() {
         return (
             <Table
-              wrapperStyle={{ overflow: 'hidden' }}
+              wrapperStyle={{ height: 'auto' }}
               className="bordered--table"
               selectable={false}
               fixedHeader
