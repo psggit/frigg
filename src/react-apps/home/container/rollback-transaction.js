@@ -16,6 +16,9 @@ import Notify from '@components/Notification'
 import Moment from 'moment'
 
 import Dialog from 'material-ui/Dialog'
+import ViewTransactions from './view-transactions'
+
+console.log(ViewTransactions)
 
 class ConfirmRollback extends React.Component {
   constructor() {
@@ -79,54 +82,6 @@ class ConfirmRollback extends React.Component {
     )
   }
 }
-
-
-function ViewTransactions(data, mountConfirmModal) {
-  return (
-    <Table
-      className="bordered--table"
-      selectable={false}
-      fixedHeader
-    >
-      <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
-        <TableRow>
-          <TableHeaderColumn style={{ width: '80px' }}>ORDER ID</TableHeaderColumn>
-          {/* <TableHeaderColumn style={{ width: '80px' }}>CONSUMER ID</TableHeaderColumn> */}
-          <TableHeaderColumn style={{ width: '100px' }}>CONSUMER NAME</TableHeaderColumn>
-          <TableHeaderColumn style={{ width: '120px' }}>TRANSACTION TYPE</TableHeaderColumn>
-          <TableHeaderColumn style={{ width: '60px' }}>AMOUNT</TableHeaderColumn>
-          <TableHeaderColumn style={{ width: '120px' }}>CREATED AT</TableHeaderColumn>
-          {/* <TableHeaderColumn style={{ width: '80px' }}>RETAILER ID</TableHeaderColumn> */}
-          <TableHeaderColumn style={{ width: '100px' }}>RETAILER NAME</TableHeaderColumn>
-          <TableHeaderColumn style={{ width: '60px' }}></TableHeaderColumn>
-        </TableRow>
-      </TableHeader>
-      <TableBody
-        displayRowCheckbox={false}
-        showRowHover
-      >
-        {
-          data.map(item => (
-            <TableRow key={item.order_id}>
-              <TableRowColumn style={{ width: '80px' }}>{item.order_id}</TableRowColumn>
-              {/* <TableRowColumn style={{ width: '80px' }}>{item.consumer_id}</TableRowColumn> */}
-              <TableRowColumn style={{ width: '100px' }}>{item.full_name}</TableRowColumn>
-              <TableRowColumn style={{ width: '120px' }}>{item.transaction_type}</TableRowColumn>
-              <TableRowColumn style={{ width: '60px' }}>{item.amount}</TableRowColumn>
-              <TableRowColumn style={{ width: '120px' }}>{Moment(item.created_at).format('DD/MM/YYYY, h:mm')}</TableRowColumn>
-              {/* <TableRowColumn style={{ width: '80px' }}>{item.retailer_id}</TableRowColumn> */}
-              <TableRowColumn style={{ width: '100px' }}>{item.org_name}</TableRowColumn>
-              <TableRowColumn style={{ width: '60px', textAlign: 'center' }}>
-                <button style={{ cursor: 'pointer' }} onClick={() => { mountConfirmModal(item.order_id) }}>Rollback</button>
-              </TableRowColumn>
-            </TableRow>
-          ))
-        }
-      </TableBody>
-    </Table>
-  )
-}
-
 
 class RollbackTransaction extends React.Component {
   constructor() {
@@ -207,8 +162,9 @@ class RollbackTransaction extends React.Component {
          <div style={{ marginTop: '20px' }}>
            {
              !this.state.loadingTransactions && this.state.transactions &&
-             ViewTransactions(this.state.transactions, this.mountConfirmModal)
+              <ViewTransactions data={this.state.transactions} mountConfirmModal={this.mountConfirmModal} />
            }
+           
            <p>{ this.state.message }</p>
            {
              this.state.shouldMountModal &&

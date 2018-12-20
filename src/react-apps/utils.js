@@ -50,3 +50,7 @@ export function getSelectionStart(o) {
     return o.value.lastIndexOf(r.text)
   } else return o.selectionStart
 }
+
+export function overrideTableStyle() {
+  document.querySelectorAll(".bordered--table")[1].parentElement.style.overflow = "auto"
+}
