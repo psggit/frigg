@@ -37,6 +37,8 @@ import ManageDeepLinkAds from './manage-deep-link-ads'
 import CreateDeepLinkAd from './../components/manage-deep-link-ads/create-ad'
 import ManageUrlAds from './manage-url-ads'
 import CreateUrlAd from './../components/manage-url-ads/create-ad'
+import ManageConsumerAds from './manage-consumer-ads'
+import CreateConsumerAd from './../components/manage-consumer-ads/create-ad'
 import ManageCollectionAds from './manage-collection-ads'
 import ManageCollections from './manage-collections'
 import UploadSearchData from './upload-search-data'
@@ -196,7 +198,10 @@ class App extends React.Component {
                       <Route exact path="/home/manage-deep-link-ads/create-new-deep-link-ad" component={CreateDeepLinkAd} />
                       
                       <Route exact path="/home/manage-url-ads" component={ManageUrlAds} />
-                      <Route exact path="/home/manage-url-ads/create-new-url-ad" component={CreateUrlAd} /> 
+                      <Route exact path="/home/manage-url-ads/create-new-url-ad" component={CreateUrlAd} />
+
+                      <Route exact path="/home/manage-consumer-ads" component={ManageConsumerAds} />
+                      <Route exact path="/home/manage-consumer-ads/create-new-consumer-ad" component={CreateConsumerAd} />  
 
                       <Route exact path="/home/manage-collection-ads" component={ManageCollectionAds} />
                       <Route exact path="/home/manage-collection-ads/create-new-ad" component={CreateCollectionAd} />

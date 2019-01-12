@@ -19,6 +19,7 @@ const initialState = {
   loadingImageAds: true,
   loadingCollectionAds: true,
   loadingUrlAds: true,
+  loadingConsumerAds: true,
   loadingDeepLinkingAds: true,
   loadingContactNumbersOfRetailer: true,
   loadingAllCollections: true,
@@ -32,6 +33,7 @@ const initialState = {
   collectionAdsData: [],
   deepLinkAdsData: [],
   urlAdsData: [],
+  consumerAdsData: [],
   geoFenceCheckData: [],
   unmappedRetailersToLocality: [],
   unmappedRetailersToDp: [],
@@ -206,6 +208,14 @@ const actionsMap = {
     return Object.assign({}, state, {
       loadingUrlAds: false,
       urlAdsData: action.data
+    })
+  },
+
+  [ActionTypes.SUCCESS_FETCH_CONSUMER_ADS]: (state, action) => {
+    console.log("action",  action.data)
+    return Object.assign({}, state, {
+      loadingConsumerAds: false,
+      consumerAdsData: action.data
     })
   },
 

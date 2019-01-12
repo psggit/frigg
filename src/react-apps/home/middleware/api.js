@@ -491,6 +491,24 @@ export const createUrlAd = action => (
   })
 )
 
+export const fetchConsumerAds = action => (
+  POST({
+    api: '/marketing/v2/ads/view_all',
+    apiBase: 'odin',
+    data: action.data,
+    handleError: true
+  })
+)
+
+export const updateConsumerAdStatus = action => (
+  POST({
+    api: '/marketing/v2/ads/update',
+    apiBase: 'odin',
+    data: action.data,
+    handleError: true
+  })
+)
+
 export const fetchUrlAds = action => (
   POST({
     api: '/marketing/ads/view/url_ads',

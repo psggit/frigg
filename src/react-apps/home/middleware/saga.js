@@ -541,6 +541,32 @@ function* updateImageAdStatus(action) {
   }
 }
 
+function* fetchConsumerAds(action) {
+  try {
+    const data = yield call(Api.fetchConsumerAds, action)
+    yield put({ type: ActionTypes.SUCCESS_FETCH_CONSUMER_ADS, data })
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+
+function* updateConsumerAdStatus(action) {
+  try {
+    const data = yield call(Api.updateConsumerAdStatus, action)
+    Notify(`Successfully ${action.data.status === 'Active' ? 'enabled' : 'disabled'} ad`, "success")
+    yield put({ type: ActionTypes.SUCCESS_UPDATE_CONSUMER_AD_STATUS, data })
+    action.CB()
+    // setTimeout(() => {
+    //   history.pushState(null,null, '/manage-image-ads')
+    // }, 2000)
+  } catch (err) {
+    console.log(err)
+    err.response.json().then(json => { Notify(json.message, "warning") })
+  }
+}
+
+
 function* fetchUrlAds(action) {
   try {
     const data = yield call(Api.fetchUrlAds, action)
@@ -1110,6 +1136,12 @@ function* watchUpdateImageAdStatus() {
   }
 }
 
+function* watchFetchConsumerAds() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_FETCH_CONSUMER_ADS, fetchConsumerAds)
+  }
+}
+
 function* watchFetchUrlAds() {
   while (true) {
     yield* takeLatest(ActionTypes.REQUEST_FETCH_URL_ADS, fetchUrlAds)
@@ -1307,6 +1339,8 @@ export default function* rootSaga() {
     fork(watchFetchUrlAds),
     fork(watchCreateUrlAd),
     fork(watchUpdateUrlAdStatus),
+    fork(watchFetchConsumerAds),
+    fork(updateConsumerAdStatus),
     fork(watchFetchDeepLinkAds),
     fork(watchCreateDeepLinkAd),
     fork(watchUpdateDeepLinkAdStatus),
