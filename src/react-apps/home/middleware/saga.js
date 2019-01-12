@@ -550,6 +550,21 @@ function* fetchConsumerAds(action) {
   }
 }
 
+function* createConsumerAd(action) {
+  try {
+    const data = yield call(Api.createConsumerAd, action)
+    yield put({ type: ActionTypes.SUCCESS_CREATE_CONSUMER_AD, data })
+    Notify("Successfully created ad", "success")
+    action.CB(false)
+    setTimeout(() => {
+      location.href = '/home/manage-consumer-ads'
+    }, 2000)
+  } catch (err) {
+    console.log(err)
+    err.response.json().then(json => { Notify(json.message, "warning") })
+    action.CB(false)
+  }
+}
 
 function* updateConsumerAdStatus(action) {
   try {
@@ -1148,6 +1163,12 @@ function* watchUpdateConsumerAdStatus() {
   }
 }
 
+function* watchCreateConsumerAd() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_CREATE_CONSUMER_AD, createConsumerAd)
+  }
+}
+
 function* watchFetchUrlAds() {
   while (true) {
     yield* takeLatest(ActionTypes.REQUEST_FETCH_URL_ADS, fetchUrlAds)
@@ -1347,6 +1368,7 @@ export default function* rootSaga() {
     fork(watchUpdateUrlAdStatus),
     fork(watchFetchConsumerAds),
     fork(watchUpdateConsumerAdStatus),
+    fork(watchCreateConsumerAd),
     fork(watchFetchDeepLinkAds),
     fork(watchCreateDeepLinkAd),
     fork(watchUpdateDeepLinkAdStatus),

@@ -245,6 +245,11 @@ export const updateImageAdStatus = (data, CB) => ({
   CB
 })
 
+export const createConsumerAd = (data, CB) => ({
+  type: ActionTypes.REQUEST_CREATE_CONSUMER_AD,
+  data,
+  CB
+})
 export const fetchConsumerAds = data => ({
   type: ActionTypes.REQUEST_FETCH_CONSUMER_ADS,
   data
