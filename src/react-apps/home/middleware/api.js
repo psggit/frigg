@@ -502,7 +502,7 @@ export const fetchConsumerAds = action => (
 
 export const updateConsumerAdStatus = action => (
   POST({
-    api: '/marketing/v2/ads/update',
+    api: '/marketing/v2/ads/status',
     apiBase: 'odin',
     data: action.data,
     handleError: true

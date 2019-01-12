@@ -1142,6 +1142,12 @@ function* watchFetchConsumerAds() {
   }
 }
 
+function* watchUpdateConsumerAdStatus() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_UPDATE_CONSUMER_AD_STATUS, updateConsumerAdStatus)
+  }
+}
+
 function* watchFetchUrlAds() {
   while (true) {
     yield* takeLatest(ActionTypes.REQUEST_FETCH_URL_ADS, fetchUrlAds)
@@ -1340,7 +1346,7 @@ export default function* rootSaga() {
     fork(watchCreateUrlAd),
     fork(watchUpdateUrlAdStatus),
     fork(watchFetchConsumerAds),
-    fork(updateConsumerAdStatus),
+    fork(watchUpdateConsumerAdStatus),
     fork(watchFetchDeepLinkAds),
     fork(watchCreateDeepLinkAd),
     fork(watchUpdateDeepLinkAdStatus),
