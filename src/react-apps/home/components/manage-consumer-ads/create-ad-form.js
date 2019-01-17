@@ -15,6 +15,7 @@ class CreateAdForm extends React.Component {
     this.intialState = {
       status: props.status,
       collectionName: 'select-collection',
+      adTypes: ['Deeplink', 'Url', 'Image', 'Collection'],
       title: props.title || '',
       ad_type: props.ad_type || '',
       url: props.url || '',
@@ -154,9 +155,16 @@ class CreateAdForm extends React.Component {
             style={{ marginTop: '10px', width: '100%', height: '36px' }}
           >
             <option>select ad type</option>
-            <option value="deeplink">Deeplink</option>
-            <option value="url">Url</option>
-            <option value="image">Image</option>
+            {
+              this.state.adTypes.map((item, i) => (
+                <option
+                  key={item}
+                  value={item}
+                >
+                  { item }
+                </option>
+              ))
+            }
           </select>
 
         </div>
