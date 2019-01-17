@@ -18,7 +18,7 @@ import { isoToNormalDate } from '@utils/date-utils'
 
 const TableHeaderItems = [
   '',
-  'ID',
+  // 'ID',
   'TITLE',
   'ACTIVE FROM',
   'ACTIVE TO',
@@ -30,7 +30,7 @@ const TableHeaderItems = [
 
 const styles = [
   { width: '38px' },
-  { width: '38px' },
+  // { width: '38px' },
   { width: '80px' },
   { width: '64px', lineHeight: '1.6' },
   { width: '64px', lineHeight: '1.6' },
@@ -76,13 +76,13 @@ function ViewDeepLinkAds(data) {
                     { item.status === 'Active' ? 'Disable' : 'Enable' }
                   </button>
                 </TableRowColumn>
-                <TableRowColumn style={styles[1]}>{item.ad_id}</TableRowColumn>
-                <TableRowColumn style={styles[2]}>{item.ad_title}</TableRowColumn>
-                <TableRowColumn style={styles[3]}>{isoToNormalDate(item.active_from)}</TableRowColumn>
-                <TableRowColumn style={styles[4]}>{isoToNormalDate(item.active_to)}</TableRowColumn>
-                <TableRowColumn style={styles[5]}>{item.status}</TableRowColumn>
-                <TableRowColumn style={styles[6]}>{item.CityName}</TableRowColumn>
-                <TableRowColumn style={styles[7]}>
+                {/* <TableRowColumn style={styles[1]}>{item.ad_id}</TableRowColumn> */}
+                <TableRowColumn style={styles[1]}>{item.ad_title}</TableRowColumn>
+                <TableRowColumn style={styles[2]}>{isoToNormalDate(item.active_from)}</TableRowColumn>
+                <TableRowColumn style={styles[3]}>{isoToNormalDate(item.active_to)}</TableRowColumn>
+                <TableRowColumn style={styles[4]}>{item.status}</TableRowColumn>
+                <TableRowColumn style={styles[5]}>{item.CityName}</TableRowColumn>
+                <TableRowColumn style={styles[6]}>
                   <a target="_blank" href={item.high_res_image}>
                     <img
                       alt="ad-image"
@@ -95,7 +95,7 @@ function ViewDeepLinkAds(data) {
                     />
                   </a>
                 </TableRowColumn>
-                <TableRowColumn style={styles[8]}>{item.listing_order}</TableRowColumn>
+                <TableRowColumn style={styles[7]}>{item.listing_order}</TableRowColumn>
               </TableRow>
             ))
           )
