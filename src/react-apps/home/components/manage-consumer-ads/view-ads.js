@@ -24,7 +24,7 @@ const TableHeaderItems = [
   'ACTIVE TO',
   'STATUS',
   'CITY',
-  'HIGH RES IMAGE',
+  'URL',
   'LISTING ORDER',
 ]
 
@@ -84,7 +84,7 @@ function ViewConsumerAds(data) {
                 <TableRowColumn style={styles[4]}>{item.status}</TableRowColumn>
                 <TableRowColumn style={styles[5]}>{item.CityName}</TableRowColumn>
                 <TableRowColumn style={styles[6]}>
-                  <a target="_blank" href={item.high_res_image}>
+                  <a target="_blank" href={item.url}>
                     <img
                       alt="ad-image"
                       style={{
@@ -92,7 +92,7 @@ function ViewConsumerAds(data) {
                         height: '40px',
                         objectFit: 'contain'
                       }}
-                      src={item.high_res_image}
+                      src={item.url}
                     />
                   </a>
                 </TableRowColumn>
