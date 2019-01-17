@@ -209,7 +209,7 @@ class ManageConsumerAds extends React.Component {
           }}
         >
           <div>
-            <NavLink to={`${location.pathname}/create-new-consumer-ad`}>
+            <NavLink to={`manage-consumer-ads/create-new-consumer-ad`}>
               <RaisedButton
                 label="Create new ad"
                 primary

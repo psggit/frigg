@@ -141,16 +141,18 @@ class CreateAd extends React.Component {
     activeCitiesPayload = [].concat.apply([], activeCitiesMatrix)
       .filter(item => item.listing_order > 0)
       .map(item => ({ city_id: item.city_id, listing_order: item.listing_order }))
-    console.log("active cities", activeCitiesPayload)
-    console.log("data", activeCitiesPayload.length
+    console.log("active cities", activeCitiesPayload, adData)
+    console.log("data", 
+    activeCitiesPayload.length
     ,adData.title.length
     ,adData.ad_type.length
     ,adData.active_to
     ,adData.active_from
-    ,adData.image_url
+    ,adData.url
     //&& adData.collectionName
-    ,adData.high_res_image
-    ,adData.low_res_image)
+    //,adData.high_res_image
+    //,adData.low_res_image
+    )
     if (
       activeCitiesPayload.length
       && adData.title.length
@@ -182,6 +184,7 @@ class CreateAd extends React.Component {
         },
         city_data: activeCitiesPayload
       }
+      console.log("create")
       this.setState({ isDisabled: true })
       // console.log("deep, ", payload, activeCitiesPayload)
       this.props.actions.createConsumerAd(payload, (isDisabled) => {

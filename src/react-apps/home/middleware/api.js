@@ -500,6 +500,15 @@ export const fetchConsumerAds = action => (
   })
 )
 
+export const createConsumerAd = action => (
+  POST({
+    api: '/marketing/v2/ads/create',
+    apiBase: 'odin',
+    data: action.data,
+    handleError: true
+  })
+)
+
 export const updateConsumerAdStatus = action => (
   POST({
     api: '/marketing/v2/ads/status',

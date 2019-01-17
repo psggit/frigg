@@ -114,7 +114,7 @@ class CreateAdForm extends React.Component {
 
   handleChange(e) {
     if (!e.target.value.includes("select")) {
-      console.log("target value", e.target.value);
+      //console.log("target value", e.target.value);
       this.setState({ ad_type: e.target.value })
     }
   }
