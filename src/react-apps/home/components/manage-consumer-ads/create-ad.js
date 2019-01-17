@@ -144,6 +144,7 @@ class CreateAd extends React.Component {
     console.log("active cities", activeCitiesPayload)
     console.log("data", activeCitiesPayload.length
     ,adData.title.length
+    ,adData.ad_type.length
     ,adData.active_to
     ,adData.active_from
     ,adData.image_url
@@ -153,28 +154,31 @@ class CreateAd extends React.Component {
     if (
       activeCitiesPayload.length
       && adData.title.length
+      && adData.ad_type.length 
       && adData.active_to
       && adData.active_from
-      && adData.image_url
-      && adData.deep_link_url
+      && adData.url
+      //&& adData.deep_link_url
       //&& adData.collectionName
-      && adData.high_res_image
-      && adData.low_res_image
+      //&& adData.high_res_image
+      //&& adData.low_res_image
     ) {
       const payload = {
         ad_data: {
           ad_title: adData.title,
+          ad_type: adData.ad_type,
           active_from: adData.active_from,
           active_to: adData.active_to,
           status: adData.status ? 'Active' : 'Inactive',
           image_url: adData.image_url,
-          deep_link_url: adData.deep_link_url,
+          url: adData.url,
+          //deep_link_url: adData.deep_link_url,
           high_res_image: adData.high_res_image,
           low_res_image: adData.low_res_image,
           // city_id: 
           // CityName: 
           // listing_order: 
-          //collection_name: adData.collectionName,
+          collection_name: adData.collectionName,
         },
         city_data: activeCitiesPayload
       }
