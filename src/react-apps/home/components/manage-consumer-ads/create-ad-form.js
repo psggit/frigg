@@ -16,10 +16,12 @@ class CreateAdForm extends React.Component {
       status: props.status,
       collectionName: 'select-collection',
       adTypes: ['Deeplink', 'Url', 'Image', 'Collection'],
+      appType: ['Delivery', 'Pay'],
       title: props.title || '',
       ad_type: props.ad_type || '',
+      app_type: props.app_type || '',
       url: props.url || '',
-      image_url: props.image_url || '',
+      //image_url: props.image_url || '',
       high_res_image: '',
       low_res_image: '',
       active_from: null,
@@ -27,9 +29,9 @@ class CreateAdForm extends React.Component {
       shouldTrim: true,
       //deep_link_url: props.deep_link_url || '',
       //collectionName: 'select-collection',
-      isImageUploaded: false,
-      isImageUploading: false,
-      isImageSelected: false
+      // isImageUploaded: false,
+      // isImageUploading: false,
+      // isImageSelected: false
     }
 
     this.state = Object.assign({}, this.intialState)
@@ -38,11 +40,12 @@ class CreateAdForm extends React.Component {
     this.handleCheckboxes = this.handleCheckboxes.bind(this)
     this.handleDate = this.handleDate.bind(this)
     //this.handleCollectionChange = this.handleCollectionChange.bind(this)
-    this.handleUploadChange = this.handleUploadChange.bind(this)
-    this.submitUploadedImage = this.submitUploadedImage.bind(this)
-    this.resetUploadImage = this.resetUploadImage.bind(this)
+    //this.handleUploadChange = this.handleUploadChange.bind(this)
+    //this.submitUploadedImage = this.submitUploadedImage.bind(this)
+    //this.resetUploadImage = this.resetUploadImage.bind(this)
     this.handleCollectionChange = this.handleCollectionChange.bind(this)
     this.handleChange = this.handleChange.bind(this)
+    this.handleAppTypeChange = this.handleAppTypeChange.bind(this)
   }
 
   resetState() {
@@ -62,34 +65,34 @@ class CreateAdForm extends React.Component {
     this.setState({ [e.target.name]: e.target.checked })
   }
 
-  handleUploadChange(e) {
-    const file = e.target.files[0]
-    this.setState({
-      data: file,
-      isImageSelected: true
-    })
-  }
+  // handleUploadChange(e) {
+  //   const file = e.target.files[0]
+  //   this.setState({
+  //     data: file,
+  //     isImageSelected: true
+  //   })
+  // }
 
-  resetUploadImage() {
-    this.setState({ isImageUploaded: false, isImageSelected: false, isImageUploading: false, image_url: '' })
-  }
+  // resetUploadImage() {
+  //   this.setState({ isImageUploaded: false, isImageSelected: false, isImageUploading: false, image_url: '' })
+  // }
 
-  submitUploadedImage() {
-    const formData = new FormData()
-    formData.append('file', this.state.data)
-    this.setState({ isImageUploading: true, isImageSelected: false })
-    POST({
-      api: '/upload',
-      type: 'FormData',
-      apiBase: 'api2',
-      data: formData,
-      handleError: true
-    })
-      .then((json) => {
-        this.uploadedImageUrl = `${Api.api2}/get?fs_url=${json[0]}`
-        this.setState({ isImageUploaded: true, isImageUploading: false, image_url: json[0] })
-      })
-  }
+  // submitUploadedImage() {
+  //   const formData = new FormData()
+  //   formData.append('file', this.state.data)
+  //   this.setState({ isImageUploading: true, isImageSelected: false })
+  //   POST({
+  //     api: '/upload',
+  //     type: 'FormData',
+  //     apiBase: 'api2',
+  //     data: formData,
+  //     handleError: true
+  //   })
+  //     .then((json) => {
+  //       this.uploadedImageUrl = `${Api.api2}/get?fs_url=${json[0]}`
+  //       this.setState({ isImageUploaded: true, isImageUploading: false, image_url: json[0] })
+  //     })
+  // }
 
   handleTextFields(e) {
     let value = e.target.value
@@ -117,6 +120,13 @@ class CreateAdForm extends React.Component {
     if (!e.target.value.includes("select")) {
       //console.log("target value", e.target.value);
       this.setState({ ad_type: e.target.value })
+    }
+  }
+
+  handleAppTypeChange(e) {
+    if (!e.target.value.includes("select app type")) {
+      //console.log("target value", e.target.value);
+      this.setState({ app_type: e.target.value })
     }
   }
 
@@ -169,6 +179,28 @@ class CreateAdForm extends React.Component {
 
         </div>
 
+        <div className="form-group">
+          <label className="label">App type</label><br/>
+          <select
+            value={this.state.app_type}
+            onChange={(e) => this.handleAppTypeChange(e)}
+            style={{ marginTop: '10px', width: '100%', height: '36px' }}
+          >
+            <option>select app type</option>
+            {
+              this.state.appType.map((item, i) => (
+                <option
+                  key={item}
+                  value={item}
+                >
+                  { item }
+                </option>
+              ))
+            }
+          </select>
+
+        </div>
+
         <div>
           <div className="form-group" style={{ width: '100%' }}>
             <label className="label">Active from</label><br/>
@@ -207,7 +239,7 @@ class CreateAdForm extends React.Component {
           </div>
         </div>
 
-        <div className="form-group">
+        {/* <div className="form-group">
           <label className="label">Upload image</label><br />
           {
             !this.state.isImageUploaded &&
@@ -260,7 +292,7 @@ class CreateAdForm extends React.Component {
               </div>
             </div>
           }
-        </div>
+        </div> */}
 
         <div className="form-group">
           <label className="label">Url</label><br />
@@ -270,18 +302,6 @@ class CreateAdForm extends React.Component {
             name="url"
             hintText="https://www.hipbarpay.com/pay/#invite/friend"
             value={this.state.url}
-            style={{ width: '100%' }}
-          />
-        </div>
-
-        <div className="form-group">
-          <label className="label">Image url</label><br />
-          <TextField
-            readOnly
-            onChange={this.handleTextFields}
-            name="image_url"
-            hintText="https://cloudfront.ads.johnny_walker.jpg"
-            value={this.state.image_url}
             style={{ width: '100%' }}
           />
         </div>

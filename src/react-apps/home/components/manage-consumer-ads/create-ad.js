@@ -157,6 +157,7 @@ class CreateAd extends React.Component {
       activeCitiesPayload.length
       && adData.title.length
       && adData.ad_type.length 
+      && adData.app_type.length
       && adData.active_to
       && adData.active_from
       && adData.url
@@ -169,10 +170,11 @@ class CreateAd extends React.Component {
         ad_data: {
           ad_title: adData.title,
           ad_type: adData.ad_type,
+          app_type: adData.app_type,
           active_from: adData.active_from,
           active_to: adData.active_to,
           status: adData.status ? 'Active' : 'Inactive',
-          image_url: adData.image_url,
+          //image_url: adData.image_url,
           url: adData.url,
           //deep_link_url: adData.deep_link_url,
           high_res_image: adData.high_res_image,
