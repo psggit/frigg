@@ -18,23 +18,27 @@ import { isoToNormalDate } from '@utils/date-utils'
 
 const TableHeaderItems = [
   '',
-  // 'ID',
+  'ID',
   'TITLE',
   'ACTIVE FROM',
   'ACTIVE TO',
   'STATUS',
   'CITY',
   'URL',
+  'APP TYPE',
+  'AD TYPE',
   'LISTING ORDER',
 ]
 
 const styles = [
   { width: '38px' },
-  // { width: '38px' },
+  { width: '38px' },
   { width: '80px' },
   { width: '64px', lineHeight: '1.6' },
   { width: '64px', lineHeight: '1.6' },
   { width: '38px' },
+  { width: '60px' },
+  { width: '60px' },
   { width: '60px' },
   { width: '60px' },
   { width: '38px' }
@@ -77,13 +81,13 @@ function ViewConsumerAds(data) {
                     { item.status === 'Active' ? 'Disable' : 'Enable' }
                   </button>
                 </TableRowColumn>
-                {/* <TableRowColumn style={styles[1]}>{item.ad_id}</TableRowColumn> */}
-                <TableRowColumn style={styles[1]}>{item.ad_title}</TableRowColumn>
-                <TableRowColumn style={styles[2]}>{isoToNormalDate(item.active_from)}</TableRowColumn>
-                <TableRowColumn style={styles[3]}>{isoToNormalDate(item.active_to)}</TableRowColumn>
-                <TableRowColumn style={styles[4]}>{item.status}</TableRowColumn>
-                <TableRowColumn style={styles[5]}>{item.CityName}</TableRowColumn>
-                <TableRowColumn style={styles[6]}>
+                <TableRowColumn style={styles[1]}>{item.ad_id}</TableRowColumn>
+                <TableRowColumn style={styles[2]}>{item.ad_title}</TableRowColumn>
+                <TableRowColumn style={styles[3]}>{isoToNormalDate(item.active_from)}</TableRowColumn>
+                <TableRowColumn style={styles[4]}>{isoToNormalDate(item.active_to)}</TableRowColumn>
+                <TableRowColumn style={styles[5]}>{item.status}</TableRowColumn>
+                <TableRowColumn style={styles[6]}>{item.CityName}</TableRowColumn>
+                <TableRowColumn style={styles[7]}>
                   <a target="_blank" href={item.url}>
                     <img
                       alt="ad-image"
@@ -96,7 +100,9 @@ function ViewConsumerAds(data) {
                     />
                   </a>
                 </TableRowColumn>
-                <TableRowColumn style={styles[7]}>{item.listing_order}</TableRowColumn>
+                <TableRowColumn style={styles[8]}>{item.app_type}</TableRowColumn>
+                <TableRowColumn style={styles[9]}>{item.ad_type}</TableRowColumn>
+                <TableRowColumn style={styles[10]}>{item.listing_order}</TableRowColumn>
               </TableRow>
             ))
           )
