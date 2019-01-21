@@ -160,39 +160,98 @@ class CreateAd extends React.Component {
       && adData.app_type.length
       && adData.active_to
       && adData.active_from
-      && adData.url
+      //&& adData.url
       //&& adData.deep_link_url
       //&& adData.collectionName
       //&& adData.high_res_image
       //&& adData.low_res_image
     ) {
-      const payload = {
-        ad_data: {
-          ad_title: adData.title,
-          ad_type: adData.ad_type,
-          app_type: adData.app_type,
-          active_from: adData.active_from,
-          active_to: adData.active_to,
-          status: adData.status ? 'Active' : 'Inactive',
-          //image_url: adData.image_url,
-          url: adData.url,
-          //deep_link_url: adData.deep_link_url,
-          high_res_image: adData.high_res_image,
-          low_res_image: adData.low_res_image,
-          // city_id: 
-          // CityName: 
-          // listing_order: 
-          collection_name: adData.collectionName,
-        },
-        city_data: activeCitiesPayload
+      if(adData.ad_type === "Collection" && adData.collectionName.length && (adData.high_res_image || adData.low_res_image)) {
+        const payload = {
+          ad_data: {
+            ad_title: adData.title,
+            ad_type: adData.ad_type,
+            app_type: adData.app_type,
+            active_from: adData.active_from,
+            active_to: adData.active_to,
+            status: adData.status ? 'Active' : 'Inactive',
+            //image_url: adData.image_url,
+            url: "",
+            //deep_link_url: adData.deep_link_url,
+            high_res_image: adData.high_res_image,
+            low_res_image: adData.low_res_image,
+            // city_id: 
+            // CityName: 
+            // listing_order: 
+            collection_name: adData.collectionName,
+          },
+          city_data: activeCitiesPayload
+        }
+        console.log("create")
+        this.setState({ isDisabled: true })
+        // console.log("deep, ", payload, activeCitiesPayload)
+        this.props.actions.createConsumerAd(payload, (isDisabled) => {
+          // console.log("deep", payload)
+          this.setState({ isDisabled })
+        })
+      } else if(!adData.ad_type.includes("Image") && adData.url) {
+        const payload = {
+          ad_data: {
+            ad_title: adData.title,
+            ad_type: adData.ad_type,
+            app_type: adData.app_type,
+            active_from: adData.active_from,
+            active_to: adData.active_to,
+            status: adData.status ? 'Active' : 'Inactive',
+            //image_url: adData.image_url,
+            url: adData.url,
+            //deep_link_url: adData.deep_link_url,
+            high_res_image: adData.high_res_image,
+            low_res_image: adData.low_res_image,
+            // city_id: 
+            // CityName: 
+            // listing_order: 
+            collection_name: "",
+          },
+          city_data: activeCitiesPayload
+        }
+        console.log("create")
+        this.setState({ isDisabled: true })
+        // console.log("deep, ", payload, activeCitiesPayload)
+        this.props.actions.createConsumerAd(payload, (isDisabled) => {
+          // console.log("deep", payload)
+          this.setState({ isDisabled })
+        })
+      } else if(adData.ad_type.includes("Image") && (adData.high_res_image || adData.low_res_image)){
+        const payload = {
+          ad_data: {
+            ad_title: adData.title,
+            ad_type: adData.ad_type,
+            app_type: adData.app_type,
+            active_from: adData.active_from,
+            active_to: adData.active_to,
+            status: adData.status ? 'Active' : 'Inactive',
+            //image_url: adData.image_url,
+            url: "",
+            //deep_link_url: adData.deep_link_url,
+            high_res_image: adData.high_res_image,
+            low_res_image: adData.low_res_image,
+            // city_id: 
+            // CityName: 
+            // listing_order: 
+            collection_name: "",
+          },
+          city_data: activeCitiesPayload
+        }
+        
+        console.log("create")
+        this.setState({ isDisabled: true })
+        // console.log("deep, ", payload, activeCitiesPayload)
+        this.props.actions.createConsumerAd(payload, (isDisabled) => {
+          // console.log("deep", payload)
+          this.setState({ isDisabled })
+        })
       }
-      console.log("create")
-      this.setState({ isDisabled: true })
-      // console.log("deep, ", payload, activeCitiesPayload)
-      this.props.actions.createConsumerAd(payload, (isDisabled) => {
-        // console.log("deep", payload)
-        this.setState({ isDisabled })
-      })
     }
     // if (!data.localityName.length) {
     //   document.getElementById("display-screen").scrollTop = 0

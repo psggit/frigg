@@ -293,18 +293,20 @@ class CreateAdForm extends React.Component {
             </div>
           }
         </div> */}
-
-        <div className="form-group">
-          <label className="label">Url</label><br />
-          <TextField
-            disabled={this.props.isDisabled}
-            onChange={this.handleTextFields}
-            name="url"
-            hintText="https://www.hipbarpay.com/pay/#invite/friend"
-            value={this.state.url}
-            style={{ width: '100%' }}
-          />
-        </div>
+       {
+         !this.state.ad_type.includes("Image") && !this.state.ad_type.includes("Collection") &&
+          <div className="form-group">
+            <label className="label">Url</label><br />
+            <TextField
+              disabled={this.props.isDisabled}
+              onChange={this.handleTextFields}
+              name="url"
+              hintText="https://www.hipbarpay.com/pay/#invite/friend"
+              value={this.state.url}
+              style={{ width: '100%' }}
+            />
+          </div>
+       }
 
         <div className="form-group">
           <label className="label">High res image</label><br />
@@ -363,28 +365,31 @@ class CreateAdForm extends React.Component {
           </select>
         </div> */}
 
-
-        <div className="form-group">
+        {
+          this.state.ad_type === "Collection" &&
+          <div className="form-group">
           <label className="label">Collection</label><br />
-          <select selected={this.state.collectionName} onChange={this.handleCollectionChange} style={{ marginTop: '10px', width: '100%', height: '36px' }}>
+            <select selected={this.state.collectionName} onChange={this.handleCollectionChange} style={{ marginTop: '10px', width: '100%', height: '36px' }}>
             <option>select-collection</option>
-            {
-              !this.props.loadingCollections
-              ? (
-                this.props.collectionsData.map((item, i) => (
-                  <option
-                    key={item.short_name}
-                    value={item.short_name}
-                  >
-                    { item.display_name }
-                  </option>
-                ))
-              )
-              : ''
-            }
+              {
+                !this.props.loadingCollections
+                ? (
+                  this.props.collectionsData.map((item, i) => (
+                    <option
+                      key={item.short_name}
+                      value={item.short_name}
+                    >
+                      { item.display_name }
+                    </option>
+                  ))
+                )
+                : ''
+              }
           </select>
         </div>
 
+        }
+        
         <div className="form-group">
           <Checkbox
             disabled={this.props.isDisabled}
