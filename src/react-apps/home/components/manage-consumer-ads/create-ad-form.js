@@ -16,7 +16,7 @@ class CreateAdForm extends React.Component {
       status: props.status,
       collectionName: 'select-collection',
       adTypes: ['Deeplink', 'Url', 'Image', 'Collection'],
-      appType: ['hipbar-delivery', 'hipbar-pay'],
+      appType: ['Hipbar-Delivery', 'Hipbar-Pay'],
       title: props.title || '',
       ad_type: props.ad_type || '',
       app_type: props.app_type || '',
