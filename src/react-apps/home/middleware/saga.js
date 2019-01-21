@@ -556,9 +556,9 @@ function* createConsumerAd(action) {
     yield put({ type: ActionTypes.SUCCESS_CREATE_CONSUMER_AD, data })
     Notify("Successfully created ad", "success")
     action.CB(false)
-    setTimeout(() => {
-      location.href = '/home/manage-consumer-ads'
-    }, 2000)
+    // setTimeout(() => {
+    //   location.href = '/home/manage-consumer-ads'
+    // }, 2000)
   } catch (err) {
     console.log(err)
     err.response.json().then(json => { Notify(json.message, "warning") })
