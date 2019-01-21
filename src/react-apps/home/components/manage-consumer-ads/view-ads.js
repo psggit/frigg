@@ -25,7 +25,7 @@ const TableHeaderItems = [
   'ACTIVE TO',
   'STATUS',
   'CITY',
-  'URL',
+  'HIGH RES',
   'APP TYPE',
   'AD TYPE',
   'LISTING ORDER',
@@ -101,7 +101,7 @@ class ViewConsumerAds extends React.Component {
                   <TableRowColumn style={styles[5]}>{item.status}</TableRowColumn>
                   <TableRowColumn style={styles[6]}>{item.CityName}</TableRowColumn>
                   <TableRowColumn style={styles[7]}>
-                    <a target="_blank" href={item.url}>
+                    <a target="_blank" href={item.high_res_image}>
                       <img
                         alt="ad-image"
                         style={{
@@ -109,7 +109,7 @@ class ViewConsumerAds extends React.Component {
                           height: '40px',
                           objectFit: 'contain'
                         }}
-                        src={item.url}
+                        src={item.high_res_image}
                       />
                     </a>
                   </TableRowColumn>
