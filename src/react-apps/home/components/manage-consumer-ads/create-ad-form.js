@@ -293,20 +293,20 @@ class CreateAdForm extends React.Component {
             </div>
           }
         </div> */}
-       {
-         !this.state.ad_type.includes("Image") && !this.state.ad_type.includes("Collection") &&
-          <div className="form-group">
-            <label className="label">Url</label><br />
-            <TextField
-              disabled={this.props.isDisabled}
-              onChange={this.handleTextFields}
-              name="url"
-              hintText="https://www.hipbarpay.com/pay/#invite/friend"
-              value={this.state.url}
-              style={{ width: '100%' }}
-            />
-          </div>
-       }
+        {
+          !this.state.ad_type.includes("image") && !this.state.ad_type.includes("collection") &&
+            <div className="form-group">
+              <label className="label">Url</label><br />
+              <TextField
+                disabled={this.props.isDisabled}
+                onChange={this.handleTextFields}
+                name="url"
+                hintText="https://www.hipbarpay.com/pay/#invite/friend"
+                value={this.state.url}
+                style={{ width: '100%' }}
+              />
+            </div>
+        }
 
         <div className="form-group">
           <label className="label">High res image</label><br />
@@ -366,7 +366,7 @@ class CreateAdForm extends React.Component {
         </div> */}
 
         {
-          this.state.ad_type === "Collection" &&
+          this.state.ad_type === "collection" &&
           <div className="form-group">
           <label className="label">Collection</label><br />
             <select selected={this.state.collectionName} onChange={this.handleCollectionChange} style={{ marginTop: '10px', width: '100%', height: '36px' }}>
