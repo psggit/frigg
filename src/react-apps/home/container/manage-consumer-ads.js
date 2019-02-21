@@ -28,7 +28,7 @@ class ManageConsumerAds extends React.Component {
       stateName: null,
       cityId: null
     }
-    this.pageLimit = 5
+    this.pageLimit = 10
     this.state = {
       shouldMountFilterDialog: false,
       shouldMountViewFencesDialog: false,
@@ -251,7 +251,7 @@ class ManageConsumerAds extends React.Component {
           !loadingConsumerAds && consumerAdsData.ads_data.length
           ? <Pagination
             activePage={parseInt(this.state.activePage)}
-            itemsCountPerPage={5}
+            itemsCountPerPage={this.pageLimit}
             totalItemsCount={consumerAdsData.count}
             //pageRangeDisplayed={2}
             setPage={this.setPage}
