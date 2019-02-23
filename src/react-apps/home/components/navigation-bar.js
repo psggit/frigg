@@ -71,6 +71,12 @@ class NavigationBar extends  React.Component {
           { name: 'Retailers list', path: '/home/manage-retailers/retailers', id: 11 }
         ]
       },
+      {
+        name: 'Jus pay',
+        nestedItems: [
+          { name: 'Netbanking List', path: '/home/manage-banking', id: 18 }
+        ]
+      },
       // {
       //   name: 'HipBar Pay',
       //   nestedItems: [

@@ -245,6 +245,11 @@ export const updateImageAdStatus = (data, CB) => ({
   CB
 })
 
+export const updateBankDetails = (data) => ({
+  type: ActionTypes.REQUEST_UPDATE_BANK_DETAILS,
+  data
+})
+
 export const createConsumerAd = (data, CB) => ({
   type: ActionTypes.REQUEST_CREATE_CONSUMER_AD,
   data,
@@ -385,4 +390,8 @@ export const updateAddCreditTrasactionList = (data) => ({
 export const updateBrandListingOrder = (data) => ({
   type: ActionTypes.REQUEST_UPDATE_BRAND_LISTING_ORDER,
   data
+})
+
+export const fetchNetBankingList = () => ({
+  type: ActionTypes.REQUEST_FETCH_NETBANKING_LIST,
 })

@@ -509,6 +509,23 @@ export const createConsumerAd = action => (
   })
 )
 
+export const fetchNetBankingList = () => (
+  GET({
+    api: '/juspay/netBankingDetails',
+    apiBase: 'odin',
+    handleError: true
+  })
+)
+
+export const updateBankingDetails = (action) => (
+  POST({
+    api: '/juspay/updateNetBankingDetails',
+    apiBase: 'odin',
+    data: action.data,
+    handleError: true
+  })
+)
+
 export const updateConsumerAdStatus = action => (
   POST({
     api: '/marketing/v2/ads/status',
