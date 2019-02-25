@@ -66,7 +66,7 @@ class UpdateBankForm extends React.Component {
             <label className="label">Image Url</label><br />
             <TextField
               onChange={this.handleTextFields}
-              name="image_url"
+              name="imageUrl"
               hintText="https://cloudfront.ads.johnny_walker.jpg"
               value={this.state.imageUrl}
               style={{ width: '100%' }}

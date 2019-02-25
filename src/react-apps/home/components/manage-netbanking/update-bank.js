@@ -34,7 +34,7 @@ class UpdateBank extends React.Component {
     if (this.formIsValid()) {
       this.props.actions.updateBankDetails({
         image_url: bankForm.imageUrl,
-        listing_order: bankForm.listingOrder,
+        listing_order: parseInt(bankForm.listingOrder),
         name: bankForm.name,
         bank_name: bankForm.bankName
       })
