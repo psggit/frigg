@@ -1,7 +1,14 @@
 const express = require('express')
 const path = require('path')
+const helmet = require("helmet")
 
 const app = express()
+
+app.use(helmet({
+  frameguard: {
+    action: "deny"
+  }
+}))
 
 const env = process.env.NODE_ENV
 
