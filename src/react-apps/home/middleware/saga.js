@@ -556,9 +556,9 @@ function* createConsumerAd(action) {
     yield put({ type: ActionTypes.SUCCESS_CREATE_CONSUMER_AD, data })
     Notify("Successfully created ad", "success")
     action.CB(false)
-    // setTimeout(() => {
-    //   location.href = '/home/manage-consumer-ads'
-    // }, 2000)
+    setTimeout(() => {
+      location.href = '/home/manage-consumer-ads'
+    }, 2000)
   } catch (err) {
     console.log(err)
     err.response.json().then(json => { Notify(json.message, "warning") })
@@ -586,6 +586,27 @@ function* fetchUrlAds(action) {
   try {
     const data = yield call(Api.fetchUrlAds, action)
     yield put({ type: ActionTypes.SUCCESS_FETCH_URL_ADS, data })
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+function* fetchNetBankingList(action) {
+  try {
+    const data = yield call(Api.fetchNetBankingList, action)
+    yield put({ type: ActionTypes.SUCCESS_FETCH_NETBANKING_LIST, data })
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+function* updatingBankingDetails(action) {
+  try {
+    const data = yield call(Api.updateBankingDetails, action)
+    yield put({ type: ActionTypes.SUCCESS_UPDATE_BANK_DETAILS, data })
+    setTimeout(() => {
+      location.href = '/home/manage-banking'
+    }, 2000)
   } catch (err) {
     console.log(err)
   }
@@ -1313,6 +1334,18 @@ function* watchRequestUpdateBrandListingOrder() {
   }
 }
 
+function* watchRequestFetchNetBankingList() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_FETCH_NETBANKING_LIST, fetchNetBankingList)
+  }
+}
+
+function* watchRequestUpdateBankingDetails() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_UPDATE_BANK_DETAILS, updatingBankingDetails)
+  }
+}
+
 export default function* rootSaga() {
   yield [
     fork(watchFetchStates),
@@ -1388,6 +1421,8 @@ export default function* rootSaga() {
     fork(watchRequestTriggerSMS),
     fork(watchRequestFetchCredits),
     fork(watchRequestUpdateTransactionList),
-    fork(watchRequestUpdateBrandListingOrder)
+    fork(watchRequestUpdateBrandListingOrder),
+    fork(watchRequestFetchNetBankingList),
+    fork(watchRequestUpdateBankingDetails)
   ]
 }

@@ -28,6 +28,8 @@ const initialState = {
   updatingListingOrder: true,
   //verifyingTransaction: true,
   loadingCredits: true,
+  loadingNetBankingList: true,
+  updatingBankDetails: true,
   contactNumbersOfRetailer: [],
   imageAdsData: [],
   collectionAdsData: [],
@@ -58,6 +60,7 @@ const initialState = {
   addCreditsFormDetails: {},
   customerDetails: [],
   validCreditsData: [],
+  netBankingList: [],
   validCreditsCount: 0
 }
 
@@ -303,6 +306,19 @@ const actionsMap = {
   [ActionTypes.SUCCESS_UPDATE_BRAND_LISTING_ORDER]: (state, action) => {
     return Object.assign({}, state, {
       updatingListingOrder: false
+    })
+  },
+
+  [ActionTypes.SUCCESS_FETCH_NETBANKING_LIST]: (state, action) => {
+    return Object.assign({}, state, {
+      loadingNetBankingList: false,
+      netBankingList: action.data
+    })
+  },
+  
+  [ActionTypes.SUCCESS_UPDATE_BANK_DETAILS]: (state, action) => {
+    return Object.assign({}, state, {
+      updatingBankDetails: false,
     })
   },
 

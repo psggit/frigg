@@ -53,6 +53,8 @@ import ViewCollection from './../components/manage-collections/view-collection'
 import RollbackTransaction from './rollback-transaction'
 import ConfirmCredits from './../components/confirm-credits'
 import { getBreadCrumbPath, getUriFromBreadCrumb } from '@utils/url-utils'
+import ManageBanking from "../container/manage-netbanking"
+import UpdateBanking from "./../components/manage-netbanking/update-bank"
 // import '@sass/components/_heading.scss'
 
 import asyncComponent from './../../asyncComponent'
@@ -201,7 +203,10 @@ class App extends React.Component {
                       <Route exact path="/home/manage-url-ads/create-new-url-ad" component={CreateUrlAd} />
 
                       <Route exact path="/home/manage-consumer-ads" component={ManageConsumerAds} />
-                      <Route exact path="/home/manage-consumer-ads/create-new-consumer-ad" component={CreateConsumerAd} />  
+                      <Route exact path="/home/manage-consumer-ads/create-new-consumer-ad" component={CreateConsumerAd} /> 
+
+                      <Route exact path="/home/manage-banking" component={ManageBanking} /> 
+                      <Route exact path="/home/manage-banking/edit/:bankName" component={UpdateBanking} />
 
                       <Route exact path="/home/manage-collection-ads" component={ManageCollectionAds} />
                       <Route exact path="/home/manage-collection-ads/create-new-ad" component={CreateCollectionAd} />
