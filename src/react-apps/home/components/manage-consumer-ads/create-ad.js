@@ -166,11 +166,7 @@ class CreateAd extends React.Component {
       //&& adData.high_res_image
       //&& adData.low_res_image
     ) {
-<<<<<<< HEAD
       if(adData.ad_type === "Collection" && adData.collectionName.length && (adData.high_res_image.length || adData.low_res_image.length)) {
-=======
-      if(adData.ad_type === "collection" && adData.collectionName.length && (adData.high_res_image || adData.low_res_image)) {
->>>>>>> 8178e4dfd04b5325ef449cb96b553a8b3e342e3e
         const payload = {
           ad_data: {
             ad_title: adData.title,
@@ -198,11 +194,7 @@ class CreateAd extends React.Component {
           // console.log("deep", payload)
           this.setState({ isDisabled })
         })
-<<<<<<< HEAD
       } else if(!adData.ad_type.includes("image") && adData.url.length) {
-=======
-      } else if(!adData.ad_type.includes("image") && adData.url) {
->>>>>>> 8178e4dfd04b5325ef449cb96b553a8b3e342e3e
         const payload = {
           ad_data: {
             ad_title: adData.title,
@@ -230,12 +222,8 @@ class CreateAd extends React.Component {
           // console.log("deep", payload)
           this.setState({ isDisabled })
         })
-<<<<<<< HEAD
       } else if(adData.ad_type.includes("image") && (adData.high_res_image.length || adData.low_res_image.length)){
         console.log("image ad creating......")
-=======
-      } else if(adData.ad_type.includes("image") && (adData.high_res_image || adData.low_res_image)){
->>>>>>> 8178e4dfd04b5325ef449cb96b553a8b3e342e3e
         const payload = {
           ad_data: {
             ad_title: adData.title,
