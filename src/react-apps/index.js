@@ -10,9 +10,10 @@ import {
 } from 'react-router-dom'
 
 import { createSession } from './login/utils'
-
-const Login = asyncComponent(() => import("./login").then(module => module.default),{ name: "Page 1" })
-const Home = asyncComponent(() => import("./home/container/Root").then(module => module.default),{ name: "Page 1" })
+import Login from "./login"
+import Home from "./home/container/Root"
+// const Login = asyncComponent(() => import("./login").then(module => module.default),{ name: "Page 1" })
+// const Home = asyncComponent(() => import("./home/container/Root").then(module => module.default),{ name: "Page 1" })
 
 class App extends React.Component {
   componentWillMount() {
