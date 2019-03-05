@@ -600,6 +600,15 @@ function* fetchNetBankingList(action) {
   }
 }
 
+function* fetchUserSpecificAds(action) {
+  try {
+    const data = yield call(Api.fetchUserSpecificAds, action)
+    yield put({ type: ActionTypes.SUCCESS_FETCH_USER_SPECIFIC_ADS, data})
+  } catch (err) {
+    console.log(err)
+  }
+}
+
 function* updatingBankingDetails(action) {
   try {
     const data = yield call(Api.updateBankingDetails, action)
@@ -1340,6 +1349,12 @@ function* watchRequestFetchNetBankingList() {
   }
 }
 
+function* watchRequestFetchUserSpecificAds() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_FETCH_USER_SPECIFIC_ADS, fetchUserSpecificAds)
+  }
+}
+
 function* watchRequestUpdateBankingDetails() {
   while (true) {
     yield* takeLatest(ActionTypes.REQUEST_UPDATE_BANK_DETAILS, updatingBankingDetails)
@@ -1423,6 +1438,7 @@ export default function* rootSaga() {
     fork(watchRequestUpdateTransactionList),
     fork(watchRequestUpdateBrandListingOrder),
     fork(watchRequestFetchNetBankingList),
-    fork(watchRequestUpdateBankingDetails)
+    fork(watchRequestUpdateBankingDetails),
+    fork(watchRequestFetchUserSpecificAds)
   ]
 }

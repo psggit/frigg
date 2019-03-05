@@ -395,3 +395,7 @@ export const updateBrandListingOrder = (data) => ({
 export const fetchNetBankingList = () => ({
   type: ActionTypes.REQUEST_FETCH_NETBANKING_LIST,
 })
+
+export const fetchUserSpecificAds = () => ({
+  type: ActionTypes.REQUEST_FETCH_USER_SPECIFIC_ADS
+})

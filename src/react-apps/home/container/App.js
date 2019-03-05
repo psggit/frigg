@@ -55,6 +55,7 @@ import ConfirmCredits from './../components/confirm-credits'
 import { getBreadCrumbPath, getUriFromBreadCrumb } from '@utils/url-utils'
 import ManageBanking from "../container/manage-netbanking"
 import UpdateBanking from "./../components/manage-netbanking/update-bank"
+import ManageAds from "./../container/manage-user-specific-ads"
 // import '@sass/components/_heading.scss'
 
 import asyncComponent from './../../asyncComponent'
@@ -225,6 +226,10 @@ class App extends React.Component {
                       <Route exact path="/home/manage-collections/view-collection/:collectionShortName" component={ViewCollection} />
 
                       <Route exact path="/home/customer-transactions/confirm-credits" component={ConfirmCredits} />
+
+                      <Route exact path="/home/user-specific-ads" component={ManageAds} />
+                      <Route exact path="/home/user-specific-ads/create" component={ConfirmCredits} />
+                      <Route exact path="/home/user-specific-ads/edit" component={ConfirmCredits} />
                     </Switch>
                 </DisplayScreen>
               </div>

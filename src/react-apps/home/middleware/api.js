@@ -517,6 +517,16 @@ export const fetchNetBankingList = () => (
   })
 )
 
+export const fetchUserSpecificAds = action => (
+  POST({
+    api: '/dp/allDps',
+    apiBase: 'odin',
+    data: action.data,
+    handleError: true
+  })
+    .then(json => json)
+)
+
 export const updateBankingDetails = (action) => (
   POST({
     api: '/juspay/updateNetBankingDetails',

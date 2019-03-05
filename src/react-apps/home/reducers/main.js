@@ -30,7 +30,9 @@ const initialState = {
   loadingCredits: true,
   loadingNetBankingList: true,
   updatingBankDetails: true,
+  loadingUserSpecificAds: true,
   contactNumbersOfRetailer: [],
+  userSpecificAds: [],
   imageAdsData: [],
   collectionAdsData: [],
   deepLinkAdsData: [],
@@ -313,6 +315,13 @@ const actionsMap = {
     return Object.assign({}, state, {
       loadingNetBankingList: false,
       netBankingList: action.data
+    })
+  },
+
+  [ActionTypes.SUCCESS_FETCH_USER_SPECIFIC_ADS]: (state, action) => {
+    return Object.assign({}, state, {
+      loadingUserSpecificAds: false,
+      userSpecificAds: action.data.dp
     })
   },
   

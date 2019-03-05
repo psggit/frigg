@@ -94,6 +94,13 @@ class NavigationBar extends  React.Component {
         path: '/home/manage-collections',
         id: 15,
         nestedItems: []
+      },
+      {
+        name: 'User Specific',
+        nestedItems: [
+          { name: 'Ads', path: '/home/user-specific-ads', id: 19 },
+          { name: 'Promos', path: '/home/user-specific-promos', id: 20 },
+        ]
       }
     ]
     return (
