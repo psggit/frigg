@@ -3,14 +3,16 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as Actions from '../actions'
 import { getQueryObj, getQueryUri } from '@utils/url-utils'
-import ViewAds from '../components/manage-user-specific-ads/index'
+import ViewAds from '../components/manage-user-specific-ads/view-ad'
 import Pagination from '@components/pagination'
 import '@sass/components/_pagination.scss'
+import { NavLink } from 'react-router-dom'
+import RaisedButton from 'material-ui/RaisedButton'
 
 class ManageAds extends React.Component {
   constructor(props) {
     super(props)
-    this.pageLimit = 10
+    this.pageLimit = 5
     this.state = {
       activePage: 1
     }
@@ -54,8 +56,8 @@ class ManageAds extends React.Component {
       offset: pageObj.offset,
       limit: this.pageLimit,
     })
-    this.setState({activePage: pageObj.activePage})
-    
+    this.setState({ activePage: pageObj.activePage })
+
     queryObj.activePage = pageObj.activePage
     queryObj.offset = pageObj.offset
     history.pushState(queryObj, "ads listing", `/home/user-specific-ads?${getQueryUri(queryObj)}`)
@@ -69,6 +71,16 @@ class ManageAds extends React.Component {
     } = this.props
     return (
       <div style={{ width: '100%' }}>
+        <div>
+          <NavLink to={`/home/user-specific-ads/create`}>
+            <RaisedButton
+              label="Create new ad"
+              primary
+              //onClick={this.mountCreateStateDialog}
+            />
+          </NavLink>
+
+        </div>
         <h3>Showing all ads</h3>
         <ViewAds
           userSpecificAds={userSpecificAds}

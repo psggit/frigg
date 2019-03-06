@@ -527,6 +527,36 @@ export const fetchUserSpecificAds = action => (
     .then(json => json)
 )
 
+export const createUserSpecificAds = action => (
+  POST({
+    api: '/userads/createAds',
+    apiBase: 'odin',
+    data: action.data,
+    handleError: true
+  })
+    .then(json => json)
+)
+
+export const updateUserSpecificAds = action => (
+  POST({
+    api: '/userads/updateAds',
+    apiBase: 'odin',
+    data: action.data,
+    handleError: true
+  })
+    .then(json => json)
+)
+
+export const fetchUserSpecificAdIds = action => (
+  GET({
+    api: '/userads/adIds',
+    apiBase: 'odin',
+    //data: action.data,
+    handleError: true
+  })
+    .then(json => json)
+)
+
 export const updateBankingDetails = (action) => (
   POST({
     api: '/juspay/updateNetBankingDetails',

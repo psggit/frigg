@@ -400,3 +400,18 @@ export const fetchUserSpecificAds = (data) => ({
   type: ActionTypes.REQUEST_FETCH_USER_SPECIFIC_ADS,
   data
 })
+
+export const createUserSpecificAd = (data) => ({
+  type: ActionTypes.REQUEST_CREATE_USER_SPECIFIC_ADS,
+  data
+})
+
+export const updateUserSpecificAd = (data) => ({
+  type: ActionTypes.REQUEST_UPDATE_USER_SPECIFIC_ADS,
+  data
+})
+
+export const fetchAdIds = (data) => ({
+  type: ActionTypes.REQUEST_FETCH_USER_SPECIFIC_AD_IDS,
+  data
+})

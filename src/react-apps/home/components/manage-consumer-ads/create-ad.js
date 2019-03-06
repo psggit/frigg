@@ -166,7 +166,7 @@ class CreateAd extends React.Component {
       //&& adData.high_res_image
       //&& adData.low_res_image
     ) {
-      if(adData.ad_type === "Collection" && adData.collectionName.length && (adData.high_res_image.length || adData.low_res_image.length)) {
+      if(adData.ad_type === "collection" && adData.collectionName.length && (adData.high_res_image.length || adData.low_res_image.length)) {
         const payload = {
           ad_data: {
             ad_title: adData.title,
@@ -189,7 +189,7 @@ class CreateAd extends React.Component {
         }
         console.log("create")
         this.setState({ isDisabled: true })
-        // console.log("deep, ", payload, activeCitiesPayload)
+        console.log("deep, ", payload, activeCitiesPayload)
         this.props.actions.createConsumerAd(payload, (isDisabled) => {
           // console.log("deep", payload)
           this.setState({ isDisabled })

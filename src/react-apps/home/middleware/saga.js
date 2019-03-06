@@ -609,6 +609,41 @@ function* fetchUserSpecificAds(action) {
   }
 }
 
+function* createUserSpecificAds(action) {
+  try {
+    const data = yield call(Api.createUserSpecificAds, action)
+    yield put({ type: ActionTypes.SUCCESS_CREATE_USER_SPECIFIC_ADS, data})
+    Notify("Successfully created user specific ad", "success")
+    setTimeout(() => {
+      location.href = '/home/user-specific-ads'
+    }, 2000)
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+function* updateUserSpecificAds(action) {
+  try {
+    const data = yield call(Api.updateUserSpecificAds, action)
+    yield put({ type: ActionTypes.SUCCESS_UPDATE_USER_SPECIFIC_ADS, data})
+    Notify("Successfully updated user specific ad", "success")
+    setTimeout(() => {
+      location.href = '/home/user-specific-ads'
+    }, 2000)
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+function* fetchUserSpecificAdIds(action) {
+  try {
+    const data = yield call(Api.fetchUserSpecificAdIds, action)
+    yield put({ type: ActionTypes.SUCCESS_FETCH_USER_SPECIFIC_AD_IDS, data})
+  } catch (err) {
+    console.log(err)
+  }
+}
+
 function* updatingBankingDetails(action) {
   try {
     const data = yield call(Api.updateBankingDetails, action)
@@ -1355,6 +1390,24 @@ function* watchRequestFetchUserSpecificAds() {
   }
 }
 
+function* watchRequestCreateUserSpecificAds() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_CREATE_USER_SPECIFIC_ADS, createUserSpecificAds)
+  }
+}
+
+function* watchRequestFetchUserSpecificAdIds() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_FETCH_USER_SPECIFIC_AD_IDS, fetchUserSpecificAdIds)
+  }
+}
+
+function* watchRequestUpdateUserSpecificAdIds() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_UPDATE_USER_SPECIFIC_ADS, updateUserSpecificAds)
+  }
+}
+
 function* watchRequestUpdateBankingDetails() {
   while (true) {
     yield* takeLatest(ActionTypes.REQUEST_UPDATE_BANK_DETAILS, updatingBankingDetails)
@@ -1439,6 +1492,9 @@ export default function* rootSaga() {
     fork(watchRequestUpdateBrandListingOrder),
     fork(watchRequestFetchNetBankingList),
     fork(watchRequestUpdateBankingDetails),
-    fork(watchRequestFetchUserSpecificAds)
+    fork(watchRequestFetchUserSpecificAds),
+    fork(watchRequestCreateUserSpecificAds),
+    fork(watchRequestFetchUserSpecificAdIds),
+    fork(watchRequestUpdateUserSpecificAdIds)
   ]
 }

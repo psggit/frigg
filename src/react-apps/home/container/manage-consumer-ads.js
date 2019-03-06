@@ -82,7 +82,7 @@ class ManageConsumerAds extends React.Component {
     } else {
       // if there is no query string then fetch defult citiesData/all citiesData
       this.props.actions.fetchConsumerAds({
-        city_id: null,
+        //city_id: null,
         offset: 0,
         limit: this.pageLimit
       })

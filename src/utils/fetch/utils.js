@@ -89,10 +89,13 @@ export function constructFetchUtility(options) {
        ? fetch(url, fetchOptions)
          .then(checkStatus)
          .then(parseJSON)
+         .then((responseData) => responseData)
        : fetch(url, fetchOptions)
          .then(parseJSON)
+         .then((responseData) => responseData)
 }
 
 function parseJSON(response) {
+  //console.log("respo", response.body.json())
   return response.json()
 }

@@ -26,12 +26,16 @@ const initialState = {
   loadingBrandsInCollection: true,
   loadingTransactionCode: true,
   updatingListingOrder: true,
+  creatingUserSpecificAd: true,
+  updatingUserSpecificAd: true,
   //verifyingTransaction: true,
   loadingCredits: true,
   loadingNetBankingList: true,
   updatingBankDetails: true,
   loadingUserSpecificAds: true,
+  loadingUserSpecificAdIds: true,
   contactNumbersOfRetailer: [],
+  userSpecificAdIds: [],
   userSpecificAds: [],
   imageAdsData: [],
   collectionAdsData: [],
@@ -122,7 +126,8 @@ const actionsMap = {
       loadingUrlAds: true,
       loadingDeepLinkingAds: true,
       loadingBrandsInCollection: true,
-      updatingListingOrder: true
+      updatingListingOrder: true,
+      creatingUserSpecificAd: true
     })
   },
   
@@ -322,8 +327,27 @@ const actionsMap = {
   [ActionTypes.SUCCESS_FETCH_USER_SPECIFIC_ADS]: (state, action) => {
     return Object.assign({}, state, {
       loadingUserSpecificAds: false,
-      userSpecificAds: action.data,
-      userSpecificAdsCount: 100
+      userSpecificAds: action.data.data,
+      userSpecificAdsCount: action.data.count
+    })
+  },
+
+  [ActionTypes.SUCCESS_CREATE_USER_SPECIFIC_ADS]: (state, action) => {
+    return Object.assign({}, state, {
+      creatingUserSpecificAd: false
+    })
+  },
+
+  [ActionTypes.SUCCESS_UPDATE_USER_SPECIFIC_ADS]: (state, action) => {
+    return Object.assign({}, state, {
+      updatingUserSpecificAd: false
+    })
+  },
+
+  [ActionTypes.SUCCESS_FETCH_USER_SPECIFIC_AD_IDS]: (state, action) => {
+    return Object.assign({}, state, {
+      loadingUserSpecificAdIds: false,
+      userSpecificAdIds: action.data.data
     })
   },
   
