@@ -141,18 +141,6 @@ class CreateAd extends React.Component {
     activeCitiesPayload = [].concat.apply([], activeCitiesMatrix)
       .filter(item => item.listing_order > 0)
       .map(item => ({ city_id: item.city_id, listing_order: item.listing_order }))
-    console.log("active cities", activeCitiesPayload, adData)
-    console.log("data", 
-    activeCitiesPayload.length
-    ,adData.title.length
-    ,adData.ad_type.length
-    ,adData.active_to
-    ,adData.active_from
-    ,adData.url
-    //&& adData.collectionName
-    //,adData.high_res_image
-    //,adData.low_res_image
-    )
     if (
       activeCitiesPayload.length
       && adData.title.length
@@ -175,9 +163,7 @@ class CreateAd extends React.Component {
             active_from: adData.active_from,
             active_to: adData.active_to,
             status: adData.status ? 'Active' : 'Inactive',
-            //image_url: adData.image_url,
             url: "",
-            //deep_link_url: adData.deep_link_url,
             high_res_image: adData.high_res_image,
             low_res_image: adData.low_res_image,
             // city_id: 
@@ -187,9 +173,7 @@ class CreateAd extends React.Component {
           },
           city_data: activeCitiesPayload
         }
-        console.log("create")
         this.setState({ isDisabled: true })
-        console.log("deep, ", payload, activeCitiesPayload)
         this.props.actions.createConsumerAd(payload, (isDisabled) => {
           // console.log("deep", payload)
           this.setState({ isDisabled })
@@ -215,14 +199,13 @@ class CreateAd extends React.Component {
           },
           city_data: activeCitiesPayload
         }
-        console.log("create")
         this.setState({ isDisabled: true })
         // console.log("deep, ", payload, activeCitiesPayload)
         this.props.actions.createConsumerAd(payload, (isDisabled) => {
           // console.log("deep", payload)
           this.setState({ isDisabled })
         })
-      } else if(adData.ad_type.includes("image") && (adData.high_res_image.length || adData.low_res_image.length)){
+      } else if (adData.ad_type.includes("image") && (adData.high_res_image.length || adData.low_res_image.length)) {
         console.log("image ad creating......")
         const payload = {
           ad_data: {
@@ -244,8 +227,6 @@ class CreateAd extends React.Component {
           },
           city_data: activeCitiesPayload
         }
-        
-        console.log("create")
         this.setState({ isDisabled: true })
         // console.log("deep, ", payload, activeCitiesPayload)
         this.props.actions.createConsumerAd(payload, (isDisabled) => {
@@ -254,20 +235,6 @@ class CreateAd extends React.Component {
         })
       }
     }
-    // if (!data.localityName.length) {
-    //   document.getElementById("display-screen").scrollTop = 0
-    //   this.setState({ localityErr: true })
-    // }
-
-    // if (localityData !== null && data.localityName.length) {
-    //   this.setState({ isDisabled: true })
-    //   this.props.actions.createGeolocality({
-    //     city_id: this.state.cityId,
-    //     coordinates: localityData,
-    //     name: data.localityName,
-    //     is_available: data.isLocalityActive
-    //   }, this.callbackUpdate)
-    // }
   }
 
   render() {
