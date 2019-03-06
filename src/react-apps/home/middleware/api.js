@@ -547,6 +547,16 @@ export const updateUserSpecificAds = action => (
     .then(json => json)
 )
 
+export const fetchUserSpecificPromos = action => (
+  POST({
+    api: '/userpromo/listPromo',
+    apiBase: 'odin',
+    data: action.data,
+    handleError: true
+  })
+    .then(json => json)
+)
+
 export const fetchUserSpecificAdIds = action => (
   GET({
     api: '/userads/adIds',

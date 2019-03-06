@@ -58,6 +58,7 @@ import UpdateBanking from "./../components/manage-netbanking/update-bank"
 import ManageAds from "./../container/manage-user-specific-ads"
 import CreateUserAds from "./../components/manage-user-specific-ads/create-ad"
 import UpdateUserAds from "./../components/manage-user-specific-ads/update-ad"
+import ManagePromos from "./../container/manage-user-specific-promos"
 // import '@sass/components/_heading.scss'
 
 import asyncComponent from './../../asyncComponent'
@@ -232,6 +233,10 @@ class App extends React.Component {
                       <Route exact path="/home/user-specific-ads" component={ManageAds} />
                       <Route exact path="/home/user-specific-ads/create" component={CreateUserAds} />
                       <Route exact path="/home/user-specific-ads/edit/:AdId" component={UpdateUserAds} />
+
+                      <Route exact path="/home/user-specific-promos" component={ManagePromos} />
+                      {/* <Route exact path="/home/user-specific-ads/create" component={CreateUserAds} />
+                      <Route exact path="/home/user-specific-ads/edit/:AdId" component={UpdateUserAds} /> */}
                     </Switch>
                 </DisplayScreen>
               </div>

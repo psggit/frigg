@@ -28,6 +28,9 @@ const initialState = {
   updatingListingOrder: true,
   creatingUserSpecificAd: true,
   updatingUserSpecificAd: true,
+  creatingUserSpecificPromo: true,
+  updatingUserSpecificPromo: true,
+  loadingUserSpecificPromos: true,
   //verifyingTransaction: true,
   loadingCredits: true,
   loadingNetBankingList: true,
@@ -68,7 +71,9 @@ const initialState = {
   validCreditsData: [],
   netBankingList: [],
   validCreditsCount: 0,
-  userSpecificAdsCount: 0
+  userSpecificAdsCount: 0,
+  userSpecificPromos: [],
+  userSpecificPromosCount: 0,
 }
 
 const actionsMap = {
@@ -127,7 +132,10 @@ const actionsMap = {
       loadingDeepLinkingAds: true,
       loadingBrandsInCollection: true,
       updatingListingOrder: true,
-      creatingUserSpecificAd: true
+      creatingUserSpecificAd: true,
+      updatingUserSpecificAd: true,
+      creatingUserSpecificPromo: true,
+      updatingUserSpecificPromo: true
     })
   },
   
@@ -321,6 +329,26 @@ const actionsMap = {
     return Object.assign({}, state, {
       loadingNetBankingList: false,
       netBankingList: action.data
+    })
+  },
+  
+  [ActionTypes.SUCCESS_FETCH_USER_SPECIFIC_PROMOS]: (state, action) => {
+    return Object.assign({}, state, {
+      loadingUserSpecificPromos: false,
+      userSpecificPromos: action.data.data,
+      userSpecificPromosCount: action.data.count
+    })
+  },
+
+  [ActionTypes.SUCCESS_CREATE_USER_SPECIFIC_PROMO]: (state, action) => {
+    return Object.assign({}, state, {
+      creatingUserSpecificPromo: false
+    })
+  },
+
+  [ActionTypes.SUCCESS_UPDATE_USER_SPECIFIC_PROMO]: (state, action) => {
+    return Object.assign({}, state, {
+      updatingUserSpecificPromo: false
     })
   },
 

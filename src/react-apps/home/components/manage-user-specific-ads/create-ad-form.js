@@ -5,13 +5,13 @@ import { Card } from 'material-ui/Card'
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
 
-class CreateUserAd extends React.Component {
+class UserAdForm extends React.Component {
   constructor(props) {
     super(props)
-    this.Ads = [
-      { text: "123", value: 1 },
-      { text: "456", value: 2 }
-    ]
+    // this.Ads = [
+    //   { text: "123", value: 1 },
+    //   { text: "456", value: 2 }
+    // ]
 
     this.AdStatus = [
       { text: 'Active', value: 1 },
@@ -56,8 +56,8 @@ class CreateUserAd extends React.Component {
 
   handleIdChange(e, k) {
     const selectedAdIdx = k + 1
-    console.log(selectedAdIdx, this.state.adIds.find((item) => item.value === selectedAdIdx))
-    const selectedAdId = this.state.adIds.find((item) => item.value === selectedAdIdx).text 
+    console.log(selectedAdIdx, this.state.adIdsList.find((item) => item.value === selectedAdIdx))
+    const selectedAdId = this.state.adIdsList.find((item) => item.value === selectedAdIdx).text 
     this.setState({ selectedAdIdx,  selectedAdId })
     console.log("id change", selectedAdIdx, selectedAdId)
   }
@@ -93,7 +93,7 @@ class CreateUserAd extends React.Component {
           >
             <h4 style={{ margin: '0', marginBottom: '40px' }}>Enter ad details</h4>
             <div className="form-group">
-              <label className="label">Id</label><br/>
+              <label className="label">Ad Id</label><br/>
               <SelectField
                 disabled={this.props.isDisabled}
                 value={this.state.selectedAdIdx}
@@ -161,4 +161,4 @@ class CreateUserAd extends React.Component {
   }
 }
 
-export default CreateUserAd
+export default UserAdForm

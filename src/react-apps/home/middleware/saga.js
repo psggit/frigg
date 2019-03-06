@@ -600,6 +600,42 @@ function* fetchNetBankingList(action) {
   }
 }
 
+function* fetchUserSpecificPromos(action) {
+  try {
+    const data = yield call(Api.fetchUserSpecificPromos, action)
+    yield put({ type: ActionTypes.SUCCESS_FETCH_USER_SPECIFIC_PROMOS, data})
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+
+function* createUserSpecificPromo(action) {
+  try {
+    const data = yield call(Api.createUserSpecificPromo, action)
+    yield put({ type: ActionTypes.SUCCESS_CREATE_USER_SPECIFIC_PROMO, data})
+    Notify("Successfully created user specific promo", "success")
+    setTimeout(() => {
+      location.href = '/home/user-specific-promos'
+    }, 2000)
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+function* updateUserSpecificPromo(action) {
+  try {
+    const data = yield call(Api.updateUserSpecificPromo, action)
+    yield put({ type: ActionTypes.SUCCESS_UPDATE_USER_SPECIFIC_PROMO, data})
+    Notify("Successfully updated user specific promo", "success")
+    setTimeout(() => {
+      location.href = '/home/user-specific-promos'
+    }, 2000)
+  } catch (err) {
+    console.log(err)
+  }
+}
+
 function* fetchUserSpecificAds(action) {
   try {
     const data = yield call(Api.fetchUserSpecificAds, action)
@@ -1408,6 +1444,24 @@ function* watchRequestUpdateUserSpecificAdIds() {
   }
 }
 
+function* watchRequestFetchUserSpecificPromos() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_FETCH_USER_SPECIFIC_PROMOS, fetchUserSpecificPromos)
+  }
+}
+
+function* watchRequestCreateUserSpecificPromo() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_CREATE_USER_SPECIFIC_PROMO, createUserSpecificPromo)
+  }
+}
+
+function* watchRequestUpdateUserSpecificPromo() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_UPDATE_USER_SPECIFIC_PROMO, updateUserSpecificPromo)
+  }
+}
+
 function* watchRequestUpdateBankingDetails() {
   while (true) {
     yield* takeLatest(ActionTypes.REQUEST_UPDATE_BANK_DETAILS, updatingBankingDetails)
@@ -1495,6 +1549,9 @@ export default function* rootSaga() {
     fork(watchRequestFetchUserSpecificAds),
     fork(watchRequestCreateUserSpecificAds),
     fork(watchRequestFetchUserSpecificAdIds),
-    fork(watchRequestUpdateUserSpecificAdIds)
+    fork(watchRequestUpdateUserSpecificAdIds),
+    fork(watchRequestFetchUserSpecificPromos),
+    fork(watchRequestCreateUserSpecificPromo),
+    fork(watchRequestUpdateUserSpecificPromo)
   ]
 }

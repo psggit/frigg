@@ -13,6 +13,7 @@ class EditUserAd extends React.Component {
   }
 
   componentDidMount() {
+    this.props.actions.setLoadingState('updatingUserSpecificAd')
     this.props.actions.fetchAdIds()
   }
 

@@ -16,10 +16,10 @@ import '@sass/components/_table.scss'
 
 const TableHeaderItems = [
   '',
-  'AD ID',
+  'PROMO CODE',
   'USER LIST',
-  'APP TYPE',
-  'AD STATUS'
+  'ORDER TYPE',
+  'PROMO STATUS'
 ]
 
 const styles = [
@@ -30,23 +30,23 @@ const styles = [
   { width: '100px' }
 ]
 
-class ManageUserAds extends React.Component {
+class ManageUserPromos extends React.Component {
 
   constructor() {
     super()
 
-    this.editAdDetails = this.editAdDetails.bind(this)
+    this.editPromoDetails = this.editPromoDetails.bind(this)
   }
 
-  editAdDetails(e, item) {
+  editPromoDetails(e, item) {
     e.stopPropagation()
-    this.props.history.push(`/home/user-specific-ads/edit/${item.ad_id}`, item)
+    this.props.history.push(`/home/user-specific-promos/edit/${item.promo_code}`, item)
   }
 
   render() {
     const {
-      loadingUserSpecificAds,
-      userSpecificAds
+      loadingUserSpecificPromos,
+      userSpecificPromos
     } = this.props
     return (
       <div>
@@ -67,25 +67,25 @@ class ManageUserAds extends React.Component {
             showRowHover
           >
             {
-              !loadingUserSpecificAds
+              !loadingUserSpecificPromos
                 ? (
-                  userSpecificAds.map(item => (
-                    (
-                      <TableRow key={item.id}>
+                  userSpecificPromos.map((item, i) => {
+                    return (
+                      <TableRow key={i}>
                         <TableRowColumn style={styles[0]}>
                           <button
-                            onClick={e => this.editAdDetails(e, item)}
+                            onClick={e => this.editPromoDetails(e, item)}
                           >
                             Edit
                           </button>
                         </TableRowColumn>
-                        <TableRowColumn style={styles[1]}>{item.ad_id}</TableRowColumn>
+                        <TableRowColumn style={styles[1]}>{item.promo_code}</TableRowColumn>
                         <TableRowColumn style={styles[2]}>{item.user_list}</TableRowColumn>
-                        <TableRowColumn style={styles[3]}>{item.app_type}</TableRowColumn>
+                        <TableRowColumn style={styles[3]}>{item.order_type}</TableRowColumn>
                         <TableRowColumn style={styles[4]}>{item.is_active ? 'Active' : 'Inactive'}</TableRowColumn>
                       </TableRow> 
                     )
-                  ))
+                  })
                 )
                 : (
                   [1, 2, 3, 4, 5].map(() => (
@@ -100,4 +100,4 @@ class ManageUserAds extends React.Component {
   }
 }
 
-export default ManageUserAds
+export default ManageUserPromos

@@ -415,3 +415,18 @@ export const fetchAdIds = (data) => ({
   type: ActionTypes.REQUEST_FETCH_USER_SPECIFIC_AD_IDS,
   data
 })
+
+export const fetchUserSpecificPromos = (data) => ({
+  type: ActionTypes.REQUEST_FETCH_USER_SPECIFIC_PROMOS,
+  data
+})
+
+export const createUserSpecificPromo = (data) => ({
+  type: ActionTypes.REQUEST_CREATE_USER_SPECIFIC_PROMO,
+  data
+})
+
+export const updateUserSpecificPromo = (data) => ({
+  type: ActionTypes.REQUEST_UPDATE_USER_SPECIFIC_PROMO,
+  data
+})
