@@ -59,6 +59,7 @@ class UserPromoForm extends React.Component {
           <div className="form-group">
             <label className="label">Promo Code</label><br/>
             <TextField
+              disabled={this.props.isDisabled}
               onChange={this.handleTextFields}
               name="promoCode"
               value={this.state.promoCode}
