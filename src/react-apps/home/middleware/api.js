@@ -557,6 +557,26 @@ export const fetchUserSpecificPromos = action => (
     .then(json => json)
 )
 
+export const createUserSpecificPromo = action => (
+  POST({
+    api: '/userpromo/createPromo',
+    apiBase: 'odin',
+    data: action.data,
+    handleError: true
+  })
+    .then(json => json)
+)
+
+export const updateUserSpecificPromo = action => (
+  POST({
+    api: '/userpromo/updatePromo',
+    apiBase: 'odin',
+    data: action.data,
+    handleError: true
+  })
+    .then(json => json)
+)
+
 export const fetchUserSpecificAdIds = action => (
   GET({
     api: '/userads/adIds',

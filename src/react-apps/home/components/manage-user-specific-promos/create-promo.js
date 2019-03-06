@@ -22,7 +22,7 @@ class CreateUserPromo extends React.Component {
 
     if (promoForm.userList.length === 0) {
       return false
-    } else if (promoForm.ordreType.length === 0) {
+    } else if (promoForm.orderType.length === 0) {
       return false
     } else if (promoForm.promoCode.toString().length === 0) {
       return false

@@ -2,20 +2,30 @@ import React, { Fragment } from 'react'
 import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
 import { Card } from 'material-ui/Card'
+import SelectField from 'material-ui/SelectField'
+import MenuItem from 'material-ui/MenuItem'
 
 class UserPromoForm extends React.Component {
   constructor(props) {
     super(props)
     
     this.state = {
-      promoCode: "",
-      userList: "",
-      orderType: "",
-      status: ""
+      promoCode: props.data ? props.data.promo_code : "",
+      userList: props.data ? props.data.user_list : "",
+      orderType: props.data ? props.data.order_type : "",
+      status: "",
+      selectedStatusIdx: props.data ? props.data.is_active ? 1 : 2 : 1
     }
+
+    this.promoStatus = [
+      { text: 'Active', value: 1 },
+      { text: 'Inactive', value: 2 },
+    ]
+    
 
     this.handleTextFields = this.handleTextFields.bind(this)
     this.getData = this.getData.bind(this)
+    this.handleStatusChange = this.handleStatusChange.bind(this)
   }
 
   getData() {
@@ -26,12 +36,19 @@ class UserPromoForm extends React.Component {
     this.setState({ [e.target.name]: e.target.value })
   }
 
+  handleStatusChange(e, k) {
+    const selectedStatusIdx = k + 1
+    const selectedPromoStatus = this.promoStatus.find((item) => item.value === selectedStatusIdx).text
+    this.setState({ selectedStatusIdx, selectedPromoStatus })
+    console.log("status change", selectedStatusIdx, selectedPromoStatus)
+  }
+
   render() {
     return (
       <Fragment>
         <Card style={{
             padding: '20px',
-            width: '30%',
+            width: '300px',
             position: 'relative',
             display: 'block',
             verticalAlign: 'top',
@@ -77,7 +94,7 @@ class UserPromoForm extends React.Component {
               onChange={this.handleStatusChange}
             >
               {
-                this.PromoStatus.map((item, i) => (
+                this.promoStatus.map((item, i) => (
                   <MenuItem
                     value={i + 1}
                     key={item.value}
