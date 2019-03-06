@@ -396,6 +396,7 @@ export const fetchNetBankingList = () => ({
   type: ActionTypes.REQUEST_FETCH_NETBANKING_LIST,
 })
 
-export const fetchUserSpecificAds = () => ({
-  type: ActionTypes.REQUEST_FETCH_USER_SPECIFIC_ADS
+export const fetchUserSpecificAds = (data) => ({
+  type: ActionTypes.REQUEST_FETCH_USER_SPECIFIC_ADS,
+  data
 })

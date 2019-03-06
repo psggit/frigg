@@ -11,6 +11,9 @@ class ManageAds extends React.Component {
   constructor(props) {
     super(props)
     this.pageLimit = 10
+    this.state = {
+      activePage: 1
+    }
     this.setQueryParamas = this.setQueryParamas.bind(this)
     this.setPage = this.setPage.bind(this)
   }
@@ -26,7 +29,7 @@ class ManageAds extends React.Component {
   fetchUserSpecificAdsData() {
     this.props.actions.fetchUserSpecificAds({
       offset: 0,
-      limit: this.pageLimit,
+      limit: this.pageLimit
     })
   }
 
@@ -49,9 +52,10 @@ class ManageAds extends React.Component {
 
     this.props.actions.fetchUserSpecificAds({
       offset: pageObj.offset,
-      limit: pageObj.offset + 10,
+      limit: this.pageLimit,
     })
-
+    this.setState({activePage: pageObj.activePage})
+    
     queryObj.activePage = pageObj.activePage
     queryObj.offset = pageObj.offset
     history.pushState(queryObj, "ads listing", `/home/user-specific-ads?${getQueryUri(queryObj)}`)
@@ -60,7 +64,8 @@ class ManageAds extends React.Component {
   render() {
     const {
       loadingUserSpecificAds,
-      userSpecificAds
+      userSpecificAds,
+      userSpecificAdsCount
     } = this.props
     return (
       <div style={{ width: '100%' }}>
@@ -73,9 +78,9 @@ class ManageAds extends React.Component {
         {
           !loadingUserSpecificAds && userSpecificAds.length
           ? <Pagination
-            // activePage={parseInt(this.state.activePage)}
-            // itemsCountPerPage={this.pageLimit}
-            // totalItemsCount={consumerAdsData.count}
+            activePage={parseInt(this.state.activePage)}
+            itemsCountPerPage={this.pageLimit}
+            totalItemsCount={userSpecificAdsCount}
             setPage={this.setPage}
           />
           : ''

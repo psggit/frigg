@@ -17,8 +17,8 @@ import '@sass/components/_table.scss'
 const TableHeaderItems = [
   'ID',
   'NAME',
-  'MAPPED LOCALITY',
-  ''
+  'APP TYPE',
+  'STATUS'
 ]
 
 const styles = [
@@ -53,7 +53,10 @@ function ManageUserAds(data) {
                 data.userSpecificAds.map((item, i) => {
                   return (
                     <TableRow key={item.id}>
-                      <TableRowColumn style={styles[0]}>{item.id}</TableRowColumn>
+                      <TableRowColumn style={styles[0]}>{item.ad_id}</TableRowColumn>
+                      <TableRowColumn style={styles[1]}>{item.user_list}</TableRowColumn>
+                      <TableRowColumn style={styles[2]}>{item.app_type}</TableRowColumn>
+                      <TableRowColumn style={styles[3]}>{item.is_active}</TableRowColumn>
                     </TableRow> 
                   )
                 })

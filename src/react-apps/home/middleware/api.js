@@ -519,7 +519,7 @@ export const fetchNetBankingList = () => (
 
 export const fetchUserSpecificAds = action => (
   POST({
-    api: '/dp/allDps',
+    api: '/userads/listAds',
     apiBase: 'odin',
     data: action.data,
     handleError: true

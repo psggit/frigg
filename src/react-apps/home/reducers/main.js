@@ -63,7 +63,8 @@ const initialState = {
   customerDetails: [],
   validCreditsData: [],
   netBankingList: [],
-  validCreditsCount: 0
+  validCreditsCount: 0,
+  userSpecificAdsCount: 0
 }
 
 const actionsMap = {
@@ -321,7 +322,8 @@ const actionsMap = {
   [ActionTypes.SUCCESS_FETCH_USER_SPECIFIC_ADS]: (state, action) => {
     return Object.assign({}, state, {
       loadingUserSpecificAds: false,
-      userSpecificAds: action.data.dp
+      userSpecificAds: action.data,
+      userSpecificAdsCount: 100
     })
   },
   
