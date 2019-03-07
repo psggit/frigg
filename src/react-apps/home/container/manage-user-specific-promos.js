@@ -76,7 +76,6 @@ class ManagePromos extends React.Component {
             <RaisedButton
               label="Create new promo"
               primary
-              //onClick={this.mountCreateStateDialog}
             />
           </NavLink>
 

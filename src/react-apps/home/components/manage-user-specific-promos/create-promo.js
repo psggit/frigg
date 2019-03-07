@@ -51,8 +51,6 @@ class CreateUserPromo extends React.Component {
       <PromoForm
         ref={(node) => { this.promoForm = node }}
         handleSave={this.handleSave}
-        //userSpecificAdIds={this.props.userSpecificAdIds}
-        //data={this.props.location.state}
         disableSave={!this.props.creatingUserSpecificPromo}
       />
     )

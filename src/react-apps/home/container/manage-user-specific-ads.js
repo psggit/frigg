@@ -76,7 +76,6 @@ class ManageAds extends React.Component {
             <RaisedButton
               label="Create new ad"
               primary
-              //onClick={this.mountCreateStateDialog}
             />
           </NavLink>
 

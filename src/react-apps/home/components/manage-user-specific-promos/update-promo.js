@@ -51,7 +51,6 @@ class EditUserPromo extends React.Component {
         ref={(node) => { this.promoForm = node }}
         handleSave={this.handleSave}
         data={this.props.location.state}
-        //userSpecificAdIds={this.props.userSpecificAdIds}
         disableSave={!this.props.updatingUserSpecificPromo}
         isDisabled={true}
       />

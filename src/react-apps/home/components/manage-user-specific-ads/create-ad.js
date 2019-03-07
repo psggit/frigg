@@ -55,7 +55,6 @@ class CreateUserAd extends React.Component {
         ref={(node) => { this.adForm = node }}
         handleSave={this.handleSave}
         userSpecificAdIds={this.props.userSpecificAdIds}
-        //data={this.props.location.state}
         disableSave={!this.props.creatingUserSpecificAd}
       />
     )

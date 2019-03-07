@@ -40,7 +40,7 @@ class UserPromoForm extends React.Component {
     const selectedStatusIdx = k + 1
     const selectedPromoStatus = this.promoStatus.find((item) => item.value === selectedStatusIdx).text
     this.setState({ selectedStatusIdx, selectedPromoStatus })
-    console.log("status change", selectedStatusIdx, selectedPromoStatus)
+    // console.log("status change", selectedStatusIdx, selectedPromoStatus)
   }
 
   render() {
@@ -62,6 +62,7 @@ class UserPromoForm extends React.Component {
               disabled={this.props.isDisabled}
               onChange={this.handleTextFields}
               name="promoCode"
+              placeholder="HOLIDAY"
               value={this.state.promoCode}
               style={{ width: '100%' }}
             />
@@ -72,6 +73,7 @@ class UserPromoForm extends React.Component {
             <TextField
               onChange={this.handleTextFields}
               name="userList"
+              placeholder="158376,"
               value={this.state.userList}
               style={{ width: '100%' }}
             />
@@ -82,6 +84,7 @@ class UserPromoForm extends React.Component {
             <TextField
               onChange={this.handleTextFields}
               name="orderType"
+              placeholder="Pay,"
               value={this.state.orderType}
               style={{ width: '100%' }}
             />

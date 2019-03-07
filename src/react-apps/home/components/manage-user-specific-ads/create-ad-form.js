@@ -46,9 +46,10 @@ class UserAdForm extends React.Component {
         adIdsMap[ newProps.userSpecificAdIds[i].id] = adDetail
       }
       this.setState({ adIdsList, adIdsMap })
+      //On create, set the first value of adList
       if (!this.props.data) {
         this.setState({selectedAdIdx: adIdsList[0].value, selectedAdId: adIdsList[0].text})
-      } else {
+      } else { // On update, set the ad_id passed in props
         this.setState({selectedAdIdx: adIdsMap[this.props.data.ad_id].value, selectedAdId: this.props.data.ad_id})
       }
     }
@@ -59,14 +60,14 @@ class UserAdForm extends React.Component {
     console.log(selectedAdIdx, this.state.adIdsList.find((item) => item.value === selectedAdIdx))
     const selectedAdId = this.state.adIdsList.find((item) => item.value === selectedAdIdx).text 
     this.setState({ selectedAdIdx,  selectedAdId })
-    console.log("id change", selectedAdIdx, selectedAdId)
+    // console.log("id change", selectedAdIdx, selectedAdId)
   }
 
   handleStatusChange(e, k) {
     const selectedStatusIdx = k + 1
     const selectedAdStatus = this.AdStatus.find((item) => item.value === selectedStatusIdx).text
-    this.setState({ selectedStatusIdx, selectedAdStatus })
-    console.log("status change", selectedStatusIdx, selectedAdStatus)
+    // this.setState({ selectedStatusIdx, selectedAdStatus })
+    // console.log("status change", selectedStatusIdx, selectedAdStatus)
   }
 
   getData() {
@@ -115,6 +116,7 @@ class UserAdForm extends React.Component {
               <TextField
                 onChange={this.handleTextFields}
                 name="userList"
+                placeholder="158376,"
                 value={this.state.userList}
                 style={{ width: '100%' }}
               />
@@ -124,6 +126,7 @@ class UserAdForm extends React.Component {
               <TextField
                 onChange={this.handleTextFields}
                 name="appType"
+                placeholder="Pay"
                 value={this.state.appType}
                 style={{ width: '100%' }}
               />
