@@ -116,7 +116,7 @@ class UserAdForm extends React.Component {
               <TextField
                 onChange={this.handleTextFields}
                 name="userList"
-                placeholder="158376,"
+                placeholder=",158376,158904,"
                 value={this.state.userList}
                 style={{ width: '100%' }}
               />
@@ -126,7 +126,7 @@ class UserAdForm extends React.Component {
               <TextField
                 onChange={this.handleTextFields}
                 name="appType"
-                placeholder="Pay"
+                placeholder="pay,"
                 value={this.state.appType}
                 style={{ width: '100%' }}
               />

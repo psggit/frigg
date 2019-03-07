@@ -73,7 +73,7 @@ class UserPromoForm extends React.Component {
             <TextField
               onChange={this.handleTextFields}
               name="userList"
-              placeholder="158376,"
+              placeholder=",158376,158907,"
               value={this.state.userList}
               style={{ width: '100%' }}
             />
@@ -84,7 +84,7 @@ class UserPromoForm extends React.Component {
             <TextField
               onChange={this.handleTextFields}
               name="orderType"
-              placeholder="Pay,"
+              placeholder="pickup,"
               value={this.state.orderType}
               style={{ width: '100%' }}
             />
