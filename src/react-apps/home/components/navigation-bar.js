@@ -34,9 +34,15 @@ class NavigationBar extends  React.Component {
       {
         name: 'State management',
         nestedItems: [
-          { name: 'Manage states', path: '/home/manage-states', id: 1 },
+          { name: 'Manage States', path: '/home/manage-states', id: 1 },
           { name: 'Manage Cities', path: '/home/manage-cities', id: 2 },
           { name: 'Manage Localities', path: '/home/manage-localities', id: 3 },
+        ]
+      },
+      {
+        name: 'Brand offers and promos',
+        nestedItems: [
+          { name: 'Manage Campaign', path: '/home/manage-campaign', id: 21 },
         ]
       },
       {

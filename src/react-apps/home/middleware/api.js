@@ -577,6 +577,56 @@ export const updateUserSpecificPromo = action => (
     .then(json => json)
 )
 
+export const fetchCampaignList = action => (
+  POST({
+    api: '/campaign/list',
+    apiBase: 'odin',
+    data: action.data,
+    handleError: true
+  })
+    .then(json => json)
+)
+
+export const createCampaign = action => (
+  POST({
+    api: '/campaign/create',
+    apiBase: 'odin',
+    data: action.data,
+    handleError: true
+  })
+    .then(json => json)
+)
+
+export const updateCampaign = action => (
+  POST({
+    api: '/campaign/update',
+    apiBase: 'odin',
+    data: action.data,
+    handleError: true
+  })
+    .then(json => json)
+)
+
+export const fetchCampaignStatusList = action => (
+  POST({
+    api: '/campaign/update',
+    apiBase: 'odin',
+    data: action.data,
+    handleError: true
+  })
+    .then(json => json)
+)
+
+export const fetchBrandManagerList = action => (
+  POST({
+    api: '/campaign/update',
+    apiBase: 'odin',
+    data: action.data,
+    handleError: true
+  })
+    .then(json => json)
+)
+
 export const fetchUserSpecificAdIds = action => (
   GET({
     api: '/userads/adIds',

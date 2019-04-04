@@ -66,6 +66,31 @@ export const setLoadingState = data => ({
   data
 })
 
+export const fetchCampaignList = data => ({
+  type: ActionTypes.REQUEST_FETCH_CAMPAIGN_LIST,
+  data
+})
+
+export const createCampaign = data => ({
+  type: ActionTypes.REQUEST_CREATE_CAMPAIGN,
+  data
+})
+
+export const fetchBrandManagerList = data => ({
+  type: ActionTypes.REQUEST_BRAND_MANAGER_LIST,
+  data
+})
+
+export const updateCampaign = data => ({
+  type: ActionTypes.REQUEST_UPDATE_CAMPAIGN,
+  data
+})
+
+export const fetchCampaignStatus = data => ({
+  type: ActionTypes.REQUEST_FETCH_CAMPAIGN_STATUS_LIST,
+  data
+})
+
 export const setLoadingAll = data => ({
   type: ActionTypes.REQUEST_SET_LOADING_ALL,
   data

@@ -37,6 +37,14 @@ const initialState = {
   updatingBankDetails: true,
   loadingUserSpecificAds: true,
   loadingUserSpecificAdIds: true,
+  loadingCampaignList: true,
+  creatingCampaign: true,
+  updatingCampaign: true,
+  loadingBrandManagerList: true,
+  loadingCampaignStatusList: true,
+  campaignStatusList: [],
+  campaignList: [],
+  brandManagerList: [],
   contactNumbersOfRetailer: [],
   userSpecificAdIds: [],
   userSpecificAds: [],
@@ -74,6 +82,7 @@ const initialState = {
   userSpecificAdsCount: 0,
   userSpecificPromos: [],
   userSpecificPromosCount: 0,
+  campaignCount: 0
 }
 
 const actionsMap = {
@@ -369,6 +378,40 @@ const actionsMap = {
   [ActionTypes.SUCCESS_UPDATE_USER_SPECIFIC_ADS]: (state, action) => {
     return Object.assign({}, state, {
       updatingUserSpecificAd: false
+    })
+  },
+
+  [ActionTypes.SUCCESS_FETCH_CAMPAIGN_LIST]: (state, action) => {
+    return Object.assign({}, state, {
+      loadingCampaignList: false,
+      campaignList: action.data.data,
+      campaignCount: action.data.count
+    })
+  },
+
+  [ActionTypes.SUCCESS_CREATE_CAMPAIGN]: (state, action) => {
+    return Object.assign({}, state, {
+      creatingCampaign: false
+    })
+  },
+
+  [ActionTypes.SUCCESS_BRAND_MANAGER_LIST]: (state, action) => {
+    return Object.assign({}, state, {
+      loadingBrandManagerList: false,
+      brandManagerList: action.data.data
+    })
+  },
+
+  [ActionTypes.SUCCESS_UPDATE_CAMPAIGN]: (state, action) => {
+    return Object.assign({}, state, {
+      updatingCampaign: false,
+    })
+  },
+
+  [ActionTypes.SUCCESS_FETCH_CAMPAIGN_STATUS_LIST]: (state, action) => {
+    return Object.assign({}, state, {
+      loadingCampaignStatusList: false,
+      campaignStatusList: action.data.data
     })
   },
 

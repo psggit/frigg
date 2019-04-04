@@ -963,6 +963,65 @@ function* updateBrandListingOrder(action) {
   }
 }
 
+function* fetchBrandManagerList(action) {
+  try {
+    const data = yield call(Api.fetchBrandManagerList, action)
+    //Notify('Successfully updated brand listing order', 'success')
+    yield put({ type: ActionTypes.SUCCESS_BRAND_MANAGER_LIST, data })
+  } catch(err) {
+    console.log(err)
+  }
+}
+
+function* fetchCampaignStatusList(action) {
+  try {
+    const data = yield call(Api.fetchCampaignStatusList, action)
+    //Notify('Successfully updated brand listing order', 'success')
+    yield put({ type: ActionTypes.SUCCESS_FETCH_CAMPAIGN_STATUS_LIST, data })
+  } catch(err) {
+    console.log(err)
+  }
+}
+
+function* fetchCampaignList(action) {
+  try {
+    const data = yield call(Api.fetchCampaignList, action)
+    //Notify('Successfully updated brand listing order', 'success')
+    yield put({ type: ActionTypes.SUCCESS_FETCH_CAMPAIGN_LIST, data })
+  } catch(err) {
+    console.log(err)
+  }
+}
+
+function* createCampaign(action) {
+  try {
+    const data = yield call(Api.createCampaign, action)
+    Notify('Successfully created campaign', 'success')
+    yield put({ type: ActionTypes.SUCCESS_CREATE_CAMPAIGN, data })
+  } catch(err) {
+    console.log(err)
+  }
+}
+
+function* updateCampaign(action) {
+  try {
+    const data = yield call(Api.updateCampaign, action)
+    Notify('Successfully updated campaign', 'success')
+    yield put({ type: ActionTypes.SUCCESS_UPDATE_CAMPAIGN, data })
+  } catch(err) {
+    console.log(err)
+  }
+}
+
+function* fetchCampaignStatusList(action) {
+  try {
+    const data = yield call(Api.fetchCampaignStatusList, action)
+    //Notify('Successfully updated campaign', 'success')
+    yield put({ type: ActionTypes.SUCCESS_FETCH_CAMPAIGN_STATUS_LIST, data })
+  } catch(err) {
+    console.log(err)
+  }
+}
 // function* verifyTransaction(action) {
 //   try {
 //     const data = yield call(Api.verifyTransaction, action.data)
@@ -1450,6 +1509,36 @@ function* watchRequestFetchUserSpecificPromos() {
   }
 }
 
+function* watchRequestFetchCampaignList() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_FETCH_CAMPAIGN_LIST, fetchCampaignList)
+  }
+}
+
+function* watchRequestCreateCampaign() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_CREATE_CAMPAIGN, createCampaign)
+  }
+}
+
+function* watchRequestUpdateCampaign() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_UPDATE_CAMPAIGN, updateCampaign)
+  }
+}
+
+function* watchRequestFetchCampaignStatusList() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_FETCH_CAMPAIGN_STATUS_LIST, fetchCampaignStatusList)
+  }
+}
+
+function* watchRequestFetchBrandManagerList() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_BRAND_MANAGER_LIST, fetchBrandManagerList)
+  }
+}
+
 function* watchRequestCreateUserSpecificPromo() {
   while (true) {
     yield* takeLatest(ActionTypes.REQUEST_CREATE_USER_SPECIFIC_PROMO, createUserSpecificPromo)
@@ -1552,6 +1641,11 @@ export default function* rootSaga() {
     fork(watchRequestUpdateUserSpecificAdIds),
     fork(watchRequestFetchUserSpecificPromos),
     fork(watchRequestCreateUserSpecificPromo),
-    fork(watchRequestUpdateUserSpecificPromo)
+    fork(watchRequestUpdateUserSpecificPromo),
+    fork(watchRequestFetchCampaignList),
+    fork(watchRequestCreateCampaign),
+    fork(watchRequestFetchBrandManagerList),
+    fork(watchRequestUpdateCampaign),
+    fork(watchRequestFetchCampaignStatusList)
   ]
 }
