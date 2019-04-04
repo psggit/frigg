@@ -61,6 +61,7 @@ class UploadSearchData extends React.Component {
           ref={(node) => { this.fileInput = node }}
           onChange={(e) => { this.handleChange(e) }}
           type="file"
+          accept=".csv"
         />
         <br />
         <RaisedButton
