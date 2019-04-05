@@ -43,6 +43,8 @@ class NavigationBar extends  React.Component {
         name: 'Brand offers and promos',
         nestedItems: [
           { name: 'Manage Campaign', path: '/home/manage-campaign', id: 21 },
+          { name: 'Manage Sku Promo', path: '/home/manage-sku-promo', id: 22 },
+          { name: 'Manage Cashback Sku', path: '/home/manage-cashback-sku', id: 23 },
         ]
       },
       {

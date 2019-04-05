@@ -73,7 +73,7 @@ class CreateCampaign extends React.Component {
         handleSave={this.handleSave}
         disableSave={!this.props.creatingCampaign}
         brandManagerList={this.state.brandManagerList}
-        campaignStatus={this.props.campaignList}
+        //campaignStatus={this.props.campaignList}
       />
     )
   }

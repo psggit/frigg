@@ -79,7 +79,7 @@ class EditCampaign extends React.Component {
         disableSave={!this.props.updatingCampaign}
         isDisabled={true}
         brandManagerList={this.state.brandManagerList}
-        campaignStatus={this.props.campaignList}
+        //campaignStatus={this.props.campaignList}
       />
     )
   }

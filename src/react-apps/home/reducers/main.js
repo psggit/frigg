@@ -42,6 +42,11 @@ const initialState = {
   updatingCampaign: true,
   loadingBrandManagerList: true,
   loadingCampaignStatusList: true,
+  loadingCashbackSkuList: true,
+  loadingSkuPromoList: true,
+  creatingSkuPromo: true,
+  cashbackSkuList: [],
+  skuPromoList: [],
   campaignStatusList: [],
   campaignList: [],
   brandManagerList: [],
@@ -82,7 +87,9 @@ const initialState = {
   userSpecificAdsCount: 0,
   userSpecificPromos: [],
   userSpecificPromosCount: 0,
-  campaignCount: 0
+  campaignCount: 0,
+  cashbackSkuCount: 0,
+  skuPromoCount: 0
 }
 
 const actionsMap = {
@@ -378,6 +385,28 @@ const actionsMap = {
   [ActionTypes.SUCCESS_UPDATE_USER_SPECIFIC_ADS]: (state, action) => {
     return Object.assign({}, state, {
       updatingUserSpecificAd: false
+    })
+  },
+
+  [ActionTypes.SUCCESS_FETCH_CASHBACK_SKU_LIST]: (state, action) => {
+    return Object.assign({}, state, {
+      loadingCashbackSkuList: false,
+      cashbackSkuList: action.data.data,
+      cashbackSkuCount: action.data.count
+    })
+  },
+
+  [ActionTypes.SUCCESS_CREATE_SKU_PROMO]: (state, action) => {
+    return Object.assign({}, state, {
+      creatingSkuPromo: false
+    })
+  },
+  
+  [ActionTypes.SUCCESS_FETCH_SKU_PROMO_LIST]: (state, action) => {
+    return Object.assign({}, state, {
+      loadingSkuPromoList: false,
+      skuPromoList: action.data.data,
+      skuPromoCount: action.data.count
     })
   },
 

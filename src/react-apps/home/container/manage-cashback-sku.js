@@ -3,13 +3,13 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as Actions from '../actions'
 import { getQueryObj, getQueryUri } from '@utils/url-utils'
-import ViewCampaign from '../components/manage-campaign/view-campaign'
+import ViewCashbackSku from '../components/manage-cashback-sku/view-cashback-sku'
 import Pagination from '@components/pagination'
 import '@sass/components/_pagination.scss'
 import { NavLink } from 'react-router-dom'
 import RaisedButton from 'material-ui/RaisedButton'
 
-class ManageCampaign extends React.Component {
+class ManageCaskBackSku extends React.Component {
   constructor(props) {
     super(props)
     this.pageLimit = 5
@@ -24,15 +24,15 @@ class ManageCampaign extends React.Component {
     if (location.search.length) {
       this.setQueryParamas()
     } else {
-      this.fetchCampaignList()
+      this.fetchCashbackSkuList()
     }
   }
 
-  fetchCampaignList() {
-    this.props.actions.fetchCampaignList({
+  fetchCashbackSkuList() {
+    this.props.actions.fetchCashbackSkuList({
       offset: 0,
       limit: this.pageLimit
-    }, () => {})
+    })
   }
 
   setQueryParamas() {
@@ -42,56 +42,56 @@ class ManageCampaign extends React.Component {
       this.setState({ [item[0]]: item[1] })
     })
 
-    this.props.actions.fetchCampaignList({
+    this.props.actions.fetchCashbackSkuList({
       offset: queryObj.offset ? parseInt(queryObj.offset) : 0,
       limit: this.pageLimit,
-    }, () => {})
+    })
   }
 
   setPage(pageObj) {
     const queryUri = location.search.slice(1)
     const queryObj = getQueryObj(queryUri)
 
-    this.props.actions.fetchCampaignList({
+    this.props.actions.fetchCashbackSkuList({
       offset: pageObj.offset,
       limit: this.pageLimit,
-    }, () => {})
+    })
     this.setState({ activePage: pageObj.activePage })
 
     queryObj.activePage = pageObj.activePage
     queryObj.offset = pageObj.offset
-    history.pushState(queryObj, "campaign listing", `/home/manage-campaign?${getQueryUri(queryObj)}`)
+    history.pushState(queryObj, "cashback sku listing", `/home/cashback-sku?${getQueryUri(queryObj)}`)
   }
 
   render() {
     const {
-      loadingCampaignList,
-      campaignList,
-      campaignCount
+      loadingCashbackSkuList,
+      cashbackSkuList,
+      cashbackSkuCount
     } = this.props
     return (
       <div style={{ width: '100%' }}>
         <div>
-          <NavLink to={`/home/manage-campaign/create`}>
+          <NavLink to={`/home/cashback-sku/create`}>
             <RaisedButton
-              label="Create new campaign"
+              label="Create new cashback sku"
               primary
             />
           </NavLink>
 
         </div>
-        <h3>Showing all campaign</h3>
-        <ViewCampaign
-          campaignList={campaignList}
-          loadingCampaignList={loadingCampaignList}
+        <h3>Showing all cashback sku</h3>
+        <ViewCashbackSku
+          cashbackSkuList={cashbackSkuList}
+          loadingCashbackSkuList={loadingCashbackSkuList}
           history={this.props.history}
         />
         {
-          !loadingCampaignList && campaignList.length
+          !loadingCashbackSkuList && cashbackSkuList.length
           ? <Pagination
             activePage={parseInt(this.state.activePage)}
             itemsCountPerPage={this.pageLimit}
-            totalItemsCount={campaignCount}
+            totalItemsCount={cashbackSkuCount}
             setPage={this.setPage}
           />
           : ''
@@ -110,4 +110,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(ManageCampaign)
+)(ManageCaskBackSku)

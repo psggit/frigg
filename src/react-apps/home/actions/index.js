@@ -66,9 +66,10 @@ export const setLoadingState = data => ({
   data
 })
 
-export const fetchCampaignList = data => ({
+export const fetchCampaignList = (data, CB) => ({
   type: ActionTypes.REQUEST_FETCH_CAMPAIGN_LIST,
-  data
+  data,
+  CB
 })
 
 export const createCampaign = data => ({
@@ -89,6 +90,31 @@ export const updateCampaign = data => ({
 
 export const fetchCampaignStatus = (data) => ({
   type: ActionTypes.REQUEST_FETCH_CAMPAIGN_STATUS_LIST,
+  data
+})
+
+export const fetchSkuPromoList = data => ({
+  type: ActionTypes.REQUEST_FETCH_SKU_PROMO_LIST,
+  data
+})
+
+export const createSkuPromo = data => ({
+  type: ActionTypes.REQUEST_CREATE_SKU_PROMO,
+  data
+})
+
+export const fetchCashbackSkuList = data => ({
+  type: ActionTypes.REQUEST_FETCH_CASHBACK_SKU_LIST,
+  data
+})
+
+export const createCashbackSku = data => ({
+  type: ActionTypes.REQUEST_CREATE_CASHBACK_SKU,
+  data
+})
+
+export const updateCashbackSku = data => ({
+  type: ActionTypes.REQUEST_UPDATE_CASHBACK_SKU,
   data
 })
 

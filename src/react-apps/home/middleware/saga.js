@@ -984,11 +984,22 @@ function* fetchCampaignStatusList(action) {
   }
 }
 
+function* fetchCashbackSkuList(action) {
+  try {
+    const data = yield call(Api.fetchCashbackSkuList, action)
+    //Notify('Successfully updated brand listing order', 'success')
+    yield put({ type: ActionTypes.SUCCESS_FETCH_CASHBACK_SKU_LIST, data })
+  } catch(err) {
+    console.log(err)
+  }
+}
+
 function* fetchCampaignList(action) {
   try {
     const data = yield call(Api.fetchCampaignList, action)
     //Notify('Successfully updated brand listing order', 'success')
     yield put({ type: ActionTypes.SUCCESS_FETCH_CAMPAIGN_LIST, data })
+    action.CB()
   } catch(err) {
     console.log(err)
   }
@@ -1015,6 +1026,26 @@ function* updateCampaign(action) {
     setTimeout(() => {
       window.location.href = '/home/manage-campaign'
     }, 1000)
+  } catch(err) {
+    console.log(err)
+  }
+}
+
+function* fetchSkuPromoList(action) {
+  try {
+    const data = yield call(Api.fetchSkuPromoList, action)
+    //Notify('Successfully updated campaign', 'success')
+    yield put({ type: ActionTypes.SUCCESS_FETCH_SKU_PROMO_LIST, data })
+  } catch(err) {
+    console.log(err)
+  }
+}
+
+function* createSkuPromo(action) {
+  try {
+    const data = yield call(Api.createSkuPromo, action)
+    Notify('Successfully created promo', 'success')
+    yield put({ type: ActionTypes.SUCCESS_CREATE_SKU_PROMO, data })
   } catch(err) {
     console.log(err)
   }
@@ -1516,6 +1547,36 @@ function* watchRequestFetchUserSpecificPromos() {
   }
 }
 
+function* watchRequestFetchCashbackSkuList() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_FETCH_CASHBACK_SKU_LIST, fetchCashbackSkuList)
+  }
+}
+
+function* watchRequestCreateSkuPromo() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_CREATE_SKU_PROMO, createSkuPromo)
+  }
+}
+
+function* watchRequestFetchSkuPromoList() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_FETCH_SKU_PROMO_LIST, fetchSkuPromoList)
+  }
+}
+
+// function* watchRequestCreateCashbackSku() {
+//   while (true) {
+//     yield* takeLatest(ActionTypes.REQUEST_CREATE_CASHBACK_SKU, createCashbackSku)
+//   }
+// }
+
+// function* watchRequestUpdateCashbackSku() {
+//   while (true) {
+//     yield* takeLatest(ActionTypes.REQUEST_UPDATE_CASHBACK_SKU, updateCashbackSku)
+//   }
+// }
+
 function* watchRequestFetchCampaignList() {
   while (true) {
     yield* takeLatest(ActionTypes.REQUEST_FETCH_CAMPAIGN_LIST, fetchCampaignList)
@@ -1653,6 +1714,8 @@ export default function* rootSaga() {
     fork(watchRequestCreateCampaign),
     fork(watchRequestFetchBrandManagerList),
     fork(watchRequestUpdateCampaign),
-    fork(watchRequestFetchCampaignStatusList)
+    fork(watchRequestFetchCampaignStatusList),
+    fork(watchRequestFetchCashbackSkuList),
+    fork(watchRequestFetchSkuPromoList)
   ]
 }
