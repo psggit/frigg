@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as Actions from '../actions'
 import { getQueryObj, getQueryUri } from '@utils/url-utils'
-// import ViewPromos from '../components/manage-user-specific-promos/view-promos'
+import ViewCampaign from '../components/manage-campaign/view-campaign'
 import Pagination from '@components/pagination'
 import '@sass/components/_pagination.scss'
 import { NavLink } from 'react-router-dom'
@@ -87,7 +87,7 @@ class ManageCampaign extends React.Component {
           history={this.props.history}
         />
         {
-          !loadingUserSpecificPromos && userSpecificPromos.length
+          !loadingCampaignList && campaignList.length
           ? <Pagination
             activePage={parseInt(this.state.activePage)}
             itemsCountPerPage={this.pageLimit}

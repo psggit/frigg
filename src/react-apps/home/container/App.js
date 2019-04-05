@@ -61,6 +61,9 @@ import UpdateUserAds from "./../components/manage-user-specific-ads/update-ad"
 import ManagePromos from "./../container/manage-user-specific-promos"
 import CreateUserPromos from "./../components/manage-user-specific-promos/create-promo"
 import UpdateUserPromos from "./../components/manage-user-specific-promos/update-promo"
+import ManageCampaign from './../container/manage-campaign'
+import CreateCampaign from './../components/manage-campaign/create-campaign'
+import UpdateCampaign from './../components/manage-campaign/edit-campaign'
 // import '@sass/components/_heading.scss'
 
 import asyncComponent from './../../asyncComponent'
@@ -239,6 +242,10 @@ class App extends React.Component {
                       <Route exact path="/home/user-specific-promos" component={ManagePromos} />
                       <Route exact path="/home/user-specific-promos/create" component={CreateUserPromos} />
                       <Route exact path="/home/user-specific-promos/edit/:promoCode" component={UpdateUserPromos} />
+                    
+                      <Route exact path="/home/manage-campaign" component={ManageCampaign} />
+                      <Route exact path="/home/manage-campaign/create" component={CreateCampaign} />
+                      <Route exact path="/home/manage-campaign/edit/:campaignId" component={UpdateCampaign} />
                     </Switch>
                 </DisplayScreen>
               </div>

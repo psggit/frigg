@@ -9,6 +9,8 @@ import {
 } from 'material-ui/Table'
 import TableLoadingShell from '../table-loading-shell'
 import '@sass/components/_table.scss'
+import Moment from "moment"
+import {overrideTableStyle} from './../../../utils'
 
 const TableHeaderItems = [
   '',
@@ -16,24 +18,24 @@ const TableHeaderItems = [
   'CAMPAIGN NAME',
   'ACTIVE_FROM',
   'ACTIVE_TO',
-  'TYPE',
+  //'TYPE',
   'CAMPAIGN STATUS',
   'BRAND MANAGER ID',
-  'BUDGETED AMOUNT',
-  'FUNDS CREDITED'
+  // 'BUDGETED AMOUNT',
+  // 'FUNDS CREDITED'
 ]
 
 const styles = [
   { width: '38px' },
   { width: '38px' },
   { width: '120px' },
+  { width: '100px' },
+  { width: '100px' },
+  //{ width: '38px' },
   { width: '38px' },
   { width: '38px' },
-  { width: '38px' },
-  { width: '38px' },
-  { width: '38px' },
-  { width: '38px' },
-  { width: '100px' }
+  // { width: '38px' },
+  // { width: '100px' }
 ]
 
 class ViewCampaign extends React.Component {
@@ -41,12 +43,22 @@ class ViewCampaign extends React.Component {
   constructor() {
     super()
 
-    this.editPromoDetails = this.editPromoDetails.bind(this)
+    this.editCampaignDetails = this.editCampaignDetails.bind(this)
+    //this.overrideTableStyle = this.overrideTableStyle.bind(this)
+  }
+
+  componentDidMount() {
+    this.overrideTableStyle()
   }
 
   editCampaignDetails(e, item) {
     e.stopPropagation()
-    this.props.history.push(`/home/manage-campaign/edit/${item.promo_code}`, item)
+    this.props.history.push(`/home/manage-campaign/edit/${item.id}`, item)
+  }
+
+  overrideTableStyle() {
+    // document.querySelectorAll(".bordered--table")[1].parentElement.style.overflow = "auto"
+    overrideTableStyle()
   }
 
   render() {
@@ -57,6 +69,7 @@ class ViewCampaign extends React.Component {
     return (
       <div>
         <Table
+          wrapperStyle={{ height: 'auto' }}
           className="bordered--table"
           selectable={false}
           fixedHeader
@@ -87,13 +100,13 @@ class ViewCampaign extends React.Component {
                         </TableRowColumn>
                         <TableRowColumn style={styles[1]}>{item.id}</TableRowColumn>
                         <TableRowColumn style={styles[2]}>{item.name}</TableRowColumn>
-                        <TableRowColumn style={styles[3]}>{item.active_from}</TableRowColumn>
-                        <TableRowColumn style={styles[4]}>{item.active_to}</TableRowColumn>
-                        <TableRowColumn style={styles[5]}>{item.type}</TableRowColumn>
-                        <TableRowColumn style={styles[6]}>{item.status === "true" ? 'Active' : 'Inactive'}</TableRowColumn>
-                        <TableRowColumn style={styles[7]}>{item.brand_manager_id}</TableRowColumn>
-                        <TableRowColumn style={styles[8]}>{item.budgeted_amount}</TableRowColumn>
-                        <TableRowColumn style={styles[9]}>{item.funds_credited}</TableRowColumn>
+                        <TableRowColumn style={styles[3]}>{Moment(item.active_from).format("DD/MM/YYYY h:mm A")}</TableRowColumn>
+                        <TableRowColumn style={styles[4]}>{Moment(item.active_to).format("DD/MM/YYYY h:mm A")}</TableRowColumn>
+                        {/* <TableRowColumn style={styles[5]}>{item.type}</TableRowColumn> */}
+                        <TableRowColumn style={styles[5]}>{item.is_active ? 'Active' : 'Inactive'}</TableRowColumn>
+                        <TableRowColumn style={styles[6]}>{item.brand_manager_id}</TableRowColumn>
+                        {/* <TableRowColumn style={styles[8]}>{item.budgeted_amount}</TableRowColumn>
+                        <TableRowColumn style={styles[9]}>{item.funds_credited}</TableRowColumn> */}
                       </TableRow> 
                     )
                   })

@@ -76,9 +76,10 @@ export const createCampaign = data => ({
   data
 })
 
-export const fetchBrandManagerList = data => ({
+export const fetchBrandManagerList = (data, CB) => ({
   type: ActionTypes.REQUEST_BRAND_MANAGER_LIST,
-  data
+  data, 
+  CB
 })
 
 export const updateCampaign = data => ({
@@ -86,7 +87,7 @@ export const updateCampaign = data => ({
   data
 })
 
-export const fetchCampaignStatus = data => ({
+export const fetchCampaignStatus = (data) => ({
   type: ActionTypes.REQUEST_FETCH_CAMPAIGN_STATUS_LIST,
   data
 })

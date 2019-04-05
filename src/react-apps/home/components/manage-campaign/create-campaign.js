@@ -8,16 +8,30 @@ import * as Actions from './../../actions/index'
 class CreateCampaign extends React.Component {
   constructor() {
     super()
-
+    this.state = {
+      brandManagerList: []
+    }
     this.handleSave = this.handleSave.bind(this)
     this.formIsValid = this.formIsValid.bind(this)
+    this.successCampaignCallback = this.successCampaignCallback.bind(this)
   }
 
   componentDidMount() {
     this.props.actions.setLoadingState('creatingCampaign')
-    this.props.actions.fetchBrandManagerList({})
-    this.props.actions.fetchCampaignStatus({})
+    this.props.actions.fetchBrandManagerList({}, this.successCampaignCallback)
+    //this.props.actions.fetchCampaignStatus({})
     //this.props.actions.fetchAdIds()
+  }
+  
+  successCampaignCallback() {
+    const brandManagerList = this.props.brandManagerList.map((item) => {
+      return {
+        value: item.id,
+        text: item.email
+      }
+    })
+    console.log("manager list", brandManagerList)
+    this.setState({brandManagerList})
   }
 
   formIsValid() {
@@ -25,19 +39,13 @@ class CreateCampaign extends React.Component {
 
     if (campaignForm.campaignName.length === 0) {
       return false
-    } else if (campaignForm.type.toString().length === 0) {
-      return false
     } else if (campaignForm.activeFrom.toString().length === 0) {
       return false
     } else if (campaignForm.activeTo.toString().length === 0) {
       return false
     } else if (campaignForm.selectedStatusIdx.toString().length === 0) {
       return false
-    } else if (campaignForm.brandManagerId.toString().length === 0) {
-      return false
-    } else if (campaignForm.budgetedAmount.toString().length === 0) {
-      return false
-    } else if (campaignForm.fundsCredited.toString().length === 0) {
+    } else if (campaignForm.selectedBrandManagerIdx.toString().length === 0) {
       return false
     }
 
@@ -50,10 +58,7 @@ class CreateCampaign extends React.Component {
     if (this.formIsValid()) {
       this.props.actions.createCampaign({
         name: campaignForm.campaignName,
-        funds_credited: campaignForm.fundsCredited,
-        budgeted_amount: campaignForm.budgetedAmount,
-        brandManagerId: campaignForm.brandManagerId,
-        type: campaignForm.type,
+        brand_manager_id: campaignForm.selectedBrandManagerIdx,
         active_from: campaignForm.activeFrom,
         active_to: campaignForm.activeTo,
         is_active: campaignForm.selectedStatusIdx === 1 ? true : false
@@ -67,7 +72,7 @@ class CreateCampaign extends React.Component {
         ref={(node) => { this.campaignForm = node }}
         handleSave={this.handleSave}
         disableSave={!this.props.creatingCampaign}
-        brandManagerList={this.props.brandManagerList}
+        brandManagerList={this.state.brandManagerList}
         campaignStatus={this.props.campaignList}
       />
     )

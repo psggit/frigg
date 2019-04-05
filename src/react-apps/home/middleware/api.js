@@ -579,7 +579,7 @@ export const updateUserSpecificPromo = action => (
 
 export const fetchCampaignList = action => (
   POST({
-    api: '/campaign/list',
+    api: '/campaign/listCampaign',
     apiBase: 'odin',
     data: action.data,
     handleError: true
@@ -589,7 +589,7 @@ export const fetchCampaignList = action => (
 
 export const createCampaign = action => (
   POST({
-    api: '/campaign/create',
+    api: '/campaign/createCampaign',
     apiBase: 'odin',
     data: action.data,
     handleError: true
@@ -599,7 +599,7 @@ export const createCampaign = action => (
 
 export const updateCampaign = action => (
   POST({
-    api: '/campaign/update',
+    api: '/campaign/updateCampaign',
     apiBase: 'odin',
     data: action.data,
     handleError: true
@@ -609,7 +609,7 @@ export const updateCampaign = action => (
 
 export const fetchCampaignStatusList = action => (
   POST({
-    api: '/campaign/update',
+    //api: '/campaign/createCampaign',
     apiBase: 'odin',
     data: action.data,
     handleError: true
@@ -618,8 +618,8 @@ export const fetchCampaignStatusList = action => (
 )
 
 export const fetchBrandManagerList = action => (
-  POST({
-    api: '/campaign/update',
+  GET({
+    api: '/campaign/listBrandManager',
     apiBase: 'odin',
     data: action.data,
     handleError: true

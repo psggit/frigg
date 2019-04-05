@@ -968,6 +968,7 @@ function* fetchBrandManagerList(action) {
     const data = yield call(Api.fetchBrandManagerList, action)
     //Notify('Successfully updated brand listing order', 'success')
     yield put({ type: ActionTypes.SUCCESS_BRAND_MANAGER_LIST, data })
+    action.CB()
   } catch(err) {
     console.log(err)
   }
@@ -998,6 +999,9 @@ function* createCampaign(action) {
     const data = yield call(Api.createCampaign, action)
     Notify('Successfully created campaign', 'success')
     yield put({ type: ActionTypes.SUCCESS_CREATE_CAMPAIGN, data })
+    setTimeout(() => {
+      window.location.href = '/home/manage-campaign'
+    }, 1000)
   } catch(err) {
     console.log(err)
   }
@@ -1008,6 +1012,9 @@ function* updateCampaign(action) {
     const data = yield call(Api.updateCampaign, action)
     Notify('Successfully updated campaign', 'success')
     yield put({ type: ActionTypes.SUCCESS_UPDATE_CAMPAIGN, data })
+    setTimeout(() => {
+      window.location.href = '/home/manage-campaign'
+    }, 1000)
   } catch(err) {
     console.log(err)
   }
