@@ -21,7 +21,7 @@ class EditSkuPromo extends React.Component {
     this.props.actions.setLoadingState('updatingCampaign')
     this.props.actions.fetchCampaignList({
       offset: 0,
-      limit: 10
+      limit: 5000
     }, this.successCampaignCallback)
   }
 
@@ -62,7 +62,7 @@ class EditSkuPromo extends React.Component {
       this.props.actions.updateSkuPromo({
         id: this.props.location.state.id,
         campaign_id: skuPromoForm.selectedCampaignId,
-        amount: skuPromoForm.amount,
+        amount: parseInt(skuPromoForm.amount),
         is_on_pack: skuPromoForm.isPackOn,
         promo_description: skuPromoForm.description,
         promoName: skuPromoForm.promoName

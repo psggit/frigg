@@ -63,7 +63,7 @@ class CreateSkuPromo extends React.Component {
     if (this.formIsValid()) {
       this.props.actions.createSkuPromo({
         campaign_id: skuPromoForm.selectedCampaignId,
-        amount: skuPromoForm.amount,
+        amount: parseInt(skuPromoForm.amount),
         promoName: skuPromoForm.promoName,
         promo_description: skuPromoForm.description,
         is_on_pack: skuPromoForm.isPackOn === 1 ? true : false
