@@ -10,43 +10,48 @@ import {
 import TableLoadingShell from '../table-loading-shell'
 import '@sass/components/_table.scss'
 import Moment from "moment"
-import {overrideTableStyle} from './../../../utils'
+import {overrideTableStyle} from '../../../utils'
 
 const TableHeaderItems = [
   '',
-  'SKU PRICING ID',
+  // 'SKU PRICING ID',
   'OFFER_ID',
-  'PRICE',
+  // 'PRICE',
 ]
 
 const styles = [
   { width: '38px' },
-  { width: '38px' },
+  // { width: '38px' },
   { width: '120px' },
-  { width: '100px' },
+  // { width: '100px' },
 ]
 
-class ViewCashbackSku extends React.Component {
+class ViewSkuPromo extends React.Component {
 
   constructor() {
     super()
 
-    this.editCashbackSkuDetails = this.editCashbackSkuDetails.bind(this)
-    //this.overrideTableStyle = this.overrideTableStyle.bind(this)
+    //this.editCashbackSkuDetails = this.editCashbackSkuDetails.bind(this)
+    this.handleCellClick = this.handleCellClick.bind(this)
   }
 
   componentDidMount() {
     this.overrideTableStyle()
   }
 
-  editCashbackSkuDetails(e, item) {
-    e.stopPropagation()
-    this.props.history.push(`/home/manage-cashback-sku/edit/${item.id}`, item)
-  }
+  // editCashbackSkuDetails(e, item) {
+  //   e.stopPropagation()
+  //   this.props.history.push(`/home/manage-cashback-sku/edit/${item.id}`, item)
+  // }
 
   overrideTableStyle() {
     // document.querySelectorAll(".bordered--table")[1].parentElement.style.overflow = "auto"
     overrideTableStyle()
+  }
+
+  handleCellClick(e, item) {
+    //console.log("click",row, column, this.props.cashbackSkuList[row])
+    this.props.history.push(`/home/manage-cashback-sku/${item.id}`, item)
   }
 
   render() {
@@ -58,9 +63,10 @@ class ViewCashbackSku extends React.Component {
       <div>
         <Table
           wrapperStyle={{ height: 'auto' }}
-          className="bordered--table"
+          className="bordered--table clickable"
           selectable={false}
           fixedHeader
+          //onCellClick={this.handleCellClick}
         >
           <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
             <TableRow>
@@ -81,14 +87,14 @@ class ViewCashbackSku extends React.Component {
                       <TableRow key={i}>
                         <TableRowColumn style={styles[0]}>
                           <button
-                            onClick={e => this.editCampaignDetails(e, item)}
+                            onClick={e => this.handleCellClick(e, item)}
                           >
-                            Edit
+                            View
                           </button>
                         </TableRowColumn>
-                        <TableRowColumn style={styles[1]}>{item.sku_pricing_id}</TableRowColumn>
-                        <TableRowColumn style={styles[2]}>{item.offer_id}</TableRowColumn>
-                        <TableRowColumn style={styles[3]}>{item.price}</TableRowColumn>
+                        {/* <TableRowColumn style={styles[1]}>{item.sku_pricing_id}</TableRowColumn> */}
+                        <TableRowColumn style={styles[1]}>{item.offer_id}</TableRowColumn>
+                        {/* <TableRowColumn style={styles[2]}>{item.price}</TableRowColumn> */}
                       </TableRow> 
                     )
                   })
@@ -106,4 +112,4 @@ class ViewCashbackSku extends React.Component {
   }
 }
 
-export default ViewCashbackSku
+export default ViewSkuPromo

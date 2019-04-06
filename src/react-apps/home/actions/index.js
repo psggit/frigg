@@ -72,6 +72,11 @@ export const fetchCampaignList = (data, CB) => ({
   CB
 })
 
+export const fetchPromoList = (data, CB) => ({
+  type: ActionTypes.REQUEST_FETCH_PROMO_LIST,
+  CB
+})
+
 export const createCampaign = data => ({
   type: ActionTypes.REQUEST_CREATE_CAMPAIGN,
   data

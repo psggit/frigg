@@ -8,6 +8,11 @@
   .inline-input div{
     width: 100% !important;
   }
+  .error-message {
+    color: #ff3b34;
+    font-style: italic;
+    font-size: 12px;
+  }
 }
 
 .form-group.form-inline {

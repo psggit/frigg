@@ -1041,6 +1041,17 @@ function* fetchSkuPromoList(action) {
   }
 }
 
+function* fetchPromoList(action) {
+  try {
+    const data = yield call(Api.fetchPromoList, action)
+    //Notify('Successfully updated campaign', 'success')
+    yield put({ type: ActionTypes.SUCCESS_FETCH_PROMO_LIST, data })
+    action.CB()
+  } catch(err) {
+    console.log(err)
+  }
+}
+
 function* createSkuPromo(action) {
   try {
     const data = yield call(Api.createSkuPromo, action)
@@ -1587,6 +1598,12 @@ function* watchRequestFetchSkuPromoList() {
   }
 }
 
+function* watchRequestFetchPromoList() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_FETCH_PROMO_LIST, fetchPromoList)
+  }
+}
+
 // function* watchRequestCreateCashbackSku() {
 //   while (true) {
 //     yield* takeLatest(ActionTypes.REQUEST_CREATE_CASHBACK_SKU, createCashbackSku)
@@ -1739,6 +1756,7 @@ export default function* rootSaga() {
     fork(watchRequestFetchCampaignStatusList),
     fork(watchRequestFetchCashbackSkuList),
     fork(watchRequestFetchSkuPromoList),
+    fork(watchRequestFetchPromoList),
     fork(watchRequestCreateSkuPromo),
     fork(watchRequestUpdateSkuPromo)
   ]

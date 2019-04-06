@@ -618,6 +618,16 @@ export const fetchSkuPromoList = action => (
     .then(json => json)
 )
 
+export const fetchPromoList = action => (
+  GET({
+    api: '/cashback/listOffer',
+    apiBase: 'odin',
+    //data: action.data,
+    handleError: true
+  })
+    .then(json => json)
+)
+
 export const fetchCampaignList = action => (
   POST({
     api: '/campaign/listCampaign',

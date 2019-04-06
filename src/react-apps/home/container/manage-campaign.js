@@ -49,6 +49,7 @@ class ManageCampaign extends React.Component {
   }
 
   setPage(pageObj) {
+    this.props.actions.setLoadingState('loadingCampaignList')
     const queryUri = location.search.slice(1)
     const queryObj = getQueryObj(queryUri)
 

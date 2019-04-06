@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as Actions from '../actions'
 import { getQueryObj, getQueryUri } from '@utils/url-utils'
-import ViewCashbackSku from '../components/manage-cashback-sku/view-cashback-sku'
+import ViewSkuPromo from '../components/manage-cashback-sku/view-sku-promo'
 import Pagination from '@components/pagination'
 import '@sass/components/_pagination.scss'
 import { NavLink } from 'react-router-dom'
@@ -60,7 +60,7 @@ class ManageCaskBackSku extends React.Component {
 
     queryObj.activePage = pageObj.activePage
     queryObj.offset = pageObj.offset
-    history.pushState(queryObj, "cashback sku listing", `/home/cashback-sku?${getQueryUri(queryObj)}`)
+    history.pushState(queryObj, "cashback sku listing", `/home/manage-cashback-sku?${getQueryUri(queryObj)}`)
   }
 
   render() {
@@ -72,7 +72,7 @@ class ManageCaskBackSku extends React.Component {
     return (
       <div style={{ width: '100%' }}>
         <div>
-          <NavLink to={`/home/cashback-sku/create`}>
+          <NavLink to={`/home/manage-cashback-sku/map-sku-to-promo`}>
             <RaisedButton
               label="Create new cashback sku"
               primary
@@ -81,7 +81,7 @@ class ManageCaskBackSku extends React.Component {
 
         </div>
         <h3>Showing all cashback sku</h3>
-        <ViewCashbackSku
+        <ViewSkuPromo
           cashbackSkuList={cashbackSkuList}
           loadingCashbackSkuList={loadingCashbackSkuList}
           history={this.props.history}

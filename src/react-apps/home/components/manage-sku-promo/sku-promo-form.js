@@ -7,6 +7,7 @@ import SelectField from 'material-ui/SelectField'
 import Checkbox from 'material-ui/Checkbox'
 import MenuItem from 'material-ui/MenuItem'
 import Moment from 'moment'
+import { validateNumType, checkCtrlA, checkCtrlV, validateFloatKeyPress } from './../../../utils'
 
 class SkuPromoForm extends React.Component {
   constructor(props) {
@@ -18,13 +19,28 @@ class SkuPromoForm extends React.Component {
       promoName: props.data ? props.data.promoName : "",
       amount: props.data ? props.data.amount : "",
       description: props.data ? props.data.promo_description : "",
-      isPackOn: props.data ? props.data.is_on_pack : false
+      isPackOn: props.data ? props.data.is_on_pack : false,
+      amountErr: {
+        value: "",
+        status: false
+      },
+      descriptionErr: {
+        value: "",
+        status: false
+      },
+      promoNameErr: {
+        value: "",
+        status: false
+      }
     }
     
     this.handleTextFields = this.handleTextFields.bind(this)
     this.getData = this.getData.bind(this)
     this.handleStatusChange = this.handleStatusChange.bind(this)
     this.handleCheckboxChange = this.handleCheckboxChange.bind(this)
+    this.isFormValid = this.isFormValid.bind(this)
+    this.handleSave = this.handleSave.bind(this)
+    //this.handleChangeInAmount = this.handleChangeInAmount.bind(this)
   }
 
 
@@ -40,7 +56,26 @@ class SkuPromoForm extends React.Component {
     return this.state
   }
 
+  // handleChangeInAmount(e) {
+  //   //const errName = `${e.target.name}Err`
+  //   //const fnExp = eval(`this.validate${this.inputNameMap[e.target.name]}`)
+  //   if((validateNumType(e.keyCode) || checkCtrlA(e) || checkCtrlV(e))) {
+  //     console.log("if", e.target.name, e.target.value)
+  //     this.setState({ 
+  //       [e.target.name]: (e.target.value),
+  //       //[errName]: fnExp(e.target.value)
+  //     })
+  //   }
+  // }
+
   handleTextFields(e) {
+    const errName = `${e.target.name}Err`
+    this.setState({
+      [errName] : {
+        value: "",
+        status: false
+      }
+    })
     this.setState({ [e.target.name]: e.target.value })
   }
 
@@ -58,7 +93,43 @@ class SkuPromoForm extends React.Component {
     this.setState({isPackOn: e.target.checked, amount: this.amount})
   }
 
+  isFormValid() {
+    if(this.state.amount.toString().length === 0) {
+      this.setState({
+        amountErr: {
+          value: "Amount is required",
+          status: true
+        }
+      })
+      return false
+    } else if(this.state.promoName.toString().length === 0) {
+      this.setState({
+        promoNameErr: {
+          value: "Promo name is required",
+          status: true
+        }
+      })
+      return false
+    } else if(this.state.description.toString().length === 0) {
+      this.setState({
+        descriptionErr: {
+          value: "Description is required",
+          status: true
+        }
+      })
+      return false
+    }
+    return true
+  }
+
+  handleSave() {
+    if(this.isFormValid()) {
+      this.props.handleSave()
+    }
+  }
+
   render() {
+    const {amountErr, promoNameErr, descriptionErr} = this.state
     return (
       <Fragment>
         <Card style={{
@@ -94,11 +165,17 @@ class SkuPromoForm extends React.Component {
           <div className="form-group">
             <label className="label">Amount</label><br/>
             <TextField
-              onChange={this.handleTextFields}
+              onChange={this.handleChangeInAmount}
+              // onKeyUp={(e) => this.handleChangeInAmount(e)}
+              // onKeyPress={(e) => this.handleChangeInAmount(e)}
               name="amount"
               value={this.state.amount}
               style={{ width: '100%' }}
             />
+            {
+              amountErr.status &&
+              <p className="error-message">* {amountErr.value}</p>
+            }
           </div>
 
           <div className="form-group">
@@ -109,6 +186,10 @@ class SkuPromoForm extends React.Component {
               value={this.state.promoName}
               style={{ width: '100%' }}
             />
+            {
+              promoNameErr.status &&
+              <p className="error-message">* {promoNameErr.value}</p>
+            }
           </div>
 
           <div className="form-group">
@@ -119,6 +200,10 @@ class SkuPromoForm extends React.Component {
               value={this.state.description}
               style={{ width: '100%' }}
             />
+            {
+              descriptionErr.status &&
+              <p className="error-message">* {descriptionErr.value}</p>
+            }
           </div>
               
           <div className="form-group">
@@ -136,7 +221,7 @@ class SkuPromoForm extends React.Component {
               label="Save"
               primary
               disabled={this.props.disableSave}
-              onClick={this.props.handleSave}
+              onClick={this.handleSave}
             />
           </div>
         </Card>

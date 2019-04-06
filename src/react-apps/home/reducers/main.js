@@ -44,10 +44,12 @@ const initialState = {
   loadingCampaignStatusList: true,
   loadingCashbackSkuList: true,
   loadingSkuPromoList: true,
+  loadingPromoList: true,
   creatingSkuPromo: true,
   updatingSkuPromo: true,
   cashbackSkuList: [],
   skuPromoList: [],
+  promoList: [],
   campaignStatusList: [],
   campaignList: [],
   brandManagerList: [],
@@ -408,6 +410,14 @@ const actionsMap = {
       loadingSkuPromoList: false,
       skuPromoList: action.data.data,
       skuPromoCount: action.data.count
+    })
+  },
+
+  [ActionTypes.SUCCESS_FETCH_PROMO_LIST]: (state, action) => {
+    return Object.assign({}, state, {
+      loadingPromoList: false,
+      promoList: action.data.data,
+      //skuPromoCount: action.data.count
     })
   },
 

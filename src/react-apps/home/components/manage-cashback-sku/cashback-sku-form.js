@@ -11,10 +11,9 @@ class CashbackSkuForm extends React.Component {
     super(props)
     
     this.state = {
-      skuId: "",
-      offerId: "",
-      price: "",
-      isPackOn: false
+      selectedPromoId: "",
+      skuList: [],
+      skuMap: {}
     }
     
     this.handleTextFields = this.handleTextFields.bind(this)
@@ -29,19 +28,6 @@ class CashbackSkuForm extends React.Component {
     return this.state
   }
 
-  handleTextFields(e) {
-    this.setState({ [e.target.name]: e.target.value })
-  }
-
-  handleStatusChange(e, k) {
-    const selectedStatusIdx = k + 1
-    this.setState({ selectedStatusIdx })
-  }
-
-  handleCheckboxChange(fieldName) {
-    this.setState({[fieldName]: true})
-  }
-
   render() {
     return (
       <Fragment>
@@ -54,16 +40,16 @@ class CashbackSkuForm extends React.Component {
             marginRight: '20px'
           }}
         >
-          <h4 style={{ margin: '0', marginBottom: '40px' }}>Enter Sku Promo Details</h4>
+          <h4 style={{ margin: '0', marginBottom: '40px' }}>Map sku to promo</h4>
 
           <div className="form-group">
-            <label className="label">Campaign ID</label><br />
+            <label className="label">Promo</label><br />
             <SelectField
-              value={this.state.selectedCampaignIdx}
+              value={this.state.selectedPromoId}
               onChange={this.handleSelectChange}
             >
               {
-                this.props.campaignList.map((item, i) => (
+                this.props.promoList.map((item, i) => (
                   <MenuItem
                     value={item.value}
                     key={item.value}
@@ -73,45 +59,7 @@ class CashbackSkuForm extends React.Component {
               }
             </SelectField>
           </div>
-
-          <div className="form-group">
-            <label className="label">Price</label><br/>
-            <TextField
-              onChange={this.handleTextFields}
-              name="campaignName"
-              value={this.state.campaignName}
-              style={{ width: '100%' }}
-            />
-          </div>
-
-          <div className="form-group">
-            <label className="label">Price</label><br/>
-            <TextField
-              onChange={this.handleTextFields}
-              name="campaignName"
-              value={this.state.campaignName}
-              style={{ width: '100%' }}
-            />
-          </div>
-
-          <div className="form-group">
-            <label className="label">Price</label><br/>
-            <TextField
-              onChange={this.handleTextFields}
-              name="campaignName"
-              value={this.state.campaignName}
-              style={{ width: '100%' }}
-            />
-          </div>
-              
-          <div className="form-group">
-            <Checkbox
-              checked={this.state.isPackOn}
-              onChange={this.handleCheckboxChange('isPackOn')}
-              value="isPackOn"
-            />
-          </div>
-
+          
           <div className="form-group">
             <RaisedButton
               label="Save"

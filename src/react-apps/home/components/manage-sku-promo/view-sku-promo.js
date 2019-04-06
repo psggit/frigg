@@ -14,6 +14,7 @@ import {overrideTableStyle} from './../../../utils'
 
 const TableHeaderItems = [
   '',
+  'OFFER_ID',
   'CAMPAIGN ID',
   'AMOUNT',
   'PROMO NAME',
@@ -31,7 +32,7 @@ const styles = [
   { width: '100px' },
   { width: '100px' },
   { width: '100px' },
-  // { width: '100px' },
+  { width: '100px' }
   // { width: '100px' },
   // { width: '100px' }
 ]
@@ -96,14 +97,12 @@ class ViewSkuPromo extends React.Component {
                             Edit
                           </button>
                         </TableRowColumn>
-                        <TableRowColumn style={styles[1]}>{item.campaign_id}</TableRowColumn>
-                        <TableRowColumn style={styles[2]}>{item.amount}</TableRowColumn>
-                        <TableRowColumn style={styles[3]}>{item.promoName}</TableRowColumn>
-                        <TableRowColumn style={styles[4]}>{item.is_on_pack ? "ON" : "OFF"}</TableRowColumn>
-                        <TableRowColumn style={styles[5]}>{item.promo_description}</TableRowColumn>
-                        {/* <TableRowColumn style={styles[6]}>{item.percentage}</TableRowColumn>
-                        <TableRowColumn style={styles[7]}>{item.service_charge_percentage}</TableRowColumn>
-                        <TableRowColumn style={styles[8]}>{item.service_charge_flat}</TableRowColumn> */}
+                        <TableRowColumn style={styles[1]}>{item.id}</TableRowColumn>
+                        <TableRowColumn style={styles[2]}>{item.campaign_id}</TableRowColumn>
+                        <TableRowColumn style={styles[3]}>{item.amount}</TableRowColumn>
+                        <TableRowColumn style={styles[4]}>{item.promoName}</TableRowColumn>
+                        <TableRowColumn style={styles[5]}>{item.is_on_pack ? "ON" : "OFF"}</TableRowColumn>
+                        <TableRowColumn style={styles[6]}>{item.promo_description}</TableRowColumn>
                       </TableRow> 
                     )
                   })

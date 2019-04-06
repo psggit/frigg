@@ -64,10 +64,13 @@ import UpdateUserPromos from "./../components/manage-user-specific-promos/update
 import ManageCampaign from './../container/manage-campaign'
 import CreateCampaign from './../components/manage-campaign/create-campaign'
 import UpdateCampaign from './../components/manage-campaign/edit-campaign'
-import ManageCashbackSku from "./../container/manage-cashback-sku"
+import ViewPromoList from "./../container/manage-cashback-sku"
+import ViewCashbackSkuList from "../components/manage-cashback-sku/mapped-sku-to-promo"
+import MapSkuToPromo from "./../components/manage-cashback-sku/create-cashback-sku"
 import ManageSkuPromo from "./../container/manage-sku-promo"
 import CreateSkuPromo from "./../components/manage-sku-promo/create-sku-promo"
 import UpdateSkuPromo from "./../components/manage-sku-promo/edit-sku-promo"
+
 // import '@sass/components/_heading.scss'
 
 import asyncComponent from './../../asyncComponent'
@@ -255,9 +258,11 @@ class App extends React.Component {
                       <Route exact path="/home/manage-sku-promo/create" component={CreateSkuPromo} />
                       <Route exact path="/home/manage-sku-promo/edit/:promoId" component={UpdateSkuPromo} />
 
-                      <Route exact path="/home/manage-cashback-sku" component={ManageCashbackSku} />
-                      {/* <Route exact path="/home/manage-cashback-sku/create" component={CreatePromo} />
-                      <Route exact path="/home/manage-cashback-sku/edit/:cashbackSkuId" component={UpdateCampaign} /> */} */}
+                      <Route exact path="/home/manage-cashback-sku" component={ViewPromoList} />
+                      <Route exact path="/home/manage-cashback-sku/map-sku-to-promo" component={MapSkuToPromo} />
+                      <Route exact path="/home/manage-cashback-sku/:offerId" component={ViewCashbackSkuList} />
+                    
+                       {/*<Route exact path="/home/manage-cashback-sku/edit/:offerId" component={UpdateCampaign} /> */}
                     </Switch>
                 </DisplayScreen>
               </div>
