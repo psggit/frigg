@@ -67,6 +67,7 @@ import UpdateCampaign from './../components/manage-campaign/edit-campaign'
 import ManageCashbackSku from "./../container/manage-cashback-sku"
 import ManageSkuPromo from "./../container/manage-sku-promo"
 import CreateSkuPromo from "./../components/manage-sku-promo/create-sku-promo"
+import UpdateSkuPromo from "./../components/manage-sku-promo/edit-sku-promo"
 // import '@sass/components/_heading.scss'
 
 import asyncComponent from './../../asyncComponent'
@@ -252,7 +253,7 @@ class App extends React.Component {
 
                       <Route exact path="/home/manage-sku-promo" component={ManageSkuPromo} />
                       <Route exact path="/home/manage-sku-promo/create" component={CreateSkuPromo} />
-                      {/* <Route exact path="/home/manage-sku/edit/:cashbackSkuId" component={UpdateCampaign} /> */}
+                      <Route exact path="/home/manage-sku-promo/edit/:promoId" component={UpdateSkuPromo} />
 
                       <Route exact path="/home/manage-cashback-sku" component={ManageCashbackSku} />
                       {/* <Route exact path="/home/manage-cashback-sku/create" component={CreatePromo} />

@@ -45,6 +45,7 @@ const initialState = {
   loadingCashbackSkuList: true,
   loadingSkuPromoList: true,
   creatingSkuPromo: true,
+  updatingSkuPromo: true,
   cashbackSkuList: [],
   skuPromoList: [],
   campaignStatusList: [],
@@ -434,6 +435,12 @@ const actionsMap = {
   [ActionTypes.SUCCESS_UPDATE_CAMPAIGN]: (state, action) => {
     return Object.assign({}, state, {
       updatingCampaign: false,
+    })
+  },
+
+  [ActionTypes.SUCCESS_UPDATE_SKU_PROMO]: (state, action) => {
+    return Object.assign({}, state, {
+      updatingSkuPromo: false,
     })
   },
 

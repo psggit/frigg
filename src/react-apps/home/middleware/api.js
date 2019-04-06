@@ -586,9 +586,21 @@ export const fetchCashbackSkuList = action => (
   })
     .then(json => json)
 )
+
 export const createSkuPromo = action => (
   POST({
     api: '/cashback/createCashbackOffer',
+    apiBase: 'odin',
+    data: action.data,
+    handleError: true
+  })
+    .then(json => json)
+)
+
+
+export const updateSkuPromo = action => (
+  POST({
+    api: '/cashback/updateCashbackOffer',
     apiBase: 'odin',
     data: action.data,
     handleError: true

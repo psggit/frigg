@@ -1046,6 +1046,22 @@ function* createSkuPromo(action) {
     const data = yield call(Api.createSkuPromo, action)
     Notify('Successfully created promo', 'success')
     yield put({ type: ActionTypes.SUCCESS_CREATE_SKU_PROMO, data })
+    setTimeout(() => {
+      window.location.href = '/home/manage-sku-promo'
+    }, 1000)
+  } catch(err) {
+    console.log(err)
+  }
+}
+
+function* updateSkuPromo(action) {
+  try {
+    const data = yield call(Api.updateSkuPromo, action)
+    Notify('Successfully updated promo', 'success')
+    yield put({ type: ActionTypes.SUCCESS_UPDATE_SKU_PROMO, data })
+    setTimeout(() => {
+      window.location.href = '/home/manage-sku-promo'
+    }, 1000)
   } catch(err) {
     console.log(err)
   }
@@ -1559,6 +1575,12 @@ function* watchRequestCreateSkuPromo() {
   }
 }
 
+function* watchRequestUpdateSkuPromo() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_UPDATE_SKU_PROMO, updateSkuPromo)
+  }
+}
+
 function* watchRequestFetchSkuPromoList() {
   while (true) {
     yield* takeLatest(ActionTypes.REQUEST_FETCH_SKU_PROMO_LIST, fetchSkuPromoList)
@@ -1716,6 +1738,8 @@ export default function* rootSaga() {
     fork(watchRequestUpdateCampaign),
     fork(watchRequestFetchCampaignStatusList),
     fork(watchRequestFetchCashbackSkuList),
-    fork(watchRequestFetchSkuPromoList)
+    fork(watchRequestFetchSkuPromoList),
+    fork(watchRequestCreateSkuPromo),
+    fork(watchRequestUpdateSkuPromo)
   ]
 }

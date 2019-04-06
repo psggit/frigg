@@ -27,10 +27,12 @@ class CreateSkuPromo extends React.Component {
   }
 
   successCampaignCallback() {
-    const campaignList = this.props.campaignList.map((item) => {
+    const campaignList = this.props.campaignList.map((item, i) => {
       return {
-        value: item.id,
-        text: item.name
+        //value: i,
+        text: item.name,
+        value: item.id
+        //id: item.id
       }
     })
     console.log("campaign list", campaignList)
@@ -40,7 +42,7 @@ class CreateSkuPromo extends React.Component {
   formIsValid() {
     const skuPromoForm = this.skuPromoForm.getData()
 
-    if (skuPromoForm.selectedCampaignIdx.length === 0) {
+    if (skuPromoForm.selectedCampaignId.length === 0) {
       return false
     } else if (skuPromoForm.promoName.toString().length === 0) {
       return false
@@ -57,10 +59,10 @@ class CreateSkuPromo extends React.Component {
 
   handleSave() {
     const skuPromoForm = this.skuPromoForm.getData()
-    console.log("form data", campaignForm)
+    console.log("form data", skuPromoForm)
     if (this.formIsValid()) {
       this.props.actions.createSkuPromo({
-        campaign_id: skuPromoForm.selectedCampaignIdx,
+        campaign_id: skuPromoForm.selectedCampaignId,
         amount: skuPromoForm.amount,
         promoName: skuPromoForm.promoName,
         promo_description: skuPromoForm.description,

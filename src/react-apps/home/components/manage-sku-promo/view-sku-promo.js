@@ -19,9 +19,9 @@ const TableHeaderItems = [
   'PROMO NAME',
   'IS PACK ON',
   'PROMO DESCRIPTION',
-  'PERCENTAGE',
-  'SERVICE CHARGE PERCENTAGE',
-  "SERVICE CHARGE FLAT"
+  // 'PERCENTAGE',
+  // 'SERVICE CHARGE PERCENTAGE',
+  // "SERVICE CHARGE FLAT"
 ]
 
 const styles = [
@@ -31,9 +31,9 @@ const styles = [
   { width: '100px' },
   { width: '100px' },
   { width: '100px' },
-  { width: '100px' },
-  { width: '100px' },
-  { width: '100px' }
+  // { width: '100px' },
+  // { width: '100px' },
+  // { width: '100px' }
 ]
 
 class ViewSkuPromo extends React.Component {
@@ -101,9 +101,9 @@ class ViewSkuPromo extends React.Component {
                         <TableRowColumn style={styles[3]}>{item.promoName}</TableRowColumn>
                         <TableRowColumn style={styles[4]}>{item.is_on_pack ? "ON" : "OFF"}</TableRowColumn>
                         <TableRowColumn style={styles[5]}>{item.promo_description}</TableRowColumn>
-                        <TableRowColumn style={styles[6]}>{item.percentage}</TableRowColumn>
+                        {/* <TableRowColumn style={styles[6]}>{item.percentage}</TableRowColumn>
                         <TableRowColumn style={styles[7]}>{item.service_charge_percentage}</TableRowColumn>
-                        <TableRowColumn style={styles[8]}>{item.service_charge_flat}</TableRowColumn>
+                        <TableRowColumn style={styles[8]}>{item.service_charge_flat}</TableRowColumn> */}
                       </TableRow> 
                     )
                   })

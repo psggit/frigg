@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react'
 import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
+//import FormControlLabel from 'material-ui/FormControlLabel'
 import { Card } from 'material-ui/Card'
 import SelectField from 'material-ui/SelectField'
 import Checkbox from 'material-ui/Checkbox'
@@ -12,11 +13,12 @@ class SkuPromoForm extends React.Component {
     super(props)
     
     this.state = {
-      selectedCampaignIdx: "",
-      promoName: "",
-      amount: "",
-      description: "",
-      isPackOn: false
+      //selectedCampaignIdx: "",
+      selectedCampaignId: props.data ? props.data.campaign_id : "",
+      promoName: props.data ? props.data.promoName : "",
+      amount: props.data ? props.data.amount : "",
+      description: props.data ? props.data.promo_description : "",
+      isPackOn: props.data ? props.data.is_on_pack : false
     }
     
     this.handleTextFields = this.handleTextFields.bind(this)
@@ -27,11 +29,9 @@ class SkuPromoForm extends React.Component {
 
 
   componentWillReceiveProps(newProps) {
-    console.log("pros", newProps)
     if(newProps.campaignList !== this.props.campaignList) {
-      //console.log("props", newProps.brandManagerList[0])
-      if(this.state.selectedCampaignIdx.toString().length === 0) {
-        this.setState({selectedCampaignIdx: newProps.campaignList[0].value})
+      if(this.state.selectedCampaignId.toString().length === 0) {
+        this.setState({selectedCampaignId: newProps.campaignList[0].value})
       }
     }
   }
@@ -45,12 +45,17 @@ class SkuPromoForm extends React.Component {
   }
 
   handleStatusChange(e, k) {
-    const selectedStatusIdx = k + 1
-    this.setState({ selectedStatusIdx })
+    //const selectedCampaignIdx = k
+    this.setState({ selectedCampaignId: this.props.campaignList[k].value })
   }
 
-  handleCheckboxChange(fieldName) {
-    this.setState({[fieldName]: true})
+  handleCheckboxChange(e) {
+    if(e.target.checked) {
+      this.amount = this.state.amount
+      this.setState({isPackOn: e.target.checked, amount: 0})
+      return
+    } 
+    this.setState({isPackOn: e.target.checked, amount: this.amount})
   }
 
   render() {
@@ -70,8 +75,9 @@ class SkuPromoForm extends React.Component {
           <div className="form-group">
             <label className="label">Campaign ID</label><br />
             <SelectField
-              value={this.state.selectedCampaignIdx}
-              onChange={this.handleSelectChange}
+              value={this.state.selectedCampaignId}
+              onChange={this.handleStatusChange}
+              disabled={this.props.isDisabled}
             >
               {
                 this.props.campaignList.map((item, i) => (
@@ -89,7 +95,7 @@ class SkuPromoForm extends React.Component {
             <label className="label">Amount</label><br/>
             <TextField
               onChange={this.handleTextFields}
-              name="price"
+              name="amount"
               value={this.state.amount}
               style={{ width: '100%' }}
             />
@@ -99,7 +105,7 @@ class SkuPromoForm extends React.Component {
             <label className="label">Promo Name</label><br/>
             <TextField
               onChange={this.handleTextFields}
-              name="campaignName"
+              name="promoName"
               value={this.state.promoName}
               style={{ width: '100%' }}
             />
@@ -109,8 +115,8 @@ class SkuPromoForm extends React.Component {
             <label className="label">Promo Description</label><br/>
             <TextField
               onChange={this.handleTextFields}
-              name="campaignName"
-              value={this.state.promoDescription}
+              name="description"
+              value={this.state.description}
               style={{ width: '100%' }}
             />
           </div>
@@ -118,8 +124,10 @@ class SkuPromoForm extends React.Component {
           <div className="form-group">
             <Checkbox
               checked={this.state.isPackOn}
-              onChange={() => this.handleCheckboxChange('isPackOn')}
+              onCheck={(e) => this.handleCheckboxChange(e)}
               value="isPackOn"
+              name="isPackOn"
+              label="is_open_on"
             />
           </div>
 
