@@ -64,9 +64,9 @@ class CampaignForm extends React.Component {
   }
 
   handleBrandManagerChange(e, k) {
-    console.log("brand manaer", k)
+    console.log("brand manaer", k, this.props.brandManagerList[k])
     const selectedBrandManagerIdx = k
-    this.setState({ selectedBrandManagerIdx })
+    this.setState({ selectedBrandManagerIdx: this.props.brandManagerList[k].value })
   }
 
   handleDate(e) {
@@ -95,6 +95,7 @@ class CampaignForm extends React.Component {
               name="campaignName"
               value={this.state.campaignName}
               style={{ width: '100%' }}
+              disabled={this.props.isDisabled}
             />
           </div>
         
