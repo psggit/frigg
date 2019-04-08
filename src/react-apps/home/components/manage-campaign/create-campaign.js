@@ -54,7 +54,7 @@ class CreateCampaign extends React.Component {
 
   handleSave() {
     const campaignForm = this.campaignForm.getData()
-    console.log("form data", campaignForm)
+    //console.log("form data", campaignForm)
     if (this.formIsValid()) {
       this.props.actions.createCampaign({
         name: campaignForm.campaignName,

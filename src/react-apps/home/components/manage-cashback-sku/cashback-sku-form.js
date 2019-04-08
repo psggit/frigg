@@ -21,9 +21,6 @@ class CashbackSkuForm extends React.Component {
     this.handleCheckboxChange = this.handleCheckboxChange.bind(this)
   }
 
-  // componentWillReceiveProps(newProps) {
-  // }
-
   getData() {
     return this.state
   }

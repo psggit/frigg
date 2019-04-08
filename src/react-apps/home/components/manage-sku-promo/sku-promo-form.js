@@ -165,7 +165,7 @@ class SkuPromoForm extends React.Component {
           <div className="form-group">
             <label className="label">Amount</label><br/>
             <TextField
-              onChange={this.handleChangeInAmount}
+              onChange={this.handleTextFields}
               // onKeyUp={(e) => this.handleChangeInAmount(e)}
               // onKeyPress={(e) => this.handleChangeInAmount(e)}
               name="amount"

@@ -12,7 +12,7 @@ class CreateSkuPromo extends React.Component {
       campaignList: []
     }
     this.handleSave = this.handleSave.bind(this)
-    this.formIsValid = this.formIsValid.bind(this)
+    //this.formIsValid = this.formIsValid.bind(this)
     this.successCampaignCallback = this.successCampaignCallback.bind(this)
   }
 
@@ -39,28 +39,28 @@ class CreateSkuPromo extends React.Component {
     this.setState({campaignList})
   }
 
-  formIsValid() {
-    const skuPromoForm = this.skuPromoForm.getData()
+  // formIsValid() {
+  //   const skuPromoForm = this.skuPromoForm.getData()
 
-    if (skuPromoForm.selectedCampaignId.length === 0) {
-      return false
-    } else if (skuPromoForm.promoName.toString().length === 0) {
-      return false
-    } else if (skuPromoForm.amount.toString().length === 0) {
-      return false
-    } else if (skuPromoForm.description.toString().length === 0) {
-      return false
-    } else if (skuPromoForm.isPackOn.toString().length === 0) {
-      return false
-    }
+  //   if (skuPromoForm.selectedCampaignId.length === 0) {
+  //     return false
+  //   } else if (skuPromoForm.promoName.toString().length === 0) {
+  //     return false
+  //   } else if (skuPromoForm.amount.toString().length === 0) {
+  //     return false
+  //   } else if (skuPromoForm.description.toString().length === 0) {
+  //     return false
+  //   } else if (skuPromoForm.isPackOn.toString().length === 0) {
+  //     return false
+  //   }
 
-    return true
-  }
+  //   return true
+  // }
 
   handleSave() {
     const skuPromoForm = this.skuPromoForm.getData()
     console.log("form data", skuPromoForm)
-    if (this.formIsValid()) {
+    //if (this.formIsValid()) {
       this.props.actions.createSkuPromo({
         campaign_id: skuPromoForm.selectedCampaignId,
         amount: parseInt(skuPromoForm.amount),
@@ -68,7 +68,7 @@ class CreateSkuPromo extends React.Component {
         promo_description: skuPromoForm.description,
         is_on_pack: skuPromoForm.isPackOn === 1 ? true : false
       })
-    }
+    //}
   }
 
   render() {

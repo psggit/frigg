@@ -14,13 +14,21 @@ class CampaignForm extends React.Component {
       campaignName: props.data ? props.data.name : "",
       activeFrom: props.data ? (props.data.active_from).slice(0,16) : "",
       activeTo: props.data ? (props.data.active_to).slice(0,16) : "",
-      // fundsCredits: props.data ? props.data.funds_credited : "",
-      // budgetedAmount: props.data ? props.data.budgeted_amount : "",
       selectedBrandManagerIdx: props.data ? props.data.brand_manager_id : "",
-      //type: props.data ? props.data.type : "",
-      //orderType: props.data ? props.data.order_type : "",
       status: "",
-      selectedStatusIdx: props.data ? props.data.Status === 'active' ? 1 : 2 : 1
+      selectedStatusIdx: props.data ? props.data.Status === 'active' ? 1 : 2 : 1,
+      campaignNameErr: {
+        value: "",
+        status: false
+      },
+      activeFromErr: {
+        value: "",
+        status: false
+      },
+      activeToErr: {
+        value: "",
+        status: false
+      }
     }
 
     this.campaignStatus = [
@@ -28,22 +36,17 @@ class CampaignForm extends React.Component {
       { text: 'Inactive', value: 2 },
     ]
 
-    // this.brandManagerList = [
-    //   { text: "abc@gmail.com", value: 21 },
-    //   { text: "jki@gmail.com", value: 22 }
-    // ]
-    
     this.handleTextFields = this.handleTextFields.bind(this)
     this.getData = this.getData.bind(this)
     this.handleDate = this.handleDate.bind(this)
     this.handleStatusChange = this.handleStatusChange.bind(this)
     this.handleBrandManagerChange = this.handleBrandManagerChange.bind(this)
+    this.isFormValid = this.isFormValid.bind(this)
+    this.handleSave = this.handleSave.bind(this)
   }
 
   componentWillReceiveProps(newProps) {
-    //console.log("mount", this.props)
     if(newProps.brandManagerList !== this.props.brandManagerList) {
-      //console.log("props", newProps.brandManagerList[0])
       if(this.state.selectedBrandManagerIdx.toString().length === 0) {
         this.setState({selectedBrandManagerIdx: newProps.brandManagerList[0].value})
       }
@@ -55,6 +58,13 @@ class CampaignForm extends React.Component {
   }
 
   handleTextFields(e) {
+    const errName = `${e.target.name}Err`
+    this.setState({
+      [errName] : {
+        value: "",
+        status: false
+      }
+    })
     this.setState({ [e.target.name]: e.target.value })
   }
 
@@ -70,12 +80,56 @@ class CampaignForm extends React.Component {
   }
 
   handleDate(e) {
+    const errName = `${e.target.name}Err`
+    this.setState({
+      [errName] : {
+        value: "",
+        status: false
+      }
+    })
     const d = new Date(e.target.value)
     this.setState({ [e.target.name]: d.toISOString() })
   }
 
+  isFormValid() {
+    if (this.state.campaignName.length === 0) {
+      this.setState({
+        campaignNameErr: {
+          value: "Campaign name is required",
+          status: true
+        }
+      })
+      return false
+    } else if (this.state.activeFrom.toString().length === 0) {
+      this.setState({
+        activeFromErr: {
+          value: "Active from is required",
+          status: true
+        }
+      })
+      return false
+    } else if (this.state.activeTo.toString().length === 0) {
+      this.setState({
+        activeToErr: {
+          value: "Active to is required",
+          status: true
+        }
+      })
+      return false
+    }
+
+    return true
+  }
+
+  handleSave() {
+    if(this.isFormValid()) {
+      this.props.handleSave()
+    }
+  }
+
   render() {
     console.log("props", this.props, "date", this.state.selectedBrandManagerIdx)
+    const {activeFromErr, activeToErr, campaignNameErr} = this.state
     return (
       <Fragment>
         <Card style={{
@@ -97,6 +151,10 @@ class CampaignForm extends React.Component {
               style={{ width: '100%' }}
               disabled={this.props.isDisabled}
             />
+            {
+              campaignNameErr.status &&
+              <p className="error-message">* {campaignNameErr.value}</p>
+            }
           </div>
         
           <div className="form-group" style={{ width: '100%' }}>
@@ -116,6 +174,10 @@ class CampaignForm extends React.Component {
               }}
               name="activeFrom"
             />
+            {
+              activeFromErr.status &&
+              <p className="error-message">* {activeFromErr.value}</p>
+            }
           </div>
 
           <div className="form-group" style={{ width: '100%' }}>
@@ -135,6 +197,10 @@ class CampaignForm extends React.Component {
               }}
               name="activeTo"
             />
+            {
+              activeToErr.status &&
+              <p className="error-message">* {activeToErr.value}</p>
+            }
           </div>
 
           <div className="form-group">
@@ -178,7 +244,7 @@ class CampaignForm extends React.Component {
               label="Save"
               primary
               disabled={this.props.disableSave}
-              onClick={this.props.handleSave}
+              onClick={this.handleSave}
             />
           </div>
         </Card>
