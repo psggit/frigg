@@ -184,6 +184,11 @@ export const fetchDPLocalityMap = data => ({
   data
 })
 
+export const fetchSkuList = data => ({
+  type: ActionTypes.REQUEST_FETCH_SKU_LIST,
+  data
+})
+
 export const deleteRetailerFromDpMap = data => ({
   type: ActionTypes.REQUEST_DELETE_RETAILER_FROM_DP_MAP,
   data

@@ -52,33 +52,23 @@ class MapSkuToPromo extends React.Component {
   }
 
   formIsValid() {
-    const skuPromoForm = this.skuPromoForm.getData()
+    const cashbackSkuForm = this.cashbackSkuForm.getData()
 
-    if (skuPromoForm.selectedCampaignId.length === 0) {
+    if (cashbackSkuForm.selectedPromoId.toString().length === 0) {
       return false
-    } else if (skuPromoForm.promoName.toString().length === 0) {
-      return false
-    } else if (skuPromoForm.amount.toString().length === 0) {
-      return false
-    } else if (skuPromoForm.description.toString().length === 0) {
-      return false
-    } else if (skuPromoForm.isPackOn.toString().length === 0) {
+    } else if (cashbackSkuForm.selectedStateId.toString().length === 0) {
       return false
     }
-
     return true
   }
 
   handleSave() {
-    const skuPromoForm = this.skuPromoForm.getData()
-    console.log("form data", skuPromoForm)
+    const cashbackSkuForm = this.cashbackSkuForm.getData()
+    console.log("form data", cashbackSkuForm)
     if (this.formIsValid()) {
-      this.props.actions.createSkuPromo({
-        campaign_id: skuPromoForm.selectedCampaignId,
-        amount: parseInt(skuPromoForm.amount),
-        promoName: skuPromoForm.promoName,
-        promo_description: skuPromoForm.description,
-        is_on_pack: skuPromoForm.isPackOn === 1 ? true : false
+      this.props.actions.fetchSkuList({
+        offer_id: selectedPromoId,
+        state_id: selectedStateId
       })
     }
   }
@@ -89,6 +79,7 @@ class MapSkuToPromo extends React.Component {
       <React.Fragment>
         <h4 style={{ margin: '0', marginBottom: '40px' }}>Map sku to promo</h4>
         <CashbackSkuForm 
+          ref={(node) => { this.cashbackSkuForm = node }}
           promoList = {this.state.promoList}
           stateList = {this.state.stateList}
         />

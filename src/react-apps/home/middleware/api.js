@@ -586,6 +586,16 @@ export const updateUserSpecificPromo = action => (
     .then(json => json)
 )
 
+export const fetchSkuList = action => (
+  POST({
+    api: '/cashbackOfferSku/listSku',
+    apiBase: 'odin',
+    data: action.data,
+    handleError: true
+  })
+    .then(json => json)
+)
+
 export const fetchCashbackSkuList = action => (
   POST({
     api: '/cashbackOfferSku/listSku',
