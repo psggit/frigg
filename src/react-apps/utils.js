@@ -23,6 +23,15 @@ export function checkCtrlV(e) {
   return false
 }
 
+export function checkCtrlC(e) {
+  if (e.ctrlKey) {
+    if (e.keyCode ==67 || e.keyCode == 99) {
+      return true
+    }
+  }
+  return false
+}
+
 export function validateFloatKeyPress(evt) {
   var charCode = (evt.which) ? evt.which : event.keyCode;
   var number = evt.target.value.split('.');

@@ -12,13 +12,32 @@ class CashbackSkuForm extends React.Component {
     
     this.state = {
       selectedPromoId: "",
-      skuList: [],
-      skuMap: {}
+      selectedStateId: "",
+      stateList: [],
+      promoList: []
     }
-    
-    this.handleTextFields = this.handleTextFields.bind(this)
+  
     this.getData = this.getData.bind(this)
-    this.handleCheckboxChange = this.handleCheckboxChange.bind(this)
+    this.handlePromoChange = this.handlePromoChange.bind(this)
+    this.handleStateChange = this.handleStateChange.bind(this)
+  }
+
+  componentWillReceiveProps(newProps) {
+    if(this.props.promoList !== newProps.promoList) {
+      this.setState({promoList: newProps.promoList, selectedPromoId: newProps.promoList[0].value})
+    }
+
+    if(this.props.stateList !== newProps.stateList) {
+      this.setState({stateList: newProps.stateList, selectedStateId: newProps.stateList[0].value})
+    }
+  }
+
+  handlePromoChange(e, k) {
+    this.setState({ selectedPromoId: this.state.promoList[k].value })
+  }
+
+  handleStateChange(e, k) {
+    this.setState({ selectedStateId: this.state.stateList[k].value })
   }
 
   getData() {
@@ -37,34 +56,48 @@ class CashbackSkuForm extends React.Component {
             marginRight: '20px'
           }}
         >
-          <h4 style={{ margin: '0', marginBottom: '40px' }}>Map sku to promo</h4>
-
           <div className="form-group">
-            <label className="label">Promo</label><br />
-            <SelectField
-              value={this.state.selectedPromoId}
-              onChange={this.handleSelectChange}
-            >
-              {
-                this.props.promoList.map((item, i) => (
-                  <MenuItem
-                    value={item.value}
-                    key={item.value}
-                    primaryText={item.text}
-                  />
-                ))
-              }
-            </SelectField>
-          </div>
-          
-          <div className="form-group">
-            <RaisedButton
-              label="Save"
-              primary
-              disabled={this.props.disableSave}
-              onClick={this.props.handleSave}
-            />
-          </div>
+          <label className="label">Promo</label><br />
+          <SelectField
+            value={this.state.selectedPromoId}
+            onChange={this.handlePromoChange}
+          >
+            {
+              this.state.promoList.map((item, i) => (
+                <MenuItem
+                  value={item.value}
+                  key={item.value}
+                  primaryText={item.text}
+                />
+              ))
+            }
+          </SelectField>
+        </div>
+        <div className="form-group">
+          <label className="label">State</label><br />
+          <SelectField
+            value={this.state.selectedStateId}
+            onChange={this.handleStateChange}
+          >
+            {
+              this.state.stateList.map((item, i) => (
+                <MenuItem
+                  value={item.value}
+                  key={item.value}
+                  primaryText={item.text}
+                />
+              ))
+            }
+          </SelectField>
+        </div>
+        <div className="form-group">
+          <RaisedButton
+            label="Get sku's mapped to promo"
+            primary
+            disabled={this.props.disableSave}
+            onClick={this.props.handleSave}
+          />
+        </div>
         </Card>
       </Fragment>
     )

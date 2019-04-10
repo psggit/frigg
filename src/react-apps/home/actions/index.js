@@ -4,6 +4,12 @@ export const fetchStates = () => ({
   type: ActionTypes.REQUEST_FETCH_STATES
 })
 
+export const fetchStateList = (data, CB) => ({
+  type: ActionTypes.REQUEST_FETCH_STATE_LIST,
+  data,
+  CB
+})
+
 export const fetchCities = data => ({
   type: ActionTypes.REQUEST_FETCH_CITIES,
   data

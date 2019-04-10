@@ -47,6 +47,8 @@ const initialState = {
   loadingPromoList: true,
   creatingSkuPromo: true,
   updatingSkuPromo: true,
+  loadingStateList: true,
+  stateList: [],
   cashbackSkuList: [],
   skuPromoList: [],
   promoList: [],
@@ -100,6 +102,13 @@ const actionsMap = {
     return Object.assign({}, state, {
       loadingStates: false,
       statesData: action.data.states
+    })
+  },
+
+  [ActionTypes.SUCCESS_FETCH_STATE_LIST]: (state, action) => {
+    return Object.assign({}, state, {
+      loadingStateList: false,
+      stateList: action.data.states
     })
   },
 

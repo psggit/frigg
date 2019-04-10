@@ -16,6 +16,16 @@ function* fetchStates(action) {
   }
 }
 
+function* fetchStateList(action) {
+  try {
+    const data = yield call(Api.fetchStateList, action)
+    yield put({ type: ActionTypes.SUCCESS_FETCH_STATE_LIST, data })
+    action.CB()
+  } catch (err) {
+    console.log(err)
+  }
+}
+
 function* fetchDeliverers(action) {
   try {
     const data = yield call(Api.fetchDeliverers, action)
@@ -1106,6 +1116,12 @@ function* watchFetchStates() {
   }
 }
 
+function* watchFetchStateList() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_FETCH_STATE_LIST, fetchStateList)
+  }
+}
+
 function* watchFetchCities() {
   while (true) {
     yield* takeLatest(ActionTypes.REQUEST_FETCH_CITIES, fetchCities)
@@ -1758,6 +1774,7 @@ export default function* rootSaga() {
     fork(watchRequestFetchSkuPromoList),
     fork(watchRequestFetchPromoList),
     fork(watchRequestCreateSkuPromo),
-    fork(watchRequestUpdateSkuPromo)
+    fork(watchRequestUpdateSkuPromo),
+    fork(watchFetchStateList)
   ]
 }

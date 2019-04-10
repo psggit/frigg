@@ -2,27 +2,28 @@ import React from "react"
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as Actions from './../../actions/index'
-import SelectField from 'material-ui/SelectField'
-import MenuItem from 'material-ui/MenuItem'
-
+import CashbackSkuForm from "./cashback-sku-form"
 
 class MapSkuToPromo extends React.Component {
   constructor() {
     super()
     this.state = {
       promoList: [],
-      selectedPromoId: ""
+      stateList: [],
+      // selectedPromoId: "",
+      // selectedStateId: ""
     }
     this.handleSave = this.handleSave.bind(this)
     this.formIsValid = this.formIsValid.bind(this)
-    this.handleSelectChange = this.handleSelectChange.bind(this)
     this.successPromoListCallback = this.successPromoListCallback.bind(this)
+    this.successStateCallback = this.successStateCallback.bind(this)
   }
 
   componentDidMount() {
     this.props.actions.setLoadingState('mappingPromoToSku')
     this.props.actions.fetchPromoList({
     }, this.successPromoListCallback)
+    this.props.actions.fetchStateList({}, this.successStateCallback)
     //this.props.actions.
   }
 
@@ -36,7 +37,18 @@ class MapSkuToPromo extends React.Component {
       }
     })
     console.log("promo list", promoList)
-    this.setState({promoList, selectedPromoId: promoList[0].value})
+    this.setState({promoList})
+  }
+
+  successStateCallback() {
+    const stateList = this.props.stateList.map((item, i) => {
+      return {
+        text: item.state_name,
+        value: item.state_id
+      }
+    })
+    console.log("state list", stateList)
+    this.setState({stateList})
   }
 
   formIsValid() {
@@ -57,12 +69,6 @@ class MapSkuToPromo extends React.Component {
     return true
   }
 
-  handleSelectChange(e, k) {
-    //console.log("brand manaer", k, this.state.promoList[k])
-    const selectedPromoId = k
-    this.setState({ selectedPromoId: this.state.promoList[k].value })
-  }
-
   handleSave() {
     const skuPromoForm = this.skuPromoForm.getData()
     console.log("form data", skuPromoForm)
@@ -78,28 +84,14 @@ class MapSkuToPromo extends React.Component {
   }
 
   render() {
+    console.log("props", this.props)
     return (
       <React.Fragment>
         <h4 style={{ margin: '0', marginBottom: '40px' }}>Map sku to promo</h4>
-
-        <div className="form-group">
-          <label className="label">Promo</label><br />
-          <SelectField
-            value={this.state.selectedPromoId}
-            onChange={this.handleSelectChange}
-          >
-            {
-              this.state.promoList.map((item, i) => (
-                <MenuItem
-                  value={item.value}
-                  key={item.value}
-                  primaryText={item.text}
-                />
-              ))
-            }
-          </SelectField>
-
-        </div>
+        <CashbackSkuForm 
+          promoList = {this.state.promoList}
+          stateList = {this.state.stateList}
+        />
       </React.Fragment>
     )
   }

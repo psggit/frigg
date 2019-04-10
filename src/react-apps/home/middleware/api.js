@@ -9,6 +9,15 @@ export const fetchStates = action => (
     .then(json => json)
 )
 
+export const fetchStateList = action => (
+  POST({
+    api: '/Api/listStates',
+    apiBase: 'retailer',
+    handleError: true
+  })
+    .then(json => json)
+)
+
 export const fetchCities = action => (
   POST({
     api: '/cityManagement/listCities',

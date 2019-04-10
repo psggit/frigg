@@ -7,7 +7,7 @@ import SelectField from 'material-ui/SelectField'
 import Checkbox from 'material-ui/Checkbox'
 import MenuItem from 'material-ui/MenuItem'
 import Moment from 'moment'
-import { validateNumType, checkCtrlA, checkCtrlV, validateFloatKeyPress } from './../../../utils'
+import { validateNumType, checkCtrlA, checkCtrlV, checkCtrlC } from './../../../utils'
 
 class SkuPromoForm extends React.Component {
   constructor(props) {
@@ -17,7 +17,7 @@ class SkuPromoForm extends React.Component {
       //selectedCampaignIdx: "",
       selectedCampaignId: props.data ? props.data.campaign_id : "",
       promoName: props.data ? props.data.promoName : "",
-      amount: props.data ? props.data.amount : "",
+      amount: props.data ? props.data.amount : 0,
       description: props.data ? props.data.promo_description : "",
       isPackOn: props.data ? props.data.is_on_pack : false,
       amountErr: {
@@ -40,7 +40,7 @@ class SkuPromoForm extends React.Component {
     this.handleCheckboxChange = this.handleCheckboxChange.bind(this)
     this.isFormValid = this.isFormValid.bind(this)
     this.handleSave = this.handleSave.bind(this)
-    //this.handleChangeInAmount = this.handleChangeInAmount.bind(this)
+    this.handleChangeInAmount = this.handleChangeInAmount.bind(this)
   }
 
 
@@ -56,17 +56,16 @@ class SkuPromoForm extends React.Component {
     return this.state
   }
 
-  // handleChangeInAmount(e) {
-  //   //const errName = `${e.target.name}Err`
-  //   //const fnExp = eval(`this.validate${this.inputNameMap[e.target.name]}`)
-  //   if((validateNumType(e.keyCode) || checkCtrlA(e) || checkCtrlV(e))) {
-  //     console.log("if", e.target.name, e.target.value)
-  //     this.setState({ 
-  //       [e.target.name]: (e.target.value),
-  //       //[errName]: fnExp(e.target.value)
-  //     })
-  //   }
-  // }
+  handleChangeInAmount(e) {
+    if((validateNumType(e.keyCode) || checkCtrlA(e) || checkCtrlV(e)) || checkCtrlC(e)) {
+      this.setState({ 
+        amount: (e.target.value),
+      })
+     
+    } else {
+      e.preventDefault()
+    }
+  }
 
   handleTextFields(e) {
     const errName = `${e.target.name}Err`
@@ -165,11 +164,11 @@ class SkuPromoForm extends React.Component {
           <div className="form-group">
             <label className="label">Amount</label><br/>
             <TextField
-              onChange={this.handleTextFields}
-              // onKeyUp={(e) => this.handleChangeInAmount(e)}
-              // onKeyPress={(e) => this.handleChangeInAmount(e)}
+              //onChange={this.handleTextFields}
+              onKeyUp={(e) => this.handleChangeInAmount(e)}
+              onKeyDown={(e) => this.handleChangeInAmount(e)}
               name="amount"
-              value={this.state.amount}
+              //value={this.state.amount}
               style={{ width: '100%' }}
             />
             {
