@@ -596,6 +596,16 @@ export const fetchSkuList = action => (
     .then(json => json)
 )
 
+export const mapSkuToPromo = action => (
+  POST({
+    api: '/cashbackOfferSku/createListSku',
+    apiBase: 'odin',
+    data: action.data,
+    handleError: true
+  })
+    .then(json => json)
+)
+
 export const mapCompanyToBrand = action => (
   POST({
     api: '/companymap/createmap',

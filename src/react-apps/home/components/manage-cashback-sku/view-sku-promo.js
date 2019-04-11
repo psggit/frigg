@@ -13,16 +13,14 @@ import Moment from "moment"
 import {overrideTableStyle} from '../../../utils'
 
 const TableHeaderItems = [
-  '',
-  // 'SKU PRICING ID',
   'OFFER_ID',
   'PPOMO NAME',
+  'SKU PRICING ID',
 ]
 
 const styles = [
-  { width: '38px' },
-  // { width: '38px' },
   { width: '120px' },
+  { width: '100px' },
   { width: '100px' },
 ]
 
@@ -31,7 +29,6 @@ class ViewSkuPromo extends React.Component {
   constructor() {
     super()
 
-    //this.editCashbackSkuDetails = this.editCashbackSkuDetails.bind(this)
     this.handleCellClick = this.handleCellClick.bind(this)
   }
 
@@ -39,18 +36,11 @@ class ViewSkuPromo extends React.Component {
     this.overrideTableStyle()
   }
 
-  // editCashbackSkuDetails(e, item) {
-  //   e.stopPropagation()
-  //   this.props.history.push(`/home/manage-cashback-sku/edit/${item.id}`, item)
-  // }
-
   overrideTableStyle() {
-    // document.querySelectorAll(".bordered--table")[1].parentElement.style.overflow = "auto"
     overrideTableStyle()
   }
 
   handleCellClick(e, item) {
-    //console.log("click",row, column, this.props.cashbackSkuList[row])
     this.props.history.push(`/home/manage-cashback-sku/${item.id}`, item)
   }
 
@@ -85,16 +75,17 @@ class ViewSkuPromo extends React.Component {
                   cashbackSkuList.map((item, i) => {
                     return (
                       <TableRow key={i}>
-                        <TableRowColumn style={styles[0]}>
+                        {/* <TableRowColumn style={styles[0]}>
                           <button
                             onClick={e => this.handleCellClick(e, item)}
                           >
                             View
                           </button>
-                        </TableRowColumn>
+                        </TableRowColumn> */}
                         {/* <TableRowColumn style={styles[1]}>{item.sku_pricing_id}</TableRowColumn> */}
-                        <TableRowColumn style={styles[1]}>{item.offer_id}</TableRowColumn>
-                        <TableRowColumn style={styles[2]}>{item.promo_name}</TableRowColumn>
+                        <TableRowColumn style={styles[0]}>{item.offer_id}</TableRowColumn>
+                        <TableRowColumn style={styles[1]}>{item.promo_name}</TableRowColumn>
+                        <TableRowColumn style={styles[2]}>{item.sku_pricing_id}</TableRowColumn>
                       </TableRow> 
                     )
                   })

@@ -415,7 +415,7 @@ const actionsMap = {
   [ActionTypes.SUCCESS_FETCH_SKU_LIST]: (state, action) => {
     return Object.assign({}, state, {
       loadingSkuList: false,
-      skuList: action.data
+      skuList: action.data.Skupricelistdetails
     })
   },
 

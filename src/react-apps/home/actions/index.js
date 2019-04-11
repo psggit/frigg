@@ -190,6 +190,12 @@ export const fetchSkuList = (data, CB) => ({
   CB
 })
 
+export const mapSkuToPromo = (data, CB) => ({
+  type: ActionTypes.REQUEST_MAP_SKU_TO_PROMO,
+  data,
+  CB
+})
+
 export const fetchGenreList = (data, CB) => ({
   type: ActionTypes.REQUEST_FETCH_GENRE_LIST,
   data,

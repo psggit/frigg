@@ -11,7 +11,8 @@ class MapSkuToPromo extends React.Component {
     this.state = {
       promoList: [],
       stateList: [],
-      loadingSkuList: false
+      loadingSkuList: false,
+      mappingSkuToPromo: false
       // selectedPromoId: "",
       // selectedStateId: ""
     }
@@ -20,6 +21,7 @@ class MapSkuToPromo extends React.Component {
     this.successPromoListCallback = this.successPromoListCallback.bind(this)
     this.successStateCallback = this.successStateCallback.bind(this)
     this.successSkuListCallback = this.successSkuListCallback.bind(this)
+    this.mapSkuToPromo = this.mapSkuToPromo.bind(this)
   }
 
   componentDidMount() {
@@ -67,7 +69,6 @@ class MapSkuToPromo extends React.Component {
 
   handleSave() {
     const cashbackSkuForm = this.cashbackSkuForm.getData()
-    console.log("form data", cashbackSkuForm)
     this.setState({loadingSkuList: true})
     //if (this.formIsValid()) {
       this.props.actions.fetchSkuList({
@@ -80,11 +81,23 @@ class MapSkuToPromo extends React.Component {
     this.setState({loadingSkuList: false})
   }
 
+  mapSkuToPromo(skuList) {
+    const cashbackSkuForm = this.cashbackSkuForm.getData()
+    if(skuList.length > 0) {
+      this.setState({mappingSkuToPromo: true})
+      this.props.actions.mapSkuToPromo({
+        offer_id: parseInt(cashbackSkuForm.selectedPromoId),
+        sku_price_list: skuList
+      }, () => {
+        this.setState({mappingSkuToPromo: false})
+      })
+    }
+  }
+
   render() {
-    console.log("props", this.props)
     return (
       <React.Fragment>
-        <h4 style={{ margin: '0', marginBottom: '40px' }}>Map sku to promo</h4>
+        <h4 style={{ margin: '0', marginBottom: '40px' }}>MAP SKU TO PROMO</h4>
         <CashbackSkuForm 
           ref={(node) => { this.cashbackSkuForm = node }}
           promoList = {this.state.promoList}
@@ -93,10 +106,12 @@ class MapSkuToPromo extends React.Component {
           handleSave = {this.handleSave}
         />
         {
-          this.state.loadingSkuList && this.props.skuList.length > 0 &&
+          !this.state.loadingSkuList && this.props.skuList.length > 0 &&
           <ViewSkuList 
             skuList = {this.props.skuList}
             loadingSkuList = {this.state.loadingSkuList}
+            mappingSkuToPromo = {this.state.mappingSkuToPromo}
+            mapSkuToPromo = {this.mapSkuToPromo}
           />
         }
       </React.Fragment>

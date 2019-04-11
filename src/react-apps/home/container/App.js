@@ -65,7 +65,7 @@ import ManageCampaign from './../container/manage-campaign'
 import CreateCampaign from './../components/manage-campaign/create-campaign'
 import UpdateCampaign from './../components/manage-campaign/edit-campaign'
 import ViewPromoList from "./../container/manage-cashback-sku"
-import ViewCashbackSkuList from "../components/manage-cashback-sku/mapped-sku"
+//import ViewCashbackSkuList from "../components/manage-cashback-sku/mapped-sku"
 import MapSkuToPromo from "./../components/manage-cashback-sku/create-cashback-sku"
 import ManageSkuPromo from "./../container/manage-sku-promo"
 import CreateSkuPromo from "./../components/manage-sku-promo/create-sku-promo"
@@ -265,7 +265,7 @@ class App extends React.Component {
 
                       <Route exact path="/home/manage-cashback-sku" component={ViewPromoList} />
                       <Route exact path="/home/manage-cashback-sku/map-sku-to-promo" component={MapSkuToPromo} />
-                      <Route exact path="/home/manage-cashback-sku/:offerId" component={ViewCashbackSkuList} />
+                      {/* <Route exact path="/home/manage-cashback-sku/:offerId" component={ViewCashbackSkuList} /> */}
                     
                        {/*<Route exact path="/home/manage-cashback-sku/edit/:offerId" component={UpdateCampaign} /> */}
                     </Switch>

@@ -1073,6 +1073,19 @@ function* fetchCampaignList(action) {
   }
 }
 
+function* mapSkuToPromo(action) {
+  try {
+    const data = yield call(Api.mapSkuToPromo, action)
+    Notify('Successfully mapped sku to promo', 'success')
+    yield put({ type: ActionTypes.SUCCESS_MAP_SKU_TO_PROMO, data })
+    action.CB()
+  } catch(err) {
+    console.log(err)
+    Notify('Something went wromg', 'warning')
+    action.CB()
+  }
+}
+
 function* createCampaign(action) {
   try {
     const data = yield call(Api.createCampaign, action)
@@ -1619,6 +1632,12 @@ function* watchRequestFetchCredits() {
   }
 }
 
+function* watchRequestMapSkuToPromo() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_MAP_SKU_TO_PROMO, mapSkuToPromo)
+  }
+}
+
 function* watchRequestUpdateTransactionList() {
   while (true) {
     yield* takeLatest(ActionTypes.REQUEST_UPDATE_TRANSACTION_LIST, updateTransactionList)
@@ -1888,6 +1907,7 @@ export default function* rootSaga() {
     fork(watchRequestMapCompanyToBrand),
     fork(watchRequestFetchCompanies),
     fork(watchRequestFetchGenreBasedBrandList),
-    fork(watchRequestFetchGenreList)
+    fork(watchRequestFetchGenreList),
+    fork(watchRequestMapSkuToPromo)
   ]
 }

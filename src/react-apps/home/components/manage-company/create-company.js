@@ -115,7 +115,7 @@ class CreateCompany extends React.Component {
     console.log("props", this.props)
     return (
       <React.Fragment>
-        <h4 style={{ margin: '0', marginBottom: '40px' }}>Map company to brand</h4>
+        <h4 style={{ margin: '0', marginBottom: '40px' }}>MAP COMPANY TO BRAND</h4>
         <CompanyForm 
           ref={(node) => { this.companyForm = node }}
           companyDetails = {this.state.companyList}
