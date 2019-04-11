@@ -80,6 +80,12 @@ class NavigationBar extends  React.Component {
         ]
       },
       {
+        name: 'Manage Company',
+        nestedItems: [
+          { name: 'Company list', path: '/home/manage-company', id: 24 }
+        ]
+      },
+      {
         name: 'Jus pay',
         nestedItems: [
           { name: 'Netbanking List', path: '/home/manage-banking', id: 18 }

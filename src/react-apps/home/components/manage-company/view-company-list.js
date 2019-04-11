@@ -13,26 +13,25 @@ import Moment from "moment"
 import {overrideTableStyle} from '../../../utils'
 
 const TableHeaderItems = [
-  '',
-  // 'SKU PRICING ID',
-  'OFFER_ID',
-  'PPOMO NAME',
+  'COMPANY_ID',
+  'COMPANY_NAME',
+  'BRAND_ID'
 ]
 
 const styles = [
-  { width: '38px' },
   // { width: '38px' },
   { width: '120px' },
-  { width: '100px' },
+  { width: '120px' },
+  { width: '120px' },
 ]
 
-class ViewSkuPromo extends React.Component {
+class ViewCompany extends React.Component {
 
   constructor() {
     super()
 
     //this.editCashbackSkuDetails = this.editCashbackSkuDetails.bind(this)
-    this.handleCellClick = this.handleCellClick.bind(this)
+    this.handleRowClick = this.handleRowClick.bind(this)
   }
 
   componentDidMount() {
@@ -49,15 +48,15 @@ class ViewSkuPromo extends React.Component {
     overrideTableStyle()
   }
 
-  handleCellClick(e, item) {
+  handleRowClick(e, item) {
     //console.log("click",row, column, this.props.cashbackSkuList[row])
-    this.props.history.push(`/home/manage-cashback-sku/${item.id}`, item)
+    this.props.history.push(`/home/manage-company/${item.id}`, item)
   }
 
   render() {
     const {
-      loadingCashbackSkuList,
-      cashbackSkuList
+      loadingCompanyList,
+      companyList
     } = this.props
     return (
       <div>
@@ -80,21 +79,21 @@ class ViewSkuPromo extends React.Component {
             showRowHover
           >
             {
-              !loadingCashbackSkuList
+              !loadingCompanyList
                 ? (
-                  cashbackSkuList.map((item, i) => {
+                  companyList.map((item, i) => {
                     return (
                       <TableRow key={i}>
-                        <TableRowColumn style={styles[0]}>
+                        {/* <TableRowColumn style={styles[0]}>
                           <button
-                            onClick={e => this.handleCellClick(e, item)}
+                            onClick={e => this.handleRowClick(e, item)}
                           >
-                            View
+                            Edit
                           </button>
-                        </TableRowColumn>
-                        {/* <TableRowColumn style={styles[1]}>{item.sku_pricing_id}</TableRowColumn> */}
-                        <TableRowColumn style={styles[1]}>{item.offer_id}</TableRowColumn>
-                        <TableRowColumn style={styles[2]}>{item.promo_name}</TableRowColumn>
+                        </TableRowColumn> */}
+                        <TableRowColumn style={styles[0]}>{item.company_id}</TableRowColumn>
+                        <TableRowColumn style={styles[1]}>{item.company_name}</TableRowColumn>
+                        <TableRowColumn style={styles[2]}>{item.brand_id}</TableRowColumn>
                       </TableRow> 
                     )
                   })
@@ -112,4 +111,4 @@ class ViewSkuPromo extends React.Component {
   }
 }
 
-export default ViewSkuPromo
+export default ViewCompany

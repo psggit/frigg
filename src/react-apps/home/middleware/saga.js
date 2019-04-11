@@ -3,6 +3,7 @@ import { call, fork, put, race, take } from 'redux-saga/effects'
 import * as ActionTypes from './../constants/actions'
 import Notify from '@components/Notification'
 import * as Api from './api'
+import {skuList} from "./mock-data"
 
 /**
  * Handlers
@@ -23,6 +24,63 @@ function* fetchStateList(action) {
     action.CB()
   } catch (err) {
     console.log(err)
+  }
+}
+
+function* fetchCompanyList(action) {
+  try {
+    const data = yield call(Api.fetchCompanyList, action)
+    yield put({ type: ActionTypes.SUCCESS_FETCH_COMPANY_LIST, data })
+    //action.CB()
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+function* fetchCompanies(action) {
+  try {
+    const data = yield call(Api.fetchCompanies, action)
+    yield put({ type: ActionTypes.SUCCESS_FETCH_COMPANIES, data })
+    action.CB()
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+function* fetchGenreBasedBrandList(action) {
+  try {
+    const data = yield call(Api.fetchGenreBasedBrandList, action)
+    yield put({ type: ActionTypes.SUCCESS_GENRE_BASED_BRAND_LIST, data })
+    action.CB()
+  } catch(err) {
+    console.log(err)
+  }
+}
+
+function* fetchGenreList(action) {
+  try {
+    const data = yield call(Api.fetchGenreList, action)
+    yield put({ type: ActionTypes.SUCCESS_FETCH_GENRE_LIST, data })
+    action.CB()
+  } catch(err) {
+    console.log(err)
+  }
+}
+
+function* mapCompanyToBrand(action) {
+  try {
+    const data = yield call(Api.mapCompanyToBrand, action)
+    yield put({ type: ActionTypes.SUCCESS_MAP_COMPANY_TO_BRAND, data })
+    Notify("Successfully created company", "success")
+    action.CB()
+    setTimeout(() => {
+      location.href = '/home/manage-company'
+    }, 2000)
+    //action.CB()
+  } catch (err) {
+    console.log(err)
+    Notify("Something went wrong", "warning")
+    action.CB()
   }
 }
 
@@ -1064,12 +1122,14 @@ function* fetchPromoList(action) {
 
 function* fetchSkuList(action) {
   try {
-    //const data = yield call(Api.fetchSkuList, action)
+    const data = yield call(Api.fetchSkuList, action)
     //Notify('Successfully updated campaign', 'success')
+    //const data = skuList
     yield put({ type: ActionTypes.SUCCESS_FETCH_SKU_LIST, data })
-    //action.CB()
+    action.CB()
   } catch(err) {
     console.log(err)
+    action.CB()
   }
 }
 
@@ -1655,6 +1715,36 @@ function* watchRequestFetchCampaignList() {
   }
 }
 
+function* watchRequestFetchCompanyList() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_FETCH_COMPANY_LIST, fetchCompanyList)
+  }
+}
+
+function* watchRequestFetchCompanies() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_FETCH_COMPANIES, fetchCompanies)
+  }
+}
+
+function* watchRequestMapCompanyToBrand() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_MAP_COMPANY_TO_BRAND, mapCompanyToBrand)
+  }
+}
+
+function* watchRequestFetchGenreBasedBrandList() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_GENRE_BASED_BRAND_LIST, fetchGenreBasedBrandList)
+  }
+}
+
+function* watchRequestFetchGenreList() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_FETCH_GENRE_LIST, fetchGenreList)
+  }
+}
+
 function* watchRequestCreateCampaign() {
   while (true) {
     yield* takeLatest(ActionTypes.REQUEST_CREATE_CAMPAIGN, createCampaign)
@@ -1793,6 +1883,11 @@ export default function* rootSaga() {
     fork(watchRequestCreateSkuPromo),
     fork(watchRequestUpdateSkuPromo),
     fork(watchFetchStateList),
-    fork(watchFetchSkuList)
+    fork(watchFetchSkuList),
+    fork(watchRequestFetchCompanyList),
+    fork(watchRequestMapCompanyToBrand),
+    fork(watchRequestFetchCompanies),
+    fork(watchRequestFetchGenreBasedBrandList),
+    fork(watchRequestFetchGenreList)
   ]
 }

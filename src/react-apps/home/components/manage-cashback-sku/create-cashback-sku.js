@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as Actions from './../../actions/index'
 import CashbackSkuForm from "./cashback-sku-form"
+import ViewSkuList from "./map-sku-to-promo"
 
 class MapSkuToPromo extends React.Component {
   constructor() {
@@ -10,6 +11,7 @@ class MapSkuToPromo extends React.Component {
     this.state = {
       promoList: [],
       stateList: [],
+      loadingSkuList: false
       // selectedPromoId: "",
       // selectedStateId: ""
     }
@@ -17,6 +19,7 @@ class MapSkuToPromo extends React.Component {
     this.formIsValid = this.formIsValid.bind(this)
     this.successPromoListCallback = this.successPromoListCallback.bind(this)
     this.successStateCallback = this.successStateCallback.bind(this)
+    this.successSkuListCallback = this.successSkuListCallback.bind(this)
   }
 
   componentDidMount() {
@@ -65,12 +68,16 @@ class MapSkuToPromo extends React.Component {
   handleSave() {
     const cashbackSkuForm = this.cashbackSkuForm.getData()
     console.log("form data", cashbackSkuForm)
-    if (this.formIsValid()) {
+    this.setState({loadingSkuList: true})
+    //if (this.formIsValid()) {
       this.props.actions.fetchSkuList({
-        offer_id: selectedPromoId,
-        state_id: selectedStateId
-      })
-    }
+        offer_id: parseInt(cashbackSkuForm.selectedPromoId),
+        state_id: parseInt(cashbackSkuForm.selectedStateId)
+      }, this.successSkuListCallback)
+  }
+
+  successSkuListCallback() {
+    this.setState({loadingSkuList: false})
   }
 
   render() {
@@ -82,7 +89,16 @@ class MapSkuToPromo extends React.Component {
           ref={(node) => { this.cashbackSkuForm = node }}
           promoList = {this.state.promoList}
           stateList = {this.state.stateList}
+          loadingSkuList = {this.state.loadingSkuList}
+          handleSave = {this.handleSave}
         />
+        {
+          this.state.loadingSkuList && this.props.skuList.length > 0 &&
+          <ViewSkuList 
+            skuList = {this.props.skuList}
+            loadingSkuList = {this.state.loadingSkuList}
+          />
+        }
       </React.Fragment>
     )
   }

@@ -31,13 +31,18 @@ const initialState = {
   creatingUserSpecificPromo: true,
   updatingUserSpecificPromo: true,
   loadingUserSpecificPromos: true,
+  mappingBrandToCompany: true,
+  loadingGenres: true,
+  loadingCompanies: true,
   //verifyingTransaction: true,
   loadingCredits: true,
   loadingNetBankingList: true,
   updatingBankDetails: true,
   loadingUserSpecificAds: true,
   loadingUserSpecificAdIds: true,
+  loadingSkuList: true,
   loadingCampaignList: true,
+  loadingGenreBasedBrandList: true,
   creatingCampaign: true,
   updatingCampaign: true,
   loadingBrandManagerList: true,
@@ -48,7 +53,13 @@ const initialState = {
   creatingSkuPromo: true,
   updatingSkuPromo: true,
   loadingStateList: true,
+  loadingCompanyList: true,
   stateList: [],
+  skuList: [],
+  companies: [],
+  companyList: [],
+  genres: [],
+  genreBasedBrandList: [],
   cashbackSkuList: [],
   skuPromoList: [],
   promoList: [],
@@ -94,7 +105,8 @@ const initialState = {
   userSpecificPromosCount: 0,
   campaignCount: 0,
   cashbackSkuCount: 0,
-  skuPromoCount: 0
+  skuPromoCount: 0,
+  companyCount: 0
 }
 
 const actionsMap = {
@@ -397,6 +409,50 @@ const actionsMap = {
   [ActionTypes.SUCCESS_UPDATE_USER_SPECIFIC_ADS]: (state, action) => {
     return Object.assign({}, state, {
       updatingUserSpecificAd: false
+    })
+  },
+
+  [ActionTypes.SUCCESS_FETCH_SKU_LIST]: (state, action) => {
+    return Object.assign({}, state, {
+      loadingSkuList: false,
+      skuList: action.data
+    })
+  },
+
+  [ActionTypes.SUCCESS_FETCH_GENRE_LIST]: (state, action) => {
+    return Object.assign({}, state, {
+      loadingGenres: false,
+      genres:  action.data.genreDetail,
+      //genreCount: action.data.count
+    })
+  },
+
+  [ActionTypes.SUCCESS_FETCH_COMPANY_LIST]: (state, action) => {
+    return Object.assign({}, state, {
+      loadingCompanyList: false,
+      companyList: action.data.list,
+      companyCount: action.data.count
+    })
+  },
+
+  [ActionTypes.SUCCESS_FETCH_COMPANIES]: (state, action) => {
+    return Object.assign({}, state, {
+      loadingCompanies: false,
+      companies: action.data.companies,
+      //companyCount: 
+    })
+  },
+
+  [ActionTypes.SUCCESS_MAP_COMPANY_TO_BRAND]: (state, action) => {
+    return Object.assign({}, state, {
+      mappingBrandToCompany: false 
+    })
+  },
+
+  [ActionTypes.SUCCESS_GENRE_BASED_BRAND_LIST]: (state, action) => {
+    return Object.assign({}, state, {
+      genreBasedBrandList: action.data.brand_list,
+      loadingGenreBasedBrandList: false,
     })
   },
 

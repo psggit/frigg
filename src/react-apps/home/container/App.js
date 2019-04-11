@@ -70,7 +70,8 @@ import MapSkuToPromo from "./../components/manage-cashback-sku/create-cashback-s
 import ManageSkuPromo from "./../container/manage-sku-promo"
 import CreateSkuPromo from "./../components/manage-sku-promo/create-sku-promo"
 import UpdateSkuPromo from "./../components/manage-sku-promo/edit-sku-promo"
-
+import ManageCompany from "./../container/manage-company"
+import MapCompanyToBrand from "./../components/manage-company/create-company"
 // import '@sass/components/_heading.scss'
 
 import asyncComponent from './../../asyncComponent'
@@ -249,6 +250,10 @@ class App extends React.Component {
                       <Route exact path="/home/user-specific-promos" component={ManagePromos} />
                       <Route exact path="/home/user-specific-promos/create" component={CreateUserPromos} />
                       <Route exact path="/home/user-specific-promos/edit/:promoCode" component={UpdateUserPromos} />
+
+                      <Route exact path="/home/manage-company" component={ManageCompany} />
+                      <Route exact path="/home/manage-company/create" component={MapCompanyToBrand} />
+                      {/* <Route exact path="/home/company/edit/:promoCode" component={UpdateUserPromos} /> */}
                     
                       <Route exact path="/home/manage-campaign" component={ManageCampaign} />
                       <Route exact path="/home/manage-campaign/create" component={CreateCampaign} />

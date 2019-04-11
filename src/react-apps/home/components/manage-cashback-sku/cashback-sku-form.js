@@ -94,7 +94,7 @@ class CashbackSkuForm extends React.Component {
           <RaisedButton
             label="Get sku's mapped to promo"
             primary
-            disabled={this.props.disableSave}
+            disabled={this.props.loadingSkuList}
             onClick={this.props.handleSave}
           />
         </div>

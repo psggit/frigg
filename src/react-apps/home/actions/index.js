@@ -184,9 +184,38 @@ export const fetchDPLocalityMap = data => ({
   data
 })
 
-export const fetchSkuList = data => ({
+export const fetchSkuList = (data, CB) => ({
   type: ActionTypes.REQUEST_FETCH_SKU_LIST,
+  data,
+  CB
+})
+
+export const fetchGenreList = (data, CB) => ({
+  type: ActionTypes.REQUEST_FETCH_GENRE_LIST,
+  data,
+  CB
+})
+
+export const fetchCompanyList = (data) => ({
+  type: ActionTypes.REQUEST_FETCH_COMPANY_LIST,
   data
+})
+
+export const fetchCompanies = (data, CB) => ({
+  type: ActionTypes.REQUEST_FETCH_COMPANIES,
+  CB
+})
+
+export const mapCompanyToBrand = (data, CB) => ({
+  type: ActionTypes.REQUEST_MAP_COMPANY_TO_BRAND,
+  data,
+  CB
+})
+
+export const fetchGenreBasedBrandList = (data, CB) => ({
+  type: ActionTypes.REQUEST_GENRE_BASED_BRAND_LIST,
+  data,
+  CB
 })
 
 export const deleteRetailerFromDpMap = data => ({

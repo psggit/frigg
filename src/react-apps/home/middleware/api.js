@@ -588,12 +588,61 @@ export const updateUserSpecificPromo = action => (
 
 export const fetchSkuList = action => (
   POST({
-    api: '/cashbackOfferSku/listSku',
+    api: '/cashbackOfferSku/listskupricewithstateId',
     apiBase: 'odin',
     data: action.data,
     handleError: true
   })
     .then(json => json)
+)
+
+export const mapCompanyToBrand = action => (
+  POST({
+    api: '/companymap/createmap',
+    apiBase: 'odin',
+    data: action.data,
+    handleError: true
+  })
+    .then(json => json)
+)
+
+export const fetchCompanyList = action => (
+  POST({
+    api: '/companymap/list',
+    apiBase: 'odin',
+    data: action.data,
+    handleError: true
+  })
+    .then(json => json)
+)
+
+export const fetchCompanies = action => (
+  GET({
+    api: '/companies/list',
+    apiBase: 'odin',
+    //data: action.data,
+    handleError: true
+  })
+    .then(json => json)
+)
+
+export const fetchGenreList = action => (
+  POST({
+    api: '/Api/getGenreMap',
+    apiBase: 'catalog',
+    data: action.data,
+    handleError: true
+  })
+) 
+
+export const fetchGenreBasedBrandList = action => (
+  POST({
+    api: '/Api/getBrandforGenre',
+    apiBase: 'catalog',
+    data: action.data,
+    handleError: true
+  })
+  .then(json => json)
 )
 
 export const fetchCashbackSkuList = action => (
