@@ -1079,6 +1079,9 @@ function* mapSkuToPromo(action) {
     Notify('Successfully mapped sku to promo', 'success')
     yield put({ type: ActionTypes.SUCCESS_MAP_SKU_TO_PROMO, data })
     action.CB()
+    setTimeout(() => {
+      window.location.href = '/home/manage-cashback-sku'
+    }, 1000)
   } catch(err) {
     console.log(err)
     Notify('Something went wromg', 'warning')

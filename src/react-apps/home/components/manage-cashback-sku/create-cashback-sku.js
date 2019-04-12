@@ -29,7 +29,6 @@ class MapSkuToPromo extends React.Component {
     this.props.actions.fetchPromoList({
     }, this.successPromoListCallback)
     this.props.actions.fetchStateList({}, this.successStateCallback)
-    //this.props.actions.
   }
 
   successPromoListCallback() {

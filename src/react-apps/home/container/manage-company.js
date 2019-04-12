@@ -75,13 +75,13 @@ class ManageCompany extends React.Component {
         <div>
           <NavLink to={`/home/manage-company/create`}>
             <RaisedButton
-              label="Create new company"
+              label="Map company to brand"
               primary
             />
           </NavLink>
 
         </div>
-        <h3>Showing all company</h3>
+        <h3>Showing all comapnies mapped to brands</h3>
         <ViewCompany
           companyList={companyList}
           loadingCompanyList={loadingCompanyList}
