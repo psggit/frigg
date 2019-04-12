@@ -80,6 +80,7 @@ class CompanyForm extends React.Component {
       selectedCompanyId: this.state.companyList[k].value, 
       companyName:  this.state.companyList[k].text
     })
+    this.props.fetchGenreBasedBrandList(this.state.selectedGenreIdx)
   }
 
   handleBrandChange(e, k) {

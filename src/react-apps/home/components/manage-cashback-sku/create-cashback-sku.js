@@ -106,7 +106,7 @@ class MapSkuToPromo extends React.Component {
           handleSave = {this.handleSave}
         />
         {
-          !this.state.loadingSkuList && this.props.skuList.length > 0 &&
+          !this.state.loadingSkuList && 
           <ViewSkuList 
             skuList = {this.props.skuList}
             loadingSkuList = {this.state.loadingSkuList}

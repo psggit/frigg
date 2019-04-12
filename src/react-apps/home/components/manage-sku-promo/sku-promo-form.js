@@ -63,6 +63,9 @@ class SkuPromoForm extends React.Component {
       })
      
     } else {
+      // this.setState({ 
+      //   amount: 0,
+      // })
       e.preventDefault()
     }
   }

@@ -73,6 +73,12 @@ class MapSkuToPromo extends React.Component {
   }
 
   render() {
+    const notificationStyle = {
+      boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.08)',
+      display: 'flex',
+      justifyContent: 'center',
+      padding: '20px'
+    }
     const {
       skuList
     } = this.state
@@ -95,6 +101,14 @@ class MapSkuToPromo extends React.Component {
             displayRowCheckbox={false}
             showRowHover
           >
+            {
+              skuList.length === 0 &&
+              <tr>
+                <td>
+                  <div style={notificationStyle}> No skus found </div>
+                </td>
+              </tr>
+            }
             {
               skuList.map((item, i) => {
                 return (
@@ -124,14 +138,17 @@ class MapSkuToPromo extends React.Component {
             }
           </TableBody>
         </Table>
-        <div style={{marginTop: '30px'}}>
-          <RaisedButton
-            label="Save"
-            primary
-            disabled={this.props.mappingSkuToPromo}
-            onClick={() => this.mapSkuToPromo()}
-          />
-        </div>
+        {
+          skuList.length > 0 &&
+          <div style={{marginTop: '30px'}}>
+            <RaisedButton
+              label="Save"
+              primary
+              disabled={this.props.mappingSkuToPromo}
+              onClick={() => this.mapSkuToPromo()}
+            />
+          </div>
+        }
       </div>
     )
   }

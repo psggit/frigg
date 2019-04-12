@@ -92,7 +92,7 @@ class CashbackSkuForm extends React.Component {
         </div>
         <div className="form-group">
           <RaisedButton
-            label="Get sku's mapped to promo"
+            label="Get sku list"
             primary
             disabled={this.props.loadingSkuList}
             onClick={this.props.handleSave}
