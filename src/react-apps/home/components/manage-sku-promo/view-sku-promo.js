@@ -85,6 +85,14 @@ class ViewSkuPromo extends React.Component {
             showRowHover
           >
             {
+              !loadingSkuPromoList && skuPromoList.length === 0 && 
+              <tr>
+                <td style={{ textAlign: 'center' }} colSpan='7'>
+                  <p style={{fontWeight: '16px'}}>No promo found</p>
+                </td>
+              </tr>
+            }
+            {
               !loadingSkuPromoList
                 ? (
                   skuPromoList.map((item, i) => {

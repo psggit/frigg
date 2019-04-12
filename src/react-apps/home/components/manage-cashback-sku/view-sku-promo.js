@@ -70,6 +70,14 @@ class ViewSkuPromo extends React.Component {
             showRowHover
           >
             {
+              !loadingCashbackSkuList && cashbackSkuList.length === 0 && 
+              <tr>
+                <td style={{ textAlign: 'center' }} colSpan='7'>
+                  <p style={{fontWeight: '16px'}}>No cashback sku found</p>
+                </td>
+              </tr>
+            }
+            {
               !loadingCashbackSkuList
                 ? (
                   cashbackSkuList.map((item, i) => {

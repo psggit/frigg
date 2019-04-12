@@ -86,6 +86,14 @@ class ViewCampaign extends React.Component {
             showRowHover
           >
             {
+              !loadingCampaignList && campaignList.length === 0 && 
+              <tr>
+                <td style={{ textAlign: 'center' }} colSpan='7'>
+                  <p style={{fontWeight: '16px'}}>No campaign found</p>
+                </td>
+              </tr>
+            }
+            {
               !loadingCampaignList
                 ? (
                   campaignList.map((item, i) => {
