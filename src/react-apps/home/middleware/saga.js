@@ -1084,7 +1084,7 @@ function* mapSkuToPromo(action) {
     }, 1000)
   } catch(err) {
     console.log(err)
-    Notify('Something went wromg', 'warning')
+    Notify('Something went wrong', 'warning')
     action.CB()
   }
 }
@@ -1094,10 +1094,12 @@ function* createCampaign(action) {
     const data = yield call(Api.createCampaign, action)
     Notify('Successfully created campaign', 'success')
     yield put({ type: ActionTypes.SUCCESS_CREATE_CAMPAIGN, data })
+    //action.CB()
     setTimeout(() => {
       window.location.href = '/home/manage-campaign'
     }, 1000)
   } catch(err) {
+    action.CB()
     console.log(err)
   }
 }
@@ -1154,11 +1156,13 @@ function* createSkuPromo(action) {
     const data = yield call(Api.createSkuPromo, action)
     Notify('Successfully created promo', 'success')
     yield put({ type: ActionTypes.SUCCESS_CREATE_SKU_PROMO, data })
+    action.CB()
     setTimeout(() => {
       window.location.href = '/home/manage-sku-promo'
     }, 1000)
   } catch(err) {
     console.log(err)
+    action.CB()
   }
 }
 

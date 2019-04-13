@@ -83,9 +83,10 @@ export const fetchPromoList = (data, CB) => ({
   CB
 })
 
-export const createCampaign = data => ({
+export const createCampaign = (data, CB) => ({
   type: ActionTypes.REQUEST_CREATE_CAMPAIGN,
-  data
+  data,
+  CB
 })
 
 export const updateSkuPromo = data => ({
@@ -114,9 +115,10 @@ export const fetchSkuPromoList = data => ({
   data
 })
 
-export const createSkuPromo = data => ({
+export const createSkuPromo = (data, CB) => ({
   type: ActionTypes.REQUEST_CREATE_SKU_PROMO,
-  data
+  data,
+  CB
 })
 
 export const fetchCashbackSkuList = data => ({

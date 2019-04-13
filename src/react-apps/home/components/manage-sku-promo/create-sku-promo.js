@@ -12,7 +12,7 @@ class CreateSkuPromo extends React.Component {
       campaignList: []
     }
     this.handleSave = this.handleSave.bind(this)
-    //this.formIsValid = this.formIsValid.bind(this)
+    this.successPromoCallback = this.successPromoCallback.bind(this)
     this.successCampaignCallback = this.successCampaignCallback.bind(this)
   }
 
@@ -60,15 +60,18 @@ class CreateSkuPromo extends React.Component {
   handleSave() {
     const skuPromoForm = this.skuPromoForm.getData()
     console.log("form data", skuPromoForm)
-    //if (this.formIsValid()) {
-      this.props.actions.createSkuPromo({
-        campaign_id: skuPromoForm.selectedCampaignId,
-        amount: parseInt(skuPromoForm.amount),
-        promoName: skuPromoForm.promoName,
-        promo_description: skuPromoForm.description,
-        is_on_pack: skuPromoForm.isPackOn === 1 ? true : false
-      })
-    //}
+    this.setState({creatingPromo: true})
+    this.props.actions.createSkuPromo({
+      campaign_id: skuPromoForm.selectedCampaignId,
+      amount: parseInt(skuPromoForm.amount),
+      promoName: skuPromoForm.promoName,
+      promo_description: skuPromoForm.description,
+      is_on_pack: skuPromoForm.isPackOn === 1 ? true : false
+    }, this.successPromoCallback)
+  }
+
+  successPromoCallback() {
+    this.setState({creatingPromo: false})
   }
 
   render() {
@@ -77,7 +80,7 @@ class CreateSkuPromo extends React.Component {
       <SkuPromoForm
         ref={(node) => { this.skuPromoForm = node }}
         handleSave={this.handleSave}
-        disableSave={!this.props.creatingSkuPromo}
+        disableSave={this.state.creatingPromo}
         campaignList={this.state.campaignList}
       />
     )

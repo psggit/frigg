@@ -9,21 +9,23 @@ class CreateCampaign extends React.Component {
   constructor() {
     super()
     this.state = {
-      brandManagerList: []
+      brandManagerList: [],
+      creatingCampaign: false
     }
     this.handleSave = this.handleSave.bind(this)
     this.formIsValid = this.formIsValid.bind(this)
+    this.successBrandListCallback = this.successBrandListCallback.bind(this)
     this.successCampaignCallback = this.successCampaignCallback.bind(this)
   }
 
   componentDidMount() {
     this.props.actions.setLoadingState('creatingCampaign')
-    this.props.actions.fetchBrandManagerList({}, this.successCampaignCallback)
+    this.props.actions.fetchBrandManagerList({}, this.successBrandListCallback)
     //this.props.actions.fetchCampaignStatus({})
     //this.props.actions.fetchAdIds()
   }
-  
-  successCampaignCallback() {
+
+  successBrandListCallback() {
     const brandManagerList = this.props.brandManagerList.map((item) => {
       return {
         value: item.id,
@@ -52,17 +54,22 @@ class CreateCampaign extends React.Component {
     return true
   }
 
+  successCampaignCallback() {
+    this.setState({ creatingCampaign: false })
+  }
+
   handleSave() {
     const campaignForm = this.campaignForm.getData()
     //console.log("form data", campaignForm)
     if (this.formIsValid()) {
+      this.setState({creatingCampaign: true})
       this.props.actions.createCampaign({
         name: campaignForm.campaignName,
         brand_manager_id: campaignForm.selectedBrandManagerIdx,
         active_from: campaignForm.activeFrom,
         active_to: campaignForm.activeTo,
         is_active: campaignForm.selectedStatusIdx === 1 ? true : false
-      })
+      }, this.successCampaignCallback)
     }
   }
 
@@ -71,7 +78,7 @@ class CreateCampaign extends React.Component {
       <CampaignForm
         ref={(node) => { this.campaignForm = node }}
         handleSave={this.handleSave}
-        disableSave={!this.props.creatingCampaign}
+        disableSave={this.state.creatingCampaign}
         brandManagerList={this.state.brandManagerList}
         //campaignStatus={this.props.campaignList}
       />
