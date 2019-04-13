@@ -40,11 +40,17 @@ class NavigationBar extends  React.Component {
         ]
       },
       {
+        name: 'Manage Company',
+        nestedItems: [
+          { name: 'Company Brand Mapping', path: '/home/manage-company', id: 24 }
+        ]
+      },
+      {
         name: 'Brand offers and promos',
         nestedItems: [
-          { name: 'Manage Campaign', path: '/home/manage-campaign', id: 21 },
-          { name: 'Manage Sku Promo', path: '/home/manage-sku-promo', id: 22 },
-          { name: 'Manage Cashback Sku', path: '/home/manage-cashback-sku', id: 23 },
+          { name: 'Manage campaign', path: '/home/manage-campaign', id: 21 },
+          { name: 'Manage sku promo', path: '/home/manage-sku-promo', id: 22 },
+          { name: 'Manage cashback sku', path: '/home/manage-cashback-sku', id: 23 },
         ]
       },
       {
@@ -59,10 +65,6 @@ class NavigationBar extends  React.Component {
       {
         name: 'Ads management',
         nestedItems: [
-          // { name: 'Manage pay image ads', path: '/home/manage-image-ads', id: 8 },
-          // { name: 'Manage collection ads', path: '/home/manage-collection-ads', id: 13 },
-          // { name: 'Manage pay deep link ads', path: '/home/manage-deep-link-ads', id: 15 },
-          // { name: 'Manage pay url ads', path: '/home/manage-url-ads', id: 16 },
           { name: 'Manage consumer ads', path: '/home/manage-consumer-ads', id: 17 }
         ]
       },
@@ -77,12 +79,6 @@ class NavigationBar extends  React.Component {
         name: 'Manage retailers',
         nestedItems: [
           { name: 'Retailers list', path: '/home/manage-retailers/retailers', id: 11 }
-        ]
-      },
-      {
-        name: 'Manage Company',
-        nestedItems: [
-          { name: 'Company Brand Mapping', path: '/home/manage-company', id: 24 }
         ]
       },
       {

@@ -56,17 +56,24 @@ class SkuPromoForm extends React.Component {
     return this.state
   }
 
-  handleChangeInAmount(e) {
-    if((validateNumType(e.keyCode) || checkCtrlA(e) || checkCtrlV(e)) || checkCtrlC(e)) {
-      this.setState({ 
-        amount: (e.target.value),
-      })
+  // handleChangeInAmount(e) {
+  //   if((validateNumType(e.keyCode) || checkCtrlA(e) || checkCtrlV(e)) || checkCtrlC(e)) {
+  //     this.setState({ 
+  //       amount: (e.target.value),
+  //     })
      
-    } else {
-      // this.setState({ 
-      //   amount: 0,
-      // })
-      e.preventDefault()
+  //   } else {
+  //     // this.setState({ 
+  //     //   amount: 0,
+  //     // })
+  //     e.preventDefault()
+  //   }
+  // }
+
+  handleChangeInAmount(e) {
+    const re = /^[0-9\b]+$/;
+    if ((e.target.value === '' || re.test(e.target.value)) && !this.state.isPackOn) {
+       this.setState({amount: e.target.value})
     }
   }
 
@@ -166,13 +173,17 @@ class SkuPromoForm extends React.Component {
 
           <div className="form-group">
             <label className="label">Amount</label><br/>
-            <TextField
+            {/* <TextField
               //onChange={this.handleTextFields}
               onKeyUp={(e) => this.handleChangeInAmount(e)}
               onKeyDown={(e) => this.handleChangeInAmount(e)}
               name="amount"
               //value={this.state.amount}
               style={{ width: '100%' }}
+            /> */}
+            <TextField 
+              value={this.state.amount}
+              onChange={this.handleChangeInAmount}
             />
             {
               amountErr.status &&
