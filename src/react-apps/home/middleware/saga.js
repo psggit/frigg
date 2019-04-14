@@ -1109,11 +1109,14 @@ function* updateCampaign(action) {
     const data = yield call(Api.updateCampaign, action)
     Notify('Successfully updated campaign', 'success')
     yield put({ type: ActionTypes.SUCCESS_UPDATE_CAMPAIGN, data })
+    action.CB()
     setTimeout(() => {
       window.location.href = '/home/manage-campaign'
     }, 1000)
   } catch(err) {
     console.log(err)
+    action.CB()
+    Notify('Something went wrong', 'warning')
   }
 }
 
@@ -1171,11 +1174,13 @@ function* updateSkuPromo(action) {
     const data = yield call(Api.updateSkuPromo, action)
     Notify('Successfully updated promo', 'success')
     yield put({ type: ActionTypes.SUCCESS_UPDATE_SKU_PROMO, data })
+    action.CB()
     setTimeout(() => {
       window.location.href = '/home/manage-sku-promo'
     }, 1000)
   } catch(err) {
     console.log(err)
+    action.CB()
   }
 }
 

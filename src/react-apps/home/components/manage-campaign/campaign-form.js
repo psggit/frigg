@@ -16,7 +16,7 @@ class CampaignForm extends React.Component {
       activeTo: props.data ? (props.data.active_to).slice(0,16) : "",
       selectedBrandManagerIdx: props.data ? props.data.brand_manager_id : "",
       status: "",
-      selectedStatusIdx: props.data ? props.data.Status === 'active' ? 1 : 2 : 1,
+      selectedStatusIdx: props.data ? props.data.is_active ? 1 : 2 : 1,
       campaignNameErr: {
         value: "",
         status: false

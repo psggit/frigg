@@ -9,12 +9,14 @@ class EditCampaign extends React.Component {
     super()
    
     this.state = {
-      brandManagerList: []
+      brandManagerList: [],
+      updatingCampaign: false
     }
 
     this.handleSave = this.handleSave.bind(this)
     this.formIsValid = this.formIsValid.bind(this)
     this.successCampaignCallback = this.successCampaignCallback.bind(this)
+    this.successUpdateCampaignCallback = this.successUpdateCampaignCallback.bind(this)
   }
 
   componentDidMount() {
@@ -56,6 +58,7 @@ class EditCampaign extends React.Component {
   handleSave() {
     const campaignForm = this.campaignForm.getData()
     if (this.formIsValid()) {
+      this.setState({updatingCampaign: true})
       this.props.actions.updateCampaign({
         id: this.props.location.state.id,
         name: campaignForm.campaignName,
@@ -66,8 +69,12 @@ class EditCampaign extends React.Component {
         active_from: new Date(campaignForm.activeFrom),
         active_to:  new Date(campaignForm.activeTo),
         is_active: campaignForm.selectedStatusIdx === 1 ? true : false
-      })
+      }, this.successUpdateCampaignCallback)
     }
+  }
+
+  successUpdateCampaignCallback() {
+    this.setState({updatingCampaign: false})
   }
 
   render() {
@@ -76,7 +83,7 @@ class EditCampaign extends React.Component {
         ref={(node) => { this.campaignForm = node }}
         handleSave={this.handleSave}
         data={this.props.location.state}
-        disableSave={!this.props.updatingCampaign}
+        disableSave={this.state.updatingCampaign}
         isDisabled={true}
         brandManagerList={this.state.brandManagerList}
         //campaignStatus={this.props.campaignList}

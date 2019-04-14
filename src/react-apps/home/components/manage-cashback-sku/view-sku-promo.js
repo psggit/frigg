@@ -10,7 +10,7 @@ import {
 import TableLoadingShell from '../table-loading-shell'
 import '@sass/components/_table.scss'
 import Moment from "moment"
-import {overrideTableStyle} from '../../../utils'
+import {overrideTableStyle} from './../../../utils'
 
 const TableHeaderItems = [
   'OFFER_ID',

@@ -225,7 +225,7 @@ class SkuPromoForm extends React.Component {
               onCheck={(e) => this.handleCheckboxChange(e)}
               value="isPackOn"
               name="isPackOn"
-              label="is_open_on"
+              label="is_pack_on"
             />
           </div>
 

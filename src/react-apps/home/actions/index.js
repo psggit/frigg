@@ -89,9 +89,10 @@ export const createCampaign = (data, CB) => ({
   CB
 })
 
-export const updateSkuPromo = data => ({
+export const updateSkuPromo = (data, CB) => ({
   type: ActionTypes.REQUEST_UPDATE_SKU_PROMO,
-  data
+  data,
+  CB
 })
 
 export const fetchBrandManagerList = (data, CB) => ({
@@ -100,9 +101,10 @@ export const fetchBrandManagerList = (data, CB) => ({
   CB
 })
 
-export const updateCampaign = data => ({
+export const updateCampaign = (data, CB) => ({
   type: ActionTypes.REQUEST_UPDATE_CAMPAIGN,
-  data
+  data,
+  CB
 })
 
 export const fetchCampaignStatus = (data) => ({

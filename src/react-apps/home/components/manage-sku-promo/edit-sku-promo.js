@@ -9,12 +9,14 @@ class EditSkuPromo extends React.Component {
     super()
    
     this.state = {
-      campaignList: []
+      campaignList: [],
+      updatingSkuPromo: false
     }
 
     this.handleSave = this.handleSave.bind(this)
     this.formIsValid = this.formIsValid.bind(this)
     this.successCampaignCallback = this.successCampaignCallback.bind(this)
+    this.successUpdateSkuPromoCallback = this.successUpdateSkuPromoCallback.bind(this)
   }
 
   componentDidMount() {
@@ -56,9 +58,14 @@ class EditSkuPromo extends React.Component {
     return true
   }
 
+  successUpdateSkuPromoCallback() {
+    this.setState({updatingSkuPromo: false})
+  }
+
   handleSave() {
     const skuPromoForm = this.skuPromoForm.getData()
     if (this.formIsValid()) {
+      this.setState({updatingSkuPromo: true})
       this.props.actions.updateSkuPromo({
         id: this.props.location.state.id,
         campaign_id: skuPromoForm.selectedCampaignId,
@@ -66,7 +73,7 @@ class EditSkuPromo extends React.Component {
         is_on_pack: skuPromoForm.isPackOn,
         promo_description: skuPromoForm.description,
         promoName: skuPromoForm.promoName
-      })
+      }, this.successUpdateSkuPromoCallback)
     }
   }
 
@@ -76,7 +83,7 @@ class EditSkuPromo extends React.Component {
         ref={(node) => { this.skuPromoForm = node }}
         handleSave={this.handleSave}
         data={this.props.location.state}
-        disableSave={!this.props.updatingSkuPromo}
+        disableSave={this.state.updatingSkuPromo}
         isDisabled={true}
         campaignList={this.state.campaignList}
         //campaignStatus={this.props.campaignList}

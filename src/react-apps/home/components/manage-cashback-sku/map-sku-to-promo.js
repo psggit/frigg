@@ -12,7 +12,7 @@ import '@sass/components/_table.scss'
 import Checkbox from 'material-ui/Checkbox'
 import RaisedButton from 'material-ui/RaisedButton'
 import Moment from "moment"
-import {overrideTableStyle} from '../../../utils'
+import {overrideTableStyle} from './../../../utils'
 
 const TableHeaderItems = [
   '',
@@ -49,11 +49,17 @@ class MapSkuToPromo extends React.Component {
   }
 
   componentDidMount() {
+    this.overrideTableStyle()
     const skuMap = {}
     this.props.skuList.map((item) => {
       skuMap[item.sku_pricing_id] = Object.assign({}, item, {is_modified: false})
     })
     this.setState({skuMap, skuList: Object.values(skuMap) })
+  }
+
+  overrideTableStyle() {
+    // document.querySelectorAll(".bordered--table")[1].parentElement.style.overflow = "auto"
+    overrideTableStyle()
   }
 
   handleCheckboxChange(e, skuPricingId) {
@@ -104,7 +110,7 @@ class MapSkuToPromo extends React.Component {
             {
               skuList.length === 0 &&
               <tr>
-                <td>
+                <td colSpan="6">
                   <div style={notificationStyle}> No skus found </div>
                 </td>
               </tr>
