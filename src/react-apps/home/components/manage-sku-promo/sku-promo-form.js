@@ -71,6 +71,12 @@ class SkuPromoForm extends React.Component {
   // }
 
   handleChangeInAmount(e) {
+    this.setState({
+      amountErr: {
+        value: "",
+        status: false
+      }
+    })
     const re = /^[0-9\b]*$/;
     if ((e.target.value === '' || re.test(e.target.value)) && !this.state.isPackOn) {
        this.setState({amount: e.target.value})
