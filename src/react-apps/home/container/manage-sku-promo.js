@@ -88,7 +88,7 @@ class ManageSkuPromo extends React.Component {
           history={this.props.history}
         />
         {
-          !loadingSkuPromoList && skuPromoList.length
+          !loadingSkuPromoList && skuPromoList && skuPromoList.length
           ? <Pagination
             activePage={parseInt(this.state.activePage)}
             itemsCountPerPage={this.pageLimit}

@@ -88,7 +88,7 @@ class ManageCompany extends React.Component {
           history={this.props.history}
         />
         {
-          !loadingCompanyList && companyList.length
+          !loadingCompanyList && companyList && companyList.length
           ? <Pagination
             activePage={parseInt(this.state.activePage)}
             itemsCountPerPage={this.pageLimit}

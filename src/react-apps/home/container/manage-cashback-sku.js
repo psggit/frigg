@@ -87,7 +87,7 @@ class ManageCaskBackSku extends React.Component {
           history={this.props.history}
         />
         {
-          !loadingCashbackSkuList && cashbackSkuList.length
+          !loadingCashbackSkuList && cashbackSkuList && cashbackSkuList.length
           ? <Pagination
             activePage={parseInt(this.state.activePage)}
             itemsCountPerPage={this.pageLimit}

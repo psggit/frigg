@@ -88,7 +88,7 @@ class ManageCampaign extends React.Component {
           history={this.props.history}
         />
         {
-          !loadingCampaignList && campaignList.length
+          !loadingCampaignList && campaignList && campaignList.length
           ? <Pagination
             activePage={parseInt(this.state.activePage)}
             itemsCountPerPage={this.pageLimit}
