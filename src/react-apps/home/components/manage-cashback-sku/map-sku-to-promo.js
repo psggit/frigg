@@ -74,7 +74,7 @@ class MapSkuToPromo extends React.Component {
         return parseInt(item.sku_pricing_id)
       }
     })
-    const selectedPricingIdList = this.selectedSkuList.map((item) => {
+    const selectedPricingIdList = selectedSkuList.map((item) => {
       return item.sku_pricing_id
     })
     console.log("selected sku list", selectedPricingIdList)
