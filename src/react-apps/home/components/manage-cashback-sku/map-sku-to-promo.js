@@ -69,7 +69,7 @@ class MapSkuToPromo extends React.Component {
   } 
 
   mapSkuToPromo() {
-    const selectedSkuList = this.state.skuList.map((item) => {
+    const selectedSkuList = this.state.skuList.filter((item) => {
       if(item.is_modified) {
         return parseInt(item.sku_pricing_id)
       }
