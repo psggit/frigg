@@ -15,8 +15,8 @@ class CreateAdForm extends React.Component {
     this.intialState = {
       status: props.status,
       collectionName: 'select-collection',
-      adTypes: ['deeplink', 'url', 'image', 'collection'],
-      appType: ['HipBar-Delivery', 'HipBar-Pay'],
+      adTypes: ['deeplink', 'url', 'image'],
+      appType: ['HipBar-Delivery', 'HipBar-Pay', 'Gifting-App'],
       title: props.title || '',
       ad_type: props.ad_type || '',
       app_type: props.app_type || '',
