@@ -36,7 +36,7 @@ class NavigationBar extends  React.Component {
         nestedItems: [
           { name: 'Manage States', path: '/home/manage-states', id: 1 },
           { name: 'Manage Cities', path: '/home/manage-cities', id: 2 },
-          { name: 'Manage Localities', path: '/home/manage-localities', id: 3 },
+          // { name: 'Manage Localities', path: '/home/manage-localities', id: 3 },
         ]
       },
       {
@@ -53,28 +53,28 @@ class NavigationBar extends  React.Component {
           { name: 'Manage cashback sku', path: '/home/manage-cashback-sku', id: 23 },
         ]
       },
-      {
-        name: 'Map manager',
-        nestedItems: [
-          { name: 'Delivery agent mapping', path: '/home/delivery-agent-mapping', id: 4 },
-          { name: 'Locality mapping', path: '/home/locality-mapping', id: 5 },
-        ]
-      },
+      // {
+      //   name: 'Map manager',
+      //   nestedItems: [
+      //     { name: 'Delivery agent mapping', path: '/home/delivery-agent-mapping', id: 4 },
+      //     { name: 'Locality mapping', path: '/home/locality-mapping', id: 5 },
+      //   ]
+      // },
       { name: 'Upload search data', path: '/home/upload-search-data', id: 6, nestedItems: [] },
-      { name: 'Delivery system check', path: '/home/delivery-system-check', id: 7, nestedItems: [] },
+      // { name: 'Delivery system check', path: '/home/delivery-system-check', id: 7, nestedItems: [] },
       {
         name: 'Ads management',
         nestedItems: [
           { name: 'Manage consumer ads', path: '/home/manage-consumer-ads', id: 17 }
         ]
       },
-      {
-        name: 'Delivery management',
-        nestedItems: [
-          { name: 'Delivery person list', path: '/home/delivery-agents', id: 9 },
-          { name: 'Manage possession limits', path: '/home/manage-possession-limits', id: 10 }
-        ]
-      },
+      // {
+      //   name: 'Delivery management',
+      //   nestedItems: [
+      //     { name: 'Delivery person list', path: '/home/delivery-agents', id: 9 },
+      //     { name: 'Manage possession limits', path: '/home/manage-possession-limits', id: 10 }
+      //   ]
+      // },
       {
         name: 'Manage retailers',
         nestedItems: [
@@ -99,12 +99,12 @@ class NavigationBar extends  React.Component {
           { name: 'Customer Transactions', path: '/home/customer-transactions', id: 14 },
         ]
       },
-      {
-        name: 'Manage Collections',
-        path: '/home/manage-collections',
-        id: 15,
-        nestedItems: []
-      },
+      // {
+      //   name: 'Manage Collections',
+      //   path: '/home/manage-collections',
+      //   id: 15,
+      //   nestedItems: []
+      // },
       {
         name: 'User Specific',
         nestedItems: [
