@@ -1073,6 +1073,48 @@ function* fetchCampaignList(action) {
   }
 }
 
+// function* fetchPredictionList(action) {
+//   try {
+//     const data = yield call(Api.fetchPredictionList, action)
+//     //Notify('Successfully updated brand listing order', 'success')
+//     yield put({ type: ActionTypes.SUCCESS_FETCH_PREDICTION_LIST, data })
+//     action.CB()
+//   } catch(err) {
+//     console.log(err)
+//   }
+// }
+
+// function* createCampaign(action) {
+//   try {
+//     const data = yield call(Api.createCampaign, action)
+//     Notify('Successfully created campaign', 'success')
+//     yield put({ type: ActionTypes.SUCCESS_CREATE_CAMPAIGN, data })
+//     //action.CB()
+//     setTimeout(() => {
+//       window.location.href = '/home/manage-campaign'
+//     }, 1000)
+//   } catch(err) {
+//     action.CB()
+//     console.log(err)
+//   }
+// }
+
+// function* updatePrediction(action) {
+//   try {
+//     const data = yield call(Api.updatePrediction, action)
+//     Notify('Successfully updated prediction', 'success')
+//     yield put({ type: ActionTypes.SUCCESS_UPDATE_CAMPAIGN, data })
+//     action.CB()
+//     setTimeout(() => {
+//       window.location.href = '/home/manage-campaign'
+//     }, 1000)
+//   } catch(err) {
+//     console.log(err)
+//     action.CB()
+//     Notify('Something went wrong', 'warning')
+//   }
+// }
+
 function* mapSkuToPromo(action) {
   try {
     const data = yield call(Api.mapSkuToPromo, action)

@@ -72,6 +72,13 @@ import CreateSkuPromo from "./../components/manage-sku-promo/create-sku-promo"
 import UpdateSkuPromo from "./../components/manage-sku-promo/edit-sku-promo"
 import ManageCompany from "./../container/manage-company"
 import MapCompanyToBrand from "./../components/manage-company/create-company"
+import ViewPredictionList from "./../container/manage-prediction"
+import CreatePrediction from "./../components/manage-prediction/create-prediction"
+import UpdatePrediction from "./../components/manage-prediction/update-prediction"
+import ViewTeamList from "./../container/manage-team"
+import CreateTeam from "./../components/manage-team/create-team"
+import ViewMappedTeamList from "./../container/manage-team-prediction-mapping"
+// import CreateTeam from "./../components/manage-team/create-team"
 // import '@sass/components/_heading.scss'
 
 import asyncComponent from './../../asyncComponent'
@@ -265,6 +272,16 @@ class App extends React.Component {
 
                       <Route exact path="/home/manage-cashback-sku" component={ViewPromoList} />
                       <Route exact path="/home/manage-cashback-sku/map-sku-to-promo" component={MapSkuToPromo} />
+                      
+                      <Route exact path="/home/manage-prediction" component={ViewPredictionList} />
+                      <Route exact path="/home/manage-prediction/create" component={CreatePrediction} />
+                      <Route exact path="/home/manage-prediction/edit/:predictionId" component={UpdatePrediction} />
+
+                      <Route exact path="/home/manage-team" component={ViewTeamList} />
+                      <Route exact path="/home/manage-team/create" component={CreateTeam} />
+
+                      <Route exact path="/home/manage-prediction-team-mapping" component={ViewMappedTeamList} />
+                      {/* <Route exact path="/home/manage-team/create" component={CreateTeam} /> */}
                       {/* <Route exact path="/home/manage-cashback-sku/:offerId" component={ViewCashbackSkuList} /> */}
                     
                        {/*<Route exact path="/home/manage-cashback-sku/edit/:offerId" component={UpdateCampaign} /> */}

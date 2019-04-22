@@ -111,6 +111,14 @@ class NavigationBar extends  React.Component {
           { name: 'Ads', path: '/home/user-specific-ads', id: 19 },
           { name: 'Promos', path: '/home/user-specific-promos', id: 20 },
         ]
+      },
+      {
+        name: 'Prediction Management',
+        nestedItems: [
+          { name: 'Manage Prediction', path: '/home/manage-prediction', id: 25 },
+          { name: 'Manage Team', path: '/home/manage-prediction', id: 26 },
+          { name: 'Map Team To Prediction', path: '/home/manage-prediction-team-mapping', id: 27 },
+        ]
       }
     ]
     return (

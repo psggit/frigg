@@ -716,6 +716,142 @@ export const fetchCampaignList = action => (
     .then(json => json)
 )
 
+// export const fetchPredictionList = action => (
+//   POST({
+//     api: '/campaign/listPrediction',
+//     apiBase: 'odin',
+//     data: action.data,
+//     handleError: true
+//   })
+//     .then(json => json)
+// )
+
+export const fetchPredictionList = (payloadObj, successCallback) => {
+  return POST({
+      api: '/Api/stockandprice/inventory/createorupdate',
+      apiBase: 'odin',
+      data: payloadObj,
+      handleError: true
+  })
+  .then((json) => {
+      successCallback(json)
+      //Notify('Successfully mapped team to prediction', 'success')
+      // setTimeout(() => {
+      //     location.href = `/home/manage-team-mapped-to-prediction`
+      // }, 500)
+  })
+  .catch(err => {
+      console.log("Error in fetching prediction list", err)
+      err.response.json().then(json => { Notify("danger", json.message) })
+      //failureCallback()
+  })
+}
+
+// export const createPrediction = action => (
+//   POST({
+//     api: '/campaign/createPrediction',
+//     apiBase: 'odin',
+//     data: action.data,
+//     handleError: true
+//   })
+//     .then(json => json)
+// )
+
+export function createPrediction (payloadObj, successCallback, failureCallback) {
+  return POST({
+      api: '/Api/stockandprice/inventory/createorupdate',
+      apiBase: 'odin',
+      data: payloadObj,
+      handleError: true
+  })
+  .then((json) => {
+      successCallback(json)
+      Notify('Successfully created prediction', 'success')
+      setTimeout(() => {
+          location.href = `/home/manage-prediction`
+      }, 500)
+  })
+  .catch(err => {
+      console.log("Error in creating prediction", err)
+      err.response.json().then(json => { Notify("danger", json.message) })
+      failureCallback()
+  })
+}
+
+// export const updatePrediction = action => (
+//   POST({
+//     api: '/campaign/updatePrediction',
+//     apiBase: 'odin',
+//     data: action.data,
+//     handleError: true
+//   })
+//     .then(json => json)
+// )
+
+export function updatePrediction (payloadObj, successCallback, failureCallback) {
+  return POST({
+      api: '/Api/stockandprice/inventory/createorupdate',
+      apiBase: 'odin',
+      data: payloadObj,
+      handleError: true
+  })
+  .then((json) => {
+      successCallback(json)
+      Notify('Successfully updated prediction', 'success')
+      setTimeout(() => {
+          location.href = `/home/manage-prediction`
+      }, 500)
+  })
+  .catch(err => {
+      console.log("Error in updating prediction", err)
+      err.response.json().then(json => { Notify("danger", json.message) })
+      failureCallback()
+  })
+}
+
+
+export function createTeam (payloadObj, successCallback, failureCallback) {
+  return POST({
+      api: '/Api/stockandprice/inventory/createorupdate',
+      apiBase: 'odin',
+      data: payloadObj,
+      handleError: true
+  })
+  .then((json) => {
+      successCallback(json)
+      Notify('Successfully created team', 'success')
+      setTimeout(() => {
+          location.href = `/home/manage-team`
+      }, 500)
+  })
+  .catch(err => {
+      console.log("Error in creating team", err)
+      err.response.json().then(json => { Notify("danger", json.message) })
+      failureCallback()
+  })
+}
+
+export function fetchTeamMappedToPredictionList (payloadObj, successCallback) {
+  return POST({
+      api: '/Api/stockandprice/inventory/createorupdate',
+      apiBase: 'odin',
+      data: payloadObj,
+      handleError: true
+  })
+  .then((json) => {
+      successCallback(json)
+      // Notify('Successfully mapped team to prediction', 'success')
+      // setTimeout(() => {
+      //     location.href = `/home/manage-team-mapped-to-prediction`
+      // }, 500)
+  })
+  .catch(err => {
+      console.log("Error in mapping team to prediction", err)
+      //err.response.json().then(json => { Notify("danger", json.message) })
+      //failureCallback()
+  })
+}
+
 export const createCampaign = action => (
   POST({
     api: '/campaign/createCampaign',
