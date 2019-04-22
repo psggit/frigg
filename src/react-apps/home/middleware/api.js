@@ -1,4 +1,5 @@
 import { GET, POST } from '@utils/fetch'
+import Notify from '@components/Notification'
 
 export const fetchStates = action => (
   POST({
@@ -728,7 +729,7 @@ export const fetchCampaignList = action => (
 
 export const fetchPredictionList = (payloadObj, successCallback) => {
   return POST({
-      api: '/Api/stockandprice/inventory/createorupdate',
+      api: '/prediction/list',
       apiBase: 'odin',
       data: payloadObj,
       handleError: true
@@ -759,7 +760,7 @@ export const fetchPredictionList = (payloadObj, successCallback) => {
 
 export function createPrediction (payloadObj, successCallback, failureCallback) {
   return POST({
-      api: '/Api/stockandprice/inventory/createorupdate',
+      api: '/prediction/create',
       apiBase: 'odin',
       data: payloadObj,
       handleError: true
@@ -790,7 +791,7 @@ export function createPrediction (payloadObj, successCallback, failureCallback) 
 
 export function updatePrediction (payloadObj, successCallback, failureCallback) {
   return POST({
-      api: '/Api/stockandprice/inventory/createorupdate',
+      api: '/prediction/update',
       apiBase: 'odin',
       data: payloadObj,
       handleError: true

@@ -63,6 +63,7 @@ class ViewPrediction extends React.Component {
       loadingPredictionList,
       predictionList
     } = this.props
+    console.log("props", this.props)
     return (
       <div>
         <Table
@@ -99,8 +100,8 @@ class ViewPrediction extends React.Component {
                         <TableRowColumn style={styles[1]}>{item.prediction_title}</TableRowColumn>
                         <TableRowColumn style={styles[2]}>{item.prediction_image}</TableRowColumn>
                         <TableRowColumn style={styles[3]}>{item.detailed_prediction_image}</TableRowColumn>
-                        <TableRowColumn style={styles[4]}>{item.active_from}</TableRowColumn>
-                        <TableRowColumn style={styles[5]}>{item.actie_to}</TableRowColumn>
+                        <TableRowColumn style={styles[4]}>{Moment(item.active_from).format("DD/MM/YYYY h:mm A")}</TableRowColumn>
+                        <TableRowColumn style={styles[5]}>{Moment(item.active_to).format("DD/MM/YYYY h:mm A")}</TableRowColumn>
                       </TableRow> 
                     )
                   })

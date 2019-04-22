@@ -1,8 +1,6 @@
 import React from "react"
 import PredictionForm from "./prediction-form"
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
-import * as Actions from './../../actions/index'
+import * as Api from "./../../middleware/api"
 
 class EditPrediction extends React.Component {
   constructor() {
@@ -20,7 +18,7 @@ class EditPrediction extends React.Component {
   handleSave() {
     const predictionForm = this.predictionForm.getData()
     this.setState({updatingPrediction: true})
-    this.props.actions.updatePrediction({
+    Api.updatePrediction({
       id: this.props.location.state.id,
       prediction_title: predictionForm.predictionTitle,
       active_from: new Date(predictionForm.activeFrom),
@@ -45,7 +43,7 @@ class EditPrediction extends React.Component {
         ref={(node) => { this.predictionForm = node }}
         handleSave={this.handleSave}
         data={this.props.location.state}
-        disableSave={this.state.updatingCampaign}
+        disableSave={this.state.updatingPrediction}
       />
     )
   }

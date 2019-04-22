@@ -85,10 +85,27 @@ class PredictionForm extends React.Component {
   }
 
   isFormValid() {
+    console.log("state", this.state)
     if (this.state.predictionTitle.length === 0) {
       this.setState({
-        campaignNameErr: {
+        predictionTitleErr: {
           value: "Prediction title is required",
+          status: true
+        }
+      })
+      return false
+    } else if (this.state.predictionImage.toString().length === 0) {
+      this.setState({
+        predictionImageErr: {
+          value: "Prediction image  is required",
+          status: true
+        }
+      })
+      return false
+    } else if (this.state.detailedPredictionImage.toString().length === 0) {
+      this.setState({
+        detailedPredictionImageErr: {
+          value: "Detailed prediction image is required",
           status: true
         }
       })
@@ -109,28 +126,13 @@ class PredictionForm extends React.Component {
         }
       })
       return false
-    } else if (this.state.predictionImage.toString().length === 0) {
-      this.setState({
-        activeToErr: {
-          value: "Prediction image  is required",
-          status: true
-        }
-      })
-      return false
-    } else if (this.state.detailedPredictionImage.toString().length === 0) {
-      this.setState({
-        activeToErr: {
-          value: "Detailed prediction image is required",
-          status: true
-        }
-      })
-      return false
-    }
+    } 
 
     return true
   }
 
   handleSave() {
+    console.log("save")
     if(this.isFormValid()) {
       this.props.handleSave()
     }
@@ -185,7 +187,7 @@ class PredictionForm extends React.Component {
             <label className="label">Detailed Prediction Image</label><br/>
             <TextField
               onChange={this.handleTextFields}
-              name="predictionImage"
+              name="detailedPredictionImage"
               value={this.state.detailedPredictionImage}
               style={{ width: '100%' }}
               disabled={this.props.isDisabled}

@@ -1,9 +1,6 @@
 import React from "react"
 import PredictionForm from './prediction-form'
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
-import * as Actions from './../../actions/index'
-import Api from "./../../middleware/api"
+import * as Api from "./../../middleware/api"
 
 
 class CreatePrediction extends React.Component {

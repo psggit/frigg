@@ -23,6 +23,7 @@ class ManagePrediction extends React.Component {
     this.setQueryParamas = this.setQueryParamas.bind(this)
     this.setPage = this.setPage.bind(this)
     this.fetchPredictionList = this.fetchPredictionList.bind(this)
+    this.successPredictionListCallback = this.successPredictionListCallback.bind(this)
   }
 
   componentDidMount() {
@@ -57,8 +58,8 @@ class ManagePrediction extends React.Component {
   successPredictionListCallback(response) {
     this.setState({
       loadingPredictionList: false,
-      predictionList: [],
-      predictionCount: 100
+      predictionList: response.prediction_data,
+      predictionCount: response.count
     })
   }
 
