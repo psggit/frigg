@@ -3,14 +3,14 @@ import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
 import { Card } from 'material-ui/Card'
 
-class TeamForm extends React.Component {
+class OptionForm extends React.Component {
   constructor(props) {
     super(props)
     
     this.state = {
-      teamName: props.data ? props.data.name : "",
+      optionName: props.data ? props.data.name : "",
     
-      teamNameErr: {
+      optionNameErr: {
         value: "",
         status: false
       },
@@ -62,10 +62,10 @@ class TeamForm extends React.Component {
   // }
 
   isFormValid() {
-    if (this.state.teamName.length === 0) {
+    if (this.state.optionName.length === 0) {
       this.setState({
-        teamNameErr: {
-          value: "Team name is required",
+        optionNameErr: {
+          value: "option name is required",
           status: true
         }
       })
@@ -82,7 +82,7 @@ class TeamForm extends React.Component {
   }
 
   render() {
-    const {teamNameErr} = this.state
+    const {optionNameErr} = this.state
     return (
       <Fragment>
         <Card style={{
@@ -94,19 +94,19 @@ class TeamForm extends React.Component {
             marginRight: '20px'
           }}
         >
-          <h4 style={{ margin: '0', marginBottom: '40px' }}>Enter Team Details</h4>
+          <h4 style={{ margin: '0', marginBottom: '40px' }}>Enter Option Details</h4>
           <div className="form-group">
-            <label className="label">Team Name</label><br/>
+            <label className="label">Option Name</label><br/>
             <TextField
               onChange={this.handleTextFields}
-              name="teamName"
-              value={this.state.teamName}
+              name="optionName"
+              value={this.state.optionName}
               style={{ width: '100%' }}
               disabled={this.props.isDisabled}
             />
             {
-              teamNameErr.status &&
-              <p className="error-message">* {teamNameErr.value}</p>
+              optionNameErr.status &&
+              <p className="error-message">* {optionNameErr.value}</p>
             }
           </div>
         
@@ -124,4 +124,4 @@ class TeamForm extends React.Component {
   }
 }
 
-export default TeamForm
+export default OptionForm

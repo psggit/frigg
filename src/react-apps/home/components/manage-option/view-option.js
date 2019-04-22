@@ -13,8 +13,8 @@ import Moment from "moment"
 import {overrideTableStyle} from '../../../utils'
 
 const TableHeaderItems = [
-  'TEAM ID',
-  'TEAM NAME'
+  'OPTION ID',
+  'OPTION NAME'
 ]
 
 const styles = [
@@ -22,7 +22,7 @@ const styles = [
   { width: '120px' }
 ]
 
-class ViewTeam extends React.Component {
+class ViewOption extends React.Component {
 
   constructor() {
     super()
@@ -39,8 +39,8 @@ class ViewTeam extends React.Component {
 
   render() {
     const {
-      loadingTeamList,
-      teamList
+      loadingOptionList,
+      optionList
     } = this.props
     return (
       <div>
@@ -63,13 +63,13 @@ class ViewTeam extends React.Component {
             showRowHover
           >
             {
-              !loadingTeamList
+              !loadingOptionList
                 ? (
-                  teamList.map((item, i) => {
+                  optionList.map((item, i) => {
                     return (
                       <TableRow key={i}>
-                        <TableRowColumn style={styles[0]}>{item.id}</TableRowColumn>
-                        <TableRowColumn style={styles[1]}>{item.name}</TableRowColumn>
+                        <TableRowColumn style={styles[0]}>{item.option_id}</TableRowColumn>
+                        <TableRowColumn style={styles[1]}>{item.option_name}</TableRowColumn>
                       </TableRow> 
                     )
                   })
@@ -87,4 +87,4 @@ class ViewTeam extends React.Component {
   }
 }
 
-export default ViewTeam
+export default ViewOption

@@ -748,6 +748,49 @@ export const fetchPredictionList = (payloadObj, successCallback) => {
   })
 }
 
+export const fetchOptionList = (payloadObj, successCallback) => {
+  return GET({
+      api: '/prediction/list_options',
+      apiBase: 'odin',
+      data: payloadObj,
+      handleError: true
+  })
+  .then((json) => {
+      successCallback(json)
+      //Notify('Successfully mapped team to prediction', 'success')
+      // setTimeout(() => {
+      //     location.href = `/home/manage-team-mapped-to-prediction`
+      // }, 500)
+  })
+  .catch(err => {
+      console.log("Error in fetching option list", err)
+      err.response.json().then(json => { Notify("danger", json.message) })
+      //failureCallback()
+  })
+}
+
+export function createOption (payloadObj, successCallback, failureCallback) {
+  return POST({
+      api: '/prediction/create_option',
+      apiBase: 'odin',
+      data: payloadObj,
+      handleError: true
+  })
+  .then((json) => {
+      successCallback(json)
+      Notify('Successfully created option', 'success')
+      setTimeout(() => {
+          location.href = `/home/manage-option`
+      }, 500)
+  })
+  .catch(err => {
+      console.log("Error in creating option", err)
+      err.response.json().then(json => { Notify("danger", json.message) })
+      failureCallback()
+  })
+}
+
+
 // export const createPrediction = action => (
 //   POST({
 //     api: '/campaign/createPrediction',
@@ -813,7 +856,7 @@ export function updatePrediction (payloadObj, successCallback, failureCallback) 
 
 export function createTeam (payloadObj, successCallback, failureCallback) {
   return POST({
-      api: '/Api/stockandprice/inventory/createorupdate',
+      api: '/prediction/list_options',
       apiBase: 'odin',
       data: payloadObj,
       handleError: true

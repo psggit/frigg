@@ -75,8 +75,8 @@ import MapCompanyToBrand from "./../components/manage-company/create-company"
 import ViewPredictionList from "./../container/manage-prediction"
 import CreatePrediction from "./../components/manage-prediction/create-prediction"
 import UpdatePrediction from "./../components/manage-prediction/update-prediction"
-import ViewTeamList from "./../container/manage-team"
-import CreateTeam from "./../components/manage-team/create-team"
+import ViewOptionList from "./../container/manage-option"
+import CreateOption from "./../components/manage-option/create-option"
 import ViewMappedTeamList from "./../container/manage-team-prediction-mapping"
 // import CreateTeam from "./../components/manage-team/create-team"
 // import '@sass/components/_heading.scss'
@@ -277,8 +277,8 @@ class App extends React.Component {
                       <Route exact path="/home/manage-prediction/create" component={CreatePrediction} />
                       <Route exact path="/home/manage-prediction/edit/:predictionId" component={UpdatePrediction} />
 
-                      <Route exact path="/home/manage-team" component={ViewTeamList} />
-                      <Route exact path="/home/manage-team/create" component={CreateTeam} />
+                      <Route exact path="/home/manage-option" component={ViewOptionList} />
+                      <Route exact path="/home/manage-option/create" component={CreateOption} />
 
                       <Route exact path="/home/manage-prediction-team-mapping" component={ViewMappedTeamList} />
                       {/* <Route exact path="/home/manage-team/create" component={CreateTeam} /> */}

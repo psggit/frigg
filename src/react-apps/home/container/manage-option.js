@@ -3,25 +3,25 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as Actions from '../actions'
 import { getQueryObj, getQueryUri } from '@utils/url-utils'
-import ViewTeam from '../components/manage-team/view-team'
+import ViewOption from '../components/manage-option/view-option'
 import Pagination from '@components/pagination'
 import '@sass/components/_pagination.scss'
 import { NavLink } from 'react-router-dom'
 import RaisedButton from 'material-ui/RaisedButton'
-import Api from "./../middleware/api"
+import * as Api from "../middleware/api"
 
-class ManageTeam extends React.Component {
+class ManageOption extends React.Component {
   constructor() {
     super()
     //this.pageLimit = 5
     this.state = {
       //activePage: 1,
-      loadingTeamList: false,
+      loadingOptionList: false,
       //teamCount: 0,
-      teamList: []
+      optionList: []
     }
 
-    this.successTeamListCallback = this.successTeamListCallback.bind(this)
+    this.successOptionListCallback = this.successOptionListCallback.bind(this)
     // this.setQueryParamas = this.setQueryParamas.bind(this)
     // this.setPage = this.setPage.bind(this)
   }
@@ -30,7 +30,7 @@ class ManageTeam extends React.Component {
     // if (location.search.length) {
     //   this.setQueryParamas()
     // } else {
-      this.fetchTeamList()
+      this.fetchOptionList()
     //}
   }
 
@@ -47,18 +47,18 @@ class ManageTeam extends React.Component {
   //   }, this.successTeamListCallback)
   // }
 
-  fetchTeamList() {
-    this.setState({loadingTeamList: true})
-    Api.fetchTeamList({
+  fetchOptionList() {
+    this.setState({loadingOptionList: true})
+    Api.fetchOptionList({
       // offset: 0,
       // limit: this.pageLimit
-    }, this.successTeamListCallback)
+    }, this.successOptionListCallback)
   }
 
-  successTeamListCallback(response) {
+  successOptionListCallback(response) {
     this.setState({
-      loadingTeamList: false,
-      teamList: [],
+      loadingOptionList: false,
+      optionList: response.options,
       //teamCount: 100
     })
   }
@@ -85,25 +85,25 @@ class ManageTeam extends React.Component {
 
   render() {
     const {
-      loadingTeamList,
-      teamList,
+      loadingOptionList,
+      optionList,
      // teamCount
     } = this.state
     return (
       <div style={{ width: '100%' }}>
         <div>
-          <NavLink to={`/home/manage-team/create`}>
+          <NavLink to={`/home/manage-option/create`}>
             <RaisedButton
-              label="Create new team"
+              label="Create new option"
               primary
             />
           </NavLink>
 
         </div>
-        <h3>Showing all team</h3>
-        <ViewTeam
-          teamList={teamList}
-          loadingTeamList={loadingTeamList}
+        <h3>Showing all option</h3>
+        <ViewOption
+          optionList={optionList}
+          loadingOptionList={loadingOptionList}
           history={this.props.history}
         />
         {/* {
@@ -121,7 +121,7 @@ class ManageTeam extends React.Component {
   }
 }
 
-export default ManageTeam
+export default ManageOption
 
 // const mapStateToProps = state => state.main
 
