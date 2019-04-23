@@ -48,7 +48,7 @@ class ManagePrediction extends React.Component {
     })
     this.setState({loadingPredictionList: true})
     this.fetchPredictionList({
-      offset: queryObj.offset ? parseInt(queryObj.offset) : 0,
+      offset: queryObj.activePage ? (parseInt(queryObj.activePage) - 1) * this.pageLimit : 0,
       limit: this.pageLimit,
     }, this.successPredictionListCallback)
   }
@@ -80,12 +80,12 @@ class ManagePrediction extends React.Component {
     })
 
     this.fetchPredictionList({
-      offset: pageObj.offset,
+      offset: pageObj.activePage ? (parseInt(pageObj.activePage) - 1) * this.pageLimit : 0,
       limit: this.pageLimit,
     }, this.successPredictionListCallback)
 
     queryObj.activePage = pageObj.activePage
-    queryObj.offset = pageObj.offset
+    //queryObj.offset = pageObj.offset
     history.pushState(queryObj, "prediction listing", `/home/manage-prediction?${getQueryUri(queryObj)}`)
   }
 

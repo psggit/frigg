@@ -75,7 +75,7 @@ class FilterModal extends React.Component {
     } else if(!this.props.filterStateAndCity && !this.props.filterCity) {
       this.props.applyFilter(this.state.stateIdx, this.state.isCityAvailable)
       this.unmountModal()
-    } else if(filterCity) {
+    } else if(this.props.filterCity) {
       this.props.applyFilter(this.state.cityIdx)
       this.unmountModal()
     } else {

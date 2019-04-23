@@ -112,7 +112,7 @@ class MapCityToPrediction extends React.Component {
       this.fetchCityMappedToPrediction({
         offset: pageObj.offset,
         limit: this.pageLimit,
-        city_id: queryObj.cityId
+        city_id: parseInt(queryObj.cityId)
       }, this.successCityMappedToPredictionListCallback)
 
     } else {
@@ -182,7 +182,7 @@ class MapCityToPrediction extends React.Component {
     history.pushState(queryObj, "city mapped to prediction listing", `/home/manage-city-mapping?${getQueryUri(queryObj)}`)
     this.setState({loadingCityMappedToPredictionList: true})
     this.fetchCityMappedToPrediction({
-      city_id: queryObj.cityId,
+      city_id: parseInt(queryObj.cityId),
       offset: 0,
       limit: this.pageLimit
     }, this.successCityMappedToPredictionListCallback)

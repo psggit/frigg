@@ -13,7 +13,7 @@ import Moment from "moment"
 import {overrideTableStyle} from '../../../utils'
 
 const TableHeaderItems = [
-  '',
+  // '',
   'OPTION ID',
   'OPTION NAME',
   'PREDICTION ID',
@@ -21,7 +21,7 @@ const TableHeaderItems = [
 ]
 
 const styles = [
-  { width: '38px' },
+  // { width: '38px' },
   { width: '120px' },
   { width: '120px' },
   { width: '120px' },
@@ -81,17 +81,17 @@ class ViewMappedOption extends React.Component {
                   optionMappedtoPreditionList.map((item, i) => {
                     return (
                       <TableRow key={i}>
-                        <TableRowColumn style={styles[0]}>
+                        {/* <TableRowColumn style={styles[0]}>
                           <button
                             onClick={e => this.handleRowClick(e, item)}
                           >
                             Edit
                           </button>
-                        </TableRowColumn>
-                        <TableRowColumn style={styles[1]}>{item.option_id}</TableRowColumn>
-                        <TableRowColumn style={styles[2]}>{item.option_name}</TableRowColumn>
-                        <TableRowColumn style={styles[3]}>{item.prediction_id}</TableRowColumn>
-                        <TableRowColumn style={styles[4]}>{item.prediction_title}</TableRowColumn>
+                        </TableRowColumn> */}
+                        <TableRowColumn style={styles[0]}>{item.option_id}</TableRowColumn>
+                        <TableRowColumn style={styles[1]}>{item.option_name}</TableRowColumn>
+                        <TableRowColumn style={styles[2]}>{item.prediction_id}</TableRowColumn>
+                        <TableRowColumn style={styles[3]}>{item.prediction_title}</TableRowColumn>
                       </TableRow> 
                     )
                   })

@@ -83,7 +83,7 @@ class MapOptionToPrediction extends React.Component {
 
     this.setState({loadingOptionMappedToPredictionList: true})
 
-    if(queryObj.cityId) {
+    if(queryObj.predictionId) {
       this.fetchOptionMappedToPredictionList({
         offset: queryObj.activePage ? (parseInt(queryObj.activePage) - 1) * this.pageLimit : 0,
         limit: this.pageLimit,
@@ -124,6 +124,11 @@ class MapOptionToPrediction extends React.Component {
     const queryObj = getQueryObj(queryUri)
 
     let queryParamsObj = {}
+    
+    this.setState({
+      activePage: pageObj.activePage,
+      loadingOptionMappedToPredictionList: true
+    })
 
     if(queryObj.predictionId) {
       queryParamsObj = {
@@ -135,7 +140,7 @@ class MapOptionToPrediction extends React.Component {
       this.fetchOptionMappedToPredictionList({
         offset: pageObj.offset,
         limit: this.pageLimit,
-        prediction_id: queryObj.predictionId
+        prediction_id: parseInt(queryObj.predictionId)
       }, this.successOptionMappedToPredictionListCallback)
 
     } else {
@@ -176,7 +181,7 @@ class MapOptionToPrediction extends React.Component {
     history.pushState(queryObj, "option mapped to prediction listing", `/home/manage-option-mapping?${getQueryUri(queryObj)}`)
     this.setState({loadingOptionMappedToPredictionList: true})
     this.fetchOptionMappedToPredictionList({
-      prediction_id: queryObj.predictionId,
+      prediction_id: parseInt(queryObj.predictionId),
       offset: 0,
       limit: this.pageLimit
     }, this.successOptionMappedToPredictionListCallback)
