@@ -3,25 +3,26 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as Actions from '../actions'
 import { getQueryObj, getQueryUri } from '@utils/url-utils'
-import ViewTeamMappedToPrediction from '../components/manage-prediction-team-mapping/view-mapped-team'
+import ViewOptionMappedToPrediction from '../components/manage-prediction-option-mapping/view-mapped-option'
 import Pagination from '@components/pagination'
 import '@sass/components/_pagination.scss'
 import { NavLink } from 'react-router-dom'
 import RaisedButton from 'material-ui/RaisedButton'
-import Api from "./../middleware/api"
+import * as Api from "../middleware/api"
 
-class MapTeamToPrediction extends React.Component {
+class MapOptionToPrediction extends React.Component {
   constructor() {
     super()
     //this.pageLimit = 5
     this.state = {
       //activePage: 1,
-      loadingTeamMappedToPredictionList: false,
+      loadingOptionMappedToPredictionList: false,
       //teamCount: 0,
-      teamMappedtoPreditionList: []
+      optionMappedtoPreditionList: []
     }
 
-    this.successTeamMappedToPredictionListCallback = this.successTeamMappedToPredictionListCallback.bind(this)
+    this.successOptionMappedToPredictionListCallback = this.successOptionMappedToPredictionListCallback.bind(this)
+    this.fetchOptionMappedToPrediction = this.fetchOptionMappedToPrediction.bind(this)
     // this.setQueryParamas = this.setQueryParamas.bind(this)
     // this.setPage = this.setPage.bind(this)
   }
@@ -30,7 +31,7 @@ class MapTeamToPrediction extends React.Component {
     // if (location.search.length) {
     //   this.setQueryParamas()
     // } else {
-      this.fetchTeamMappedToPrediction()
+      this.fetchOptionMappedToPrediction()
     //}
   }
 
@@ -47,18 +48,19 @@ class MapTeamToPrediction extends React.Component {
   //   }, this.successTeamListCallback)
   // }
 
-  fetchTeamMappedToPrediction() {
-    this.setState({loadingTeamMappedToPredictionList: true})
-    Api.fetchTeamMappedToPredictionList({
+  fetchOptionMappedToPrediction() {
+    this.setState({loadingOptionMappedToPredictionList: true})
+    Api.fetchOptionMappedToPredictionList({
       // offset: 0,
       // limit: this.pageLimit
-    }, this.successTeamMappedToPredictionListCallback)
+    }, this.successOptionMappedToPredictionListCallback)
   }
 
-  successTeamMappedToPredictionListCallback(response) {
+  successOptionMappedToPredictionListCallback(response) {
+    console.log("res", response)
     this.setState({
-      loadingTeamMappedToPredictionList: false,
-      teamMappedtoPreditionList: [],
+      loadingOptionMappedToPredictionList: false,
+      optionMappedtoPreditionList: response.options,
       //teamCount: 100
     })
   }
@@ -85,24 +87,24 @@ class MapTeamToPrediction extends React.Component {
 
   render() {
     const {
-      loadingTeamMappedToPredictionList,
-      teamMappedtoPreditionList
+      loadingOptionMappedToPredictionList,
+      optionMappedtoPreditionList
     } = this.state
     return (
       <div style={{ width: '100%' }}>
         <div>
-          <NavLink to={`/home/manage-team/create`}>
+          <NavLink to={`/home/manage-option-mapping/create`}>
             <RaisedButton
-              label="Map team to prediction"
+              label="Map option to prediction"
               primary
             />
           </NavLink>
 
         </div>
-        <h3>Showing all team mapped to prediction</h3>
-        <ViewTeamMappedToPrediction
-          teamMappedtoPreditionList={teamMappedtoPreditionList}
-          loadingTeamMappedToPredictionList={loadingTeamMappedToPredictionList}
+        <h3>Showing all option mapped to prediction</h3>
+        <ViewOptionMappedToPrediction
+          optionMappedtoPreditionList={optionMappedtoPreditionList}
+          loadingOptionMappedToPredictionList={loadingOptionMappedToPredictionList}
           history={this.props.history}
         />
         {/* {
@@ -120,4 +122,4 @@ class MapTeamToPrediction extends React.Component {
   }
 }
 
-export default MapTeamToPrediction
+export default MapOptionToPrediction

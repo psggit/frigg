@@ -14,24 +14,6 @@ class CreateOption extends React.Component {
     this.failureOptionCallback = this.failureOptionCallback.bind(this)
   }
 
-  // formIsValid() {
-  //   const predictionForm = this.predictionForm.getData()
-
-  //   if (predictionForm.predictionTitle.length === 0) {
-  //     return false
-  //   } else if (predictionForm.activeFrom.toString().length === 0) {
-  //     return false
-  //   } else if (predictionForm.activeTo.toString().length === 0) {
-  //     return false
-  //   } else if (predictionForm.predictionImage.toString().length === 0) {
-  //     return false
-  //   } else if (predictionForm.detailedPredictionImage.toString().length === 0) {
-  //     return false
-  //   }
-
-  //   return true
-  // }
-
   successOptionCallback() {
     this.setState({ creatingOption: false })
     this.props.history.push("/home/manage-option")

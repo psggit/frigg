@@ -90,7 +90,7 @@ class ManageOption extends React.Component {
      // teamCount
     } = this.state
     return (
-      <div style={{ width: '100%' }}>
+      <div style={{ width: '50%' }}>
         <div>
           <NavLink to={`/home/manage-option/create`}>
             <RaisedButton

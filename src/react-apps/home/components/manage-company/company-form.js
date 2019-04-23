@@ -112,7 +112,7 @@ class CompanyForm extends React.Component {
                 style={{ width: '100%' }}
               >
                 {
-                  !this.props.loadindCompanies && this.state.companyList.map((item, i) => (
+                  !this.props.loadingCompanies && this.state.companyList.map((item, i) => (
                     <MenuItem
                       value={parseInt(item.value)}
                       key={parseInt(item.value)}

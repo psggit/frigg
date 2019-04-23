@@ -14,8 +14,8 @@ import {overrideTableStyle} from '../../../utils'
 
 const TableHeaderItems = [
   '',
-  'TEAM ID',
-  'TEAM NAME',
+  'OPTION ID',
+  'OPTION NAME',
   'PREDICTION ID',
   'PREDICTION NAME'
 ]
@@ -28,10 +28,12 @@ const styles = [
   { width: '120px' }
 ]
 
-class ViewMappedTeam extends React.Component {
+class ViewMappedOption extends React.Component {
 
   constructor() {
     super()
+
+    this.handleRowClick = this.handleRowClick.bind(this)
   }
 
   componentDidMount() {
@@ -43,10 +45,15 @@ class ViewMappedTeam extends React.Component {
     overrideTableStyle()
   }
 
+  handleRowClick(e, item) {
+    console.log("prosp", this.props, item)
+    this.props.history.push(`/home/manage-option-mapping/edit/${item.prediction_id}`, item)
+  }
+
   render() {
     const {
-      loadingTeamMappedToPredictionList,
-      teamMappedtoPreditionList
+      loadingOptionMappedToPredictionList,
+      optionMappedtoPreditionList
     } = this.props
     return (
       <div>
@@ -69,9 +76,9 @@ class ViewMappedTeam extends React.Component {
             showRowHover
           >
             {
-              !loadingTeamMappedToPredictionList
+              !loadingOptionMappedToPredictionList
                 ? (
-                  teamMappedtoPreditionList.map((item, i) => {
+                  optionMappedtoPreditionList.map((item, i) => {
                     return (
                       <TableRow key={i}>
                         <TableRowColumn style={styles[0]}>
@@ -81,8 +88,8 @@ class ViewMappedTeam extends React.Component {
                             Edit
                           </button>
                         </TableRowColumn>
-                        <TableRowColumn style={styles[1]}>{item.id}</TableRowColumn>
-                        <TableRowColumn style={styles[2]}>{item.name}</TableRowColumn>
+                        <TableRowColumn style={styles[1]}>{item.option_id}</TableRowColumn>
+                        <TableRowColumn style={styles[2]}>{item.option_name}</TableRowColumn>
                         <TableRowColumn style={styles[3]}>{item.prediction_id}</TableRowColumn>
                         <TableRowColumn style={styles[4]}>{item.prediction_title}</TableRowColumn>
                       </TableRow> 
@@ -102,4 +109,4 @@ class ViewMappedTeam extends React.Component {
   }
 }
 
-export default ViewMappedTeam
+export default ViewMappedOption

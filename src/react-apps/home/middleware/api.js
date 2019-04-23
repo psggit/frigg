@@ -854,32 +854,53 @@ export function updatePrediction (payloadObj, successCallback, failureCallback) 
 }
 
 
-export function createTeam (payloadObj, successCallback, failureCallback) {
+export function mapOptionToPrediction (payloadObj, successCallback, failureCallback) {
   return POST({
-      api: '/prediction/list_options',
+      api: '/prediction/map_option',
       apiBase: 'odin',
       data: payloadObj,
       handleError: true
   })
   .then((json) => {
       successCallback(json)
-      Notify('Successfully created team', 'success')
+      Notify('Successfully mapped option to prediction', 'success')
       setTimeout(() => {
-          location.href = `/home/manage-team`
+          location.href = `/home/manage-option-mapping`
       }, 500)
   })
   .catch(err => {
-      console.log("Error in creating team", err)
+      console.log("Error in mapping option to prediction", err)
       err.response.json().then(json => { Notify("danger", json.message) })
       failureCallback()
   })
 }
 
-export function fetchTeamMappedToPredictionList (payloadObj, successCallback) {
+export function updateOptionToPrediction (payloadObj, successCallback, failureCallback) {
   return POST({
-      api: '/Api/stockandprice/inventory/createorupdate',
+      api: '/prediction/update_option_map',
       apiBase: 'odin',
       data: payloadObj,
+      handleError: true
+  })
+  .then((json) => {
+      successCallback(json)
+      Notify('Successfully updated option mapped to prediction', 'success')
+      setTimeout(() => {
+          location.href = `/home/manage-option-mapping`
+      }, 500)
+  })
+  .catch(err => {
+      console.log("Error in updating option mapped to prediction", err)
+      err.response.json().then(json => { Notify("danger", json.message) })
+      failureCallback()
+  })
+}
+
+export function fetchOptionMappedToPredictionList (payloadObj, successCallback) {
+  return GET({
+      api: '/prediction/list_option_maps',
+      apiBase: 'odin',
+      //data: payloadObj,
       handleError: true
   })
   .then((json) => {
@@ -890,7 +911,7 @@ export function fetchTeamMappedToPredictionList (payloadObj, successCallback) {
       // }, 500)
   })
   .catch(err => {
-      console.log("Error in mapping team to prediction", err)
+      console.log("Error in mapping option to prediction", err)
       //err.response.json().then(json => { Notify("danger", json.message) })
       //failureCallback()
   })

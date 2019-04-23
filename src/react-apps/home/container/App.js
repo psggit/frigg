@@ -77,7 +77,9 @@ import CreatePrediction from "./../components/manage-prediction/create-predictio
 import UpdatePrediction from "./../components/manage-prediction/update-prediction"
 import ViewOptionList from "./../container/manage-option"
 import CreateOption from "./../components/manage-option/create-option"
-import ViewMappedTeamList from "./../container/manage-team-prediction-mapping"
+import ViewMappedOptionList from "./../container/manage-option-prediction-mapping"
+import MapOptionToPrediction from "./../components/manage-prediction-option-mapping/map-option-to-prediction"
+import UpdateOptionToPrediction from "./../components/manage-prediction-option-mapping/update-option-to-prediction"
 // import CreateTeam from "./../components/manage-team/create-team"
 // import '@sass/components/_heading.scss'
 
@@ -280,9 +282,9 @@ class App extends React.Component {
                       <Route exact path="/home/manage-option" component={ViewOptionList} />
                       <Route exact path="/home/manage-option/create" component={CreateOption} />
 
-                      <Route exact path="/home/manage-prediction-team-mapping" component={ViewMappedTeamList} />
-                      {/* <Route exact path="/home/manage-team/create" component={CreateTeam} /> */}
-                      {/* <Route exact path="/home/manage-cashback-sku/:offerId" component={ViewCashbackSkuList} /> */}
+                      <Route exact path="/home/manage-option-mapping" component={ViewMappedOptionList} />
+                      <Route exact path="/home/manage-option-mapping/create" component={MapOptionToPrediction} />
+                      <Route exact path="/home/manage-option-mapping/edit/:predictionId" component={UpdateOptionToPrediction} />
                     
                        {/*<Route exact path="/home/manage-cashback-sku/edit/:offerId" component={UpdateCampaign} /> */}
                     </Switch>
