@@ -90,6 +90,7 @@ class UpdateCityToPrediction extends React.Component {
         ref={(node) => { this.mapCityForm = node }}
         handleSave={this.handleSave}
         disableSave={this.state.updatingCity}
+        disablePrediction={true}
         data={this.props.location.state}
         predictionList={this.state.predictionList}
         cityList={this.state.cityList}

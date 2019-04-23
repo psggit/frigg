@@ -48,7 +48,6 @@ class ViewMappedCity extends React.Component {
   }
 
   handleRowClick(e, item) {
-    console.log("prosp", this.props, item)
     this.props.history.push(`/home/manage-city-mapping/edit/${item.prediction_id}`, item)
   }
 

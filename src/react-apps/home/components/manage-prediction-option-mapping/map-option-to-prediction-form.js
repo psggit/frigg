@@ -59,7 +59,6 @@ class MapOptionToPredictionForm extends React.Component {
   }
 
   render() {
-    console.log("data", this.props, this.props.data)
     return (
       <Fragment>
         <Card style={{
@@ -78,6 +77,7 @@ class MapOptionToPredictionForm extends React.Component {
               value={this.state.selectedPredictionIdx}
               onChange={this.handlePredictionChange}
               style={{ width: '100%' }}
+              disabled={this.props.disablePrediction}
             >
               {
                 !this.props.loadingPredictionList && this.state.predictionList.map((item, i) => (

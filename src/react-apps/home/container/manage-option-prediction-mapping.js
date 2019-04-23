@@ -24,7 +24,9 @@ class MapOptionToPrediction extends React.Component {
       shouldMountFilterDialog: false
     }
 
-    this.filter = {}
+    this.filter = {
+      predictionId: ""
+    }
     this.successOptionMappedToPredictionListCallback = this.successOptionMappedToPredictionListCallback.bind(this)
     this.fetchPredictionList = this.fetchPredictionList.bind(this)
     this.setQueryParamas = this.setQueryParamas.bind(this)
@@ -123,25 +125,6 @@ class MapOptionToPrediction extends React.Component {
 
     let queryParamsObj = {}
 
-    this.setState({
-      loadingOptionMappedToPredictionList: true,
-      activePage: pageObj.activePage
-    })
-
-    this.fetchOptionMappedToPredictionList({
-      offset: pageObj.offset,
-      limit: this.pageLimit,
-    }, this.successOptionMappedToPredictionListCallback)
-
-    history.pushState(queryParamsObj, "option mapped prediction listing", `/home/manage-option-mapping?${getQueryUri(queryParamsObj)}`)
-  }
-
-  setPage(pageObj) {
-    const queryUri = location.search.slice(1)
-    const queryObj = getQueryObj(queryUri)
-
-    let queryParamsObj = {}
-
     if(queryObj.predictionId) {
       queryParamsObj = {
         activePage: pageObj.activePage,
@@ -152,7 +135,7 @@ class MapOptionToPrediction extends React.Component {
       this.fetchOptionMappedToPredictionList({
         offset: pageObj.offset,
         limit: this.pageLimit,
-        city_id: queryObj.cityId
+        prediction_id: queryObj.predictionId
       }, this.successOptionMappedToPredictionListCallback)
 
     } else {

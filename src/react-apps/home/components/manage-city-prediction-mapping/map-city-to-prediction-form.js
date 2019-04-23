@@ -34,7 +34,6 @@ class MapCityToPredictionForm extends React.Component {
   }
 
   componentWillReceiveProps(newProps) {
-    console.log("new props", newProps)
     if(this.props.cityList !== newProps.cityList) {
       this.setState({
         cityList: newProps.cityList,
@@ -91,6 +90,7 @@ class MapCityToPredictionForm extends React.Component {
               value={this.state.selectedPredictionIdx}
               onChange={this.handlePredictionChange}
               style={{ width: '100%' }}
+              disabled={this.props.disablePrediction}
             >
               {
                 !this.props.loadingPredictionList && this.state.predictionList.map((item, i) => (

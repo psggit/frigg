@@ -241,7 +241,7 @@ class MapCityToPrediction extends React.Component {
           this.state.shouldMountFilterDialog ?
           (<FilterModal
               applyFilter={this.applyFilter}
-              title="Filter prediction"
+              title="Filter prediction by city"
               unmountFilterModal={this.unmountFilterModal}
               // handleStateChange={this.handleStateChange}
               handleCityChange={this.handleCityChange}

@@ -86,6 +86,7 @@ class MapOptionToPrediction extends React.Component {
         ref={(node) => { this.mapOptionForm = node }}
         handleSave={this.handleSave}
         disableSave={this.state.mappingOption}
+        disablePrediction={false}
         predictionList={this.state.predictionList}
         optionList={this.state.optionList}
         loadingPredictionList={this.state.loadingPredictionList}
