@@ -47,9 +47,10 @@ class ViewPrediction extends React.Component {
     overrideTableStyle()
   }
 
-  handleRowClick(e, item) {
+  handleRowClick(rowIdx, columnIdx) {
+    //console.log(this.props.predictionList[rowIdx])
     //console.log("click",row, column, this.props.cashbackSkuList[row])
-    this.props.history.push(`/home/manage-prediction/edit/${item.id}`, item)
+    this.props.history.push(`/home/manage-prediction/edit/${this.props.predictionList[rowIdx].id}`, this.props.predictionList[rowIdx])
   }
 
   render() {
@@ -65,7 +66,7 @@ class ViewPrediction extends React.Component {
           className="bordered--table clickable"
           selectable={false}
           fixedHeader
-          //onCellClick={this.handleCellClick}
+          onCellClick={this.handleRowClick}
         >
           <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
             <TableRow>
@@ -86,10 +87,11 @@ class ViewPrediction extends React.Component {
                       <TableRow key={i}>
                         <TableRowColumn style={styles[0]}>
                           <button
-                            onClick={e => this.handleRowClick(e, item)}
+                            //onClick={e => this.handleRowClick(e, item)}
                           >
                             Edit
                           </button>
+                          {/* Edit */}
                         </TableRowColumn>
                         <TableRowColumn style={styles[1]}>{item.prediction_title}</TableRowColumn>
                         {/* <TableRowColumn style={styles[2]}>{item.prediction_image}</TableRowColumn>

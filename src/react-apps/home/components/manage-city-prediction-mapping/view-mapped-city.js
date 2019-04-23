@@ -47,8 +47,8 @@ class ViewMappedCity extends React.Component {
     overrideTableStyle()
   }
 
-  handleRowClick(e, item) {
-    this.props.history.push(`/home/manage-city-mapping/edit/${item.prediction_id}`, item)
+  handleRowClick(rowIdx, colIdx) {
+    this.props.history.push(`/home/manage-city-mapping/edit/${this.props.cityMappedtoPreditionList[rowIdx].prediction_id}`, this.props.cityMappedtoPreditionList[rowIdx])
   }
 
   render() {
@@ -63,7 +63,7 @@ class ViewMappedCity extends React.Component {
           className="bordered--table clickable"
           selectable={false}
           fixedHeader
-          //onCellClick={this.handleCellClick}
+          onCellClick={this.handleRowClick}
         >
           <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
             <TableRow>
@@ -84,7 +84,7 @@ class ViewMappedCity extends React.Component {
                       <TableRow key={i}>
                         <TableRowColumn style={styles[0]}>
                           <button
-                            onClick={e => this.handleRowClick(e, item)}
+                            //onClick={e => this.handleRowClick(e, item)}
                           >
                             Edit
                           </button>
