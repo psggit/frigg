@@ -950,10 +950,10 @@ export function updateOptionToPrediction (payloadObj, successCallback, failureCa
 }
 
 export function fetchOptionMappedToPredictionList (payloadObj, successCallback) {
-  return GET({
+  return POST({
       api: '/prediction/list_option_maps',
       apiBase: 'odin',
-      //data: payloadObj,
+      data: payloadObj,
       handleError: true
   })
   .then((json) => {
@@ -964,7 +964,7 @@ export function fetchOptionMappedToPredictionList (payloadObj, successCallback) 
       // }, 500)
   })
   .catch(err => {
-      console.log("Error in mapping option to prediction", err)
+      console.log("Error in fetching option to prediction", err)
       //err.response.json().then(json => { Notify("danger", json.message) })
       //failureCallback()
   })

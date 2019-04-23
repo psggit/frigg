@@ -165,7 +165,8 @@ class MapCityToPrediction extends React.Component {
     this.setState({citiesData: cityList, loadingCities: false})
   }
 
-  applyFilter(cityIdx) {
+  applyFilter() {
+    
     console.log(this.filter);
     const queryObj = {
       //offset: 0,

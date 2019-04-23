@@ -14,12 +14,15 @@ class FilterModal extends React.Component {
       isLocalityAvailable: false,
       isCityAvailable: false,
       stateIdx: null,
-      cityIdx: null
+      cityIdx: null,
+      predictionIdx: null
     }
     this.handleClose = this.handleClose.bind(this)
+    this.unmountModal =  this.unmountModal.bind(this)
     this.handleApplyFilter = this.handleApplyFilter.bind(this)
     this.handleStateChange = this.handleStateChange.bind(this)
     this.handleCityChange = this.handleCityChange.bind(this)
+    this.handlePredictionChange = this.handlePredictionChange.bind(this)
     this.handleChangeIsLocalityAvailable = this.handleChangeIsLocalityAvailable.bind(this)
     this.handleChangeIsCityAvailable = this.handleChangeIsCityAvailable.bind(this)
   }
@@ -51,6 +54,12 @@ class FilterModal extends React.Component {
     this.props.handleCityChange(k)
   }
 
+  handlePredictionChange(e, k) {
+    const predictionIdx = k + 1
+    this.setState({ predictionIdx })
+    this.props.handlePredictionChange(k)
+  }
+
   handleChangeIsLocalityAvailable(e) {
     this.setState({ isLocalityAvailable: e.target.checked })
   }
@@ -62,23 +71,24 @@ class FilterModal extends React.Component {
   handleApplyFilter() {
     if(this.props.filterStateAndCity) {
       this.props.applyFilter(this.state.stateIdx, this.state.isLocalityAvailable)
-      this.setState({ open: false })
-      setTimeout(() => {
-        this.props.unmountFilterModal()
-      }, 500)
+      this.unmountModal()
     } else if(!this.props.filterStateAndCity && !this.props.filterCity) {
       this.props.applyFilter(this.state.stateIdx, this.state.isCityAvailable)
-      this.setState({ open: false })
-      setTimeout(() => {
-        this.props.unmountFilterModal()
-      }, 500)
-    } else {
+      this.unmountModal()
+    } else if(filterCity) {
       this.props.applyFilter(this.state.cityIdx)
-      this.setState({ open: false })
-      setTimeout(() => {
-        this.props.unmountFilterModal()
-      }, 500)
+      this.unmountModal()
+    } else {
+      this.props.applyFilter(this.state.predictionIdx)
+      this.unmountModal()
     }
+  }
+
+  unmountModal() {
+    this.setState({ open: false })
+    setTimeout(() => {
+      this.props.unmountFilterModal()
+    }, 500)
   }
 
   render() {
@@ -290,6 +300,35 @@ class FilterModal extends React.Component {
                           value={i + 1}
                           key={city.value}
                           primaryText={city.text}
+                        />
+                      ))
+                    )
+                    : ''
+                  }
+                </SelectField>
+              </div>
+            </div>
+          }
+          {
+           this.props.filter === "predictionFilter" &&
+            <div>
+              <div className="form-group">
+                <label>Prediction</label><br />
+                <SelectField
+                  style={{ width: '100%' }}
+                  floatingLabelText={this.props.floatingLabelText}
+                  value={parseInt(this.state.predictionIdx)}
+                  onChange={this.handlePredictionChange}
+                  iconStyle={{ fill: '#9b9b9b' }}
+                >
+                  {
+                    !this.props.loadingPredictionList
+                    ? (
+                      this.props.predictionList.map((prediction, i) => (
+                        <MenuItem
+                          value={i + 1}
+                          key={prediction.value}
+                          primaryText={prediction.text}
                         />
                       ))
                     )
