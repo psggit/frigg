@@ -30,7 +30,6 @@ class EditPrediction extends React.Component {
 
   successUpdatePredictionCallback() {
     this.setState({updatingPrediction: false})
-    this.props.history.push("/home/manage-prediction")
   }
 
   failureUpdatePredictionCallback() {
@@ -50,13 +49,3 @@ class EditPrediction extends React.Component {
 }
 
 export default EditPrediction
-// const mapStateToProps = state => state.main
-
-// const mapDispatchToProps = dispatch => ({
-//   actions: bindActionCreators(Actions, dispatch)
-// })
-
-// export default connect(
-//   mapStateToProps,
-//   mapDispatchToProps
-// )(EditPrediction)

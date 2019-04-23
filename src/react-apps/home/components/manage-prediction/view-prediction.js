@@ -35,18 +35,12 @@ class ViewPrediction extends React.Component {
   constructor() {
     super()
 
-    //this.editCashbackSkuDetails = this.editCashbackSkuDetails.bind(this)
     this.handleRowClick = this.handleRowClick.bind(this)
   }
 
   componentDidMount() {
     this.overrideTableStyle()
   }
-
-  // editCashbackSkuDetails(e, item) {
-  //   e.stopPropagation()
-  //   this.props.history.push(`/home/manage-cashback-sku/edit/${item.id}`, item)
-  // }
 
   overrideTableStyle() {
     // document.querySelectorAll(".bordered--table")[1].parentElement.style.overflow = "auto"
@@ -63,7 +57,7 @@ class ViewPrediction extends React.Component {
       loadingPredictionList,
       predictionList
     } = this.props
-    console.log("props", this.props)
+
     return (
       <div>
         <Table
@@ -98,8 +92,34 @@ class ViewPrediction extends React.Component {
                           </button>
                         </TableRowColumn>
                         <TableRowColumn style={styles[1]}>{item.prediction_title}</TableRowColumn>
-                        <TableRowColumn style={styles[2]}>{item.prediction_image}</TableRowColumn>
-                        <TableRowColumn style={styles[3]}>{item.detailed_prediction_image}</TableRowColumn>
+                        {/* <TableRowColumn style={styles[2]}>{item.prediction_image}</TableRowColumn>
+                        <TableRowColumn style={styles[3]}>{item.detailed_prediction_image}</TableRowColumn> */}
+                        <TableRowColumn style={styles[2]}>
+                          <a target="_blank" href={item.high_res_image}>
+                            <img
+                              alt="prediction_image"
+                              style={{
+                                width: '40px',
+                                height: '40px',
+                                objectFit: 'contain'
+                              }}
+                              src={item.prediction_image}
+                            />
+                          </a>
+                        </TableRowColumn>
+                        <TableRowColumn style={styles[3]}>
+                          <a target="_blank" href={item.detailed_prediction_image}>
+                            <img
+                              alt="ad-image"
+                              style={{
+                                width: '40px',
+                                height: '40px',
+                                objectFit: 'contain'
+                              }}
+                              src={item.detailed_prediction_image}
+                            />
+                          </a>
+                        </TableRowColumn>
                         <TableRowColumn style={styles[4]}>{Moment(item.active_from).format("DD/MM/YYYY h:mm A")}</TableRowColumn>
                         <TableRowColumn style={styles[5]}>{Moment(item.active_to).format("DD/MM/YYYY h:mm A")}</TableRowColumn>
                       </TableRow> 

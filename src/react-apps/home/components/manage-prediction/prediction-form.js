@@ -61,17 +61,6 @@ class PredictionForm extends React.Component {
     this.setState({ [e.target.name]: e.target.value })
   }
 
-  // handleStatusChange(e, k) {
-  //   const selectedStatusIdx = k + 1
-  //   this.setState({ selectedStatusIdx })
-  // }
-
-  // handleBrandManagerChange(e, k) {
-  //   console.log("brand manaer", k, this.props.brandManagerList[k])
-  //   const selectedBrandManagerIdx = k
-  //   this.setState({ selectedBrandManagerIdx: this.props.brandManagerList[k].value })
-  // }
-
   handleDate(e) {
     const errName = `${e.target.name}Err`
     this.setState({
@@ -132,14 +121,12 @@ class PredictionForm extends React.Component {
   }
 
   handleSave() {
-    console.log("save")
     if(this.isFormValid()) {
       this.props.handleSave()
     }
   }
 
   render() {
-    console.log("props", this.props, "date", this.state.selectedBrandManagerIdx)
     const {activeFromErr, activeToErr, predictionTitleErr, predictionImageErr, detailedPredictionImageErr} = this.state
     return (
       <Fragment>

@@ -18,7 +18,6 @@ class OptionForm extends React.Component {
 
     this.handleTextFields = this.handleTextFields.bind(this)
     this.getData = this.getData.bind(this)
-    //this.handleDate = this.handleDate.bind(this)
     this.isFormValid = this.isFormValid.bind(this)
     this.handleSave = this.handleSave.bind(this)
   }
@@ -37,29 +36,6 @@ class OptionForm extends React.Component {
     })
     this.setState({ [e.target.name]: e.target.value })
   }
-
-  // handleStatusChange(e, k) {
-  //   const selectedStatusIdx = k + 1
-  //   this.setState({ selectedStatusIdx })
-  // }
-
-  // handleBrandManagerChange(e, k) {
-  //   console.log("brand manaer", k, this.props.brandManagerList[k])
-  //   const selectedBrandManagerIdx = k
-  //   this.setState({ selectedBrandManagerIdx: this.props.brandManagerList[k].value })
-  // }
-
-  // handleDate(e) {
-  //   const errName = `${e.target.name}Err`
-  //   this.setState({
-  //     [errName] : {
-  //       value: "",
-  //       status: false
-  //     }
-  //   })
-  //   const d = new Date(e.target.value)
-  //   this.setState({ [e.target.name]: d.toISOString() })
-  // }
 
   isFormValid() {
     if (this.state.optionName.length === 0) {

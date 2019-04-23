@@ -16,7 +16,6 @@ class CreateOption extends React.Component {
 
   successOptionCallback() {
     this.setState({ creatingOption: false })
-    this.props.history.push("/home/manage-option")
   }
 
   failureOptionCallback() {

@@ -2,7 +2,6 @@ import React from "react"
 import PredictionForm from './prediction-form'
 import * as Api from "./../../middleware/api"
 
-
 class CreatePrediction extends React.Component {
   constructor() {
     super()
@@ -10,32 +9,12 @@ class CreatePrediction extends React.Component {
       creatingPrediction: false
     }
     this.handleSave = this.handleSave.bind(this)
-    //this.formIsValid = this.formIsValid.bind(this)
     this.successPredictionCallback = this.successPredictionCallback.bind(this)
     this.failurePredictionCallback = this.failurePredictionCallback.bind(this)
   }
 
-  // formIsValid() {
-  //   const predictionForm = this.predictionForm.getData()
-
-  //   if (predictionForm.predictionTitle.length === 0) {
-  //     return false
-  //   } else if (predictionForm.activeFrom.toString().length === 0) {
-  //     return false
-  //   } else if (predictionForm.activeTo.toString().length === 0) {
-  //     return false
-  //   } else if (predictionForm.predictionImage.toString().length === 0) {
-  //     return false
-  //   } else if (predictionForm.detailedPredictionImage.toString().length === 0) {
-  //     return false
-  //   }
-
-  //   return true
-  // }
-
   successPredictionCallback() {
     this.setState({ creatingPrediction: false })
-    this.props.history.push("/home/manage-prediction")
   }
 
   failurePredictionCallback() {
@@ -69,13 +48,3 @@ class CreatePrediction extends React.Component {
 }
 
 export default CreatePrediction
-// const mapStateToProps = state => state.main
-
-// const mapDispatchToProps = dispatch => ({
-//   actions: bindActionCreators(Actions, dispatch)
-// })
-
-// export default connect(
-//   mapStateToProps,
-//   mapDispatchToProps
-// )(CreatePrediction)

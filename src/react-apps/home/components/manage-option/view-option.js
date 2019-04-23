@@ -9,7 +9,6 @@ import {
 } from 'material-ui/Table'
 import TableLoadingShell from '../table-loading-shell'
 import '@sass/components/_table.scss'
-import Moment from "moment"
 import {overrideTableStyle} from '../../../utils'
 
 const TableHeaderItems = [

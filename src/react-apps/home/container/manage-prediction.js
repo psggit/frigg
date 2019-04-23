@@ -1,7 +1,4 @@
 import React from 'react'
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
-import * as Actions from '../actions'
 import { getQueryObj, getQueryUri } from '@utils/url-utils'
 import ViewPrediction from '../components/manage-prediction/view-prediction'
 import Pagination from '@components/pagination'
@@ -23,6 +20,7 @@ class ManagePrediction extends React.Component {
     this.setQueryParamas = this.setQueryParamas.bind(this)
     this.setPage = this.setPage.bind(this)
     this.fetchPredictionList = this.fetchPredictionList.bind(this)
+    this.fetchDefaultData = this.fetchDefaultData.bind(this)
     this.successPredictionListCallback = this.successPredictionListCallback.bind(this)
   }
 
@@ -30,8 +28,16 @@ class ManagePrediction extends React.Component {
     if (location.search.length) {
       this.setQueryParamas()
     } else {
-      this.fetchPredictionList()
+      this.fetchDefaultData()
     }
+  }
+
+  fetchDefaultData() {
+    this.setState({loadingPredictionList: true})
+    this.fetchPredictionList({
+      offset: 0,
+      limit: this.pageLimit
+    }, this.successPredictionListCallback)
   }
 
   setQueryParamas() {
@@ -41,18 +47,19 @@ class ManagePrediction extends React.Component {
       this.setState({ [item[0]]: item[1] })
     })
     this.setState({loadingPredictionList: true})
-    Api.fetchPredictionList({
+    this.fetchPredictionList({
       offset: queryObj.offset ? parseInt(queryObj.offset) : 0,
       limit: this.pageLimit,
     }, this.successPredictionListCallback)
   }
 
-  fetchPredictionList() {
-    this.setState({loadingPredictionList: true})
-    Api.fetchPredictionList({
-      offset: 0,
-      limit: this.pageLimit
-    }, this.successPredictionListCallback)
+  fetchPredictionList(payload, successCallback) {
+    // this.setState({loadingPredictionList: true})
+    // Api.fetchPredictionList({
+    //   offset: 0,
+    //   limit: this.pageLimit
+    // }, this.successPredictionListCallback)
+    Api.fetchPredictionList(payload, successCallback)
   }
 
   successPredictionListCallback(response) {
@@ -72,7 +79,7 @@ class ManagePrediction extends React.Component {
       activePage: pageObj.activePage
     })
 
-    Api.fetchPredictionList({
+    this.fetchPredictionList({
       offset: pageObj.offset,
       limit: this.pageLimit,
     }, this.successPredictionListCallback)
@@ -122,13 +129,3 @@ class ManagePrediction extends React.Component {
 }
 
 export default ManagePrediction
-// const mapStateToProps = state => state.main
-
-// const mapDispatchToProps = dispatch => ({
-//   actions: bindActionCreators(Actions, dispatch)
-// })
-
-// export default connect(
-//   mapStateToProps,
-//   mapDispatchToProps
-// )(ManagePrediction)
