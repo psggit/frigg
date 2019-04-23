@@ -221,7 +221,7 @@ class MapCityToPrediction extends React.Component {
           />
         </div>
 
-        <h3>Showing all city mapped to prediction</h3>
+        <h3>Showing all cities mapped to prediction</h3>
         <ViewCityMappedToPrediction
           cityMappedtoPreditionList={cityMappedtoPreditionList}
           loadingCityMappedToPredictionList={loadingCityMappedToPredictionList}

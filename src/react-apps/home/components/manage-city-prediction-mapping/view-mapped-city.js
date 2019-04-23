@@ -77,6 +77,14 @@ class ViewMappedCity extends React.Component {
             showRowHover
           >
             {
+              !loadingCityMappedToPredictionList && cityMappedtoPreditionList.length === 0 && 
+              <tr>
+                <td style={{ textAlign: 'center' }} colSpan='4'>
+                  <p style={{fontWeight: '16px'}}>No citied found</p>
+                </td>
+              </tr>
+            }
+            {
               !loadingCityMappedToPredictionList
                 ? (
                   cityMappedtoPreditionList.map((item, i) => {

@@ -62,6 +62,14 @@ class ViewOption extends React.Component {
             showRowHover
           >
             {
+              !loadingOptionList && optionList.length === 0 && 
+              <tr>
+                <td style={{ textAlign: 'center' }} colSpan='2'>
+                  <p style={{fontWeight: '16px'}}>No options found</p>
+                </td>
+              </tr>
+            }
+            {
               !loadingOptionList
                 ? (
                   optionList.map((item, i) => {

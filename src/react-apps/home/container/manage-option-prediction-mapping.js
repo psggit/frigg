@@ -124,7 +124,7 @@ class MapOptionToPrediction extends React.Component {
     const queryObj = getQueryObj(queryUri)
 
     let queryParamsObj = {}
-    
+
     this.setState({
       activePage: pageObj.activePage,
       loadingOptionMappedToPredictionList: true
@@ -224,7 +224,7 @@ class MapOptionToPrediction extends React.Component {
           />
         </div>
 
-        <h3>Showing all option mapped to prediction</h3>
+        <h3>Showing all options mapped to prediction</h3>
         <ViewOptionMappedToPrediction
           optionMappedtoPreditionList={optionMappedtoPreditionList}
           loadingOptionMappedToPredictionList={loadingOptionMappedToPredictionList}

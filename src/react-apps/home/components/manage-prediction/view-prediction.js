@@ -80,6 +80,14 @@ class ViewPrediction extends React.Component {
             showRowHover
           >
             {
+              !loadingPredictionList && predictionList.length === 0 && 
+              <tr>
+                <td style={{ textAlign: 'center' }} colSpan='6'>
+                  <p style={{fontWeight: '16px'}}>No predictions found</p>
+                </td>
+              </tr>
+            }
+            {
               !loadingPredictionList
                 ? (
                   predictionList.map((item, i) => {

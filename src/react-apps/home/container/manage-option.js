@@ -53,7 +53,7 @@ class ManageOption extends React.Component {
           </NavLink>
 
         </div>
-        <h3>Showing all option</h3>
+        <h3>Showing all options</h3>
         <ViewOption
           optionList={optionList}
           loadingOptionList={loadingOptionList}

@@ -76,6 +76,14 @@ class ViewMappedOption extends React.Component {
             showRowHover
           >
             {
+              !loadingOptionMappedToPredictionList && optionMappedtoPreditionList.length === 0 && 
+              <tr>
+                <td style={{ textAlign: 'center' }} colSpan='4'>
+                  <p style={{fontWeight: '16px'}}>No options found</p>
+                </td>
+              </tr>
+            }
+            {
               !loadingOptionMappedToPredictionList
                 ? (
                   optionMappedtoPreditionList.map((item, i) => {

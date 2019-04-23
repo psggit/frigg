@@ -107,7 +107,7 @@ class ManagePrediction extends React.Component {
           </NavLink>
 
         </div>
-        <h3>Showing all prediction</h3>
+        <h3>Showing all predictions</h3>
         <ViewPrediction
           predictionList={predictionList}
           loadingPredictionList={loadingPredictionList}
