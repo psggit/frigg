@@ -59,6 +59,28 @@ class FilterModal extends React.Component {
     this.setState({ isCityAvailable: e.target.checked })
   }
 
+  handleApplyFilter() {
+    if(this.props.filterStateAndCity) {
+      this.props.applyFilter(this.state.stateIdx, this.state.isLocalityAvailable)
+      this.setState({ open: false })
+      setTimeout(() => {
+        this.props.unmountFilterModal()
+      }, 500)
+    } else if(!this.props.filterStateAndCity && !this.props.filterCity) {
+      this.props.applyFilter(this.state.stateIdx, this.state.isCityAvailable)
+      this.setState({ open: false })
+      setTimeout(() => {
+        this.props.unmountFilterModal()
+      }, 500)
+    } else {
+      this.props.applyFilter(this.state.cityIdx)
+      this.setState({ open: false })
+      setTimeout(() => {
+        this.props.unmountFilterModal()
+      }, 500)
+    }
+  }
+
   render() {
     const actions = [
       <FlatButton
@@ -69,11 +91,7 @@ class FilterModal extends React.Component {
       <RaisedButton
         primary
         label="Apply filter"
-        onClick={
-                this.props.filterStateAndCity 
-                ? () => this.handleApplyFilter(this.state.stateIdx, this.state.isLocalityAvailable) 
-                : () => this.handleApplyFilter(this.state.stateIdx, this.state.isCityAvailable)
-              }
+        onClick={this.handleApplyFilter}
       />
     ]
     return (
@@ -249,6 +267,35 @@ class FilterModal extends React.Component {
                   name="isCityActive"
                   label="is_available"
                 />
+              </div>
+            </div>
+         }
+         {
+           this.props.filter === "cityFilter" &&
+            <div>
+              <div className="form-group">
+                <label>City</label><br />
+                <SelectField
+                  style={{ width: '100%' }}
+                  floatingLabelText={this.props.floatingLabelText}
+                  value={parseInt(this.state.cityIdx)}
+                  onChange={this.handleCityChange}
+                  iconStyle={{ fill: '#9b9b9b' }}
+                >
+                  {
+                    !this.props.loadingCities
+                    ? (
+                      this.props.citiesData.map((city, i) => (
+                        <MenuItem
+                          value={i + 1}
+                          key={city.value}
+                          primaryText={city.text}
+                        />
+                      ))
+                    )
+                    : ''
+                  }
+                </SelectField>
               </div>
             </div>
          }

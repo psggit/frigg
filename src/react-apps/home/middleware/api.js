@@ -717,37 +717,6 @@ export const fetchCampaignList = action => (
     .then(json => json)
 )
 
-// export const fetchPredictionList = action => (
-//   POST({
-//     api: '/campaign/listPrediction',
-//     apiBase: 'odin',
-//     data: action.data,
-//     handleError: true
-//   })
-//     .then(json => json)
-// )
-
-export const fetchPredictionList = (payloadObj, successCallback) => {
-  return POST({
-      api: '/prediction/list',
-      apiBase: 'odin',
-      data: payloadObj,
-      handleError: true
-  })
-  .then((json) => {
-      successCallback(json)
-      //Notify('Successfully mapped team to prediction', 'success')
-      // setTimeout(() => {
-      //     location.href = `/home/manage-team-mapped-to-prediction`
-      // }, 500)
-  })
-  .catch(err => {
-      console.log("Error in fetching prediction list", err)
-      err.response.json().then(json => { Notify("danger", json.message) })
-      //failureCallback()
-  })
-}
-
 export const fetchOptionList = (payloadObj, successCallback) => {
   return GET({
       api: '/prediction/list_options',
@@ -790,16 +759,26 @@ export function createOption (payloadObj, successCallback, failureCallback) {
   })
 }
 
-
-// export const createPrediction = action => (
-//   POST({
-//     api: '/campaign/createPrediction',
-//     apiBase: 'odin',
-//     data: action.data,
-//     handleError: true
-//   })
-//     .then(json => json)
-// )
+export const fetchPredictionList = (payloadObj, successCallback) => {
+  return POST({
+      api: '/prediction/list',
+      apiBase: 'odin',
+      data: payloadObj,
+      handleError: true
+  })
+  .then((json) => {
+      successCallback(json)
+      //Notify('Successfully mapped team to prediction', 'success')
+      // setTimeout(() => {
+      //     location.href = `/home/manage-team-mapped-to-prediction`
+      // }, 500)
+  })
+  .catch(err => {
+      console.log("Error in fetching prediction list", err)
+      err.response.json().then(json => { Notify("danger", json.message) })
+      //failureCallback()
+  })
+}
 
 export function createPrediction (payloadObj, successCallback, failureCallback) {
   return POST({
@@ -822,16 +801,6 @@ export function createPrediction (payloadObj, successCallback, failureCallback) 
   })
 }
 
-// export const updatePrediction = action => (
-//   POST({
-//     api: '/campaign/updatePrediction',
-//     apiBase: 'odin',
-//     data: action.data,
-//     handleError: true
-//   })
-//     .then(json => json)
-// )
-
 export function updatePrediction (payloadObj, successCallback, failureCallback) {
   return POST({
       api: '/prediction/update',
@@ -853,6 +822,90 @@ export function updatePrediction (payloadObj, successCallback, failureCallback) 
   })
 }
 
+export function fetchCityList (payloadObj, successCallback) {
+  return POST({
+      api: '/city/availableCities',
+      apiBase: 'loki',
+      data: payloadObj,
+      handleError: true
+  })
+  .then((json) => {
+      successCallback(json)
+      // Notify('Successfully mapped team to prediction', 'success')
+      // setTimeout(() => {
+      //     location.href = `/home/manage-team-mapped-to-prediction`
+      // }, 500)
+  })
+  .catch(err => {
+      console.log("Error in fetching city", err)
+      //err.response.json().then(json => { Notify("danger", json.message) })
+      //failureCallback()
+  })
+}
+
+
+export function fetchCityMappedToPrediction (payloadObj, successCallback) {
+  return POST({
+      api: '/prediction/list_city',
+      apiBase: 'odin',
+      data: payloadObj,
+      handleError: true
+  })
+  .then((json) => {
+      successCallback(json)
+      // Notify('Successfully mapped team to prediction', 'success')
+      // setTimeout(() => {
+      //     location.href = `/home/manage-team-mapped-to-prediction`
+      // }, 500)
+  })
+  .catch(err => {
+      console.log("Error in fetching city mapped to prediction", err)
+      //err.response.json().then(json => { Notify("danger", json.message) })
+      //failureCallback()
+  })
+}
+
+export function mapCityToPrediction (payloadObj, successCallback, failureCallback) {
+  return POST({
+      api: '/prediction/map',
+      apiBase: 'odin',
+      data: payloadObj,
+      handleError: true
+  })
+  .then((json) => {
+      successCallback(json)
+      Notify('Successfully mapped city to prediction', 'success')
+      setTimeout(() => {
+          location.href = `/home/manage-city-mapping`
+      }, 500)
+  })
+  .catch(err => {
+      console.log("Error in mapping city to prediction", err)
+      err.response.json().then(json => { Notify("danger", json.message) })
+      failureCallback()
+  })
+}
+
+export function updateCityToPrediction (payloadObj, successCallback, failureCallback) {
+  return POST({
+      api: '/prediction/status',
+      apiBase: 'odin',
+      data: payloadObj,
+      handleError: true
+  })
+  .then((json) => {
+      successCallback(json)
+      Notify('Successfully updated city mapped to prediction', 'success')
+      setTimeout(() => {
+          location.href = `/home/manage-city-mapping`
+      }, 500)
+  })
+  .catch(err => {
+      console.log("Error in updating city mapped to prediction", err)
+      err.response.json().then(json => { Notify("danger", json.message) })
+      failureCallback()
+  })
+}
 
 export function mapOptionToPrediction (payloadObj, successCallback, failureCallback) {
   return POST({

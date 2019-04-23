@@ -16,6 +16,7 @@ function getAPIObj() {
       api2: 'https://api2.' + appName + '.hasura-app.io',
       retailer: 'https://retailer.' + appName + '.hasura-app.io',
       catalog: 'https://catalog.' + appName + '.hasura-app.io',
+      loki: 'https://loki.' + appName + '.hasura-app.io'
     }
   } else {
     let scheme = window.location.href.split(':')[0]
@@ -37,6 +38,7 @@ function getAPIObj() {
       api2: scheme + '://api2' + baseHost,
       retailer: scheme + '://retailer' + baseHost,
       catalog: scheme + '://catalog' + baseHost,
+      loki: scheme + '://loki' + baseHost
     }
   }
 }

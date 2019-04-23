@@ -117,7 +117,8 @@ class NavigationBar extends  React.Component {
         nestedItems: [
           { name: 'Manage Prediction', path: '/home/manage-prediction', id: 25 },
           { name: 'Manage Option', path: '/home/manage-option', id: 26 },
-          { name: 'Map Team To Prediction', path: '/home/manage-option-mapping', id: 27 },
+          { name: 'Map City To Prediction', path: '/home/manage-city-mapping', id: 27 },
+          { name: 'Map Option To Prediction', path: '/home/manage-option-mapping', id: 28 },
         ]
       }
     ]

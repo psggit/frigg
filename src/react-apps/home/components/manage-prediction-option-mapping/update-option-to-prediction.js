@@ -85,6 +85,7 @@ class UpdateOptionToPrediction extends React.Component {
       <MapOptionForm
         ref={(node) => { this.mapOptionForm = node }}
         handleSave={this.handleSave}
+        data={this.props.location.state}
         disableSave={this.state.updatingOption}
         predictionList={this.state.predictionList}
         optionList={this.state.optionList}

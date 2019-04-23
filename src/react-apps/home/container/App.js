@@ -80,6 +80,9 @@ import CreateOption from "./../components/manage-option/create-option"
 import ViewMappedOptionList from "./../container/manage-option-prediction-mapping"
 import MapOptionToPrediction from "./../components/manage-prediction-option-mapping/map-option-to-prediction"
 import UpdateOptionToPrediction from "./../components/manage-prediction-option-mapping/update-option-to-prediction"
+import ViewMappedCityList from "./../container/manage-city-prediction-mapping"
+import MapCityToPrediction from "./../components/manage-city-prediction-mapping/map-city-to-prediction"
+import UpdateCityToPrediction from "./../components/manage-city-prediction-mapping/update-city-to-prediction"
 // import CreateTeam from "./../components/manage-team/create-team"
 // import '@sass/components/_heading.scss'
 
@@ -286,6 +289,9 @@ class App extends React.Component {
                       <Route exact path="/home/manage-option-mapping/create" component={MapOptionToPrediction} />
                       <Route exact path="/home/manage-option-mapping/edit/:predictionId" component={UpdateOptionToPrediction} />
                     
+                      <Route exact path="/home/manage-city-mapping" component={ViewMappedCityList} />
+                      <Route exact path="/home/manage-city-mapping/create" component={MapCityToPrediction} />
+                      <Route exact path="/home/manage-city-mapping/edit/:predictionId" component={UpdateCityToPrediction} />
                        {/*<Route exact path="/home/manage-cashback-sku/edit/:offerId" component={UpdateCampaign} /> */}
                     </Switch>
                 </DisplayScreen>

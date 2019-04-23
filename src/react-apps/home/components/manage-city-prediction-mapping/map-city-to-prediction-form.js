@@ -5,22 +5,28 @@ import { Card } from 'material-ui/Card'
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
 
-class MapOptionToPredictionForm extends React.Component {
+class MapCityToPredictionForm extends React.Component {
   constructor(props) {
     super(props)
     
     this.state = {
-      selectedOptionIdx: props.data ? props.data.option_id : "",
+      selectedCityIdx: props.data ? props.data.city_id : "",
       selectedPredictionIdx: props.data ? props.data.prediction_id : "",
-      optionList: [],
-      predictionList: []
+      selectedStatusIdx: props.data && props.data.status === 'Inactive' ? 2 : 1,
+      cityList: [],
+      predictionList: [],
     }
 
+    this.status = [
+      {text: 'Active', value: 1},
+      {text: 'Inctive', value: 2}
+    ]
+
     this.getData = this.getData.bind(this)
-    //this.isFormValid = this.isFormValid.bind(this)
+    this.handleStatusChange = this.handleStatusChange.bind(this)
     this.handleSave = this.handleSave.bind(this)
     this.handlePredictionChange = this.handlePredictionChange.bind(this)
-    this.handleOptionChange = this.handleOptionChange.bind(this)
+    this.handleCityChange = this.handleCityChange.bind(this)
   }
 
   getData() {
@@ -28,10 +34,11 @@ class MapOptionToPredictionForm extends React.Component {
   }
 
   componentWillReceiveProps(newProps) {
-    if(this.props.optionList !== newProps.optionList) {
+    console.log("new props", newProps)
+    if(this.props.cityList !== newProps.cityList) {
       this.setState({
-        optionList: newProps.optionList,
-        selectedOptionIdx: !this.state.selectedOptionIdx ? newProps.optionList[0].value : this.state.selectedOptionIdx
+        cityList: newProps.cityList,
+        selectedCityIdx: !this.state.selectedCityIdx ? newProps.cityList[0].value : this.state.selectedCityIdx
       })
     }
     if(this.props.predictionList !== newProps.predictionList) {
@@ -48,9 +55,15 @@ class MapOptionToPredictionForm extends React.Component {
     })
   }
 
-  handleOptionChange(e,k) {
+  handleStatusChange(e, k) {
     this.setState({
-      selectedOptionIdx: (this.state.optionList[k].value)
+      selectedStatusIdx: (this.status[k].value)
+    })
+  }
+
+  handleCityChange(e,k) {
+    this.setState({
+      selectedCityIdx: (this.state.cityList[k].value)
     })
   }
 
@@ -71,7 +84,7 @@ class MapOptionToPredictionForm extends React.Component {
             marginRight: '20px'
           }}
         >
-          <h4 style={{ margin: '0', marginBottom: '40px' }}>Map Option to Prediction</h4>
+          <h4 style={{ margin: '0', marginBottom: '40px' }}>Map City to Prediction</h4>
           <div className="form-group">
             <label className="label">Prediction</label><br />
             <SelectField
@@ -92,14 +105,33 @@ class MapOptionToPredictionForm extends React.Component {
           </div>
 
           <div className="form-group">
-            <label className="label">Option</label><br />
+            <label className="label">City</label><br />
             <SelectField
-              value={this.state.selectedOptionIdx}
-              onChange={this.handleOptionChange}
+              value={this.state.selectedCityIdx}
+              onChange={this.handleCityChange}
               style={{ width: '100%' }}
             >
               {
-                !this.props.loadingOptionList && this.state.optionList.map((item, i) => (
+                !this.props.loadingCityList && this.state.cityList.map((item, i) => (
+                  <MenuItem
+                    value={parseInt(item.value)}
+                    key={parseInt(item.value)}
+                    primaryText={item.text}
+                  />
+                ))
+              }
+            </SelectField>
+          </div>
+
+          <div className="form-group">
+            <label className="label">Status</label><br />
+            <SelectField
+              value={this.state.selectedStatusIdx}
+              onChange={this.handleStatusChange}
+              style={{ width: '100%' }}
+            >
+              {
+                this.status.map((item, i) => (
                   <MenuItem
                     value={parseInt(item.value)}
                     key={parseInt(item.value)}
@@ -124,4 +156,4 @@ class MapOptionToPredictionForm extends React.Component {
   }
 }
 
-export default MapOptionToPredictionForm
+export default MapCityToPredictionForm
