@@ -93,6 +93,7 @@ class MapCityToPrediction extends React.Component {
         predictionList={this.state.predictionList}
         cityList={this.state.cityList}
         disablePrediction={false}
+        disableCity={false}
         // stateList={this.state.stateList}
         // stateMap={this.state.stateMap}
         loadingPredictionList={this.state.loadingPredictionList}

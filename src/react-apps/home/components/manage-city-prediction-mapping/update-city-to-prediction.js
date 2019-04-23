@@ -91,6 +91,7 @@ class UpdateCityToPrediction extends React.Component {
         handleSave={this.handleSave}
         disableSave={this.state.updatingCity}
         disablePrediction={true}
+        disableCity={true}
         data={this.props.location.state}
         predictionList={this.state.predictionList}
         cityList={this.state.cityList}

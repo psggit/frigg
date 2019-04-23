@@ -91,6 +91,7 @@ class MapCityToPredictionForm extends React.Component {
               onChange={this.handlePredictionChange}
               style={{ width: '100%' }}
               disabled={this.props.disablePrediction}
+              disabled={this.props.disableCity}
             >
               {
                 !this.props.loadingPredictionList && this.state.predictionList.map((item, i) => (

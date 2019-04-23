@@ -287,7 +287,7 @@ class App extends React.Component {
 
                       <Route exact path="/home/manage-option-mapping" component={ViewMappedOptionList} />
                       <Route exact path="/home/manage-option-mapping/create" component={MapOptionToPrediction} />
-                      <Route exact path="/home/manage-option-mapping/edit/:predictionId" component={UpdateOptionToPrediction} />
+                      {/* <Route exact path="/home/manage-option-mapping/edit/:predictionId" component={UpdateOptionToPrediction} /> */}
                     
                       <Route exact path="/home/manage-city-mapping" component={ViewMappedCityList} />
                       <Route exact path="/home/manage-city-mapping/create" component={MapCityToPrediction} />
