@@ -19,7 +19,7 @@ class EditPrediction extends React.Component {
     const predictionForm = this.predictionForm.getData()
     this.setState({updatingPrediction: true})
     Api.updatePrediction({
-      id: this.props.location.state.id,
+      prediction_id: this.props.location.state.prediction_id,
       prediction_title: predictionForm.predictionTitle,
       active_from: new Date(predictionForm.activeFrom),
       active_to:  new Date(predictionForm.activeTo),

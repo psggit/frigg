@@ -50,7 +50,7 @@ class ViewPrediction extends React.Component {
   handleRowClick(rowIdx, columnIdx) {
     //console.log(this.props.predictionList[rowIdx])
     //console.log("click",row, column, this.props.cashbackSkuList[row])
-    this.props.history.push(`/home/manage-prediction/edit/${this.props.predictionList[rowIdx].id}`, this.props.predictionList[rowIdx])
+    this.props.history.push(`/home/manage-prediction/edit/${this.props.predictionList[rowIdx].prediction_id}`, this.props.predictionList[rowIdx])
   }
 
   render() {
@@ -120,7 +120,7 @@ class ViewPrediction extends React.Component {
                         <TableRowColumn style={styles[3]}>
                           <a target="_blank" href={item.detailed_prediction_image}>
                             <img
-                              alt="ad-image"
+                              alt="detailed_prediction_image"
                               style={{
                                 width: '40px',
                                 height: '40px',

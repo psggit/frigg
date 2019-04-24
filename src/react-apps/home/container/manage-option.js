@@ -51,7 +51,6 @@ class ManageOption extends React.Component {
               primary
             />
           </NavLink>
-
         </div>
         <h3>Showing all options</h3>
         <ViewOption
