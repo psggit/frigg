@@ -105,9 +105,8 @@ class ViewPrediction extends React.Component {
                         </TableRowColumn>
                         <TableRowColumn style={styles[1]}>{item.prediction_title}</TableRowColumn>
                         {/* <TableRowColumn style={styles[2]}>{item.prediction_image}</TableRowColumn> */}
-                        <TableRowColumn style={styles[2]}>{item.order_type}</TableRowColumn>
-                        <TableRowColumn style={styles[3]}>
-                          <a target="_blank" href={item.high_res_image}>
+                        <TableRowColumn style={styles[2]}>
+                          <a target="_blank" href={item.prediction_image}>
                             <img
                               alt="prediction_image"
                               style={{
@@ -119,7 +118,7 @@ class ViewPrediction extends React.Component {
                             />
                           </a>
                         </TableRowColumn>
-                        <TableRowColumn style={styles[4]}>
+                        <TableRowColumn style={styles[3]}>
                           <a target="_blank" href={item.detailed_prediction_image}>
                             <img
                               alt="detailed_prediction_image"
@@ -132,6 +131,7 @@ class ViewPrediction extends React.Component {
                             />
                           </a>
                         </TableRowColumn>
+                        <TableRowColumn style={styles[4]}>{item.order_type}</TableRowColumn>
                         <TableRowColumn style={styles[5]}>{Moment(item.active_from).format("DD/MM/YYYY h:mm A")}</TableRowColumn>
                         <TableRowColumn style={styles[6]}>{Moment(item.active_to).format("DD/MM/YYYY h:mm A")}</TableRowColumn>
                       </TableRow> 
