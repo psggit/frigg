@@ -36,6 +36,7 @@ class MapOptionToPrediction extends React.Component {
     this.unmountFilterModal = this.unmountFilterModal.bind(this)
     this.handlePredictionChange = this.handlePredictionChange.bind(this)
     this.applyFilter = this.applyFilter.bind(this)
+    this.resetFilter = this.resetFilter.bind(this)
     this.successPredictionListCallback = this.successPredictionListCallback.bind(this)
   }
 
@@ -192,6 +193,14 @@ class MapOptionToPrediction extends React.Component {
     this.filter.predictionId = predictionList[k].value
   }
 
+  resetFilter() {
+		this.setState({
+			predictionId: '',
+		})
+		this.fetchDefaultData()
+		this.props.history.push(`/home/manage-option-mapping`)
+  }
+
   render() {
     const {
       loadingOptionMappedToPredictionList,
@@ -217,11 +226,20 @@ class MapOptionToPrediction extends React.Component {
             </NavLink>
           </div>
 
-          <RaisedButton
-            onClick={this.mountFilterDialog}
-            label="Filter"
-            icon={getIcon('filter')}
-          />
+          <div>
+            <RaisedButton
+              onClick={this.mountFilterDialog}
+              label="Filter"
+              icon={getIcon('filter')}
+              style={{marginRight: '15px'}}
+            />
+            <RaisedButton
+              onClick={this.resetFilter}
+              label="Reset Filter"
+              disabled={this.state.predictionId === 0}
+              //icon={getIcon('filter')}
+            />
+          </div>
         </div>
 
         <h3>Showing all options mapped to prediction</h3>
