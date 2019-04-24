@@ -112,11 +112,10 @@ class MapOptionToPrediction extends React.Component {
   }
 
   successOptionMappedToPredictionListCallback(response) {
-    console.log("res", response)
     this.setState({
       loadingOptionMappedToPredictionList: false,
       optionMappedtoPreditionList: response.options,
-      optionMappedToPredictionCount: response.count
+      optionMappedToPredictionCount: response.count ? response.count : 0
     })
   }
 

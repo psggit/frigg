@@ -80,7 +80,7 @@ class ViewMappedCity extends React.Component {
               !loadingCityMappedToPredictionList && cityMappedtoPreditionList.length === 0 && 
               <tr>
                 <td style={{ textAlign: 'center' }} colSpan='4'>
-                  <p style={{fontWeight: '16px'}}>No citied found</p>
+                  <p style={{fontWeight: '16px'}}>No cities found</p>
                 </td>
               </tr>
             }

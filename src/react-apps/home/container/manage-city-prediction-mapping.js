@@ -89,7 +89,7 @@ class MapCityToPrediction extends React.Component {
     this.setState({
       loadingCityMappedToPredictionList: false,
       cityMappedtoPreditionList: response.prediction_data,
-      cityMappedToPredictionCount: response.count
+      cityMappedToPredictionCount: response.count ? response.count : 0
     })
   }
 
