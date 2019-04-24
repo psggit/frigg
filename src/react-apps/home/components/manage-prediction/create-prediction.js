@@ -31,6 +31,7 @@ class CreatePrediction extends React.Component {
         prediction_image: predictionForm.predictionImage,
         active_from: predictionForm.activeFrom,
         active_to: predictionForm.activeTo,
+        order_type: predictionForm.orderType,
         detailed_prediction_image: predictionForm.detailedPredictionImage
       }, this.successPredictionCallback, this.failurePredictionCallback)
     //}

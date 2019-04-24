@@ -24,6 +24,7 @@ class EditPrediction extends React.Component {
       active_from: new Date(predictionForm.activeFrom),
       active_to:  new Date(predictionForm.activeTo),
       prediction_image: predictionForm.predictionImage,
+      order_type: predictionForm.orderType,
       detailed_prediction_image: predictionForm.detailedPredictionImage
     }, this.successUpdatePredictionCallback, this.failureUpdatePredictionCallback)
   }

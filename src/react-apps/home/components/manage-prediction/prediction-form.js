@@ -16,7 +16,8 @@ class PredictionForm extends React.Component {
       activeTo: props.data ? (props.data.active_to).slice(0,16) : "",
       predictionImage:  props.data ? props.data.prediction_image : "",
       detailedPredictionImage:  props.data ? props.data.detailed_prediction_image : "",
-  
+      orderType: props.data ? props.data.order_type : "",
+
       predictionTitleErr: {
         value: "",
         status: false
@@ -34,6 +35,10 @@ class PredictionForm extends React.Component {
         status: false
       },
       detailedPredictionImageErr: {
+        value: "",
+        status: false
+      },
+      orderTypeErr: {
         value: "",
         status: false
       }
@@ -99,6 +104,14 @@ class PredictionForm extends React.Component {
         }
       })
       return false
+    } else if (this.state.orderType.toString().length === 0) {
+      this.setState({
+        orderTypeErr: {
+          value: "Order type is required",
+          status: true
+        }
+      })
+      return false
     } else if (this.state.activeFrom.toString().length === 0) {
       this.setState({
         activeFromErr: {
@@ -127,7 +140,15 @@ class PredictionForm extends React.Component {
   }
 
   render() {
-    const {activeFromErr, activeToErr, predictionTitleErr, predictionImageErr, detailedPredictionImageErr} = this.state
+    const {
+      activeFromErr, 
+      activeToErr, 
+      predictionTitleErr, 
+      predictionImageErr, 
+      detailedPredictionImageErr, 
+      orderTypeErr
+    } = this.state
+    
     return (
       <Fragment>
         <Card style={{
@@ -182,6 +203,22 @@ class PredictionForm extends React.Component {
             {
               detailedPredictionImageErr.status &&
               <p className="error-message">* {detailedPredictionImageErr.value}</p>
+            }
+          </div>
+
+          <div className="form-group">
+            <label className="label">Order Type</label><br/>
+            <TextField
+              onChange={this.handleTextFields}
+              name="orderType"
+              value={this.state.orderType}
+              style={{ width: '100%' }}
+              placeholder="quick_pay, pickup"
+              disabled={this.props.isDisabled}
+            />
+            {
+              orderTypeErr.status &&
+              <p className="error-message">* {orderTypeErr.value}</p>
             }
           </div>
         
