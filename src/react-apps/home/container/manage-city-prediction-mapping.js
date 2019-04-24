@@ -86,6 +86,7 @@ class MapCityToPrediction extends React.Component {
   }
 
   successCityMappedToPredictionListCallback(response) {
+    console.log("res", response)
     this.setState({
       loadingCityMappedToPredictionList: false,
       cityMappedtoPreditionList: response.prediction_data,
