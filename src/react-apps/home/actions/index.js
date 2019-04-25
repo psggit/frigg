@@ -211,6 +211,11 @@ export const fetchMappedCompanyList = (data) => ({
   data
 })
 
+export const fetchCompanyList = (data) => ({
+  type: ActionTypes.REQUEST_FETCH_COMPANY_LIST,
+  data
+})
+
 export const fetchCompanies = (data, CB) => ({
   type: ActionTypes.REQUEST_FETCH_COMPANIES,
   CB

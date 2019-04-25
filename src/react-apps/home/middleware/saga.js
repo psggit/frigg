@@ -37,6 +37,16 @@ function* fetchMappedCompanyList(action) {
   }
 }
 
+function* fetchCompanyList(action) {
+  try {
+    const data = yield call(Api.fetchCompanyList, action)
+    yield put({ type: ActionTypes. SUCCESS_FETCH_COMPANY_LIST, data })
+    //action.CB()
+  } catch (err) {
+    console.log(err)
+  }
+}
+
 function* fetchCompanies(action) {
   try {
     const data = yield call(Api.fetchCompanies, action)
@@ -1794,6 +1804,12 @@ function* watchRequestFetchMappedCompanyList() {
   }
 }
 
+function* watchRequestFetchCompanyList() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_FETCH_COMPANY_LIST, fetchCompanyList)
+  }
+}
+
 function* watchRequestFetchCompanies() {
   while (true) {
     yield* takeLatest(ActionTypes.REQUEST_FETCH_COMPANIES, fetchCompanies)
@@ -1962,6 +1978,7 @@ export default function* rootSaga() {
     fork(watchRequestFetchCompanies),
     fork(watchRequestFetchGenreBasedBrandList),
     fork(watchRequestFetchGenreList),
-    fork(watchRequestMapSkuToPromo)
+    fork(watchRequestMapSkuToPromo),
+    fork(watchRequestFetchCompanyList)
   ]
 }

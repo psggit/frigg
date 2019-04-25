@@ -627,6 +627,16 @@ export const fetchMappedCompanyList = action => (
     .then(json => json)
 )
 
+export const fetchCompanyList = action => (
+  POST({
+    api: '/company/list',
+    apiBase: 'odin',
+    data: action.data,
+    handleError: true
+  })
+    .then(json => json)
+)
+
 export const fetchCompanies = action => (
   GET({
     api: '/companies/list',

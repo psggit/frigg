@@ -83,6 +83,7 @@ import UpdateOptionToPrediction from "./../components/manage-prediction-option-m
 import ViewMappedCityList from "./../container/manage-city-prediction-mapping"
 import MapCityToPrediction from "./../components/manage-city-prediction-mapping/map-city-to-prediction"
 import UpdateCityToPrediction from "./../components/manage-city-prediction-mapping/update-city-to-prediction"
+import ManageCompany from "./../container/manage-company"
 // import CreateTeam from "./../components/manage-team/create-team"
 // import '@sass/components/_heading.scss'
 
@@ -266,6 +267,8 @@ class App extends React.Component {
                       <Route exact path="/home/manage-company-brand-mapping" component={MappedCompanyList} />
                       <Route exact path="/home/manage-company-brand-mapping/create" component={MapCompanyToBrand} />
                       {/* <Route exact path="/home/company/edit/:promoCode" component={UpdateUserPromos} /> */}
+
+                      <Route exact path="/home/manage-company" component={ManageCompany} />
                     
                       <Route exact path="/home/manage-campaign" component={ManageCampaign} />
                       <Route exact path="/home/manage-campaign/create" component={CreateCampaign} />
