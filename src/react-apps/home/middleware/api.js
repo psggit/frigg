@@ -617,7 +617,7 @@ export const mapCompanyToBrand = action => (
     .then(json => json)
 )
 
-export const fetchCompanyList = action => (
+export const fetchMappedCompanyList = action => (
   POST({
     api: '/companymap/list',
     apiBase: 'odin',
@@ -790,9 +790,9 @@ export function createPrediction (payloadObj, successCallback, failureCallback) 
   .then((json) => {
       successCallback(json)
       Notify('Successfully created prediction', 'success')
-      // setTimeout(() => {
-      //     location.href = `/home/manage-prediction`
-      // }, 500)
+      setTimeout(() => {
+          location.href = `/home/manage-prediction`
+      }, 500)
   })
   .catch(err => {
       console.log("Error in creating prediction", err)
@@ -811,9 +811,9 @@ export function updatePrediction (payloadObj, successCallback, failureCallback) 
   .then((json) => {
       successCallback(json)
       Notify('Successfully updated prediction', 'success')
-      // setTimeout(() => {
-      //     location.href = `/home/manage-prediction`
-      // }, 500)
+      setTimeout(() => {
+          location.href = `/home/manage-prediction`
+      }, 500)
   })
   .catch(err => {
       console.log("Error in updating prediction", err)

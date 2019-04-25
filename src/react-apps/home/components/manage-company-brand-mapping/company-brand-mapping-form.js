@@ -6,7 +6,7 @@ import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import * as Actions from './../../actions/index'
+import * as Actions from '../../actions/index'
 import Moment from 'moment'
 
 class CompanyForm extends React.Component {

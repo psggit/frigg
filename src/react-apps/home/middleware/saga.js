@@ -27,10 +27,10 @@ function* fetchStateList(action) {
   }
 }
 
-function* fetchCompanyList(action) {
+function* fetchMappedCompanyList(action) {
   try {
-    const data = yield call(Api.fetchCompanyList, action)
-    yield put({ type: ActionTypes.SUCCESS_FETCH_COMPANY_LIST, data })
+    const data = yield call(Api.fetchMappedCompanyList, action)
+    yield put({ type: ActionTypes. SUCCESS_FETCH_MAPPED_COMPANY_LIST, data })
     //action.CB()
   } catch (err) {
     console.log(err)
@@ -74,7 +74,7 @@ function* mapCompanyToBrand(action) {
     Notify("Successfully created company", "success")
     action.CB()
     setTimeout(() => {
-      location.href = '/home/manage-company'
+      location.href = '/home/manage-company-brand-mapping'
     }, 2000)
     //action.CB()
   } catch (err) {
@@ -1788,9 +1788,9 @@ function* watchRequestFetchCampaignList() {
   }
 }
 
-function* watchRequestFetchCompanyList() {
+function* watchRequestFetchMappedCompanyList() {
   while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_FETCH_COMPANY_LIST, fetchCompanyList)
+    yield* takeLatest(ActionTypes.REQUEST_FETCH_MAPPED_COMPANY_LIST, fetchMappedCompanyList)
   }
 }
 
@@ -1957,7 +1957,7 @@ export default function* rootSaga() {
     fork(watchRequestUpdateSkuPromo),
     fork(watchFetchStateList),
     fork(watchFetchSkuList),
-    fork(watchRequestFetchCompanyList),
+    fork(watchRequestFetchMappedCompanyList),
     fork(watchRequestMapCompanyToBrand),
     fork(watchRequestFetchCompanies),
     fork(watchRequestFetchGenreBasedBrandList),

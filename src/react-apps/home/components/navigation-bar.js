@@ -40,9 +40,9 @@ class NavigationBar extends  React.Component {
         ]
       },
       {
-        name: 'Manage Company',
+        name: 'Company Management',
         nestedItems: [
-          { name: 'Company brand mapping', path: '/home/manage-company', id: 24 }
+          { name: 'Company brand mapping', path: '/home/manage-company-brand-mapping', id: 24 }
         ]
       },
       {

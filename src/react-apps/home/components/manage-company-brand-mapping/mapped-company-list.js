@@ -31,7 +31,7 @@ class ViewCompany extends React.Component {
     super()
 
     //this.editCashbackSkuDetails = this.editCashbackSkuDetails.bind(this)
-    this.handleRowClick = this.handleRowClick.bind(this)
+    //this.handleRowClick = this.handleRowClick.bind(this)
   }
 
   componentDidMount() {
@@ -48,10 +48,10 @@ class ViewCompany extends React.Component {
     overrideTableStyle()
   }
 
-  handleRowClick(e, item) {
-    //console.log("click",row, column, this.props.cashbackSkuList[row])
-    this.props.history.push(`/home/manage-company/${item.id}`, item)
-  }
+  // handleRowClick(e, item) {
+  //   //console.log("click",row, column, this.props.cashbackSkuList[row])
+  //   this.props.history.push(`/home/manage-company-brand-mapping/${item.id}`, item)
+  // }
 
   render() {
     const {

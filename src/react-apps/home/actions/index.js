@@ -206,8 +206,8 @@ export const fetchGenreList = (data, CB) => ({
   CB
 })
 
-export const fetchCompanyList = (data) => ({
-  type: ActionTypes.REQUEST_FETCH_COMPANY_LIST,
+export const fetchMappedCompanyList = (data) => ({
+  type: ActionTypes.REQUEST_FETCH_MAPPED_COMPANY_LIST,
   data
 })
 

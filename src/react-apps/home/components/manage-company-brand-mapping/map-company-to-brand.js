@@ -1,8 +1,8 @@
 import React from "react"
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import * as Actions from './../../actions/index'
-import CompanyForm from "./company-form"
+import * as Actions from '../../actions/index'
+import MapCompanyForm from "./company-brand-mapping-form"
 //import ViewSkuList from "./map-sku-to-promo"
 
 class CreateCompany extends React.Component {
@@ -55,11 +55,11 @@ class CreateCompany extends React.Component {
   }
 
   formIsValid() {
-    const companyForm = this.companyForm.getData()
+    const mapCompanyForm = this.mapCompanyForm.getData()
 
-    if (companyForm.selectedCompanyId.toString().length === 0) {
+    if (mapCompanyForm.selectedCompanyId.toString().length === 0) {
       return false
-    } else if (companyForm.selectedBrandId.toString().length === 0) {
+    } else if (mapCompanyForm.selectedBrandId.toString().length === 0) {
       return false
     }
     return true
@@ -67,14 +67,14 @@ class CreateCompany extends React.Component {
 
   handleSave() {
     //console.log("form data", this.companyForm)
-    const companyForm = this.companyForm.getData()
-    console.log("form data", this.companyForm)
+    const mapCompanyForm = this.mapCompanyForm.getData()
+    console.log("form data", this.mapCompanyForm)
     this.setState({mappingBrandtoCompany: true})
     if (this.formIsValid()) {
       this.props.actions.mapCompanyToBrand({
-        company_id: parseInt(companyForm.selectedCompanyId),
-        company_name: companyForm.companyName,
-        brand_id: parseInt(companyForm.selectedBrandId)
+        company_id: parseInt(mapCompanyForm.selectedCompanyId),
+        company_name: mapCompanyForm.companyName,
+        brand_id: parseInt(mapCompanyForm.selectedBrandId)
       }, () => {
         this.setState({mappingBrandtoCompany: false})
       })
@@ -116,8 +116,8 @@ class CreateCompany extends React.Component {
     return (
       <React.Fragment>
         <h4 style={{ margin: '0', marginBottom: '40px' }}>MAP COMPANY TO BRAND</h4>
-        <CompanyForm 
-          ref={(node) => { this.companyForm = node }}
+        <MapCompanyForm 
+          ref={(node) => { this.mapCompanyForm = node }}
           companyDetails = {this.state.companyList}
           genreList = {this.state.genreList}
           brands = {this.state.brandList}

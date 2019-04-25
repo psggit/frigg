@@ -70,8 +70,8 @@ import MapSkuToPromo from "./../components/manage-cashback-sku/create-cashback-s
 import ManageSkuPromo from "./../container/manage-sku-promo"
 import CreateSkuPromo from "./../components/manage-sku-promo/create-sku-promo"
 import UpdateSkuPromo from "./../components/manage-sku-promo/edit-sku-promo"
-import ManageCompany from "./../container/manage-company"
-import MapCompanyToBrand from "./../components/manage-company/create-company"
+import MappedCompanyList from "./../container/manage-company-brand-mapping"
+import MapCompanyToBrand from "./../components/manage-company-brand-mapping/map-company-to-brand"
 import ViewPredictionList from "./../container/manage-prediction"
 import CreatePrediction from "./../components/manage-prediction/create-prediction"
 import UpdatePrediction from "./../components/manage-prediction/update-prediction"
@@ -263,8 +263,8 @@ class App extends React.Component {
                       <Route exact path="/home/user-specific-promos/create" component={CreateUserPromos} />
                       <Route exact path="/home/user-specific-promos/edit/:promoCode" component={UpdateUserPromos} />
 
-                      <Route exact path="/home/manage-company" component={ManageCompany} />
-                      <Route exact path="/home/manage-company/create" component={MapCompanyToBrand} />
+                      <Route exact path="/home/manage-company-brand-mapping" component={MappedCompanyList} />
+                      <Route exact path="/home/manage-company-brand-mapping/create" component={MapCompanyToBrand} />
                       {/* <Route exact path="/home/company/edit/:promoCode" component={UpdateUserPromos} /> */}
                     
                       <Route exact path="/home/manage-campaign" component={ManageCampaign} />
