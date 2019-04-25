@@ -18,7 +18,6 @@ class EditPrediction extends React.Component {
   handleSave() {
     const predictionForm = this.predictionForm.getData()
     this.setState({updatingPrediction: true})
-    console.log("hello",  predictionForm.orderType.length,  predictionForm.orderType.length> 1 ? predictionForm.orderType.join(",").toString() : predictionForm.orderType[0])
     Api.updatePrediction({
       prediction_id: this.props.location.state.prediction_id,
       prediction_title: predictionForm.predictionTitle,

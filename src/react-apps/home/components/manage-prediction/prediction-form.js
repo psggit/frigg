@@ -52,8 +52,6 @@ class PredictionForm extends React.Component {
       }
     }
 
-    console.log("test op", this.state)
-
     this.handleTextFields = this.handleTextFields.bind(this)
     this.getData = this.getData.bind(this)
     this.handleDate = this.handleDate.bind(this)
@@ -106,7 +104,6 @@ class PredictionForm extends React.Component {
   }
 
   isFormValid() {
-    console.log("state", this.state)
     if (this.state.predictionTitle.length === 0) {
       this.setState({
         predictionTitleErr: {
@@ -167,7 +164,6 @@ class PredictionForm extends React.Component {
   }
 
   updateOrderType(targetName, orderType, status) {
-    console.log("update", targetName, orderType, status)
     const type = orderType === "pickup" ? "pickup" : "quick_pay"
     if(targetName.toLowerCase().indexOf(orderType) !== -1 && status) {
       this.setState({ 
@@ -190,31 +186,6 @@ class PredictionForm extends React.Component {
     } else {
       this.updateOrderType(targetName, "quick", e.target.checked)
     }
-    // const targetName = e.target.name
-
-    // if(targetName.toLowerCase().indexOf("pickup") !== -1 && e.target.checked) {
-    //   this.setState({ 
-    //     [e.target.name]: e.target.checked,
-    //     orderType: [...new Set([...this.state.orderType, 'pickup'])]
-    //   })
-    // } else if(targetName.toLowerCase().indexOf("quick") !== -1 && e.target.checked) {
-    //   this.setState({ 
-    //     [e.target.name]: e.target.checked,
-    //     orderType: [...new Set([...this.state.orderType, 'quick_pay'])]
-    //   })
-    // } else if(targetName.toLowerCase().indexOf("pickup") !== -1 && !e.target.checked) {
-    //   const orderTypes = this.state.orderType.filter((item) => item !== "pickup")
-    //   this.setState({ 
-    //     [e.target.name]: e.target.checked,
-    //     orderType: orderTypes
-    //   })
-    // } else if(targetName.toLowerCase().indexOf("quick") !== -1 && !e.target.checked) {
-    //   const orderTypes = this.state.orderType.filter((item) => item !== "quick_pay")
-    //   this.setState({ 
-    //     [e.target.name]: e.target.checked,
-    //     orderType: orderTypes
-    //   })
-    // }
   }
 
   render() {

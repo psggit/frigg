@@ -23,19 +23,17 @@ class CreatePrediction extends React.Component {
 
   handleSave() {
     const predictionForm = this.predictionForm.getData()
-    //console.log("form data", campaignForm)
-    //if (this.formIsValid()) {
-      this.setState({creatingPrediction: true})
-      Api.createPrediction({
-        prediction_title: predictionForm.predictionTitle,
-        prediction_image: predictionForm.predictionImage,
-        active_from: predictionForm.activeFrom,
-        active_to: predictionForm.activeTo,
-        order_type: predictionForm.orderType.join(",").toString(),
-        detailed_prediction_image: predictionForm.detailedPredictionImage,
-        prediction_response: predictionForm.predictionResponse
-      }, this.successPredictionCallback, this.failurePredictionCallback)
-    //}
+
+    this.setState({creatingPrediction: true})
+    Api.createPrediction({
+      prediction_title: predictionForm.predictionTitle,
+      prediction_image: predictionForm.predictionImage,
+      active_from: predictionForm.activeFrom,
+      active_to: predictionForm.activeTo,
+      order_type: predictionForm.orderType.join(",").toString(),
+      detailed_prediction_image: predictionForm.detailedPredictionImage,
+      prediction_response: predictionForm.predictionResponse
+    }, this.successPredictionCallback, this.failurePredictionCallback)
   }
 
   render() {

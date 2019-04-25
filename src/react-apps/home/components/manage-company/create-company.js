@@ -23,26 +23,6 @@ class CreateCompany extends React.Component {
   }
 
   successStateCallback() {
-    // let cityList = [], stateMap = {}
-    // const stateList = this.props.stateList.map((item, i) => {
-    //   stateMap[item.state_id] = item.cities.map((city, index) => {
-    //     cityList[index] =  {
-    //       text: city.city_name,
-    //       value: city.city_id
-    //     }
-    //     return {
-    //       text: city.city_name,
-    //       value: city.city_id
-    //     }
-    //   })
-      
-    //   return {
-    //     text: item.state_name,
-    //     value: item.state_id
-    //   }
-    // })
-    // // console.log("state list", stateList, cityList, stateMap)
-    // this.setState({stateList, cityList, stateMap})
     const {stateList, cityList, stateMap} = formatStateAndCityList(this.props.stateList)
     this.setState({stateList, cityList, stateMap})
   }
