@@ -54,7 +54,7 @@ class CreateAdForm extends React.Component {
     this.setState(this.intialState)
   }
 
-  handleCriticalChange() {
+  handleCriticalChange(e) {
     this.setState({
       [e.target.name]: e.target.checked
     })
