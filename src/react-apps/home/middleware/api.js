@@ -647,6 +647,16 @@ export const createCompany = action => (
     .then(json => json)
 )
 
+export const updateCompany = action => (
+  POST({
+    api: '/company/update',
+    apiBase: 'odin',
+    data: action.data,
+    handleError: true
+  })
+    .then(json => json)
+)
+
 export const fetchCompanies = action => (
   GET({
     api: '/companies/list',

@@ -49,7 +49,7 @@ class ViewCompany extends React.Component {
   }
 
   handleRowClick(e, item) {
-    this.props.history.push(`/home/manage-company/${item.id}`, item)
+    this.props.history.push(`/home/manage-company/edit/${item.id}`, item)
   }
 
   render() {

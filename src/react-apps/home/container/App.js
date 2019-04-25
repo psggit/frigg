@@ -85,6 +85,7 @@ import MapCityToPrediction from "./../components/manage-city-prediction-mapping/
 import UpdateCityToPrediction from "./../components/manage-city-prediction-mapping/update-city-to-prediction"
 import ManageCompany from "./../container/manage-company"
 import CreateCompany from "./../components/manage-company/create-company"
+import UpdateCompany from "./../components/manage-company/update-company"
 // import CreateTeam from "./../components/manage-team/create-team"
 // import '@sass/components/_heading.scss'
 
@@ -271,6 +272,7 @@ class App extends React.Component {
 
                       <Route exact path="/home/manage-company" component={ManageCompany} />
                       <Route exact path="/home/manage-company/create" component={CreateCompany} />
+                      <Route exact path="/home/manage-company/edit/:companyId" component={UpdateCompany} />
                     
                       <Route exact path="/home/manage-campaign" component={ManageCampaign} />
                       <Route exact path="/home/manage-campaign/create" component={CreateCampaign} />

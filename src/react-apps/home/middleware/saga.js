@@ -65,6 +65,24 @@ function* createCompany(action) {
   }
 }
 
+function* updateCompany(action) {
+  try {
+    const data = yield call(Api.updateCompany, action)
+    yield put({ type: ActionTypes. SUCCESS_UPDATE_COMPANY, data })
+    action.CB()
+    Notify("Successfully updated company", "success")
+    action.CB()
+    setTimeout(() => {
+      location.href = '/home/manage-company'
+    }, 2000)
+  } catch (err) {
+    console.log(err)
+    err.response.json().then(json => { Notify(json.message, "warning") })
+    //Notify("Something went wrong", "warning")
+    action.CB()
+  }
+}
+
 function* fetchCompanies(action) {
   try {
     const data = yield call(Api.fetchCompanies, action)
@@ -1834,6 +1852,12 @@ function* watchRequestCreateCompany() {
   }
 }
 
+function* watchRequestUpdateCompany() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_UPDATE_COMPANY, updateCompany)
+  }
+}
+
 function* watchRequestFetchCompanies() {
   while (true) {
     yield* takeLatest(ActionTypes.REQUEST_FETCH_COMPANIES, fetchCompanies)
@@ -2004,6 +2028,7 @@ export default function* rootSaga() {
     fork(watchRequestFetchGenreList),
     fork(watchRequestMapSkuToPromo),
     fork(watchRequestFetchCompanyList),
-    fork(watchRequestCreateCompany)
+    fork(watchRequestCreateCompany),
+    fork(watchRequestUpdateCompany)
   ]
 }

@@ -11,14 +11,14 @@ class CompanyForm extends React.Component {
     super(props)
     
     this.state = {
-      selectedCityId: "",
-      selectedStateId: "",
+      selectedCityId: props.data ? props.data.city_id : "",
+      selectedStateId: props.data ? props.data.state_id : "",
       stateList: [],
       cityList: [],
       stateMap: {},
-      companyName: "",
-      address: "",
-      pincode: "",
+      companyName: props.data ? props.data.name : "",
+      address: props.data ? props.data.address : "",
+      pincode: props.data ? props.data.pin_code : "",
       companyNameErr: {
         status: false,
         value: ""
@@ -44,15 +44,24 @@ class CompanyForm extends React.Component {
 
   componentWillReceiveProps(newProps) {
     if(this.props.cityList !== newProps.cityList) {
-      this.setState({cityList: newProps.cityList, selectedCityId: newProps.cityList[0].value})
+      this.setState({
+        cityList: newProps.cityList, 
+        selectedCityId: !this.state.selectedCityId ? newProps.cityList[0].value : this.state.selectedCityId 
+      })
     }
 
     if(this.props.stateList !== newProps.stateList) {
-      this.setState({stateList: newProps.stateList, selectedStateId: newProps.stateList[0].value})
+      this.setState({
+        stateList: newProps.stateList, 
+        selectedStateId: !this.state.selectedStateId ? newProps.stateList[0].value : this.state.selectedStateId
+      })
     }
 
     if(this.props.stateMap !== newProps.stateMap) {
-      this.setState({stateMap: newProps.stateMap})
+      this.setState({
+        stateMap: newProps.stateMap,
+        cityList: !this.state.selectedCityId ? newProps.cityList : newProps.stateMap[this.state.selectedStateId]
+      })
     }
   }
 

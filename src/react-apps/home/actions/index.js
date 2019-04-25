@@ -222,6 +222,12 @@ export const createCompany = (data, CB) => ({
   CB
 })
 
+export const updateCompany = (data, CB) => ({
+  type: ActionTypes.REQUEST_UPDATE_COMPANY,
+  data,
+  CB
+})
+
 export const fetchCompanies = (data, CB) => ({
   type: ActionTypes.REQUEST_FETCH_COMPANIES,
   CB
