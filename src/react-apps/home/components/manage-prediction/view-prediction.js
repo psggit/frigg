@@ -136,7 +136,7 @@ class ViewPrediction extends React.Component {
                         <TableRowColumn style={styles[4]}>{item.order_type}</TableRowColumn>
                         <TableRowColumn style={styles[5]}>{Moment(item.active_from).format("DD/MM/YYYY h:mm A")}</TableRowColumn>
                         <TableRowColumn style={styles[6]}>{Moment(item.active_to).format("DD/MM/YYYY h:mm A")}</TableRowColumn>
-                        <TableRowColumn style={styles[8]}>{item.prediction_response}</TableRowColumn>
+                        <TableRowColumn style={styles[7]}>{item.prediction_response}</TableRowColumn>
                       </TableRow> 
                     )
                   })
