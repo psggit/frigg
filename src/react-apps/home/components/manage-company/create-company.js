@@ -70,7 +70,7 @@ class CreateCompany extends React.Component {
           stateList={this.state.stateList}
           cityList={this.state.cityList}
           stateMap={this.state.stateMap}
-          creatingCompany={this.state.creatingCompany}
+          disableSave={this.state.creatingCompany}
           handleSave={this.handleSave}
         />
       </React.Fragment>

@@ -233,7 +233,7 @@ class CompanyForm extends React.Component {
             <RaisedButton
               label="Save"
               primary
-              disabled={this.props.creatingCompany}
+              disabled={this.props.disableSave}
               onClick={this.props.handleSave}
             />
           </div>

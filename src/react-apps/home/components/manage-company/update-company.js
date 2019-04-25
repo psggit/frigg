@@ -73,7 +73,7 @@ class UpdateCompany extends React.Component {
           cityList={this.state.cityList}
           stateMap={this.state.stateMap}
           data={this.props.location.state}
-          updatingCompany={this.state.updatingCompany}
+          disableSave={this.state.updatingCompany}
           handleSave={this.handleSave}
         />
       </React.Fragment>
