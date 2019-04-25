@@ -20,6 +20,7 @@ class CreateAdForm extends React.Component {
       title: props.title || '',
       ad_type: props.ad_type || '',
       app_type: props.app_type || '',
+      is_critical:  props.is_critical || false,
       url: props.url || '',
       //image_url: props.image_url || '',
       high_res_image: '',
@@ -46,11 +47,19 @@ class CreateAdForm extends React.Component {
     this.handleCollectionChange = this.handleCollectionChange.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.handleAppTypeChange = this.handleAppTypeChange.bind(this)
+    this.handleCriticalChange = this.handleCriticalChange.bind(this)
   }
 
   resetState() {
     this.setState(this.intialState)
   }
+
+  handleCriticalChange() {
+    this.setState({
+      [e.target.name]: e.target.checked
+    })
+  }
+
 
   handleDate(e) {
     const d = new Date(e.target.value)
@@ -237,6 +246,16 @@ class CreateAdForm extends React.Component {
               name="active_to"
             />
           </div>
+        </div>
+
+        <div className="form-group">
+          <Checkbox
+            disabled={this.props.isDisabled}
+            checked={this.state.isCritical}
+            onCheck={this.handleCriticalChange}
+            name="isCritical"
+            label="is_critical"
+          />
         </div>
 
         {/* <div className="form-group">

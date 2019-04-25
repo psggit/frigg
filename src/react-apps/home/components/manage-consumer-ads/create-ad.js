@@ -166,6 +166,7 @@ class CreateAd extends React.Component {
             url: "",
             high_res_image: adData.high_res_image,
             low_res_image: adData.low_res_image,
+            is_critical: adData.is_critical,
             // city_id: 
             // CityName: 
             // listing_order: 
@@ -187,6 +188,7 @@ class CreateAd extends React.Component {
             active_from: adData.active_from,
             active_to: adData.active_to,
             status: adData.status ? 'Active' : 'Inactive',
+            is_critical: adData.is_critical,
             //image_url: adData.image_url,
             url: adData.url,
             //deep_link_url: adData.deep_link_url,
@@ -214,6 +216,7 @@ class CreateAd extends React.Component {
             app_type: adData.app_type,
             active_from: adData.active_from,
             active_to: adData.active_to,
+            is_critical: adData.is_critical,
             status: adData.status ? 'Active' : 'Inactive',
             //image_url: adData.image_url,
             url: "",
