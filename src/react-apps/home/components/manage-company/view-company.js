@@ -37,7 +37,6 @@ class ViewCompany extends React.Component {
   constructor() {
     super()
 
-    //this.editCashbackSkuDetails = this.editCashbackSkuDetails.bind(this)
     this.handleRowClick = this.handleRowClick.bind(this)
   }
 
@@ -45,19 +44,12 @@ class ViewCompany extends React.Component {
     this.overrideTableStyle()
   }
 
-  // editCashbackSkuDetails(e, item) {
-  //   e.stopPropagation()
-  //   this.props.history.push(`/home/manage-cashback-sku/edit/${item.id}`, item)
-  // }
-
   overrideTableStyle() {
-    // document.querySelectorAll(".bordered--table")[1].parentElement.style.overflow = "auto"
     overrideTableStyle()
   }
 
   handleRowClick(e, item) {
-    //console.log("click",row, column, this.props.cashbackSkuList[row])
-    this.props.history.push(`/home/manage-comp/${item.id}`, item)
+    this.props.history.push(`/home/manage-company/${item.id}`, item)
   }
 
   render() {
@@ -100,8 +92,8 @@ class ViewCompany extends React.Component {
                         </TableRowColumn>
                         <TableRowColumn style={styles[1]}>{item.id}</TableRowColumn>
                         <TableRowColumn style={styles[2]}>{item.name}</TableRowColumn>
-                        <TableRowColumn style={styles[3]}>Chennai</TableRowColumn>
-                        <TableRowColumn style={styles[4]}>TN</TableRowColumn>
+                        <TableRowColumn style={styles[3]}>{item.city_name}</TableRowColumn>
+                        <TableRowColumn style={styles[4]}>{item.state_name}</TableRowColumn>
                         <TableRowColumn style={styles[5]}>{item.address}</TableRowColumn>
                         <TableRowColumn style={styles[6]}>{item.pin_code}</TableRowColumn>
                       </TableRow> 

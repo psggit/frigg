@@ -216,6 +216,12 @@ export const fetchCompanyList = (data) => ({
   data
 })
 
+export const createCompany = (data, CB) => ({
+  type: ActionTypes.REQUEST_CREATE_COMPANY,
+  data,
+  CB
+})
+
 export const fetchCompanies = (data, CB) => ({
   type: ActionTypes.REQUEST_FETCH_COMPANIES,
   CB

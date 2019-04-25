@@ -47,6 +47,24 @@ function* fetchCompanyList(action) {
   }
 }
 
+function* createCompany(action) {
+  try {
+    const data = yield call(Api.createCompany, action)
+    yield put({ type: ActionTypes. SUCCESS_CREATE_COMPANY, data })
+    action.CB()
+    Notify("Successfully created company", "success")
+    action.CB()
+    setTimeout(() => {
+      location.href = '/home/manage-company'
+    }, 2000)
+  } catch (err) {
+    console.log(err)
+    err.response.json().then(json => { Notify(json.message, "warning") })
+    //Notify("Something went wrong", "warning")
+    action.CB()
+  }
+}
+
 function* fetchCompanies(action) {
   try {
     const data = yield call(Api.fetchCompanies, action)
@@ -81,7 +99,7 @@ function* mapCompanyToBrand(action) {
   try {
     const data = yield call(Api.mapCompanyToBrand, action)
     yield put({ type: ActionTypes.SUCCESS_MAP_COMPANY_TO_BRAND, data })
-    Notify("Successfully created company", "success")
+    Notify("Successfully mapped company", "success")
     action.CB()
     setTimeout(() => {
       location.href = '/home/manage-company-brand-mapping'
@@ -1810,6 +1828,12 @@ function* watchRequestFetchCompanyList() {
   }
 }
 
+function* watchRequestCreateCompany() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_CREATE_COMPANY, createCompany)
+  }
+}
+
 function* watchRequestFetchCompanies() {
   while (true) {
     yield* takeLatest(ActionTypes.REQUEST_FETCH_COMPANIES, fetchCompanies)
@@ -1979,6 +2003,7 @@ export default function* rootSaga() {
     fork(watchRequestFetchGenreBasedBrandList),
     fork(watchRequestFetchGenreList),
     fork(watchRequestMapSkuToPromo),
-    fork(watchRequestFetchCompanyList)
+    fork(watchRequestFetchCompanyList),
+    fork(watchRequestCreateCompany)
   ]
 }
