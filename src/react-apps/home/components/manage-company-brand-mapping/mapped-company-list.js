@@ -55,7 +55,7 @@ class ViewCompany extends React.Component {
 
   render() {
     const {
-      mappedCompanyCount,
+      loadingCompanyList,
       companyList
     } = this.props
     return (
