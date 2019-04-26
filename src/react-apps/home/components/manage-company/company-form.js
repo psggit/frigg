@@ -135,6 +135,7 @@ class CompanyForm extends React.Component {
   }
 
   handleSave() {
+    //console.log("is form", this.isFormValid())
     if(this.isFormValid()) {
       this.props.handleSave()
     }
@@ -164,7 +165,7 @@ class CompanyForm extends React.Component {
             />
             {
               companyNameErr.status &&
-              <p className="error-message">* {companyErr.value}</p>
+              <p className="error-message">* {companyNameErr.value}</p>
             }
           </div>
           <div className="form-group">
@@ -234,7 +235,7 @@ class CompanyForm extends React.Component {
               label="Save"
               primary
               disabled={this.props.disableSave}
-              onClick={this.props.handleSave}
+              onClick={this.handleSave}
             />
           </div>
         </Card>
