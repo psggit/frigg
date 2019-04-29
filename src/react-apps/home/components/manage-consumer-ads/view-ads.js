@@ -102,7 +102,7 @@ class ViewConsumerAds extends React.Component {
                   <TableRowColumn style={styles[4]}>{isoToNormalDate(item.active_to)}</TableRowColumn>
                   <TableRowColumn style={styles[5]}>{item.status}</TableRowColumn>
                   <TableRowColumn style={styles[6]}>{item.CityName}</TableRowColumn>
-                  <TableRowColumn style={styles[7]}>{item.is_critical}</TableRowColumn>
+                  <TableRowColumn style={styles[7]}>{item.is_critical ? 'Active': 'Inactive'}</TableRowColumn>
                   <TableRowColumn style={styles[8]}>
                     <a target="_blank" href={item.high_res_image}>
                       <img

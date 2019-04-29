@@ -251,9 +251,9 @@ class CreateAdForm extends React.Component {
         <div className="form-group">
           <Checkbox
             disabled={this.props.isDisabled}
-            checked={this.state.isCritical}
+            checked={this.state.is_critical}
             onCheck={this.handleCriticalChange}
-            name="isCritical"
+            name="is_critical"
             label="is_critical"
           />
         </div>
