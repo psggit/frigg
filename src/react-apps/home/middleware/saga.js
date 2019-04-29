@@ -1007,7 +1007,14 @@ function* createCollection(action) {
 function* createTransaction(action) {
   try {
     const data = yield call(Api.createTransaction, action)
-    yield put({ type: ActionTypes.REQUEST_TRIGGER_SMS, data: {transaction: data, CB: action.CB} })
+    //yield put({ type: ActionTypes.REQUEST_TRIGGER_SMS, data: {transaction: data, CB: action.CB} })
+    Notify('Successfully created the transaction', 'success')
+    setTimeout(() => {
+      window.location.href = '/home/customer-transactions/view-credits'
+    }, 1000)
+    setTimeout(() => {
+      action.CB()
+    }, 3000)
   } catch (err) {
     Notify('Error in creating transaction', 'warning')
     console.log(err)
