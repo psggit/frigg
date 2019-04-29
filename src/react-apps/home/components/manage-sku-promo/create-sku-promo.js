@@ -66,7 +66,7 @@ class CreateSkuPromo extends React.Component {
       amount: parseInt(skuPromoForm.amount),
       promoName: skuPromoForm.promoName,
       promo_description: skuPromoForm.description,
-      is_on_pack: skuPromoForm.isPackOn === 1 ? true : false
+      is_on_pack: skuPromoForm.isPackOn
     }, this.successPromoCallback)
   }
 
