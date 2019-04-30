@@ -2,6 +2,8 @@ import React, { Fragment } from 'react'
 import TextField from 'material-ui/TextField'
 import Checkbox from 'material-ui/Checkbox'
 import '@sass/components/_form.scss'
+import SelectField from 'material-ui/SelectField'
+import MenuItem from 'material-ui/MenuItem'
 
 class StateDetailsForm extends React.Component {
   constructor(props) {
@@ -9,14 +11,23 @@ class StateDetailsForm extends React.Component {
     this.intitialState = {
       stateShortName: props.stateShortName || '',
       stateName: props.stateName || '',
-      shouldTrim: true
+      shouldTrim: true,
+      selectedPriceTypeIdx: props.priceType 
+                            ? this.priceType.find(item => item.text === props.priceType).value
+                            : 1,
+      priceType: props.priceType || 'MRP',
     }
 
     this.state = Object.assign({}, this.intitialState)
-
+    this.priceType = [
+      {text: 'MRP', value: 1},
+      {text: 'MSRP', value: 2},
+      {text: 'LABEL', value: 3}
+    ]
     this.handleTextFields = this.handleTextFields.bind(this)
     this.handleCheckboxes = this.handleCheckboxes.bind(this)
     this.resetState = this.resetState.bind(this)
+    this.handlePriceTypeChange = this.handlePriceTypeChange.bind(this)
   }
 
   resetState() {
@@ -45,6 +56,13 @@ class StateDetailsForm extends React.Component {
     return this.state
   }
 
+  handlePriceTypeChange(e,k) {
+    this.setState({
+      priceType: this.priceType[k].text,
+      selectedPriceTypeIdx: this.priceType[k].value
+    })
+  }
+
   render() {
     return (
       <Fragment>
@@ -66,6 +84,23 @@ class StateDetailsForm extends React.Component {
             name="stateShortName"
             value={this.state.stateShortName}
           />
+        </div>
+        <div className="form-group">
+          <label className="label">Price type</label><br/>
+          <SelectField
+            value={this.state.selectedPriceTypeIdx}
+            onChange={this.handlePriceTypeChange}
+          >
+            {
+              this.priceType.map((item, i) => (
+                <MenuItem
+                  value={i + 1}
+                  key={item.value}
+                  primaryText={item.text}
+                />
+              ))
+            }
+          </SelectField>
         </div>
       </Fragment>
     )

@@ -32,6 +32,7 @@ class CreateState extends React.Component {
       this.props.actions.createState({
         state_name: data.stateName,
         short_name: data.stateShortName,
+        price_type: data.priceType
       }, this.callbackUpdate)
     }
   }
