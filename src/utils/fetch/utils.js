@@ -84,15 +84,23 @@ export function constructFetchUtility(options) {
     fetchOptions.body = constructBody({type, data})
   }
 
+  if (parseType !== undefined) {
+
+  }
   // return window.fetch instance
-  return (options.handleError)
+  return (options.parseType === undefined)
        ? fetch(url, fetchOptions)
          .then(checkStatus)
          .then(parseJSON)
          .then((responseData) => responseData)
        : fetch(url, fetchOptions)
-         .then(parseJSON)
+         .then(checkStatus)
+         .then(parseText)
          .then((responseData) => responseData)
+}
+
+function parseText(response) {
+  return response.text()
 }
 
 function parseJSON(response) {
