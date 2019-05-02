@@ -8,6 +8,7 @@ function getAPIObj() {
     return {
       authUrl: 'https://auth.' + appName + '.hasura-app.io',
       blogicUrl: 'https://api1.' + appName + '.hasura-app.io',
+      reports: 'https://reports.' + appName + '.hasura-app.io',
       gremlinUrl: scheme + '://gremlin' + baseHost,
       odin: scheme + '://odin' + baseHost,
       catman: scheme + '://catman' + baseHost,
@@ -38,6 +39,7 @@ function getAPIObj() {
       api2: scheme + '://api2' + baseHost,
       retailer: scheme + '://retailer' + baseHost,
       catalog: scheme + '://catalog' + baseHost,
+      reports: scheme + '://reports' + baseHost,
       loki: scheme + '://loki' + baseHost
     }
   }

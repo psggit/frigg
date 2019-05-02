@@ -216,6 +216,12 @@ export const fetchCompanyList = (data) => ({
   data
 })
 
+export const downloadReport = (data, CB) => ({
+  type: ActionTypes.REQUEST_DOWNLOAD_REPORT,
+  data,
+  CB
+})
+
 export const createCompany = (data, CB) => ({
   type: ActionTypes.REQUEST_CREATE_COMPANY,
   data,
