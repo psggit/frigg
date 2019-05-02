@@ -8,22 +8,24 @@ import MenuItem from 'material-ui/MenuItem'
 class StateDetailsForm extends React.Component {
   constructor(props) {
     super(props)
-    this.intitialState = {
-      stateShortName: props.stateShortName || '',
-      stateName: props.stateName || '',
-      shouldTrim: true,
-      selectedPriceTypeIdx: props.priceType 
-                            ? this.priceType.find(item => item.text === props.priceType).value
-                            : 1,
-      priceType: props.priceType || 'MRP',
-    }
-
-    this.state = Object.assign({}, this.intitialState)
     this.priceType = [
       {text: 'MRP', value: 1},
       {text: 'MSRP', value: 2},
       {text: 'LABEL', value: 3}
     ]
+    console.log("props", props.priceType)
+    this.intitialState = {
+      stateShortName: props.stateShortName || '',
+      stateName: props.stateName || '',
+      shouldTrim: true,
+      selectedPriceTypeIdx: props.priceType 
+                            ? this.priceType.find(item => (item.text).toLowerCase() === (props.priceType).toLowerCase()).value
+                            : 1,
+      priceType: props.priceType || 'MRP',
+    }
+
+    this.state = Object.assign({}, this.intitialState)
+  
     this.handleTextFields = this.handleTextFields.bind(this)
     this.handleCheckboxes = this.handleCheckboxes.bind(this)
     this.resetState = this.resetState.bind(this)
