@@ -71,8 +71,8 @@ class Reports extends React.Component {
   successReportDownloadCallback(response) {
     console.log("success")
     const filename = 'export.csv'
-    const data = new TextDecoder("utf-8").decode(response.value)
-    const blob = new Blob([data], { type: `text/${formData.fileType}`});
+    const data = (response.value)
+    const blob = new Blob([data], { type: `text/csv`});
     const link = document.createElement('a');
     link.href = window.URL.createObjectURL(blob);
     link.download = filename;

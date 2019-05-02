@@ -970,12 +970,12 @@ export function downloadReport (payloadObj, successCallback) {
       type: 'FormData'
   })
   .then((response) => {
-      //successCallback(json)
+      successCallback(response)
       console.log("response", response)
-      var reader = response.body.getReader();
-      reader.read().then(function(result) {
-          successCallback(result)
-      })
+      // var reader = response.body.getReader();
+      // reader.read().then(function(result) {
+      //     successCallback(result)
+      // })
   })
   .catch(err => {
       console.log("Error in downloading report", err)
