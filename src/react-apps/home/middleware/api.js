@@ -971,6 +971,7 @@ export function downloadReport (payloadObj, successCallback) {
   })
   .then((response) => {
       //successCallback(json)
+      console.log("response", response)
       var reader = response.body.getReader();
       reader.read().then(function(result) {
           successCallback(result)
