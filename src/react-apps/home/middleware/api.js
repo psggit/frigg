@@ -963,6 +963,7 @@ export function downloadReport (payloadObj, successCallback) {
   const formData = new FormData()
   formData.append('start_date', new Date(payloadObj.start_date).getTime())
   formData.append('end_date', new Date(payloadObj.end_date).getTime())
+  console.log("form data", formData)
   const fetchOptions = {
     credentials: 'include',
     headers: {
