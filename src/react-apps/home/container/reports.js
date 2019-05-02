@@ -4,6 +4,7 @@ import MenuItem from 'material-ui/MenuItem'
 import { Card } from 'material-ui/Card'
 import RaisedButton from 'material-ui/RaisedButton'
 import * as Api from "../middleware/api"
+import {exportCSV} from './../../utils'
 
 class Reports extends React.Component {
   constructor() {
@@ -43,7 +44,6 @@ class Reports extends React.Component {
     this.handleReportChange = this.handleReportChange.bind(this)
     this.handleDate = this.handleDate.bind(this)
     this.downloadReport = this.downloadReport.bind(this)
-    this.successReportDownloadCallback = this.successReportDownloadCallback.bind(this)
   }
 
   handleReportChange(e, k) {
@@ -60,27 +60,26 @@ class Reports extends React.Component {
   }
 
   downloadReport() {
-    console.log("url", this.state.selectedReport, this.reportMap[this.state.selectedReport])
     Api.downloadReport({
       url: this.reportMap[this.state.selectedReport],
       start_date: this.state.fromDate,
       end_date: this.state.toDate
-    }, this.successReportDownloadCallback)
+    })
+      .then(csv => {
+        exportCSV(csv)
+      })
   }
 
-  successReportDownloadCallback(response) {
-    console.log("success")
-    const filename = 'export.csv'
-    const data = (response.value)
-    const blob = new Blob([data], { type: `text/csv`});
-    const link = document.createElement('a');
-    link.href = window.URL.createObjectURL(blob);
-    link.download = filename;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    console.log("success callback")
-  }
+  // exportCSV(csv) {
+  //   const filename = 'export.csv'
+  //   const blob = new Blob([csv], { type: `text/csv`});
+  //   const link = document.createElement('a');
+  //   link.href = window.URL.createObjectURL(blob);
+  //   link.download = filename;
+  //   document.body.appendChild(link);
+  //   link.click();
+  //   document.body.removeChild(link);
+  // }
 
   render() {
     const { fromDateErr, toDateErr } = this.state

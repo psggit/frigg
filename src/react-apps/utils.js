@@ -63,3 +63,14 @@ export function getSelectionStart(o) {
 export function overrideTableStyle() {
   document.querySelectorAll(".bordered--table")[1].parentElement.style.overflow = ""
 }
+
+export function exportCSV(csv) {
+  const filename = 'export.csv'
+  const blob = new Blob([csv], { type: `text/csv`});
+  const link = document.createElement('a');
+  link.href = window.URL.createObjectURL(blob);
+  link.download = filename;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}

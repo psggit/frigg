@@ -3,7 +3,7 @@ function getAPIObj() {
   if (window.location.href.split(':')[1] === '//localhost') {
     let scheme = 'https'
     let baseHost = '.amebae21.hasura-app.io'
-    let appName = 'amebae21'
+    let appName = 'basketball38'
 
     return {
       authUrl: 'https://auth.' + appName + '.hasura-app.io',

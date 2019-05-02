@@ -83,10 +83,7 @@ export function constructFetchUtility(options) {
   if (data && method !== "GET") {
     fetchOptions.body = constructBody({type, data})
   }
-
-  if (parseType !== undefined) {
-
-  }
+  
   // return window.fetch instance
   return (options.parseType === undefined)
        ? fetch(url, fetchOptions)

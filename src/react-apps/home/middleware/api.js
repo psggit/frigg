@@ -967,20 +967,8 @@ export function downloadReport (payloadObj, successCallback) {
       apiBase: 'reports',
       data: formData,
       handleError: true,
-      type: 'FormData'
-  })
-  .then((response) => {
-      successCallback(response)
-      console.log("response", response)
-      // var reader = response.body.getReader();
-      // reader.read().then(function(result) {
-      //     successCallback(result)
-      // })
-  })
-  .catch(err => {
-      console.log("Error in downloading report", err)
-      //err.response.json().then(json => { Notify("danger", json.message) })
-      //failureCallback()
+      type: 'FormData',
+      parseType: "text"
   })
 }
 
