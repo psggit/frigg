@@ -1,5 +1,6 @@
 import { GET, POST } from '@utils/fetch'
 import Notify from '@components/Notification'
+import {  Api } from '@utils/config'
 
 export const fetchStates = action => (
   POST({
@@ -962,13 +963,16 @@ export function downloadReport (payloadObj, successCallback) {
   const formData = new FormData()
   formData.append('start_date', new Date(payloadObj.start_date).getTime())
   formData.append('end_date', new Date(payloadObj.end_date).getTime())
-  return POST({
-      api: `/reports/admin_reports/${payloadObj.url}`,
-      apiBase: 'reports',
-      data: formData,
-      handleError: true,
-      type: 'FormData'
-  })
+  const fetchOptions = {
+    credentials: 'include',
+    headers: {
+      "x-hasura-role": `${localStorage.getItem('x-hasura-role')}`,
+      "hasura-id": `${localStorage.getItem('hasura-id')}`
+    },
+    method: 'POST',
+    body: JSON.stringify(formData)
+  }
+  fetch(`${Api.reports}/reports/admin_reports/${payloadObj.url}`, fetchOptions)
   .then((response) => {
       successCallback(response)
       console.log("response", response)
