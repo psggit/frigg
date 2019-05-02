@@ -966,6 +966,7 @@ export function downloadReport (payloadObj, successCallback) {
   const fetchOptions = {
     credentials: 'include',
     headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
       "x-hasura-role": `${localStorage.getItem('x-hasura-role')}`,
       "hasura-id": `${localStorage.getItem('hasura-id')}`
     },
