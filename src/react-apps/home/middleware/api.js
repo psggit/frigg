@@ -959,11 +959,14 @@ export function mapOptionToPrediction (payloadObj, successCallback, failureCallb
 }
 
 export function downloadReport (payloadObj, successCallback) {
+  const formData = new FormData()
+  formData.append('file', payloadObj)
   return POST({
       api: `/reports/admin_reports/${payloadObj.url}`,
       apiBase: 'reports',
-      data: payloadObj,
-      handleError: true
+      data: formData,
+      handleError: true,
+      type: 'FormData'
   })
   .then((response) => {
       //successCallback(json)
