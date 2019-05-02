@@ -960,7 +960,10 @@ export function mapOptionToPrediction (payloadObj, successCallback, failureCallb
 
 export function downloadReport (payloadObj, successCallback) {
   const formData = new FormData()
-  formData.append('file', payloadObj)
+  formData.append('data', {
+    start_date: payloadObj.start_date,
+    end_date: payloadObj.end_date
+  })
   return POST({
       api: `/reports/admin_reports/${payloadObj.url}`,
       apiBase: 'reports',
