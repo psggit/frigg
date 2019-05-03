@@ -92,6 +92,7 @@ class StateDetailsForm extends React.Component {
           <SelectField
             value={this.state.selectedPriceTypeIdx}
             onChange={this.handlePriceTypeChange}
+            disabled={this.props.isDisabled}
           >
             {
               this.priceType.map((item, i) => (

@@ -47,7 +47,7 @@ class ViewState extends React.Component {
     const queryObj = getQueryObj(location.search.slice(1))
     return (
       <div style={{
-        width: '30%',
+        width: '50%',
         position: 'relative',
         display: 'block',
         verticalAlign: 'top',

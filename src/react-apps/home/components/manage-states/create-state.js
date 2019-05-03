@@ -40,7 +40,7 @@ class CreateState extends React.Component {
   render() {
     return (
       <div style={{
-        width: '30%',
+        width: '50%',
         position: 'relative',
         display: 'block',
         verticalAlign: 'top',
