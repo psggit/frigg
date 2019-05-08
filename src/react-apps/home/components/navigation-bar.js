@@ -5,9 +5,9 @@ import MenuItem from 'material-ui/MenuItem'
 import { List, ListItem } from 'material-ui/List'
 import '@sass/components/_menu-item.scss'
 import '@sass/components/_drawer.scss'
-import  { getIcon } from '@utils/icons-utils'
+import { getIcon } from '@utils/icons-utils'
 
-class NavigationBar extends  React.Component {
+class NavigationBar extends React.Component {
   constructor() {
     super()
     this.state = {
@@ -61,7 +61,7 @@ class NavigationBar extends  React.Component {
       //     { name: 'Locality mapping', path: '/home/locality-mapping', id: 5 },
       //   ]
       // },
-      { name: 'Upload search data', path: '/home/upload-search-data', id: 6, nestedItems: [] },
+      // { name: 'Upload search data', path: '/home/upload-search-data', id: 6, nestedItems: [] },
       // { name: 'Delivery system check', path: '/home/delivery-system-check', id: 7, nestedItems: [] },
       {
         name: 'Ads management',
