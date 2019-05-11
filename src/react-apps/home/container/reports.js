@@ -4,7 +4,7 @@ import MenuItem from 'material-ui/MenuItem'
 import { Card } from 'material-ui/Card'
 import RaisedButton from 'material-ui/RaisedButton'
 import * as Api from "../middleware/api"
-import {exportCSV} from './../../utils'
+import { exportCSV } from './../../utils'
 
 class Reports extends React.Component {
   constructor() {
