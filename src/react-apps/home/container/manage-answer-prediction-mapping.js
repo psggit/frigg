@@ -122,6 +122,7 @@ class ManagePredictionAnswer extends React.Component {
           predictionAnswerList={predictionAnswerList}
           loadingPredictionAnswerList={loadingPredictionAnswerList}
           predictionAnswerMap={predictionAnswerMap}
+          activePage={this.state.activePage}
           history={this.props.history}
         />
         {

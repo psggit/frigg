@@ -50,7 +50,7 @@ class ViewPredictionAnswer extends React.Component {
       option_id: item.option_id
     })
       .then((response) => {
-        this.props.history.push("/home/manage-answer-mapping")
+        this.props.history.push(`/home/manage-answer-mapping?activePage=${this.props.activePage}`)
       })
       .catch((err) => {
         console.log("Error in trigger", err)
