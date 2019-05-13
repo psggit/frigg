@@ -70,6 +70,9 @@ class Reports extends React.Component {
       .then(csv => {
         exportCSV(csv)
       })
+      .catch((err) => {
+        console.log("Error in downloading reports", err)
+      })
   }
 
   // exportCSV(csv) {
