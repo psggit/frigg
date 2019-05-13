@@ -30,12 +30,14 @@ class Reports extends React.Component {
       { text: 'Brand Sales Report', value: 2 },
       { text: 'Loading Cash Into Wallet', value: 3 },
       { text: 'Retailer Manual Credits and Debits', value: 4 },
-      { text: 'Consumer Manual Credit and Debit', value: 5 }
+      { text: 'Consumer Manual Credit and Debit', value: 5 },
+      { text: 'Customer Notepad Report', value: 6 }
     ]
 
     this.reportMap = {
       'Retailer Redemption Report': 'retailer_redemption_report',
       'Brand Sales Report': 'brand_sales_report',
+      'Customer Notepad Report': 'consumer_notepad_report',
       'Loading Cash Into Wallet': 'loading_cash_into_wallet',
       'Retailer Manual Credits and Debits': 'retailer_manual_credits_and_debits_report',
       'Consumer Manual Credit and Debit': 'consumer_manual_credits_and_debits_view'
