@@ -111,7 +111,7 @@ class ManagePredictionAnswer extends React.Component {
         <div>
           <NavLink to={`/home/manage-answer-mapping/create`}>
             <RaisedButton
-              label="Map prediction to answer"
+              label="Map answer to prediction"
               primary
             />
           </NavLink>

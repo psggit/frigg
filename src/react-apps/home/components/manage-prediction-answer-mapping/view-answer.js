@@ -110,7 +110,7 @@ class ViewPredictionAnswer extends React.Component {
                                 onClick={e => this.invokeTrigger(item)}
                               >
                                 Trigger
-                                </button>
+                              </button>
                           }
                         </TableRowColumn>
                       </TableRow>
