@@ -8,18 +8,20 @@ import {
   TableRowColumn,
 } from 'material-ui/Table'
 import TableLoadingShell from '../table-loading-shell'
-import Toggle from "material-ui/Toggle"
 import '@sass/components/_table.scss'
 import { overrideTableStyle } from '../../../utils'
+import * as Api from "./../../middleware/api"
 
 const TableHeaderItems = [
   'PREDICTION ID',
+  'PREDICTION TITLE',
   'OPTION ID',
-  'IS TRIGGERED',
-  ''
+  'OPTION NAME',
+  'IS TRIGGERED'
 ]
 
 const styles = [
+  { width: '120px' },
   { width: '120px' },
   { width: '120px' },
   { width: '120px' },
@@ -31,18 +33,7 @@ class ViewPredictionAnswer extends React.Component {
   constructor() {
     super()
 
-    this.state = {
-      predictionAnswerMap: {}
-    }
     this.invokeTrigger = this.invokeTrigger.bind(this)
-  }
-
-  componentWillReceiveProps(newProps) {
-    if (this.props.predictionAnswerMap !== newProps.predictionAnswerMap) {
-      this.setState({
-        predictionAnswerMap: newProps.predictionAnswerMap
-      })
-    }
   }
 
   componentDidMount() {
@@ -54,9 +45,16 @@ class ViewPredictionAnswer extends React.Component {
   }
 
   invokeTrigger(item) {
-    let predictionAnswerMap = Object.assign({}, this.state.predictionAnswerMap)
-    predictionAnswerMap[item.prediction_id].is_triggered = !predictionAnswerMap[item.prediction_id].is_triggered
-    this.setState({ predictionAnswerMap })
+    Api.invokeTrigger({
+      prediction_id: item.prediction_id,
+      option_id: item.option_id
+    })
+      .then((response) => {
+        this.props.history.push("/home/manage-answer-mapping")
+      })
+      .catch((err) => {
+        console.log("Error in trigger", err)
+      })
   }
 
   render() {
@@ -64,7 +62,7 @@ class ViewPredictionAnswer extends React.Component {
       loadingPredictionAnswerList,
       predictionAnswerList
     } = this.props
-    const { predictionAnswerMap } = this.state
+
     return (
       <div>
         <Table
@@ -101,16 +99,19 @@ class ViewPredictionAnswer extends React.Component {
                         <TableRowColumn style={styles[0]}>
                           {item.prediction_id}
                         </TableRowColumn>
-                        <TableRowColumn style={styles[1]}>{item.option_id}</TableRowColumn>
-                        <TableRowColumn style={styles[2]}>
-                          {item.is_triggered ? "Yes" : "No"}
-                        </TableRowColumn>
-                        <TableRowColumn style={styles[3]}>
-                          <Toggle
-                            toggled={predictionAnswerMap[item.prediction_id].is_triggered}
-                            onToggle={() => this.invokeTrigger(item)}
-                            disabled={predictionAnswerMap[item.prediction_id].is_triggered}
-                          />
+                        <TableRowColumn style={styles[1]}>{item.prediction_title}</TableRowColumn>
+                        <TableRowColumn style={styles[2]}>{item.option_id}</TableRowColumn>
+                        <TableRowColumn style={styles[3]}>{item.option_name}</TableRowColumn>
+                        <TableRowColumn style={styles[4]}>
+                          {
+                            item.is_triggered
+                              ? 'Triggered'
+                              : <button
+                                onClick={e => this.invokeTrigger(item)}
+                              >
+                                Trigger
+                                </button>
+                          }
                         </TableRowColumn>
                       </TableRow>
                     )

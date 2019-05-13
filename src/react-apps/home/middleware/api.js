@@ -1033,6 +1033,15 @@ export const fetchPredictionAnswerList = payload => (
   })
 )
 
+export const invokeTrigger = payload => (
+  POST({
+    api: '/consumer/prediction/cashback ',
+    apiBase: 'orderman',
+    data: payload,
+    handleError: true
+  })
+)
+
 export const createPredictionAnswer = payload => (
   POST({
     api: '/prediction/create_answer',
