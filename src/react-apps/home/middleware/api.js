@@ -1024,6 +1024,24 @@ export const createCampaign = action => (
     .then(json => json)
 )
 
+export const fetchPredictionAnswerList = payload => (
+  POST({
+    api: '/prediction/list_answer',
+    apiBase: 'odin',
+    data: payload,
+    handleError: true
+  })
+)
+
+export const createPredictionAnswer = payload => (
+  POST({
+    api: '/prediction/create_answer',
+    apiBase: 'odin',
+    data: payload,
+    handleError: true
+  })
+)
+
 export const updateCampaign = action => (
   POST({
     api: '/campaign/updateCampaign',

@@ -1,6 +1,6 @@
 import React from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
-import {  Api } from '@utils/config'
+import { Api } from '@utils/config'
 import "whatwg-fetch"
 import { Router } from 'react-router'
 import { connect } from 'react-redux'
@@ -73,6 +73,7 @@ import UpdateSkuPromo from "./../components/manage-sku-promo/edit-sku-promo"
 import MappedCompanyList from "./../container/manage-company-brand-mapping"
 import MapCompanyToBrand from "./../components/manage-company-brand-mapping/map-company-to-brand"
 import ViewPredictionList from "./../container/manage-prediction"
+import ViewAnswer from "./../container/manage-answer-prediction-mapping"
 import CreatePrediction from "./../components/manage-prediction/create-prediction"
 import UpdatePrediction from "./../components/manage-prediction/update-prediction"
 import ViewOptionList from "./../container/manage-option"
@@ -87,6 +88,7 @@ import ManageCompany from "./../container/manage-company"
 import CreateCompany from "./../components/manage-company/create-company"
 import UpdateCompany from "./../components/manage-company/update-company"
 import ManageReports from "./../container/reports"
+import MapAnswerToPrediction from "./../components/manage-prediction-answer-mapping/map-answer-to-prediction"
 // import CreateTeam from "./../components/manage-team/create-team"
 // import '@sass/components/_heading.scss'
 
@@ -179,135 +181,138 @@ class App extends React.Component {
     const { isDrawerOpen, headerTitle } = this.state
     return (
       <Router history={history}>
-          <div>
-            <MuiThemeProvider>
-              <div>
-                <Header
-                  logout={this.handleLogout}
-                  isDrawerOpen={isDrawerOpen}
-                  toggleDrawer={this.toggleDrawer}
-                  headerTitle={headerTitle}
-                />
-                <NavigationBar
-                  setHeaderTitle={this.setHeaderTitle}
-                  isDrawerOpen={isDrawerOpen}
-                  toggleDrawer={this.toggleDrawer}
-                  handleCloseDrawer={this.handleCloseDrawer}
-                />
-                <DisplayScreen key={this.state.key}>
-                    <Switch>
-                      <Route exact path="/" component={WelcomeScreen} />
-                      <Route exact path="/home" component={WelcomeScreen} />
-                      <Route exact path="/home/manage-localities" component={ManageLocalities} />
-                      <Route exact path="/home/manage-states" component={ManageStates} />
-                      <Route exact path="/home/manage-states/create-new-state" component={CreateState} />
-                      <Route exact path="/home/manage-states/:stateSlug" component={ViewState} />
+        <div>
+          <MuiThemeProvider>
+            <div>
+              <Header
+                logout={this.handleLogout}
+                isDrawerOpen={isDrawerOpen}
+                toggleDrawer={this.toggleDrawer}
+                headerTitle={headerTitle}
+              />
+              <NavigationBar
+                setHeaderTitle={this.setHeaderTitle}
+                isDrawerOpen={isDrawerOpen}
+                toggleDrawer={this.toggleDrawer}
+                handleCloseDrawer={this.handleCloseDrawer}
+              />
+              <DisplayScreen key={this.state.key}>
+                <Switch>
+                  <Route exact path="/" component={WelcomeScreen} />
+                  <Route exact path="/home" component={WelcomeScreen} />
+                  <Route exact path="/home/manage-localities" component={ManageLocalities} />
+                  <Route exact path="/home/manage-states" component={ManageStates} />
+                  <Route exact path="/home/manage-states/create-new-state" component={CreateState} />
+                  <Route exact path="/home/manage-states/:stateSlug" component={ViewState} />
 
-                      <Route exact path="/home/customer-transactions" component={CustomerTransactions} />
-                      <Route exact path="/home/customer-transactions/add-credits" component={AddCredits} />
-                      <Route exact path="/home/customer-transactions/view-credits" component={ViewCredits} />
+                  <Route exact path="/home/customer-transactions" component={CustomerTransactions} />
+                  <Route exact path="/home/customer-transactions/add-credits" component={AddCredits} />
+                  <Route exact path="/home/customer-transactions/view-credits" component={ViewCredits} />
 
-                      <Route exact path="/home/manage-cities" component={ManageCities} />
-                      <Route exact path="/home/manage-cities/create-new-city" component={CreateCity} />
-                      <Route exact path="/home/manage-cities/:citySlug/localities" component={CreateLocality} />
-                      <Route exact path="/home/manage-cities/:citySlug/boundary" component={ManageLocalities} />
-                      <Route exact path="/home/manage-cities/:citySlug/create-boundary" component={ManageLocalities} />
-                      <Route exact path="/home/manage-cities/localities/edit/:id" component={ViewLocalities} />
-                      <Route exact path="/home/manage-cities/:citySlug" component={ViewCity} />
+                  <Route exact path="/home/manage-cities" component={ManageCities} />
+                  <Route exact path="/home/manage-cities/create-new-city" component={CreateCity} />
+                  <Route exact path="/home/manage-cities/:citySlug/localities" component={CreateLocality} />
+                  <Route exact path="/home/manage-cities/:citySlug/boundary" component={ManageLocalities} />
+                  <Route exact path="/home/manage-cities/:citySlug/create-boundary" component={ManageLocalities} />
+                  <Route exact path="/home/manage-cities/localities/edit/:id" component={ViewLocalities} />
+                  <Route exact path="/home/manage-cities/:citySlug" component={ViewCity} />
 
-                      <Route exact path="/home/manage-localities/create-new-locality" component={CreateLocality} />
-                      <Route exact path="/home/manage-localities/:localitySlug" component={ViewLocality} />
+                  <Route exact path="/home/manage-localities/create-new-locality" component={CreateLocality} />
+                  <Route exact path="/home/manage-localities/:localitySlug" component={ViewLocality} />
 
-                      <Route exact path="/home/delivery-agent-mapping/" component={DeliveryMapManager} />
-                      <Route exact path="/home/delivery-agent-mapping/:delivererSlug" component={ViewDeliverer} />
+                  <Route exact path="/home/delivery-agent-mapping/" component={DeliveryMapManager} />
+                  <Route exact path="/home/delivery-agent-mapping/:delivererSlug" component={ViewDeliverer} />
 
-                      <Route exact path="/home/locality-mapping/" component={LocalityMapManager} />
-                      <Route exact path="/home/locality-mapping/:localitySlug" component={ViewLocalityMapDetails} />
+                  <Route exact path="/home/locality-mapping/" component={LocalityMapManager} />
+                  <Route exact path="/home/locality-mapping/:localitySlug" component={ViewLocalityMapDetails} />
 
-                      <Route exact path="/home/upload-search-data" component={UploadSearchData} />
-                      <Route exact path="/home/delivery-system-check" component={GeoFenceCheck} />
-                      <Route exact path="/home/manage-image-ads" component={ManageImageAds} />
-                      <Route exact path="/home/manage-image-ads/create-new-ad" component={CreateAd} />
+                  <Route exact path="/home/upload-search-data" component={UploadSearchData} />
+                  <Route exact path="/home/delivery-system-check" component={GeoFenceCheck} />
+                  <Route exact path="/home/manage-image-ads" component={ManageImageAds} />
+                  <Route exact path="/home/manage-image-ads/create-new-ad" component={CreateAd} />
 
-                      <Route exact path="/home/manage-deep-link-ads" component={ManageDeepLinkAds} />
-                      <Route exact path="/home/manage-deep-link-ads/create-new-deep-link-ad" component={CreateDeepLinkAd} />
-                      
-                      <Route exact path="/home/manage-url-ads" component={ManageUrlAds} />
-                      <Route exact path="/home/manage-url-ads/create-new-url-ad" component={CreateUrlAd} />
+                  <Route exact path="/home/manage-deep-link-ads" component={ManageDeepLinkAds} />
+                  <Route exact path="/home/manage-deep-link-ads/create-new-deep-link-ad" component={CreateDeepLinkAd} />
 
-                      <Route exact path="/home/manage-consumer-ads" component={ManageConsumerAds} />
-                      <Route exact path="/home/manage-consumer-ads/create-new-consumer-ad" component={CreateConsumerAd} /> 
+                  <Route exact path="/home/manage-url-ads" component={ManageUrlAds} />
+                  <Route exact path="/home/manage-url-ads/create-new-url-ad" component={CreateUrlAd} />
 
-                      <Route exact path="/home/manage-banking" component={ManageBanking} /> 
-                      <Route exact path="/home/manage-banking/edit/:bankName" component={UpdateBanking} />
+                  <Route exact path="/home/manage-consumer-ads" component={ManageConsumerAds} />
+                  <Route exact path="/home/manage-consumer-ads/create-new-consumer-ad" component={CreateConsumerAd} />
 
-                      <Route exact path="/home/manage-collection-ads" component={ManageCollectionAds} />
-                      <Route exact path="/home/manage-collection-ads/create-new-ad" component={CreateCollectionAd} />
+                  <Route exact path="/home/manage-banking" component={ManageBanking} />
+                  <Route exact path="/home/manage-banking/edit/:bankName" component={UpdateBanking} />
 
-                      <Route exact path="/home/delivery-agents" component={DeliveyAgentList} />
-                      <Route exact path="/home/delivery-agents/create-new-delivery-agent" component={CreateDeliveryAgent} />
-                      <Route exact path="/home/manage-possession-limits" component={ManagePossessionLimits} />
+                  <Route exact path="/home/manage-collection-ads" component={ManageCollectionAds} />
+                  <Route exact path="/home/manage-collection-ads/create-new-ad" component={CreateCollectionAd} />
 
-                      <Route exact path="/home/manage-retailers/retailers" component={ManageRetailers} />
-                      <Route exact path="/home/manage-retailers/update-retailer-contact/:retailerSlug" component={UpdateRetailerContact} />
+                  <Route exact path="/home/delivery-agents" component={DeliveyAgentList} />
+                  <Route exact path="/home/delivery-agents/create-new-delivery-agent" component={CreateDeliveryAgent} />
+                  <Route exact path="/home/manage-possession-limits" component={ManagePossessionLimits} />
 
-                      <Route exact path="/home/hipbar-pay/rollback-transaction" component={RollbackTransaction} />
-                      <Route exact path="/home/manage-collections" component={ManageCollections} />
-                      <Route exact path="/home/manage-collections/create-new" component={CreateCollection} />
-                      <Route exact path="/home/manage-collections/edit-collection/:collectionShortName" component={EditCollection} />
-                      <Route exact path="/home/manage-collections/view-collection/:collectionShortName" component={ViewCollection} />
+                  <Route exact path="/home/manage-retailers/retailers" component={ManageRetailers} />
+                  <Route exact path="/home/manage-retailers/update-retailer-contact/:retailerSlug" component={UpdateRetailerContact} />
 
-                      <Route exact path="/home/customer-transactions/confirm-credits" component={ConfirmCredits} />
+                  <Route exact path="/home/hipbar-pay/rollback-transaction" component={RollbackTransaction} />
+                  <Route exact path="/home/manage-collections" component={ManageCollections} />
+                  <Route exact path="/home/manage-collections/create-new" component={CreateCollection} />
+                  <Route exact path="/home/manage-collections/edit-collection/:collectionShortName" component={EditCollection} />
+                  <Route exact path="/home/manage-collections/view-collection/:collectionShortName" component={ViewCollection} />
 
-                      <Route exact path="/home/user-specific-ads" component={ManageAds} />
-                      <Route exact path="/home/user-specific-ads/create" component={CreateUserAds} />
-                      <Route exact path="/home/user-specific-ads/edit/:AdId" component={UpdateUserAds} />
+                  <Route exact path="/home/customer-transactions/confirm-credits" component={ConfirmCredits} />
 
-                      <Route exact path="/home/user-specific-promos" component={ManagePromos} />
-                      <Route exact path="/home/user-specific-promos/create" component={CreateUserPromos} />
-                      <Route exact path="/home/user-specific-promos/edit/:promoCode" component={UpdateUserPromos} />
+                  <Route exact path="/home/user-specific-ads" component={ManageAds} />
+                  <Route exact path="/home/user-specific-ads/create" component={CreateUserAds} />
+                  <Route exact path="/home/user-specific-ads/edit/:AdId" component={UpdateUserAds} />
 
-                      <Route exact path="/home/manage-company-brand-mapping" component={MappedCompanyList} />
-                      <Route exact path="/home/manage-company-brand-mapping/create" component={MapCompanyToBrand} />
-                      {/* <Route exact path="/home/company/edit/:promoCode" component={UpdateUserPromos} /> */}
+                  <Route exact path="/home/user-specific-promos" component={ManagePromos} />
+                  <Route exact path="/home/user-specific-promos/create" component={CreateUserPromos} />
+                  <Route exact path="/home/user-specific-promos/edit/:promoCode" component={UpdateUserPromos} />
 
-                      <Route exact path="/home/manage-company" component={ManageCompany} />
-                      <Route exact path="/home/manage-company/create" component={CreateCompany} />
-                      <Route exact path="/home/manage-company/edit/:companyId" component={UpdateCompany} />
-                    
-                      <Route exact path="/home/manage-campaign" component={ManageCampaign} />
-                      <Route exact path="/home/manage-campaign/create" component={CreateCampaign} />
-                      <Route exact path="/home/manage-campaign/edit/:campaignId" component={UpdateCampaign} />
+                  <Route exact path="/home/manage-company-brand-mapping" component={MappedCompanyList} />
+                  <Route exact path="/home/manage-company-brand-mapping/create" component={MapCompanyToBrand} />
+                  {/* <Route exact path="/home/company/edit/:promoCode" component={UpdateUserPromos} /> */}
 
-                      <Route exact path="/home/manage-sku-promo" component={ManageSkuPromo} />
-                      <Route exact path="/home/manage-sku-promo/create" component={CreateSkuPromo} />
-                      <Route exact path="/home/manage-sku-promo/edit/:promoId" component={UpdateSkuPromo} />
+                  <Route exact path="/home/manage-company" component={ManageCompany} />
+                  <Route exact path="/home/manage-company/create" component={CreateCompany} />
+                  <Route exact path="/home/manage-company/edit/:companyId" component={UpdateCompany} />
 
-                      <Route exact path="/home/manage-cashback-sku" component={ViewPromoList} />
-                      <Route exact path="/home/manage-cashback-sku/map-sku-to-promo" component={MapSkuToPromo} />
-                      
-                      <Route exact path="/home/manage-prediction" component={ViewPredictionList} />
-                      <Route exact path="/home/manage-prediction/create" component={CreatePrediction} />
-                      <Route exact path="/home/manage-prediction/edit/:predictionId" component={UpdatePrediction} />
+                  <Route exact path="/home/manage-campaign" component={ManageCampaign} />
+                  <Route exact path="/home/manage-campaign/create" component={CreateCampaign} />
+                  <Route exact path="/home/manage-campaign/edit/:campaignId" component={UpdateCampaign} />
 
-                      <Route exact path="/home/manage-option" component={ViewOptionList} />
-                      <Route exact path="/home/manage-option/create" component={CreateOption} />
+                  <Route exact path="/home/manage-sku-promo" component={ManageSkuPromo} />
+                  <Route exact path="/home/manage-sku-promo/create" component={CreateSkuPromo} />
+                  <Route exact path="/home/manage-sku-promo/edit/:promoId" component={UpdateSkuPromo} />
 
-                      <Route exact path="/home/manage-option-mapping" component={ViewMappedOptionList} />
-                      <Route exact path="/home/manage-option-mapping/create" component={MapOptionToPrediction} />
-                      {/* <Route exact path="/home/manage-option-mapping/edit/:predictionId" component={UpdateOptionToPrediction} /> */}
-                    
-                      <Route exact path="/home/manage-city-mapping" component={ViewMappedCityList} />
-                      <Route exact path="/home/manage-city-mapping/create" component={MapCityToPrediction} />
-                      <Route exact path="/home/manage-city-mapping/edit/:predictionId" component={UpdateCityToPrediction} />
+                  <Route exact path="/home/manage-cashback-sku" component={ViewPromoList} />
+                  <Route exact path="/home/manage-cashback-sku/map-sku-to-promo" component={MapSkuToPromo} />
 
-                      <Route exact path="/home/manage-reports" component={ManageReports} />
-                       {/*<Route exact path="/home/manage-cashback-sku/edit/:offerId" component={UpdateCampaign} /> */}
-                    </Switch>
-                </DisplayScreen>
-              </div>
-            </MuiThemeProvider>
-          </div>
+                  <Route exact path="/home/manage-prediction" component={ViewPredictionList} />
+                  <Route exact path="/home/manage-prediction/create" component={CreatePrediction} />
+                  <Route exact path="/home/manage-prediction/edit/:predictionId" component={UpdatePrediction} />
+
+                  <Route exact path="/home/manage-option" component={ViewOptionList} />
+                  <Route exact path="/home/manage-option/create" component={CreateOption} />
+
+                  <Route exact path="/home/manage-answer-mapping" component={ViewAnswer} />
+                  <Route exact path="/home/manage-answer-mapping/create" component={MapAnswerToPrediction} />
+
+                  <Route exact path="/home/manage-option-mapping" component={ViewMappedOptionList} />
+                  <Route exact path="/home/manage-option-mapping/create" component={MapOptionToPrediction} />
+                  {/* <Route exact path="/home/manage-option-mapping/edit/:predictionId" component={UpdateOptionToPrediction} /> */}
+
+                  <Route exact path="/home/manage-city-mapping" component={ViewMappedCityList} />
+                  <Route exact path="/home/manage-city-mapping/create" component={MapCityToPrediction} />
+                  <Route exact path="/home/manage-city-mapping/edit/:predictionId" component={UpdateCityToPrediction} />
+
+                  <Route exact path="/home/manage-reports" component={ManageReports} />
+                  {/*<Route exact path="/home/manage-cashback-sku/edit/:offerId" component={UpdateCampaign} /> */}
+                </Switch>
+              </DisplayScreen>
+            </div>
+          </MuiThemeProvider>
+        </div>
       </Router>
     )
   }
