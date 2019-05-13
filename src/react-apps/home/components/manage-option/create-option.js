@@ -24,9 +24,9 @@ class CreateOption extends React.Component {
 
   handleSave() {
     const optionForm = this.optionForm.getData()
-    this.setState({creatingoption: true})
+    this.setState({ creatingoption: true })
     Api.createOption({
-      option_name: optionForm.optionName
+      option_name: optionForm.optionName.trim()
     }, this.successOptionCallback, this.failureOptionCallback)
   }
 
