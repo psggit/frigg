@@ -6,10 +6,10 @@ import { Card } from 'material-ui/Card'
 class OptionForm extends React.Component {
   constructor(props) {
     super(props)
-    
+
     this.state = {
       optionName: props.data ? props.data.name : "",
-    
+
       optionNameErr: {
         value: "",
         status: false
@@ -29,7 +29,7 @@ class OptionForm extends React.Component {
   handleTextFields(e) {
     const errName = `${e.target.name}Err`
     this.setState({
-      [errName] : {
+      [errName]: {
         value: "",
         status: false
       }
@@ -38,7 +38,7 @@ class OptionForm extends React.Component {
   }
 
   isFormValid() {
-    if (this.state.optionName.length === 0) {
+    if (this.state.optionName.trim().length === 0) {
       this.setState({
         optionNameErr: {
           value: "option name is required",
@@ -46,33 +46,33 @@ class OptionForm extends React.Component {
         }
       })
       return false
-    } 
+    }
 
     return true
   }
 
   handleSave() {
-    if(this.isFormValid()) {
+    if (this.isFormValid()) {
       this.props.handleSave()
     }
   }
 
   render() {
-    const {optionNameErr} = this.state
+    const { optionNameErr } = this.state
     return (
       <Fragment>
         <Card style={{
-            padding: '20px',
-            width: '300px',
-            position: 'relative',
-            display: 'block',
-            verticalAlign: 'top',
-            marginRight: '20px'
-          }}
+          padding: '20px',
+          width: '300px',
+          position: 'relative',
+          display: 'block',
+          verticalAlign: 'top',
+          marginRight: '20px'
+        }}
         >
           <h4 style={{ margin: '0', marginBottom: '40px' }}>Enter Option Details</h4>
           <div className="form-group">
-            <label className="label">Option Name</label><br/>
+            <label className="label">Option Name</label><br />
             <TextField
               onChange={this.handleTextFields}
               name="optionName"
@@ -85,7 +85,7 @@ class OptionForm extends React.Component {
               <p className="error-message">* {optionNameErr.value}</p>
             }
           </div>
-        
+
           <div className="form-group">
             <RaisedButton
               label="Save"
