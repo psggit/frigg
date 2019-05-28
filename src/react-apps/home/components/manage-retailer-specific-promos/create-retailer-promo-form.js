@@ -72,7 +72,7 @@ class RetailerPromoForm extends React.Component {
             <label className="label">Retailer List</label><br />
             <TextField
               onChange={this.handleTextFields}
-              name="userList"
+              name="retailerList"
               placeholder=",158376,158907,"
               value={this.state.retailerList}
               style={{ width: '100%' }}
