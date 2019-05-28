@@ -272,6 +272,10 @@ class App extends React.Component {
                   <Route exact path="/home/user-specific-promos/create" component={CreateUserPromos} />
                   <Route exact path="/home/user-specific-promos/edit/:promoCode" component={UpdateUserPromos} />
 
+                  <Route exact path="/home/retailer-specific-promos" component={ManageRetailerPromos} />
+                  <Route exact path="/home/retailer-specific-promos/create" component={CreateRetailerPromos} />
+                  <Route exact path="/home/retailer-specific-promos/edit/:promoCode" component={UpdateRetailerPromos} />
+
                   <Route exact path="/home/manage-company-brand-mapping" component={MappedCompanyList} />
                   <Route exact path="/home/manage-company-brand-mapping/create" component={MapCompanyToBrand} />
                   {/* <Route exact path="/home/company/edit/:promoCode" component={UpdateUserPromos} /> */}
