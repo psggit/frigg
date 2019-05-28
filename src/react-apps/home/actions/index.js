@@ -314,6 +314,21 @@ export const deleteDpFromLocalityMap = data => ({
   data
 })
 
+export const fetchPossessionLimits = data => ({
+  type: ActionTypes.REQUEST_FETCH_POSSESSION_LIMITS,
+  data
+})
+
+export const createPossessionLimit = data => ({
+  type: ActionTypes.REQUEST_CREATE_POSSESSION_LIMIT,
+  data
+})
+
+export const updatePossessionLimit = data => ({
+  type: ActionTypes.REQUEST_UPDATE_POSSESSION_LIMIT,
+  data
+})
+
 export const indexSearchData = data => ({
   type: ActionTypes.REQUEST_INDEX_SEARCH_DATA,
   data

@@ -37,6 +37,45 @@ function* fetchMappedCompanyList(action) {
   }
 }
 
+function* fetchPossessionLimits(action) {
+  try {
+    const data = yield call(Api.fetchPossessionLimits, action)
+    yield put({ type: ActionTypes. SUCCESS_FETCH_POSSESSION_LIMITS, data })
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+function* createPossessionLimit(action) {
+  try {
+    const data = yield call(Api.createPossessionLimit, action)
+    yield put({ type: ActionTypes. SUCCESS_CREATE_POSSESSION_LIMIT, data })
+    Notify("Successfully created possession limit", "success")
+    setTimeout(() => {
+      location.href = `/home/manage-states/possession-limits/${action.data.state_short_name}`
+    }, 2000)
+  } catch (err) {
+    console.log(err)
+    err.response.json().then(json => { Notify(json.message, "warning") })
+    Notify("Something went wrong", "warning")
+  }
+}
+
+function* updatePossessionLimit(action) {
+  try {
+    const data = yield call(Api.updatePossessionLimit, action)
+    yield put({ type: ActionTypes. SUCCESS_UPDATE_POSSESSION_LIMIT, data })
+    Notify("Successfully updated possession limit", "success")
+    setTimeout(() => {
+      location.href = `/home/manage-states/possession-limits/${action.data.state_short_name}`
+    }, 2000)
+  } catch (err) {
+    console.log(err)
+    err.response.json().then(json => { Notify(json.message, "warning") })
+    Notify("Something went wrong", "warning")
+  }
+}
+
 function* fetchCompanyList(action) {
   try {
     const data = yield call(Api.fetchCompanyList, action)
@@ -1978,6 +2017,24 @@ function* watchRequestUpdateUserSpecificPromo() {
   }
 }
 
+function* watchRequestFetchPossessionLimits() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_FETCH_POSSESSION_LIMITS, fetchPossessionLimits)
+  }
+}
+
+function* watchRequestCreatePossessionLimit() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_CREATE_POSSESSION_LIMIT, createPossessionLimit)
+  }
+}
+
+function* watchRequestUpdatePossessionLimit() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_UPDATE_POSSESSION_LIMIT, updatePossessionLimit)
+  }
+}
+
 function* watchRequestUpdateBankingDetails() {
   while (true) {
     yield* takeLatest(ActionTypes.REQUEST_UPDATE_BANK_DETAILS, updatingBankingDetails)
@@ -2092,6 +2149,9 @@ export default function* rootSaga() {
     fork(watchRequestUpdateRetailerSpecificPromo),
     fork(watchRequestFetchCompanyList),
     fork(watchRequestCreateCompany),
-    fork(watchRequestUpdateCompany)
+    fork(watchRequestUpdateCompany),
+    fork(watchRequestFetchPossessionLimits),
+    fork(watchRequestCreatePossessionLimit),
+    fork(watchRequestUpdatePossessionLimit)
   ]
 }

@@ -10,6 +10,36 @@ export const fetchStates = action => (
     .then(json => json)
 )
 
+export const fetchPossessionLimits = action => (
+  POST({
+    api: '/stateManagement/listPossessionLimit',
+    apiBase: 'odin',
+    handleError: true,
+    data: action.data
+  })
+    .then(json => json)
+)
+
+export const createPossessionLimit = action => (
+  POST({
+    api: '/stateManagement/addPossessionLimit',
+    apiBase: 'odin',
+    handleError: true,
+    data: action.data
+  })
+    .then(json => json)
+)
+
+export const updatePossessionLimit = action => (
+  POST({
+    api: '/stateManagement/updatePossessionLimit',
+    apiBase: 'odin',
+    handleError: true,
+    data: action.data
+  })
+    .then(json => json)
+)
+
 export const fetchStateList = action => (
   POST({
     api: '/Api/listStates',

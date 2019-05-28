@@ -46,6 +46,9 @@ import GeoFenceCheck from './geo-fence-check'
 import DeliveyAgentList from './../components/delivery-management/delivery-agent-list'
 import CreateDeliveryAgent from './../components/delivery-management/create-delivery-agent'
 import ManagePossessionLimits from './../components/delivery-management/manage-possession-limits'
+import ManageStatePossessionLimits from "./../container/manage-state-possession-limits"
+import CreatePossessionLimit from "./../components/manage-possession-limits/create-possession-limit"
+import EditPossessionLimit from "./../components/manage-possession-limits/update-possession-limit"
 import CreateCollection from './../components/manage-collections/view-collection-details'
 import EditCollection from './../components/manage-collections/edit-collection'
 // import ViewCollectionList from './../components/manage-collections/view-collections'
@@ -205,6 +208,9 @@ class App extends React.Component {
                   <Route exact path="/home" component={WelcomeScreen} />
                   <Route exact path="/home/manage-localities" component={ManageLocalities} />
                   <Route exact path="/home/manage-states" component={ManageStates} />
+                  <Route exact path="/home/manage-states/possession-limits/:stateShortName" component={ManageStatePossessionLimits} />
+                  <Route exact path="/home/manage-states/possession-limits/create/:stateShortName" component={CreatePossessionLimit} />
+                  <Route exact path="/home/manage-states/possession-limits/edit/:stateShortName" component={EditPossessionLimit} />
                   <Route exact path="/home/manage-states/create-new-state" component={CreateState} />
                   <Route exact path="/home/manage-states/:stateSlug" component={ViewState} />
 

@@ -18,6 +18,7 @@ const initialState = {
   loadingMappedDpToLocality: true,
   loadingImageAds: true,
   loadingCollectionAds: true,
+  loadingPossessionLimits: true,
   loadingUrlAds: true,
   loadingConsumerAds: true,
   loadingDeepLinkingAds: true,
@@ -29,9 +30,11 @@ const initialState = {
   creatingUserSpecificAd: true,
   updatingUserSpecificAd: true,
   creatingUserSpecificPromo: true,
+  creatingPossessionLimit: true,
   creatingRetailerSpecificPromo: true,
   updatingUserSpecificPromo: true,
   updatingRetailerSpecificPromo: true,
+  updatingPossessionLimit: true,
   loadingUserSpecificPromos: true,
   loadingRetailerSpecificPromos: true,
   mappingBrandToCompany: true,
@@ -69,6 +72,7 @@ const initialState = {
   skuPromoList: [],
   promoList: [],
   campaignStatusList: [],
+  possessionLimits: [],
   campaignList: [],
   brandManagerList: [],
   contactNumbersOfRetailer: [],
@@ -147,6 +151,25 @@ const actionsMap = {
     })
   },
 
+  [ActionTypes.SUCCESS_FETCH_POSSESSION_LIMITS]: (state, action) => {
+    return Object.assign({}, state, {
+      loadingPossessionLimits: false,
+      possessionLimits: action.data.data
+    })
+  },
+
+  [ActionTypes.SUCCESS_CREATE_POSSESSION_LIMIT]: (state, action) => {
+    return Object.assign({}, state, {
+      creatingPossessionLimit: false
+    })
+  },
+
+  [ActionTypes.SUCCESS_UPDATE_POSSESSION_LIMIT]: (state, action) => {
+    return Object.assign({}, state, {
+      updatingPossessionLimit: false
+    })
+  },
+
   [ActionTypes.SUCCESS_FETCH_CITY_DETAILS]: (state, action) => {
     return Object.assign({}, state, {
       loadingCityDetails: false,
@@ -183,8 +206,10 @@ const actionsMap = {
       creatingUserSpecificAd: true,
       updatingUserSpecificAd: true,
       creatingUserSpecificPromo: true,
+      creatingPossessionLimit: true,
       creatingRetailerSpecificPromo: true,
       updatingUserSpecificPromo: true,
+      updatingPossessionLimit: true,
       updatingRetailerSpecificPromo: true
     })
   },

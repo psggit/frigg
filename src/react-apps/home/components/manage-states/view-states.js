@@ -20,7 +20,8 @@ const TableHeaderItems = [
   'ID',
   'NAME',
   'SHORT_NAME',
-  'PRICE_TYPE'
+  'PRICE_TYPE',
+  ''
 ]
 
 const styles = [
@@ -29,7 +30,7 @@ const styles = [
   { width: '120px' },
   { width: '38px' },
   { width: '100px' },
-  { width: '100px' }
+  { width: '' }
 ]
 
 function ViewCities(data) {
@@ -70,6 +71,9 @@ function ViewCities(data) {
                 <TableRowColumn style={styles[2]}>{item.state_name}</TableRowColumn>
                 <TableRowColumn style={styles[3]}>{item.short_name}</TableRowColumn>
                 <TableRowColumn style={styles[4]}>{item.price_type}</TableRowColumn>
+                <TableRowColumn style={styles[5]}>
+                    <NavLink to={`/home/manage-states/possession-limits/${item.short_name}`}>Possession Limits</NavLink>
+                </TableRowColumn>
               </TableRow>
             ))
           )
