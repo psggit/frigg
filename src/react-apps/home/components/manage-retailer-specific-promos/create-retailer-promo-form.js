@@ -11,7 +11,7 @@ class RetailerPromoForm extends React.Component {
     
     this.state = {
       promoCode: props.data ? props.data.promo_code : "",
-      userList: props.data ? props.data.user_list : "",
+      retailerList: props.data ? props.data.retailer_list : "",
       orderType: props.data ? props.data.order_type : "",
       status: "",
       selectedStatusIdx: props.data ? props.data.is_active ? 1 : 2 : 1
@@ -69,12 +69,12 @@ class RetailerPromoForm extends React.Component {
           </div>
         
           <div className="form-group">
-            <label className="label">User List</label><br />
+            <label className="label">Retailer List</label><br />
             <TextField
               onChange={this.handleTextFields}
               name="userList"
               placeholder=",158376,158907,"
-              value={this.state.userList}
+              value={this.state.retailerList}
               style={{ width: '100%' }}
             />
           </div>
