@@ -668,6 +668,28 @@ function* fetchNetBankingList(action) {
   }
 }
 
+function* fetchRetailerSpecificPromos(action) {
+  try {
+    const data = yield call(Api.fetchRetailerSpecificPromos, action)
+    yield put({ type: ActionTypes.SUCCESS_FETCH_RETAILER_SPECIFIC_PROMOS, data})
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+function* createRetailerSpecificPromo(action) {
+  try {
+    const data = yield call(Api.createRetailerSpecificPromo, action)
+    yield put({ type: ActionTypes.SUCCESS_CREATE_RETAILER_SPECIFIC_PROMO, data})
+    Notify("Successfully created retailer specific promo", "success")
+    setTimeout(() => {
+      location.href = '/home/retailer-specific-promos'
+    }, 2000)
+  } catch (err) {
+    console.log(err)
+  }
+}
+
 function* fetchUserSpecificPromos(action) {
   try {
     const data = yield call(Api.fetchUserSpecificPromos, action)
@@ -698,6 +720,19 @@ function* updateUserSpecificPromo(action) {
     Notify("Successfully updated user specific promo", "success")
     setTimeout(() => {
       location.href = '/home/user-specific-promos'
+    }, 2000)
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+function* updateRetailerSpecificPromo(action) {
+  try {
+    const data = yield call(Api.updateRetailerSpecificPromo, action)
+    yield put({ type: ActionTypes.SUCCESS_UPDATE_RETAILER_SPECIFIC_PROMO, data})
+    Notify("Successfully updated retailer specific promo", "success")
+    setTimeout(() => {
+      location.href = '/home/retailer-specific-promos'
     }, 2000)
   } catch (err) {
     console.log(err)
@@ -1740,6 +1775,12 @@ function* watchRequestFetchUserSpecificPromos() {
   }
 }
 
+function* watchRequestFetchRetailerSpecificPromos() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_FETCH_RETAILER_SPECIFIC_PROMOS, fetchRetailerSpecificPromos)
+  }
+}
+
 function* watchRequestFetchCashbackSkuList() {
   while (true) {
     yield* takeLatest(ActionTypes.REQUEST_FETCH_CASHBACK_SKU_LIST, fetchCashbackSkuList)
@@ -1839,6 +1880,18 @@ function* watchRequestFetchCampaignStatusList() {
 function* watchRequestFetchBrandManagerList() {
   while (true) {
     yield* takeLatest(ActionTypes.REQUEST_BRAND_MANAGER_LIST, fetchBrandManagerList)
+  }
+}
+
+function* watchRequestCreateRetailerSpecificPromo() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_CREATE_RETAILER_SPECIFIC_PROMO, createRetailerSpecificPromo)
+  }
+}
+
+function* watchRequestUpdateRetailerSpecificPromo() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_UPDATE_RETAILER_SPECIFIC_PROMO, updateRetailerSpecificPromo)
   }
 }
 
@@ -1962,6 +2015,9 @@ export default function* rootSaga() {
     fork(watchRequestFetchCompanies),
     fork(watchRequestFetchGenreBasedBrandList),
     fork(watchRequestFetchGenreList),
-    fork(watchRequestMapSkuToPromo)
+    fork(watchRequestMapSkuToPromo),
+    fork(watchRequestFetchRetailerSpecificPromos),
+    fork(watchRequestCreateRetailerSpecificPromo),
+    fork(watchRequestUpdateRetailerSpecificPromo)
   ]
 }

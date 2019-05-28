@@ -29,8 +29,11 @@ const initialState = {
   creatingUserSpecificAd: true,
   updatingUserSpecificAd: true,
   creatingUserSpecificPromo: true,
+  creatingRetailerSpecificPromo: true,
   updatingUserSpecificPromo: true,
+  updatingRetailerSpecificPromo: true,
   loadingUserSpecificPromos: true,
+  loadingRetailerSpecificPromos: true,
   mappingBrandToCompany: true,
   loadingGenres: true,
   loadingCompanies: true,
@@ -102,7 +105,9 @@ const initialState = {
   validCreditsCount: 0,
   userSpecificAdsCount: 0,
   userSpecificPromos: [],
+  retailerSpecificPromos: [],
   userSpecificPromosCount: 0,
+  retailerSpecificPromosCount: 0,
   campaignCount: 0,
   cashbackSkuCount: 0,
   skuPromoCount: 0,
@@ -175,7 +180,9 @@ const actionsMap = {
       creatingUserSpecificAd: true,
       updatingUserSpecificAd: true,
       creatingUserSpecificPromo: true,
-      updatingUserSpecificPromo: true
+      creatingRetailerSpecificPromo: true,
+      updatingUserSpecificPromo: true,
+      updatingRetailerSpecificPromo: true
     })
   },
   
@@ -380,9 +387,29 @@ const actionsMap = {
     })
   },
 
+  [ActionTypes.SUCCESS_FETCH_RETAILER_SPECIFIC_PROMOS]: (state, action) => {
+    return Object.assign({}, state, {
+      loadingRetailerSpecificPromos: false,
+      retailerSpecificPromos: action.data.data,
+      retailerSpecificPromosCount: action.data.count
+    })
+  },
+
   [ActionTypes.SUCCESS_CREATE_USER_SPECIFIC_PROMO]: (state, action) => {
     return Object.assign({}, state, {
       creatingUserSpecificPromo: false
+    })
+  },
+
+  [ActionTypes.SUCCESS_CREATE_RETAILER_SPECIFIC_PROMO]: (state, action) => {
+    return Object.assign({}, state, {
+      creatingRetailerSpecificPromo: false
+    })
+  },
+
+  [ActionTypes.SUCCESS_UPDATE_RETAILER_SPECIFIC_PROMO]: (state, action) => {
+    return Object.assign({}, state, {
+      updatingRetailerSpecificPromo: false
     })
   },
 

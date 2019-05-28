@@ -567,6 +567,36 @@ export const fetchUserSpecificPromos = action => (
     .then(json => json)
 )
 
+export const fetchRetailerSpecificPromos = action => (
+  POST({
+    api: '/retailerpromo/listRetailerPromo',
+    apiBase: 'odin',
+    data: action.data,
+    handleError: true
+  })
+    .then(json => json)
+)
+
+export const createRetailerSpecificPromo = action => (
+  POST({
+    api: '/retailerpromo/createRetailerPromo',
+    apiBase: 'odin',
+    data: action.data,
+    handleError: true
+  })
+    .then(json => json)
+)
+
+export const updateRetailerSpecificPromo = action => (
+  POST({
+    api: '/retailerpromo/updateRetailerPromo',
+    apiBase: 'odin',
+    data: action.data,
+    handleError: true
+  })
+    .then(json => json)
+)
+
 export const createUserSpecificPromo = action => (
   POST({
     api: '/userpromo/createPromo',

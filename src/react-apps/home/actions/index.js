@@ -528,6 +528,22 @@ export const fetchAdIds = (data) => ({
   data
 })
 
+export const fetchRetailerSpecificPromos = (data) => ({
+  type: ActionTypes.REQUEST_FETCH_RETAILER_SPECIFIC_PROMOS,
+  data
+})
+
+export const createRetailerSpecificPromo = (data) => ({
+  type: ActionTypes.REQUEST_CREATE_RETAILER_SPECIFIC_PROMO,
+  data
+})
+
+export const updateRetailerSpecificPromo = (data) => ({
+  type: ActionTypes.REQUEST_UPDATE_RETAILER_SPECIFIC_PROMO,
+  data
+})
+
+
 export const fetchUserSpecificPromos = (data) => ({
   type: ActionTypes.REQUEST_FETCH_USER_SPECIFIC_PROMOS,
   data
