@@ -31,7 +31,10 @@ class Reports extends React.Component {
       { text: 'Loading Cash Into Wallet', value: 3 },
       { text: 'Retailer Manual Credits and Debits', value: 4 },
       { text: 'Consumer Manual Credit and Debit', value: 5 },
-      { text: 'Customer Notepad Report', value: 6 }
+      { text: 'Customer Notepad Report', value: 6 },
+      { text: 'Gifts Cancelled', value: 7 },
+      { text: 'Gifts Sent', value: 8 },
+      { text: 'Gifts Redeemed', value: 9 }
     ]
 
     this.reportMap = {
@@ -40,7 +43,10 @@ class Reports extends React.Component {
       'Customer Notepad Report': 'consumer_notepad_report',
       'Loading Cash Into Wallet': 'loading_cash_into_wallet',
       'Retailer Manual Credits and Debits': 'retailer_manual_credits_and_debits_report',
-      'Consumer Manual Credit and Debit': 'consumer_manual_credits_and_debits_view'
+      'Consumer Manual Credit and Debit': 'consumer_manual_credits_and_debits_view',
+      'Gifts Cancelled': 'gifts_cancellation',
+      'Gifts Sent': 'gifts_sent',
+      'Gifts Redeemed': 'gifts_redeemed'
     }
 
     this.handleReportChange = this.handleReportChange.bind(this)
