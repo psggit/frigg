@@ -93,7 +93,7 @@ import UpdateCompany from "./../components/manage-company/update-company"
 import ManageReports from "./../container/reports"
 import MapAnswerToPrediction from "./../components/manage-prediction-answer-mapping/map-answer-to-prediction"
 // import CreateTeam from "./../components/manage-team/create-team"
-// import '@sass/components/_heading.scss'
+
 
 import asyncComponent from './../../asyncComponent'
 
