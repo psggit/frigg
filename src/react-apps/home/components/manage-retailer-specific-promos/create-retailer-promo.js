@@ -20,7 +20,7 @@ class CreateRetailerPromo extends React.Component {
   formIsValid() {
     const retailerPromoForm = this.retailerPromoForm.getData()
 
-    if (retailerPromoForm.userList.length === 0) {
+    if (retailerPromoForm.retailerList.length === 0) {
       return false
     } else if (retailerPromoForm.orderType.length === 0) {
       return false
@@ -39,7 +39,7 @@ class CreateRetailerPromo extends React.Component {
     if (this.formIsValid()) {
       this.props.actions.createRetailerSpecificPromo({
         promo_code: retailerPromoForm.promoCode,
-        retailer_list: retailerPromoForm.userList,
+        retailer_list: retailerPromoForm.retailerList,
         order_type: retailerPromoForm.orderType,
         is_active: retailerPromoForm.selectedStatusIdx === 1 ? true : false
       })
