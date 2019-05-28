@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 import { createSession } from './utils'
-import {  Api } from '@utils/config'
+import { Api } from '@utils/config'
 import "whatwg-fetch"
 import '@sass/components/_input.scss'
 import '@sass/components/_form.scss'
@@ -14,7 +14,8 @@ class Form extends React.Component {
       showError: false,
       error: false,
       username: '',
-      password: ''
+      password: '',
+      errorMessage: ""
     }
 
     this.handleChange = this.handleChange.bind(this)
@@ -53,13 +54,14 @@ class Form extends React.Component {
       body: JSON.stringify(formData)
     }
 
-    this.setState({isSubmitting: true})
+    this.setState({ isSubmitting: true })
 
     fetch(`${Api.authUrl}/login`, fetchOptions)
       .then((response) => {
         if (response.status !== 200) {
-          console.log(`Looks like there was a problem. Status Code: ${response.status}`)
-          this.setState({ isSubmitting: false, error: true })
+          response.json().then(json => {
+            this.setState({ isSubmitting: false, error: true, errorMessage: json.message })
+          })
           return
         }
         response.json().then((data) => {
@@ -93,6 +95,7 @@ class Form extends React.Component {
         </div>
         <div className="form-group">
           <input
+            autoComplete="fwefwf"
             placeholder="password"
             type="password"
             name="password"
@@ -108,7 +111,7 @@ class Form extends React.Component {
         >
           Login
         </button>
-        { this.state.error ? <p style={{ color: '#ff3b30' }}>Wrong username or password</p> : ''}
+        {this.state.error ? <p style={{ color: '#ff3b30' }}>{this.state.errorMessage}</p> : ''}
       </div>
     )
   }

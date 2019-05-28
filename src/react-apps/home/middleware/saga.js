@@ -27,13 +27,59 @@ function* fetchStateList(action) {
   }
 }
 
-function* fetchCompanyList(action) {
+function* fetchMappedCompanyList(action) {
   try {
-    const data = yield call(Api.fetchCompanyList, action)
-    yield put({ type: ActionTypes.SUCCESS_FETCH_COMPANY_LIST, data })
+    const data = yield call(Api.fetchMappedCompanyList, action)
+    yield put({ type: ActionTypes. SUCCESS_FETCH_MAPPED_COMPANY_LIST, data })
     //action.CB()
   } catch (err) {
     console.log(err)
+  }
+}
+
+function* fetchCompanyList(action) {
+  try {
+    const data = yield call(Api.fetchCompanyList, action)
+    yield put({ type: ActionTypes. SUCCESS_FETCH_COMPANY_LIST, data })
+    //action.CB()
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+function* createCompany(action) {
+  try {
+    const data = yield call(Api.createCompany, action)
+    yield put({ type: ActionTypes. SUCCESS_CREATE_COMPANY, data })
+    action.CB()
+    Notify("Successfully created company", "success")
+    action.CB()
+    setTimeout(() => {
+      location.href = '/home/manage-company'
+    }, 2000)
+  } catch (err) {
+    console.log(err)
+    err.response.json().then(json => { Notify(json.message, "warning") })
+    //Notify("Something went wrong", "warning")
+    action.CB()
+  }
+}
+
+function* updateCompany(action) {
+  try {
+    const data = yield call(Api.updateCompany, action)
+    yield put({ type: ActionTypes. SUCCESS_UPDATE_COMPANY, data })
+    action.CB()
+    Notify("Successfully updated company", "success")
+    action.CB()
+    setTimeout(() => {
+      location.href = '/home/manage-company'
+    }, 2000)
+  } catch (err) {
+    console.log(err)
+    err.response.json().then(json => { Notify(json.message, "warning") })
+    //Notify("Something went wrong", "warning")
+    action.CB()
   }
 }
 
@@ -71,10 +117,10 @@ function* mapCompanyToBrand(action) {
   try {
     const data = yield call(Api.mapCompanyToBrand, action)
     yield put({ type: ActionTypes.SUCCESS_MAP_COMPANY_TO_BRAND, data })
-    Notify("Successfully created company", "success")
+    Notify("Successfully mapped company", "success")
     action.CB()
     setTimeout(() => {
-      location.href = '/home/manage-company'
+      location.href = '/home/manage-company-brand-mapping'
     }, 2000)
     //action.CB()
   } catch (err) {
@@ -996,7 +1042,14 @@ function* createCollection(action) {
 function* createTransaction(action) {
   try {
     const data = yield call(Api.createTransaction, action)
-    yield put({ type: ActionTypes.REQUEST_TRIGGER_SMS, data: {transaction: data, CB: action.CB} })
+    //yield put({ type: ActionTypes.REQUEST_TRIGGER_SMS, data: {transaction: data, CB: action.CB} })
+    Notify('Successfully created the transaction', 'success')
+    setTimeout(() => {
+      window.location.href = '/home/customer-transactions/view-credits'
+    }, 1000)
+    setTimeout(() => {
+      action.CB()
+    }, 3000)
   } catch (err) {
     Notify('Error in creating transaction', 'warning')
     console.log(err)
@@ -1829,9 +1882,27 @@ function* watchRequestFetchCampaignList() {
   }
 }
 
+function* watchRequestFetchMappedCompanyList() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_FETCH_MAPPED_COMPANY_LIST, fetchMappedCompanyList)
+  }
+}
+
 function* watchRequestFetchCompanyList() {
   while (true) {
     yield* takeLatest(ActionTypes.REQUEST_FETCH_COMPANY_LIST, fetchCompanyList)
+  }
+}
+
+function* watchRequestCreateCompany() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_CREATE_COMPANY, createCompany)
+  }
+}
+
+function* watchRequestUpdateCompany() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_UPDATE_COMPANY, updateCompany)
   }
 }
 
@@ -2010,7 +2081,7 @@ export default function* rootSaga() {
     fork(watchRequestUpdateSkuPromo),
     fork(watchFetchStateList),
     fork(watchFetchSkuList),
-    fork(watchRequestFetchCompanyList),
+    fork(watchRequestFetchMappedCompanyList),
     fork(watchRequestMapCompanyToBrand),
     fork(watchRequestFetchCompanies),
     fork(watchRequestFetchGenreBasedBrandList),
@@ -2018,6 +2089,9 @@ export default function* rootSaga() {
     fork(watchRequestMapSkuToPromo),
     fork(watchRequestFetchRetailerSpecificPromos),
     fork(watchRequestCreateRetailerSpecificPromo),
-    fork(watchRequestUpdateRetailerSpecificPromo)
+    fork(watchRequestUpdateRetailerSpecificPromo),
+    fork(watchRequestFetchCompanyList),
+    fork(watchRequestCreateCompany),
+    fork(watchRequestUpdateCompany)
   ]
 }

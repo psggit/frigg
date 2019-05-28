@@ -38,6 +38,7 @@ class ViewState extends React.Component {
         id: parseInt(queryObj.id),
         state_name: data.stateName,
         short_name: data.stateShortName,
+        price_type: data.priceType
       })
     }
   }
@@ -46,7 +47,7 @@ class ViewState extends React.Component {
     const queryObj = getQueryObj(location.search.slice(1))
     return (
       <div style={{
-        width: '30%',
+        width: '50%',
         position: 'relative',
         display: 'block',
         verticalAlign: 'top',
@@ -80,6 +81,7 @@ class ViewState extends React.Component {
               ref={(node) => { this.stateDetailsForm = node }}
               stateName={queryObj.stateName}
               stateShortName={queryObj.stateShortName}
+              priceType={queryObj.priceType}
             />
           </Card>
           <RaisedButton

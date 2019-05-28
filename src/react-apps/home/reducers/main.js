@@ -45,6 +45,7 @@ const initialState = {
   loadingUserSpecificAdIds: true,
   loadingSkuList: true,
   loadingCampaignList: true,
+  loadingCompanyList: true,
   loadingGenreBasedBrandList: true,
   creatingCampaign: true,
   updatingCampaign: true,
@@ -56,11 +57,12 @@ const initialState = {
   creatingSkuPromo: true,
   updatingSkuPromo: true,
   loadingStateList: true,
-  loadingCompanyList: true,
+  loadingMappedCompanyList: true,
   stateList: [],
   skuList: [],
   companies: [],
   companyList: [],
+  mappedCompanyList: [],
   genres: [],
   genreBasedBrandList: [],
   cashbackSkuList: [],
@@ -111,7 +113,8 @@ const initialState = {
   campaignCount: 0,
   cashbackSkuCount: 0,
   skuPromoCount: 0,
-  companyCount: 0
+  companyCount: 0,
+  mappedCompanyCount: 0
 }
 
 const actionsMap = {
@@ -454,11 +457,11 @@ const actionsMap = {
     })
   },
 
-  [ActionTypes.SUCCESS_FETCH_COMPANY_LIST]: (state, action) => {
+  [ActionTypes. SUCCESS_FETCH_MAPPED_COMPANY_LIST]: (state, action) => {
     return Object.assign({}, state, {
-      loadingCompanyList: false,
-      companyList: action.data.list,
-      companyCount: action.data.count
+      loadingMappedCompanyList: false,
+      mappedCompanyList: action.data.list,
+      mappedCompanyCount: action.data.count
     })
   },
 
@@ -467,6 +470,14 @@ const actionsMap = {
       loadingCompanies: false,
       companies: action.data.companies,
       //companyCount: 
+    })
+  },
+
+  [ActionTypes.SUCCESS_FETCH_COMPANY_LIST]: (state, action) => {
+    return Object.assign({}, state, {
+      loadingCompanyList: false,
+      companyList: action.data.companies,
+      companyCount: action.data.count
     })
   },
 

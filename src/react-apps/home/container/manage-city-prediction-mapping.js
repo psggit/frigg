@@ -19,7 +19,8 @@ class MapCityToPrediction extends React.Component {
       cityMappedToPredictionCount: 0,
       cityMappedtoPreditionList: [],
       citiesData: [],
-      loadingCities: true
+      loadingCities: true,
+      cityId: 0
     }
 
     this.filter = {
@@ -36,6 +37,7 @@ class MapCityToPrediction extends React.Component {
     this.successCityListCallback = this.successCityListCallback.bind(this)
     this.applyFilter = this.applyFilter.bind(this)
     this.fetchDefaultData = this.fetchDefaultData.bind(this)
+    this.resetFilter = this.resetFilter.bind(this)
   }
 
   componentDidMount() {
@@ -84,10 +86,11 @@ class MapCityToPrediction extends React.Component {
   }
 
   successCityMappedToPredictionListCallback(response) {
+    console.log("res", response)
     this.setState({
       loadingCityMappedToPredictionList: false,
       cityMappedtoPreditionList: response.prediction_data,
-      cityMappedToPredictionCount: response.count
+      cityMappedToPredictionCount: response.count ? response.count : 0
     })
   }
 
@@ -188,6 +191,13 @@ class MapCityToPrediction extends React.Component {
     }, this.successCityMappedToPredictionListCallback)
   }
 
+  resetFilter() {
+		this.setState({
+			cityId: '',
+		})
+		this.fetchDefaultData()
+		this.props.history.push(`/home/manage-city-mapping`)
+  }
 
   render() {
     const {
@@ -214,11 +224,20 @@ class MapCityToPrediction extends React.Component {
             </NavLink>
           </div>
 
-          <RaisedButton
-            onClick={this.mountFilterDialog}
-            label="Filter"
-            icon={getIcon('filter')}
-          />
+          <div>
+            <RaisedButton
+              onClick={this.mountFilterDialog}
+              label="Filter"
+              icon={getIcon('filter')}
+              style={{marginRight: '15px'}}
+            />
+
+            <RaisedButton
+              onClick={this.resetFilter}
+              label="Reset Filter"
+              disabled={this.state.cityId === 0}
+            />
+          </div>
         </div>
 
         <h3>Showing all cities mapped to prediction</h3>

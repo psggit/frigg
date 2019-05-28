@@ -20,7 +20,7 @@ const TableHeaderItems = [
   'ID',
   'NAME',
   'SHORT_NAME',
-  // ''
+  'PRICE_TYPE'
 ]
 
 const styles = [
@@ -28,6 +28,7 @@ const styles = [
   { width: '60px' },
   { width: '120px' },
   { width: '38px' },
+  { width: '100px' },
   { width: '100px' }
 ]
 
@@ -59,7 +60,7 @@ function ViewCities(data) {
                     // target="_blank"
                     // exact
                     // to={`/home/manage-states/${item.state_name}?id=${item.id}`}
-                    to={`/home/manage-states/${item.state_name}?id=${item.id}&stateName=${item.state_name}&stateShortName=${item.short_name}`}
+                    to={`/home/manage-states/${item.state_name}?id=${item.id}&stateName=${item.state_name}&stateShortName=${item.short_name}&priceType=${item.price_type}`}
                   >
                     <FlatButton primary label="View" />
                   </NavLink>
@@ -68,6 +69,7 @@ function ViewCities(data) {
                 <TableRowColumn style={styles[1]}>{item.id}</TableRowColumn>
                 <TableRowColumn style={styles[2]}>{item.state_name}</TableRowColumn>
                 <TableRowColumn style={styles[3]}>{item.short_name}</TableRowColumn>
+                <TableRowColumn style={styles[4]}>{item.price_type}</TableRowColumn>
               </TableRow>
             ))
           )

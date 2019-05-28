@@ -206,9 +206,32 @@ export const fetchGenreList = (data, CB) => ({
   CB
 })
 
+export const fetchMappedCompanyList = (data) => ({
+  type: ActionTypes.REQUEST_FETCH_MAPPED_COMPANY_LIST,
+  data
+})
+
 export const fetchCompanyList = (data) => ({
   type: ActionTypes.REQUEST_FETCH_COMPANY_LIST,
   data
+})
+
+export const downloadReport = (data, CB) => ({
+  type: ActionTypes.REQUEST_DOWNLOAD_REPORT,
+  data,
+  CB
+})
+
+export const createCompany = (data, CB) => ({
+  type: ActionTypes.REQUEST_CREATE_COMPANY,
+  data,
+  CB
+})
+
+export const updateCompany = (data, CB) => ({
+  type: ActionTypes.REQUEST_UPDATE_COMPANY,
+  data,
+  CB
 })
 
 export const fetchCompanies = (data, CB) => ({

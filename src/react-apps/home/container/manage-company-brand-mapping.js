@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as Actions from '../actions'
 import { getQueryObj, getQueryUri } from '@utils/url-utils'
-import ViewCompany from '../components/manage-company/view-company'
+import MappedCompanyList from '../components/manage-company-brand-mapping/mapped-company-list'
 import Pagination from '@components/pagination'
 import '@sass/components/_pagination.scss'
 import { NavLink } from 'react-router-dom'
@@ -24,12 +24,12 @@ class ManageCompany extends React.Component {
     if (location.search.length) {
       this.setQueryParamas()
     } else {
-      this.fetchCompanyList()
+      this.fetchMappedCompanyList()
     }
   }
 
-  fetchCompanyList() {
-    this.props.actions.fetchCompanyList({
+  fetchMappedCompanyList() {
+    this.props.actions.fetchMappedCompanyList({
       offset: 0,
       limit: this.pageLimit
     })
@@ -42,18 +42,18 @@ class ManageCompany extends React.Component {
       this.setState({ [item[0]]: item[1] })
     })
 
-    this.props.actions.fetchCompanyList({
+    this.props.actions.fetchMappedCompanyList({
       offset: queryObj.offset ? parseInt(queryObj.offset) : 0,
       limit: this.pageLimit,
     })
   }
 
   setPage(pageObj) {
-    this.props.actions.setLoadingState('loadingCompanyList')
+    this.props.actions.setLoadingState('loadingMappedCompanyList')
     const queryUri = location.search.slice(1)
     const queryObj = getQueryObj(queryUri)
 
-    this.props.actions.fetchCompanyList({
+    this.props.actions.fetchMappedCompanyList({
       offset: pageObj.offset,
       limit: this.pageLimit,
     })
@@ -61,38 +61,38 @@ class ManageCompany extends React.Component {
 
     queryObj.activePage = pageObj.activePage
     queryObj.offset = pageObj.offset
-    history.pushState(queryObj, "company listing", `/home/manage-company?${getQueryUri(queryObj)}`)
+    history.pushState(queryObj, "mapped company listing", `/home/manage-company-brand-mapping?${getQueryUri(queryObj)}`)
   }
 
   render() {
     const {
-      loadingCompanyList,
-      companyList,
-      companyCount
+      loadingMappedCompanyList,
+      mappedCompanyList,
+      mappedCompanyCount
     } = this.props
     return (
       <div style={{ width: '100%' }}>
         <div>
-          <NavLink to={`/home/manage-company/create`}>
+          <NavLink to={`/home/manage-company-brand-mapping/create`}>
             <RaisedButton
-              label="Create Company"
+              label="Map company to brand"
               primary
             />
           </NavLink>
 
         </div>
-        <h3>Showing all companies</h3>
-        <ViewCompany
-          companyList={companyList}
-          loadingCompanyList={loadingCompanyList}
+        <h3>Showing all companies mapped to brands</h3>
+        <MappedCompanyList
+          companyList={mappedCompanyList}
+          loadingCompanyList={loadingMappedCompanyList}
           history={this.props.history}
         />
         {
-          !loadingCompanyList && companyList && companyList.length
+          !loadingMappedCompanyList && mappedCompanyList && mappedCompanyList.length
           ? <Pagination
             activePage={parseInt(this.state.activePage)}
             itemsCountPerPage={this.pageLimit}
-            totalItemsCount={this.props.companyCount}
+            totalItemsCount={this.props.mappedCompanyCount}
             setPage={this.setPage}
           />
           : ''

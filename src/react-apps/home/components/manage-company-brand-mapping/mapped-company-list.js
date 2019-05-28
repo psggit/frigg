@@ -13,48 +13,50 @@ import Moment from "moment"
 import {overrideTableStyle} from '../../../utils'
 
 const TableHeaderItems = [
-  '',
-  'CITY ID',
-  'CITY NAME',
-  'PREDICTION ID',
-  'PREDICTION NAME',
-  'STATUS'
+  'COMPANY_ID',
+  'COMPANY_NAME',
+  'BRAND_ID'
 ]
 
 const styles = [
-  { width: '38px' },
+  // { width: '38px' },
   { width: '120px' },
   { width: '120px' },
   { width: '120px' },
-  { width: '120px' },
-  { width: '120px' }
 ]
 
-class ViewMappedCity extends React.Component {
+class ViewCompany extends React.Component {
 
   constructor() {
     super()
 
-    this.handleRowClick = this.handleRowClick.bind(this)
+    //this.editCashbackSkuDetails = this.editCashbackSkuDetails.bind(this)
+    //this.handleRowClick = this.handleRowClick.bind(this)
   }
 
   componentDidMount() {
     this.overrideTableStyle()
   }
 
+  // editCashbackSkuDetails(e, item) {
+  //   e.stopPropagation()
+  //   this.props.history.push(`/home/manage-cashback-sku/edit/${item.id}`, item)
+  // }
+
   overrideTableStyle() {
     // document.querySelectorAll(".bordered--table")[1].parentElement.style.overflow = "auto"
     overrideTableStyle()
   }
 
-  handleRowClick(rowIdx, colIdx) {
-    this.props.history.push(`/home/manage-city-mapping/edit/${this.props.cityMappedtoPreditionList[rowIdx].prediction_id}`, this.props.cityMappedtoPreditionList[rowIdx])
-  }
+  // handleRowClick(e, item) {
+  //   //console.log("click",row, column, this.props.cashbackSkuList[row])
+  //   this.props.history.push(`/home/manage-company-brand-mapping/${item.id}`, item)
+  // }
 
   render() {
     const {
-      loadingCityMappedToPredictionList,
-      cityMappedtoPreditionList
+      loadingCompanyList,
+      companyList
     } = this.props
     return (
       <div>
@@ -63,7 +65,7 @@ class ViewMappedCity extends React.Component {
           className="bordered--table clickable"
           selectable={false}
           fixedHeader
-          onCellClick={this.handleRowClick}
+          //onCellClick={this.handleCellClick}
         >
           <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
             <TableRow>
@@ -77,31 +79,21 @@ class ViewMappedCity extends React.Component {
             showRowHover
           >
             {
-              !loadingCityMappedToPredictionList && cityMappedtoPreditionList.length === 0 && 
-              <tr>
-                <td style={{ textAlign: 'center' }} colSpan='4'>
-                  <p style={{fontWeight: '16px'}}>No cities found</p>
-                </td>
-              </tr>
-            }
-            {
-              !loadingCityMappedToPredictionList
+              !loadingCompanyList
                 ? (
-                  cityMappedtoPreditionList.map((item, i) => {
+                  companyList.map((item, i) => {
                     return (
                       <TableRow key={i}>
-                        <TableRowColumn style={styles[0]}>
+                        {/* <TableRowColumn style={styles[0]}>
                           <button
-                            //onClick={e => this.handleRowClick(e, item)}
+                            onClick={e => this.handleRowClick(e, item)}
                           >
                             Edit
                           </button>
-                        </TableRowColumn>
-                        <TableRowColumn style={styles[1]}>{item.city_id}</TableRowColumn>
-                        <TableRowColumn style={styles[2]}>{item.CityName}</TableRowColumn>
-                        <TableRowColumn style={styles[3]}>{item.prediction_id}</TableRowColumn>
-                        <TableRowColumn style={styles[4]}>{item.prediction_title}</TableRowColumn>
-                        <TableRowColumn style={styles[4]}>{item.status}</TableRowColumn>
+                        </TableRowColumn> */}
+                        <TableRowColumn style={styles[0]}>{item.company_id}</TableRowColumn>
+                        <TableRowColumn style={styles[1]}>{item.company_name}</TableRowColumn>
+                        <TableRowColumn style={styles[2]}>{item.brand_id}</TableRowColumn>
                       </TableRow> 
                     )
                   })
@@ -119,4 +111,4 @@ class ViewMappedCity extends React.Component {
   }
 }
 
-export default ViewMappedCity
+export default ViewCompany

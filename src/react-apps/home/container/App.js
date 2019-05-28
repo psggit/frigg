@@ -1,6 +1,6 @@
 import React from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
-import {  Api } from '@utils/config'
+import { Api } from '@utils/config'
 import "whatwg-fetch"
 import { Router } from 'react-router'
 import { connect } from 'react-redux'
@@ -73,9 +73,10 @@ import MapSkuToPromo from "./../components/manage-cashback-sku/create-cashback-s
 import ManageSkuPromo from "./../container/manage-sku-promo"
 import CreateSkuPromo from "./../components/manage-sku-promo/create-sku-promo"
 import UpdateSkuPromo from "./../components/manage-sku-promo/edit-sku-promo"
-import ManageCompany from "./../container/manage-company"
-import MapCompanyToBrand from "./../components/manage-company/create-company"
+import MappedCompanyList from "./../container/manage-company-brand-mapping"
+import MapCompanyToBrand from "./../components/manage-company-brand-mapping/map-company-to-brand"
 import ViewPredictionList from "./../container/manage-prediction"
+import ViewAnswer from "./../container/manage-answer-prediction-mapping"
 import CreatePrediction from "./../components/manage-prediction/create-prediction"
 import UpdatePrediction from "./../components/manage-prediction/update-prediction"
 import ViewOptionList from "./../container/manage-option"
@@ -86,6 +87,11 @@ import UpdateOptionToPrediction from "./../components/manage-prediction-option-m
 import ViewMappedCityList from "./../container/manage-city-prediction-mapping"
 import MapCityToPrediction from "./../components/manage-city-prediction-mapping/map-city-to-prediction"
 import UpdateCityToPrediction from "./../components/manage-city-prediction-mapping/update-city-to-prediction"
+import ManageCompany from "./../container/manage-company"
+import CreateCompany from "./../components/manage-company/create-company"
+import UpdateCompany from "./../components/manage-company/update-company"
+import ManageReports from "./../container/reports"
+import MapAnswerToPrediction from "./../components/manage-prediction-answer-mapping/map-answer-to-prediction"
 // import CreateTeam from "./../components/manage-team/create-team"
 // import '@sass/components/_heading.scss'
 

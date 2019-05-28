@@ -159,7 +159,7 @@ class SkuPromoForm extends React.Component {
           <h4 style={{ margin: '0', marginBottom: '40px' }}>Enter Sku Promo Details</h4>
 
           <div className="form-group">
-            <label className="label">Campaign ID</label><br />
+            <label className="label">Campaign Name</label><br />
             <SelectField
               value={this.state.selectedCampaignId}
               onChange={this.handleStatusChange}

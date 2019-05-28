@@ -5,14 +5,14 @@ import * as Actions from '../../actions/index'
 import CompanyForm from "./company-form"
 import {formatStateAndCityList} from "@utils/response-format-utils"
 
-class CreateCompany extends React.Component {
+class UpdateCompany extends React.Component {
   constructor() {
     super()
     this.state = {
       stateList: [],
       cityList: [],
       stateMap: {},
-      creatingCompany: false
+      updatingCompany: false
     }
     this.handleSave = this.handleSave.bind(this)
     this.successStateCallback = this.successStateCallback.bind(this)
@@ -29,15 +29,17 @@ class CreateCompany extends React.Component {
 
   handleSave() {
     const companyForm = this.companyForm.getData()
-    this.setState({creatingCompany: true})
-    this.props.actions.createCompany({
+    console.log("form data", this.companyForm)
+    this.setState({updatingCompany: true})
+    this.props.actions.updateCompany({
+      id: parseInt(this.props.location.state.id),
       name: companyForm.companyName,
       city_id: parseInt(companyForm.selectedCityId),
       state_id: parseInt(companyForm.selectedStateId),
       address: companyForm.address,
       pin_code: parseInt(companyForm.pincode)
     }, () => {
-      this.setState({creatingCompany: false})
+      this.setState({updatingCompany: false})
     })
   }
 
@@ -50,7 +52,8 @@ class CreateCompany extends React.Component {
           stateList={this.state.stateList}
           cityList={this.state.cityList}
           stateMap={this.state.stateMap}
-          disableSave={this.state.creatingCompany}
+          data={this.props.location.state}
+          disableSave={this.state.updatingCompany}
           handleSave={this.handleSave}
         />
       </React.Fragment>
@@ -67,4 +70,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(CreateCompany)
+)(UpdateCompany)

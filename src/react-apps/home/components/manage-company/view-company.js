@@ -13,16 +13,23 @@ import Moment from "moment"
 import {overrideTableStyle} from '../../../utils'
 
 const TableHeaderItems = [
+  '',
   'COMPANY_ID',
   'COMPANY_NAME',
-  'BRAND_ID'
+  'CITY NAME',
+  'STATE NAME',
+  'ADDRESS',
+  'PINCODE'
 ]
 
 const styles = [
-  // { width: '38px' },
+  { width: '38px' },
   { width: '120px' },
   { width: '120px' },
   { width: '120px' },
+  { width: '120px' },
+  { width: '120px' },
+  { width: '120px' }
 ]
 
 class ViewCompany extends React.Component {
@@ -30,7 +37,6 @@ class ViewCompany extends React.Component {
   constructor() {
     super()
 
-    //this.editCashbackSkuDetails = this.editCashbackSkuDetails.bind(this)
     this.handleRowClick = this.handleRowClick.bind(this)
   }
 
@@ -38,19 +44,12 @@ class ViewCompany extends React.Component {
     this.overrideTableStyle()
   }
 
-  // editCashbackSkuDetails(e, item) {
-  //   e.stopPropagation()
-  //   this.props.history.push(`/home/manage-cashback-sku/edit/${item.id}`, item)
-  // }
-
   overrideTableStyle() {
-    // document.querySelectorAll(".bordered--table")[1].parentElement.style.overflow = "auto"
     overrideTableStyle()
   }
 
   handleRowClick(e, item) {
-    //console.log("click",row, column, this.props.cashbackSkuList[row])
-    this.props.history.push(`/home/manage-company/${item.id}`, item)
+    this.props.history.push(`/home/manage-company/edit/${item.id}`, item)
   }
 
   render() {
@@ -84,16 +83,19 @@ class ViewCompany extends React.Component {
                   companyList.map((item, i) => {
                     return (
                       <TableRow key={i}>
-                        {/* <TableRowColumn style={styles[0]}>
+                        <TableRowColumn style={styles[0]}>
                           <button
                             onClick={e => this.handleRowClick(e, item)}
                           >
                             Edit
                           </button>
-                        </TableRowColumn> */}
-                        <TableRowColumn style={styles[0]}>{item.company_id}</TableRowColumn>
-                        <TableRowColumn style={styles[1]}>{item.company_name}</TableRowColumn>
-                        <TableRowColumn style={styles[2]}>{item.brand_id}</TableRowColumn>
+                        </TableRowColumn>
+                        <TableRowColumn style={styles[1]}>{item.id}</TableRowColumn>
+                        <TableRowColumn style={styles[2]}>{item.name}</TableRowColumn>
+                        <TableRowColumn style={styles[3]}>{item.city_name}</TableRowColumn>
+                        <TableRowColumn style={styles[4]}>{item.state_name}</TableRowColumn>
+                        <TableRowColumn style={styles[5]}>{item.address}</TableRowColumn>
+                        <TableRowColumn style={styles[6]}>{item.pin_code}</TableRowColumn>
                       </TableRow> 
                     )
                   })

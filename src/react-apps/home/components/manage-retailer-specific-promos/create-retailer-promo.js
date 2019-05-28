@@ -39,7 +39,7 @@ class CreateRetailerPromo extends React.Component {
     if (this.formIsValid()) {
       this.props.actions.createRetailerSpecificPromo({
         promo_code: retailerPromoForm.promoCode,
-        user_list: retailerPromoForm.userList,
+        retailer_list: retailerPromoForm.userList,
         order_type: retailerPromoForm.orderType,
         is_active: retailerPromoForm.selectedStatusIdx === 1 ? true : false
       })

@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react'
 import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
+import Checkbox from 'material-ui/Checkbox'
 import { Card } from 'material-ui/Card'
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
@@ -9,6 +10,9 @@ import Moment from 'moment'
 class PredictionForm extends React.Component {
   constructor(props) {
     super(props)
+    if(props.data) {
+      console.log("test", props.data.order_type.split(","), props.data.order_type.split(",").length, props.data.order_type.split(",").length >= 1 && props.data.order_type.split(",")[0] !== "")
+    }
     
     this.state = {
       predictionTitle: props.data ? props.data.prediction_title : "",
@@ -16,7 +20,12 @@ class PredictionForm extends React.Component {
       activeTo: props.data ? (props.data.active_to).slice(0,16) : "",
       predictionImage:  props.data ? props.data.prediction_image : "",
       detailedPredictionImage:  props.data ? props.data.detailed_prediction_image : "",
-  
+      //orderType: props.data ? props.data.order_type : "",
+      predictionResponse: props.data ? props.data.prediction_response : "",
+      orderType: props.data ? props.data.order_type.split(",").length >= 1 && props.data.order_type.split(",")[0] !== "" ? props.data.order_type.split(",") : [] : [],
+      isStorePickUp: props.data ? this.getOrderTypeStatus('pickup') : false,
+      isQuickPay: props.data ? this.getOrderTypeStatus('quick_pay') : false,
+     
       predictionTitleErr: {
         value: "",
         status: false
@@ -36,6 +45,10 @@ class PredictionForm extends React.Component {
       detailedPredictionImageErr: {
         value: "",
         status: false
+      },
+      predictionResponseErr: {
+        value: "",
+        status: false
       }
     }
 
@@ -44,10 +57,27 @@ class PredictionForm extends React.Component {
     this.handleDate = this.handleDate.bind(this)
     this.isFormValid = this.isFormValid.bind(this)
     this.handleSave = this.handleSave.bind(this)
+    this.handleCheckboxes = this.handleCheckboxes.bind(this)
+    this.getOrderTypeStatus = this.getOrderTypeStatus.bind(this)
+    this.updateOrderType = this.updateOrderType.bind(this)
   }
 
   getData() {
     return this.state
+  }
+
+  getOrderTypeStatus(orderType) {
+    const orderTypes = this.props.data.order_type.split(",")
+    let orderTypeStatus = false
+    
+    if(orderTypes.length > 0) {
+      orderTypes.map((item, i) => {
+        if(item.trim() === orderType) {
+          orderTypeStatus = true
+        }
+      })
+    }
+    return orderTypeStatus
   }
 
   handleTextFields(e) {
@@ -74,7 +104,6 @@ class PredictionForm extends React.Component {
   }
 
   isFormValid() {
-    console.log("state", this.state)
     if (this.state.predictionTitle.length === 0) {
       this.setState({
         predictionTitleErr: {
@@ -95,6 +124,14 @@ class PredictionForm extends React.Component {
       this.setState({
         detailedPredictionImageErr: {
           value: "Detailed prediction image is required",
+          status: true
+        }
+      })
+      return false
+    } else if (this.state.predictionResponse.toString().length === 0) {
+      this.setState({
+        predictionResponseErr: {
+          value: "Prediction response is required",
           status: true
         }
       })
@@ -126,8 +163,41 @@ class PredictionForm extends React.Component {
     }
   }
 
+  updateOrderType(targetName, orderType, status) {
+    const type = orderType === "pickup" ? "pickup" : "quick_pay"
+    if(targetName.toLowerCase().indexOf(orderType) !== -1 && status) {
+      this.setState({ 
+        [targetName]: status,
+        orderType: [...new Set([...this.state.orderType, type])]
+      })
+    } else if (targetName.toLowerCase().indexOf(orderType) !== -1 && !status) {
+      const orderTypes = this.state.orderType.filter((item) => item !== type)
+      this.setState({ 
+        [targetName]: status,
+        orderType: orderTypes
+      })
+    }
+  }
+
+  handleCheckboxes(e) {
+    const targetName = e.target.name
+    if(targetName.toLowerCase().indexOf("pickup") !== -1) {
+      this.updateOrderType(targetName, "pickup", e.target.checked)
+    } else {
+      this.updateOrderType(targetName, "quick", e.target.checked)
+    }
+  }
+
   render() {
-    const {activeFromErr, activeToErr, predictionTitleErr, predictionImageErr, detailedPredictionImageErr} = this.state
+    const {
+      activeFromErr, 
+      activeToErr, 
+      predictionTitleErr, 
+      predictionImageErr, 
+      detailedPredictionImageErr, 
+      predictionResponseErr
+    } = this.state
+    
     return (
       <Fragment>
         <Card style={{
@@ -184,6 +254,43 @@ class PredictionForm extends React.Component {
               <p className="error-message">* {detailedPredictionImageErr.value}</p>
             }
           </div>
+
+          <div className="form-group">
+            <label className="label">Prediction Response</label><br/>
+            <TextField
+              onChange={this.handleTextFields}
+              name="predictionResponse"
+              value={this.state.predictionResponse}
+              style={{ width: '100%' }}
+              //placeholder="quick_pay, pickup"
+              disabled={this.props.isDisabled}
+            />
+            {
+              predictionResponseErr.status &&
+              <p className="error-message">* {predictionResponseErr.value}</p>
+            }
+          </div>
+
+          <div className="form-group">
+            <label className="label">Order Type</label><br/>
+            <Checkbox
+              disabled={this.props.isDisabled}
+              checked={this.state.isStorePickUp}
+              onCheck={this.handleCheckboxes}
+              name="isStorePickUp"
+              label="is_store_pick_up"
+              style={{marginTop: '10px'}}
+            />
+          </div>
+          <div className="form-group">
+            <Checkbox
+              disabled={this.props.isDisabled}
+              checked={this.state.isQuickPay}
+              onCheck={this.handleCheckboxes}
+              name="isQuickPay"
+              label="is_quick_pay"
+            />
+          </div>
         
           <div className="form-group" style={{ width: '100%' }}>
             <label className="label">Active From</label><br/>
@@ -230,6 +337,7 @@ class PredictionForm extends React.Component {
               <p className="error-message">* {activeToErr.value}</p>
             }
           </div>
+         
           <div className="form-group">
             <RaisedButton
               label="Save"

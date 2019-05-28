@@ -32,6 +32,7 @@ class CreateState extends React.Component {
       this.props.actions.createState({
         state_name: data.stateName,
         short_name: data.stateShortName,
+        price_type: data.priceType
       }, this.callbackUpdate)
     }
   }
@@ -39,7 +40,7 @@ class CreateState extends React.Component {
   render() {
     return (
       <div style={{
-        width: '30%',
+        width: '50%',
         position: 'relative',
         display: 'block',
         verticalAlign: 'top',

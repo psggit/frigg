@@ -25,6 +25,7 @@ const TableHeaderItems = [
   'ACTIVE TO',
   'STATUS',
   'CITY',
+  'IS CRITICAL',
   'HIGH RES',
   'APP TYPE',
   'AD TYPE',
@@ -38,6 +39,7 @@ const styles = [
   { width: '64px', lineHeight: '1.6' },
   { width: '64px', lineHeight: '1.6' },
   { width: '38px' },
+  { width: '60px' },
   { width: '60px' },
   { width: '60px' },
   { width: '60px' },
@@ -100,7 +102,8 @@ class ViewConsumerAds extends React.Component {
                   <TableRowColumn style={styles[4]}>{isoToNormalDate(item.active_to)}</TableRowColumn>
                   <TableRowColumn style={styles[5]}>{item.status}</TableRowColumn>
                   <TableRowColumn style={styles[6]}>{item.CityName}</TableRowColumn>
-                  <TableRowColumn style={styles[7]}>
+                  <TableRowColumn style={styles[7]}>{item.is_critical ? 'Active': 'Inactive'}</TableRowColumn>
+                  <TableRowColumn style={styles[8]}>
                     <a target="_blank" href={item.high_res_image}>
                       <img
                         alt="ad-image"
@@ -113,9 +116,9 @@ class ViewConsumerAds extends React.Component {
                       />
                     </a>
                   </TableRowColumn>
-                  <TableRowColumn style={styles[8]}>{item.app_type}</TableRowColumn>
-                  <TableRowColumn style={styles[9]}>{item.ad_type}</TableRowColumn>
-                  <TableRowColumn style={styles[10]}>{item.listing_order}</TableRowColumn>
+                  <TableRowColumn style={styles[9]}>{item.app_type}</TableRowColumn>
+                  <TableRowColumn style={styles[10]}>{item.ad_type}</TableRowColumn>
+                  <TableRowColumn style={styles[11]}>{item.listing_order}</TableRowColumn>
                 </TableRow>
               ))
             )

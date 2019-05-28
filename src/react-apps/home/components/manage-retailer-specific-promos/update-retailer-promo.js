@@ -38,7 +38,7 @@ class EditRetailerPromo extends React.Component {
     if (this.formIsValid()) {
       this.props.actions.updateRetailerSpecificPromo({
         promo_code: retailerPromoForm.promoCode.toString(),
-        user_list: retailerPromoForm.userList,
+        retailer_list: retailerPromoForm.userList,
         order_type: retailerPromoForm.orderType,
         is_active: retailerPromoForm.selectedStatusIdx === 1 ? true : false
       })
