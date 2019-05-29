@@ -104,6 +104,8 @@ import CreateCompany from "./../components/manage-company/create-company"
 import UpdateCompany from "./../components/manage-company/update-company"
 import ManageReports from "./../container/reports"
 import ManageBrandManager from "./../container/manage-brand-manager"
+import CreateBrandManager from "./../components/manage-brand-manager/create-brand-manager"
+import EditBrandManager from "./../components/manage-brand-manager/update-brand-manager"
 import MapAnswerToPrediction from "./../components/manage-prediction-answer-mapping/map-answer-to-prediction"
 // import CreateTeam from "./../components/manage-team/create-team"
 
@@ -225,6 +227,8 @@ class App extends React.Component {
                   <Route exact path="/home/manage-states/:stateSlug" component={ViewState} />
 
                   <Route exact path="/home/manage-brand-manager" component={ManageBrandManager} />
+                  <Route exact path="/home/manage-brand-manager/create" component={CreateBrandManager} />
+                  <Route exact path="/home/manage-brand-manager/edit/:managerId" component={EditBrandManager} />
 
                   <Route exact path="/home/manage-state-timings" component={ManageStateTimings} />
                   <Route exact path="/home/manage-state-timings/create" component={CreateStateTiming} />

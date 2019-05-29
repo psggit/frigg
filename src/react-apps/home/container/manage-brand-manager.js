@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as Actions from '../actions'
 import { getQueryObj, getQueryUri } from '@utils/url-utils'
-import ViewBrandManager from '../components/manage-brand-manager'
+import ViewBrandManager from '../components/manage-brand-manager/index'
 import Pagination from '@components/pagination'
 import '@sass/components/_pagination.scss'
 import { NavLink } from 'react-router-dom'
@@ -29,7 +29,7 @@ class ManageBrandManager extends React.Component {
   }
 
   fetchBrandManagerList() {
-    this.props.actions.fetchBrandManagerList({
+    this.props.actions.fetchBrandManagers({
       offset: 0,
       limit: this.pageLimit
     }, () => {})
@@ -42,7 +42,7 @@ class ManageBrandManager extends React.Component {
       this.setState({ [item[0]]: item[1] })
     })
 
-    this.props.actions.fetchBrandManagerList({
+    this.props.actions.fetchBrandManagers({
       offset: queryObj.offset ? parseInt(queryObj.offset) : 0,
       limit: this.pageLimit,
     }, () => {})
@@ -53,7 +53,7 @@ class ManageBrandManager extends React.Component {
     const queryUri = location.search.slice(1)
     const queryObj = getQueryObj(queryUri)
 
-    this.props.actions.fetchBrandManagerList({
+    this.props.actions.fetchBrandManagers({
       offset: pageObj.offset,
       limit: this.pageLimit,
     }, () => {})
@@ -66,9 +66,9 @@ class ManageBrandManager extends React.Component {
 
   render() {
     const {
-      loadingBrandManagerList,
-      brandManagerList,
-      brandManagerCount
+      loadingBrandManagers,
+      brandManagers,
+      brandManagersCount
     } = this.props
     return (
       <div style={{ width: '100%' }}>
@@ -83,16 +83,16 @@ class ManageBrandManager extends React.Component {
         </div>
         <h3>Showing all brand manager</h3>
         <ViewBrandManager
-          brandManagerList={brandManagerList}
-          loadingBrandManagerList={loadingBrandManagerList}
+          brandManagers={brandManagers}
+          loadingBrandManagers={loadingBrandManagers}
           history={this.props.history}
         />
         {
-          !loadingBrandManagerList && brandManagerList && brandManagerList.length
+          !loadingBrandManagers && brandManagers && brandManagers.length
           ? <Pagination
             activePage={parseInt(this.state.activePage)}
             itemsCountPerPage={this.pageLimit}
-            totalItemsCount={brandManagerCount}
+            totalItemsCount={brandManagersCount}
             setPage={this.setPage}
           />
           : ''

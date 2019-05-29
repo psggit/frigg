@@ -58,7 +58,7 @@ const initialState = {
   loadingGenreBasedBrandList: true,
   creatingCampaign: true,
   updatingCampaign: true,
-  loadingBrandManagerList: true,
+  loadingBrandManagers: true,
   loadingCampaignStatusList: true,
   loadingCashbackSkuList: true,
   loadingSkuPromoList: true,
@@ -86,7 +86,7 @@ const initialState = {
   possessionLimits: [],
   campaignList: [],
   cityPossessionLimits: [],
-  brandManagerList: [],
+  brandManagers: [],
   contactNumbersOfRetailer: [],
   userSpecificAdIds: [],
   userSpecificAds: [],
@@ -131,7 +131,7 @@ const initialState = {
   citySpecificPromosCount: 0,
   campaignCount: 0,
   cashbackSkuCount: 0,
-  brandManagerCount: 0,
+  brandManagersCount: 0,
   skuPromoCount: 0,
   companyCount: 0,
   mappedCompanyCount: 0
@@ -181,11 +181,11 @@ const actionsMap = {
     })
   },
 
-  [ActionTypes.SUCCESS_FETCH_BRAND_MANAGER_LIST]: (state, action) => {
+  [ActionTypes.SUCCESS_FETCH_BRAND_MANAGERS]: (state, action) => {
     return Object.assign({}, state, {
-      loadingBrandManagerList: false,
-      brandManagerList: action.data.data,
-      brandManagerCount: action.data.count
+      loadingBrandManagers: false,
+      brandManagers: action.data.data,
+      brandManagersCount: action.data.count
     })
   },
 

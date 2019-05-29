@@ -1214,11 +1214,41 @@ function* fetchCredits(action) {
   }
 }
 
-function* fetchBrandManagerList(action) {
+function* fetchBrandManagers(action) {
   try {
-    const data = yield call(Api.fetchBrandManagerList, action)
-    yield put({ type: ActionTypes.SUCCESS_FETCH_BRAND_MANAGER_LIST, data })
+    const data = yield call(Api.fetchBrandManagers, action)
+    yield put({ type: ActionTypes.SUCCESS_FETCH_BRAND_MANAGERS, data })
   } catch(err) {
+    console.log(err)
+  }
+}
+
+function* createBrandManager(action) {
+  try {
+    const data = yield call(Api.createBrandManager, action)
+    Notify('Successfully created brand manager', 'success')
+    yield put({ type: ActionTypes.SUCCESS_CREATE_BRAND_MANAGER, data })
+    action.CB()
+    setTimeout(() => {
+      window.location.href = '/home/manage-brand-manager'
+    }, 1000)
+  } catch(err) {
+    action.CB()
+    console.log(err)
+  }
+}
+
+function* updateBrandManager(action) {
+  try {
+    const data = yield call(Api.updateBrandManager, action)
+    Notify('Successfully updated brand manager', 'success')
+    yield put({ type: ActionTypes.SUCCESS_UPDATE_BRAND_MANAGER, data })
+    action.CB()
+    setTimeout(() => {
+      window.location.href = '/home/manage-brand-manager'
+    }, 1000)
+  } catch(err) {
+    action.CB()
     console.log(err)
   }
 }
@@ -2107,9 +2137,21 @@ function* watchRequestFetchGenreList() {
   }
 }
 
-function* watchRequestFetchBrandManagerList() {
+function* watchRequestFetchBrandManagers() {
   while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_FETCH_BRAND_MANAGER_LIST, fetchBrandManagerList)
+    yield* takeLatest(ActionTypes.REQUEST_FETCH_BRAND_MANAGERS, fetchBrandManagers)
+  }
+}
+
+function* watchRequestCreateBrandManager() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_CREATE_BRAND_MANAGER, createBrandManager)
+  }
+}
+
+function* watchRequestUpdateBrandManager() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_UPDATE_BRAND_MANAGER, updateBrandManager)
   }
 }
 
@@ -2348,6 +2390,8 @@ export default function* rootSaga() {
     fork(watchRequestFetchCitySpecificPromos),
     fork(watchRequestCreateCitySpecificPromo),
     fork(watchRequestUpdateCitySpecificPromo),
-    fork(watchRequestFetchBrandManagerList)
+    fork(watchRequestFetchBrandManagers),
+    fork(watchRequestCreateBrandManager),
+    fork(watchRequestUpdateBrandManager)
   ]
 }
