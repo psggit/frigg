@@ -48,6 +48,7 @@ class CreateStateTiming extends React.Component {
       <StateTimingForm
         ref={(node) => { this.stateTimingForm = node }}
         handleSave={this.handleSave}
+        disableStateChange={false}
         stateList={this.props.statesData}
         disableSave={!this.props.creatingPossessionLimit}
       />

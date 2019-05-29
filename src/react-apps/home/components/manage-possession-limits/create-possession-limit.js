@@ -49,6 +49,7 @@ class CreatePossessionLimit extends React.Component {
       <PossessionLimitForm
         ref={(node) => { this.possessionLimitForm = node }}
         handleSave={this.handleSave}
+        disableBrandTypeEdit={false}
         stateShortName={this.props.match.params.stateShortName}
         disableSave={!this.props.creatingPossessionLimit}
       />

@@ -1,26 +1,26 @@
 import React from 'react'
-import CityPromoForm from './create-retailer-promo-form'
+import CityPromoForm from './create-city-promo-form'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import * as Actions from './../../actions/index'
+import * as Actions from '../../actions/index'
 
-class EditCityPromo extends React.Component {
+class CreateCityPromo extends React.Component {
   constructor() {
     super()
-   
+
     this.handleSave = this.handleSave.bind(this)
     this.formIsValid = this.formIsValid.bind(this)
   }
 
   componentDidMount() {
-    this.props.actions.setLoadingState('updatingCitySpecificPromo')
+    this.props.actions.setLoadingState('creatingCitySpecificPromo')
     //this.props.actions.fetchAdIds()
   }
 
   formIsValid() {
     const cityPromoForm = this.cityPromoForm.getData()
 
-    if (cityPromoForm.retailerList.length === 0) {
+    if (cityPromoForm.cityList.length === 0) {
       return false
     } else if (cityPromoForm.orderType.length === 0) {
       return false
@@ -35,10 +35,11 @@ class EditCityPromo extends React.Component {
 
   handleSave() {
     const cityPromoForm = this.cityPromoForm.getData()
+
     if (this.formIsValid()) {
-      this.props.actions.updateCitySpecificPromo({
-        promo_code: cityPromoForm.promoCode.toString(),
-        retailer_list: cityPromoForm.cityList,
+      this.props.actions.createCitySpecificPromo({
+        promo_code: cityPromoForm.promoCode,
+        city_list: cityPromoForm.cityList,
         order_type: cityPromoForm.orderType,
         is_active: cityPromoForm.selectedStatusIdx === 1 ? true : false
       })
@@ -50,9 +51,7 @@ class EditCityPromo extends React.Component {
       <CityPromoForm
         ref={(node) => { this.cityPromoForm = node }}
         handleSave={this.handleSave}
-        data={this.props.location.state}
-        disableSave={!this.props.updatingCitySpecificPromo}
-        isDisabled={true}
+        disableSave={!this.props.creatingCitySpecificPromo}
       />
     )
   }
@@ -67,4 +66,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(EditCityPromo)
+)(CreateCityPromo)

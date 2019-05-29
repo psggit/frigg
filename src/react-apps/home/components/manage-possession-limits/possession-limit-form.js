@@ -86,7 +86,7 @@ class PossessionLimitForm extends React.Component {
           <div className="form-group">
             <label className="label">Brand Type</label><br/>
             <SelectField
-              //disabled={this.props.isDisabled}
+              disabled={this.props.disableBrandTypeEdit}
               value={this.state.selectedTypeIdx}
               onChange={this.handleChange}
             >

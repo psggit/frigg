@@ -49,6 +49,7 @@ class UpdateStateTiming extends React.Component {
         ref={(node) => { this.stateTimingForm = node }}
         data={this.props.location.state}
         handleSave={this.handleSave}
+        disableStateChange={true}
         stateList={this.props.statesData}
         disableSave={!this.props.updatingStateTiming}
       />

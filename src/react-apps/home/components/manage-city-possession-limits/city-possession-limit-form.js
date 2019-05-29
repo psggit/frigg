@@ -49,7 +49,7 @@ class CityPossessionLimitForm extends React.Component {
           <div className="form-group">
             <label className="label">City</label><br/>
             <SelectField
-              //disabled={this.props.isDisabled}
+              disabled={this.props.disableCityChange}
               value={this.state.selectedCityIdx}
               onChange={this.handleChange}
             >

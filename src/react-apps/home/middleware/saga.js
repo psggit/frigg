@@ -874,11 +874,11 @@ function* createCitySpecificPromo(action) {
 
 function* updateCitySpecificPromo(action) {
   try {
-    const data = yield call(Api.updateUserSpecificPromo, action)
-    yield put({ type: ActionTypes.SUCCESS_UPDATE_USER_SPECIFIC_PROMO, data})
-    Notify("Successfully updated user specific promo", "success")
+    const data = yield call(Api.updateCitySpecificPromo, action)
+    yield put({ type: ActionTypes.SUCCESS_UPDATE_CITY_SPECIFIC_PROMO, data})
+    Notify("Successfully updated city specific promo", "success")
     setTimeout(() => {
-      location.href = '/home/user-specific-promos'
+      location.href = '/home/city-specific-promos'
     }, 2000)
   } catch (err) {
     console.log(err)

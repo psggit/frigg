@@ -55,6 +55,7 @@ class CreateCityPossessionLimit extends React.Component {
         ref={(node) => { this.possessionLimitForm = node }}
 				handleSave={this.handleSave}
 				cityList={this.props.citiesData}
+				disableCityChange={false}
         disableSave={!this.props.creatingCityPossessionLimit}
       />
     )

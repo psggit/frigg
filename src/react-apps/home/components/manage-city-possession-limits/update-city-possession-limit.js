@@ -57,6 +57,7 @@ class UpdateCityPossessionLimit extends React.Component {
         handleSave={this.handleSave}
         data={this.props.location.state}
         cityList={this.props.citiesData}
+        disableCityChange={true}
         disableSave={!this.props.updatingCityPossessionLimit}
       />
     )

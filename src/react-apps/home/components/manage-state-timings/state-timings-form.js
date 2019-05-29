@@ -65,7 +65,7 @@ class StateTimingForm extends React.Component {
 					<div className="form-group">
             <label className="label">State</label><br/>
             <SelectField
-              //disabled={this.props.isDisabled}
+              disabled={this.props.disableStateChange}
               value={this.state.selectedStateIdx}
               onChange={this.handleChange}
             >

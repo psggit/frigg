@@ -72,7 +72,7 @@ class CityPromoForm extends React.Component {
             <label className="label">City List</label><br />
             <TextField
               onChange={this.handleTextFields}
-              name="retailerList"
+              name="cityList"
               placeholder=",158376,158907,"
               value={this.state.cityList}
               style={{ width: '100%' }}
