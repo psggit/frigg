@@ -12,8 +12,8 @@ import '@sass/components/_table.scss'
 
 const TableHeaderItems = [
   '',
-  'TYPE ID',
-  'TYPE NAME',
+  'CITY ID',
+  'CITY NAME',
   'BOTTLE COUNT',
   'VOLUME'
 ]
@@ -26,7 +26,7 @@ const styles = [
   { width: '100px' }
 ]
 
-class ViewPossessionLimits extends React.Component {
+class ViewCityPossessionLimits extends React.Component {
 
   constructor() {
     super()
@@ -36,15 +36,14 @@ class ViewPossessionLimits extends React.Component {
 
   editPossessionLimits(e, item) {
     e.stopPropagation()
-    this.props.history.push(`/home/manage-states/possession-limits/edit/${this.props.stateShortName}`, item)
+    this.props.history.push(`/home/manage-cities/possession-limit/edit`, item)
   }
 
   render() {
     const {
-      loadingPossessionLimits,
-      possessionLimits
+      loadingCityPossessionLimits,
+      cityPossessionLimits
     } = this.props
-  
     return (
       <div>
         <Table
@@ -64,7 +63,7 @@ class ViewPossessionLimits extends React.Component {
             showRowHover
           >
             {
-              !loadingPossessionLimits && possessionLimits.length === 0 &&
+              !loadingCityPossessionLimits && cityPossessionLimits.length === 0 &&
               <tr>
                 <td style={{ textAlign: 'center' }} colSpan='6'>
                   <p style={{ fontWeight: '16px' }}>No possession limits found</p>
@@ -72,9 +71,9 @@ class ViewPossessionLimits extends React.Component {
               </tr>
             }
             {
-              !loadingPossessionLimits
+              !loadingCityPossessionLimits
                 ? (
-                    possessionLimits.map((item, i) => {
+                    cityPossessionLimits.map((item, i) => {
                     return (
                       <TableRow key={i}>
                         <TableRowColumn style={styles[0]}>
@@ -84,8 +83,8 @@ class ViewPossessionLimits extends React.Component {
                             Edit
                           </button>
                         </TableRowColumn>
-                        <TableRowColumn style={styles[1]}>{item.type_id}</TableRowColumn>
-                        <TableRowColumn style={styles[2]}>{item.type_name}</TableRowColumn>
+                        <TableRowColumn style={styles[1]}>{item.city_id}</TableRowColumn>
+                        <TableRowColumn style={styles[2]}>{item.city_name}</TableRowColumn>
                         <TableRowColumn style={styles[3]}>{item.bottle_count}</TableRowColumn>
                         <TableRowColumn style={styles[4]}>{item.volume}</TableRowColumn>
                       </TableRow> 
@@ -105,4 +104,4 @@ class ViewPossessionLimits extends React.Component {
   }
 }
 
-export default ViewPossessionLimits
+export default ViewCityPossessionLimits

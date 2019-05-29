@@ -19,8 +19,7 @@ const TableHeaderItems = [
   '',
   'ID',
   'NAME',
-  'SHORT_NAME',
-  // ''
+  'SHORT_NAME'
 ]
 
 const styles = [

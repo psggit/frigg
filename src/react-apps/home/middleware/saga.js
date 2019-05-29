@@ -37,6 +37,45 @@ function* fetchMappedCompanyList(action) {
   }
 }
 
+function* fetchCityPossessionLimits(action) {
+  try {
+    const data = yield call(Api.fetchCityPossessionLimits, action)
+    yield put({ type: ActionTypes. SUCCESS_FETCH_CITY_POSSESSION_LIMITS, data })
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+function* createCityPossessionLimit(action) {
+  try {
+    const data = yield call(Api.createCityPossessionLimit, action)
+    yield put({ type: ActionTypes. SUCCESS_CREATE_CITY_POSSESSION_LIMIT, data })
+    Notify("Successfully created possession limit", "success")
+    setTimeout(() => {
+      location.href = `/home/manage-cities/possession-limit`
+    }, 2000)
+  } catch (err) {
+    console.log(err)
+    err.response.json().then(json => { Notify(json.message, "warning") })
+    Notify("Something went wrong", "warning")
+  }
+}
+
+function* updateCityPossessionLimit(action) {
+  try {
+    const data = yield call(Api.updateCityPossessionLimit, action)
+    yield put({ type: ActionTypes. SUCCESS_UPDATE_CITY_POSSESSION_LIMIT, data })
+    Notify("Successfully updated possession limit", "success")
+    setTimeout(() => {
+      location.href = `/home/manage-cities/possession-limit`
+    }, 2000)
+  } catch (err) {
+    console.log(err)
+    err.response.json().then(json => { Notify(json.message, "warning") })
+    Notify("Something went wrong", "warning")
+  }
+}
+
 function* fetchPossessionLimits(action) {
   try {
     const data = yield call(Api.fetchPossessionLimits, action)
@@ -2072,6 +2111,24 @@ function* watchRequestUpdateStateTiming() {
   }
 }
 
+function* watchRequestFetchCityPossessionLimits() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_FETCH_CITY_POSSESSION_LIMITS, fetchCityPossessionLimits)
+  }
+}
+
+function* watchRequestCreateCityPossessionLimit() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_CREATE_CITY_POSSESSION_LIMIT, createCityPossessionLimit)
+  }
+}
+
+function* watchRequestUpdateCityPossessionLimit() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_UPDATE_CITY_POSSESSION_LIMIT, updateCityPossessionLimit)
+  }
+}
+
 function* watchRequestFetchPossessionLimits() {
   while (true) {
     yield* takeLatest(ActionTypes.REQUEST_FETCH_POSSESSION_LIMITS, fetchPossessionLimits)
@@ -2210,6 +2267,9 @@ export default function* rootSaga() {
     fork(watchRequestUpdatePossessionLimit),
     fork(watchRequestFetchStateTimings),
     fork(watchRequestCreateStateTiming),
-    fork(watchRequestUpdateStateTiming)
+    fork(watchRequestUpdateStateTiming),
+    fork(watchRequestFetchCityPossessionLimits),
+    fork(watchRequestCreateCityPossessionLimit),
+    fork(watchRequestUpdateCityPossessionLimit)
   ]
 }

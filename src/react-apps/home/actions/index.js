@@ -319,6 +319,20 @@ export const fetchPossessionLimits = data => ({
   data
 })
 
+export const fetchCityPossessionLimits = () => ({
+  type: ActionTypes.REQUEST_FETCH_CITY_POSSESSION_LIMITS
+})
+
+export const createCityPossessionLimit = data => ({
+  type: ActionTypes.REQUEST_CREATE_CITY_POSSESSION_LIMIT,
+  data
+})
+
+export const updateCityPossessionLimit = data => ({
+  type: ActionTypes.REQUEST_UPDATE_CITY_POSSESSION_LIMIT,
+  data
+})
+
 export const createStateTiming = (data) => ({
   type: ActionTypes.REQUEST_CREATE_STATE_TIMING,
   data

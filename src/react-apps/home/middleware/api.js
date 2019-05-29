@@ -49,6 +49,35 @@ export const fetchPossessionLimits = action => (
     .then(json => json)
 )
 
+export const fetchCityPossessionLimits = action => (
+  GET({
+    api: '/stateManagement/listCityPossessionLimit',
+    apiBase: 'odin',
+    handleError: true
+  })
+    .then(json => json)
+)
+
+export const createCityPossessionLimit = action => (
+  POST({
+    api: '/stateManagement/addCityPossessionLimit',
+    apiBase: 'odin',
+    handleError: true,
+    data: action.data
+  })
+    .then(json => json)
+)
+
+export const updateCityPossessionLimit = action => (
+  POST({
+    api: '/stateManagement/updateCityPossessionLimit',
+    apiBase: 'odin',
+    handleError: true,
+    data: action.data
+  })
+    .then(json => json)
+)
+
 export const createPossessionLimit = action => (
   POST({
     api: '/stateManagement/addPossessionLimit',

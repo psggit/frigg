@@ -49,6 +49,9 @@ import ManagePossessionLimits from './../components/delivery-management/manage-p
 import ManageStatePossessionLimits from "./../container/manage-state-possession-limits"
 import CreatePossessionLimit from "./../components/manage-possession-limits/create-possession-limit"
 import EditPossessionLimit from "./../components/manage-possession-limits/update-possession-limit"
+import ManageCityPossessionLimits from "./../container/manage-city-possession-limits"
+import CreateCityPossessionLimit from "./../components/manage-city-possession-limits/create-city-possession-limit"
+import UpdateCityPossessionLimit from "./../components/manage-city-possession-limits/update-city-possession-limit"
 import CreateCollection from './../components/manage-collections/view-collection-details'
 import EditCollection from './../components/manage-collections/edit-collection'
 // import ViewCollectionList from './../components/manage-collections/view-collections'
@@ -220,6 +223,10 @@ class App extends React.Component {
                   <Route exact path="/home/manage-state-timings" component={ManageStateTimings} />
                   <Route exact path="/home/manage-state-timings/create" component={CreateStateTiming} />
                   <Route exact path="/home/manage-state-timings/edit" component={UpdateStateTiming} />
+
+                  <Route exact path="/home/manage-cities/possession-limit" component={ManageCityPossessionLimits} />
+                  <Route exact path="/home/manage-cities/possession-limit/create" component={CreateCityPossessionLimit} />
+                  <Route exact path="/home/manage-cities/possession-limit/edit" component={UpdateCityPossessionLimit} />
 
                   <Route exact path="/home/customer-transactions" component={CustomerTransactions} />
                   <Route exact path="/home/customer-transactions/add-credits" component={AddCredits} />
