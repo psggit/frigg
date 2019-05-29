@@ -319,6 +319,20 @@ export const fetchPossessionLimits = data => ({
   data
 })
 
+export const createStateTiming = (data) => ({
+  type: ActionTypes.REQUEST_CREATE_STATE_TIMING,
+  data
+})
+
+export const updateStateTiming = (data) => ({
+  type: ActionTypes.REQUEST_UPDATE_STATE_TIMING,
+  data
+})
+
+export const fetchStateTimings = () => ({
+  type: ActionTypes.REQUEST_FETCH_STATE_TIMINGS
+})
+
 export const createPossessionLimit = data => ({
   type: ActionTypes.REQUEST_CREATE_POSSESSION_LIMIT,
   data

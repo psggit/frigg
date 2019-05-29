@@ -10,6 +10,35 @@ export const fetchStates = action => (
     .then(json => json)
 )
 
+export const fetchStateTimings = action => (
+  GET({
+    api: '/stateManagement/listStateTiming',
+    apiBase: 'odin',
+    handleError: true
+  })
+    .then(json => json)
+)
+
+export const createStateTiming = action => (
+  POST({
+    api: '/stateManagement/addStateTiming',
+    apiBase: 'odin',
+    handleError: true,
+    data: action.data
+  })
+    .then(json => json)
+)
+
+export const updateStateTiming = action => (
+  POST({
+    api: '/stateManagement/updateStateTiming',
+    apiBase: 'odin',
+    handleError: true,
+    data: action.data
+  })
+    .then(json => json)
+)
+
 export const fetchPossessionLimits = action => (
   POST({
     api: '/stateManagement/listPossessionLimit',

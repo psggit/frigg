@@ -12,10 +12,9 @@ import '@sass/components/_table.scss'
 
 const TableHeaderItems = [
   '',
-  'TYPE ID',
-  'TYPE NAME',
-  'BOTTLE COUNT',
-  'VOLUME'
+  'STATE SHORT NAME',
+  'START TIME',
+  'END TIME'
 ]
 
 const styles = [
@@ -23,28 +22,26 @@ const styles = [
   { width: '38px' },
   { width: '120px' },
   { width: '38px' },
-  { width: '100px' }
 ]
 
-class ViewPossessionLimits extends React.Component {
+class ViewStateTimings extends React.Component {
 
   constructor() {
     super()
 
-    this.editPossessionLimits = this.editPossessionLimits.bind(this)
+    this.editStateTimings = this.editStateTimings.bind(this)
   }
 
-  editPossessionLimits(e, item) {
+  editStateTimings(e, item) {
     e.stopPropagation()
-    this.props.history.push(`/home/manage-states/possession-limits/edit/${this.props.stateShortName}`, item)
+    this.props.history.push(`/home/manage-state-timings/edit`, item)
   }
 
   render() {
     const {
-      loadingPossessionLimits,
-      possessionLimits
+      loadingStateTimings,
+      stateTimings
     } = this.props
-    console.log("props pos", possessionLimits, possessionLimits.length)
     return (
       <div>
         <Table
@@ -63,31 +60,30 @@ class ViewPossessionLimits extends React.Component {
             displayRowCheckbox={false}
             showRowHover
           >
-            {
-              !loadingPossessionLimits && possessionLimits.length === 0 &&
+						{
+              !loadingStateTimings && stateTimings.length === 0 &&
               <tr>
                 <td style={{ textAlign: 'center' }} colSpan='6'>
-                  <p style={{ fontWeight: '16px' }}>No possession limits found</p>
+                  <p style={{ fontWeight: '16px' }}>No state timings found</p>
                 </td>
               </tr>
             }
             {
-              !loadingPossessionLimits
+              !loadingStateTimings
                 ? (
-                    possessionLimits.map((item, i) => {
+									stateTimings.map((item, i) => {
                     return (
                       <TableRow key={i}>
                         <TableRowColumn style={styles[0]}>
                           <button
-                            onClick={e => this.editPossessionLimits(e, item)}
+                            onClick={e => this.editStateTimings(e, item)}
                           >
                             Edit
                           </button>
                         </TableRowColumn>
-                        <TableRowColumn style={styles[1]}>{item.type_id}</TableRowColumn>
-                        <TableRowColumn style={styles[2]}>{item.type_name}</TableRowColumn>
-                        <TableRowColumn style={styles[3]}>{item.bottle_count}</TableRowColumn>
-                        <TableRowColumn style={styles[4]}>{item.volume}</TableRowColumn>
+                        <TableRowColumn style={styles[1]}>{item.state_short_name}</TableRowColumn>
+                        <TableRowColumn style={styles[2]}>{item.start_time.substring(11, 16)}</TableRowColumn>
+                        <TableRowColumn style={styles[3]}>{item.end_time.substring(11, 16)}</TableRowColumn>
                       </TableRow> 
                     )
                   })
@@ -105,4 +101,4 @@ class ViewPossessionLimits extends React.Component {
   }
 }
 
-export default ViewPossessionLimits
+export default ViewStateTimings

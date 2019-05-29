@@ -90,6 +90,9 @@ import UpdateOptionToPrediction from "./../components/manage-prediction-option-m
 import ViewMappedCityList from "./../container/manage-city-prediction-mapping"
 import MapCityToPrediction from "./../components/manage-city-prediction-mapping/map-city-to-prediction"
 import UpdateCityToPrediction from "./../components/manage-city-prediction-mapping/update-city-to-prediction"
+import ManageStateTimings from "./../container/manage-state-timings"
+import CreateStateTiming from "./../components/manage-state-timings/create-state-timings"
+import UpdateStateTiming from "./../components/manage-state-timings/update-state-timings"
 import ManageCompany from "./../container/manage-company"
 import CreateCompany from "./../components/manage-company/create-company"
 import UpdateCompany from "./../components/manage-company/update-company"
@@ -213,6 +216,10 @@ class App extends React.Component {
                   <Route exact path="/home/manage-states/possession-limits/edit/:stateShortName" component={EditPossessionLimit} />
                   <Route exact path="/home/manage-states/create-new-state" component={CreateState} />
                   <Route exact path="/home/manage-states/:stateSlug" component={ViewState} />
+
+                  <Route exact path="/home/manage-state-timings" component={ManageStateTimings} />
+                  <Route exact path="/home/manage-state-timings/create" component={CreateStateTiming} />
+                  <Route exact path="/home/manage-state-timings/edit" component={UpdateStateTiming} />
 
                   <Route exact path="/home/customer-transactions" component={CustomerTransactions} />
                   <Route exact path="/home/customer-transactions/add-credits" component={AddCredits} />

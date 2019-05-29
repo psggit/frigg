@@ -1189,6 +1189,43 @@ function* fetchCashbackSkuList(action) {
   }
 }
 
+function* fetchStateTimings(action) {
+  try {
+    const data = yield call(Api.fetchStateTimings, action)
+    yield put({ type: ActionTypes.SUCCESS_FETCH_STATE_TIMINGS, data })
+  } catch(err) {
+    console.log(err)
+  }
+}
+
+function* createStateTiming(action) {
+  try {
+    const data = yield call(Api.createStateTiming, action)
+    yield put({ type: ActionTypes.SUCCESS_CREATE_STATE_TIMING, data })
+    Notify('Successfully created state timings', 'success')
+    setTimeout(() => {
+      window.location.href = '/home/manage-state-timings'
+    }, 1000)
+  } catch(err) {
+    console.log(err)
+    err.response.json().then(json => { Notify(json.message, "warning") })
+  }
+}
+
+function* updateStateTiming(action) {
+  try {
+    const data = yield call(Api.updateStateTiming, action)
+    yield put({ type: ActionTypes.SUCCESS_UPDATE_STATE_TIMING, data })
+    Notify('Successfully updated state timings', 'success')
+    setTimeout(() => {
+      window.location.href = '/home/manage-state-timings'
+    }, 1000)
+  } catch(err) {
+    console.log(err)
+    err.response.json().then(json => { Notify(json.message, "warning") })
+  }
+}
+
 function* fetchCampaignList(action) {
   try {
     const data = yield call(Api.fetchCampaignList, action)
@@ -2017,6 +2054,24 @@ function* watchRequestUpdateUserSpecificPromo() {
   }
 }
 
+function* watchRequestFetchStateTimings() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_FETCH_STATE_TIMINGS, fetchStateTimings)
+  }
+}
+
+function* watchRequestCreateStateTiming() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_CREATE_STATE_TIMING, createStateTiming)
+  }
+}
+
+function* watchRequestUpdateStateTiming() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_UPDATE_STATE_TIMING, updateStateTiming)
+  }
+}
+
 function* watchRequestFetchPossessionLimits() {
   while (true) {
     yield* takeLatest(ActionTypes.REQUEST_FETCH_POSSESSION_LIMITS, fetchPossessionLimits)
@@ -2152,6 +2207,9 @@ export default function* rootSaga() {
     fork(watchRequestUpdateCompany),
     fork(watchRequestFetchPossessionLimits),
     fork(watchRequestCreatePossessionLimit),
-    fork(watchRequestUpdatePossessionLimit)
+    fork(watchRequestUpdatePossessionLimit),
+    fork(watchRequestFetchStateTimings),
+    fork(watchRequestCreateStateTiming),
+    fork(watchRequestUpdateStateTiming)
   ]
 }

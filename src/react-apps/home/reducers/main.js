@@ -2,6 +2,7 @@ import * as ActionTypes from './../constants/actions'
 
 const initialState = {
   loadingStates: true,
+  loadingStateTimings: true,
   loadingCities: true,
   loadingCityDetails: true,
   loadingFenceDetails: true,
@@ -35,6 +36,7 @@ const initialState = {
   updatingUserSpecificPromo: true,
   updatingRetailerSpecificPromo: true,
   updatingPossessionLimit: true,
+  updatingStateTiming: true,
   loadingUserSpecificPromos: true,
   loadingRetailerSpecificPromos: true,
   mappingBrandToCompany: true,
@@ -60,8 +62,10 @@ const initialState = {
   creatingSkuPromo: true,
   updatingSkuPromo: true,
   loadingStateList: true,
+  creatingStateTiming: true,
   loadingMappedCompanyList: true,
   stateList: [],
+  stateTimings: [],
   skuList: [],
   companies: [],
   companyList: [],
@@ -177,6 +181,25 @@ const actionsMap = {
     })
   },
 
+  [ActionTypes.SUCCESS_FETCH_STATE_TIMINGS]: (state, action) => {
+    return Object.assign({}, state, {
+      loadingStateTimings: false,
+      stateTimings: action.data.data
+    })
+  },
+
+  [ActionTypes.SUCCESS_CREATE_STATE_TIMING]: (state, action) => {
+    return Object.assign({}, state, {
+      creatingStateTiming: false
+    })
+  },
+
+  [ActionTypes.SUCCESS_UPDATE_STATE_TIMING]: (state, action) => {
+    return Object.assign({}, state, {
+      updatingStateTiming: false
+    })
+  },
+
   [ActionTypes.SUCCESS_SET_LOADING_STATE]: (state, action) => {
     if (action.data) {
       return Object.assign({}, state, {
@@ -185,6 +208,7 @@ const actionsMap = {
     }
     return Object.assign({}, state, {
       loadingStates: true,
+      loadingStateTimings: true,
       loadingCities: true,
       loadingCityDetails: true,
       loadingFenceDetails: true,
@@ -206,10 +230,12 @@ const actionsMap = {
       creatingUserSpecificAd: true,
       updatingUserSpecificAd: true,
       creatingUserSpecificPromo: true,
+      creatingStateTiming: true,
       creatingPossessionLimit: true,
       creatingRetailerSpecificPromo: true,
       updatingUserSpecificPromo: true,
       updatingPossessionLimit: true,
+      updatingStateTiming: true,
       updatingRetailerSpecificPromo: true
     })
   },
