@@ -40,6 +40,8 @@ const initialState = {
   updatingStateTiming: true,
   loadingUserSpecificPromos: true,
   loadingRetailerSpecificPromos: true,
+  loadingCitySpecificPromos: true,
+  creatingCitySpecificPromo: true,
   mappingBrandToCompany: true,
   loadingGenres: true,
   loadingCompanies: true,
@@ -66,6 +68,7 @@ const initialState = {
   creatingStateTiming: true,
   creatingCityPossessionLimit: true,
   updatingCityPossessionLimit: true,
+  updatingCitySpecificPromo: true,
   loadingMappedCompanyList: true,
   stateList: [],
   stateTimings: [],
@@ -120,8 +123,10 @@ const initialState = {
   userSpecificAdsCount: 0,
   userSpecificPromos: [],
   retailerSpecificPromos: [],
+  citySpecificPromos: [],
   userSpecificPromosCount: 0,
   retailerSpecificPromosCount: 0,
+  citySpecificPromosCount: 0,
   campaignCount: 0,
   cashbackSkuCount: 0,
   skuPromoCount: 0,
@@ -261,7 +266,9 @@ const actionsMap = {
       updatingStateTiming: true,
       updatingRetailerSpecificPromo: true,
       creatingCityPossessionLimit: true,
-      updatingCityPossessionLimit: true
+      updatingCityPossessionLimit: true,
+      updatingCitySpecificPromo: true,
+      creatingCitySpecificPromo: true
     })
   },
   
@@ -463,6 +470,26 @@ const actionsMap = {
       loadingUserSpecificPromos: false,
       userSpecificPromos: action.data.data,
       userSpecificPromosCount: action.data.count
+    })
+  },
+
+  [ActionTypes.SUCCESS_FETCH_CITY_SPECIFIC_PROMOS]: (state, action) => {
+    return Object.assign({}, state, {
+      loadingCitySpecificPromos: false,
+      citySpecificPromos: action.data.data,
+      citySpecificPromosCount: action.data.count
+    })
+  },
+  
+  [ActionTypes.SUCCESS_CREATE_CITY_SPECIFIC_PROMO]: (state, action) => {
+    return Object.assign({}, state, {
+      creatingCitySpecificPromo: false
+    })
+  },
+
+  [ActionTypes.SUCCESS_UPDATE_CITY_SPECIFIC_PROMO]: (state, action) => {
+    return Object.assign({}, state, {
+      updatingCitySpecificPromo: false
     })
   },
 

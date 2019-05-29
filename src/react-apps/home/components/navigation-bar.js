@@ -122,6 +122,12 @@ class NavigationBar extends React.Component {
         ]
       },
       {
+        name: 'City Specific',
+        nestedItems: [
+          { name: 'Promos', path: '/home/city-specific-promos', id: 32 },
+        ]
+      },
+      {
         name: 'Prediction Management',
         nestedItems: [
           { name: 'Manage Prediction', path: '/home/manage-prediction', id: 25 },

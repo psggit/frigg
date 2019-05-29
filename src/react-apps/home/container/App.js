@@ -64,6 +64,9 @@ import UpdateBanking from "./../components/manage-netbanking/update-bank"
 import ManageAds from "./../container/manage-user-specific-ads"
 import CreateUserAds from "./../components/manage-user-specific-ads/create-ad"
 import UpdateUserAds from "./../components/manage-user-specific-ads/update-ad"
+import ManageCityPromos from "./../container/manage-city-specific-promos"
+import CreateCityPromos from "./../components/manage-city-specific-promos/create-city-promo"
+import UpdateCityPromos from "./../components/manage-city-specific-promos/update-city-promo"
 import ManageRetailerPromos from "./../container/manage-retailer-specific-promos"
 import CreateRetailerPromos from "./../components/manage-retailer-specific-promos/create-retailer-promo"
 import UpdateRetailerPromos from "./../components/manage-retailer-specific-promos/update-retailer-promo"
@@ -295,6 +298,10 @@ class App extends React.Component {
                   <Route exact path="/home/retailer-specific-promos" component={ManageRetailerPromos} />
                   <Route exact path="/home/retailer-specific-promos/create" component={CreateRetailerPromos} />
                   <Route exact path="/home/retailer-specific-promos/edit/:promoCode" component={UpdateRetailerPromos} />
+
+                  <Route exact path="/home/city-specific-promos" component={ManageCityPromos} />
+                  <Route exact path="/home/city-specific-promos/create" component={CreateCityPromos} />
+                  <Route exact path="/home/city-specific-promos/edit/:promoCode" component={UpdateCityPromos} />
 
                   <Route exact path="/home/manage-company-brand-mapping" component={MappedCompanyList} />
                   <Route exact path="/home/manage-company-brand-mapping/create" component={MapCompanyToBrand} />

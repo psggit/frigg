@@ -850,6 +850,41 @@ function* updateUserSpecificPromo(action) {
   }
 }
 
+function* fetchCitySpecificPromos(action) {
+  try {
+    const data = yield call(Api.fetchCitySpecificPromos, action)
+    yield put({ type: ActionTypes.SUCCESS_FETCH_CITY_SPECIFIC_PROMOS, data})
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+function* createCitySpecificPromo(action) {
+  try {
+    const data = yield call(Api.createCitySpecificPromo, action)
+    yield put({ type: ActionTypes.SUCCESS_CREATE_CITY_SPECIFIC_PROMO, data})
+    Notify("Successfully created city specific promo", "success")
+    setTimeout(() => {
+      location.href = '/home/city-specific-promos'
+    }, 2000)
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+function* updateCitySpecificPromo(action) {
+  try {
+    const data = yield call(Api.updateUserSpecificPromo, action)
+    yield put({ type: ActionTypes.SUCCESS_UPDATE_USER_SPECIFIC_PROMO, data})
+    Notify("Successfully updated user specific promo", "success")
+    setTimeout(() => {
+      location.href = '/home/user-specific-promos'
+    }, 2000)
+  } catch (err) {
+    console.log(err)
+  }
+}
+
 function* updateRetailerSpecificPromo(action) {
   try {
     const data = yield call(Api.updateRetailerSpecificPromo, action)
@@ -1949,6 +1984,24 @@ function* watchRequestFetchRetailerSpecificPromos() {
   }
 }
 
+function* watchRequestCreateCitySpecificPromo() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_CREATE_CITY_SPECIFIC_PROMO, createCitySpecificPromo)
+  }
+}
+
+function* watchRequestUpdateCitySpecificPromo() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_UPDATE_CITY_SPECIFIC_PROMO, updateCitySpecificPromo)
+  }
+}
+
+function* watchRequestFetchCitySpecificPromos() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_FETCH_CITY_SPECIFIC_PROMOS, fetchCitySpecificPromos)
+  }
+}
+
 function* watchRequestFetchCashbackSkuList() {
   while (true) {
     yield* takeLatest(ActionTypes.REQUEST_FETCH_CASHBACK_SKU_LIST, fetchCashbackSkuList)
@@ -2078,6 +2131,12 @@ function* watchRequestCreateRetailerSpecificPromo() {
 function* watchRequestUpdateRetailerSpecificPromo() {
   while (true) {
     yield* takeLatest(ActionTypes.REQUEST_UPDATE_RETAILER_SPECIFIC_PROMO, updateRetailerSpecificPromo)
+  }
+}
+
+function* watchRequestCreateCitySpecificPromo() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_CREATE_CITY_SPECIFIC_PROMO, createCitySpecificPromo)
   }
 }
 
@@ -2270,6 +2329,9 @@ export default function* rootSaga() {
     fork(watchRequestUpdateStateTiming),
     fork(watchRequestFetchCityPossessionLimits),
     fork(watchRequestCreateCityPossessionLimit),
-    fork(watchRequestUpdateCityPossessionLimit)
+    fork(watchRequestUpdateCityPossessionLimit),
+    fork(watchRequestFetchCitySpecificPromos),
+    fork(watchRequestCreateCitySpecificPromo),
+    fork(watchRequestUpdateCitySpecificPromo)
   ]
 }

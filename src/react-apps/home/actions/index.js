@@ -624,3 +624,19 @@ export const updateUserSpecificPromo = (data) => ({
   type: ActionTypes.REQUEST_UPDATE_USER_SPECIFIC_PROMO,
   data
 })
+
+export const fetchCitySpecificPromos = (data) => ({
+  type: ActionTypes.REQUEST_FETCH_CITY_SPECIFIC_PROMOS,
+  data
+})
+
+export const createCitySpecificPromo = (data) => ({
+  type: ActionTypes.REQUEST_CREATE_CITY_SPECIFIC_PROMO,
+  data
+})
+
+export const updateCitySpecificPromo = (data) => ({
+  type: ActionTypes.REQUEST_UPDATE_CITY_SPECIFIC_PROMO,
+  data
+})
+
