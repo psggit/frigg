@@ -36,7 +36,7 @@ class ViewPossessionLimits extends React.Component {
 
   editPossessionLimits(e, item) {
     e.stopPropagation()
-    this.props.history.push(`/home/manage-states/possession-limits/edit/${this.props.stateShortName}`, item)
+    this.props.history.push(`/home/manage-states/possession-limit/edit/${this.props.stateShortName}`, item)
   }
 
   render() {

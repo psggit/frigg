@@ -215,8 +215,8 @@ class App extends React.Component {
                   <Route exact path="/home/manage-localities" component={ManageLocalities} />
                   <Route exact path="/home/manage-states" component={ManageStates} />
                   <Route exact path="/home/manage-states/possession-limits/:stateShortName" component={ManageStatePossessionLimits} />
-                  <Route exact path="/home/manage-states/possession-limits/create/:stateShortName" component={CreatePossessionLimit} />
-                  <Route exact path="/home/manage-states/possession-limits/edit/:stateShortName" component={EditPossessionLimit} />
+                  <Route exact path="/home/manage-states/possession-limit/create/:stateShortName" component={CreatePossessionLimit} />
+                  <Route exact path="/home/manage-states/possession-limit/edit/:stateShortName" component={EditPossessionLimit} />
                   <Route exact path="/home/manage-states/create-new-state" component={CreateState} />
                   <Route exact path="/home/manage-states/:stateSlug" component={ViewState} />
 

@@ -39,7 +39,7 @@ class ManageStatePossessionLimits extends React.Component {
     return (
       <div style={{ width: '100%' }}>
         <div>
-          <NavLink to={`/home/manage-states/possession-limits/create/${this.props.match.params.stateShortName}`}>
+          <NavLink to={`/home/manage-states/possession-limit/create/${this.props.match.params.stateShortName}`}>
             <RaisedButton
               label="Create new possession limit"
               primary

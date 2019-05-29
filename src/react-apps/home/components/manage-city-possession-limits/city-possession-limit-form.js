@@ -29,7 +29,7 @@ class CityPossessionLimitForm extends React.Component {
   }
 
   handleChange(e, k) {
-    const selectedCityIdx = k + 1
+    const selectedCityIdx = this.props.cityList[k].id
     this.setState({ selectedCityIdx })
   }
 

@@ -30,7 +30,7 @@ function* fetchStateList(action) {
 function* fetchMappedCompanyList(action) {
   try {
     const data = yield call(Api.fetchMappedCompanyList, action)
-    yield put({ type: ActionTypes. SUCCESS_FETCH_MAPPED_COMPANY_LIST, data })
+    yield put({ type: ActionTypes.SUCCESS_FETCH_MAPPED_COMPANY_LIST, data })
     //action.CB()
   } catch (err) {
     console.log(err)
@@ -40,7 +40,7 @@ function* fetchMappedCompanyList(action) {
 function* fetchCityPossessionLimits(action) {
   try {
     const data = yield call(Api.fetchCityPossessionLimits, action)
-    yield put({ type: ActionTypes. SUCCESS_FETCH_CITY_POSSESSION_LIMITS, data })
+    yield put({ type: ActionTypes.SUCCESS_FETCH_CITY_POSSESSION_LIMITS, data })
   } catch (err) {
     console.log(err)
   }
@@ -49,7 +49,7 @@ function* fetchCityPossessionLimits(action) {
 function* createCityPossessionLimit(action) {
   try {
     const data = yield call(Api.createCityPossessionLimit, action)
-    yield put({ type: ActionTypes. SUCCESS_CREATE_CITY_POSSESSION_LIMIT, data })
+    yield put({ type: ActionTypes.SUCCESS_CREATE_CITY_POSSESSION_LIMIT, data })
     Notify("Successfully created possession limit", "success")
     setTimeout(() => {
       location.href = `/home/manage-cities/possession-limit`
@@ -64,7 +64,7 @@ function* createCityPossessionLimit(action) {
 function* updateCityPossessionLimit(action) {
   try {
     const data = yield call(Api.updateCityPossessionLimit, action)
-    yield put({ type: ActionTypes. SUCCESS_UPDATE_CITY_POSSESSION_LIMIT, data })
+    yield put({ type: ActionTypes.SUCCESS_UPDATE_CITY_POSSESSION_LIMIT, data })
     Notify("Successfully updated possession limit", "success")
     setTimeout(() => {
       location.href = `/home/manage-cities/possession-limit`
@@ -79,7 +79,7 @@ function* updateCityPossessionLimit(action) {
 function* fetchPossessionLimits(action) {
   try {
     const data = yield call(Api.fetchPossessionLimits, action)
-    yield put({ type: ActionTypes. SUCCESS_FETCH_POSSESSION_LIMITS, data })
+    yield put({ type: ActionTypes.SUCCESS_FETCH_POSSESSION_LIMITS, data })
   } catch (err) {
     console.log(err)
   }
@@ -88,7 +88,7 @@ function* fetchPossessionLimits(action) {
 function* createPossessionLimit(action) {
   try {
     const data = yield call(Api.createPossessionLimit, action)
-    yield put({ type: ActionTypes. SUCCESS_CREATE_POSSESSION_LIMIT, data })
+    yield put({ type: ActionTypes.SUCCESS_CREATE_POSSESSION_LIMIT, data })
     Notify("Successfully created possession limit", "success")
     setTimeout(() => {
       location.href = `/home/manage-states/possession-limits/${action.data.state_short_name}`
@@ -103,7 +103,7 @@ function* createPossessionLimit(action) {
 function* updatePossessionLimit(action) {
   try {
     const data = yield call(Api.updatePossessionLimit, action)
-    yield put({ type: ActionTypes. SUCCESS_UPDATE_POSSESSION_LIMIT, data })
+    yield put({ type: ActionTypes.SUCCESS_UPDATE_POSSESSION_LIMIT, data })
     Notify("Successfully updated possession limit", "success")
     setTimeout(() => {
       location.href = `/home/manage-states/possession-limits/${action.data.state_short_name}`
@@ -118,7 +118,7 @@ function* updatePossessionLimit(action) {
 function* fetchCompanyList(action) {
   try {
     const data = yield call(Api.fetchCompanyList, action)
-    yield put({ type: ActionTypes. SUCCESS_FETCH_COMPANY_LIST, data })
+    yield put({ type: ActionTypes.SUCCESS_FETCH_COMPANY_LIST, data })
     //action.CB()
   } catch (err) {
     console.log(err)
@@ -128,7 +128,7 @@ function* fetchCompanyList(action) {
 function* createCompany(action) {
   try {
     const data = yield call(Api.createCompany, action)
-    yield put({ type: ActionTypes. SUCCESS_CREATE_COMPANY, data })
+    yield put({ type: ActionTypes.SUCCESS_CREATE_COMPANY, data })
     action.CB()
     Notify("Successfully created company", "success")
     action.CB()
@@ -146,7 +146,7 @@ function* createCompany(action) {
 function* updateCompany(action) {
   try {
     const data = yield call(Api.updateCompany, action)
-    yield put({ type: ActionTypes. SUCCESS_UPDATE_COMPANY, data })
+    yield put({ type: ActionTypes.SUCCESS_UPDATE_COMPANY, data })
     action.CB()
     Notify("Successfully updated company", "success")
     action.CB()

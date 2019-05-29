@@ -44,7 +44,7 @@ class StateTimingForm extends React.Component {
   }
 
   handleChange(e, k) {
-    const selectedStateIdx = k + 1
+    const selectedStateIdx = this.props.stateList[k].id
     this.setState({ selectedStateIdx, stateShortName: this.props.stateList[k].short_name })
   }
 
