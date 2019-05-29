@@ -1214,6 +1214,15 @@ function* fetchCredits(action) {
   }
 }
 
+function* fetchBrandManagerList(action) {
+  try {
+    const data = yield call(Api.fetchBrandManagerList, action)
+    yield put({ type: ActionTypes.SUCCESS_FETCH_BRAND_MANAGER_LIST, data })
+  } catch(err) {
+    console.log(err)
+  }
+}
+
 function* updateTransactionList(action) {
   try {
     yield put({ type: ActionTypes.SUCCESS_UPDATE_TRANSACTION_LIST, data: action.data })
@@ -2098,6 +2107,12 @@ function* watchRequestFetchGenreList() {
   }
 }
 
+function* watchRequestFetchBrandManagerList() {
+  while (true) {
+    yield* takeLatest(ActionTypes.REQUEST_FETCH_BRAND_MANAGER_LIST, fetchBrandManagerList)
+  }
+}
+
 function* watchRequestCreateCampaign() {
   while (true) {
     yield* takeLatest(ActionTypes.REQUEST_CREATE_CAMPAIGN, createCampaign)
@@ -2332,6 +2347,7 @@ export default function* rootSaga() {
     fork(watchRequestUpdateCityPossessionLimit),
     fork(watchRequestFetchCitySpecificPromos),
     fork(watchRequestCreateCitySpecificPromo),
-    fork(watchRequestUpdateCitySpecificPromo)
+    fork(watchRequestUpdateCitySpecificPromo),
+    fork(watchRequestFetchBrandManagerList)
   ]
 }

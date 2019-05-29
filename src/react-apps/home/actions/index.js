@@ -314,6 +314,11 @@ export const deleteDpFromLocalityMap = data => ({
   data
 })
 
+export const fetchBrandManagerList = data => ({
+  type: ActionTypes.REQUEST_FETCH_BRAND_MANAGER_LIST,
+  data
+})
+
 export const fetchPossessionLimits = data => ({
   type: ActionTypes.REQUEST_FETCH_POSSESSION_LIMITS,
   data
