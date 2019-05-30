@@ -48,6 +48,7 @@ class CreatePredictionAnswer extends React.Component {
       prediction_sms: predictionAnswerForm.predictionSms,
       prediction_cashback_sms: predictionAnswerForm.cashbackSms,
       prediction_pending_cashback_sms: predictionAnswerForm.cashbackPendingSms,
+      flat_amount: predictionAnswerForm.flatAmount
     }
     Api.createPredictionAnswer(payload)
       .then((response) => {
