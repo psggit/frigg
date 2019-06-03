@@ -3,6 +3,7 @@ import BrandManagerForm from './brand-manager-form'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as Actions from './../../actions/index'
+import { getQueryObj } from '@utils/url-utils'
 
 
 class UpdateBrandManager extends React.Component {
@@ -32,7 +33,7 @@ class UpdateBrandManager extends React.Component {
       }
     })
     console.log("company list", companyList)
-    this.setState({companyList})
+    this.setState({ companyList })
   }
 
   formIsValid() {
@@ -62,8 +63,9 @@ class UpdateBrandManager extends React.Component {
   handleSave() {
     const brandManagerForm = this.brandManagerForm.getData()
     //console.log("form data", campaignForm)
+
     if (this.formIsValid()) {
-      this.setState({updatingBrandManager: true})
+      this.setState({ updatingBrandManager: true })
       this.props.actions.updateBrandManager({
         id: parseInt(this.props.match.params.managerId),
         name: brandManagerForm.name,
@@ -71,7 +73,8 @@ class UpdateBrandManager extends React.Component {
         mobile_number: brandManagerForm.phone,
         company_id: brandManagerForm.selectedCompanyIdx,
         activity_status: brandManagerForm.selectedStatusIdx === 1 ? true : false,
-        kyc_status: brandManagerForm.selectedKycStatusIdx === 1 ? 'Verified' : 'Not Verified'
+        kyc_status: brandManagerForm.selectedKycStatusIdx === 1 ? 'Verified' : 'Not Verified',
+        hasura_id: parseInt(getQueryObj(this.props.history.location.search.slice(1)).hid)
       }, this.successBrandManagerCallback)
     }
   }
@@ -84,7 +87,7 @@ class UpdateBrandManager extends React.Component {
         handleSave={this.handleSave}
         disableSave={this.state.updatingBrandManager}
         companyList={this.state.companyList}
-        //campaignStatus={this.props.campaignList}
+      //campaignStatus={this.props.campaignList}
       />
     )
   }
