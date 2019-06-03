@@ -19,6 +19,36 @@ export const fetchStateTimings = action => (
     .then(json => json)
 )
 
+export const fetchBrandManagers = action => (
+  POST({
+    api: '/brandManagement/listBrandManager',
+    apiBase: 'odin',
+    handleError: true,
+    data: action.data
+  })
+    .then(json => json)
+) 
+
+export const createBrandManager = action => (
+  POST({
+    api: '/brandManagement/createBrandManager',
+    apiBase: 'odin',
+    handleError: true,
+    data: action.data
+  })
+    .then(json => json)
+)
+
+export const updateBrandManager = action => (
+  POST({
+    api: '/brandManagement/updateBrandManager',
+    apiBase: 'odin',
+    handleError: true,
+    data: action.data
+  })
+    .then(json => json)
+)
+
 export const createStateTiming = action => (
   POST({
     api: '/stateManagement/addStateTiming',

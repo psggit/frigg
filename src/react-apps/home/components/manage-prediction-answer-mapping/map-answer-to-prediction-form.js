@@ -15,6 +15,7 @@ class MapAnswerToPredictionForm extends React.Component {
       selectedPredictionIdx: "",
       selectedCashbackTypeIdx: this.props.cashbackType[0].value,
       selectedCashbackType: "",
+      flatAmount: "",
       amount: "",
       maxCashbackAmount: "",
       predictionSms: "",
@@ -167,12 +168,23 @@ class MapAnswerToPredictionForm extends React.Component {
             </SelectField>
           </div>
           <div className="form-group">
+            <label className="label">Flat Amount</label><br />
+            <TextField
+              onChange={this.handleTextFields}
+              name="flatAmount"
+              value={this.state.flatAmount}
+              style={{ width: '100%' }}
+              disabled={this.state.selectedCashbackTypeIdx === 2}
+            />
+          </div>
+          <div className="form-group">
             <label className="label">Amount</label><br />
             <TextField
               onChange={this.handleTextFields}
               name="amount"
               value={this.state.amount}
               style={{ width: '100%' }}
+              disabled={this.state.selectedCashbackTypeIdx === 1}
             />
           </div>
           <div className="form-group">

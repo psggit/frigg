@@ -9,6 +9,7 @@ const initialState = {
   loadingGeolocalities: true,
   loadingMappedLocalities: true,
   loadingMappedRetailers: true,
+  loadingBrandManagerList: true,
   loadingRetailers: true,
   loadingUnmappedRetailersToDp: true,
   loadingDeliverers: true,
@@ -57,7 +58,7 @@ const initialState = {
   loadingGenreBasedBrandList: true,
   creatingCampaign: true,
   updatingCampaign: true,
-  loadingBrandManagerList: true,
+  loadingBrandManagers: true,
   loadingCampaignStatusList: true,
   loadingCashbackSkuList: true,
   loadingSkuPromoList: true,
@@ -85,12 +86,13 @@ const initialState = {
   possessionLimits: [],
   campaignList: [],
   cityPossessionLimits: [],
-  brandManagerList: [],
+  brandManagers: [],
   contactNumbersOfRetailer: [],
   userSpecificAdIds: [],
   userSpecificAds: [],
   imageAdsData: [],
   collectionAdsData: [],
+  brandManagerList: [],
   deepLinkAdsData: [],
   urlAdsData: [],
   consumerAdsData: [],
@@ -129,6 +131,7 @@ const initialState = {
   citySpecificPromosCount: 0,
   campaignCount: 0,
   cashbackSkuCount: 0,
+  brandManagersCount: 0,
   skuPromoCount: 0,
   companyCount: 0,
   mappedCompanyCount: 0
@@ -175,6 +178,14 @@ const actionsMap = {
     return Object.assign({}, state, {
       loadingCityPossessionLimits: false,
       cityPossessionLimits: action.data.data
+    })
+  },
+
+  [ActionTypes.SUCCESS_FETCH_BRAND_MANAGERS]: (state, action) => {
+    return Object.assign({}, state, {
+      loadingBrandManagers: false,
+      brandManagers: action.data.data,
+      brandManagersCount: action.data.count
     })
   },
 

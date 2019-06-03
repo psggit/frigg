@@ -48,6 +48,7 @@ class NavigationBar extends React.Component {
           { name: 'Company brand mapping', path: '/home/manage-company-brand-mapping', id: 24 }
         ]
       },
+      { name: 'Brand Manager', path: '/home/manage-brand-manager', id: 32, nestedItems: [] },
       {
         name: 'Brand offers and promos',
         nestedItems: [
