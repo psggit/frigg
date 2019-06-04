@@ -153,8 +153,9 @@ class BrandManagerForm extends React.Component {
         >
           <h4 style={{ margin: '0', marginBottom: '40px' }}>Enter Brand Manager Details</h4>
           <div className="form-group">
-            <label className="label">Name *</label><br />
+            <label className="label">Username *</label><br />
             <TextField
+              disabled={this.props.data !== undefined}
               onChange={this.handleTextFields}
               name="name"
               value={this.state.name}
