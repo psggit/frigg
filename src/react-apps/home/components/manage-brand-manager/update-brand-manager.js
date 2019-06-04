@@ -68,9 +68,6 @@ class UpdateBrandManager extends React.Component {
       this.setState({ updatingBrandManager: true })
       this.props.actions.updateBrandManager({
         id: parseInt(this.props.match.params.managerId),
-        name: brandManagerForm.name,
-        email: brandManagerForm.email,
-        mobile_number: brandManagerForm.phone,
         company_id: brandManagerForm.selectedCompanyIdx,
         activity_status: brandManagerForm.selectedStatusIdx === 1 ? true : false,
         kyc_status: brandManagerForm.selectedKycStatusIdx === 1 ? 'Verified' : 'Not Verified',

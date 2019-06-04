@@ -3,7 +3,7 @@ import { call, fork, put, race, take } from 'redux-saga/effects'
 import * as ActionTypes from './../constants/actions'
 import Notify from '@components/Notification'
 import * as Api from './api'
-import {skuList} from "./mock-data"
+import { skuList } from "./mock-data"
 
 /**
  * Handlers
@@ -176,7 +176,7 @@ function* fetchGenreBasedBrandList(action) {
     const data = yield call(Api.fetchGenreBasedBrandList, action)
     yield put({ type: ActionTypes.SUCCESS_GENRE_BASED_BRAND_LIST, data })
     action.CB()
-  } catch(err) {
+  } catch (err) {
     console.log(err)
   }
 }
@@ -186,7 +186,7 @@ function* fetchGenreList(action) {
     const data = yield call(Api.fetchGenreList, action)
     yield put({ type: ActionTypes.SUCCESS_FETCH_GENRE_LIST, data })
     action.CB()
-  } catch(err) {
+  } catch (err) {
     console.log(err)
   }
 }
@@ -489,7 +489,7 @@ function* mapRetailerToLocalityAsPrime(action) {
   console.log(action);
   try {
     const data = yield call(Api.mapRetailerToLocalityAsPrime, action)
-  yield put({ type: ActionTypes.REQUEST_FETCH_LOCALITY_RETAILERS_MAP, data: { locality_id: action.data.locality_id } })
+    yield put({ type: ActionTypes.REQUEST_FETCH_LOCALITY_RETAILERS_MAP, data: { locality_id: action.data.locality_id } })
     Notify("Successfully updated", "success")
   } catch (err) {
     err.response.json().then(json => { Notify(json.message, "warning") })
@@ -795,7 +795,7 @@ function* fetchNetBankingList(action) {
 function* fetchRetailerSpecificPromos(action) {
   try {
     const data = yield call(Api.fetchRetailerSpecificPromos, action)
-    yield put({ type: ActionTypes.SUCCESS_FETCH_RETAILER_SPECIFIC_PROMOS, data})
+    yield put({ type: ActionTypes.SUCCESS_FETCH_RETAILER_SPECIFIC_PROMOS, data })
   } catch (err) {
     console.log(err)
   }
@@ -804,7 +804,7 @@ function* fetchRetailerSpecificPromos(action) {
 function* createRetailerSpecificPromo(action) {
   try {
     const data = yield call(Api.createRetailerSpecificPromo, action)
-    yield put({ type: ActionTypes.SUCCESS_CREATE_RETAILER_SPECIFIC_PROMO, data})
+    yield put({ type: ActionTypes.SUCCESS_CREATE_RETAILER_SPECIFIC_PROMO, data })
     Notify("Successfully created retailer specific promo", "success")
     setTimeout(() => {
       location.href = '/home/retailer-specific-promos'
@@ -817,7 +817,7 @@ function* createRetailerSpecificPromo(action) {
 function* fetchUserSpecificPromos(action) {
   try {
     const data = yield call(Api.fetchUserSpecificPromos, action)
-    yield put({ type: ActionTypes.SUCCESS_FETCH_USER_SPECIFIC_PROMOS, data})
+    yield put({ type: ActionTypes.SUCCESS_FETCH_USER_SPECIFIC_PROMOS, data })
   } catch (err) {
     console.log(err)
   }
@@ -827,7 +827,7 @@ function* fetchUserSpecificPromos(action) {
 function* createUserSpecificPromo(action) {
   try {
     const data = yield call(Api.createUserSpecificPromo, action)
-    yield put({ type: ActionTypes.SUCCESS_CREATE_USER_SPECIFIC_PROMO, data})
+    yield put({ type: ActionTypes.SUCCESS_CREATE_USER_SPECIFIC_PROMO, data })
     Notify("Successfully created user specific promo", "success")
     setTimeout(() => {
       location.href = '/home/user-specific-promos'
@@ -840,7 +840,7 @@ function* createUserSpecificPromo(action) {
 function* updateUserSpecificPromo(action) {
   try {
     const data = yield call(Api.updateUserSpecificPromo, action)
-    yield put({ type: ActionTypes.SUCCESS_UPDATE_USER_SPECIFIC_PROMO, data})
+    yield put({ type: ActionTypes.SUCCESS_UPDATE_USER_SPECIFIC_PROMO, data })
     Notify("Successfully updated user specific promo", "success")
     setTimeout(() => {
       location.href = '/home/user-specific-promos'
@@ -853,7 +853,7 @@ function* updateUserSpecificPromo(action) {
 function* fetchCitySpecificPromos(action) {
   try {
     const data = yield call(Api.fetchCitySpecificPromos, action)
-    yield put({ type: ActionTypes.SUCCESS_FETCH_CITY_SPECIFIC_PROMOS, data})
+    yield put({ type: ActionTypes.SUCCESS_FETCH_CITY_SPECIFIC_PROMOS, data })
   } catch (err) {
     console.log(err)
   }
@@ -862,7 +862,7 @@ function* fetchCitySpecificPromos(action) {
 function* createCitySpecificPromo(action) {
   try {
     const data = yield call(Api.createCitySpecificPromo, action)
-    yield put({ type: ActionTypes.SUCCESS_CREATE_CITY_SPECIFIC_PROMO, data})
+    yield put({ type: ActionTypes.SUCCESS_CREATE_CITY_SPECIFIC_PROMO, data })
     Notify("Successfully created city specific promo", "success")
     setTimeout(() => {
       location.href = '/home/city-specific-promos'
@@ -875,7 +875,7 @@ function* createCitySpecificPromo(action) {
 function* updateCitySpecificPromo(action) {
   try {
     const data = yield call(Api.updateCitySpecificPromo, action)
-    yield put({ type: ActionTypes.SUCCESS_UPDATE_CITY_SPECIFIC_PROMO, data})
+    yield put({ type: ActionTypes.SUCCESS_UPDATE_CITY_SPECIFIC_PROMO, data })
     Notify("Successfully updated city specific promo", "success")
     setTimeout(() => {
       location.href = '/home/city-specific-promos'
@@ -888,7 +888,7 @@ function* updateCitySpecificPromo(action) {
 function* updateRetailerSpecificPromo(action) {
   try {
     const data = yield call(Api.updateRetailerSpecificPromo, action)
-    yield put({ type: ActionTypes.SUCCESS_UPDATE_RETAILER_SPECIFIC_PROMO, data})
+    yield put({ type: ActionTypes.SUCCESS_UPDATE_RETAILER_SPECIFIC_PROMO, data })
     Notify("Successfully updated retailer specific promo", "success")
     setTimeout(() => {
       location.href = '/home/retailer-specific-promos'
@@ -901,7 +901,7 @@ function* updateRetailerSpecificPromo(action) {
 function* fetchUserSpecificAds(action) {
   try {
     const data = yield call(Api.fetchUserSpecificAds, action)
-    yield put({ type: ActionTypes.SUCCESS_FETCH_USER_SPECIFIC_ADS, data})
+    yield put({ type: ActionTypes.SUCCESS_FETCH_USER_SPECIFIC_ADS, data })
   } catch (err) {
     console.log(err)
   }
@@ -910,7 +910,7 @@ function* fetchUserSpecificAds(action) {
 function* createUserSpecificAds(action) {
   try {
     const data = yield call(Api.createUserSpecificAds, action)
-    yield put({ type: ActionTypes.SUCCESS_CREATE_USER_SPECIFIC_ADS, data})
+    yield put({ type: ActionTypes.SUCCESS_CREATE_USER_SPECIFIC_ADS, data })
     Notify("Successfully created user specific ad", "success")
     setTimeout(() => {
       location.href = '/home/user-specific-ads'
@@ -923,7 +923,7 @@ function* createUserSpecificAds(action) {
 function* updateUserSpecificAds(action) {
   try {
     const data = yield call(Api.updateUserSpecificAds, action)
-    yield put({ type: ActionTypes.SUCCESS_UPDATE_USER_SPECIFIC_ADS, data})
+    yield put({ type: ActionTypes.SUCCESS_UPDATE_USER_SPECIFIC_ADS, data })
     Notify("Successfully updated user specific ad", "success")
     setTimeout(() => {
       location.href = '/home/user-specific-ads'
@@ -936,7 +936,7 @@ function* updateUserSpecificAds(action) {
 function* fetchUserSpecificAdIds(action) {
   try {
     const data = yield call(Api.fetchUserSpecificAdIds, action)
-    yield put({ type: ActionTypes.SUCCESS_FETCH_USER_SPECIFIC_AD_IDS, data})
+    yield put({ type: ActionTypes.SUCCESS_FETCH_USER_SPECIFIC_AD_IDS, data })
   } catch (err) {
     console.log(err)
   }
@@ -1100,7 +1100,7 @@ function* addBrandToCollection(action) {
     const data = yield call(Api.addBrandToCollection, action)
     Notify('Successfully added brand to the collection', 'success')
     action.CB()
-  } catch(err) {
+  } catch (err) {
     console.log(err)
     err.response.json().then(json => { Notify(json.message, "warning") })
   }
@@ -1121,7 +1121,7 @@ function* removeBrandFromCollection(action) {
     const data = yield call(Api.removeBrandFromCollection, action)
     Notify('Successfully removed brand from the collection', 'success')
     action.CB()
-  } catch(err) {
+  } catch (err) {
     console.log(err)
   }
 }
@@ -1188,7 +1188,7 @@ function* requestTriggerSMS(action) {
     setTimeout(() => {
       action.data.CB()
     }, 3000)
-  } catch(err) {
+  } catch (err) {
     action.data.CB()
     console.log(err)
   }
@@ -1209,7 +1209,7 @@ function* fetchCredits(action) {
     const data = yield call(Api.fetchCredits, action)
     //const data = [];
     yield put({ type: ActionTypes.SUCCESS_FETCH_CREDITS, data })
-  } catch(err) {
+  } catch (err) {
     console.log(err)
   }
 }
@@ -1218,7 +1218,7 @@ function* fetchBrandManagers(action) {
   try {
     const data = yield call(Api.fetchBrandManagers, action)
     yield put({ type: ActionTypes.SUCCESS_FETCH_BRAND_MANAGERS, data })
-  } catch(err) {
+  } catch (err) {
     console.log(err)
   }
 }
@@ -1232,7 +1232,7 @@ function* createBrandManager(action) {
     setTimeout(() => {
       window.location.href = '/home/manage-brand-manager'
     }, 1000)
-  } catch(err) {
+  } catch (err) {
     action.CB()
     console.log(err)
   }
@@ -1247,7 +1247,7 @@ function* updateBrandManager(action) {
     setTimeout(() => {
       window.location.href = '/home/manage-brand-manager'
     }, 1000)
-  } catch(err) {
+  } catch (err) {
     action.CB()
     console.log(err)
   }
@@ -1256,7 +1256,7 @@ function* updateBrandManager(action) {
 function* updateTransactionList(action) {
   try {
     yield put({ type: ActionTypes.SUCCESS_UPDATE_TRANSACTION_LIST, data: action.data })
-  } catch(err) {
+  } catch (err) {
     console.log(err)
   }
 }
@@ -1266,7 +1266,7 @@ function* updateBrandListingOrder(action) {
     const data = yield call(Api.updateBrandListingOrder, action)
     Notify('Successfully updated brand listing order', 'success')
     yield put({ type: ActionTypes.SUCCESS_UPDATE_BRAND_LISTING_ORDER, data: action.data })
-  } catch(err) {
+  } catch (err) {
     console.log(err)
   }
 }
@@ -1277,7 +1277,7 @@ function* fetchBrandManagerList(action) {
     //Notify('Successfully updated brand listing order', 'success')
     yield put({ type: ActionTypes.SUCCESS_BRAND_MANAGER_LIST, data })
     action.CB()
-  } catch(err) {
+  } catch (err) {
     console.log(err)
   }
 }
@@ -1287,7 +1287,7 @@ function* fetchCampaignStatusList(action) {
     const data = yield call(Api.fetchCampaignStatusList, action)
     //Notify('Successfully updated brand listing order', 'success')
     yield put({ type: ActionTypes.SUCCESS_FETCH_CAMPAIGN_STATUS_LIST, data })
-  } catch(err) {
+  } catch (err) {
     console.log(err)
   }
 }
@@ -1297,7 +1297,7 @@ function* fetchCashbackSkuList(action) {
     const data = yield call(Api.fetchCashbackSkuList, action)
     //Notify('Successfully updated brand listing order', 'success')
     yield put({ type: ActionTypes.SUCCESS_FETCH_CASHBACK_SKU_LIST, data })
-  } catch(err) {
+  } catch (err) {
     console.log(err)
   }
 }
@@ -1306,7 +1306,7 @@ function* fetchStateTimings(action) {
   try {
     const data = yield call(Api.fetchStateTimings, action)
     yield put({ type: ActionTypes.SUCCESS_FETCH_STATE_TIMINGS, data })
-  } catch(err) {
+  } catch (err) {
     console.log(err)
   }
 }
@@ -1319,7 +1319,7 @@ function* createStateTiming(action) {
     setTimeout(() => {
       window.location.href = '/home/manage-state-timings'
     }, 1000)
-  } catch(err) {
+  } catch (err) {
     console.log(err)
     err.response.json().then(json => { Notify(json.message, "warning") })
   }
@@ -1333,7 +1333,7 @@ function* updateStateTiming(action) {
     setTimeout(() => {
       window.location.href = '/home/manage-state-timings'
     }, 1000)
-  } catch(err) {
+  } catch (err) {
     console.log(err)
     err.response.json().then(json => { Notify(json.message, "warning") })
   }
@@ -1345,7 +1345,7 @@ function* fetchCampaignList(action) {
     //Notify('Successfully updated brand listing order', 'success')
     yield put({ type: ActionTypes.SUCCESS_FETCH_CAMPAIGN_LIST, data })
     action.CB()
-  } catch(err) {
+  } catch (err) {
     console.log(err)
   }
 }
@@ -1401,7 +1401,7 @@ function* mapSkuToPromo(action) {
     setTimeout(() => {
       window.location.href = '/home/manage-cashback-sku'
     }, 1000)
-  } catch(err) {
+  } catch (err) {
     console.log(err)
     Notify('Something went wrong', 'warning')
     action.CB()
@@ -1417,7 +1417,7 @@ function* createCampaign(action) {
     setTimeout(() => {
       window.location.href = '/home/manage-campaign'
     }, 1000)
-  } catch(err) {
+  } catch (err) {
     action.CB()
     console.log(err)
   }
@@ -1432,7 +1432,7 @@ function* updateCampaign(action) {
     setTimeout(() => {
       window.location.href = '/home/manage-campaign'
     }, 1000)
-  } catch(err) {
+  } catch (err) {
     console.log(err)
     action.CB()
     Notify('Something went wrong', 'warning')
@@ -1444,7 +1444,7 @@ function* fetchSkuPromoList(action) {
     const data = yield call(Api.fetchSkuPromoList, action)
     //Notify('Successfully updated campaign', 'success')
     yield put({ type: ActionTypes.SUCCESS_FETCH_SKU_PROMO_LIST, data })
-  } catch(err) {
+  } catch (err) {
     console.log(err)
   }
 }
@@ -1455,7 +1455,7 @@ function* fetchPromoList(action) {
     //Notify('Successfully updated campaign', 'success')
     yield put({ type: ActionTypes.SUCCESS_FETCH_PROMO_LIST, data })
     action.CB()
-  } catch(err) {
+  } catch (err) {
     console.log(err)
   }
 }
@@ -1467,7 +1467,7 @@ function* fetchSkuList(action) {
     //const data = skuList
     yield put({ type: ActionTypes.SUCCESS_FETCH_SKU_LIST, data })
     action.CB()
-  } catch(err) {
+  } catch (err) {
     console.log(err)
     action.CB()
   }
@@ -1482,7 +1482,7 @@ function* createSkuPromo(action) {
     setTimeout(() => {
       window.location.href = '/home/manage-sku-promo'
     }, 1000)
-  } catch(err) {
+  } catch (err) {
     console.log(err)
     action.CB()
   }
@@ -1497,7 +1497,7 @@ function* updateSkuPromo(action) {
     setTimeout(() => {
       window.location.href = '/home/manage-sku-promo'
     }, 1000)
-  } catch(err) {
+  } catch (err) {
     console.log(err)
     action.CB()
   }
@@ -1508,7 +1508,7 @@ function* fetchCampaignStatusList(action) {
     const data = yield call(Api.fetchCampaignStatusList, action)
     //Notify('Successfully updated campaign', 'success')
     yield put({ type: ActionTypes.SUCCESS_FETCH_CAMPAIGN_STATUS_LIST, data })
-  } catch(err) {
+  } catch (err) {
     console.log(err)
   }
 }
@@ -1905,31 +1905,31 @@ function* watchAddRetailerNumbers() {
 
 function* watchRequestAddBrandToCollection() {
   while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_ADD_BRAND_TO_COLLECTION , addBrandToCollection)
+    yield* takeLatest(ActionTypes.REQUEST_ADD_BRAND_TO_COLLECTION, addBrandToCollection)
   }
 }
 
 function* watchRequestRemoveBrandFromCollection() {
   while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_REMOVE_BRAND_FROM_COLLECTION , removeBrandFromCollection)
+    yield* takeLatest(ActionTypes.REQUEST_REMOVE_BRAND_FROM_COLLECTION, removeBrandFromCollection)
   }
 }
 
 function* watchRequestCreateCollection() {
   while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_CREATE_COLLECTION , createCollection)
+    yield* takeLatest(ActionTypes.REQUEST_CREATE_COLLECTION, createCollection)
   }
 }
 
 function* watchRequestFetchCollections() {
   while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_FETCH_COLLECTIONS , fetchCollections)
+    yield* takeLatest(ActionTypes.REQUEST_FETCH_COLLECTIONS, fetchCollections)
   }
 }
 
 function* watchRequestFetchBrandsInCollection() {
   while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_FETCH_BRANDS_IN_COLLECTION , fetchBrandsInCollection)
+    yield* takeLatest(ActionTypes.REQUEST_FETCH_BRANDS_IN_COLLECTION, fetchBrandsInCollection)
   }
 }
 

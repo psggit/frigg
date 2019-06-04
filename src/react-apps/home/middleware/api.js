@@ -27,7 +27,7 @@ export const fetchBrandManagers = action => (
     data: action.data
   })
     .then(json => json)
-) 
+)
 
 export const createBrandManager = action => (
   POST({
@@ -39,15 +39,41 @@ export const createBrandManager = action => (
     .then(json => json)
 )
 
-export const updateBrandManager = action => (
+export const updateBM1 = data => (
   POST({
     api: '/brandManagement/updateBrandManager',
     apiBase: 'odin',
     handleError: true,
-    data: action.data
+    data
   })
     .then(json => json)
 )
+
+export const updateBM2 = data => (
+  POST({
+    api: '/brandManagement/updateActivityStatus',
+    apiBase: 'odin',
+    handleError: true,
+    data
+  })
+)
+
+export const updateBrandManager = (action) => {
+  const update1Req = {
+    company_id: action.data.company_id,
+    hasura_id: action.data.hasura_id,
+    kyc_status: action.data.kyc_status
+  }
+
+  const update2Req = {
+    hasura_id: action.data.hasura_id,
+    activity_status: action.data.activity_status
+  }
+
+  console.log(update1Req, update2Req)
+
+  return updateBM1(update1Req).then(() => { updateBM2(update2Req) })
+}
 
 export const createStateTiming = action => (
   POST({
