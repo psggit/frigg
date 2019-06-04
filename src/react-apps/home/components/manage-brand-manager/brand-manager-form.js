@@ -9,12 +9,12 @@ import Moment from 'moment'
 class BrandManagerForm extends React.Component {
   constructor(props) {
     super(props)
-    
+
     this.state = {
       name: props.data ? props.data.name : "",
       phone: props.data ? props.data.mobile_number : "",
-			email: props.data ? props.data.email : "",
-			password: props.data ? props.data.password : "",
+      email: props.data ? props.data.email : "",
+      password: props.data ? props.data.password : "",
       selectedCompanyIdx: props.data ? props.data.company_id : "",
       //status: "",
       selectedKycStatusIdx: props.data ? props.data.kyc_status === "Verified" ? 1 : 2 : 1,
@@ -40,9 +40,9 @@ class BrandManagerForm extends React.Component {
     this.brandManagerStatus = [
       { text: 'Active', value: 1 },
       { text: 'Inactive', value: 2 },
-		]
-		
-		this.kycStatus = [
+    ]
+
+    this.kycStatus = [
       { text: 'Verified', value: 1 },
       { text: 'Not Verified', value: 2 },
     ]
@@ -57,9 +57,9 @@ class BrandManagerForm extends React.Component {
   }
 
   componentWillReceiveProps(newProps) {
-    if(newProps.companyList !== this.props.companyList) {
-      if(this.state.selectedCompanyIdx.toString().length === 0) {
-        this.setState({selectedCompanyIdx: newProps.companyList[0].value})
+    if (newProps.companyList !== this.props.companyList) {
+      if (this.state.selectedCompanyIdx.toString().length === 0) {
+        this.setState({ selectedCompanyIdx: newProps.companyList[0].value })
       }
     }
   }
@@ -71,7 +71,7 @@ class BrandManagerForm extends React.Component {
   handleTextFields(e) {
     const errName = `${e.target.name}Err`
     this.setState({
-      [errName] : {
+      [errName]: {
         value: "",
         status: false
       }
@@ -81,12 +81,12 @@ class BrandManagerForm extends React.Component {
 
   handleStatusChange(e, k) {
     const selectedIdx = k + 1
-    this.setState({ selectedStatusIdx: selectedIdx})
+    this.setState({ selectedStatusIdx: selectedIdx })
   }
 
   handleKycStatusChange(e, k) {
     const selectedIdx = k + 1
-    this.setState({ selectedKycStatusIdx:  selectedIdx})
+    this.setState({ selectedKycStatusIdx: selectedIdx })
   }
 
   handleCompanyChange(e, k) {
@@ -132,28 +132,28 @@ class BrandManagerForm extends React.Component {
   }
 
   handleSave() {
-    if(this.isFormValid()) {
+    if (this.isFormValid()) {
       this.props.handleSave()
     }
   }
 
   render() {
     console.log("props", this.props, "date", this.state.selectedBrandManagerIdx)
-    const {nameErr, emailErr, phoneErr, passwordErr} = this.state
+    const { nameErr, emailErr, phoneErr, passwordErr } = this.state
     return (
       <Fragment>
         <Card style={{
-            padding: '20px',
-            width: '300px',
-            position: 'relative',
-            display: 'block',
-            verticalAlign: 'top',
-            marginRight: '20px'
-          }}
+          padding: '20px',
+          width: '300px',
+          position: 'relative',
+          display: 'block',
+          verticalAlign: 'top',
+          marginRight: '20px'
+        }}
         >
           <h4 style={{ margin: '0', marginBottom: '40px' }}>Enter Brand Manager Details</h4>
           <div className="form-group">
-            <label className="label">Name *</label><br/>
+            <label className="label">Name *</label><br />
             <TextField
               onChange={this.handleTextFields}
               name="name"
@@ -167,8 +167,9 @@ class BrandManagerForm extends React.Component {
           </div>
 
           <div className="form-group">
-            <label className="label">Email *</label><br/>
+            <label className="label">Email *</label><br />
             <TextField
+              disabled={this.props.data.email.length > 0}
               onChange={this.handleTextFields}
               name="email"
               value={this.state.email}
@@ -180,28 +181,29 @@ class BrandManagerForm extends React.Component {
             }
           </div>
 
-					{
+          {
             location.href.indexOf('edit') === -1 &&
             <div className="form-group">
-            <label className="label">Password *</label><br/>
-            <TextField
-              onChange={this.handleTextFields}
-              name="password"
-              value={this.state.password}
-              style={{ width: '100%' }}
-            />
-            {
-              passwordErr.status &&
-              <p className="error-message">* {passwordErr.value}</p>
-            }
-          </div>
+              <label className="label">Password *</label><br />
+              <TextField
+                onChange={this.handleTextFields}
+                name="password"
+                value={this.state.password}
+                style={{ width: '100%' }}
+              />
+              {
+                passwordErr.status &&
+                <p className="error-message">* {passwordErr.value}</p>
+              }
+            </div>
           }
 
           <div className="form-group">
-            <label className="label">Phone *</label><br/>
+            <label className="label">Phone *</label><br />
             <TextField
               onChange={this.handleTextFields}
               name="phone"
+              disabled={this.props.data.mobile_number.length > 0}
               value={this.state.phone}
               style={{ width: '100%' }}
             />
@@ -229,9 +231,9 @@ class BrandManagerForm extends React.Component {
               }
             </SelectField>
           </div>
-          
+
           <div className="form-group">
-            <label className="label">KYC Status</label><br/>
+            <label className="label">KYC Status</label><br />
             <SelectField
               //disabled={this.props.isDisabled}
               value={this.state.selectedKycStatusIdx}
@@ -251,7 +253,7 @@ class BrandManagerForm extends React.Component {
           </div>
 
           <div className="form-group">
-            <label className="label">Status</label><br/>
+            <label className="label">Status</label><br />
             <SelectField
               //disabled={this.props.isDisabled}
               value={this.state.selectedStatusIdx}
