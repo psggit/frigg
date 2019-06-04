@@ -169,7 +169,7 @@ class BrandManagerForm extends React.Component {
           <div className="form-group">
             <label className="label">Email *</label><br />
             <TextField
-              disabled={this.props.data.email.length > 0}
+              disabled={this.props.data !== undefined}
               onChange={this.handleTextFields}
               name="email"
               value={this.state.email}
@@ -203,7 +203,7 @@ class BrandManagerForm extends React.Component {
             <TextField
               onChange={this.handleTextFields}
               name="phone"
-              disabled={this.props.data.mobile_number.length > 0}
+              disabled={this.props.data !== undefined}
               value={this.state.phone}
               style={{ width: '100%' }}
             />
