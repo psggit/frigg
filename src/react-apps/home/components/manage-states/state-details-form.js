@@ -9,23 +9,24 @@ class StateDetailsForm extends React.Component {
   constructor(props) {
     super(props)
     this.priceType = [
-      {text: 'MRP', value: 1},
-      {text: 'MSRP', value: 2},
-      {text: 'LABEL', value: 3}
+      { text: 'MRP', value: 1 },
+      { text: 'MSRP', value: 2 },
+      { text: 'LABEL', value: 3 },
+      { text: 'DISPLAY_MRP', value: 4 }
     ]
     console.log("props", props.priceType)
     this.intitialState = {
       stateShortName: props.stateShortName || '',
       stateName: props.stateName || '',
       shouldTrim: true,
-      selectedPriceTypeIdx: props.priceType 
-                            ? this.priceType.find(item => (item.text).toLowerCase() === (props.priceType).toLowerCase()).value
-                            : 1,
+      selectedPriceTypeIdx: props.priceType
+        ? this.priceType.find(item => (item.text).toLowerCase() === (props.priceType).toLowerCase()).value
+        : 1,
       priceType: props.priceType || 'MRP',
     }
 
     this.state = Object.assign({}, this.intitialState)
-  
+
     this.handleTextFields = this.handleTextFields.bind(this)
     this.handleCheckboxes = this.handleCheckboxes.bind(this)
     this.resetState = this.resetState.bind(this)
@@ -58,7 +59,7 @@ class StateDetailsForm extends React.Component {
     return this.state
   }
 
-  handlePriceTypeChange(e,k) {
+  handlePriceTypeChange(e, k) {
     this.setState({
       priceType: this.priceType[k].text,
       selectedPriceTypeIdx: this.priceType[k].value
@@ -69,7 +70,7 @@ class StateDetailsForm extends React.Component {
     return (
       <Fragment>
         <div className="form-group">
-          <label className="label">State name</label><br/>
+          <label className="label">State name</label><br />
           <TextField
             disabled={this.props.isDisabled}
             onChange={this.handleTextFields}
@@ -79,7 +80,7 @@ class StateDetailsForm extends React.Component {
         </div>
 
         <div className="form-group">
-          <label className="label">State short name</label><br/>
+          <label className="label">State short name</label><br />
           <TextField
             disabled={this.props.isDisabled}
             onChange={this.handleTextFields}
@@ -88,7 +89,7 @@ class StateDetailsForm extends React.Component {
           />
         </div>
         <div className="form-group">
-          <label className="label">Price type</label><br/>
+          <label className="label">Price type</label><br />
           <SelectField
             value={this.state.selectedPriceTypeIdx}
             onChange={this.handlePriceTypeChange}
