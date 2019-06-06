@@ -15,6 +15,7 @@ class Reports extends React.Component {
       selectedReport: 'Retailer Redemption Report',
       fromDate: "",
       toDate: "",
+      isDownloading: false,
       fromDateErr: {
         value: "",
         status: false
@@ -34,7 +35,8 @@ class Reports extends React.Component {
       { text: 'Customer Notepad Report', value: 6 },
       { text: 'Gifts Cancelled', value: 7 },
       { text: 'Gifts Sent', value: 8 },
-      { text: 'Gifts Redeemed', value: 9 }
+      { text: 'Gifts Redeemed', value: 9 },
+      { text: 'Prediction Cashback Report', value: 10 }
     ]
 
     this.reportMap = {
@@ -46,7 +48,8 @@ class Reports extends React.Component {
       'Consumer Manual Credit and Debit': 'consumer_manual_credits_and_debits_view',
       'Gifts Cancelled': 'gifts_cancellation',
       'Gifts Sent': 'gifts_sent',
-      'Gifts Redeemed': 'gifts_redeemed'
+      'Gifts Redeemed': 'gifts_redeemed',
+      'Prediction Cashback Report': 'prediction_cashback_report'
     }
 
     this.handleReportChange = this.handleReportChange.bind(this)
@@ -68,13 +71,15 @@ class Reports extends React.Component {
   }
 
   downloadReport() {
+    this.setState({ isDownloading: true })
     Api.downloadReport({
       url: this.reportMap[this.state.selectedReport],
       start_date: this.state.fromDate,
       end_date: this.state.toDate
     })
-      .then(csv => {
-        exportCSV(csv)
+      .then((csv) => {
+        this.setState({ isDownloading: false })
+        exportCSV(csv, this.state.selectedReport)
       })
       .catch((err) => {
         console.log("Error in downloading reports", err)
@@ -170,9 +175,9 @@ class Reports extends React.Component {
           </div>
           <div className="form-group">
             <RaisedButton
-              label="Save"
+              label={this.state.isDownloading ? "Downloading..." : "Download"}
               primary
-              disabled={this.state.creatingReport}
+              disabled={this.state.isDownloading || (this.state.fromDate.length === 0 && this.state.toDate.length === 0)}
               onClick={this.downloadReport}
             />
           </div>

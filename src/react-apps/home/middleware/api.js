@@ -1170,7 +1170,10 @@ export function downloadReport(payloadObj) {
   return POST({
     api: `/Api/reports/download/${payloadObj.url}`,
     apiBase: 'reports',
-    data: payloadObj,
+    data: {
+      start_date: payloadObj.start_date,
+      end_date: payloadObj.end_date
+    },
     handleError: true,
     //type: 'FormData',
     parseType: "text"
