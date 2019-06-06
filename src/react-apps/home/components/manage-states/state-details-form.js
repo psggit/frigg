@@ -12,7 +12,7 @@ class StateDetailsForm extends React.Component {
       { text: 'MRP', value: 1 },
       { text: 'MSRP', value: 2 },
       { text: 'LABEL', value: 3 },
-      { text: 'DISPLAY_MRP', value: 4 }
+      { text: 'DISPLAY-MRP', value: 4 }
     ]
     console.log("props", props.priceType)
     this.intitialState = {
