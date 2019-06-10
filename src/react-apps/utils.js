@@ -68,7 +68,7 @@ export function exportCSV(csv, fileName) {
   const blob = new Blob([csv], { type: `text/csv` });
   const link = document.createElement('a');
   link.href = window.URL.createObjectURL(blob);
-  link.download = fileName;
+  link.download = fileName + ".csv";
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
