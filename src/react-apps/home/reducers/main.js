@@ -104,6 +104,7 @@ const initialState = {
   mappedRetailersToLocality: [],
   mappedDpToLocality: [],
   retailers: [],
+  retailersCount: 0,
   mappedRetailers: [],
   mappedLocalities: [],
   statesData: [],
@@ -115,7 +116,6 @@ const initialState = {
   cityDetails: {},
   collectionsCount: 0,
   brandCount: 0,
-  cityDetails: {},
   transactionCodes: [],
   addCreditsFormDetails: {},
   customerDetails: [],
@@ -282,7 +282,7 @@ const actionsMap = {
       creatingCitySpecificPromo: true
     })
   },
-  
+
   [ActionTypes.SUCCESS_FETCH_DELIVERERS]: (state, action) => {
     return Object.assign({}, state, {
       loadingDeliverers: false,
@@ -293,7 +293,8 @@ const actionsMap = {
   [ActionTypes.SUCCESS_FETCH_RETAILERS]: (state, action) => {
     return Object.assign({}, state, {
       loadingRetailers: false,
-      retailers: action.data
+      retailers: action.data.retailer_data,
+      retailersCount: action.data.count
     })
   },
 
@@ -375,7 +376,7 @@ const actionsMap = {
   },
 
   [ActionTypes.SUCCESS_FETCH_CONSUMER_ADS]: (state, action) => {
-    console.log("action",  action.data)
+    console.log("action", action.data)
     return Object.assign({}, state, {
       loadingConsumerAds: false,
       consumerAdsData: action.data
@@ -445,7 +446,7 @@ const actionsMap = {
 
   [ActionTypes.SUCCESS_UPDATE_TRANSACTION_LIST]: (state, action) => {
     let customerDetails = state.customerDetails.filter((item) => {
-      if(item.email !== action.data.data) {
+      if (item.email !== action.data.data) {
         return item
       }
     })
@@ -475,7 +476,7 @@ const actionsMap = {
       netBankingList: action.data
     })
   },
-  
+
   [ActionTypes.SUCCESS_FETCH_USER_SPECIFIC_PROMOS]: (state, action) => {
     return Object.assign({}, state, {
       loadingUserSpecificPromos: false,
@@ -491,7 +492,7 @@ const actionsMap = {
       citySpecificPromosCount: action.data.count
     })
   },
-  
+
   [ActionTypes.SUCCESS_CREATE_CITY_SPECIFIC_PROMO]: (state, action) => {
     return Object.assign({}, state, {
       creatingCitySpecificPromo: false
@@ -566,12 +567,12 @@ const actionsMap = {
   [ActionTypes.SUCCESS_FETCH_GENRE_LIST]: (state, action) => {
     return Object.assign({}, state, {
       loadingGenres: false,
-      genres:  action.data.genreDetail,
+      genres: action.data.genreDetail,
       //genreCount: action.data.count
     })
   },
 
-  [ActionTypes. SUCCESS_FETCH_MAPPED_COMPANY_LIST]: (state, action) => {
+  [ActionTypes.SUCCESS_FETCH_MAPPED_COMPANY_LIST]: (state, action) => {
     return Object.assign({}, state, {
       loadingMappedCompanyList: false,
       mappedCompanyList: action.data.list,
@@ -597,7 +598,7 @@ const actionsMap = {
 
   [ActionTypes.SUCCESS_MAP_COMPANY_TO_BRAND]: (state, action) => {
     return Object.assign({}, state, {
-      mappingBrandToCompany: false 
+      mappingBrandToCompany: false
     })
   },
 
@@ -621,7 +622,7 @@ const actionsMap = {
       creatingSkuPromo: false
     })
   },
-  
+
   [ActionTypes.SUCCESS_FETCH_SKU_PROMO_LIST]: (state, action) => {
     return Object.assign({}, state, {
       loadingSkuPromoList: false,
@@ -684,7 +685,7 @@ const actionsMap = {
       userSpecificAdIds: action.data.data
     })
   },
-  
+
   [ActionTypes.SUCCESS_UPDATE_BANK_DETAILS]: (state, action) => {
     return Object.assign({}, state, {
       updatingBankDetails: false,
@@ -697,17 +698,17 @@ const actionsMap = {
 
     transactions = state.addCreditsFormDetails.emailIds.map((email, i) => {
       let transactionDetail = {
-        id : '',
-        fullname : ''
+        id: '',
+        fullname: ''
       }
       transactionDetail = action.data.filter((transaction) => {
-        if(transaction.email === email) {
+        if (transaction.email === email) {
           return transaction
         }
       })
 
       return {
-        id : transactionDetail.length > 0 ? transactionDetail[0].id : '',
+        id: transactionDetail.length > 0 ? transactionDetail[0].id : '',
         name: transactionDetail.length > 0 ? transactionDetail[0].full_name : 'NOT FOUND',
         email,
         transactionId: state.addCreditsFormDetails.transactionId,

@@ -56,7 +56,7 @@ class ManageRetailers extends React.Component {
   }
 
   componentWillUnmount() {
-    window.onpopstate = () => {}
+    window.onpopstate = () => { }
   }
 
   unmountViewFencesDialog() {
@@ -137,7 +137,7 @@ class ManageRetailers extends React.Component {
 
   handleStateChange(k) {
     const { statesData } = this.props
-   
+
     this.filter.stateShortName = statesData[k].short_name
     this.filter.stateName = statesData[k].state_name
 
@@ -195,6 +195,7 @@ class ManageRetailers extends React.Component {
       loadingStates,
       citiesCount,
       retailers,
+      retailersCount,
       loadingRetailers,
       statesData
     } = this.props
@@ -225,101 +226,101 @@ class ManageRetailers extends React.Component {
 
         {
           !loadingRetailers && retailers.length
-          ? <Pagination
-            activePage={parseInt(this.state.activePage)}
-            itemsCountPerPage={10}
-            totalItemsCount={retailers.count}
-            pageRangeDisplayed={5}
-            setPage={this.setPage}
-          />
-          : ''
+            ? <Pagination
+              activePage={parseInt(this.state.activePage)}
+              itemsCountPerPage={10}
+              totalItemsCount={retailersCount}
+              pageRangeDisplayed={5}
+              setPage={this.setPage}
+            />
+            : ''
         }
 
         {
           this.state.shouldMountFilterDialog
-          ? (
-            // <FilterModal
-            //   applyFilter={this.applyFilter}
-            //   title="Filter localities"
-            //   unmountFilterModal={this.unmountFilterModal}
-            // >
-            //   <div>
-            //     <div className="form-group">
-            //       <label>State</label><br />
-            //       <SelectField
-            //         style={{ width: '100%' }}
-            //         floatingLabelText="Choose state"
-            //         value={parseInt(this.state.stateIdx)}
-            //         onChange={this.handleStateChange}
-            //         iconStyle={{ fill: '#9b9b9b' }}
-            //       >
-            //         {
-            //           !loadingStates
-            //           ? (
-            //             statesData.map((state, i) => (
-            //               <MenuItem
-            //                 value={i + 1}
-            //                 key={state.id}
-            //                 primaryText={state.state_name}
-            //               />
-            //             ))
-            //           )
-            //           : ''
-            //         }
-            //       </SelectField>
-            //     </div>
-            //     <div className="form-group">
-            //       <label>City</label><br />
-            //       <SelectField
-            //         style={{ width: '100%' }}
-            //         floatingLabelText="Choose state"
-            //         disabled={loadingCities || !citiesData.length}
-            //         value={parseInt(this.state.cityIdx)}
-            //         onChange={this.handleCityChange}
-            //       >
-            //         {
-            //           !loadingCities && citiesData.length
-            //           ? (
-            //             citiesData.map((city, i) => (
-            //               <MenuItem
-            //                 value={i + 1}
-            //                 key={city.id}
-            //                 primaryText={city.name}
-            //               />
-            //             ))
-            //           )
-            //           : ''
-            //         }
-            //       </SelectField>
-            //     </div>
-            //     <div className="form-group">
-            //       <Checkbox
-            //         style={{ marginTop: '10px' }}
-            //         // disabled={this.props.isDisabled}
-            //         checked={this.state.isLocalityAvailable}
-            //         onCheck={this.handleChangeIsLocalityAvailable}
-            //         name="isLocalityAvailable"
-            //         label="is_available"
-            //       />
-            //     </div>
-            //   </div>
-            // </FilterModal>
-            <FilterModal
-              applyFilter={this.applyFilter}
-              title="Filter localities"
-              unmountFilterModal={this.unmountFilterModal}
-              handleStateChange={this.handleStateChange}
-              handleCityChange={this.handleCityChange}
-              floatingLabelText="Choose state"
-              citiesData={citiesData}
-              statesData={statesData}
-              loadingCities={loadingCities}
-              loadingStates={loadingStates}
-              filterStateAndCity={true}
-              filter="stateAndCityWithIsAvailableCheck"
-            ></FilterModal>
-          )
-          : ''
+            ? (
+              // <FilterModal
+              //   applyFilter={this.applyFilter}
+              //   title="Filter localities"
+              //   unmountFilterModal={this.unmountFilterModal}
+              // >
+              //   <div>
+              //     <div className="form-group">
+              //       <label>State</label><br />
+              //       <SelectField
+              //         style={{ width: '100%' }}
+              //         floatingLabelText="Choose state"
+              //         value={parseInt(this.state.stateIdx)}
+              //         onChange={this.handleStateChange}
+              //         iconStyle={{ fill: '#9b9b9b' }}
+              //       >
+              //         {
+              //           !loadingStates
+              //           ? (
+              //             statesData.map((state, i) => (
+              //               <MenuItem
+              //                 value={i + 1}
+              //                 key={state.id}
+              //                 primaryText={state.state_name}
+              //               />
+              //             ))
+              //           )
+              //           : ''
+              //         }
+              //       </SelectField>
+              //     </div>
+              //     <div className="form-group">
+              //       <label>City</label><br />
+              //       <SelectField
+              //         style={{ width: '100%' }}
+              //         floatingLabelText="Choose state"
+              //         disabled={loadingCities || !citiesData.length}
+              //         value={parseInt(this.state.cityIdx)}
+              //         onChange={this.handleCityChange}
+              //       >
+              //         {
+              //           !loadingCities && citiesData.length
+              //           ? (
+              //             citiesData.map((city, i) => (
+              //               <MenuItem
+              //                 value={i + 1}
+              //                 key={city.id}
+              //                 primaryText={city.name}
+              //               />
+              //             ))
+              //           )
+              //           : ''
+              //         }
+              //       </SelectField>
+              //     </div>
+              //     <div className="form-group">
+              //       <Checkbox
+              //         style={{ marginTop: '10px' }}
+              //         // disabled={this.props.isDisabled}
+              //         checked={this.state.isLocalityAvailable}
+              //         onCheck={this.handleChangeIsLocalityAvailable}
+              //         name="isLocalityAvailable"
+              //         label="is_available"
+              //       />
+              //     </div>
+              //   </div>
+              // </FilterModal>
+              <FilterModal
+                applyFilter={this.applyFilter}
+                title="Filter localities"
+                unmountFilterModal={this.unmountFilterModal}
+                handleStateChange={this.handleStateChange}
+                handleCityChange={this.handleCityChange}
+                floatingLabelText="Choose state"
+                citiesData={citiesData}
+                statesData={statesData}
+                loadingCities={loadingCities}
+                loadingStates={loadingStates}
+                filterStateAndCity={true}
+                filter="stateAndCityWithIsAvailableCheck"
+              ></FilterModal>
+            )
+            : ''
         }
       </div>
     )
