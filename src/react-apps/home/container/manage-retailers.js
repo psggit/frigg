@@ -112,7 +112,7 @@ class ManageRetailers extends React.Component {
       city_id: parseInt(queryObj.cityId) || null,
       is_available: queryObj.isLocalityAvailable || false,
       offset: pageObj.offset,
-      limit: pageObj.offset + 10,
+      limit: 10,
       no_filter: queryObj.filter ? false : true
     })
 
