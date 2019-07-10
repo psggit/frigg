@@ -138,6 +138,7 @@ class CouponForm extends React.Component {
                   name="couponName"
                   value={this.state.couponName}
                   style={inputStyle}
+                  disabled={location.pathname.indexOf("edit") !== -1}
                   required
                   pattern="^[^-\s][a-zA-Z0-9_\s-]+$"
                 />
