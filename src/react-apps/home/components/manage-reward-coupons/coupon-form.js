@@ -4,6 +4,7 @@ import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
+import Checkbox from 'material-ui/Checkbox'
 
 class CouponForm extends React.Component {
   constructor() {
@@ -14,7 +15,11 @@ class CouponForm extends React.Component {
       maxAmount: "",
       startDate: "",
       endDate: "",
-      selectedStatusIdx: 1
+      selectedStatusIdx: 1,
+      cityList: [],
+      loadingCityList: true,
+      mappedCityList: [],
+      cityMap: {}
     }
     this.status = [
       { text: 'Active', value: 1 },
@@ -23,7 +28,27 @@ class CouponForm extends React.Component {
 
     this.handleTextFields = this.handleTextFields.bind(this)
     this.handleDate = this.handleDate.bind(this)
+    this.getData = this.getData.bind(this)
+    this.handleCheckboxes = this.handleCheckboxes.bind(this)
     this.handleStatusChange = this.handleStatusChange.bind(this)
+  }
+
+  componentDidUpdate(newProps) {
+    const cityMap = {}
+    if (this.props.cityList !== newProps.cityList) {
+      const mappedCityList = this.props.cityList.map((item) => {
+        cityMap[item.value] = { city_id: item.value, city_name: item.text, status: false }
+        return { city_id: item.value, city_name: item.text, status: false }
+      })
+
+      console.log("list", mappedCityList, "map", cityMap)
+      this.setState({
+        cityList: this.props.cityList,
+        loadingCityList: this.props.loadingCityList,
+        mappedCityList: mappedCityList,
+        cityMap: cityMap
+      })
+    }
   }
 
   handleTextFields(e) {
@@ -59,7 +84,22 @@ class CouponForm extends React.Component {
     console.log("create coupon")
   }
 
+  handleCheckboxes(e, cityId) {
+    let updatedCityMap = Object.assign({}, this.state.cityMap)
+    updatedCityMap[cityId].status = e.target.checked
+    this.setState({
+      cityMap: updatedCityMap,
+      mappedCityList: Object.values(updatedCityMap)
+    })
+  }
+
+  getData() {
+    return this.state
+  }
+
   render() {
+    const { mappedCityList, loadingCityList, cityMap } = this.state
+    // console.log("city list", cityList)
     const inputStyle = {
       width: '100%',
       border: '0',
@@ -157,13 +197,40 @@ class CouponForm extends React.Component {
                   label="Save"
                   primary
                   disabled={this.props.disableSave}
-                  onClick={this.handleSave}
+                  onClick={this.props.handleSave}
                 />
               </div>
             </form>
           </Card>
         </div>
         <div>
+          <div style={{ width: '50%' }}>
+            <Card style={{
+              padding: '20px',
+              width: '300px',
+              position: 'relative',
+              display: 'block',
+              verticalAlign: 'top',
+              marginRight: '20px'
+            }}
+            >
+              <h4 style={{ margin: '0', marginBottom: '40px' }}>Choose city</h4>
+              {
+                !loadingCityList && mappedCityList.length > 0 &&
+                mappedCityList.map((item, i) => {
+                  return (
+                    <div style={{ display: 'flex', }}>
+                      <Checkbox
+                        checked={cityMap[item.city_id].status}
+                        onCheck={(e) => this.handleCheckboxes(e, item.city_id)}
+                        label={item.city_name}
+                      />
+                    </div>
+                  )
+                })
+              }
+            </Card>
+          </div>
         </div>
       </div>
     )
