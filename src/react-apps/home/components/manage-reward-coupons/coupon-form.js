@@ -117,6 +117,17 @@ class CouponForm extends React.Component {
       fontSize: '14px',
       padding: '0'
     }
+    const disabledInputStyle = {
+      outline: 'none',
+      backgroundColor: 'rgba(0, 0, 0, 0)',
+      color: 'rgba(0, 0, 0, 0.3)',
+      width: '100%',
+      border: '0',
+      borderBottom: '1px solid #9b9b9b',
+      fontSize: '14px',
+      padding: '0',
+      cursor: 'not-allowed'
+    }
     return (
       <div style={{ display: 'flex' }}>
         <div>
@@ -137,7 +148,7 @@ class CouponForm extends React.Component {
                   onChange={this.handleTextFields}
                   name="couponName"
                   value={this.state.couponName}
-                  style={inputStyle}
+                  style={location.pathname.indexOf("edit") !== -1 ? disabledInputStyle : inputStyle}
                   disabled={location.pathname.indexOf("edit") !== -1}
                   required
                   pattern="^[^-\s][a-zA-Z0-9_\s-]+$"
