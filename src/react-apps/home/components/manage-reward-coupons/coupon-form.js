@@ -101,7 +101,6 @@ class CouponForm extends React.Component {
 
   handleSave(e) {
     e.preventDefault()
-    console.log("he")
     this.props.handleSave()
   }
 
