@@ -120,7 +120,7 @@ class CouponForm extends React.Component {
     }
     return (
       <div style={{ display: 'flex' }}>
-        <div style={{ width: '50%' }}>
+        <div>
           <Card style={{
             padding: '20px',
             width: '300px',
@@ -229,7 +229,7 @@ class CouponForm extends React.Component {
           </Card>
         </div>
         <div>
-          <div style={{ width: '50%' }}>
+          <div>
             <Card style={{
               padding: '20px',
               width: '300px',
