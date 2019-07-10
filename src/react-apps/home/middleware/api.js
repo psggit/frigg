@@ -193,6 +193,16 @@ export const createCouponAndMapCities = payload => (
     .then(json => json)
 )
 
+export const updateCouponAndMapCities = payload => (
+  POST({
+    api: '/reward/updateCoupon',
+    apiBase: 'odin',
+    data: payload,
+    handleError: true
+  })
+    .then(json => json)
+)
+
 export const fetchRetailers = action => (
   POST({
     api: '/retailer/fetch',

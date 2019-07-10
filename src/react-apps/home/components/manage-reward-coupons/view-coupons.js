@@ -49,8 +49,8 @@ class ViewCoupons extends React.Component {
     overrideTableStyle()
   }
 
-  editCouponDetails() {
-    this.props.history.push("/home/manage-reward-coupons/edit")
+  editCouponDetails(e, item) {
+    this.props.history.push("/home/manage-reward-coupons/edit", item)
   }
 
   render() {
