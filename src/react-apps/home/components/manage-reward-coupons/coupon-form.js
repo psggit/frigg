@@ -212,6 +212,7 @@ class CouponForm extends React.Component {
                   border: '10px',
                   cursor: 'pointer',
                   textDecoration: 'none',
+                  fontWeight: '600',
                   margin: '0px',
                   padding: '0 40px',
                   outline: 'none',
