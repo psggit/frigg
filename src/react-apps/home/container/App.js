@@ -107,6 +107,9 @@ import ManageBrandManager from "./../container/manage-brand-manager"
 import CreateBrandManager from "./../components/manage-brand-manager/create-brand-manager"
 import EditBrandManager from "./../components/manage-brand-manager/update-brand-manager"
 import MapAnswerToPrediction from "./../components/manage-prediction-answer-mapping/map-answer-to-prediction"
+import RewardCouponList from "./../container/manage-reward-coupons"
+import CreateCoupon from "./../components/manage-reward-coupons/create-coupon"
+import UpdateCoupon from "./../components/manage-reward-coupons/update-coupon"
 // import CreateTeam from "./../components/manage-team/create-team"
 
 
@@ -199,24 +202,24 @@ class App extends React.Component {
     const { isDrawerOpen, headerTitle } = this.state
     return (
       <Router history={history}>
-          <div>
-            <MuiThemeProvider>
-              <div>
-                <Header
-                  logout={this.handleLogout}
-                  isDrawerOpen={isDrawerOpen}
-                  toggleDrawer={this.toggleDrawer}
-                  headerTitle={headerTitle}
-                />
-                <NavigationBar
-                  setHeaderTitle={this.setHeaderTitle}
-                  isDrawerOpen={isDrawerOpen}
-                  toggleDrawer={this.toggleDrawer}
-                  handleCloseDrawer={this.handleCloseDrawer}
-                />
-                <DisplayScreen key={this.state.key}>
-                    <Switch>
-                    <Route exact path="/" component={WelcomeScreen} />
+        <div>
+          <MuiThemeProvider>
+            <div>
+              <Header
+                logout={this.handleLogout}
+                isDrawerOpen={isDrawerOpen}
+                toggleDrawer={this.toggleDrawer}
+                headerTitle={headerTitle}
+              />
+              <NavigationBar
+                setHeaderTitle={this.setHeaderTitle}
+                isDrawerOpen={isDrawerOpen}
+                toggleDrawer={this.toggleDrawer}
+                handleCloseDrawer={this.handleCloseDrawer}
+              />
+              <DisplayScreen key={this.state.key}>
+                <Switch>
+                  <Route exact path="/" component={WelcomeScreen} />
                   <Route exact path="/home" component={WelcomeScreen} />
                   <Route exact path="/home/manage-localities" component={ManageLocalities} />
                   <Route exact path="/home/manage-states" component={ManageStates} />
@@ -348,12 +351,16 @@ class App extends React.Component {
                   <Route exact path="/home/manage-city-mapping/edit/:predictionId" component={UpdateCityToPrediction} />
 
                   <Route exact path="/home/manage-reports" component={ManageReports} />
-                  
-                    </Switch>
-                </DisplayScreen>
-              </div>
-            </MuiThemeProvider>
-          </div>
+
+                  <Route exact path="/home/manage-reward-coupons" component={RewardCouponList} />
+                  <Route exact path="/home/manage-reward-coupons/create" component={CreateCoupon} />
+                  <Route exact path="/home/manage-reward-coupons/edit" component={UpdateCoupon} />
+
+                </Switch>
+              </DisplayScreen>
+            </div>
+          </MuiThemeProvider>
+        </div>
       </Router>
     )
   }

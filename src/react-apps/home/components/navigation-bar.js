@@ -125,7 +125,7 @@ class NavigationBar extends React.Component {
       {
         name: 'City Specific',
         nestedItems: [
-          { name: 'Promos', path: '/home/city-specific-promos', id: 32 },
+          { name: 'Promos', path: '/home/city-specific-promos', id: 33 },
         ]
       },
       {
@@ -138,7 +138,9 @@ class NavigationBar extends React.Component {
           { name: 'Map Answer To Prediction', path: '/home/manage-answer-mapping', id: 30 },
         ]
       },
-      { name: 'Reports', path: '/home/manage-reports', id: 30, nestedItems: [] }
+      { name: 'Reports', path: '/home/manage-reports', id: 34, nestedItems: [] },
+
+      { name: 'Reward Coupons', path: '/home/manage-reward-coupons', id: 35, nestedItems: [] }
     ]
     return (
       <Drawer
