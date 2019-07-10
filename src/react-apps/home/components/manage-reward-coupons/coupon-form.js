@@ -239,7 +239,7 @@ class CouponForm extends React.Component {
               marginRight: '20px'
             }}
             >
-              <h4 style={{ margin: '0', marginBottom: '40px' }}>Map city to coupon</h4>
+              <h4 style={{ margin: '0', marginBottom: '40px' }}>Map cities to coupon</h4>
               {
                 !loadingCityList && mappedCityList.length > 0 &&
                 mappedCityList.map((item, i) => {
