@@ -55,7 +55,7 @@ class CreateCoupon extends React.Component {
         this.props.history.push("/home/manage-reward-coupons")
       })
       .catch((err) => {
-        console.log("Error in creating and mapping cities", err)
+        console.log("Error in creating coupon and mapping cities", err)
         this.setState({ creatingCoupon: false })
       })
   }

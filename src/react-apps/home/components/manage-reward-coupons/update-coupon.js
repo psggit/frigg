@@ -55,7 +55,7 @@ class EditCoupon extends React.Component {
         this.props.history.push("/home/manage-reward-coupons")
       })
       .catch((err) => {
-        console.log("Error in updating and mapping cities", err)
+        console.log("Error in updating coupon and mapping cities", err)
         this.setState({ updatingCoupon: false })
       })
   }
