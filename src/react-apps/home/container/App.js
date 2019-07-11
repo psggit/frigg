@@ -4,7 +4,7 @@ import { Api } from '@utils/config'
 import "whatwg-fetch"
 import { Router } from 'react-router'
 import { connect } from 'react-redux'
-import createHistory from 'history/createBrowserHistory'
+import { createBrowserHistory as createHistory } from 'history'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import Header from './../components/header'
 import NavigationBar from './../components/navigation-bar'

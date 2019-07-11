@@ -34,28 +34,19 @@ class CouponForm extends React.Component {
 
   componentDidUpdate(newProps) {
     const cityMap = {}
-    if (this.props.cityList !== newProps.cityList && location.pathname.indexOf("create") !== -1) {
-      const mappedCityList = this.props.cityList.map((item) => {
+    if (this.props.cityList !== newProps.cityList) {
+      this.props.cityList.map((item) => {
         cityMap[item.value] = { city_id: item.value, city_name: item.text, activity_status: false }
-        return { city_id: item.value, city_name: item.text, activity_status: false }
       })
+      if (location.pathname.indexOf("edit") !== -1) {
+        this.props.data.city_list.map((item) => {
+          cityMap[item.city_id].activity_status = item.activity_status
+        })
+      }
 
       this.setState({
         loadingCityList: this.props.loadingCityList,
-        mappedCityList: mappedCityList,
-        cityMap: cityMap
-      })
-    } else if (this.props.cityList !== newProps.cityList && location.pathname.indexOf("edit") !== -1) {
-      const mappedCityList = this.props.cityList.map((item) => {
-        cityMap[item.value] = { city_id: item.value, city_name: item.text, activity_status: false }
-        return { city_id: item.value, city_name: item.text, activity_status: false }
-      })
-      this.props.data.city_list.map((item) => {
-        cityMap[item.city_id].activity_status = item.activity_status
-      })
-      this.setState({
-        loadingCityList: this.props.loadingCityList,
-        mappedCityList: Object.values(mappedCityList),
+        mappedCityList: Object.values(cityMap),
         cityMap: cityMap
       })
     }
@@ -128,6 +119,30 @@ class CouponForm extends React.Component {
       padding: '0',
       cursor: 'not-allowed'
     }
+
+    const buttonStyle = {
+      border: '10px',
+      cursor: 'pointer',
+      textDecoration: 'none',
+      fontWeight: '600',
+      margin: '0px',
+      padding: '0 40px',
+      outline: 'none',
+      height: '36px',
+      lineHeight: '36px',
+      textTransform: 'uppercase',
+      color: '#fff',
+      borderRadius: '2px',
+      transition: 'all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms',
+      backgroundColor: 'rgb(0, 188, 212)',
+      textAlign: 'center'
+    }
+
+    const disabledButtonStyle = {
+      opacity: 0.5,
+      cursor: 'not-allowed'
+    }
+
     return (
       <div style={{ display: 'flex' }}>
         <div>
@@ -219,23 +234,11 @@ class CouponForm extends React.Component {
                 </SelectField>
               </div>
               <div className="form-group">
-                <button disabled={this.props.disableSave} style={{
-                  border: '10px',
-                  cursor: 'pointer',
-                  textDecoration: 'none',
-                  fontWeight: '600',
-                  margin: '0px',
-                  padding: '0 40px',
-                  outline: 'none',
-                  height: '36px',
-                  lineHeight: '36px',
-                  textTransform: 'uppercase',
-                  color: '#fff',
-                  borderRadius: '2px',
-                  transition: 'all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms',
-                  backgroundColor: 'rgb(0, 188, 212)',
-                  textAlign: 'center',
-                }}>Save</button>
+                <button
+                  disabled={this.props.disableSave}
+                  style={!this.props.disableSave ? buttonStyle : Object.assign(buttonStyle, disabledButtonStyle)}>
+                  Save
+                </button>
               </div>
             </form>
           </Card>
