@@ -21,10 +21,10 @@ const TableHeaderItems = [
   'COUPON NAME',
   'MIN AMOUNT',
   'MAX AMOUNT',
-  'COUPON',
+  'COUNT',
   'START DATE',
   'END DATE',
-  'STATUS'
+  'ACTIVITY STATUS'
 ]
 
 const styles = [
