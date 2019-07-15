@@ -9,11 +9,14 @@ class CouponForm extends React.Component {
     super(props)
     this.state = {
       couponName: props.data ? props.data.coupon_name : "",
+      campaignId: props.data ? props.data.campaign_id : "",
       minAmount: props.data ? props.data.min_amount : "",
       maxAmount: props.data ? props.data.max_amount : "",
       startDate: props.data ? props.data.start_date.slice(0, 16) : "",
       endDate: props.data ? props.data.end_date.slice(0, 16) : "",
       selectedStatusIdx: props.data ? props.data.activity_status ? 1 : 2 : 1,
+      batchId: props.data ? props.data.batch_id : "",
+      count: props.data ? props.data.count : 0,
       cityList: [],
       loadingCityList: true,
       mappedCityList: [],
@@ -158,6 +161,18 @@ class CouponForm extends React.Component {
             <h4 style={{ margin: '0', marginBottom: '40px' }}>Enter coupon details</h4>
             <form onSubmit={this.handleSave}>
               <div className="form-group">
+                <label className="label">Campaign ID</label><br />
+                <input
+                  onChange={this.handleTextFields}
+                  name="campaignId"
+                  value={this.state.campaignId}
+                  style={location.pathname.indexOf("edit") !== -1 ? disabledInputStyle : inputStyle}
+                  disabled={location.pathname.indexOf("edit") !== -1}
+                  required
+                  pattern="[0-9]*"
+                />
+              </div>
+              <div className="form-group">
                 <label className="label">Coupon Name</label><br />
                 <input
                   onChange={this.handleTextFields}
@@ -213,6 +228,30 @@ class CouponForm extends React.Component {
                   style={inputStyle}
                   name="endDate"
                   required
+                />
+              </div>
+              <div className="form-group">
+                <label className="label">Batch ID</label><br />
+                <input
+                  onChange={this.handleTextFields}
+                  name="batchId"
+                  value={this.state.batchId}
+                  style={location.pathname.indexOf("edit") !== -1 ? disabledInputStyle : inputStyle}
+                  disabled={location.pathname.indexOf("edit") !== -1}
+                  required
+                  pattern="^[^-\s][a-zA-Z0-9_\s-]+$"
+                />
+              </div>
+              <div className="form-group">
+                <label className="label">Count</label><br />
+                <input
+                  onChange={this.handleTextFields}
+                  name="count"
+                  pattern="[0-9]*"
+                  required
+                  value={this.state.count}
+                  style={location.pathname.indexOf("edit") !== -1 ? disabledInputStyle : inputStyle}
+                  disabled={location.pathname.indexOf("edit") !== -1}
                 />
               </div>
               <div className="form-group">

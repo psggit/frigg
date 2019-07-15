@@ -16,9 +16,12 @@ import Moment from "moment"
 
 const TableHeaderItems = [
   '',
+  'BATCH ID',
+  'CAMPAIGN ID',
   'COUPON NAME',
   'MIN AMOUNT',
   'MAX AMOUNT',
+  'COUPON',
   'START DATE',
   'END DATE',
   'STATUS'
@@ -29,6 +32,9 @@ const styles = [
   { width: '120px' },
   { width: '120px' },
   { width: '120px' },
+  { width: '120px' },
+  { width: '100px' },
+  { width: '100px' },
   { width: '100px' },
   { width: '100px' },
   { width: '100px' }
@@ -87,12 +93,15 @@ class ViewCoupons extends React.Component {
                             Edit
                           </button>
                         </TableRowColumn>
-                        <TableRowColumn style={styles[1]}>{item.coupon_name}</TableRowColumn>
-                        <TableRowColumn style={styles[2]}>{item.min_amount}</TableRowColumn>
-                        <TableRowColumn style={styles[3]}>{item.max_amount}</TableRowColumn>
-                        <TableRowColumn style={styles[4]}>{Moment(item.start_date).format("DD-MM-YYYY h:mm a")}</TableRowColumn>
-                        <TableRowColumn style={styles[5]}>{Moment(item.end_date).format("DD-MM-YYYY h:mm a")}</TableRowColumn>
-                        <TableRowColumn style={styles[6]}>{item.activity_status ? "Active" : "Inactive"}</TableRowColumn>
+                        <TableRowColumn style={styles[1]}>{item.batch_id}</TableRowColumn>
+                        <TableRowColumn style={styles[2]}>{item.campaign_id}</TableRowColumn>
+                        <TableRowColumn style={styles[3]}>{item.coupon_name}</TableRowColumn>
+                        <TableRowColumn style={styles[4]}>{item.min_amount}</TableRowColumn>
+                        <TableRowColumn style={styles[5]}>{item.max_amount}</TableRowColumn>
+                        <TableRowColumn style={styles[6]}>{item.count}</TableRowColumn>
+                        <TableRowColumn style={styles[7]}>{Moment(item.start_date).format("DD-MM-YYYY h:mm a")}</TableRowColumn>
+                        <TableRowColumn style={styles[8]}>{Moment(item.end_date).format("DD-MM-YYYY h:mm a")}</TableRowColumn>
+                        <TableRowColumn style={styles[9]}>{item.activity_status ? "Active" : "Inactive"}</TableRowColumn>
                       </TableRow>
                     )
                   })
