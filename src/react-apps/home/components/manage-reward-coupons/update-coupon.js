@@ -44,11 +44,12 @@ class EditCoupon extends React.Component {
       coupon_name: couponForm.couponName,
       min_amount: parseFloat(couponForm.minAmount),
       max_amount: parseFloat(couponForm.maxAmount),
-      start_date: couponForm.startDate,
+      start_time: couponForm.startDate,
       batch_id: couponForm.batchId,
       campaign_id: parseInt(couponForm.campaignId),
       count: parseInt(couponForm.count),
-      end_date: couponForm.endDate,
+      end_time: couponForm.endDate,
+      order_type: couponForm.selectedOrderTypeIdx === 1 ? "Pickup" : "PayByWallet",
       activity_status: couponForm.selectedStatusIdx === 1 ? true : false,
       city_list: couponForm.mappedCityList
     })

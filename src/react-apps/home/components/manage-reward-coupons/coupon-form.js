@@ -12,9 +12,10 @@ class CouponForm extends React.Component {
       campaignId: props.data ? props.data.campaign_id : "",
       minAmount: props.data ? props.data.min_amount : "",
       maxAmount: props.data ? props.data.max_amount : "",
-      startDate: props.data ? props.data.start_date.slice(0, 16) : "",
-      endDate: props.data ? props.data.end_date.slice(0, 16) : "",
+      startDate: props.data ? props.data.start_time.slice(0, 16) : "",
+      endDate: props.data ? props.data.end_time.slice(0, 16) : "",
       selectedStatusIdx: props.data ? props.data.activity_status ? 1 : 2 : 1,
+      selectedOrderTypeIdx: props.data ? props.data.order_type === "pickup" ? 1 : 2 : 1,
       batchId: props.data ? props.data.batch_id : "",
       count: props.data ? props.data.count : 0,
       cityList: [],
@@ -27,8 +28,14 @@ class CouponForm extends React.Component {
       { text: 'Inctive', value: 2 }
     ]
 
+    this.orderType = [
+      { text: 'Pickup', value: 1 },
+      { text: 'PayByWallet', value: 2 }
+    ]
+
     this.handleTextFields = this.handleTextFields.bind(this)
     this.handleDate = this.handleDate.bind(this)
+    this.handleOrderTypeChange = this.handleOrderTypeChange.bind(this)
     this.handleSave = this.handleSave.bind(this)
     this.getData = this.getData.bind(this)
     this.handleCheckboxes = this.handleCheckboxes.bind(this)
@@ -69,6 +76,12 @@ class CouponForm extends React.Component {
   handleStatusChange(e, k) {
     this.setState({
       selectedStatusIdx: (this.status[k].value)
+    })
+  }
+
+  handleOrderTypeChange(e, k) {
+    this.setState({
+      selectedOrderTypeIdx: (this.orderType[k].value)
     })
   }
 
@@ -207,7 +220,7 @@ class CouponForm extends React.Component {
                 />
               </div>
               <div className="form-group">
-                <label className="label">Start Date</label><br />
+                <label className="label">Start Time</label><br />
                 <input
                   type='datetime-local'
                   onChange={this.handleDate}
@@ -219,7 +232,7 @@ class CouponForm extends React.Component {
                 />
               </div>
               <div className="form-group">
-                <label className="label">End Date</label><br />
+                <label className="label">End Time</label><br />
                 <input
                   type='datetime-local'
                   onChange={this.handleDate}
@@ -253,6 +266,24 @@ class CouponForm extends React.Component {
                   style={location.pathname.indexOf("edit") !== -1 ? disabledInputStyle : inputStyle}
                   disabled={location.pathname.indexOf("edit") !== -1}
                 />
+              </div>
+              <div className="form-group">
+                <label className="label">Order Type</label><br />
+                <SelectField
+                  value={this.state.selectedOrderTypeIdx}
+                  onChange={this.handleOrderTypeChange}
+                  style={{ width: '100%' }}
+                >
+                  {
+                    this.orderType.map((item, i) => (
+                      <MenuItem
+                        value={parseInt(item.value)}
+                        key={parseInt(item.value)}
+                        primaryText={item.text}
+                      />
+                    ))
+                  }
+                </SelectField>
               </div>
               <div className="form-group">
                 <label className="label">Status</label><br />

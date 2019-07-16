@@ -44,11 +44,12 @@ class CreateCoupon extends React.Component {
       coupon_name: couponForm.couponName,
       min_amount: parseFloat(couponForm.minAmount),
       max_amount: parseFloat(couponForm.maxAmount),
-      start_date: couponForm.startDate,
-      end_date: couponForm.endDate,
+      start_time: couponForm.startDate,
+      end_time: couponForm.endDate,
       batch_id: couponForm.batchId,
       campaign_id: parseInt(couponForm.campaignId),
       count: parseInt(couponForm.count),
+      order_type: couponForm.selectedOrderTypeIdx === 1 ? "Pickup" : "PayByWallet",
       activity_status: couponForm.selectedStatusIdx === 1 ? true : false,
       city_list: couponForm.mappedCityList
     })
