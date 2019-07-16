@@ -46,8 +46,8 @@ class EditCoupon extends React.Component {
       max_amount: parseFloat(couponForm.maxAmount),
       start_date: couponForm.startDate,
       batch_id: couponForm.batchId,
-      campaign_id: couponForm.campaignId,
-      count: couponForm.count,
+      campaign_id: parseInt(couponForm.campaignId),
+      count: parseInt(couponForm.count),
       end_date: couponForm.endDate,
       activity_status: couponForm.selectedStatusIdx === 1 ? true : false,
       city_list: couponForm.mappedCityList

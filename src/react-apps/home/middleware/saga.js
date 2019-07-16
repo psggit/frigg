@@ -1164,7 +1164,8 @@ function* createTransaction(action) {
       action.CB()
     }, 3000)
   } catch (err) {
-    Notify('Error in creating transaction', 'warning')
+    // Notify('Error in creating transaction', 'warning')
+    err.response.json().then(json => { Notify(json.message, "warning") })
     console.log(err)
   }
 }

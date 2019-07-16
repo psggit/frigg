@@ -47,8 +47,8 @@ class CreateCoupon extends React.Component {
       start_date: couponForm.startDate,
       end_date: couponForm.endDate,
       batch_id: couponForm.batchId,
-      campaign_id: couponForm.campaignId,
-      count: couponForm.count,
+      campaign_id: parseInt(couponForm.campaignId),
+      count: parseInt(couponForm.count),
       activity_status: couponForm.selectedStatusIdx === 1 ? true : false,
       city_list: couponForm.mappedCityList
     })
