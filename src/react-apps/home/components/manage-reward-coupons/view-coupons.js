@@ -21,7 +21,7 @@ const TableHeaderItems = [
   'COUPON NAME',
   'MIN AMOUNT',
   'MAX AMOUNT',
-  'EXPIRY',
+  'EXPIRY (in days)',
   'ORDER TYPE',
   'COUNT',
   'START TIME',
