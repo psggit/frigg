@@ -176,11 +176,35 @@ class CouponForm extends React.Component {
             <h4 style={{ margin: '0', marginBottom: '40px' }}>Enter coupon details</h4>
             <form onSubmit={this.handleSave}>
               <div className="form-group">
+                <label className="label">Batch ID</label><br />
+                <input
+                  onChange={this.handleTextFields}
+                  name="batchId"
+                  value={this.state.batchId}
+                  style={location.pathname.indexOf("edit") !== -1 ? disabledInputStyle : inputStyle}
+                  disabled={location.pathname.indexOf("edit") !== -1}
+                  required
+                  pattern="^[^-\s][a-zA-Z0-9_\s-]+$"
+                />
+              </div>
+              <div className="form-group">
                 <label className="label">Campaign ID</label><br />
                 <input
                   onChange={this.handleTextFields}
                   name="campaignId"
                   value={this.state.campaignId}
+                  style={location.pathname.indexOf("edit") !== -1 ? disabledInputStyle : inputStyle}
+                  disabled={location.pathname.indexOf("edit") !== -1}
+                  required
+                  pattern="[0-9]*"
+                />
+              </div>
+              <div className="form-group">
+                <label className="label">Coupon ID</label><br />
+                <input
+                  onChange={this.handleTextFields}
+                  name="couponId"
+                  value={this.state.couponId}
                   style={location.pathname.indexOf("edit") !== -1 ? disabledInputStyle : inputStyle}
                   disabled={location.pathname.indexOf("edit") !== -1}
                   required
@@ -243,18 +267,6 @@ class CouponForm extends React.Component {
                   style={inputStyle}
                   name="endDate"
                   required
-                />
-              </div>
-              <div className="form-group">
-                <label className="label">Coupon ID</label><br />
-                <input
-                  onChange={this.handleTextFields}
-                  name="couponId"
-                  value={this.state.couponId}
-                  style={location.pathname.indexOf("edit") !== -1 ? disabledInputStyle : inputStyle}
-                  disabled={location.pathname.indexOf("edit") !== -1}
-                  required
-                  pattern="[0-9]*"
                 />
               </div>
               <div className="form-group">

@@ -16,6 +16,7 @@ import Moment from "moment"
 
 const TableHeaderItems = [
   '',
+  'BATCH ID',
   'CAMPAIGN ID',
   'COUPON ID',
   'COUPON NAME',
@@ -31,6 +32,7 @@ const TableHeaderItems = [
 
 const styles = [
   { width: '38px' },
+  { width: '120px' },
   { width: '120px' },
   { width: '120px' },
   { width: '120px' },
@@ -97,17 +99,18 @@ class ViewCoupons extends React.Component {
                             Edit
                           </button>
                         </TableRowColumn>
-                        <TableRowColumn style={styles[1]}>{item.campaign_id}</TableRowColumn>
-                        <TableRowColumn style={styles[2]}>{item.coupon_id}</TableRowColumn>
-                        <TableRowColumn style={styles[3]}>{item.coupon_name}</TableRowColumn>
-                        <TableRowColumn style={styles[4]}>{item.min_amount}</TableRowColumn>
-                        <TableRowColumn style={styles[5]}>{item.max_amount}</TableRowColumn>
-                        <TableRowColumn style={styles[6]}>{item.expiry}</TableRowColumn>
-                        <TableRowColumn style={styles[7]}>{item.order_type}</TableRowColumn>
-                        <TableRowColumn style={styles[8]}>{item.count}</TableRowColumn>
-                        <TableRowColumn style={styles[9]}>{Moment(item.start_time).format("DD-MM-YYYY h:mm a")}</TableRowColumn>
-                        <TableRowColumn style={styles[10]}>{Moment(item.end_time).format("DD-MM-YYYY h:mm a")}</TableRowColumn>
-                        <TableRowColumn style={styles[11]}>{item.activity_status ? "Active" : "Inactive"}</TableRowColumn>
+                        <TableRowColumn style={styles[1]}>{item.batch_id}</TableRowColumn>
+                        <TableRowColumn style={styles[2]}>{item.campaign_id}</TableRowColumn>
+                        <TableRowColumn style={styles[3]}>{item.coupon_id}</TableRowColumn>
+                        <TableRowColumn style={styles[4]}>{item.coupon_name}</TableRowColumn>
+                        <TableRowColumn style={styles[5]}>{item.min_amount}</TableRowColumn>
+                        <TableRowColumn style={styles[6]}>{item.max_amount}</TableRowColumn>
+                        <TableRowColumn style={styles[7]}>{item.expiry}</TableRowColumn>
+                        <TableRowColumn style={styles[8]}>{item.order_type}</TableRowColumn>
+                        <TableRowColumn style={styles[9]}>{item.count}</TableRowColumn>
+                        <TableRowColumn style={styles[10]}>{Moment(item.start_time).format("DD-MM-YYYY h:mm a")}</TableRowColumn>
+                        <TableRowColumn style={styles[11]}>{Moment(item.end_time).format("DD-MM-YYYY h:mm a")}</TableRowColumn>
+                        <TableRowColumn style={styles[12]}>{item.activity_status ? "Active" : "Inactive"}</TableRowColumn>
                       </TableRow>
                     )
                   })
