@@ -21,6 +21,7 @@ const TableHeaderItems = [
   'COUPON NAME',
   'MIN AMOUNT',
   'MAX AMOUNT',
+  'EXPIRY',
   'ORDER TYPE',
   'COUNT',
   'START TIME',
@@ -34,6 +35,7 @@ const styles = [
   { width: '120px' },
   { width: '120px' },
   { width: '120px' },
+  { width: '150px' },
   { width: '150px' },
   { width: '100px' },
   { width: '100px' },
@@ -100,11 +102,12 @@ class ViewCoupons extends React.Component {
                         <TableRowColumn style={styles[3]}>{item.coupon_name}</TableRowColumn>
                         <TableRowColumn style={styles[4]}>{item.min_amount}</TableRowColumn>
                         <TableRowColumn style={styles[5]}>{item.max_amount}</TableRowColumn>
-                        <TableRowColumn style={styles[6]}>{item.order_type}</TableRowColumn>
-                        <TableRowColumn style={styles[7]}>{item.count}</TableRowColumn>
-                        <TableRowColumn style={styles[8]}>{Moment(item.start_time).format("DD-MM-YYYY h:mm a")}</TableRowColumn>
-                        <TableRowColumn style={styles[9]}>{Moment(item.end_time).format("DD-MM-YYYY h:mm a")}</TableRowColumn>
-                        <TableRowColumn style={styles[10]}>{item.activity_status ? "Active" : "Inactive"}</TableRowColumn>
+                        <TableRowColumn style={styles[6]}>{item.expiry}</TableRowColumn>
+                        <TableRowColumn style={styles[7]}>{item.order_type}</TableRowColumn>
+                        <TableRowColumn style={styles[8]}>{item.count}</TableRowColumn>
+                        <TableRowColumn style={styles[9]}>{Moment(item.start_time).format("DD-MM-YYYY h:mm a")}</TableRowColumn>
+                        <TableRowColumn style={styles[10]}>{Moment(item.end_time).format("DD-MM-YYYY h:mm a")}</TableRowColumn>
+                        <TableRowColumn style={styles[11]}>{item.activity_status ? "Active" : "Inactive"}</TableRowColumn>
                       </TableRow>
                     )
                   })

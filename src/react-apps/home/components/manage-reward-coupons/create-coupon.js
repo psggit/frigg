@@ -50,6 +50,7 @@ class CreateCoupon extends React.Component {
       coupon_id: couponForm.couponId,
       campaign_id: parseInt(couponForm.campaignId),
       count: parseInt(couponForm.count),
+      expiry: parseInt(couponForm.expiry),
       order_type: couponForm.selectedOrderTypeIdx === 1 ? "Pickup" : "PayByWallet",
       activity_status: couponForm.selectedStatusIdx === 1 ? true : false,
       city_list: couponForm.mappedCityList

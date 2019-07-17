@@ -19,6 +19,7 @@ class CouponForm extends React.Component {
       // batchId: props.data ? props.data.batch_id : "",
       couponId: props.data ? props.data.coupon_id : "",
       count: props.data ? props.data.count : 0,
+      expiry: props.data ? props.data.expiry : 0,
       cityList: [],
       loadingCityList: true,
       mappedCityList: [],
@@ -264,6 +265,18 @@ class CouponForm extends React.Component {
                   pattern="[0-9]*"
                   required
                   value={this.state.count}
+                  style={location.pathname.indexOf("edit") !== -1 ? disabledInputStyle : inputStyle}
+                  disabled={location.pathname.indexOf("edit") !== -1}
+                />
+              </div>
+              <div className="form-group">
+                <label className="label">Expiry (in days)</label><br />
+                <input
+                  onChange={this.handleTextFields}
+                  name="expity"
+                  pattern="[0-9]*"
+                  required
+                  value={this.state.expiry}
                   style={location.pathname.indexOf("edit") !== -1 ? disabledInputStyle : inputStyle}
                   disabled={location.pathname.indexOf("edit") !== -1}
                 />
