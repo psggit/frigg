@@ -285,7 +285,7 @@ class CouponForm extends React.Component {
                 <label className="label">Expiry (in days)</label><br />
                 <input
                   onChange={this.handleTextFields}
-                  name="expity"
+                  name="expiry"
                   pattern="[0-9]*"
                   required
                   value={this.state.expiry}
