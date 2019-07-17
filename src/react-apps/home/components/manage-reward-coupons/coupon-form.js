@@ -16,7 +16,8 @@ class CouponForm extends React.Component {
       endDate: props.data ? props.data.end_time.slice(0, 16) : "",
       selectedStatusIdx: props.data ? props.data.activity_status ? 1 : 2 : 1,
       selectedOrderTypeIdx: props.data ? props.data.order_type.toLowerCase().trim() === "pickup" ? 1 : 2 : 1,
-      batchId: props.data ? props.data.batch_id : "",
+      // batchId: props.data ? props.data.batch_id : "",
+      couponId: props.data ? props.data.coupon_id : "",
       count: props.data ? props.data.count : 0,
       cityList: [],
       loadingCityList: true,
@@ -244,15 +245,15 @@ class CouponForm extends React.Component {
                 />
               </div>
               <div className="form-group">
-                <label className="label">Batch ID</label><br />
+                <label className="label">Coupon ID</label><br />
                 <input
                   onChange={this.handleTextFields}
-                  name="batchId"
-                  value={this.state.batchId}
+                  name="couponId"
+                  value={this.state.couponId}
                   style={location.pathname.indexOf("edit") !== -1 ? disabledInputStyle : inputStyle}
                   disabled={location.pathname.indexOf("edit") !== -1}
                   required
-                  pattern="^[^-\s][a-zA-Z0-9_\s-]+$"
+                  pattern="[0-9]*"
                 />
               </div>
               <div className="form-group">

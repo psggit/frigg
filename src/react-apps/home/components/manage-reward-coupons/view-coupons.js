@@ -16,8 +16,8 @@ import Moment from "moment"
 
 const TableHeaderItems = [
   '',
-  'BATCH ID',
   'CAMPAIGN ID',
+  'COUPON ID',
   'COUPON NAME',
   'MIN AMOUNT',
   'MAX AMOUNT',
@@ -95,8 +95,8 @@ class ViewCoupons extends React.Component {
                             Edit
                           </button>
                         </TableRowColumn>
-                        <TableRowColumn style={styles[1]}>{item.batch_id}</TableRowColumn>
-                        <TableRowColumn style={styles[2]}>{item.campaign_id}</TableRowColumn>
+                        <TableRowColumn style={styles[1]}>{item.campaign_id}</TableRowColumn>
+                        <TableRowColumn style={styles[2]}>{item.coupon_id}</TableRowColumn>
                         <TableRowColumn style={styles[3]}>{item.coupon_name}</TableRowColumn>
                         <TableRowColumn style={styles[4]}>{item.min_amount}</TableRowColumn>
                         <TableRowColumn style={styles[5]}>{item.max_amount}</TableRowColumn>
