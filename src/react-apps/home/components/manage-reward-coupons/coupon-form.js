@@ -15,7 +15,7 @@ class CouponForm extends React.Component {
       startDate: props.data ? props.data.start_time.slice(0, 16) : "",
       endDate: props.data ? props.data.end_time.slice(0, 16) : "",
       selectedStatusIdx: props.data ? props.data.activity_status ? 1 : 2 : 1,
-      selectedOrderTypeIdx: props.data ? props.data.order_type === "pickup" ? 1 : 2 : 1,
+      selectedOrderTypeIdx: props.data ? props.data.order_type === "Pickup" ? 1 : 2 : 1,
       batchId: props.data ? props.data.batch_id : "",
       count: props.data ? props.data.count : 0,
       cityList: [],
