@@ -232,7 +232,6 @@ class CouponForm extends React.Component {
                   value={this.state.message}
                   style={inputStyle}
                   required
-                  pattern="^[^-\s][a-zA-Z0-9_\s-]+$"
                 />
               </div>
               <div className="form-group">
