@@ -9,6 +9,7 @@ class CouponForm extends React.Component {
     super(props)
     this.state = {
       couponName: props.data ? props.data.coupon_name : "",
+      message: props.data ? props.data.message : "",
       campaignId: props.data ? props.data.campaign_id : "",
       minAmount: props.data ? props.data.min_amount : "",
       maxAmount: props.data ? props.data.max_amount : "",
@@ -219,6 +220,17 @@ class CouponForm extends React.Component {
                   value={this.state.couponName}
                   style={location.pathname.indexOf("edit") !== -1 ? disabledInputStyle : inputStyle}
                   disabled={location.pathname.indexOf("edit") !== -1}
+                  required
+                  pattern="^[^-\s][a-zA-Z0-9_\s-]+$"
+                />
+              </div>
+              <div className="form-group">
+                <label className="label">Message</label><br />
+                <input
+                  onChange={this.handleTextFields}
+                  name="message"
+                  value={this.state.message}
+                  style={inputStyle}
                   required
                   pattern="^[^-\s][a-zA-Z0-9_\s-]+$"
                 />

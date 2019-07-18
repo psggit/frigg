@@ -51,6 +51,7 @@ class EditCoupon extends React.Component {
       count: parseInt(couponForm.count),
       expiry: parseInt(couponForm.expiry),
       end_time: couponForm.endDate,
+      message: couponForm.message,
       order_type: couponForm.selectedOrderTypeIdx === 1 ? "Pickup" : "PayByWallet",
       activity_status: couponForm.selectedStatusIdx === 1 ? true : false,
       city_list: couponForm.mappedCityList
