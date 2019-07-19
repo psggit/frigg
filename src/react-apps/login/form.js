@@ -56,7 +56,7 @@ class Form extends React.Component {
 
     this.setState({ isSubmitting: true })
 
-    fetch(`${Api.authUrl}/login`, fetchOptions)
+    fetch(`${Api.gremlinUrl}/auth/login`, fetchOptions)
       .then((response) => {
         if (response.status !== 200) {
           response.json().then(json => {
