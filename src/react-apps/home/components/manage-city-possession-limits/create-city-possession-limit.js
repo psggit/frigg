@@ -15,12 +15,12 @@ class CreateCityPossessionLimit extends React.Component {
   componentDidMount() {
     this.props.actions.setLoadingState('creatingCityPossessionLimit')
     this.props.actions.fetchCities({
-        state_short_name: null,
-        is_available: false,
-        offset: 0,
-        limit: 10,
-        deliverable_city: true,
-        no_filter: true
+      state_short_name: null,
+      is_available: false,
+      offset: 0,
+      limit: 10000,
+      deliverable_city: true,
+      no_filter: true
     })
   }
 
@@ -53,9 +53,9 @@ class CreateCityPossessionLimit extends React.Component {
     return (
       <PossessionLimitForm
         ref={(node) => { this.possessionLimitForm = node }}
-				handleSave={this.handleSave}
-				cityList={this.props.citiesData}
-				disableCityChange={false}
+        handleSave={this.handleSave}
+        cityList={this.props.citiesData}
+        disableCityChange={false}
         disableSave={!this.props.creatingCityPossessionLimit}
       />
     )

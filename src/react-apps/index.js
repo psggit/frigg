@@ -3,7 +3,7 @@ import React from 'react'
 import { render } from 'react-dom'
 import { Redirect } from 'react-router'
 import asyncComponent from './asyncComponent'
-import {  Api } from '@utils/config'
+import { Api } from '@utils/config'
 import {
   BrowserRouter as Router,
   Route

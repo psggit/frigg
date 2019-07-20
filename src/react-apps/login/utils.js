@@ -18,7 +18,7 @@ export function getHasuraRole(data) {
   }
   let maxRole = rolesMap["user"]
   let xHasuraRole = "user"
-  for(let i=0; i<hasuraRoles.length; i++) {
+  for (let i = 0; i < hasuraRoles.length; i++) {
     if (maxRole <= rolesMap[hasuraRoles[i]]) {
       maxRole = rolesMap[hasuraRoles[i]]
       xHasuraRole = hasuraRoles[i]
