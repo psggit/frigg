@@ -10,13 +10,16 @@ class CouponForm extends React.Component {
     this.state = {
       couponName: props.data ? props.data.coupon_name : "",
       message: props.data ? props.data.message : "",
+      expiryMessage: props.data ? props.data.expiry_message : "",
       campaignId: props.data ? props.data.campaign_id : "",
       minAmount: props.data ? props.data.min_amount : "",
       maxAmount: props.data ? props.data.max_amount : "",
       startDate: props.data ? props.data.start_time.slice(0, 16) : "",
       endDate: props.data ? props.data.end_time.slice(0, 16) : "",
       selectedStatusIdx: props.data ? props.data.activity_status ? 1 : 2 : 1,
-      selectedOrderTypeIdx: props.data ? props.data.order_type.toLowerCase().trim() === "pickup" ? 1 : 2 : 1,
+      selectedOrderTypeIdx: props.data ?
+        props.data.order_type.toLowerCase().trim() !== "both"
+          ? props.data.order_type.toLowerCase().trim() === "pickup" ? 1 : 2 : 3 : 1,
       batchId: props.data ? props.data.batch_id : "",
       couponId: props.data ? props.data.coupon_id : "",
       count: props.data ? props.data.count : 0,
@@ -33,7 +36,8 @@ class CouponForm extends React.Component {
 
     this.orderType = [
       { text: 'Pickup', value: 1 },
-      { text: 'PayByWallet', value: 2 }
+      { text: 'PayByWallet', value: 2 },
+      { text: 'Both', value: 3 }
     ]
 
     this.handleTextFields = this.handleTextFields.bind(this)
@@ -230,6 +234,16 @@ class CouponForm extends React.Component {
                   onChange={this.handleTextFields}
                   name="message"
                   value={this.state.message}
+                  style={inputStyle}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label className="label">Expiry Message</label><br />
+                <input
+                  onChange={this.handleTextFields}
+                  name="expiryMessage"
+                  value={this.state.expiryMessage}
                   style={inputStyle}
                   required
                 />
