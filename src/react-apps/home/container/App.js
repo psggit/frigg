@@ -42,6 +42,7 @@ import CreateConsumerAd from './../components/manage-consumer-ads/create-ad'
 import ManageCollectionAds from './manage-collection-ads'
 import ManageCollections from './manage-collections'
 import UploadSearchData from './upload-search-data'
+import UploadGiftCardDetails from './upload-purchased-gift-card-details'
 import GeoFenceCheck from './geo-fence-check'
 import DeliveyAgentList from './../components/delivery-management/delivery-agent-list'
 import CreateDeliveryAgent from './../components/delivery-management/create-delivery-agent'
@@ -351,6 +352,8 @@ class App extends React.Component {
                   <Route exact path="/home/manage-city-mapping/edit/:predictionId" component={UpdateCityToPrediction} />
 
                   <Route exact path="/home/manage-reports" component={ManageReports} />
+
+                  <Route exact path="/home/manage-gift-reconciliation" component={UploadGiftCardDetails} />
 
                   <Route exact path="/home/manage-reward-coupons" component={RewardCouponList} />
                   <Route exact path="/home/manage-reward-coupons/create" component={CreateCoupon} />
