@@ -283,6 +283,38 @@ export const fetchUnmappedRetailersToDp = action => (
     .then(json => json)
 )
 
+// export const uploadGiftCardData = action => (
+//   POST({
+//     api: '/Api/gift/report',
+//     apiBase: 'reports',
+//     data: action.data,
+//     handleError: true
+//   })
+//     .then(json => json)
+// )
+
+export function uploadGiftCardData(action) {
+  console.log("data", action.data)
+  return POST({
+    api: '/Api/gift/report',
+    apiBase: 'reports',
+    data: action.data,
+    handleError: true,
+    type: 'FormData'
+  })
+    .then(json => json)
+}
+
+export const reconcile = action => (
+  POST({
+    api: '/Api/reconcile/gift',
+    apiBase: 'reports',
+    data: action.data,
+    handleError: true
+  })
+    .then(json => json)
+)
+
 export const fetchUnmappedRetailersToLocality = action => (
   POST({
     api: '/retailer/unmappedRetailersToLocality',

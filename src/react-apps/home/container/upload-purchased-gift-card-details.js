@@ -20,47 +20,48 @@ class UploadPurchasedGiftCardDetails extends React.Component {
   }
 
   handleSubmit() {
+    // console.log("stat", this.state)
     const formData = new FormData()
+    console.log("form data", formData)
     formData.append('data', this.state.data)
+    console.log("form data1", formData)
     this.setState({
       uploadingCsv: true
     })
-    // Api.uploadGiftCardData({
-    //   data: formData
-    // })
-    //   .then((response) => {
-    //     console.log("response", response)
-    // this.setState({
-    //   uploadingCsv: false
-    // })
-    //   })
-    //   .catch((err) => {
-    //      console.log("Error", err)
-    // this.setState({
-    //   uploadingCsv: false
-    // })  
-    //   })
+    Api.uploadGiftCardData({
+      data: formData
+    })
+      .then((response) => {
+        console.log("response", response)
+        this.setState({
+          uploadingCsv: false
+        })
+      })
+      .catch((err) => {
+        console.log("Error", err)
+        this.setState({
+          uploadingCsv: false
+        })
+      })
   }
 
   handleIndexSearchData() {
     this.setState({
       reconciliing: true
     })
-    // Api.reconcile({
-
-    // })
-    //   .then((response) => {
-    //      console.log("Response", response)
-    // this.setState({
-    //   reconciliing: false
-    // })
-    //   })
-    //   .catch((err) => {
-    //      console.log("Error", err)
-    // this.setState({
-    //   reconciliing: false
-    // })
-    //   })
+    Api.reconcile({})
+      .then((response) => {
+        console.log("Response", response)
+        this.setState({
+          reconciliing: false
+        })
+      })
+      .catch((err) => {
+        console.log("Error", err)
+        this.setState({
+          reconciliing: false
+        })
+      })
   }
 
   handleUploadClick() {
@@ -70,6 +71,7 @@ class UploadPurchasedGiftCardDetails extends React.Component {
   handleChange(e) {
     this.setState({ message: 'Choose csv file' })
     const file = e.target.files[0]
+    console.log("file", file)
     this.setState({
       data: file,
       message: file.name
@@ -103,7 +105,7 @@ class UploadPurchasedGiftCardDetails extends React.Component {
         <RaisedButton
           onClick={this.handleSubmit}
           primary
-          disabled={!uploadingCsv}
+          // disabled={!uploadingCsv}
           label="Save"
         />
         <RaisedButton
