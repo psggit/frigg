@@ -10,8 +10,8 @@ class UploadPurchasedGiftCardDetails extends React.Component {
     this.state = {
       message: 'Choose a csv file',
       data: '',
-      uploadingCsv: true,
-      reconciliing: false
+      uploadingCsv: false,
+      reconciling: true
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleUploadClick = this.handleUploadClick.bind(this)
@@ -22,9 +22,7 @@ class UploadPurchasedGiftCardDetails extends React.Component {
   handleSubmit() {
     // console.log("stat", this.state)
     const formData = new FormData()
-    console.log("form data", formData)
     formData.append('data', this.state.data)
-    console.log("form data1", formData)
     this.setState({
       uploadingCsv: true
     })
@@ -32,13 +30,12 @@ class UploadPurchasedGiftCardDetails extends React.Component {
       data: formData
     })
       .then((response) => {
-        console.log("response", response)
         this.setState({
-          uploadingCsv: false
+          uploadingCsv: false,
+          reconciling: false
         })
       })
       .catch((err) => {
-        console.log("Error", err)
         this.setState({
           uploadingCsv: false
         })
@@ -47,19 +44,17 @@ class UploadPurchasedGiftCardDetails extends React.Component {
 
   handleIndexSearchData() {
     this.setState({
-      reconciliing: true
+      reconciling: true
     })
     Api.reconcile({})
       .then((response) => {
-        console.log("Response", response)
         this.setState({
-          reconciliing: false
+          reconciling: false
         })
       })
       .catch((err) => {
-        console.log("Error", err)
         this.setState({
-          reconciliing: false
+          reconciling: false
         })
       })
   }
@@ -71,7 +66,6 @@ class UploadPurchasedGiftCardDetails extends React.Component {
   handleChange(e) {
     this.setState({ message: 'Choose csv file' })
     const file = e.target.files[0]
-    console.log("file", file)
     this.setState({
       data: file,
       message: file.name
@@ -79,7 +73,7 @@ class UploadPurchasedGiftCardDetails extends React.Component {
   }
 
   render() {
-    const { uploadingCsv } = this.state
+    const { uploadingCsv, reconciling } = this.state
     return (
       <div style={{
         width: '100%',
@@ -105,13 +99,13 @@ class UploadPurchasedGiftCardDetails extends React.Component {
         <RaisedButton
           onClick={this.handleSubmit}
           primary
-          // disabled={!uploadingCsv}
+          disabled={uploadingCsv}
           label="Save"
         />
         <RaisedButton
           style={{ marginLeft: '20px' }}
           onClick={this.handleIndexSearchData}
-          disabled={uploadingCsv}
+          disabled={reconciling}
           primary
           label="Reconciliation"
         />
