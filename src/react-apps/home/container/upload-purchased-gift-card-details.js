@@ -71,7 +71,7 @@ class UploadPurchasedGiftCardDetails extends React.Component {
   }
 
   handleChange(e) {
-    this.setState({ message: 'Choose csv file' })
+    this.setState({ message: 'Choose csv file', data: null })
     const allowedTypes = ['text/csv', 'application/vnd.ms-excel'];
     if (allowedTypes.indexOf(e.target.files[0].type) !== -1) {
       const file = e.target.files[0]
