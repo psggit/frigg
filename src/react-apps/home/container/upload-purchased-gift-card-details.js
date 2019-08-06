@@ -3,13 +3,14 @@ import RaisedButton from 'material-ui/RaisedButton'
 import getIcon from './../components/icon-utils'
 import '@sass/components/_file-uploader.scss'
 import * as Api from "./../middleware/api"
+import Notify from '@components/Notification'
 
 class UploadPurchasedGiftCardDetails extends React.Component {
   constructor() {
     super()
     this.state = {
       message: 'Choose a csv file',
-      data: '',
+      data: null,
       uploadingCsv: false,
       reconciling: true
     }
@@ -20,26 +21,30 @@ class UploadPurchasedGiftCardDetails extends React.Component {
   }
 
   handleSubmit() {
-    // console.log("stat", this.state)
-    const formData = new FormData()
-    formData.append('data', this.state.data)
-    this.setState({
-      uploadingCsv: true
-    })
-    Api.uploadGiftCardData({
-      data: formData
-    })
-      .then((response) => {
-        this.setState({
-          uploadingCsv: false,
-          reconciling: false
-        })
+    console.log("stat", this.state)
+    if (this.state.data) {
+      const formData = new FormData()
+      formData.append('data', this.state.data)
+      this.setState({
+        uploadingCsv: true
       })
-      .catch((err) => {
-        this.setState({
-          uploadingCsv: false
-        })
+      Api.uploadGiftCardData({
+        data: formData
       })
+        .then((response) => {
+          Notify("Successfully uploaded report", "success")
+          this.setState({
+            uploadingCsv: false,
+            reconciling: false
+          })
+        })
+        .catch((err) => {
+          Notify("Something went wrong", "warning")
+          this.setState({
+            uploadingCsv: false
+          })
+        })
+    }
   }
 
   handleIndexSearchData() {
@@ -48,11 +53,13 @@ class UploadPurchasedGiftCardDetails extends React.Component {
     })
     Api.reconcile({})
       .then((response) => {
+        Notify("Reconciled successfully", "success")
         this.setState({
           reconciling: false
         })
       })
       .catch((err) => {
+        Notify("Something went wrong", "warning")
         this.setState({
           reconciling: false
         })
@@ -65,15 +72,18 @@ class UploadPurchasedGiftCardDetails extends React.Component {
 
   handleChange(e) {
     this.setState({ message: 'Choose csv file' })
-    const file = e.target.files[0]
-    this.setState({
-      data: file,
-      message: file.name
-    })
+    const allowedTypes = ['text/csv', 'application/vnd.ms-excel'];
+    if (allowedTypes.indexOf(e.target.files[0].type) !== -1) {
+      const file = e.target.files[0]
+      this.setState({
+        data: file,
+        message: file.name
+      })
+    }
   }
 
   render() {
-    const { uploadingCsv, reconciling } = this.state
+    const { uploadingCsv, reconciling, data } = this.state
     return (
       <div style={{
         width: '100%',
