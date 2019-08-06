@@ -79,6 +79,8 @@ class UploadPurchasedGiftCardDetails extends React.Component {
         data: file,
         message: file.name
       })
+    } else {
+      Notify("Please upload (.csv) file", "warning")
     }
   }
 
@@ -117,7 +119,7 @@ class UploadPurchasedGiftCardDetails extends React.Component {
           onClick={this.handleIndexSearchData}
           disabled={reconciling}
           primary
-          label="Reconciliation"
+          label="Reconcile"
         />
       </div>
     )
