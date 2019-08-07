@@ -39,7 +39,8 @@ class UploadPurchasedGiftCardDetails extends React.Component {
           })
         })
         .catch((err) => {
-          Notify("Something went wrong", "warning")
+          // Notify("Something went wrong", "warning")
+          err.response.json().then(json => { Notify(json.message, "warning") })
           this.setState({
             uploadingCsv: false
           })
@@ -59,7 +60,8 @@ class UploadPurchasedGiftCardDetails extends React.Component {
         })
       })
       .catch((err) => {
-        Notify("Something went wrong", "warning")
+        // Notify("Something went wrong", "warning")
+        err.response.json().then(json => { Notify(json.message, "warning") })
         this.setState({
           reconciling: false
         })
