@@ -12,7 +12,7 @@ class UploadPurchasedGiftCardDetails extends React.Component {
       message: 'Choose a csv file',
       data: null,
       uploadingCsv: false,
-      reconciling: true
+      reconciling: false
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleUploadClick = this.handleUploadClick.bind(this)
@@ -35,7 +35,7 @@ class UploadPurchasedGiftCardDetails extends React.Component {
           Notify("Successfully uploaded report", "success")
           this.setState({
             uploadingCsv: false,
-            reconciling: false
+            //reconciling: false
           })
         })
         .catch((err) => {
