@@ -1,5 +1,5 @@
-import { takeLatest, delay } from 'redux-saga'
-import { call, fork, put, race, take } from 'redux-saga/effects'
+import { takeLatest, delay } from 'redux-saga/effects'
+import { call, fork, put, race, take, all } from 'redux-saga/effects'
 import * as ActionTypes from './../constants/actions'
 import Notify from '@components/Notification'
 import * as Api from './api'
@@ -1504,15 +1504,15 @@ function* updateSkuPromo(action) {
   }
 }
 
-function* fetchCampaignStatusList(action) {
-  try {
-    const data = yield call(Api.fetchCampaignStatusList, action)
-    //Notify('Successfully updated campaign', 'success')
-    yield put({ type: ActionTypes.SUCCESS_FETCH_CAMPAIGN_STATUS_LIST, data })
-  } catch (err) {
-    console.log(err)
-  }
-}
+// function* fetchCampaignStatusList(action) {
+//   try {
+//     const data = yield call(Api.fetchCampaignStatusList, action)
+//     //Notify('Successfully updated campaign', 'success')
+//     yield put({ type: ActionTypes.SUCCESS_FETCH_CAMPAIGN_STATUS_LIST, data })
+//   } catch (err) {
+//     console.log(err)
+//   }
+// }
 // function* verifyTransaction(action) {
 //   try {
 //     const data = yield call(Api.verifyTransaction, action.data)
@@ -1527,549 +1527,367 @@ function* fetchCampaignStatusList(action) {
  * Watchers
  */
 function* watchFetchStates() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_FETCH_STATES, fetchStates)
-  }
+  yield takeLatest(ActionTypes.REQUEST_FETCH_STATES, fetchStates)
 }
 
 function* watchFetchStateList() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_FETCH_STATE_LIST, fetchStateList)
-  }
+  yield takeLatest(ActionTypes.REQUEST_FETCH_STATE_LIST, fetchStateList)
 }
 
 function* watchFetchCities() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_FETCH_CITIES, fetchCities)
-  }
+  yield takeLatest(ActionTypes.REQUEST_FETCH_CITIES, fetchCities)
 }
 
 function* watchFetchDeliverers() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_FETCH_DELIVERERS, fetchDeliverers)
-  }
+  yield takeLatest(ActionTypes.REQUEST_FETCH_DELIVERERS, fetchDeliverers)
 }
 
 function* watchFetchRetailers() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_FETCH_RETAILERS, fetchRetailers)
-  }
+  yield takeLatest(ActionTypes.REQUEST_FETCH_RETAILERS, fetchRetailers)
 }
 
 function* watchFetchSkuList() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_FETCH_SKU_LIST, fetchSkuList)
-  }
+  yield takeLatest(ActionTypes.REQUEST_FETCH_SKU_LIST, fetchSkuList)
 }
 
 function* watchFetchUnmappedRetailersToDp() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_FETCH_UNMAPPED_RETAILERS_TO_DP, fetchUnmappedRetailersToDp)
-  }
+  yield takeLatest(ActionTypes.REQUEST_FETCH_UNMAPPED_RETAILERS_TO_DP, fetchUnmappedRetailersToDp)
 }
 
 function* watchFetchUnmappedRetailersToLocality() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_FETCH_UNMAPPED_RETAILERS_TO_LOCALITY, fetchUnmappedRetailersToLocality)
-  }
+  yield takeLatest(ActionTypes.REQUEST_FETCH_UNMAPPED_RETAILERS_TO_LOCALITY, fetchUnmappedRetailersToLocality)
 }
 
 function* watchFetchUnmappedDpToLocality() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_FETCH_UNMAPPED_DP_TO_LOCALITY, fetchUnmappedDpToLocality)
-  }
+  yield takeLatest(ActionTypes.REQUEST_FETCH_UNMAPPED_DP_TO_LOCALITY, fetchUnmappedDpToLocality)
 }
 
 function* watchFetchUnmappedLocalitiesToDp() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_FETCH_UNMAPPED_LOCALITIES_TO_DP, fetchUnmappedLocalitiesToDp)
-  }
+  yield takeLatest(ActionTypes.REQUEST_FETCH_UNMAPPED_LOCALITIES_TO_DP, fetchUnmappedLocalitiesToDp)
 }
 
 function* watchFetchDPRetailerMap() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_FETCH_DP_RETAILER_MAP, fetchDPRetailerMap)
-  }
+  yield takeLatest(ActionTypes.REQUEST_FETCH_DP_RETAILER_MAP, fetchDPRetailerMap)
 }
 
 function* watchFetchDPLocalityMap() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_FETCH_DP_LOCALITY_MAP, fetchDPLocalityMap)
-  }
+  yield takeLatest(ActionTypes.REQUEST_FETCH_DP_LOCALITY_MAP, fetchDPLocalityMap)
 }
 
 function* watchFetchDpByLocality() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_FETCH_DP_BY_LOCALITY, fetchDpByLocality)
-  }
+  yield takeLatest(ActionTypes.REQUEST_FETCH_DP_BY_LOCALITY, fetchDpByLocality)
 }
 
 function* watchFetchLocalityRetailersMap() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_FETCH_LOCALITY_RETAILERS_MAP, fetchLocalityRetailersMap)
-  }
+  yield takeLatest(ActionTypes.REQUEST_FETCH_LOCALITY_RETAILERS_MAP, fetchLocalityRetailersMap)
 }
 
 function* watchFetchLocalities() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_FETCH_LOCALITIES, fetchLocalities)
-  }
+  yield takeLatest(ActionTypes.REQUEST_FETCH_LOCALITIES, fetchLocalities)
 }
 
 function* watchFetchCityDetails() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_FETCH_CITY_DETAILS, fetchCityDetails)
-  }
+  yield takeLatest(ActionTypes.REQUEST_FETCH_CITY_DETAILS, fetchCityDetails)
 }
 
 function* watchCreateState() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_CREATE_STATE, createState)
-  }
+  yield takeLatest(ActionTypes.REQUEST_CREATE_STATE, createState)
 }
 
 function* watchUpdateState() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_UPDATE_STATE, updateState)
-  }
+  yield takeLatest(ActionTypes.REQUEST_UPDATE_STATE, updateState)
 }
 
 function* watchCreateCity() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_CREATE_CITY, createCity)
-  }
+  yield takeLatest(ActionTypes.REQUEST_CREATE_CITY, createCity)
 }
 
 function* watchUpdateCity() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_UPDATE_CITY, updateCity)
-  }
+  yield takeLatest(ActionTypes.REQUEST_UPDATE_CITY, updateCity)
 }
 
 function* watchUpdateGeoboundary() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_UPDATE_GEOBOUNDARY, updateGeoboundary)
-  }
+  yield takeLatest(ActionTypes.REQUEST_UPDATE_GEOBOUNDARY, updateGeoboundary)
 }
 
 function* watchCreateGeolocality() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_CREATE_GEOLOCALITY, createGeolocality)
-  }
+  yield takeLatest(ActionTypes.REQUEST_CREATE_GEOLOCALITY, createGeolocality)
 }
 
 function* watchUpdateGeolocality() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_UPDATE_GEOLOCALITY, updateGeolocality)
-  }
+  yield takeLatest(ActionTypes.REQUEST_UPDATE_GEOLOCALITY, updateGeolocality)
 }
 
 function* watchSetLoadingState() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_SET_LOADING_STATE, setLoadingState)
-  }
+  yield takeLatest(ActionTypes.REQUEST_SET_LOADING_STATE, setLoadingState)
 }
 
 function* watchUploadSearchData() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_UPLOAD_SEARCH_DATA, uploadSearchData)
-  }
+  yield takeLatest(ActionTypes.REQUEST_UPLOAD_SEARCH_DATA, uploadSearchData)
 }
 
 function* watchUpdateDPLocalityMap() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_UPDATE_DP_LOCALITY_MAP, updateDPLocalityMap)
-  }
+  yield takeLatest(ActionTypes.REQUEST_UPDATE_DP_LOCALITY_MAP, updateDPLocalityMap)
 }
 
 function* watchAddDpToLocalityMap() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_ADD_DP_TO_LOCALITY_MAP, addDpToLocalityMap)
-  }
+  yield takeLatest(ActionTypes.REQUEST_ADD_DP_TO_LOCALITY_MAP, addDpToLocalityMap)
 }
 
 function* watchDeleteDpFromLocalityMap() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_DELETE_DP_FROM_LOCALITY_MAP, deleteDpFromLocalityMap)
-  }
+  yield takeLatest(ActionTypes.REQUEST_DELETE_DP_FROM_LOCALITY_MAP, deleteDpFromLocalityMap)
 }
 
 function* watchUpdateDPRetailerMap() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_UPDATE_DP_RETAILER_MAP, updateDPRetailerMap)
-  }
+  yield takeLatest(ActionTypes.REQUEST_UPDATE_DP_RETAILER_MAP, updateDPRetailerMap)
 }
 
 function* watchDeleteRetailerFromDpMap() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_DELETE_RETAILER_FROM_DP_MAP, deleteRetailerFromDpMap)
-  }
+  yield takeLatest(ActionTypes.REQUEST_DELETE_RETAILER_FROM_DP_MAP, deleteRetailerFromDpMap)
 }
 
 function* watchDeleteRetailerFromLocalityMap() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_DELETE_RETAILER_FROM_LOCALITY_MAP, deleteRetailerFromLocalityMap)
-  }
+  yield takeLatest(ActionTypes.REQUEST_DELETE_RETAILER_FROM_LOCALITY_MAP, deleteRetailerFromLocalityMap)
 }
 
 function* watchDeleteLocalityFromDpMap() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_DELETE_LOCALITY_FROM_DP_MAP, deleteLocalityFromDpMap)
-  }
+  yield takeLatest(ActionTypes.REQUEST_DELETE_LOCALITY_FROM_DP_MAP, deleteLocalityFromDpMap)
 }
 
 function* watchAddRetailerToLocalityMap() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_ADD_RETAILER_TO_LOCALITY_MAP, addRetailerToLocalityMap)
-  }
+  yield takeLatest(ActionTypes.REQUEST_ADD_RETAILER_TO_LOCALITY_MAP, addRetailerToLocalityMap)
 }
 
 function* watchMapRetailerToLocalityAsPrime() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_MAP_RETAILER_TO_LOCALITY_AS_PRIME, mapRetailerToLocalityAsPrime)
-  }
+  yield takeLatest(ActionTypes.REQUEST_MAP_RETAILER_TO_LOCALITY_AS_PRIME, mapRetailerToLocalityAsPrime)
 }
 
 function* watchUnMapRetailerToLocalityAsPrime() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_UNMAP_RETAILER_TO_LOCALITY_AS_PRIME, unmapRetailerToLocalityAsPrime)
-  }
+  yield takeLatest(ActionTypes.REQUEST_UNMAP_RETAILER_TO_LOCALITY_AS_PRIME, unmapRetailerToLocalityAsPrime)
 }
 
 function* watchIndexSearchData() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_INDEX_SEARCH_DATA, indexSearchData)
-  }
+  yield takeLatest(ActionTypes.REQUEST_INDEX_SEARCH_DATA, indexSearchData)
 }
 
 function* WatchGetFenceDetails() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_GET_FENCE_DETAILS, getFenceDetails)
-  }
+  yield takeLatest(ActionTypes.REQUEST_GET_FENCE_DETAILS, getFenceDetails)
 }
 
 function* watchCheckPrimeRetailer() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_CHECK_PRIME_RETAILER, checkPrimeRetailer)
-  }
+  yield takeLatest(ActionTypes.REQUEST_CHECK_PRIME_RETAILER, checkPrimeRetailer)
 }
 
 function* watchCheckDeliveryAgent() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_CHECK_DELIVERY_AGENT, checkDeliveryAgent)
-  }
+  yield takeLatest(ActionTypes.REQUEST_CHECK_DELIVERY_AGENT, checkDeliveryAgent)
 }
 
 function* watchCheckDeliveryAgentRetailer() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_CHECK_DELIVERY_AGENT_RETAILER, checkDeliveryAgentRetailer)
-  }
+  yield takeLatest(ActionTypes.REQUEST_CHECK_DELIVERY_AGENT_RETAILER, checkDeliveryAgentRetailer)
 }
 
 function* watchCheckDeliveryTimeForLocality() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_CHECK_DELIVERY_TIME_FOR_LOCALITY, checkDeliveryTimeForLocality)
-  }
+  yield takeLatest(ActionTypes.REQUEST_CHECK_DELIVERY_TIME_FOR_LOCALITY, checkDeliveryTimeForLocality)
 }
 
 function* watchCheckActiveLocalityWithinCity() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_CHECK_ACTIVE_LOCALITY_WITHIN_CITY, checkActiveLocalityWithinCity)
-  }
+  yield takeLatest(ActionTypes.REQUEST_CHECK_ACTIVE_LOCALITY_WITHIN_CITY, checkActiveLocalityWithinCity)
 }
 
 function* watchEmptyGeoFenceCheckData() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_EMPTY_GEO_FENCE_CHECK_DATA, emptyGeoFenceCheckData)
-  }
+  yield takeLatest(ActionTypes.REQUEST_EMPTY_GEO_FENCE_CHECK_DATA, emptyGeoFenceCheckData)
 }
 
 function* watchListRetailerOutsideLocality() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_LIST_RETAILER_OUTSIDE_LOCALITY, listRetailerOutsideLocality)
-  }
+  yield takeLatest(ActionTypes.REQUEST_LIST_RETAILER_OUTSIDE_LOCALITY, listRetailerOutsideLocality)
 }
 
 function* watchCheckCityFence() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_CHECK_CITY_FENCE, checkCityFence)
-  }
+  yield takeLatest(ActionTypes.REQUEST_CHECK_CITY_FENCE, checkCityFence)
 }
 
 function* watchFetchImageAds() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_FETCH_IMAGE_ADS, fetchImageAds)
-  }
+  yield takeLatest(ActionTypes.REQUEST_FETCH_IMAGE_ADS, fetchImageAds)
 }
 
 function* watchCreateImageAd() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_CREATE_IMAGE_AD, createImageAd)
-  }
+  yield takeLatest(ActionTypes.REQUEST_CREATE_IMAGE_AD, createImageAd)
 }
 
 function* watchUpdateImageAdStatus() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_UPDATE_IMAGE_AD_STATUS, updateImageAdStatus)
-  }
+  yield takeLatest(ActionTypes.REQUEST_UPDATE_IMAGE_AD_STATUS, updateImageAdStatus)
 }
 
 function* watchFetchConsumerAds() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_FETCH_CONSUMER_ADS, fetchConsumerAds)
-  }
+  yield takeLatest(ActionTypes.REQUEST_FETCH_CONSUMER_ADS, fetchConsumerAds)
 }
 
 function* watchUpdateConsumerAdStatus() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_UPDATE_CONSUMER_AD_STATUS, updateConsumerAdStatus)
-  }
+  yield takeLatest(ActionTypes.REQUEST_UPDATE_CONSUMER_AD_STATUS, updateConsumerAdStatus)
 }
 
 function* watchCreateConsumerAd() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_CREATE_CONSUMER_AD, createConsumerAd)
-  }
+  yield takeLatest(ActionTypes.REQUEST_CREATE_CONSUMER_AD, createConsumerAd)
 }
 
 function* watchFetchUrlAds() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_FETCH_URL_ADS, fetchUrlAds)
-  }
+  yield takeLatest(ActionTypes.REQUEST_FETCH_URL_ADS, fetchUrlAds)
 }
 
 function* watchCreateUrlAd() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_CREATE_URL_AD, createUrlAd)
-  }
+  yield takeLatest(ActionTypes.REQUEST_CREATE_URL_AD, createUrlAd)
 }
 
 function* watchUpdateUrlAdStatus() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_UPDATE_URL_AD_STATUS, updateUrlAdStatus)
-  }
+  yield takeLatest(ActionTypes.REQUEST_UPDATE_URL_AD_STATUS, updateUrlAdStatus)
 }
 
 function* watchFetchDeepLinkAds() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_FETCH_DEEP_LINK_ADS, fetchDeepLinkAds)
-  }
+  yield takeLatest(ActionTypes.REQUEST_FETCH_DEEP_LINK_ADS, fetchDeepLinkAds)
 }
 
 function* watchCreateDeepLinkAd() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_CREATE_DEEP_LINK_AD, createDeepLinkAd)
-  }
+  yield takeLatest(ActionTypes.REQUEST_CREATE_DEEP_LINK_AD, createDeepLinkAd)
 }
 
 function* watchUpdateDeepLinkAdStatus() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_UPDATE_DEEP_LINK_AD_STATUS, updateDeepLinkAdStatus)
-  }
+  yield takeLatest(ActionTypes.REQUEST_UPDATE_DEEP_LINK_AD_STATUS, updateDeepLinkAdStatus)
 }
 
 function* watchFetchCollectionAds() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_FETCH_COLLECTION_ADS, fetchCollectionAds)
-  }
+  yield takeLatest(ActionTypes.REQUEST_FETCH_COLLECTION_ADS, fetchCollectionAds)
 }
 
 function* watchCreateCollectionAd() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_CREATE_COLLECTION_AD, createCollectionAd)
-  }
+  yield takeLatest(ActionTypes.REQUEST_CREATE_COLLECTION_AD, createCollectionAd)
 }
 
 function* watchUpdateCollectionAdStatus() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_UPDATE_COLLECTION_AD_STATUS, updateCollectionAdStatus)
-  }
+  yield takeLatest(ActionTypes.REQUEST_UPDATE_COLLECTION_AD_STATUS, updateCollectionAdStatus)
 }
 
 function* watchFetchContactNumbersOfRetailer() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_FETCH_CONTACT_NUMBERS_OF_RETAILER, fetchContactNumbersOfRetailer)
-  }
+  yield takeLatest(ActionTypes.REQUEST_FETCH_CONTACT_NUMBERS_OF_RETAILER, fetchContactNumbersOfRetailer)
 }
 
 function* watchUpdateRetailerNumbers() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_UPDATE_RETAILER_CONTACT_NUMBERS, updateRetailerNumbers)
-  }
+  yield takeLatest(ActionTypes.REQUEST_UPDATE_RETAILER_CONTACT_NUMBERS, updateRetailerNumbers)
 }
 
 function* watchAddRetailerNumbers() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_CREATE_NEW_RETAILER_CONTACT, addRetailerNumbers)
-  }
+  yield takeLatest(ActionTypes.REQUEST_CREATE_NEW_RETAILER_CONTACT, addRetailerNumbers)
 }
 
 function* watchRequestAddBrandToCollection() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_ADD_BRAND_TO_COLLECTION, addBrandToCollection)
-  }
+  yield takeLatest(ActionTypes.REQUEST_ADD_BRAND_TO_COLLECTION, addBrandToCollection)
 }
 
 function* watchRequestRemoveBrandFromCollection() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_REMOVE_BRAND_FROM_COLLECTION, removeBrandFromCollection)
-  }
+  yield takeLatest(ActionTypes.REQUEST_REMOVE_BRAND_FROM_COLLECTION, removeBrandFromCollection)
 }
 
 function* watchRequestCreateCollection() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_CREATE_COLLECTION, createCollection)
-  }
+  yield takeLatest(ActionTypes.REQUEST_CREATE_COLLECTION, createCollection)
 }
 
 function* watchRequestFetchCollections() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_FETCH_COLLECTIONS, fetchCollections)
-  }
+  yield takeLatest(ActionTypes.REQUEST_FETCH_COLLECTIONS, fetchCollections)
 }
 
 function* watchRequestFetchBrandsInCollection() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_FETCH_BRANDS_IN_COLLECTION, fetchBrandsInCollection)
-  }
+  yield takeLatest(ActionTypes.REQUEST_FETCH_BRANDS_IN_COLLECTION, fetchBrandsInCollection)
 }
 
 function* watchFetchTransactionCode() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_TRANSACTION_CODE, fetchTransactionCode)
-  }
+  yield takeLatest(ActionTypes.REQUEST_TRANSACTION_CODE, fetchTransactionCode)
 }
 
 function* watchVerifyTransaction() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_VERIFY_TRANSACTION, verifyTransaction)
-  }
+  yield takeLatest(ActionTypes.REQUEST_VERIFY_TRANSACTION, verifyTransaction)
 }
 
 function* watchCreateTransaction() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_CREATE_TRANSACTION, createTransaction)
-  }
+  yield takeLatest(ActionTypes.REQUEST_CREATE_TRANSACTION, createTransaction)
 }
 
 function* watchRequestTriggerSMS() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_TRIGGER_SMS, requestTriggerSMS)
-  }
+  yield takeLatest(ActionTypes.REQUEST_TRIGGER_SMS, requestTriggerSMS)
 }
 
 function* watchRequestFetchCredits() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_FETCH_CREDITS, fetchCredits)
-  }
+  yield takeLatest(ActionTypes.REQUEST_FETCH_CREDITS, fetchCredits)
 }
 
 function* watchRequestMapSkuToPromo() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_MAP_SKU_TO_PROMO, mapSkuToPromo)
-  }
+  yield takeLatest(ActionTypes.REQUEST_MAP_SKU_TO_PROMO, mapSkuToPromo)
 }
 
 function* watchRequestUpdateTransactionList() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_UPDATE_TRANSACTION_LIST, updateTransactionList)
-  }
+  yield takeLatest(ActionTypes.REQUEST_UPDATE_TRANSACTION_LIST, updateTransactionList)
 }
 
 function* watchRequestUpdateBrandListingOrder() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_UPDATE_BRAND_LISTING_ORDER, updateBrandListingOrder)
-  }
+  yield takeLatest(ActionTypes.REQUEST_UPDATE_BRAND_LISTING_ORDER, updateBrandListingOrder)
 }
 
 function* watchRequestFetchNetBankingList() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_FETCH_NETBANKING_LIST, fetchNetBankingList)
-  }
+  yield takeLatest(ActionTypes.REQUEST_FETCH_NETBANKING_LIST, fetchNetBankingList)
 }
 
 function* watchRequestFetchUserSpecificAds() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_FETCH_USER_SPECIFIC_ADS, fetchUserSpecificAds)
-  }
+  yield takeLatest(ActionTypes.REQUEST_FETCH_USER_SPECIFIC_ADS, fetchUserSpecificAds)
 }
 
 function* watchRequestCreateUserSpecificAds() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_CREATE_USER_SPECIFIC_ADS, createUserSpecificAds)
-  }
+  yield takeLatest(ActionTypes.REQUEST_CREATE_USER_SPECIFIC_ADS, createUserSpecificAds)
 }
 
 function* watchRequestFetchUserSpecificAdIds() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_FETCH_USER_SPECIFIC_AD_IDS, fetchUserSpecificAdIds)
-  }
+  yield takeLatest(ActionTypes.REQUEST_FETCH_USER_SPECIFIC_AD_IDS, fetchUserSpecificAdIds)
 }
 
 function* watchRequestUpdateUserSpecificAdIds() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_UPDATE_USER_SPECIFIC_ADS, updateUserSpecificAds)
-  }
+  yield takeLatest(ActionTypes.REQUEST_UPDATE_USER_SPECIFIC_ADS, updateUserSpecificAds)
 }
 
 function* watchRequestFetchUserSpecificPromos() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_FETCH_USER_SPECIFIC_PROMOS, fetchUserSpecificPromos)
-  }
+  yield takeLatest(ActionTypes.REQUEST_FETCH_USER_SPECIFIC_PROMOS, fetchUserSpecificPromos)
 }
 
 function* watchRequestFetchRetailerSpecificPromos() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_FETCH_RETAILER_SPECIFIC_PROMOS, fetchRetailerSpecificPromos)
-  }
+  yield takeLatest(ActionTypes.REQUEST_FETCH_RETAILER_SPECIFIC_PROMOS, fetchRetailerSpecificPromos)
 }
 
 function* watchRequestCreateCitySpecificPromo() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_CREATE_CITY_SPECIFIC_PROMO, createCitySpecificPromo)
-  }
+  yield takeLatest(ActionTypes.REQUEST_CREATE_CITY_SPECIFIC_PROMO, createCitySpecificPromo)
 }
 
 function* watchRequestUpdateCitySpecificPromo() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_UPDATE_CITY_SPECIFIC_PROMO, updateCitySpecificPromo)
-  }
+  yield takeLatest(ActionTypes.REQUEST_UPDATE_CITY_SPECIFIC_PROMO, updateCitySpecificPromo)
 }
 
 function* watchRequestFetchCitySpecificPromos() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_FETCH_CITY_SPECIFIC_PROMOS, fetchCitySpecificPromos)
-  }
+  yield takeLatest(ActionTypes.REQUEST_FETCH_CITY_SPECIFIC_PROMOS, fetchCitySpecificPromos)
 }
 
 function* watchRequestFetchCashbackSkuList() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_FETCH_CASHBACK_SKU_LIST, fetchCashbackSkuList)
-  }
+  yield takeLatest(ActionTypes.REQUEST_FETCH_CASHBACK_SKU_LIST, fetchCashbackSkuList)
 }
 
 function* watchRequestCreateSkuPromo() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_CREATE_SKU_PROMO, createSkuPromo)
-  }
+  yield takeLatest(ActionTypes.REQUEST_CREATE_SKU_PROMO, createSkuPromo)
 }
 
 function* watchRequestUpdateSkuPromo() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_UPDATE_SKU_PROMO, updateSkuPromo)
-  }
+  yield takeLatest(ActionTypes.REQUEST_UPDATE_SKU_PROMO, updateSkuPromo)
 }
 
 function* watchRequestFetchSkuPromoList() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_FETCH_SKU_PROMO_LIST, fetchSkuPromoList)
-  }
+  yield takeLatest(ActionTypes.REQUEST_FETCH_SKU_PROMO_LIST, fetchSkuPromoList)
 }
 
 function* watchRequestFetchPromoList() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_FETCH_PROMO_LIST, fetchPromoList)
-  }
+  yield takeLatest(ActionTypes.REQUEST_FETCH_PROMO_LIST, fetchPromoList)
 }
 
 // function* watchRequestCreateCashbackSku() {
@@ -2085,193 +1903,133 @@ function* watchRequestFetchPromoList() {
 // }
 
 function* watchRequestFetchCampaignList() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_FETCH_CAMPAIGN_LIST, fetchCampaignList)
-  }
+  yield takeLatest(ActionTypes.REQUEST_FETCH_CAMPAIGN_LIST, fetchCampaignList)
 }
 
 function* watchRequestFetchMappedCompanyList() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_FETCH_MAPPED_COMPANY_LIST, fetchMappedCompanyList)
-  }
+  yield takeLatest(ActionTypes.REQUEST_FETCH_MAPPED_COMPANY_LIST, fetchMappedCompanyList)
 }
 
 function* watchRequestFetchCompanyList() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_FETCH_COMPANY_LIST, fetchCompanyList)
-  }
+  yield takeLatest(ActionTypes.REQUEST_FETCH_COMPANY_LIST, fetchCompanyList)
 }
 
 function* watchRequestCreateCompany() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_CREATE_COMPANY, createCompany)
-  }
+  yield takeLatest(ActionTypes.REQUEST_CREATE_COMPANY, createCompany)
 }
 
 function* watchRequestUpdateCompany() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_UPDATE_COMPANY, updateCompany)
-  }
+  yield takeLatest(ActionTypes.REQUEST_UPDATE_COMPANY, updateCompany)
 }
 
 function* watchRequestFetchCompanies() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_FETCH_COMPANIES, fetchCompanies)
-  }
+  yield takeLatest(ActionTypes.REQUEST_FETCH_COMPANIES, fetchCompanies)
 }
 
 function* watchRequestMapCompanyToBrand() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_MAP_COMPANY_TO_BRAND, mapCompanyToBrand)
-  }
+  yield takeLatest(ActionTypes.REQUEST_MAP_COMPANY_TO_BRAND, mapCompanyToBrand)
 }
 
 function* watchRequestFetchGenreBasedBrandList() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_GENRE_BASED_BRAND_LIST, fetchGenreBasedBrandList)
-  }
+  yield takeLatest(ActionTypes.REQUEST_GENRE_BASED_BRAND_LIST, fetchGenreBasedBrandList)
 }
 
 function* watchRequestFetchGenreList() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_FETCH_GENRE_LIST, fetchGenreList)
-  }
+  yield takeLatest(ActionTypes.REQUEST_FETCH_GENRE_LIST, fetchGenreList)
 }
 
 function* watchRequestFetchBrandManagers() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_FETCH_BRAND_MANAGERS, fetchBrandManagers)
-  }
+  yield takeLatest(ActionTypes.REQUEST_FETCH_BRAND_MANAGERS, fetchBrandManagers)
 }
 
 function* watchRequestCreateBrandManager() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_CREATE_BRAND_MANAGER, createBrandManager)
-  }
+  yield takeLatest(ActionTypes.REQUEST_CREATE_BRAND_MANAGER, createBrandManager)
 }
 
 function* watchRequestUpdateBrandManager() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_UPDATE_BRAND_MANAGER, updateBrandManager)
-  }
+  yield takeLatest(ActionTypes.REQUEST_UPDATE_BRAND_MANAGER, updateBrandManager)
 }
 
 function* watchRequestCreateCampaign() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_CREATE_CAMPAIGN, createCampaign)
-  }
+  yield takeLatest(ActionTypes.REQUEST_CREATE_CAMPAIGN, createCampaign)
 }
 
 function* watchRequestUpdateCampaign() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_UPDATE_CAMPAIGN, updateCampaign)
-  }
+  yield takeLatest(ActionTypes.REQUEST_UPDATE_CAMPAIGN, updateCampaign)
 }
 
 function* watchRequestFetchCampaignStatusList() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_FETCH_CAMPAIGN_STATUS_LIST, fetchCampaignStatusList)
-  }
+  yield takeLatest(ActionTypes.REQUEST_FETCH_CAMPAIGN_STATUS_LIST, fetchCampaignStatusList)
 }
 
 function* watchRequestFetchBrandManagerList() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_BRAND_MANAGER_LIST, fetchBrandManagerList)
-  }
+  yield takeLatest(ActionTypes.REQUEST_BRAND_MANAGER_LIST, fetchBrandManagerList)
 }
 
 function* watchRequestCreateRetailerSpecificPromo() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_CREATE_RETAILER_SPECIFIC_PROMO, createRetailerSpecificPromo)
-  }
+  yield takeLatest(ActionTypes.REQUEST_CREATE_RETAILER_SPECIFIC_PROMO, createRetailerSpecificPromo)
 }
 
 function* watchRequestUpdateRetailerSpecificPromo() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_UPDATE_RETAILER_SPECIFIC_PROMO, updateRetailerSpecificPromo)
-  }
+  yield takeLatest(ActionTypes.REQUEST_UPDATE_RETAILER_SPECIFIC_PROMO, updateRetailerSpecificPromo)
 }
 
-function* watchRequestCreateCitySpecificPromo() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_CREATE_CITY_SPECIFIC_PROMO, createCitySpecificPromo)
-  }
-}
+// function* watchRequestCreateCitySpecificPromo() {
+//   while (true) {
+//     yield* takeLatest(ActionTypes.REQUEST_CREATE_CITY_SPECIFIC_PROMO, createCitySpecificPromo)
+//   }
+// }
 
 function* watchRequestCreateUserSpecificPromo() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_CREATE_USER_SPECIFIC_PROMO, createUserSpecificPromo)
-  }
+  yield takeLatest(ActionTypes.REQUEST_CREATE_USER_SPECIFIC_PROMO, createUserSpecificPromo)
 }
 
 function* watchRequestUpdateUserSpecificPromo() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_UPDATE_USER_SPECIFIC_PROMO, updateUserSpecificPromo)
-  }
+  yield takeLatest(ActionTypes.REQUEST_UPDATE_USER_SPECIFIC_PROMO, updateUserSpecificPromo)
 }
 
 function* watchRequestFetchStateTimings() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_FETCH_STATE_TIMINGS, fetchStateTimings)
-  }
+  yield takeLatest(ActionTypes.REQUEST_FETCH_STATE_TIMINGS, fetchStateTimings)
 }
 
 function* watchRequestCreateStateTiming() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_CREATE_STATE_TIMING, createStateTiming)
-  }
+  yield takeLatest(ActionTypes.REQUEST_CREATE_STATE_TIMING, createStateTiming)
 }
 
 function* watchRequestUpdateStateTiming() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_UPDATE_STATE_TIMING, updateStateTiming)
-  }
+  yield takeLatest(ActionTypes.REQUEST_UPDATE_STATE_TIMING, updateStateTiming)
 }
 
 function* watchRequestFetchCityPossessionLimits() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_FETCH_CITY_POSSESSION_LIMITS, fetchCityPossessionLimits)
-  }
+  yield takeLatest(ActionTypes.REQUEST_FETCH_CITY_POSSESSION_LIMITS, fetchCityPossessionLimits)
 }
 
 function* watchRequestCreateCityPossessionLimit() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_CREATE_CITY_POSSESSION_LIMIT, createCityPossessionLimit)
-  }
+  yield takeLatest(ActionTypes.REQUEST_CREATE_CITY_POSSESSION_LIMIT, createCityPossessionLimit)
 }
 
 function* watchRequestUpdateCityPossessionLimit() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_UPDATE_CITY_POSSESSION_LIMIT, updateCityPossessionLimit)
-  }
+  yield takeLatest(ActionTypes.REQUEST_UPDATE_CITY_POSSESSION_LIMIT, updateCityPossessionLimit)
 }
 
 function* watchRequestFetchPossessionLimits() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_FETCH_POSSESSION_LIMITS, fetchPossessionLimits)
-  }
+  yield takeLatest(ActionTypes.REQUEST_FETCH_POSSESSION_LIMITS, fetchPossessionLimits)
 }
 
 function* watchRequestCreatePossessionLimit() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_CREATE_POSSESSION_LIMIT, createPossessionLimit)
-  }
+  yield takeLatest(ActionTypes.REQUEST_CREATE_POSSESSION_LIMIT, createPossessionLimit)
 }
 
 function* watchRequestUpdatePossessionLimit() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_UPDATE_POSSESSION_LIMIT, updatePossessionLimit)
-  }
+  yield takeLatest(ActionTypes.REQUEST_UPDATE_POSSESSION_LIMIT, updatePossessionLimit)
 }
 
 function* watchRequestUpdateBankingDetails() {
-  while (true) {
-    yield* takeLatest(ActionTypes.REQUEST_UPDATE_BANK_DETAILS, updatingBankingDetails)
-  }
+  yield takeLatest(ActionTypes.REQUEST_UPDATE_BANK_DETAILS, updatingBankingDetails)
 }
 
 export default function* rootSaga() {
-  yield [
+  yield all([
     fork(watchFetchStates),
     fork(watchFetchCities),
     fork(watchFetchDeliverers),
@@ -2394,5 +2152,5 @@ export default function* rootSaga() {
     fork(watchRequestFetchBrandManagers),
     fork(watchRequestCreateBrandManager),
     fork(watchRequestUpdateBrandManager)
-  ]
+  ])
 }
