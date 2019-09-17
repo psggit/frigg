@@ -124,7 +124,7 @@ class CompanyForm extends React.Component {
           </div>
 
           {
-            location.pathname.includes("create") !== -1 &&
+            location.pathname.indexOf("create") !== -1 &&
             <div className="form-group">
               <label className="label">Genre</label><br />
               <SelectField

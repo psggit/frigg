@@ -13,6 +13,7 @@ import Moment from "moment"
 import { overrideTableStyle } from '../../../utils'
 
 const TableHeaderItems = [
+  '',
   'COMPANY_ID',
   'COMPANY_NAME',
   'BRAND_ID'
