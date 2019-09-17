@@ -10,7 +10,7 @@ import {
 import TableLoadingShell from '../table-loading-shell'
 import '@sass/components/_table.scss'
 import Moment from "moment"
-import {overrideTableStyle} from '../../../utils'
+import { overrideTableStyle } from '../../../utils'
 
 const TableHeaderItems = [
   'COMPANY_ID',
@@ -19,7 +19,7 @@ const TableHeaderItems = [
 ]
 
 const styles = [
-  // { width: '38px' },
+  { width: '38px' },
   { width: '120px' },
   { width: '120px' },
   { width: '120px' },
@@ -29,9 +29,8 @@ class ViewCompany extends React.Component {
 
   constructor() {
     super()
-
     //this.editCashbackSkuDetails = this.editCashbackSkuDetails.bind(this)
-    //this.handleRowClick = this.handleRowClick.bind(this)
+    this.handleRowClick = this.handleRowClick.bind(this)
   }
 
   componentDidMount() {
@@ -48,10 +47,10 @@ class ViewCompany extends React.Component {
     overrideTableStyle()
   }
 
-  // handleRowClick(e, item) {
-  //   //console.log("click",row, column, this.props.cashbackSkuList[row])
-  //   this.props.history.push(`/home/manage-company-brand-mapping/${item.id}`, item)
-  // }
+  handleRowClick(e, item) {
+    //console.log("click",row, column, this.props.cashbackSkuList[row])
+    this.props.history.push(`/home/manage-company-brand-mapping/edit/${item.brand_id}`, item)
+  }
 
   render() {
     const {
@@ -65,7 +64,7 @@ class ViewCompany extends React.Component {
           className="bordered--table clickable"
           selectable={false}
           fixedHeader
-          //onCellClick={this.handleCellClick}
+        //onCellClick={this.handleCellClick}
         >
           <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
             <TableRow>
@@ -84,17 +83,17 @@ class ViewCompany extends React.Component {
                   companyList.map((item, i) => {
                     return (
                       <TableRow key={i}>
-                        {/* <TableRowColumn style={styles[0]}>
+                        <TableRowColumn style={styles[0]}>
                           <button
                             onClick={e => this.handleRowClick(e, item)}
                           >
                             Edit
                           </button>
-                        </TableRowColumn> */}
-                        <TableRowColumn style={styles[0]}>{item.company_id}</TableRowColumn>
-                        <TableRowColumn style={styles[1]}>{item.company_name}</TableRowColumn>
-                        <TableRowColumn style={styles[2]}>{item.brand_id}</TableRowColumn>
-                      </TableRow> 
+                        </TableRowColumn>
+                        <TableRowColumn style={styles[1]}>{item.company_id}</TableRowColumn>
+                        <TableRowColumn style={styles[2]}>{item.company_name}</TableRowColumn>
+                        <TableRowColumn style={styles[3]}>{item.brand_id}</TableRowColumn>
+                      </TableRow>
                     )
                   })
                 )

@@ -2,22 +2,22 @@
 function getAPIObj() {
   if (window.location.href.split(':')[1] === '//localhost') {
     let scheme = 'https'
-    let baseHost = '.basketball38.hasura-app.io'
-    let appName = 'basketball38'
+    let baseHost = '.hipbar-dev.com'
+    let appName = 'hipbar-dev.com'
 
     return {
-      authUrl: 'https://auth.' + appName + '.hasura-app.io',
-      blogicUrl: 'https://api1.' + appName + '.hasura-app.io',
-      reports: 'https://reports.' + appName + '.hasura-app.io',
+      authUrl: 'https://auth.' + appName,
+      blogicUrl: 'https://api1.' + appName,
+      reports: 'https://reports.' + appName,
       gremlinUrl: scheme + '://gremlin' + baseHost,
       odin: scheme + '://odin' + baseHost,
       catman: scheme + '://catman' + baseHost,
       orderman: scheme + '://orderman' + baseHost,
       socketUrl: 'https://livered' + baseHost,
-      api2: 'https://api2.' + appName + '.hasura-app.io',
-      retailer: 'https://retailer.' + appName + '.hasura-app.io',
-      catalog: 'https://catalog.' + appName + '.hasura-app.io',
-      loki: 'https://loki.' + appName + '.hasura-app.io'
+      api2: 'https://api2.' + appName,
+      retailer: 'https://retailer.' + appName,
+      catalog: 'https://catalog.' + appName,
+      loki: 'https://loki.' + appName
     }
   } else {
     let scheme = window.location.href.split(':')[0]

@@ -85,6 +85,7 @@ import CreateSkuPromo from "./../components/manage-sku-promo/create-sku-promo"
 import UpdateSkuPromo from "./../components/manage-sku-promo/edit-sku-promo"
 import MappedCompanyList from "./../container/manage-company-brand-mapping"
 import MapCompanyToBrand from "./../components/manage-company-brand-mapping/map-company-to-brand"
+import UpdateCompanyToBrand from "./../components/manage-company-brand-mapping/edit-company-to-brand"
 import ViewPredictionList from "./../container/manage-prediction"
 import ViewAnswer from "./../container/manage-answer-prediction-mapping"
 import CreatePrediction from "./../components/manage-prediction/create-prediction"
@@ -316,7 +317,7 @@ class App extends React.Component {
 
                   <Route exact path="/home/manage-company-brand-mapping" component={MappedCompanyList} />
                   <Route exact path="/home/manage-company-brand-mapping/create" component={MapCompanyToBrand} />
-                  {/* <Route exact path="/home/company/edit/:promoCode" component={UpdateUserPromos} /> */}
+                  <Route exact path="/home/manage-company-brand-mapping/edit/:brandId" component={UpdateCompanyToBrand} />
 
                   <Route exact path="/home/manage-company" component={ManageCompany} />
                   <Route exact path="/home/manage-company/create" component={CreateCompany} />

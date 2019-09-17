@@ -884,6 +884,15 @@ export const mapCompanyToBrand = action => (
     .then(json => json)
 )
 
+export const updateCompanyToBrand = action => (
+  POST({
+    api: '/companymap/update',
+    apiBase: 'odin',
+    data: action.data,
+    handleError: true
+  })
+)
+
 export const fetchMappedCompanyList = action => (
   POST({
     api: '/companymap/list',

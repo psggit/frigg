@@ -12,17 +12,17 @@ import Moment from 'moment'
 class CompanyForm extends React.Component {
   constructor(props) {
     super(props)
-    
+
     this.state = {
-      selectedCompanyId: "",
-      selectedBrandId: "",
+      selectedCompanyId: props.data ? props.data.company_id : "",
+      selectedBrandId: props.data ? props.data.brand_id : "",
       selectedGenreIdx: "",
       companyName: "",
       companyList: [],
       genreList: [],
       brandList: []
     }
-  
+
     this.getData = this.getData.bind(this)
     //this.successBrandListCallback = this.successBrandListCallback.bind(this)
     this.handleGenreChange = this.handleGenreChange.bind(this)
@@ -31,24 +31,24 @@ class CompanyForm extends React.Component {
   }
 
   componentWillReceiveProps(newProps) {
-    if(this.props.companyDetails !== newProps.companyDetails) {
+    if (this.props.companyDetails !== newProps.companyDetails) {
       this.setState({
-        companyList: newProps.companyDetails, 
+        companyList: newProps.companyDetails,
         selectedCompanyId: newProps.companyDetails[0].value,
         companyName: newProps.companyDetails[0].text
       })
     }
 
-    if(this.props.genreList !== newProps.genreList) {
-      this.setState({genreList: newProps.genreList, selectedGenreIdx: newProps.genreList[0].value})
+    if (this.props.genreList !== newProps.genreList) {
+      this.setState({ genreList: newProps.genreList, selectedGenreIdx: newProps.genreList[0].value })
       this.props.fetchGenreBasedBrandList(newProps.genreList[0].value)
       // this.props.actions.fetchGenreBasedBrandList({
       //   genre_id: parseInt(newProps.genreList[0].value)
       // }, this.successBrandListCallback)
     }
-    if(this.props.brands !== newProps.brands) {
+    if (this.props.brands !== newProps.brands) {
       this.setState({
-        brandList: newProps.brands.length ? newProps.brands : [], 
+        brandList: newProps.brands.length ? newProps.brands : [],
         selectedBrandId: newProps.brands.length ? newProps.brands[0].value : ""
       })
     }
@@ -76,9 +76,9 @@ class CompanyForm extends React.Component {
 
 
   handleCompanyChange(e, k) {
-    this.setState({ 
-      selectedCompanyId: this.state.companyList[k].value, 
-      companyName:  this.state.companyList[k].text
+    this.setState({
+      selectedCompanyId: this.state.companyList[k].value,
+      companyName: this.state.companyList[k].text
     })
     this.props.fetchGenreBasedBrandList(this.state.selectedGenreIdx)
   }
@@ -96,33 +96,35 @@ class CompanyForm extends React.Component {
     return (
       <Fragment>
         <Card style={{
-            padding: '20px',
-            width: '300px',
-            position: 'relative',
-            display: 'block',
-            verticalAlign: 'top',
-            marginRight: '20px'
-          }}
+          padding: '20px',
+          width: '300px',
+          position: 'relative',
+          display: 'block',
+          verticalAlign: 'top',
+          marginRight: '20px'
+        }}
         >
-           <div className="form-group">
-              <label className="label">Company</label><br />
-              <SelectField
-                value={this.state.selectedCompanyId}
-                onChange={this.handleCompanyChange}
-                style={{ width: '100%' }}
-              >
-                {
-                  !this.props.loadingCompanies && this.state.companyList.map((item, i) => (
-                    <MenuItem
-                      value={parseInt(item.value)}
-                      key={parseInt(item.value)}
-                      primaryText={item.text}
-                    />
-                  ))
-                }
-              </SelectField>
-            </div>
+          <div className="form-group">
+            <label className="label">Company</label><br />
+            <SelectField
+              value={this.state.selectedCompanyId}
+              onChange={this.handleCompanyChange}
+              style={{ width: '100%' }}
+            >
+              {
+                !this.props.loadingCompanies && this.state.companyList.map((item, i) => (
+                  <MenuItem
+                    value={parseInt(item.value)}
+                    key={parseInt(item.value)}
+                    primaryText={item.text}
+                  />
+                ))
+              }
+            </SelectField>
+          </div>
 
+          {
+            location.pathname.includes("create") !== -1 &&
             <div className="form-group">
               <label className="label">Genre</label><br />
               <SelectField
@@ -141,31 +143,32 @@ class CompanyForm extends React.Component {
                 }
               </SelectField>
             </div>
-            
-            <div className="form-group">
-              <label className="label">Brand</label><br />
-              <SelectField
-                value={this.state.selectedBrandId}
-                onChange={this.handleBrandChange}
-                style={{ width: '100%' }}
-              >
-                {
-                  !this.props.loadingGenreBasedBrandList && this.state.brandList.map((item, i) => (
-                    <MenuItem
-                      value={(item.value)}
-                      key={(item.value)}
-                      primaryText={item.text}
-                    />
-                  ))
-                }
-              </SelectField>
-            </div>
+          }
+
+          <div className="form-group">
+            <label className="label">Brand</label><br />
+            <SelectField
+              value={this.state.selectedBrandId}
+              onChange={this.handleBrandChange}
+              style={{ width: '100%' }}
+            >
+              {
+                !this.props.loadingGenreBasedBrandList && this.state.brandList.map((item, i) => (
+                  <MenuItem
+                    value={(item.value)}
+                    key={(item.value)}
+                    primaryText={item.text}
+                  />
+                ))
+              }
+            </SelectField>
+          </div>
 
           <div className="form-group">
             <RaisedButton
               label="save"
               primary
-              disabled={this.props.mappingBrandtoCompany}
+              //disabled={this.props.mappingBrandtoCompany}
               onClick={this.props.handleSave}
             />
           </div>

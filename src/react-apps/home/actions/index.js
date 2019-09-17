@@ -97,7 +97,7 @@ export const updateSkuPromo = (data, CB) => ({
 
 export const fetchBrandManagerList = (data, CB) => ({
   type: ActionTypes.REQUEST_BRAND_MANAGER_LIST,
-  data, 
+  data,
   CB
 })
 
@@ -319,13 +319,13 @@ export const fetchBrandManagers = data => ({
   data
 })
 
-export const createBrandManager = (data, CB)  => ({
+export const createBrandManager = (data, CB) => ({
   type: ActionTypes.REQUEST_CREATE_BRAND_MANAGER,
   data,
   CB
 })
 
-export const updateBrandManager = (data, CB)  => ({
+export const updateBrandManager = (data, CB) => ({
   type: ActionTypes.REQUEST_UPDATE_BRAND_MANAGER,
   data,
   CB
