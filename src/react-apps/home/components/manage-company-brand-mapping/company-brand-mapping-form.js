@@ -4,27 +4,22 @@ import RaisedButton from 'material-ui/RaisedButton'
 import { Card } from 'material-ui/Card'
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
-import * as Actions from '../../actions/index'
-import Moment from 'moment'
 
 class CompanyForm extends React.Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      selectedCompanyId: props.data ? props.data.company_id : "",
-      selectedBrandId: props.data ? props.data.brand_id : "",
-      selectedGenreIdx: "",
-      companyName: "",
+      selectedCompanyId: props.data ? props.data.company_id : 0,
+      selectedBrandId: props.data ? props.data.brand_id : 0,
+      companyName: props.data ? props.data.company_name : "",
+      brandName: props.brandName,
       companyList: [],
       genreList: [],
       brandList: []
     }
 
     this.getData = this.getData.bind(this)
-    //this.successBrandListCallback = this.successBrandListCallback.bind(this)
     this.handleGenreChange = this.handleGenreChange.bind(this)
     this.handleCompanyChange = this.handleCompanyChange.bind(this)
     this.handleBrandChange = this.handleBrandChange.bind(this)
@@ -34,22 +29,19 @@ class CompanyForm extends React.Component {
     if (this.props.companyDetails !== newProps.companyDetails) {
       this.setState({
         companyList: newProps.companyDetails,
-        selectedCompanyId: newProps.companyDetails[0].value,
-        companyName: newProps.companyDetails[0].text
+        selectedCompanyId: this.state.selectedCompanyId === 0 ? newProps.companyDetails[0].value : this.state.selectedCompanyId,
+        companyName: this.state.selectedCompanyId === 0 ? newProps.companyDetails[0].text : this.state.companyName
       })
     }
 
     if (this.props.genreList !== newProps.genreList) {
       this.setState({ genreList: newProps.genreList, selectedGenreIdx: newProps.genreList[0].value })
       this.props.fetchGenreBasedBrandList(newProps.genreList[0].value)
-      // this.props.actions.fetchGenreBasedBrandList({
-      //   genre_id: parseInt(newProps.genreList[0].value)
-      // }, this.successBrandListCallback)
     }
     if (this.props.brands !== newProps.brands) {
       this.setState({
         brandList: newProps.brands.length ? newProps.brands : [],
-        selectedBrandId: newProps.brands.length ? newProps.brands[0].value : ""
+        selectedBrandId: this.state.selectedBrandId === 0 ? newProps.brands.length ? newProps.brands[0].value : 0 : this.state.selectedBrandId
       })
     }
   }
@@ -59,21 +51,7 @@ class CompanyForm extends React.Component {
       selectedGenreIdx: (this.state.genreList[k].value)
     })
     this.props.fetchGenreBasedBrandList(this.state.genreList[k].value)
-    // this.props.actions.fetchGenreBasedBrandList({
-    //   genre_id: parseInt(this.state.genreList[k].value)
-    // }, this.successBrandListCallback)
   }
-
-  // successBrandListCallback() {
-  //   const brandList = this.props.genreBasedBrandList.map((item, i) => {
-  //     return {
-  //       text: item.brand_name,
-  //       value: item.id
-  //     }
-  //   })
-  //   this.setState({brandList, selectedBrandId: brandList[0].value})
-  // }
-
 
   handleCompanyChange(e, k) {
     this.setState({
@@ -92,7 +70,7 @@ class CompanyForm extends React.Component {
   }
 
   render() {
-    console.log("pros", this.props)
+    console.log("props", this.props)
     return (
       <Fragment>
         <Card style={{
@@ -145,30 +123,44 @@ class CompanyForm extends React.Component {
             </div>
           }
 
-          <div className="form-group">
-            <label className="label">Brand</label><br />
-            <SelectField
-              value={this.state.selectedBrandId}
-              onChange={this.handleBrandChange}
-              style={{ width: '100%' }}
-            >
-              {
-                !this.props.loadingGenreBasedBrandList && this.state.brandList.map((item, i) => (
-                  <MenuItem
-                    value={(item.value)}
-                    key={(item.value)}
-                    primaryText={item.text}
-                  />
-                ))
-              }
-            </SelectField>
-          </div>
+          {
+            location.pathname.indexOf("create") !== -1 &&
+            <div className="form-group">
+              <label className="label">Brand</label><br />
+              <SelectField
+                value={this.state.selectedBrandId}
+                onChange={this.handleBrandChange}
+                style={{ width: '100%' }}
+              >
+                {
+                  !this.props.loadingGenreBasedBrandList && this.state.brandList.map((item, i) => (
+                    <MenuItem
+                      value={(item.value)}
+                      key={(item.value)}
+                      primaryText={item.text}
+                    />
+                  ))
+                }
+              </SelectField>
+            </div>
+          }
+
+          {
+            location.pathname.indexOf("edit") !== -1 &&
+            <div>
+              <TextField
+                disabled={location.pathname.indexOf("edit") !== -1}
+                name="brandName"
+                value={this.props.brandName}
+              />
+            </div>
+          }
 
           <div className="form-group">
             <RaisedButton
               label="save"
               primary
-              //disabled={this.props.mappingBrandtoCompany}
+              disabled={this.props.mappingBrandtoCompany}
               onClick={this.props.handleSave}
             />
           </div>
@@ -179,18 +171,3 @@ class CompanyForm extends React.Component {
 }
 
 export default CompanyForm
-// const mapStateToProps = state => state.main
-
-// const mapDispatchToProps = dispatch => ({
-//   actions: bindActionCreators(Actions, dispatch)
-// })
-
-// console.log("connect returns", connect(
-//   mapStateToProps,
-//   mapDispatchToProps
-// )(CompanyForm))
-
-// export default connect(
-//   mapStateToProps,
-//   mapDispatchToProps
-// )(CompanyForm)

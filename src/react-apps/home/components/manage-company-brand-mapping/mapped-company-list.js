@@ -9,14 +9,14 @@ import {
 } from 'material-ui/Table'
 import TableLoadingShell from '../table-loading-shell'
 import '@sass/components/_table.scss'
-import Moment from "moment"
 import { overrideTableStyle } from '../../../utils'
 
 const TableHeaderItems = [
   '',
   'COMPANY_ID',
   'COMPANY_NAME',
-  'BRAND_ID'
+  'BRAND_ID',
+  'BRAND_NAME'
 ]
 
 const styles = [
@@ -24,13 +24,13 @@ const styles = [
   { width: '120px' },
   { width: '120px' },
   { width: '120px' },
+  { width: '120px' }
 ]
 
 class ViewCompany extends React.Component {
 
   constructor() {
     super()
-    //this.editCashbackSkuDetails = this.editCashbackSkuDetails.bind(this)
     this.handleRowClick = this.handleRowClick.bind(this)
   }
 
@@ -38,18 +38,11 @@ class ViewCompany extends React.Component {
     this.overrideTableStyle()
   }
 
-  // editCashbackSkuDetails(e, item) {
-  //   e.stopPropagation()
-  //   this.props.history.push(`/home/manage-cashback-sku/edit/${item.id}`, item)
-  // }
-
   overrideTableStyle() {
-    // document.querySelectorAll(".bordered--table")[1].parentElement.style.overflow = "auto"
     overrideTableStyle()
   }
 
   handleRowClick(e, item) {
-    //console.log("click",row, column, this.props.cashbackSkuList[row])
     this.props.history.push(`/home/manage-company-brand-mapping/edit/${item.brand_id}`, item)
   }
 
@@ -65,7 +58,6 @@ class ViewCompany extends React.Component {
           className="bordered--table clickable"
           selectable={false}
           fixedHeader
-        //onCellClick={this.handleCellClick}
         >
           <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
             <TableRow>
@@ -94,6 +86,7 @@ class ViewCompany extends React.Component {
                         <TableRowColumn style={styles[1]}>{item.company_id}</TableRowColumn>
                         <TableRowColumn style={styles[2]}>{item.company_name}</TableRowColumn>
                         <TableRowColumn style={styles[3]}>{item.brand_id}</TableRowColumn>
+                        <TableRowColumn style={styles[4]}>{item.brand_name}</TableRowColumn>
                       </TableRow>
                     )
                   })

@@ -12,7 +12,7 @@ import RaisedButton from 'material-ui/RaisedButton'
 class ManageCompany extends React.Component {
   constructor(props) {
     super(props)
-    this.pageLimit = 5
+    this.pageLimit = 10
     this.state = {
       activePage: 1
     }
@@ -67,8 +67,7 @@ class ManageCompany extends React.Component {
   render() {
     const {
       loadingMappedCompanyList,
-      mappedCompanyList,
-      mappedCompanyCount
+      mappedCompanyList
     } = this.props
     return (
       <div style={{ width: '100%' }}>
@@ -89,13 +88,13 @@ class ManageCompany extends React.Component {
         />
         {
           !loadingMappedCompanyList && mappedCompanyList && mappedCompanyList.length
-          ? <Pagination
-            activePage={parseInt(this.state.activePage)}
-            itemsCountPerPage={this.pageLimit}
-            totalItemsCount={this.props.mappedCompanyCount}
-            setPage={this.setPage}
-          />
-          : ''
+            ? <Pagination
+              activePage={parseInt(this.state.activePage)}
+              itemsCountPerPage={this.pageLimit}
+              totalItemsCount={this.props.mappedCompanyCount}
+              setPage={this.setPage}
+            />
+            : ''
         }
       </div>
     )

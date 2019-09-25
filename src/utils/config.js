@@ -1,6 +1,6 @@
 
 function getAPIObj() {
-  if (window.location.href.split(':')[1] === '//localhost') {
+  if ((window.location.href.split(':')[1] === '//localhost') || (window.location.hostname.split('.')[0] === "superadmin-local")) {
     let scheme = 'https'
     let baseHost = '.hipbar-dev.com'
     let appName = 'hipbar-dev.com'
@@ -44,8 +44,5 @@ function getAPIObj() {
     }
   }
 }
-
-// export const api_base_url = getApiBaseUrl()
-// export const host_server = getHostServer()
 
 export const Api = getAPIObj()

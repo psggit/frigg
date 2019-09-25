@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as Actions from '../../actions/index'
 import * as Api from "../../middleware/api"
+import Notify from '@components/Notification'
 import MapCompanyForm from "./company-brand-mapping-form"
 
 class UpdateCompanyToBrand extends React.Component {
@@ -12,13 +13,12 @@ class UpdateCompanyToBrand extends React.Component {
       companyList: [],
       genreList: [],
       brandList: [],
+      brandName: "",
       mappingBrandtoCompany: true
-      // selectedPromoId: "",
-      // selectedStateId: ""
     }
     this.handleSave = this.handleSave.bind(this)
     this.formIsValid = this.formIsValid.bind(this)
-    // this.successPromoListCallback = this.successPromoListCallback.bind(this)
+
     this.successCompanyListCallback = this.successCompanyListCallback.bind(this)
     this.successGenreCallback = this.successGenreCallback.bind(this)
     this.successBrandListCallback = this.successBrandListCallback.bind(this)
@@ -28,18 +28,33 @@ class UpdateCompanyToBrand extends React.Component {
   componentDidMount() {
     this.props.actions.fetchCompanies({}, this.successCompanyListCallback)
     this.props.actions.fetchGenreList({}, this.successGenreCallback)
+    Api.getBrandDetails({
+      limit: 10,
+      offset: 0,
+      filter: {
+        column: 'ID',
+        operator: 'EQUAL',
+        value: this.props.location.state.brand_id.toString()
+      }
+    })
+      .then((response) => {
+        console.log("response", response)
+        this.setState({
+          brandName: response.brand_details[0].brand_name
+        })
+      })
+      .catch((err) => {
+        console.log("Error in fetching brand details of given brand id", err)
+      })
   }
 
   successCompanyListCallback() {
     const companyList = this.props.companies.map((item, i) => {
       return {
-        //value: i,
         text: item.name,
         value: item.id
-        //id: item.id
       }
     })
-    console.log("company list", companyList)
     this.setState({ companyList })
   }
 
@@ -50,7 +65,6 @@ class UpdateCompanyToBrand extends React.Component {
         value: item.id
       }
     })
-    console.log("genre list", genreList)
     this.setState({ genreList })
   }
 
@@ -66,30 +80,22 @@ class UpdateCompanyToBrand extends React.Component {
   }
 
   handleSave() {
-    //console.log("form data", this.companyForm)
     const mapCompanyForm = this.mapCompanyForm.getData()
-    console.log("form data", this.mapCompanyForm)
+    // console.log("form data", this.mapCompanyForm)
+    this.setState({ mappingBrandtoCompany: true })
     Api.updateCompanyToBrand({
       company_id: parseInt(mapCompanyForm.selectedCompanyId),
       company_name: mapCompanyForm.companyName,
       brand_id: parseInt(mapCompanyForm.selectedBrandId)
     })
       .then((response) => {
-        console.log("response", response)
+        this.setState({ mappingBrandtoCompany: false })
+        Notify("Updated Successfully", "success")
+        this.props.history.push(`/home/manage-company-brand-mapping`)
       })
       .catch((error) => {
         console.log("Error in updating company mapped to brand", error)
       })
-    // this.setState({ mappingBrandtoCompany: true })
-    // if (this.formIsValid()) {
-    //   this.props.actions.mapCompanyToBrand({
-    //     company_id: parseInt(mapCompanyForm.selectedCompanyId),
-    //     company_name: mapCompanyForm.companyName,
-    //     brand_id: parseInt(mapCompanyForm.selectedBrandId)
-    //   }, () => {
-    //     this.setState({ mappingBrandtoCompany: false })
-    //   })
-    // }
   }
 
   fetchGenreBasedBrandList(genreId) {
@@ -110,20 +116,13 @@ class UpdateCompanyToBrand extends React.Component {
         }
       })
     }
-    console.log("brand list", brandList)
     this.setState({
       brandList,
       mappingBrandtoCompany: (this.props.genreBasedBrandList) ? false : true
     })
   }
 
-
-  // successSkuListCallback() {
-  //   this.setState({loadingSkuList: false})
-  // }
-
   render() {
-    console.log("props", this.props)
     return (
       <React.Fragment>
         <h4 style={{ margin: '0', marginBottom: '40px' }}>UPDATE COMPANY TO BRAND</h4>
@@ -132,6 +131,7 @@ class UpdateCompanyToBrand extends React.Component {
           companyDetails={this.state.companyList}
           genreList={this.state.genreList}
           brands={this.state.brandList}
+          brandName={this.state.brandName}
           mappingBrandtoCompany={this.state.mappingBrandtoCompany}
           handleSave={this.handleSave}
           fetchGenreBasedBrandList={this.fetchGenreBasedBrandList}
