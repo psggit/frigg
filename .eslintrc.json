@@ -12,8 +12,7 @@
     "sourceType": "module"
   },
   "plugins": [
-    "react",
-    "react-hooks"
+    "react"
   ],
   "extends": [
     "eslint:recommended",
@@ -43,8 +42,6 @@
       {
         "named": "always"
       }
-    ],
-    "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "warn"
+    ]
   }
 }
