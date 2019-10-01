@@ -203,7 +203,7 @@ function* mapCompanyToBrand(action) {
     //action.CB()
   } catch (err) {
     console.log(err)
-    Notify("Something went wrong", "warning")
+    err.response.json().then(json => { Notify(json.message, "warning") })
     action.CB()
   }
 }

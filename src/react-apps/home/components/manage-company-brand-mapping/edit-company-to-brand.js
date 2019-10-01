@@ -94,7 +94,7 @@ class UpdateCompanyToBrand extends React.Component {
         this.props.history.push(`/home/manage-company-brand-mapping`)
       })
       .catch((error) => {
-        console.log("Error in updating company mapped to brand", error)
+        error.response.json().then(json => { Notify(json.message, "warning") })
       })
   }
 
