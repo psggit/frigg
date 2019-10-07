@@ -1500,11 +1500,11 @@ export const removeBrandFromCollection = action => (
   })
 )
 
-export const verifyTransaction = action => (
+export const verifyTransaction = (data) => (
   POST({
     api: '/consumer/verify/transaction',
     apiBase: 'odin',
-    data: action.data,
+    data: data,
     handleError: true
   })
 )

@@ -129,7 +129,6 @@ class AddCredits extends React.Component {
 
       let validTransactionsDetails = validTransactions.map((transaction) => {
         return {
-          email: transaction.email,
           id: transaction.id.toString(),
           amount: +(transaction.amount),
           reason: transaction.reason,
@@ -189,14 +188,14 @@ class AddCredits extends React.Component {
 
         this.setState({ duplicateUserIdCount: userIdsWithDuplicates.length - uniqueUserIds.length, verifyingTransaction: true })
 
-        this.props.data.addCreditsFormDetails = {
-          transactionId: transactionId[0].id,
-          transactionCode,
-          amount,
-          batchNo,
-          comment,
-          userIds: uniqueUserIds
-        }
+        // this.props.data.addCreditsFormDetails = {
+        //   transactionId: transactionId[0].id,
+        //   transactionCode,
+        //   amount,
+        //   batchNo,
+        //   comment,
+        //   userIds: uniqueUserIds
+        // }
 
         uniqueUserIds = uniqueUserIds.map((id) => {
           return {
@@ -205,6 +204,11 @@ class AddCredits extends React.Component {
         })
 
         this.props.actions.verifyTransaction({
+          transactionId: transactionId[0].id,
+          transactionCode,
+          amount,
+          batchNo,
+          comment,
           user_ids: uniqueUserIds
         }, (response) => {
 

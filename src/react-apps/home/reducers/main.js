@@ -117,7 +117,7 @@ const initialState = {
   collectionsCount: 0,
   brandCount: 0,
   transactionCodes: [],
-  addCreditsFormDetails: {},
+  //addCreditsFormDetails: {},
   customerDetails: [],
   validCreditsData: [],
   netBankingList: [],
@@ -693,17 +693,16 @@ const actionsMap = {
   },
 
   [ActionTypes.SUCCESS_VERIFY_TRANSACTION]: (state, action) => {
-
     let transactions = [];
-
-    transactions = state.addCreditsFormDetails.userIds.map((id, i) => {
+   
+    transactions = action.data.userIds.map((userObj, i) => {
       let transactionDetail = {
         id: '',
         fullname: ''
       }
 
-      transactionDetail = action.data.filter((transaction) => {
-        if (transaction.id === parseInt(id)) {
+      transactionDetail = action.data.validUserIds.filter((transaction) => {
+        if (transaction.id === parseInt(userObj.user_id)) {
           return transaction
         }
       })
@@ -711,11 +710,11 @@ const actionsMap = {
       return {
         id: transactionDetail.length > 0 ? transactionDetail[0].id : '',
         name: transactionDetail.length > 0 ? transactionDetail[0].full_name : 'NOT FOUND',
-        transactionId: state.addCreditsFormDetails.transactionId,
-        transactionCode: state.addCreditsFormDetails.transactionCode,
-        amount: state.addCreditsFormDetails.amount,
-        batchNo: state.addCreditsFormDetails.batchNo,
-        reason: state.addCreditsFormDetails.comment,
+        transactionId: action.data.transactionId,
+        transactionCode: action.data.transactionCode,
+        amount: action.data.amount,
+        batchNo: action.data.batchNo,
+        reason: action.data.comment,
         valid: transactionDetail.length > 0 && transactionDetail[0].id > 0 ? true : false
       }
     })

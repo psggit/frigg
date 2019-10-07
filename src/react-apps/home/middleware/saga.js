@@ -1128,9 +1128,21 @@ function* removeBrandFromCollection(action) {
 
 function* verifyTransaction(action) {
   try {
-    const data = yield call(Api.verifyTransaction, action)
+    const data = yield call(Api.verifyTransaction, { user_ids: action.data.user_ids})
     //const data = verifyTransactions
-    yield put({ type: ActionTypes.SUCCESS_VERIFY_TRANSACTION, data })
+    yield put({
+      type: ActionTypes.SUCCESS_VERIFY_TRANSACTION,
+      data: {
+        transactionId: action.data.transactionId,
+        transactionCode: action.data.transactionCode,
+        amount: action.data.amount,
+        batchNo: action.data.batchNo,
+        comment: action.data.comment,
+        userIds: action.data.user_ids,
+        validUserIds: data
+      }
+    })
+    //yield put({ type: ActionTypes.SUCCESS_VERIFY_TRANSACTION, data })
     setTimeout(() => {
       action.CB()
     }, 500)
