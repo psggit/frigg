@@ -211,7 +211,6 @@ class AddCredits extends React.Component {
           this.setState({ verifyingTransaction: false })
 
           let validTransactions = this.getValidTransactions()
-          console.log("Valid", validTransactions)
           if (validTransactions.length) {
             this.mountConfirmCredits(response)
           } else {

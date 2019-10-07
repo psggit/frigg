@@ -447,7 +447,10 @@ const actionsMap = {
   [ActionTypes.SUCCESS_UPDATE_TRANSACTION_LIST]: (state, action) => {
     console.log("data", action.data.data)
     let customerDetails = state.customerDetails.filter((item) => {
+<<<<<<< HEAD
+=======
       console.log("item", item)
+>>>>>>> 7050a3312650a525e29a838e6c5d8a2fd4200800
       if (item.id !== action.data.data) {
         return item
       }
@@ -697,19 +700,19 @@ const actionsMap = {
   [ActionTypes.SUCCESS_VERIFY_TRANSACTION]: (state, action) => {
 
     let transactions = [];
-    console.log("entered ids", state.addCreditsFormDetails.userIds)
+
     transactions = state.addCreditsFormDetails.userIds.map((id, i) => {
       let transactionDetail = {
         id: '',
         fullname: ''
       }
-      console.log("userid", action.data)
+
       transactionDetail = action.data.filter((transaction) => {
         if (transaction.id === parseInt(id)) {
           return transaction
         }
       })
-      console.log("tran detail", transactionDetail)
+
       return {
         id: transactionDetail.length > 0 ? transactionDetail[0].id : '',
         name: transactionDetail.length > 0 ? transactionDetail[0].full_name : 'NOT FOUND',
