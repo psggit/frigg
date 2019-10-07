@@ -16,7 +16,7 @@ import FlatButton from 'material-ui/FlatButton'
       super(props)
       this.state = {
         totalConsumers : 0,
-        invalidEmails : 0,
+        invalidUsers : 0,
         totalCredits: 0,
         open: true
       }
@@ -26,12 +26,12 @@ import FlatButton from 'material-ui/FlatButton'
     }
 
     componentDidMount() {
-      let invalidEmail = this.props.data.filter((item) => {
+      let invalidUser = this.props.data.filter((item) => {
         if(!item.valid) {
           return item;
         }
       })
-      this.setState({totalConsumers: this.props.data.length, totalCredits: this.props.data[0].amount, invalidEmails: invalidEmail.length})
+      this.setState({ totalConsumers: this.props.data.length, totalCredits: this.props.data[0].amount, invalidUserss: invalidUser.length})
     }
 
     // handleClickOpen() {
@@ -55,17 +55,17 @@ import FlatButton from 'material-ui/FlatButton'
 
     componentWillReceiveProps(newProps) {
       
-      let invalidEmail = newProps.data.filter((item) => {
+      let invalidUser = newProps.data.filter((item) => {
         if(!item.valid) {
           return item;
         }
       })
-      if(newProps.data.length === 0  || newProps.data.length === invalidEmail.length) {
+      if(newProps.data.length === 0  || newProps.data.length === invalidUser.length) {
         this.setState({totalCredits: 0})
       } else {
         this.setState({totalCredits: 0})
       }
-      this.setState({totalConsumers: newProps.data.length, invalidEmails: invalidEmail.length})
+      this.setState({totalConsumers: newProps.data.length, invalidUsers: invalidUser.length})
 
      }
 
@@ -75,11 +75,10 @@ import FlatButton from 'material-ui/FlatButton'
           <tr className={`row ${item.valid ? '' : 'highlight'}`} >
             <td className="col"> 
               {/* <FlatButton primary style={{ fontSize: '13px' }} label="Delete" onClick={() => this.props.deleteCredit(item.email)}/> */}
-              <button style={{ fontSize: '11px', height: '20px', padding: '1px 7px 2px', cursor: 'pointer' }} onClick={() => this.props.deleteCredit(item.email)}> delete </button>
+              <button style={{ fontSize: '11px', height: '20px', padding: '1px 7px 2px', cursor: 'pointer' }} onClick={() => this.props.deleteCredit(item.id)}> delete </button>
             </td>
             <td className="col"> {item.id} </td>
             <td className="col"> {item.name} </td>
-            <td className="col"> {item.email} </td>
             <td className="col"> {item.transactionCode} </td>
             <td className="col"> {item.amount} </td>
             <td className="col"> {item.batchNo} </td>
@@ -109,7 +108,7 @@ import FlatButton from 'material-ui/FlatButton'
           onClick={this.handleClick}
         />
       ]
-      const { totalConsumers, invalidEmails, totalCredits } = this.state
+      const { totalConsumers, invalidUsers, totalCredits } = this.state
       return (
         // <ModalBox>
         //   <ModalHeader> CUSTOMERS </ModalHeader>
@@ -166,7 +165,6 @@ import FlatButton from 'material-ui/FlatButton'
                     <td className="col"></td>
                     <td className="col">ID</td>
                     <td className="col">NAME</td>
-                    <td className="col">EMAIL ID</td>
                     <td className="col">TRANSACTION CODE</td>
                     <td className="col">AMOUNT</td>
                     <td className="col">BATCH NO</td>
@@ -181,9 +179,9 @@ import FlatButton from 'material-ui/FlatButton'
             </div>
           </div>
           <div className="summary">
-            <div className="field"> Number of Consumers: <span> {totalConsumers + this.props.duplicateEmailIdCount} </span></div>
+            <div className="field"> Number of Consumers: <span> {totalConsumers + this.props.duplicateUserIdCount} </span></div>
             <div className="field"> Total Credits: <span> {totalCredits} </span></div>
-            <div className="field"> Invalid Emails: <span> {invalidEmails + this.props.duplicateEmailIdCount} </span></div>
+            <div className="field"> Invalid Users: <span> {invalidUsers + this.props.duplicateUserIdCount} </span></div>
           </div>
         </Dialog>
       )

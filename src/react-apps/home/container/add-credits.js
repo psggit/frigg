@@ -25,7 +25,7 @@ class AddCredits extends React.Component {
     this.state = {
       transactionCode: '',
       amount: '',
-      emailIds: '',
+      userIds: '',
       batchNo: '',
       comment: '',
       amountErr: {
@@ -36,7 +36,7 @@ class AddCredits extends React.Component {
         status: false,
         value: ''
       },
-      duplicateEmailIdCount: 0,
+      duplicateUserIdCount: 0,
       shouldMountConfirmCredits: false,
       verifyingTransaction: false,
       showNotification: false
@@ -182,12 +182,12 @@ class AddCredits extends React.Component {
 
       if (!amountErr.status && !transactionCodeErr.status) {
 
-        let emailIdsWithDuplicates = [], uniqueEmailIds = []
-        emailIdsWithDuplicates = this.state.emailIds.replace(/\s/g, '')
-        emailIdsWithDuplicates = emailIdsWithDuplicates.split(',')
-        uniqueEmailIds = [...new Set(emailIdsWithDuplicates.map((id) => { return id }))]
+        let userIdsWithDuplicates = [], uniqueUserIds = []
+        userIdsWithDuplicates = this.state.userIds.replace(/\s/g, '')
+        userIdsWithDuplicates = userIdsWithDuplicates.split(',')
+        uniqueUserIds = [...new Set(userIdsWithDuplicates.map((id) => { return id }))]
 
-        this.setState({ duplicateEmailIdCount: emailIdsWithDuplicates.length - uniqueEmailIds.length, verifyingTransaction: true })
+        this.setState({ duplicateUserIdCount: userIdsWithDuplicates.length - uniqueUserIds.length, verifyingTransaction: true })
 
         this.props.data.addCreditsFormDetails = {
           transactionId: transactionId[0].id,
@@ -195,23 +195,23 @@ class AddCredits extends React.Component {
           amount,
           batchNo,
           comment,
-          emailIds: uniqueEmailIds
+          userIds: uniqueUserIds
         }
 
-        uniqueEmailIds = uniqueEmailIds.map((email) => {
+        uniqueUserIds = uniqueUserIds.map((id) => {
           return {
-            email
+            user_id: id
           }
         })
 
         this.props.actions.verifyTransaction({
-          mail_ids: uniqueEmailIds
+          user_ids: uniqueUserIds
         }, (response) => {
 
           this.setState({ verifyingTransaction: false })
 
           let validTransactions = this.getValidTransactions()
-
+          console.log("Valid", validTransactions)
           if (validTransactions.length) {
             this.mountConfirmCredits(response)
           } else {
@@ -269,14 +269,14 @@ class AddCredits extends React.Component {
   }
 
   render() {
-    const { transactionCodeErr, amountErr, duplicateEmailIdCount, verifyingTransaction } = this.state
+    const { transactionCodeErr, amountErr, duplicateUserIdCount, verifyingTransaction } = this.state
     return (
       <div>
         <div className="form">
           <div className="input-field">
-            <span>Consumer Email Ids</span>
+            <span>Consumer User Ids</span>
             {/* <input className="field-value" onChange={this.handleChange} name="emailIds" value={this.state.emailIds} type="text"/> */}
-            <textarea className="field-value" onChange={this.handleChange} value={this.state.emailIds} name="emailIds" rows="2" cols="40"></textarea>
+            <textarea className="field-value" onChange={this.handleChange} value={this.state.userIds} name="userIds" rows="2" cols="40"></textarea>
           </div>
           <div className="input-field">
             <span>Transaction Code</span>
@@ -311,7 +311,7 @@ class AddCredits extends React.Component {
             data={this.props.data.customerDetails}
             unMountModal={this.unMountConfirmCreditsModal}
             handleClickOnConfirm={this.createTransaction}
-            duplicateEmailIdCount={duplicateEmailIdCount}
+            duplicateUserIdCount={duplicateUserIdCount}
             deleteCredit={this.deleteCredit}
           />
         }
