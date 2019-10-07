@@ -187,7 +187,6 @@ class AddCredits extends React.Component {
         uniqueUserIds = [...new Set(userIdsWithDuplicates.map((id) => { return id }))]
 
         this.setState({ duplicateUserIdCount: userIdsWithDuplicates.length - uniqueUserIds.length, verifyingTransaction: true })
-
         // this.props.data.addCreditsFormDetails = {
         //   transactionId: transactionId[0].id,
         //   transactionCode,

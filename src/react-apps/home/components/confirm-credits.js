@@ -53,26 +53,26 @@ import FlatButton from 'material-ui/FlatButton'
       }, 500)
     }
 
-    componentWillReceiveProps(newProps) {
-      
-      let invalidUser = newProps.data.filter((item) => {
-        if(!item.valid) {
-          return item;
+    componentDidUpdate(prevProps) {
+      if(prevProps.data !== this.props.data) {
+        let invalidUser = this.props.data.filter((item) => {
+          if (!item.valid) {
+            return item;
+          }
+        })
+        if (this.props.data.length === 0 || this.props.data.length === invalidUser.length) {
+          this.setState({totalCredits: 0})
+        } else {
+          this.setState({totalCredits: 0})
         }
-      })
-      if(newProps.data.length === 0  || newProps.data.length === invalidUser.length) {
-        this.setState({totalCredits: 0})
-      } else {
-        this.setState({totalCredits: 0})
+        this.setState({ totalConsumers: this.props.data.length, invalidUsers: invalidUser.length })
       }
-      this.setState({totalConsumers: newProps.data.length, invalidUsers: invalidUser.length})
-
      }
 
     renderAllCustomers() {
       return this.props.data.map((item,i) => {
         return (
-          <tr className={`row ${item.valid ? '' : 'highlight'}`} >
+          <tr key={i} className={`row ${item.valid ? '' : 'highlight'}`} >
             <td className="col"> 
               {/* <FlatButton primary style={{ fontSize: '13px' }} label="Delete" onClick={() => this.props.deleteCredit(item.email)}/> */}
               <button style={{ fontSize: '11px', height: '20px', padding: '1px 7px 2px', cursor: 'pointer' }} onClick={() => this.props.deleteCredit(item.id)}> delete </button>
