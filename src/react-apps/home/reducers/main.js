@@ -445,12 +445,7 @@ const actionsMap = {
   },
 
   [ActionTypes.SUCCESS_UPDATE_TRANSACTION_LIST]: (state, action) => {
-    console.log("data", action.data.data)
     let customerDetails = state.customerDetails.filter((item) => {
-<<<<<<< HEAD
-=======
-      console.log("item", item)
->>>>>>> 7050a3312650a525e29a838e6c5d8a2fd4200800
       if (item.id !== action.data.data) {
         return item
       }
