@@ -14,7 +14,7 @@ class FilterModal extends React.Component {
       open: true,
       isLocalityAvailable: false,
       isCityAvailable: false,
-      brandId: "",
+      brandName: "",
       stateIdx: null,
       cityIdx: null,
       predictionIdx: null
@@ -76,8 +76,8 @@ class FilterModal extends React.Component {
   }
 
   handleApplyFilter() {
-    if (this.props.filter === "brandId") {
-      this.props.applyFilter(this.state.brandId)
+    if (this.props.filter === "brandName") {
+      this.props.applyFilter(this.state.brandName)
     }
     else if (this.props.filterStateAndCity) {
       this.props.applyFilter(this.state.stateIdx, this.state.isLocalityAvailable)
@@ -186,15 +186,15 @@ class FilterModal extends React.Component {
             </div>
           }
           {
-            this.props.filter === "brandId" &&
+            this.props.filter === "brandName" &&
             <div>
               <div className="form-group">
-                <label>Brand ID</label><br />
+                <label>Brand Name</label><br />
                 <TextField
                   style={{ width: '100%' }}
                   onChange={this.handleTextFields}
-                  name="brandId"
-                  value={this.state.brandId}
+                  name="brandName"
+                  value={this.state.brandName}
                 />
               </div>
             </div>

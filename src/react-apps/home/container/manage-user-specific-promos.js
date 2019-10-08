@@ -52,10 +52,7 @@ class ManagePromos extends React.Component {
     const queryUri = location.search.slice(1)
     const queryObj = getQueryObj(queryUri)
 
-    this.props.actions.fetchUserSpecificPromos({
-      offset: pageObj.offset,
-      limit: this.pageLimit,
-    })
+   if(this.state.app)
     this.setState({ activePage: pageObj.activePage })
 
     queryObj.activePage = pageObj.activePage

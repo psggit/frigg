@@ -39,21 +39,21 @@ class ManageCompany extends React.Component {
     }
   }
 
-  applyFilter(brandId) {
+  applyFilter(brandName) {
     this.props.actions.fetchMappedCompanyList({
       offset: 0,
       limit: this.pageLimit,
-      brand_id: parseInt(brandId)
+      brand_name: brandName
     })
-    this.setState({appliedFilter: true})
+    this.setState({ appliedFilter: true })
     let queryObj = {
-      brand_id: brandId
+      brand_name: brandName
     }
     history.pushState(queryObj, "mapped company listing", `/home/manage-company-brand-mapping?${getQueryUri(queryObj)}`)
   }
 
   resetFilter() {
-    this.setState({appliedFilter: false})
+    this.setState({ appliedFilter: false })
     this.props.history.push("/home/manage-company-brand-mapping")
   }
 
@@ -92,10 +92,18 @@ class ManageCompany extends React.Component {
     const queryUri = location.search.slice(1)
     const queryObj = getQueryObj(queryUri)
 
-    this.props.actions.fetchMappedCompanyList({
-      offset: pageObj.offset,
-      limit: this.pageLimit,
-    })
+    if (this.state.appliedFilter) {
+      this.props.actions.fetchMappedCompanyList({
+        offset: pageObj.offset,
+        limit: this.pageLimit,
+        brand_name: queryObj.brand_name
+      })
+    } else {
+      this.props.actions.fetchMappedCompanyList({
+        offset: pageObj.offset,
+        limit: this.pageLimit,
+      })
+    }
     this.setState({ activePage: pageObj.activePage })
 
     queryObj.activePage = pageObj.activePage
@@ -114,22 +122,22 @@ class ManageCompany extends React.Component {
           display: 'flex',
           justifyContent: 'space-between'
         }}>
-        <div>
-          <NavLink to={`/home/manage-company-brand-mapping/create`}>
-            <RaisedButton
-              label="Map company to brand"
-              primary
-            />
-          </NavLink>
+          <div>
+            <NavLink to={`/home/manage-company-brand-mapping/create`}>
+              <RaisedButton
+                label="Map company to brand"
+                primary
+              />
+            </NavLink>
 
-        </div>
-        <div>
+          </div>
+          <div>
             {
               this.state.appliedFilter &&
               <RaisedButton
                 onClick={this.resetFilter}
                 label="Reset Filter"
-                style={{marginRight: "10px"}}
+                style={{ marginRight: "10px" }}
               />
 
             }
@@ -138,7 +146,7 @@ class ManageCompany extends React.Component {
               label="Filter"
               icon={getIcon('filter')}
             />
-        </div>
+          </div>
         </div>
         <h3>Showing all companies mapped to brands</h3>
         <MappedCompanyList
@@ -157,17 +165,17 @@ class ManageCompany extends React.Component {
             : ''
         }
         {
-            this.state.shouldMountFilterDialog
-              ? (
-                <FilterModal
-                  applyFilter={this.applyFilter}
-                  title="Filter mapped companies by brand"
-                  unmountFilterModal={this.unmountFilterModal}
-                  floatingLabelText="BrandId"
-                  filter="brandId"
-                ></FilterModal>
-                )
-              : ""
+          this.state.shouldMountFilterDialog
+            ? (
+              <FilterModal
+                applyFilter={this.applyFilter}
+                title="Filter mapped companies by brand"
+                unmountFilterModal={this.unmountFilterModal}
+                floatingLabelText="Brand Name"
+                filter="brandName"
+              ></FilterModal>
+            )
+            : ""
         }
       </div>
     )
