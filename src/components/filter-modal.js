@@ -2,6 +2,7 @@ import React from 'react'
 import Dialog from 'material-ui/Dialog'
 import RaisedButton from 'material-ui/RaisedButton'
 import FlatButton from 'material-ui/FlatButton'
+import TextField from 'material-ui/TextField'
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
 import Checkbox from 'material-ui/Checkbox'
@@ -13,12 +14,14 @@ class FilterModal extends React.Component {
       open: true,
       isLocalityAvailable: false,
       isCityAvailable: false,
+      brandId: "",
       stateIdx: null,
       cityIdx: null,
       predictionIdx: null
     }
     this.handleClose = this.handleClose.bind(this)
-    this.unmountModal =  this.unmountModal.bind(this)
+    this.handleTextFields = this.handleTextFields.bind(this)
+    this.unmountModal = this.unmountModal.bind(this)
     this.handleApplyFilter = this.handleApplyFilter.bind(this)
     this.handleStateChange = this.handleStateChange.bind(this)
     this.handleCityChange = this.handleCityChange.bind(this)
@@ -34,13 +37,13 @@ class FilterModal extends React.Component {
     }, 500)
   }
 
-  handleApplyFilter(stateIdx, isLocalityAvailable) {
-    this.props.applyFilter(stateIdx, isLocalityAvailable)
-    this.setState({ open: false })
-    setTimeout(() => {
-      this.props.unmountFilterModal()
-    }, 500)
-  }
+  // handleApplyFilter(stateIdx, isLocalityAvailable) {
+  //   this.props.applyFilter(stateIdx, isLocalityAvailable)
+  //   this.setState({ open: false })
+  //   setTimeout(() => {
+  //     this.props.unmountFilterModal()
+  //   }, 500)
+  // }
 
   handleStateChange(e, k) {
     const stateIdx = k + 1
@@ -68,20 +71,24 @@ class FilterModal extends React.Component {
     this.setState({ isCityAvailable: e.target.checked })
   }
 
+  handleTextFields(e) {
+    this.setState({ [e.target.name]: e.target.value })
+  }
+
   handleApplyFilter() {
-    if(this.props.filterStateAndCity) {
+    if (this.props.filter === "brandId") {
+      this.props.applyFilter(this.state.brandId)
+    }
+    else if (this.props.filterStateAndCity) {
       this.props.applyFilter(this.state.stateIdx, this.state.isLocalityAvailable)
-      this.unmountModal()
-    } else if(!this.props.filterStateAndCity && !this.props.filterCity) {
+    } else if (!this.props.filterStateAndCity && !this.props.filterCity) {
       this.props.applyFilter(this.state.stateIdx, this.state.isCityAvailable)
-      this.unmountModal()
-    } else if(this.props.filterCity) {
+    } else if (this.props.filterCity) {
       this.props.applyFilter(this.state.cityIdx)
-      this.unmountModal()
     } else {
       this.props.applyFilter(this.state.predictionIdx)
-      this.unmountModal()
     }
+    this.unmountModal()
   }
 
   unmountModal() {
@@ -115,134 +122,8 @@ class FilterModal extends React.Component {
           actions={actions}
           onRequestClose={this.handleClose}
         >
-         {
-          this.props.filter === "stateAndCityWithIsAvailableCheck" &&
-          <div>
-            <div className="form-group">
-              <label>State</label><br />
-              <SelectField
-                style={{ width: '100%' }}
-                floatingLabelText={this.props.floatingLabelText}
-                value={parseInt(this.state.stateIdx)}
-                onChange={this.handleStateChange}
-                iconStyle={{ fill: '#9b9b9b' }}
-              >
-                {
-                  !this.props.loadingStates
-                  ? (
-                    this.props.statesData.map((state, i) => (
-                      <MenuItem
-                        value={i + 1}
-                        key={state.id}
-                        primaryText={state.state_name}
-                      />
-                    ))
-                  )
-                  : ''
-                }
-              </SelectField>
-            </div>
-            <div className="form-group">
-              <label>City</label><br />
-              <SelectField
-                style={{ width: '100%' }}
-                floatingLabelText={this.props.floatingLabelText}
-                disabled={this.props.loadingCities || !this.props.citiesData.length}
-                value={parseInt(this.state.cityIdx)}
-                onChange={this.handleCityChange}
-              >
-                {
-                  !this.props.loadingCities && this.props.citiesData.length
-                  ? (
-                    this.props.citiesData.map((city, i) => (
-                      <MenuItem
-                        value={i + 1}
-                        key={city.id}
-                        primaryText={city.name}
-                      />
-                    ))
-                  )
-                  : ''
-                }
-              </SelectField>
-            </div>
-            <div className="form-group">
-              <Checkbox
-                style={{ marginTop: '10px' }}
-                // disabled={this.props.isDisabled}
-                checked={this.state.isLocalityAvailable}
-                onCheck={this.handleChangeIsLocalityAvailable}
-                name="isLocalityAvailable"
-                label="is_available"
-              />
-            </div>
-          </div>
-         }
           {
-          this.props.filter === "stateAndCityWithoutIsAvailableCheck" &&
-          <div>
-            <div className="form-group">
-              <label>State</label><br />
-              <SelectField
-                style={{ width: '100%' }}
-                floatingLabelText={this.props.floatingLabelText}
-                value={parseInt(this.state.stateIdx)}
-                onChange={this.handleStateChange}
-                iconStyle={{ fill: '#9b9b9b' }}
-              >
-                {
-                  !this.props.loadingStates
-                  ? (
-                    this.props.statesData.map((state, i) => (
-                      <MenuItem
-                        value={i + 1}
-                        key={state.id}
-                        primaryText={state.state_name}
-                      />
-                    ))
-                  )
-                  : ''
-                }
-              </SelectField>
-            </div>
-            <div className="form-group">
-              <label>City</label><br />
-              <SelectField
-                style={{ width: '100%' }}
-                floatingLabelText={this.props.floatingLabelText}
-                disabled={this.props.loadingCities || !this.props.citiesData.length}
-                value={parseInt(this.state.cityIdx)}
-                onChange={this.handleCityChange}
-              >
-                {
-                  !this.props.loadingCities && this.props.citiesData.length
-                  ? (
-                    this.props.citiesData.map((city, i) => (
-                      <MenuItem
-                        value={i + 1}
-                        key={city.id}
-                        primaryText={city.name}
-                      />
-                    ))
-                  )
-                  : ''
-                }
-              </SelectField>
-            </div>
-            {/* <div className="form-group">
-              <Checkbox
-                style={{ marginTop: '10px' }}
-                // disabled={this.props.isDisabled}
-                checked={this.state.isLocalityAvailable}
-                onCheck={this.handleChangeIsLocalityAvailable}
-                name="isLocalityAvailable"
-                label="is_available"
-              />
-            </div> */}
-          </div>
-         }
-         {
-           this.props.filter === "cityWithIsAvailableCheck" &&
+            this.props.filter === "stateAndCityWithIsAvailableCheck" &&
             <div>
               <div className="form-group">
                 <label>State</label><br />
@@ -255,16 +136,156 @@ class FilterModal extends React.Component {
                 >
                   {
                     !this.props.loadingStates
-                    ? (
-                      this.props.statesData.map((state, i) => (
-                        <MenuItem
-                          value={i + 1}
-                          key={state.id}
-                          primaryText={state.state_name}
-                        />
-                      ))
-                    )
-                    : ''
+                      ? (
+                        this.props.statesData.map((state, i) => (
+                          <MenuItem
+                            value={i + 1}
+                            key={state.id}
+                            primaryText={state.state_name}
+                          />
+                        ))
+                      )
+                      : ''
+                  }
+                </SelectField>
+              </div>
+              <div className="form-group">
+                <label>City</label><br />
+                <SelectField
+                  style={{ width: '100%' }}
+                  floatingLabelText={this.props.floatingLabelText}
+                  disabled={this.props.loadingCities || !this.props.citiesData.length}
+                  value={parseInt(this.state.cityIdx)}
+                  onChange={this.handleCityChange}
+                >
+                  {
+                    !this.props.loadingCities && this.props.citiesData.length
+                      ? (
+                        this.props.citiesData.map((city, i) => (
+                          <MenuItem
+                            value={i + 1}
+                            key={city.id}
+                            primaryText={city.name}
+                          />
+                        ))
+                      )
+                      : ''
+                  }
+                </SelectField>
+              </div>
+              <div className="form-group">
+                <Checkbox
+                  style={{ marginTop: '10px' }}
+                  // disabled={this.props.isDisabled}
+                  checked={this.state.isLocalityAvailable}
+                  onCheck={this.handleChangeIsLocalityAvailable}
+                  name="isLocalityAvailable"
+                  label="is_available"
+                />
+              </div>
+            </div>
+          }
+          {
+            this.props.filter === "brandId" &&
+            <div>
+              <div className="form-group">
+                <label>Brand ID</label><br />
+                <TextField
+                  style={{ width: '100%' }}
+                  onChange={this.handleTextFields}
+                  name="brandId"
+                  value={this.state.brandId}
+                />
+              </div>
+            </div>
+          }
+          {
+            this.props.filter === "stateAndCityWithoutIsAvailableCheck" &&
+            <div>
+              <div className="form-group">
+                <label>State</label><br />
+                <SelectField
+                  style={{ width: '100%' }}
+                  floatingLabelText={this.props.floatingLabelText}
+                  value={parseInt(this.state.stateIdx)}
+                  onChange={this.handleStateChange}
+                  iconStyle={{ fill: '#9b9b9b' }}
+                >
+                  {
+                    !this.props.loadingStates
+                      ? (
+                        this.props.statesData.map((state, i) => (
+                          <MenuItem
+                            value={i + 1}
+                            key={state.id}
+                            primaryText={state.state_name}
+                          />
+                        ))
+                      )
+                      : ''
+                  }
+                </SelectField>
+              </div>
+              <div className="form-group">
+                <label>City</label><br />
+                <SelectField
+                  style={{ width: '100%' }}
+                  floatingLabelText={this.props.floatingLabelText}
+                  disabled={this.props.loadingCities || !this.props.citiesData.length}
+                  value={parseInt(this.state.cityIdx)}
+                  onChange={this.handleCityChange}
+                >
+                  {
+                    !this.props.loadingCities && this.props.citiesData.length
+                      ? (
+                        this.props.citiesData.map((city, i) => (
+                          <MenuItem
+                            value={i + 1}
+                            key={city.id}
+                            primaryText={city.name}
+                          />
+                        ))
+                      )
+                      : ''
+                  }
+                </SelectField>
+              </div>
+              {/* <div className="form-group">
+              <Checkbox
+                style={{ marginTop: '10px' }}
+                // disabled={this.props.isDisabled}
+                checked={this.state.isLocalityAvailable}
+                onCheck={this.handleChangeIsLocalityAvailable}
+                name="isLocalityAvailable"
+                label="is_available"
+              />
+            </div> */}
+            </div>
+          }
+          {
+            this.props.filter === "cityWithIsAvailableCheck" &&
+            <div>
+              <div className="form-group">
+                <label>State</label><br />
+                <SelectField
+                  style={{ width: '100%' }}
+                  floatingLabelText={this.props.floatingLabelText}
+                  value={parseInt(this.state.stateIdx)}
+                  onChange={this.handleStateChange}
+                  iconStyle={{ fill: '#9b9b9b' }}
+                >
+                  {
+                    !this.props.loadingStates
+                      ? (
+                        this.props.statesData.map((state, i) => (
+                          <MenuItem
+                            value={i + 1}
+                            key={state.id}
+                            primaryText={state.state_name}
+                          />
+                        ))
+                      )
+                      : ''
                   }
                 </SelectField>
               </div>
@@ -279,9 +300,9 @@ class FilterModal extends React.Component {
                 />
               </div>
             </div>
-         }
-         {
-           this.props.filter === "cityFilter" &&
+          }
+          {
+            this.props.filter === "cityFilter" &&
             <div>
               <div className="form-group">
                 <label>City</label><br />
@@ -294,23 +315,23 @@ class FilterModal extends React.Component {
                 >
                   {
                     !this.props.loadingCities
-                    ? (
-                      this.props.citiesData.map((city, i) => (
-                        <MenuItem
-                          value={i + 1}
-                          key={city.value}
-                          primaryText={city.text}
-                        />
-                      ))
-                    )
-                    : ''
+                      ? (
+                        this.props.citiesData.map((city, i) => (
+                          <MenuItem
+                            value={i + 1}
+                            key={city.value}
+                            primaryText={city.text}
+                          />
+                        ))
+                      )
+                      : ''
                   }
                 </SelectField>
               </div>
             </div>
           }
           {
-           this.props.filter === "predictionFilter" &&
+            this.props.filter === "predictionFilter" &&
             <div>
               <div className="form-group">
                 <label>Prediction</label><br />
@@ -323,21 +344,21 @@ class FilterModal extends React.Component {
                 >
                   {
                     !this.props.loadingPredictionList
-                    ? (
-                      this.props.predictionList.map((prediction, i) => (
-                        <MenuItem
-                          value={i + 1}
-                          key={prediction.value}
-                          primaryText={prediction.text}
-                        />
-                      ))
-                    )
-                    : ''
+                      ? (
+                        this.props.predictionList.map((prediction, i) => (
+                          <MenuItem
+                            value={i + 1}
+                            key={prediction.value}
+                            primaryText={prediction.text}
+                          />
+                        ))
+                      )
+                      : ''
                   }
                 </SelectField>
               </div>
             </div>
-         }
+          }
         </Dialog>
       </div>
     )

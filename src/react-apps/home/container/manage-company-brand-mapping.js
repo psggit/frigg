@@ -7,6 +7,8 @@ import MappedCompanyList from '../components/manage-company-brand-mapping/mapped
 import Pagination from '@components/pagination'
 import '@sass/components/_pagination.scss'
 import { NavLink } from 'react-router-dom'
+import FilterModal from '@components/filter-modal'
+import getIcon from '../components/icon-utils'
 import RaisedButton from 'material-ui/RaisedButton'
 
 class ManageCompany extends React.Component {
@@ -14,25 +16,57 @@ class ManageCompany extends React.Component {
     super(props)
     this.pageLimit = 10
     this.state = {
-      activePage: 1
+      activePage: 1,
+      shouldMountFilterDialog: false,
+      appliedFilter: false
     }
     this.setQueryParamas = this.setQueryParamas.bind(this)
     this.setPage = this.setPage.bind(this)
+    this.applyFilter = this.applyFilter.bind(this)
+    this.resetFilter = this.resetFilter.bind(this)
+    this.mountFilterDialog = this.mountFilterDialog.bind(this)
+    this.unmountFilterModal = this.unmountFilterModal.bind(this)
   }
 
   componentDidMount() {
     if (location.search.length) {
       this.setQueryParamas()
     } else {
-      this.fetchMappedCompanyList()
+      this.fetchMappedCompanyList({
+        limit: 10,
+        offset: 0
+      })
     }
   }
 
-  fetchMappedCompanyList() {
+  applyFilter(brandId) {
     this.props.actions.fetchMappedCompanyList({
       offset: 0,
-      limit: this.pageLimit
+      limit: this.pageLimit,
+      brand_id: parseInt(brandId)
     })
+    this.setState({appliedFilter: true})
+    let queryObj = {
+      brand_id: brandId
+    }
+    history.pushState(queryObj, "mapped company listing", `/home/manage-company-brand-mapping?${getQueryUri(queryObj)}`)
+  }
+
+  resetFilter() {
+    this.setState({appliedFilter: false})
+    this.props.history.push("/home/manage-company-brand-mapping")
+  }
+
+  mountFilterDialog() {
+    this.setState({ shouldMountFilterDialog: true })
+  }
+
+  unmountFilterModal() {
+    this.setState({ shouldMountFilterDialog: false })
+  }
+
+  fetchMappedCompanyList(payload) {
+    this.props.actions.fetchMappedCompanyList(payload)
   }
 
   setQueryParamas() {
@@ -42,9 +76,14 @@ class ManageCompany extends React.Component {
       this.setState({ [item[0]]: item[1] })
     })
 
-    this.props.actions.fetchMappedCompanyList({
+    this.setState({
+      appliedFilter: queryObj.brand_id ? true : false
+    })
+
+    this.fetchMappedCompanyList({
       offset: queryObj.offset ? parseInt(queryObj.offset) : 0,
       limit: this.pageLimit,
+      brand_id: queryObj.brand_id ? parseInt(queryObj.brand_id) : 0
     })
   }
 
@@ -71,6 +110,10 @@ class ManageCompany extends React.Component {
     } = this.props
     return (
       <div style={{ width: '100%' }}>
+        <div style={{
+          display: 'flex',
+          justifyContent: 'space-between'
+        }}>
         <div>
           <NavLink to={`/home/manage-company-brand-mapping/create`}>
             <RaisedButton
@@ -79,6 +122,23 @@ class ManageCompany extends React.Component {
             />
           </NavLink>
 
+        </div>
+        <div>
+            {
+              this.state.appliedFilter &&
+              <RaisedButton
+                onClick={this.resetFilter}
+                label="Reset Filter"
+                style={{marginRight: "10px"}}
+              />
+
+            }
+            <RaisedButton
+              onClick={this.mountFilterDialog}
+              label="Filter"
+              icon={getIcon('filter')}
+            />
+        </div>
         </div>
         <h3>Showing all companies mapped to brands</h3>
         <MappedCompanyList
@@ -95,6 +155,19 @@ class ManageCompany extends React.Component {
               setPage={this.setPage}
             />
             : ''
+        }
+        {
+            this.state.shouldMountFilterDialog
+              ? (
+                <FilterModal
+                  applyFilter={this.applyFilter}
+                  title="Filter mapped companies by brand"
+                  unmountFilterModal={this.unmountFilterModal}
+                  floatingLabelText="BrandId"
+                  filter="brandId"
+                ></FilterModal>
+                )
+              : ""
         }
       </div>
     )
