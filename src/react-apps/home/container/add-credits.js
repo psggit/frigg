@@ -276,7 +276,7 @@ class AddCredits extends React.Component {
       <div>
         <div className="form">
           <div className="input-field">
-            <span>Consumer User Ids</span>
+            <span>Consumer Ids</span>
             {/* <input className="field-value" onChange={this.handleChange} name="emailIds" value={this.state.emailIds} type="text"/> */}
             <textarea className="field-value" onChange={this.handleChange} value={this.state.userIds} name="userIds" rows="2" cols="40"></textarea>
           </div>
