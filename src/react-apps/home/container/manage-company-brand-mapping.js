@@ -114,8 +114,9 @@ class ManageCompany extends React.Component {
   render() {
     const {
       loadingMappedCompanyList,
-      mappedCompanyList
+      mappedCompanyList,
     } = this.props
+    const { appliedFilter } = this.state
     return (
       <div style={{ width: '100%' }}>
         <div style={{
@@ -155,7 +156,7 @@ class ManageCompany extends React.Component {
           history={this.props.history}
         />
         {
-          !loadingMappedCompanyList && mappedCompanyList && mappedCompanyList.length
+          !loadingMappedCompanyList && mappedCompanyList && !appliedFilter
             ? <Pagination
               activePage={parseInt(this.state.activePage)}
               itemsCountPerPage={this.pageLimit}
