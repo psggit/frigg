@@ -77,13 +77,13 @@ class ManageCompany extends React.Component {
     })
 
     this.setState({
-      appliedFilter: queryObj.brand_id ? true : false
+      appliedFilter: queryObj.brand_name ? true : false
     })
 
     this.fetchMappedCompanyList({
       offset: queryObj.offset ? parseInt(queryObj.offset) : 0,
       limit: this.pageLimit,
-      brand_id: queryObj.brand_id ? parseInt(queryObj.brand_id) : 0
+      brand_name: queryObj.brand_name ? queryObj.brand_name : 0
     })
   }
 
@@ -92,18 +92,11 @@ class ManageCompany extends React.Component {
     const queryUri = location.search.slice(1)
     const queryObj = getQueryObj(queryUri)
 
-    if (this.state.appliedFilter) {
-      this.props.actions.fetchMappedCompanyList({
-        offset: pageObj.offset,
-        limit: this.pageLimit,
-        brand_name: queryObj.brand_name
-      })
-    } else {
-      this.props.actions.fetchMappedCompanyList({
-        offset: pageObj.offset,
-        limit: this.pageLimit,
-      })
-    }
+    this.props.actions.fetchMappedCompanyList({
+      offset: pageObj.offset,
+      limit: this.pageLimit,
+    })
+
     this.setState({ activePage: pageObj.activePage })
 
     queryObj.activePage = pageObj.activePage
@@ -156,7 +149,7 @@ class ManageCompany extends React.Component {
           history={this.props.history}
         />
         {
-          !loadingMappedCompanyList && mappedCompanyList && !appliedFilter
+          !loadingMappedCompanyList && mappedCompanyList && mappedCompanyList.length
             ? <Pagination
               activePage={parseInt(this.state.activePage)}
               itemsCountPerPage={this.pageLimit}
