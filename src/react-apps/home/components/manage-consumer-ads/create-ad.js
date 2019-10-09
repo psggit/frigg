@@ -96,7 +96,7 @@ class CreateAd extends React.Component {
 
   handleFetchCities(short_name, id) {
     this.setState({ selectedState: id })
-    if(this.statesForWhichDataIsFetched.indexOf(id) === -1) {
+    if (this.statesForWhichDataIsFetched.indexOf(id) === -1) {
       this.shouldInitializeActiveCitiesArr = true
       this.props.actions.setLoadingState('loadingCities')
       this.props.actions.fetchCities({
@@ -144,7 +144,7 @@ class CreateAd extends React.Component {
     if (
       activeCitiesPayload.length
       && adData.title.length
-      && adData.ad_type.length 
+      && adData.ad_type.length
       && adData.app_type.length
       && adData.active_to
       && adData.active_from
@@ -154,12 +154,14 @@ class CreateAd extends React.Component {
       //&& adData.high_res_image
       //&& adData.low_res_image
     ) {
-      if(adData.ad_type === "collection" && adData.collectionName.length && (adData.high_res_image.length || adData.low_res_image.length)) {
+      if (adData.ad_type === "collection" && adData.collectionName.length && (adData.high_res_image.length || adData.low_res_image.length)) {
         const payload = {
           ad_data: {
             ad_title: adData.title,
             ad_type: adData.ad_type,
             app_type: adData.app_type,
+            description: adData.description,
+            disclaimer: adData.disclaimer,
             active_from: adData.active_from,
             active_to: adData.active_to,
             status: adData.status ? 'Active' : 'Inactive',
@@ -179,12 +181,14 @@ class CreateAd extends React.Component {
           // console.log("deep", payload)
           this.setState({ isDisabled })
         })
-      } else if(!adData.ad_type.includes("image") && adData.url.length) {
+      } else if (!adData.ad_type.includes("image") && adData.url.length) {
         const payload = {
           ad_data: {
             ad_title: adData.title,
             ad_type: adData.ad_type,
             app_type: adData.app_type,
+            description: adData.description,
+            disclaimer: adData.disclaimer,
             active_from: adData.active_from,
             active_to: adData.active_to,
             status: adData.status ? 'Active' : 'Inactive',
@@ -216,6 +220,8 @@ class CreateAd extends React.Component {
             app_type: adData.app_type,
             active_from: adData.active_from,
             active_to: adData.active_to,
+            description: adData.description,
+            disclaimer: adData.disclaimer,
             is_critical: adData.is_critical,
             status: adData.status ? 'Active' : 'Inactive',
             //image_url: adData.image_url,
@@ -285,12 +291,12 @@ class CreateAd extends React.Component {
             }}
           >
             <h3 style={{ marginTop: 0, marginBottom: '40px' }}>Enter ad details</h3>
-              <CreateConsumerAdForm
-                ref={(node) => this.createConsumerAdForm = node}
-                status={false}
-                loadingCollections={this.props.loadingAllCollections}
-                collectionsData={this.props.collectionsList}
-              />
+            <CreateConsumerAdForm
+              ref={(node) => this.createConsumerAdForm = node}
+              status={false}
+              loadingCollections={this.props.loadingAllCollections}
+              collectionsData={this.props.collectionsList}
+            />
           </Card>
 
           <Card
@@ -327,7 +333,7 @@ class CreateAd extends React.Component {
               <div>
                 {
                   this.state.citiesStateMap[this.state.selectedState]
-                  ? this.state.citiesStateMap[this.state.selectedState].map((item, i) => (
+                    ? this.state.citiesStateMap[this.state.selectedState].map((item, i) => (
                       <div key={i} style={{ display: 'flex' }}>
                         <Checkbox
                           className="mui-checkbox-sm"
@@ -337,42 +343,42 @@ class CreateAd extends React.Component {
                           label={item.name}
                           checked={
                             this.state.activeCitiesStateMap[this.state.selectedState].length
-                            ? this.state.activeCitiesStateMap[this.state.selectedState][i].checked
-                            : false
+                              ? this.state.activeCitiesStateMap[this.state.selectedState][i].checked
+                              : false
                           }
                         />
                         <input
                           disabled={
                             this.state.activeCitiesStateMap[this.state.selectedState].length
-                            ? !this.state.activeCitiesStateMap[this.state.selectedState][i].checked
-                            : true
+                              ? !this.state.activeCitiesStateMap[this.state.selectedState][i].checked
+                              : true
                           }
                           value={
                             this.state.activeCitiesStateMap[this.state.selectedState].length
-                            ? this.state.activeCitiesStateMap[this.state.selectedState][i].listing_order
-                            : 0
+                              ? this.state.activeCitiesStateMap[this.state.selectedState][i].listing_order
+                              : 0
                           }
                           type='number'
                           onChange={(e) => { this.handleSetListingOrder(e, item.id) }}
                           style={{ width: '40px', textAlign: 'center', height: '20px', borderRadius: '0' }}
                         />
                       </div>
-                  ))
-                  : 'No cities found'
+                    ))
+                    : 'No cities found'
                 }
               </div>
             </Card>
           }
         </div>
 
-          <RaisedButton
-            primary
-            disabled={this.state.isDisabled}
-            label="Save"
-            onClick={this.submit}
-            style={{ marginTop: '40px' }}
-          />
-        </div>
+        <RaisedButton
+          primary
+          disabled={this.state.isDisabled}
+          label="Save"
+          onClick={this.submit}
+          style={{ marginTop: '40px' }}
+        />
+      </div>
     )
   }
 }

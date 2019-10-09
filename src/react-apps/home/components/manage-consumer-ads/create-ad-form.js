@@ -20,7 +20,7 @@ class CreateAdForm extends React.Component {
       title: props.title || '',
       ad_type: props.ad_type || '',
       app_type: props.app_type || '',
-      is_critical:  props.is_critical || false,
+      is_critical: props.is_critical || false,
       url: props.url || '',
       //image_url: props.image_url || '',
       high_res_image: '',
@@ -28,6 +28,8 @@ class CreateAdForm extends React.Component {
       active_from: null,
       active_to: null,
       shouldTrim: true,
+      description: '',
+      disclaimer: ''
       //deep_link_url: props.deep_link_url || '',
       //collectionName: 'select-collection',
       // isImageUploaded: false,
@@ -147,7 +149,7 @@ class CreateAdForm extends React.Component {
     return (
       <Fragment>
         <div className="form-group">
-          <label className="label">Ad title</label><br/>
+          <label className="label">Ad title</label><br />
           <TextField
             disabled={this.props.isDisabled}
             onChange={this.handleTextFields}
@@ -159,7 +161,7 @@ class CreateAdForm extends React.Component {
         </div>
 
         <div className="form-group">
-          <label className="label">Ad type</label><br/>
+          <label className="label">Ad type</label><br />
           {/* <TextField
             disabled={this.props.isDisabled}
             onChange={this.handleTextFields}
@@ -180,7 +182,7 @@ class CreateAdForm extends React.Component {
                   key={item}
                   value={item}
                 >
-                  { item }
+                  {item}
                 </option>
               ))
             }
@@ -189,7 +191,7 @@ class CreateAdForm extends React.Component {
         </div>
 
         <div className="form-group">
-          <label className="label">App type</label><br/>
+          <label className="label">App type</label><br />
           <select
             value={this.state.app_type}
             onChange={(e) => this.handleAppTypeChange(e)}
@@ -202,7 +204,7 @@ class CreateAdForm extends React.Component {
                   key={item}
                   value={item}
                 >
-                  { item }
+                  {item}
                 </option>
               ))
             }
@@ -212,7 +214,7 @@ class CreateAdForm extends React.Component {
 
         <div>
           <div className="form-group" style={{ width: '100%' }}>
-            <label className="label">Active from</label><br/>
+            <label className="label">Active from</label><br />
             <input
               type='datetime-local'
               onChange={this.handleDate}
@@ -230,7 +232,7 @@ class CreateAdForm extends React.Component {
           </div>
 
           <div className="form-group" style={{ width: '100%' }}>
-            <label className="label">Active to</label><br/>
+            <label className="label">Active to</label><br />
             <input
               type='datetime-local'
               onChange={this.handleDate}
@@ -312,19 +314,42 @@ class CreateAdForm extends React.Component {
             </div>
           }
         </div> */}
+
+        <div className="form-group">
+          <label className="label">Description</label><br />
+          <TextField
+            onChange={this.handleTextFields}
+            name="description"
+            hintText=""
+            value={this.state.description}
+            style={{ width: '100%' }}
+          />
+        </div>
+
+        <div className="form-group">
+          <label className="label">Disclaimer</label><br />
+          <TextField
+            onChange={this.handleTextFields}
+            name="disclaimer"
+            hintText=""
+            value={this.state.disclaimer}
+            style={{ width: '100%' }}
+          />
+        </div>
+
         {
           !this.state.ad_type.includes("image") && !this.state.ad_type.includes("collection") &&
-            <div className="form-group">
-              <label className="label">Url</label><br />
-              <TextField
-                disabled={this.props.isDisabled}
-                onChange={this.handleTextFields}
-                name="url"
-                hintText="https://www.hipbarpay.com/pay/#invite/friend"
-                value={this.state.url}
-                style={{ width: '100%' }}
-              />
-            </div>
+          <div className="form-group">
+            <label className="label">Url</label><br />
+            <TextField
+              disabled={this.props.isDisabled}
+              onChange={this.handleTextFields}
+              name="url"
+              hintText="https://www.hipbarpay.com/pay/#invite/friend"
+              value={this.state.url}
+              style={{ width: '100%' }}
+            />
+          </div>
         }
 
         <div className="form-group">
@@ -387,28 +412,28 @@ class CreateAdForm extends React.Component {
         {
           this.state.ad_type === "collection" &&
           <div className="form-group">
-          <label className="label">Collection</label><br />
+            <label className="label">Collection</label><br />
             <select selected={this.state.collectionName} onChange={this.handleCollectionChange} style={{ marginTop: '10px', width: '100%', height: '36px' }}>
-            <option>select-collection</option>
+              <option>select-collection</option>
               {
                 !this.props.loadingCollections
-                ? (
-                  this.props.collectionsData.map((item, i) => (
-                    <option
-                      key={item.short_name}
-                      value={item.short_name}
-                    >
-                      { item.display_name }
-                    </option>
-                  ))
-                )
-                : ''
+                  ? (
+                    this.props.collectionsData.map((item, i) => (
+                      <option
+                        key={item.short_name}
+                        value={item.short_name}
+                      >
+                        {item.display_name}
+                      </option>
+                    ))
+                  )
+                  : ''
               }
-          </select>
-        </div>
+            </select>
+          </div>
 
         }
-        
+
         <div className="form-group">
           <Checkbox
             disabled={this.props.isDisabled}
