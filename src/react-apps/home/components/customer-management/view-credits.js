@@ -14,11 +14,13 @@ import CircularProgress from 'material-ui/CircularProgress'
 import { NavLink } from 'react-router-dom'
 import TableLoadingShell from './../table-loading-shell'
 import '@sass/components/_table.scss'
+import Moment from 'moment'
 
 const TableHeaderItems = [
   'NAME',
   'EMAIL',
   'AMOUNT',
+  'CREATED AT',
   'TRANSACTION ID',
   'BATCH NO'
 ]
@@ -27,6 +29,7 @@ const styles = [
   { width: '120px', textAlign: 'left' },
   { width: '100px', textAlign: 'left' },
   { width: '38px', textAlign: 'left' },
+  { width: '120px', textAlign: 'left' },
   { width: '60px', textAlign: 'left' },
   { width: '38px', textAlign: 'left' }
 ]
@@ -59,8 +62,9 @@ function ViewCredits(data) {
                 </TableRowColumn>
                 <TableRowColumn style={styles[1]}>{item.email}</TableRowColumn>
                 <TableRowColumn style={styles[2]}>{item.amount}</TableRowColumn>
-                <TableRowColumn style={styles[3]}>{item.transaction_id}</TableRowColumn>
-                <TableRowColumn style={styles[4]}>{item.batch_number}</TableRowColumn>
+                <TableRowColumn style={styles[3]}>{Moment(item.created_at).format("DD-MM-YYYY h:mm:ss A")}</TableRowColumn>
+                <TableRowColumn style={styles[4]}>{item.transaction_id}</TableRowColumn>
+                <TableRowColumn style={styles[5]}>{item.batch_number}</TableRowColumn>
               </TableRow>
             ))
           )
