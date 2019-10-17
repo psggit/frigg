@@ -18,6 +18,7 @@ import FlatButton from 'material-ui/FlatButton'
         totalConsumers : 0,
         invalidUsers : 0,
         totalCredits: 0,
+        disableConfirm: false,
         open: true
       }
 
@@ -46,11 +47,14 @@ import FlatButton from 'material-ui/FlatButton'
     }
 
     handleClick() {
-      this.props.handleClickOnConfirm()
-      this.setState({ open: false })
-      setTimeout(() => {
-        this.props.unMountModal()
-      }, 500)
+      this.setState({ disableConfirm: true, open: false }, () => {
+        this.props.handleClickOnConfirm()
+      })
+      //console.log("hi")
+      //this.props.handleClickOnConfirm()
+      // setTimeout(() => {
+      //   this.props.unMountModal()
+      // }, 500)
     }
 
     componentDidUpdate(prevProps) {
@@ -105,6 +109,7 @@ import FlatButton from 'material-ui/FlatButton'
         <RaisedButton
           primary
           label="Confirm"
+          disabled={this.state.disableConfirm}
           onClick={this.handleClick}
         />
       ]
@@ -155,7 +160,7 @@ import FlatButton from 'material-ui/FlatButton'
           modal={false}
           open={this.state.open}
           actions={actions}
-          onRequestClose={this.handleClose}
+          //onRequestClose={this.handleClose}
         >
           <div id="table-wrapper">
             <div id="table-scroll">

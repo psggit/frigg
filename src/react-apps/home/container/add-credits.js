@@ -120,7 +120,7 @@ class AddCredits extends React.Component {
   }
 
   createTransaction() {
-
+    
     let validTransactions = this.getValidTransactions()
 
     if (validTransactions.length) {
