@@ -51,13 +51,17 @@ class CouponForm extends React.Component {
 
   componentDidUpdate(newProps) {
     const cityMap = {}
+    console.log("city list", this.props.cityList, "city data", this.props.data.city_list)
     if (this.props.cityList !== newProps.cityList) {
       this.props.cityList.map((item) => {
         cityMap[item.value] = { city_id: item.value, city_name: item.text, activity_status: false }
       })
+      console.log("city map", cityMap)
       if (location.pathname.indexOf("edit") !== -1) {
         this.props.data.city_list.map((item) => {
-          cityMap[item.city_id].activity_status = item.activity_status
+          if (cityMap[item.city_id]) {
+            cityMap[item.city_id].activity_status = item.activity_status
+          }
         })
       }
 
