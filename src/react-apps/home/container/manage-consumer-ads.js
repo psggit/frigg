@@ -49,6 +49,7 @@ class ManageConsumerAds extends React.Component {
     //this.handleChangeIsLocalityAvailable = this.handleChangeIsLocalityAvailable.bind(this)
     this.mountViewFencesDialog = this.mountViewFencesDialog.bind(this)
     this.unmountViewFencesDialog = this.unmountViewFencesDialog.bind(this)
+    this.fetchConsumerAdList = this.fetchConsumerAdList.bind(this)
   }
 
   componentDidMount() {
@@ -81,13 +82,16 @@ class ManageConsumerAds extends React.Component {
       this.setQueryParamas()
     } else {
       // if there is no query string then fetch defult citiesData/all citiesData
-      this.props.actions.fetchConsumerAds({
-        //city_id: null,
-        offset: 0,
-        limit: this.pageLimit
-      })
+      this.fetchConsumerAdList()
       this.setState({ stateIdx: 0 })
     }
+  }
+
+  fetchConsumerAdList() {
+    this.props.actions.fetchConsumerAds({
+      offset: (this.state.activePage - 1) * this.pageLimit,
+      limit: this.pageLimit
+    })
   }
 
   setQueryParamas() {
@@ -241,7 +245,9 @@ class ManageConsumerAds extends React.Component {
         }
 
         <ViewConsumerAds
-          fetchConsumerAds={this.props.actions.fetchConsumerAds}
+          fetchConsumerAds={this.fetchConsumerAdList}
+          // activePage={this.state.activePage}
+          // limit={this.pageLimit}
           consumerAdsData={consumerAdsData.ads_data}
           loadingConsumerAds={loadingConsumerAds}
           updateConsumerAdStatus={this.props.actions.updateConsumerAdStatus}

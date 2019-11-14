@@ -29,10 +29,7 @@ export default function UpdateListingOrderModal(props) {
         .then((json) => {
           unmountModal()
           Notify(json.message, "success")
-          props.fetchConsumerAds({
-            limit: 10,
-            offset: 0
-          })
+          props.fetchConsumerAds()
         })
 
       promise.catch((err) => {

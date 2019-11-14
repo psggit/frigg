@@ -19,6 +19,7 @@ import { overrideTableStyle } from './../../../utils'
 import { getIcon } from "@components/utils"
 import { mountModal } from "@components/ModalBox2/api"
 import UpdateListingOrderModal from "./UpdateListingOrderModal"
+import UpdateAdTimings from "./updateAdExpiryTime"
 
 const TableHeaderItems = [
   '',
@@ -38,10 +39,10 @@ const TableHeaderItems = [
 
 const styles = [
   { width: '38px' },
-  { width: '38px' },
-  { width: '80px' },
-  { width: '64px', lineHeight: '1.6' },
-  { width: '64px', lineHeight: '1.6' },
+  { width: '18px' },
+  { width: '100px' },
+  { width: '140px', lineHeight: '1.6' },
+  { width: '140px', lineHeight: '1.6' },
   { width: '38px' },
   { width: '60px' },
   { width: '60px' },
@@ -72,6 +73,19 @@ class ViewConsumerAds extends React.Component {
       ad_id: item.ad_id,
       city_id: item.city_id,
       city_name: item.CityName,
+      // activePage: this.props.activePage,
+      // limit: this.props.limit,
+      fetchConsumerAds: this.props.fetchConsumerAds
+    }))
+  }
+  handleEditAdTimings(item, fieldNameToUpdate) {
+    mountModal(UpdateAdTimings({
+      active_from: item.active_from,
+      active_to: item.active_to,
+      ad_id: item.ad_id,
+      city_id: item.city_id,
+      city_name: item.CityName,
+      fieldNameToUpdate,
       fetchConsumerAds: this.props.fetchConsumerAds
     }))
   }
@@ -114,8 +128,14 @@ class ViewConsumerAds extends React.Component {
                     </TableRowColumn>
                     <TableRowColumn style={styles[1]}>{item.ad_id}</TableRowColumn>
                     <TableRowColumn style={styles[2]}>{item.ad_title}</TableRowColumn>
-                    <TableRowColumn style={styles[3]}>{isoToNormalDate(item.active_from)}</TableRowColumn>
-                    <TableRowColumn style={styles[4]}>{isoToNormalDate(item.active_to)}</TableRowColumn>
+                    <TableRowColumn style={styles[3]}>
+                      {isoToNormalDate(item.active_from)}
+                      <span onClick={e => { this.handleEditAdTimings(item, "active_from") }} style={{ marginLeft: "10px", cursor: "pointer" }}>{getIcon('pencil')}</span>
+                    </TableRowColumn>
+                    <TableRowColumn style={styles[4]}>
+                      {isoToNormalDate(item.active_to)}
+                      <span onClick={e => { this.handleEditAdTimings(item, "active_to") }} style={{ marginLeft: "10px", cursor: "pointer" }}>{getIcon('pencil')}</span>
+                    </TableRowColumn>
                     <TableRowColumn style={styles[5]}>{item.status}</TableRowColumn>
                     <TableRowColumn style={styles[6]}>{item.CityName}</TableRowColumn>
                     <TableRowColumn style={styles[7]}>{item.is_critical ? 'Active' : 'Inactive'}</TableRowColumn>
