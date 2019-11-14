@@ -26,16 +26,21 @@ class ManageConsumerAds extends React.Component {
       stateShortName: null,
       isLocalityAvailable: false,
       stateName: null,
-      cityId: null
+      cityId: null,
+      stateId: null,
+      adId: null
     }
     this.pageLimit = 10
     this.state = {
       shouldMountFilterDialog: false,
       shouldMountViewFencesDialog: false,
-      stateIdx: null,
-      cityIdx: null,
+      stateId: null,
+      cityId: null,
+      stateShortName: null,
+      adId: null,
       activePage: 1,
-      isLocalityAvailable: false
+      isLocalityAvailable: false,
+      isFilterApplied: false
     }
 
     this.mountFilterDialog = this.mountFilterDialog.bind(this)
@@ -50,6 +55,8 @@ class ManageConsumerAds extends React.Component {
     this.mountViewFencesDialog = this.mountViewFencesDialog.bind(this)
     this.unmountViewFencesDialog = this.unmountViewFencesDialog.bind(this)
     this.fetchConsumerAdList = this.fetchConsumerAdList.bind(this)
+    this.resetFilter = this.resetFilter.bind(this)
+    this.fetchCities = this.fetchCities.bind(this)
   }
 
   componentDidMount() {
@@ -83,7 +90,7 @@ class ManageConsumerAds extends React.Component {
     } else {
       // if there is no query string then fetch defult citiesData/all citiesData
       this.fetchConsumerAdList()
-      this.setState({ stateIdx: 0 })
+      //this.setState({ stateId: 0 })
     }
   }
 
@@ -94,6 +101,17 @@ class ManageConsumerAds extends React.Component {
     })
   }
 
+  fetchCities(stateShortName) {
+    this.props.actions.fetchCities({
+      state_short_name: stateShortName,
+      is_available: false,
+      offset: 0,
+      limit: 999999,
+      deliverable_city: true,
+      no_filter: false
+    })
+  }
+
   setQueryParamas() {
     const queryUri = location.search.slice(1)
     const queryObj = getQueryObj(queryUri)
@@ -101,8 +119,9 @@ class ManageConsumerAds extends React.Component {
       this.setState({ [item[0]]: item[1] })
       this.filter[item[0]] = item[1]
     })
-
+    this.fetchCities(queryObj.stateShortName)
     this.props.actions.fetchConsumerAds({
+      ad_id: parseInt(queryObj.adId) || null,
       city_id: parseInt(queryObj.cityId) || null,
       offset: parseInt(queryObj.offset),
       limit: this.pageLimit
@@ -117,6 +136,7 @@ class ManageConsumerAds extends React.Component {
     this.setState(pageObj)
     this.props.actions.fetchConsumerAds({
       city_id: parseInt(queryObj.cityId) || null,
+      ad_id: parseInt(queryObj.adId) || null,
       offset: pageObj.offset,
       limit: this.pageLimit
     })
@@ -145,6 +165,7 @@ class ManageConsumerAds extends React.Component {
 
     this.filter.stateShortName = statesData[k].short_name
     this.filter.stateName = statesData[k].state_name
+    this.filter.stateId = statesData[k].id
 
     this.props.actions.fetchCities({
       state_short_name: statesData[k].short_name,
@@ -156,23 +177,22 @@ class ManageConsumerAds extends React.Component {
     })
   }
 
-  // handleChangeIsLocalityAvailable(e) {
-  //   this.setState({ isLocalityAvailable: e.target.checked })
-  //   // this.filter.isCityAvailable = e.target.checked
-  // }
+  resetFilter() {
+    this.props.history.push(`/home/manage-consumer-ads`)
+  }
 
-  applyFilter(stateIdx) {
+  applyFilter(adId) {
     const { statesData } = this.props
-    console.log(this.filter);
     const queryObj = {
-      stateIdx: stateIdx,
+      stateId: this.filter.stateId,
+      adId: adId.trim().length > 0 ? adId : null,
       stateShortName: this.filter.stateShortName,
       cityId: this.filter.cityId,
-      stateName: this.filter.stateName,
+      //stateName: this.filter.stateName,
       offset: 0,
-      cityName: this.filter.cityName,
+      //cityName: this.filter.cityName,
       activePage: 1,
-      filter: true
+      isFilterApplied: true
     }
 
     this.setState({
@@ -181,13 +201,17 @@ class ManageConsumerAds extends React.Component {
       stateShortName: this.filter.stateShortName,
       stateName: this.filter.stateName,
       cityName: this.filter.cityName,
-      cityId: this.filter.cityId
+      cityId: this.filter.cityId,
+      stateId: this.filter.stateId,
+      adId,
+      isFilterApplied: true
     })
 
-    history.pushState(queryObj, "image-ads listing", `/home/manage-url-ads?${getQueryUri(queryObj)}`)
+    history.pushState(queryObj, "image-ads listing", `/home/manage-consumer-ads?${getQueryUri(queryObj)}`)
 
     this.props.actions.fetchConsumerAds({
-      city_id: queryObj.cityId,
+      ad_id: adId.trim().length > 0 ? parseInt(adId) : null,
+      city_id: parseInt(queryObj.cityId),
       offset: 0,
       limit: this.pageLimit
     })
@@ -222,12 +246,22 @@ class ManageConsumerAds extends React.Component {
             </NavLink>
 
           </div>
-
-          <RaisedButton
-            onClick={this.mountFilterDialog}
-            label="Filter"
-            icon={getIcon('filter')}
-          />
+          <div>
+            {
+              this.state.isFilterApplied &&
+              <RaisedButton
+                onClick={this.resetFilter}
+                label="Reset filter"
+                icon={getIcon('filter')}
+                style={{ marginRight: "10px" }}
+              />
+            }
+            <RaisedButton
+              onClick={this.mountFilterDialog}
+              label="Filter"
+              icon={getIcon('filter')}
+            />
+          </div>
         </div>
 
         <br />
@@ -269,81 +303,17 @@ class ManageConsumerAds extends React.Component {
         {
           this.state.shouldMountFilterDialog
             ? (
-
-              //<FilterModal
-              //   applyFilter={this.applyFilter}
-              //   title="Filter ads"
-              //   unmountFilterModal={this.unmountFilterModal}
-              // >
-              //   <div>
-              //     <div className="form-group">
-              //       <label>State</label><br />
-              //       <SelectField
-              //         style={{ width: '100%' }}
-              //         floatingLabelText="Choose state"
-              //         value={parseInt(this.state.stateIdx)}
-              //         onChange={this.handleStateChange}
-              //         iconStyle={{ fill: '#9b9b9b' }}
-              //       >
-              //         {
-              //           !loadingStates
-              //           ? (
-              //             statesData.map((state, i) => (
-              //               <MenuItem
-              //                 value={i + 1}
-              //                 key={state.id}
-              //                 primaryText={state.state_name}
-              //               />
-              //             ))
-              //           )
-              //           : ''
-              //         }
-              //       </SelectField>
-              //     </div>
-              //     <div className="form-group">
-              //       <label>City</label><br />
-              //       <SelectField
-              //         style={{ width: '100%' }}
-              //         floatingLabelText="Choose state"
-              //         disabled={loadingCities || !citiesData.length}
-              //         value={parseInt(this.state.cityIdx)}
-              //         onChange={this.handleCityChange}
-              //       >
-              //         {
-              //           !loadingCities && citiesData.length
-              //           ? (
-              //             citiesData.map((city, i) => (
-              //               <MenuItem
-              //                 value={i + 1}
-              //                 key={city.id}
-              //                 primaryText={city.name}
-              //               />
-              //             ))
-              //           )
-              //           : ''
-              //         }
-              //       </SelectField>
-              //     </div>
-              //     {/* <div className="form-group">
-              //       <Checkbox
-              //         style={{ marginTop: '10px' }}
-              //         // disabled={this.props.isDisabled}
-              //         checked={this.state.isLocalityAvailable}
-              //         onCheck={this.handleChangeIsLocalityAvailable}
-              //         name="isLocalityAvailable"
-              //         label="is_available"
-              //       />
-              //     </div> */}
-              //   </div>
               <FilterModal
                 applyFilter={this.applyFilter}
                 title="Filter ads"
                 unmountFilterModal={this.unmountFilterModal}
                 handleStateChange={this.handleStateChange}
                 handleCityChange={this.handleCityChange}
-                floatingLabelText="Choose state"
                 citiesData={citiesData}
                 statesData={statesData}
+                cityId={this.state.cityId}
+                stateId={this.state.stateId}
+                adId={this.state.adId}
                 loadingCities={loadingCities}
                 loadingStates={loadingStates}
                 filter="stateAndCityWithoutIsAvailableCheck"

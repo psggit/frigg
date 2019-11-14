@@ -8,15 +8,16 @@ import MenuItem from 'material-ui/MenuItem'
 import Checkbox from 'material-ui/Checkbox'
 
 class FilterModal extends React.Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
       open: true,
       isLocalityAvailable: false,
       isCityAvailable: false,
       brandName: "",
-      stateIdx: null,
-      cityIdx: null,
+      adId: props.adId || "",
+      stateIdx: props.stateId ? this.props.statesData.findIndex(item => item.id === parseInt(props.stateId)) + 1 : null,
+      cityIdx: props.cityId ? this.props.citiesData.findIndex(item => item.id === parseInt(props.cityId)) + 1 : null,
       predictionIdx: null
     }
     this.handleClose = this.handleClose.bind(this)
@@ -82,7 +83,7 @@ class FilterModal extends React.Component {
     else if (this.props.filterStateAndCity) {
       this.props.applyFilter(this.state.stateIdx, this.state.isLocalityAvailable)
     } else if (!this.props.filterStateAndCity && !this.props.filterCity) {
-      this.props.applyFilter(this.state.stateIdx, this.state.isCityAvailable)
+      this.props.applyFilter(this.state.adId)
     } else if (this.props.filterCity) {
       this.props.applyFilter(this.state.cityIdx)
     } else {
@@ -203,10 +204,19 @@ class FilterModal extends React.Component {
             this.props.filter === "stateAndCityWithoutIsAvailableCheck" &&
             <div>
               <div className="form-group">
+                <label>Ad ID</label><br />
+                <TextField
+                  style={{ width: '100%' }}
+                  onChange={this.handleTextFields}
+                  name="adId"
+                  value={this.state.adId}
+                />
+              </div>
+              <div className="form-group">
                 <label>State</label><br />
                 <SelectField
                   style={{ width: '100%' }}
-                  floatingLabelText={this.props.floatingLabelText}
+                  floatingLabelText="Choose state"
                   value={parseInt(this.state.stateIdx)}
                   onChange={this.handleStateChange}
                   iconStyle={{ fill: '#9b9b9b' }}
@@ -230,7 +240,7 @@ class FilterModal extends React.Component {
                 <label>City</label><br />
                 <SelectField
                   style={{ width: '100%' }}
-                  floatingLabelText={this.props.floatingLabelText}
+                  floatingLabelText="Choose city"
                   disabled={this.props.loadingCities || !this.props.citiesData.length}
                   value={parseInt(this.state.cityIdx)}
                   onChange={this.handleCityChange}
@@ -250,16 +260,6 @@ class FilterModal extends React.Component {
                   }
                 </SelectField>
               </div>
-              {/* <div className="form-group">
-              <Checkbox
-                style={{ marginTop: '10px' }}
-                // disabled={this.props.isDisabled}
-                checked={this.state.isLocalityAvailable}
-                onCheck={this.handleChangeIsLocalityAvailable}
-                name="isLocalityAvailable"
-                label="is_available"
-              />
-            </div> */}
             </div>
           }
           {

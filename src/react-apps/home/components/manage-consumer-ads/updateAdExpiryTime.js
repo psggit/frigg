@@ -14,9 +14,9 @@ export default function UpdateAdTime(props) {
       this.handleDateChange = this.handleDateChange.bind(this)
       this.handleSave = this.handleSave.bind(this)
     }
+
     handleSave() {
       const { ad_time } = this.state
-
       const updateAdExpiryReq = {
         ad_id: props.ad_id,
         city_id: props.city_id,
@@ -41,10 +41,12 @@ export default function UpdateAdTime(props) {
         })
       })
     }
+    
     handleDateChange(e) {
       const d = new Date(e.target.value)
       this.setState({ ad_time: d.toISOString() })
     }
+    
     render() {
       return (
         <TitleAndSave
