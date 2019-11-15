@@ -230,7 +230,6 @@ class CreateAdForm extends React.Component {
               name="active_from"
             />
           </div>
-
           <div className="form-group" style={{ width: '100%' }}>
             <label className="label">Active to</label><br />
             <input
@@ -247,6 +246,10 @@ class CreateAdForm extends React.Component {
               }}
               name="active_to"
             />
+            {
+              this.props.showErrorMessage &&
+              <p className="error-message">Please enter valid date</p>
+            }
           </div>
         </div>
 
@@ -316,7 +319,7 @@ class CreateAdForm extends React.Component {
         </div> */}
 
         <div className="form-group">
-          <label className="label">Description</label><br />
+          <label className="label">Description*</label><br />
           <TextField
             onChange={this.handleTextFields}
             name="description"
@@ -327,7 +330,7 @@ class CreateAdForm extends React.Component {
         </div>
 
         <div className="form-group">
-          <label className="label">Disclaimer</label><br />
+          <label className="label">Disclaimer*</label><br />
           <TextField
             onChange={this.handleTextFields}
             name="disclaimer"

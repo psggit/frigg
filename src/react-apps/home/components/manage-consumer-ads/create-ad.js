@@ -21,15 +21,16 @@ class CreateAd extends React.Component {
     this.shouldInitializeActiveCitiesArr = true
     this.state = {
       cityId: null,
+      showErrorMessage: false,
       isDisabled: false,
       localityErr: false,
       selectedState: null,
       citiesStateMap: {},
-      isDisabled: false,
       activeCitiesStateMap: {}
     }
     this.submit = this.submit.bind(this)
     this.setCityName = this.setCityName.bind(this)
+    this.createConsumerAd = this.createConsumerAd.bind(this)
     this.callbackUpdate = this.callbackUpdate.bind(this)
     this.removeLocalityErr = this.removeLocalityErr.bind(this)
     this.handleFetchCities = this.handleFetchCities.bind(this)
@@ -133,6 +134,20 @@ class CreateAd extends React.Component {
     })
   }
 
+  createConsumerAd(payload) {
+    if (payload.ad_data.active_from < payload.ad_data.active_to) {
+      this.setState({ isDisabled: true })
+      this.props.actions.createConsumerAd(payload, (isDisabled) => {
+        // console.log("deep", payload)
+        this.setState({ isDisabled, showErrorMessage: false })
+      })
+    } else {
+      this.setState({
+        showErrorMessage: true
+      })
+    }
+  }
+
   submit() {
     const adData = this.createConsumerAdForm.getData()
     console.log(adData);
@@ -148,11 +163,13 @@ class CreateAd extends React.Component {
       && adData.app_type.length
       && adData.active_to
       && adData.active_from
+      && adData.description
+      && adData.disclaimer
       //&& adData.url
       //&& adData.deep_link_url
       //&& adData.collectionName
-      //&& adData.high_res_image
-      //&& adData.low_res_image
+      // && adData.high_res_image
+      // && adData.low_res_image
     ) {
       if (adData.ad_type === "collection" && adData.collectionName.length && (adData.high_res_image.length || adData.low_res_image.length)) {
         const payload = {
@@ -176,11 +193,7 @@ class CreateAd extends React.Component {
           },
           city_data: activeCitiesPayload
         }
-        this.setState({ isDisabled: true })
-        this.props.actions.createConsumerAd(payload, (isDisabled) => {
-          // console.log("deep", payload)
-          this.setState({ isDisabled })
-        })
+        this.createConsumerAd(payload)
       } else if (!adData.ad_type.includes("image") && adData.url.length) {
         const payload = {
           ad_data: {
@@ -205,14 +218,8 @@ class CreateAd extends React.Component {
           },
           city_data: activeCitiesPayload
         }
-        this.setState({ isDisabled: true })
-        // console.log("deep, ", payload, activeCitiesPayload)
-        this.props.actions.createConsumerAd(payload, (isDisabled) => {
-          // console.log("deep", payload)
-          this.setState({ isDisabled })
-        })
+        this.createConsumerAd(payload)
       } else if (adData.ad_type.includes("image") && (adData.high_res_image.length || adData.low_res_image.length)) {
-        console.log("image ad creating......")
         const payload = {
           ad_data: {
             ad_title: adData.title,
@@ -236,12 +243,7 @@ class CreateAd extends React.Component {
           },
           city_data: activeCitiesPayload
         }
-        this.setState({ isDisabled: true })
-        // console.log("deep, ", payload, activeCitiesPayload)
-        this.props.actions.createConsumerAd(payload, (isDisabled) => {
-          // console.log("deep", payload)
-          this.setState({ isDisabled })
-        })
+        this.createConsumerAd(payload)
       }
     }
   }
@@ -294,6 +296,7 @@ class CreateAd extends React.Component {
             <CreateConsumerAdForm
               ref={(node) => this.createConsumerAdForm = node}
               status={false}
+              showErrorMessage={this.state.showErrorMessage}
               loadingCollections={this.props.loadingAllCollections}
               collectionsData={this.props.collectionsList}
             />
