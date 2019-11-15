@@ -343,7 +343,7 @@ class CreateAdForm extends React.Component {
         {
           !this.state.ad_type.includes("image") && !this.state.ad_type.includes("collection") &&
           <div className="form-group">
-            <label className="label">Url</label><br />
+            <label className="label">Url*</label><br />
             <TextField
               disabled={this.props.isDisabled}
               onChange={this.handleTextFields}
