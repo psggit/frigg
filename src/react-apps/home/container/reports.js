@@ -36,7 +36,9 @@ class Reports extends React.Component {
       { text: 'Gifts Cancelled', value: 7 },
       { text: 'Gifts Sent', value: 8 },
       { text: 'Gifts Redeemed', value: 9 },
-      { text: 'Prediction Cashback Report', value: 10 }
+      { text: 'Prediction Cashback Report', value: 10 },
+      { text: 'Processed Reward Report', value: 11 },
+      { text: 'Unprocessed Reward Report', value: 12 }
     ]
 
     this.reportMap = {
@@ -49,7 +51,9 @@ class Reports extends React.Component {
       'Gifts Cancelled': 'gifts_cancellation',
       'Gifts Sent': 'gifts_sent',
       'Gifts Redeemed': 'gifts_redeemed',
-      'Prediction Cashback Report': 'prediction_cashback_report'
+      'Prediction Cashback Report': 'prediction_cashback_report',
+      'Processed Reward Report': 'processed_reward_report',
+      'Unprocessed Reward Report': 'unprocessed_reward_report'
     }
 
     this.handleReportChange = this.handleReportChange.bind(this)
