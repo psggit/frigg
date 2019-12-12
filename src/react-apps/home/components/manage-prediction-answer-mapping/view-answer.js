@@ -32,7 +32,9 @@ class ViewPredictionAnswer extends React.Component {
 
   constructor() {
     super()
-
+    this.state = {
+      isTriggered: false
+    }
     this.invokeTrigger = this.invokeTrigger.bind(this)
   }
 
@@ -45,6 +47,7 @@ class ViewPredictionAnswer extends React.Component {
   }
 
   invokeTrigger(item) {
+    this.setState({ isTriggered: true})
     Api.invokeTrigger({
       prediction_id: item.prediction_id,
       option_id: item.option_id
@@ -54,6 +57,7 @@ class ViewPredictionAnswer extends React.Component {
       })
       .catch((err) => {
         console.log("Error in trigger", err)
+        this.setState({ isTriggered: false})
       })
   }
 
@@ -107,6 +111,7 @@ class ViewPredictionAnswer extends React.Component {
                             item.is_triggered
                               ? 'Triggered'
                               : <button
+                                disabled={this.state.isTriggered}
                                 onClick={e => this.invokeTrigger(item)}
                               >
                                 Trigger
