@@ -4,9 +4,10 @@ import Checkbox from 'material-ui/Checkbox'
 import '@sass/components/_form.scss'
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
+import PropTypes from "prop-types"
 
 class StateDetailsForm extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.priceType = [
       { text: 'MRP', value: 1 },
@@ -14,15 +15,19 @@ class StateDetailsForm extends React.Component {
       { text: 'LABEL', value: 3 },
       { text: 'DISPLAY-MRP', value: 4 }
     ]
-    console.log("props", props.priceType)
+
     this.intitialState = {
-      stateShortName: props.stateShortName || '',
-      stateName: props.stateName || '',
+      stateShortName: props.data ? props.data.stateShortName : '',
+      stateName: props.data ? props.data.stateName : '',
       shouldTrim: true,
-      selectedPriceTypeIdx: props.priceType
-        ? this.priceType.find(item => (item.text).toLowerCase() === (props.priceType).toLowerCase()).value
-        : 1,
-      priceType: props.priceType || 'MRP',
+      isUPIEnabled: props.data ? props.data.isUPIEnabled : false,
+      isGiftWalletEnabled: props.data ? props.data.isGiftWalletEnabled : false,
+      isHipbarWalletEnabled: props.data ? props.data.isHipbarWalletEnabled : false,
+      isCatalogEnabled: props.data ? props.data.isCatalogEnabled : false,
+      selectedPriceTypeIdx: props.data ? props.data.priceType
+        ? this.priceType.find(item => (item.text).toLowerCase() === (props.data.priceType).toLowerCase()).value
+        : 1 : 1,
+      priceType: props.data ? props.data.priceType : 'MRP',
     }
 
     this.state = Object.assign({}, this.intitialState)
@@ -31,17 +36,18 @@ class StateDetailsForm extends React.Component {
     this.handleCheckboxes = this.handleCheckboxes.bind(this)
     this.resetState = this.resetState.bind(this)
     this.handlePriceTypeChange = this.handlePriceTypeChange.bind(this)
+    this.handleCheckboxChange = this.handleCheckboxChange.bind(this)
   }
 
-  resetState() {
+  resetState () {
     this.setState(this.intitialState)
   }
 
-  handleCheckboxes(e) {
+  handleCheckboxes (e) {
     this.setState({ [e.target.name]: e.target.checked })
   }
 
-  handleTextFields(e) {
+  handleTextFields (e) {
     let value = e.target.value
     if (this.state.shouldTrim) {
       value = value.trim()
@@ -55,18 +61,22 @@ class StateDetailsForm extends React.Component {
     this.setState({ [e.target.name]: value })
   }
 
-  getData() {
+  getData () {
     return this.state
   }
 
-  handlePriceTypeChange(e, k) {
+  handlePriceTypeChange (e, k) {
     this.setState({
       priceType: this.priceType[k].text,
       selectedPriceTypeIdx: this.priceType[k].value
     })
   }
 
-  render() {
+  handleCheckbox (e) {
+    this.setState({ [e.target.name]: e.target.checked });
+  }
+
+  render () {
     return (
       <Fragment>
         <div className="form-group">
@@ -105,10 +115,52 @@ class StateDetailsForm extends React.Component {
               ))
             }
           </SelectField>
-        </div>
+          </div>
+          <div className="form-group">
+            <label className="label">Payment Option</label><br />
+            <Checkbox
+              style={{marginTop: "10px"}}
+              checked={this.state.isUPIEnabled}
+              onCheck={this.handleCheckboxChange}
+              disabled={this.props.isDisabled}
+              label="UPI"
+              name="isUPIEnabled"
+              value={this.state.isUPIEnabled}
+            />
+            <Checkbox
+              disabled={this.props.isDisabled}
+              checked={this.state.isGiftWalletEnabled}
+              value={this.state.isGiftWalletEnabled}
+              onCheck={this.handleCheckboxChange}
+              label="Gift Wallet"
+              name="isGiftWalletEnabled"
+            />
+            <Checkbox
+              disabled={this.props.isDisabled}
+              checked={this.state.isHipbarWalletEnabled}
+              onCheck={this.handleCheckboxChange}
+              label="Hipbar Wallet"
+              name="isHipbarWalletEnabled"
+            />
+          </div>
+          <div className="form-group">
+            <Checkbox
+              disabled={this.props.isDisabled}
+              checked={this.state.isCatalogEnabled}
+              onCheck={this.handleCheckboxChange}
+              label="Catalog Enabled"
+              name="isCatalogEnabled"
+            />
+          </div>
       </Fragment>
     )
   }
+}
+
+StateDetailsForm.propTypes = {
+  data: PropTypes.object,
+  stateShortName: PropTypes.string,
+  priceType: PropTypes.string
 }
 
 export default StateDetailsForm

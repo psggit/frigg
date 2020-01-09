@@ -14,6 +14,7 @@ import CircularProgress from 'material-ui/CircularProgress'
 import { NavLink } from 'react-router-dom'
 import TableLoadingShell from './../table-loading-shell'
 import '@sass/components/_table.scss'
+import { SSL_OP_DONT_INSERT_EMPTY_FRAGMENTS } from 'constants'
 
 const TableHeaderItems = [
   '',
@@ -33,7 +34,25 @@ const styles = [
   { width: '' }
 ]
 
-function ViewCities(data) {
+function ViewCities(props) {
+  console.log("props", props)
+  const handleView = (item) => {
+    console.log("handle view")
+    
+    const queryParams = {
+      id: item.id,
+      stateName: item.state_name,
+      stateShortName: item.short_name,
+      priceType: item.price_type,
+      isUPIEnabled: item.upi_enabled,
+      isGiftWalletEnabled: item.gift_wallet_enabled,
+      isHipbarWalletEnabled: item.hbwallet_enabled,
+      isCatalogEnabled: item.catalog_enabled
+    }
+    //console.log("histry", props.history.location)
+    props.history.push(`/home/manage-states/${item.state_name}`, queryParams)
+  }
+
   return (
     <Table
       className="bordered--table"
@@ -52,20 +71,16 @@ function ViewCities(data) {
         showRowHover
       >
         {
-          !data.loadingStates
+          !props.loadingStates
           ? (
-            data.statesData.map(item => (
+            props.statesData.map(item => (
               <TableRow key={item.id}>
                 <TableRowColumn style={styles[0]}>
-                  <NavLink
-                    // target="_blank"
-                    // exact
-                    // to={`/home/manage-states/${item.state_name}?id=${item.id}`}
-                    to={`/home/manage-states/${item.state_name}?id=${item.id}&stateName=${item.state_name}&stateShortName=${item.short_name}&priceType=${item.price_type}`}
-                  >
-                    <FlatButton primary label="View" />
-                  </NavLink>
-
+                  <FlatButton
+                    primary
+                    label="View"
+                    onClick={() => handleView(item)}
+                  />
                 </TableRowColumn>
                 <TableRowColumn style={styles[1]}>{item.id}</TableRowColumn>
                 <TableRowColumn style={styles[2]}>{item.state_name}</TableRowColumn>

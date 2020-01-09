@@ -89,6 +89,7 @@ class ManageStates extends React.Component {
           loadingStates={loadingStates}
           statesData={statesData}
           mountEditStateDialog={this.mountEditStateDialog}
+          history={this.props.history}
         />
 
       </div>

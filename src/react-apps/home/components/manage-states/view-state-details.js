@@ -32,13 +32,16 @@ class ViewState extends React.Component {
   submit() {
     const data = this.stateDetailsForm.getData()
     const queryObj = getQueryObj(location.search.slice(1))
-    // console.log(data);
     if (data.stateName.length && data.stateShortName.length) {
       this.props.actions.updateState({
-        id: parseInt(queryObj.id),
+        id: parseInt(this.props.history.location.state.id),
         state_name: data.stateName,
         short_name: data.stateShortName,
-        price_type: data.priceType
+        price_type: data.priceType,
+        upi_enabled: data.isUPIEnabled,
+        hbwallet_enabled: data.isHipbarWalletEnabled,
+        gift_wallet_enabled: data.isGiftWalletEnabled,
+        catalog_enabled: data.isCatalogEnabled
       })
     }
   }
@@ -79,9 +82,14 @@ class ViewState extends React.Component {
             <StateDetailsForm
               isDisabled={!this.state.isEdit}
               ref={(node) => { this.stateDetailsForm = node }}
-              stateName={queryObj.stateName}
-              stateShortName={queryObj.stateShortName}
-              priceType={queryObj.priceType}
+              data={this.props.location.state}
+              // stateName={queryObj.stateName}
+              // stateShortName={queryObj.stateShortName}
+              // priceType={queryObj.priceType}
+              // isUPIPressed={queryObj.isUPIPressed}
+              // isHipbarWalletPressed={queryObj.isHipbarWalletPressed}
+              // isGiftWalletPressed={queryObj.isGiftWalletPressed}
+              // isCatalogPressed={queryObj.isCatalogPressed}
             />
           </Card>
           <RaisedButton

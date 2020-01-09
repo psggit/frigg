@@ -5,7 +5,6 @@ import * as Actions from './../../actions'
 import RaisedButton from 'material-ui/RaisedButton'
 import '@sass/components/_form.scss'
 import StateDetailsForm from './state-details-form'
-import IfElse from '@components/declarative-if-else'
 import { Card } from 'material-ui/Card'
 
 class CreateState extends React.Component {
@@ -26,13 +25,16 @@ class CreateState extends React.Component {
 
   submit() {
     const data = this.stateDetailsForm.getData()
-    // console.log(data);
     if (data.stateName.length && data.stateShortName.length) {
       this.setState({ isDisabled: true })
       this.props.actions.createState({
         state_name: data.stateName,
         short_name: data.stateShortName,
-        price_type: data.priceType
+        price_type: data.priceType,
+        upi_enabled: data.isUPIEnabled,
+        hbwallet_enabled: data.isHipbarWalletEnabled,
+        gift_wallet_enabled: data.isGiftWalletEnabled,
+        catalog_enabled: data.isCatalogEnabled
       }, this.callbackUpdate)
     }
   }
