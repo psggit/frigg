@@ -72,7 +72,7 @@ class StateDetailsForm extends React.Component {
     })
   }
 
-  handleCheckbox (e) {
+  handleCheckboxChange (e) {
     this.setState({ [e.target.name]: e.target.checked });
   }
 
