@@ -41,7 +41,7 @@ class ViewState extends React.Component {
         upi_enabled: data.isUPIEnabled,
         hbwallet_enabled: data.isHipbarWalletEnabled,
         gift_wallet_enabled: data.isGiftWalletEnabled,
-        catalog_enabled: data.isCatalogEnabled
+        //catalog_enabled: data.isCatalogEnabled
       })
     }
   }

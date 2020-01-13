@@ -5,7 +5,7 @@ import Dialog from 'material-ui/Dialog'
 import '@sass/components/_button.scss'
 
 class EditState extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.state = {
       stateIdx: 0,
@@ -18,20 +18,20 @@ class EditState extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  componentDidMount() {
+  componentDidMount () {
     setTimeout(() => {
       this.input.focus()
     }, 100)
   }
 
-  handleClose() {
+  handleClose () {
     this.setState({ open: false })
     setTimeout(() => {
       this.props.unmountEditStateDialog()
     }, 500)
   }
 
-  handleChange(e) {
+  handleChange (e) {
     const { selectedState } = this.state
     this.setState({
       selectedState: Object.assign({}, selectedState, {
@@ -40,7 +40,7 @@ class EditState extends React.Component {
     })
   }
 
-  handleSubmit() {
+  handleSubmit () {
     const { selectedState } = this.state
     this.props.updateState({
       id: selectedState.id,
@@ -54,7 +54,7 @@ class EditState extends React.Component {
     // })
   }
 
-  render() {
+  render () {
     return (
       <Dialog
         autoScrollBodyContent

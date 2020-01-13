@@ -23,7 +23,7 @@ class StateDetailsForm extends React.Component {
       isUPIEnabled: props.data ? props.data.isUPIEnabled : false,
       isGiftWalletEnabled: props.data ? props.data.isGiftWalletEnabled : false,
       isHipbarWalletEnabled: props.data ? props.data.isHipbarWalletEnabled : false,
-      isCatalogEnabled: props.data ? props.data.isCatalogEnabled : false,
+      //isCatalogEnabled: props.data ? props.data.isCatalogEnabled : false,
       selectedPriceTypeIdx: props.data ? props.data.priceType
         ? this.priceType.find(item => (item.text).toLowerCase() === (props.data.priceType).toLowerCase()).value
         : 1 : 1,
@@ -143,7 +143,7 @@ class StateDetailsForm extends React.Component {
               name="isHipbarWalletEnabled"
             />
           </div>
-          <div className="form-group">
+          {/* <div className="form-group">
             <Checkbox
               disabled={this.props.isDisabled}
               checked={this.state.isCatalogEnabled}
@@ -151,7 +151,7 @@ class StateDetailsForm extends React.Component {
               label="Catalog Enabled"
               name="isCatalogEnabled"
             />
-          </div>
+          </div> */}
       </Fragment>
     )
   }

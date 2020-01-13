@@ -8,7 +8,7 @@ import StateDetailsForm from './state-details-form'
 import { Card } from 'material-ui/Card'
 
 class CreateState extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.state = {
       isDisabled: false
@@ -17,13 +17,13 @@ class CreateState extends React.Component {
     this.callbackUpdate = this.callbackUpdate.bind(this)
   }
 
-  callbackUpdate(status) {
+  callbackUpdate (status) {
     if (status) {
       this.setState({ isDisabled: false })
     }
   }
 
-  submit() {
+  submit () {
     const data = this.stateDetailsForm.getData()
     if (data.stateName.length && data.stateShortName.length) {
       this.setState({ isDisabled: true })
@@ -34,12 +34,12 @@ class CreateState extends React.Component {
         upi_enabled: data.isUPIEnabled,
         hbwallet_enabled: data.isHipbarWalletEnabled,
         gift_wallet_enabled: data.isGiftWalletEnabled,
-        catalog_enabled: data.isCatalogEnabled
+        //catalog_enabled: data.isCatalogEnabled
       }, this.callbackUpdate)
     }
   }
 
-  render() {
+  render () {
     return (
       <div style={{
         width: '50%',

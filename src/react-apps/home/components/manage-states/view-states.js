@@ -22,6 +22,9 @@ const TableHeaderItems = [
   'NAME',
   'SHORT_NAME',
   'PRICE_TYPE',
+  'UPI',
+  'GIFT WALLET',
+  'HIPBAR WALLET',
   ''
 ]
 
@@ -29,6 +32,9 @@ const styles = [
   { width: '38px' },
   { width: '60px' },
   { width: '120px' },
+  { width: '38px' },
+  { width: '38px' },
+  { width: '38px' },
   { width: '38px' },
   { width: '100px' },
   { width: '' }
@@ -47,7 +53,7 @@ function ViewCities(props) {
       isUPIEnabled: item.upi_enabled,
       isGiftWalletEnabled: item.gift_wallet_enabled,
       isHipbarWalletEnabled: item.hbwallet_enabled,
-      isCatalogEnabled: item.catalog_enabled
+      //isCatalogEnabled: item.catalog_enabled
     }
     //console.log("histry", props.history.location)
     props.history.push(`/home/manage-states/${item.state_name}`, queryParams)
@@ -86,7 +92,10 @@ function ViewCities(props) {
                 <TableRowColumn style={styles[2]}>{item.state_name}</TableRowColumn>
                 <TableRowColumn style={styles[3]}>{item.short_name}</TableRowColumn>
                 <TableRowColumn style={styles[4]}>{item.price_type}</TableRowColumn>
-                <TableRowColumn style={styles[5]}>
+                <TableRowColumn style={styles[5]}>{item.upi_enabled ? 'Enabled' : 'Disabled'}</TableRowColumn>
+                <TableRowColumn style={styles[6]}>{item.gift_wallet_enabled ? 'Enabled' : 'Disabled'}</TableRowColumn>
+                <TableRowColumn style={styles[7]}>{item.hbwallet_enabled ? 'Enabled' : 'Disabled'}</TableRowColumn>
+                <TableRowColumn style={styles[8]}>
                     <NavLink to={`/home/manage-states/possession-limits/${item.short_name}`}>Possession Limits</NavLink>
                 </TableRowColumn>
               </TableRow>
