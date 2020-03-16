@@ -57,7 +57,7 @@ class Reports extends React.Component {
       'Processed Reward Report': 'processed_reward_report',
       'Unprocessed Reward Report': 'unprocessed_reward_report',
       'Nodal Transaction Report': 'nodal_transaction_report',
-      'Nodal Payments': 'nodal_paymets'
+      'Nodal Payments': 'nodal_payments_report'
     }
 
     this.handleReportChange = this.handleReportChange.bind(this)
