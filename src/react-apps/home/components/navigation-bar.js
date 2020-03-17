@@ -79,12 +79,12 @@ class NavigationBar extends React.Component {
       //     { name: 'Manage possession limits', path: '/home/manage-possession-limits', id: 10 }
       //   ]
       // },
-      // {
-      //   name: 'Manage retailers',
-      //   nestedItems: [
-      //     { name: 'Retailers list', path: '/home/manage-retailers/retailers', id: 11 }
-      //   ]
-      // },
+      {
+        name: 'Manage retailers',
+        nestedItems: [
+          { name: 'Retailers list', path: '/home/manage-retailers/retailers', id: 11 }
+        ]
+      },
       {
         name: 'Jus pay',
         nestedItems: [
