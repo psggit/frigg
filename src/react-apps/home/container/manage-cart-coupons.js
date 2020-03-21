@@ -26,8 +26,10 @@ class ManageCartCoupons extends React.Component {
       this.setQueryParamas()
     } else {
       this.fetchListCoupons({
-        limit: this.pageLimit,
-        offset: 0,
+        pagination: {
+          limit: this.pageLimit,
+          offset: 0
+        },
         constraint_type:"cart"
       })
     }
@@ -41,8 +43,10 @@ class ManageCartCoupons extends React.Component {
     })
 
     this.fetchListCoupons({
-      offset: queryObj.offset ? parseInt(queryObj.offset) : 0,
-      limit: this.pageLimit,
+      pagination: {
+        offset: queryObj.offset ? parseInt(queryObj.offset) : 0,
+        limit: this.pageLimit
+      },
       constraint_type:"cart"
     })
   }
@@ -52,8 +56,10 @@ class ManageCartCoupons extends React.Component {
     const queryObj = getQueryObj(queryUri)
 
     this.fetchListCoupons({
-      offset: pageObj.offset,
-      limit: this.pageLimit,
+      pagination: {
+        offset: pageObj.offset,
+        limit: this.pageLimit
+      },
       constraint_type: "cart"
     })
     this.setState({ activePage: pageObj.activePage })

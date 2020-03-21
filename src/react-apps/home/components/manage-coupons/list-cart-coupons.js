@@ -14,6 +14,7 @@ import Moment from "moment"
 
 
 const TableHeaderItems = [
+  '',
   'ID',
   'COUPAN NAME',
   'START TIME',
@@ -31,6 +32,7 @@ const styles = [
   { width: '120px' },
   { width: '120px' },
   { width: '120px' },
+  { width: '150px' },
   { width: '150px' },
   { width: '150px' }
 ]
@@ -97,13 +99,12 @@ class Listcoupons extends React.Component {
                         </TableRowColumn>
                         <TableRowColumn style={styles[1]}>{item.id}</TableRowColumn>
                         <TableRowColumn style={styles[2]}>{item.name}</TableRowColumn>
-                        <TableRowColumn style={styles[10]}>{Moment(item.start_time).format("DD-MM-YYYY h:mm a")}</TableRowColumn>
-                        <TableRowColumn style={styles[11]}>{Moment(item.end_time).format("DD-MM-YYYY h:mm a")}</TableRowColumn>
-                        <TableRowColumn style={styles[3]}>{item.max_count}</TableRowColumn>
-                        <TableRowColumn style={styles[4]}>{item.available_count}</TableRowColumn>
-                        <TableRowColumn style={styles[5]}>{item.frequency}</TableRowColumn>
-                        <TableRowColumn style={styles[6]}>{item.sign_up_date}</TableRowColumn>
-                  
+                        <TableRowColumn style={styles[3]}>{Moment(item.start_time).format("DD-MM-YYYY h:mm a")}</TableRowColumn>
+                        <TableRowColumn style={styles[4]}>{Moment(item.end_time).format("DD-MM-YYYY h:mm a")}</TableRowColumn>
+                        <TableRowColumn style={styles[5]}>{item.max_count}</TableRowColumn>
+                        <TableRowColumn style={styles[6]}>{item.available_count}</TableRowColumn>
+                        <TableRowColumn style={styles[7]}>{item.frequency}</TableRowColumn>
+                        <TableRowColumn style={styles[8]}>{Moment(item.sign_up_date) ? Moment(item.sign_up_date).format("DD-MM-YYYY h:mm a") : ""}</TableRowColumn>
                       </TableRow>
                     )
                   })
