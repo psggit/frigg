@@ -97,12 +97,12 @@ class NavigationBar extends React.Component {
       //     { name: 'Rollback transaction', path: '/home/hipbar-pay/rollback-transaction', id: 12 }
       //   ]
       // },
-      {
-        name: 'Customer management',
-        nestedItems: [
-          { name: 'Customer Transactions', path: '/home/customer-transactions', id: 14 },
-        ]
-      },
+      // {
+      //   name: 'Customer management',
+      //   nestedItems: [
+      //     { name: 'Customer Transactions', path: '/home/customer-transactions', id: 14 },
+      //   ]
+      // },
       // {
       //   name: 'Manage Collections',
       //   path: '/home/manage-collections',
@@ -142,7 +142,16 @@ class NavigationBar extends React.Component {
 
       { name: 'Gift Reconciliation', path: '/home/manage-gift-reconciliation', id: 36, nestedItems: [] },
 
-      { name: 'Reward Coupons', path: '/home/manage-reward-coupons', id: 35, nestedItems: [] }
+      { name: 'Reward Coupons', path: '/home/manage-reward-coupons', id: 35, nestedItems: [] },
+
+      {
+        name: 'Coupons',
+        nestedItems: [
+         { name: 'Cart Coupon', path: '/home/manage-cart-coupons', id: 38, nestedItems: [] },
+
+         { name: 'Product Coupon', path: '/home/manage-product-form', id: 39, nestedItems: [] }
+        ]
+      },
     ]
     return (
       <Drawer

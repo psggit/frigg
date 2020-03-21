@@ -1,3 +1,4 @@
+/* eslint-disable lines-between-class-members */
 import React from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { Api } from '@utils/config'
@@ -112,11 +113,9 @@ import MapAnswerToPrediction from "./../components/manage-prediction-answer-mapp
 import RewardCouponList from "./../container/manage-reward-coupons"
 import CreateCoupon from "./../components/manage-reward-coupons/create-coupon"
 import UpdateCoupon from "./../components/manage-reward-coupons/update-coupon"
-// import CreateTeam from "./../components/manage-team/create-team"
-
-
-import asyncComponent from './../../asyncComponent'
-
+import ManageCartCoupons from "./../container/manage-cart-coupons"
+import CreateCartCoupons from "./../components/manage-coupons/create-cart-coupons"
+// import asyncComponent from './../../asyncComponent'
 /**
  * Dynamic imports
  */
@@ -360,6 +359,8 @@ class App extends React.Component {
                   <Route exact path="/home/manage-reward-coupons/create" component={CreateCoupon} />
                   <Route exact path="/home/manage-reward-coupons/edit" component={UpdateCoupon} />
 
+                  <Route exact path="/home/manage-cart-coupons" component={ManageCartCoupons} />
+                  <Route exact path="/home/manage-cart-coupons/create" component={CreateCartCoupons} />
                 </Switch>
               </DisplayScreen>
             </div>

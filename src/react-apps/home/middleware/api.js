@@ -223,6 +223,16 @@ export const fetchRewardCoupons = payload => (
     .then(json => json)
 )
 
+export const fetchListCoupons = payload => (
+  POST({
+    api: '/promoengine/list_coupon',
+    apiBase: 'promoman',
+    data: payload,
+    handleError: true
+  })
+    .then(json => json)
+)
+
 export const fetchContactNumbersOfRetailer = action => (
   /**
    *  Request Payload:
@@ -1514,6 +1524,15 @@ export const createCollection = action => (
     api: '/collection/create',
     apiBase: 'odin',
     data: action.data,
+    handleError: true
+  })
+)
+
+export const createCartCoupon = payload => (
+  POST({
+    api: '/promoengine/create_coupon',
+    apiBase: 'promoman',
+    data: payload,
     handleError: true
   })
 )

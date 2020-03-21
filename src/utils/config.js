@@ -17,7 +17,8 @@ function getAPIObj() {
       api2: 'https://api2.' + appName,
       retailer: 'https://retailer.' + appName,
       catalog: 'https://catalog.' + appName,
-      loki: 'https://loki.' + appName
+      loki: 'https://loki.' + appName,
+      promoman: 'https://promoman.' + appName,
     }
   } else {
     let scheme = window.location.href.split(':')[0]
@@ -40,7 +41,8 @@ function getAPIObj() {
       retailer: scheme + '://retailer' + baseHost,
       catalog: scheme + '://catalog' + baseHost,
       reports: scheme + '://reports' + baseHost,
-      loki: scheme + '://loki' + baseHost
+      loki: scheme + '://loki' + baseHost,
+      promoman: scheme + '://promoman' + baseHost,
     }
   }
 }

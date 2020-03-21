@@ -1,12 +1,13 @@
 import React from "react"
 import { NavLink } from 'react-router-dom'
 import RaisedButton from 'material-ui/RaisedButton'
-import * as Api from "./../middleware/api"
+//import * as Api from "./../middleware/api"
+import * as Api from "../../middleware/api"
 import Pagination from '@components/pagination'
 import { getQueryObj, getQueryUri } from '@utils/url-utils'
-import ViewRewardCoupons from "./../components/manage-reward-coupons/view-coupons"
-
-class ManageRewardCoupons extends React.Component {
+//import ViewRewardCoupons from "./../components/manage-reward-coupons/view-coupons"
+import ViewRewardCoupons from "../../components/manage-reward-coupons/view-coupons"
+class ManageCartCoupons extends React.Component {
   constructor() {
     super()
     this.pageLimit = 5
@@ -61,11 +62,10 @@ class ManageRewardCoupons extends React.Component {
     history.pushState(queryObj, "sku promo listing", `/home/manage-reward-coupons?${getQueryUri(queryObj)}`)
   }
 
-  fetchRewardCoupons (payload) {
+  fetchRewardCoupons(payload) {
     this.setState({ loadingRewardCoupons: true })
     Api.fetchRewardCoupons(payload)
       .then((response) => {
-        console.log("response", response.data, response.count )
         this.setState({
           rewardCoupons: response.data,
           loadingRewardCoupons: false,
@@ -110,4 +110,4 @@ class ManageRewardCoupons extends React.Component {
   }
 }
 
-export default ManageRewardCoupons
+export default ManageCartCoupons
