@@ -62,7 +62,7 @@ class ManageCartCoupons extends React.Component {
         },
         filter: {
           field: queryObj.couponName ? "name" : "is_active",
-          value: queryObj.couponName ? queryObj.couponName : queryObj.activityStatus
+          value: queryObj.couponName ? queryObj.couponName : queryObj.activityStatus.toString()
         },
         constraint_type: "cart"
       })
@@ -89,7 +89,7 @@ class ManageCartCoupons extends React.Component {
         },
         filter: {
           field: queryObj.couponName ? "name" : "is_active",
-          value: queryObj.couponName ? queryObj.couponName : queryObj.activityStatus
+          value: queryObj.couponName ? queryObj.couponName : queryObj.activityStatus.toString()
         },
         constraint_type: "cart"
       })
@@ -161,7 +161,7 @@ class ManageCartCoupons extends React.Component {
       },
       filter: {
         field: couponName ? "name" : "is_active",
-        value: couponName ? couponName : activityStatus
+        value: couponName ? couponName : activityStatus.toString()
       },
       constraint_type: "cart"
     })
