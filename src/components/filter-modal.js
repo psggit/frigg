@@ -14,18 +14,26 @@ class FilterModal extends React.Component {
       open: true,
       isLocalityAvailable: false,
       isCityAvailable: false,
+      statusIdx: props.activityStatus ? props.activityStatus : 1,
       brandName: "",
       adId: props.adId || "",
       stateIdx: props.stateId ? this.props.statesData.findIndex(item => item.id === parseInt(props.stateId)) + 1 : null,
       cityIdx: props.cityId ? this.props.citiesData.findIndex(item => item.id === parseInt(props.cityId)) + 1 : null,
       predictionIdx: null
     }
+
+    this.activityStatus = [
+      { text: 'Active', value: 1 },
+      { text: 'Inactive', value: 2 },
+    ]
+
     this.handleClose = this.handleClose.bind(this)
     this.handleTextFields = this.handleTextFields.bind(this)
     this.unmountModal = this.unmountModal.bind(this)
     this.handleApplyFilter = this.handleApplyFilter.bind(this)
     this.handleStateChange = this.handleStateChange.bind(this)
     this.handleCityChange = this.handleCityChange.bind(this)
+    this.handleStatusChange = this.handleStatusChange.bind(this)
     this.handlePredictionChange = this.handlePredictionChange.bind(this)
     this.handleChangeIsLocalityAvailable = this.handleChangeIsLocalityAvailable.bind(this)
     this.handleChangeIsCityAvailable = this.handleChangeIsCityAvailable.bind(this)
@@ -50,6 +58,13 @@ class FilterModal extends React.Component {
     const stateIdx = k + 1
     this.setState({ stateIdx, cityIdx: null })
     this.props.handleStateChange(k)
+  }
+
+  handleStatusChange (e, k) {
+    const statusIdx = k + 1
+    console.log("status", statusIdx)
+    this.setState({ statusIdx, couponName: "" })
+    //this.props.handleStatusChange(k)
   }
 
   handleCityChange(e, k) {
@@ -79,8 +94,11 @@ class FilterModal extends React.Component {
   handleApplyFilter() {
     if (this.props.filter === "brandName") {
       this.props.applyFilter(this.state.brandName)
-    }
-    else if (this.props.filterStateAndCity) {
+    } else if (this.props.filter === "cartCouponFilter") {
+      const isActive = this.state.statusIdx === 1 ? true : false
+      console.log("filter", this.state.couponName, isActive)
+      this.props.applyFilter(this.state.couponName, isActive)
+    } else if (this.props.filterStateAndCity) {
       this.props.applyFilter(this.state.stateIdx, this.state.isLocalityAvailable)
     } else if (!this.props.filterStateAndCity && !this.props.filterCity) {
       this.props.applyFilter(this.state.adId)
@@ -197,6 +215,42 @@ class FilterModal extends React.Component {
                   name="brandName"
                   value={this.state.brandName}
                 />
+              </div>
+            </div>
+          }
+          {
+            this.props.filter === "cartCouponFilter" &&
+            <div>
+              <div className="form-group">
+                <label>Coupon Name</label><br />
+                <TextField
+                  style={{ width: '100%' }}
+                  onChange={this.handleTextFields}
+                  name="couponName"
+                  value={this.state.couponName}
+                />
+              </div>
+              <div className="form-group">
+                <label>Activity Status</label><br />
+                <SelectField
+                  style={{ width: '100%' }}
+                  floatingLabelText="Choose status"
+                  value={parseInt(this.state.statusIdx)}
+                  onChange={this.handleStatusChange}
+                  iconStyle={{ fill: '#9b9b9b' }}
+                >
+                  {
+                    this.activityStatus.map((item, i) => {
+                      return (
+                        <MenuItem
+                          value={item.value}
+                          key={item.value}
+                          primaryText={item.text}
+                        />
+                      )
+                    })
+                  }
+                </SelectField>
               </div>
             </div>
           }

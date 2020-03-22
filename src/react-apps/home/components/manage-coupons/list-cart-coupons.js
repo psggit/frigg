@@ -37,7 +37,7 @@ const styles = [
   { width: '150px' }
 ]
 
-class Listcoupons extends React.Component {
+class ListCoupons extends React.Component {
   constructor () {
     super()
 
@@ -122,4 +122,4 @@ class Listcoupons extends React.Component {
   }
 }
 
-export default Listcoupons
+export default ListCoupons

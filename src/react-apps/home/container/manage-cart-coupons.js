@@ -4,6 +4,8 @@ import RaisedButton from 'material-ui/RaisedButton'
 import * as Api from "./../middleware/api"
 import Pagination from '@components/pagination'
 import { getQueryObj, getQueryUri } from '@utils/url-utils'
+import FilterModal from '@components/filter-modal'
+import getIcon from '../components/icon-utils'
 import ListCartCoupons from "./../components/manage-coupons/list-cart-coupons"
 
 class ManageCartCoupons extends React.Component {
@@ -14,11 +16,20 @@ class ManageCartCoupons extends React.Component {
       activePage: 1,
       loadingListCoupons: false,
       listCoupons: [],
-      listCouponsCount: 0
+      listCouponsCount: 0,
+      shouldMountFilterDialog: false
+    }
+
+    this.filter = {
+      couponName: "",
+      activityStatus: false
     }
     this.setQueryParamas = this.setQueryParamas.bind(this)
     this.setPage = this.setPage.bind(this)
+    this.mountFilterDialog = this.mountFilterDialog.bind(this)
+    this.unmountFilterModal = this.unmountFilterModal.bind(this)
     this.fetchListCoupons = this.fetchListCoupons.bind(this)
+    this.applyFilter = this.applyFilter.bind(this)
   }
 
   componentDidMount () {
@@ -40,32 +51,62 @@ class ManageCartCoupons extends React.Component {
     const queryObj = getQueryObj(queryUri)
     Object.entries(queryObj).forEach((item) => {
       this.setState({ [item[0]]: item[1] })
+      this.filter[item[0]] = item[1]
     })
 
-    this.fetchListCoupons({
-      pagination: {
-        offset: queryObj.offset ? parseInt(queryObj.offset) : 0,
-        limit: this.pageLimit
-      },
-      constraint_type:"cart"
-    })
+    if(queryObj.couponName.length > 0 || queryObj.activityStatus.toString().length > 0) {
+      this.fetchListCoupons({
+        pagination: {
+          offset: queryObj.activePage ? this.pageLimit * (parseInt(queryObj.activePage) - 1) : 0,
+          limit: this.pageLimit
+        },
+        filter: {
+          field: queryObj.couponName ? "name" : "is_active",
+          value: queryObj.couponName ? queryObj.couponName : queryObj.activityStatus
+        },
+        constraint_type: "cart"
+      })
+    } else {
+      this.fetchListCoupons({
+        pagination: {
+          offset: queryObj.activePage ? this.pageLimit * (parseInt(queryObj.activePage) - 1) : 0,
+          limit: this.pageLimit
+        },
+        constraint_type: "cart"
+      })
+    }
   }
 
   setPage (pageObj) {
     const queryUri = location.search.slice(1)
     const queryObj = getQueryObj(queryUri)
 
-    this.fetchListCoupons({
-      pagination: {
-        offset: pageObj.offset,
-        limit: this.pageLimit
-      },
-      constraint_type: "cart"
-    })
+    if (queryObj.couponName.length > 0 || queryObj.activityStatus.toString().length > 0) {
+      this.fetchListCoupons({
+        pagination: {
+          offset: queryObj.activePage ? this.pageLimit * (parseInt(queryObj.activePage) - 1) : 0,
+          limit: this.pageLimit
+        },
+        filter: {
+          field: queryObj.couponName ? "name" : "is_active",
+          value: queryObj.couponName ? queryObj.couponName : queryObj.activityStatus
+        },
+        constraint_type: "cart"
+      })
+    } else {
+      this.fetchListCoupons({
+        pagination: {
+          offset: queryObj.activePage ? this.pageLimit * (parseInt(queryObj.activePage) - 1) : 0,
+          limit: this.pageLimit
+        },
+        constraint_type: "cart"
+      })
+    }
+
     this.setState({ activePage: pageObj.activePage })
 
     queryObj.activePage = pageObj.activePage
-    queryObj.offset = pageObj.offset
+ 
     history.pushState(queryObj, "cart coupons listing", `/home/manage-cart-coupons?${getQueryUri(queryObj)}`)
   }
 
@@ -73,29 +114,96 @@ class ManageCartCoupons extends React.Component {
     this.setState({ loadingListCoupons: true })
     Api.fetchListCoupons(payload)
       .then((response) => {
+        console.log("response", response.message.coupons, response.message.count)
         this.setState({
           listCoupons: response.message.coupons,
           loadingListCoupons: false,
-          listCouponsCount: response.count
+          listCouponsCount: response.message.count
         })
       })
       .catch((err) => {
+        this.setState({
+          loadingListCoupons: false
+        })
         console.log("Error in fetching cart coupons", err)
       })
+  }
+
+  mountFilterDialog () {
+    this.setState({ shouldMountFilterDialog: true })
+  }
+
+  unmountFilterModal () {
+    this.setState({ shouldMountFilterDialog: false })
+  }
+
+  applyFilter (couponName, activityStatus) {
+
+    const queryObj = {
+      couponName,
+      activityStatus: !couponName ? activityStatus : "",
+      activePage: 1
+    }
+
+    this.setState({
+      activePage: 1,
+      couponName,
+      activityStatus,
+      listCoupons: []
+    })
+
+    history.pushState(queryObj, "cart coupon listing", `/home/manage-cart-coupons?${getQueryUri(queryObj)}`)
+
+    this.fetchListCoupons({
+      pagination: {
+        offset: 0,
+        limit: this.pageLimit
+      },
+      filter: {
+        field: couponName ? "name" : "is_active",
+        value: couponName ? couponName : activityStatus
+      },
+      constraint_type: "cart"
+    })
+
   }
 
   render () {
     const { loadingListCoupons, listCoupons, listCouponsCount } = this.state
     return (
       <React.Fragment>
-        <div>
-          <NavLink to={`/home/manage-cart-coupons/create`}>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between'
+          }}
+        >
+          <div>
+            <NavLink to={`/home/manage-cart-coupons/create`}>
+              <RaisedButton
+                label="Create cart coupon"
+                primary
+              />
+            </NavLink>
+          </div>
+          <div>
+            {/* {
+              this.state.isFilterApplied &&
+              <RaisedButton
+                onClick={this.resetFilter}
+                label="Reset filter"
+                icon={getIcon('filter')}
+                style={{ marginRight: "10px" }}
+              />
+            } */}
             <RaisedButton
-              label="Create cart coupon"
-              primary
+              onClick={this.mountFilterDialog}
+              label="Filter"
+              icon={getIcon('filter')}
             />
-          </NavLink>
+          </div>
         </div>
+
         <h3>Showing Cart Coupons</h3>
         <ListCartCoupons
           listCoupons={this.state.listCoupons}
@@ -103,7 +211,7 @@ class ManageCartCoupons extends React.Component {
           history={this.props.history}
         />
         {
-          !loadingListCoupons && listCoupons && listCoupons.length > 0
+          !loadingListCoupons && listCoupons && listCoupons.length 
             ? <Pagination
               activePage={parseInt(this.state.activePage)}
               itemsCountPerPage={this.pageLimit}
@@ -111,6 +219,18 @@ class ManageCartCoupons extends React.Component {
               setPage={this.setPage}
             />
             : ""
+        }
+        {
+          this.state.shouldMountFilterDialog
+            ? (
+              <FilterModal
+                applyFilter={this.applyFilter}
+                title="Filter cart coupon list"
+                unmountFilterModal={this.unmountFilterModal}
+                filter="cartCouponFilter"
+              ></FilterModal>
+            )
+            : ''
         }
       </React.Fragment>
     )
