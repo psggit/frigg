@@ -16,7 +16,7 @@ class CreateCartCoupon extends React.Component {
         min_value: "",
         max_value: "",
         flat_discount: "",
-        percent_discount: ""
+        percentage_discount: ""
       }]
     }
 
@@ -33,7 +33,7 @@ class CreateCartCoupon extends React.Component {
     cartConstraint.min_value = cartConstraintData.min ? parseFloat(cartConstraintData.min) : 0.0,
       cartConstraint.max_value = cartConstraintData.max ? parseFloat(cartConstraintData.max) : 0.0,
       cartConstraint.flat_discount = cartConstraintData.flat ? parseFloat(cartConstraintData.flat) : 0.0,
-      cartConstraint.percent_discount = cartConstraintData.percent ? parseFloat(cartConstraintData.percent) : 0.0,
+      cartConstraint.percentage_discount = cartConstraintData.percent ? parseFloat(cartConstraintData.percent) : 0.0,
 
     console.log("handle add1", [...this.state.cartConstraints, cartConstraint])
 
@@ -46,7 +46,7 @@ class CreateCartCoupon extends React.Component {
       min_value: "",
       max_value: "",
       flat_discount: "",
-      percent_discount: ""
+      percentage_discount: ""
     }
 
     console.log("handle add2", [...updatedCartConstraint, defaultConstraint ])
@@ -64,7 +64,7 @@ class CreateCartCoupon extends React.Component {
     cartConstraint.min_value = cartConstraintData.min ? parseFloat(cartConstraintData.min) : 0.0,
       cartConstraint.max_value = cartConstraintData.max ? parseFloat(cartConstraintData.max) : 0.0,
       cartConstraint.flat_discount = cartConstraintData.flat ? parseFloat(cartConstraintData.flat) : 0.0,
-      cartConstraint.percent_discount = cartConstraintData.percent ? parseFloat(cartConstraintData.percent) : 0.0,
+      cartConstraint.percentage_discount = cartConstraintData.percent ? parseFloat(cartConstraintData.percent) : 0.0,
 
     //console.log("constarint", cartConstraint, "data", [...this.state.cartConstraints, cartConstraint])
     console.log("cart constraints", [...this.state.cartConstraints, cartConstraint])
