@@ -1537,6 +1537,33 @@ export const createCartCoupon = payload => (
   })
 )
 
+export const updateCouponDetails = payload => (
+  POST({
+    api: '/promoengine/update_coupon',
+    apiBase: 'promoman',
+    data: payload,
+    handleError: true
+  })
+)
+
+export const updateCartConstraintDetails = payload => (
+  POST({
+    api: '/promoengine/edit_cart_constraint',
+    apiBase: 'promoman',
+    data: payload,
+    handleError: true
+  })
+)
+
+export const fetchCartConstraintDetails = payload => (
+  POST({
+    api: '/promoengine/fetch_coupon_constraint',
+    apiBase: 'promoman',
+    data: payload,
+    handleError: true
+  })
+)
+
 export const createTransaction = action => (
   POST({
     api: '/consumer/create/transaction',

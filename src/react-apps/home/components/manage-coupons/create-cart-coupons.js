@@ -25,6 +25,22 @@ class CreateCartCoupon extends React.Component {
   }
 
   handleAdd () {
+
+    const couponFormData = this.couponFormRef.getData()
+    const cartConstraintData = couponFormData.cartConstraintFormRef.getData()
+
+    const cartConstraint = this.state.cartConstraints.pop()
+    cartConstraint.min_value = cartConstraintData.min ? parseFloat(cartConstraintData.min) : 0.0,
+      cartConstraint.max_value = cartConstraintData.max ? parseFloat(cartConstraintData.max) : 0.0,
+      cartConstraint.flat_discount = cartConstraintData.flat ? parseFloat(cartConstraintData.flat) : 0.0,
+      cartConstraint.percent_discount = cartConstraintData.percent ? parseFloat(cartConstraintData.percent) : 0.0,
+
+    console.log("handle add1", [...this.state.cartConstraints, cartConstraint])
+
+    const updatedCartConstraint = [...this.state.cartConstraints, cartConstraint]
+    // this.setState({
+    //   cartConstraints: [...this.state.cartConstraint, cartConstraint]
+    // })
     const defaultConstraint = {
       coupon_constraint_id: this.state.cartConstraints.length + 1,
       min_value: "",
@@ -33,9 +49,9 @@ class CreateCartCoupon extends React.Component {
       percent_discount: ""
     }
 
-    console.log("handle add", [ ...this.state.cartConstraints, defaultConstraint ])
+    console.log("handle add2", [...updatedCartConstraint, defaultConstraint ])
     this.setState({
-      cartConstraints: [ ...this.state.cartConstraints, defaultConstraint ]
+      cartConstraints: [...updatedCartConstraint, defaultConstraint ]
     })
   }
 
@@ -45,13 +61,13 @@ class CreateCartCoupon extends React.Component {
     const cartConstraintData = couponFormData.cartConstraintFormRef.getData()
 
     const cartConstraint = this.state.cartConstraints.pop()
-    cartConstraint.min_value = cartConstraintData.min ? parseInt(cartConstraintData.min) : 0,
-    cartConstraint.max_value = cartConstraintData.max ? parseInt(cartConstraintData.max) : 0,
-    cartConstraint.flat_discount = cartConstraintData.flat ? parseInt(cartConstraintData.flat) : 0,
-    cartConstraint.percent_discount = cartConstraintData.percent ? parseInt(cartConstraintData.percent) : 0,
+    cartConstraint.min_value = cartConstraintData.min ? parseFloat(cartConstraintData.min) : 0.0,
+      cartConstraint.max_value = cartConstraintData.max ? parseFloat(cartConstraintData.max) : 0.0,
+      cartConstraint.flat_discount = cartConstraintData.flat ? parseFloat(cartConstraintData.flat) : 0.0,
+      cartConstraint.percent_discount = cartConstraintData.percent ? parseFloat(cartConstraintData.percent) : 0.0,
 
-    console.log("constarint", cartConstraint, "data", [...this.state.cartConstraints, cartConstraint])
-
+    //console.log("constarint", cartConstraint, "data", [...this.state.cartConstraints, cartConstraint])
+    console.log("cart constraints", [...this.state.cartConstraints, cartConstraint])
     this.setState({ cartConstraints: [...this.state.cartConstraints, cartConstraint] })
   
     this.setState({ 
@@ -71,7 +87,7 @@ class CreateCartCoupon extends React.Component {
       store_pickup: cartCouponData.storePickup,
       is_consumer_specific: cartCouponData.isConsumerSpecific,
       app: cartCouponData.selectedAppIdx === 1 ? "drinks" : "HipBar-Drink",
-      city_list: cartCouponData.cityList.trim().split(",").map((cityId) => parseInt(cityId)),
+      city_list: cartCouponData.cityList ? cartCouponData.cityList.trim().split(",").map((cityId) => parseInt(cityId)) : [],
       limit_per_user: parseInt(cartCouponData.limitPerUser),
       consider_sign_up: cartCouponData.considerSignUp,
       frequency: parseInt(cartCouponData.frequency),
@@ -79,10 +95,10 @@ class CreateCartCoupon extends React.Component {
       long_desc: cartCouponData.longDesc,
       is_unlimited: cartCouponData.isUnlimited,
       sign_up_date:cartCouponData.signUpDate,
-      consumer_list: cartCouponData.consumerList.trim().split(",").map((consumerId) => parseInt(consumerId)),
+      consumer_list: cartCouponData.consumerList ? cartCouponData.consumerList.trim().split(",").map((consumerId) => parseInt(consumerId)) : [],
       destination: cartCouponData.selectedDestinationIdx === 1 ? "UPI" : "UPI",
       listing_order: parseInt(cartCouponData.listingOrder),
-      long_html_desc: cartCouponData.long_html_desc,
+      long_html_desc: cartCouponData.longHtmlDesc,
       cart_constraints: [...this.state.cartConstraints, cartConstraint]
     })
       .then((response) => {
@@ -127,7 +143,7 @@ class CreateCartCoupon extends React.Component {
             <RaisedButton
               primary
               onClick={this.createCoupon}
-              className={this.state.creatingCoupon ? disabledButtonStyle : ""}
+              style={this.state.creatingCoupon ? disabledButtonStyle : ""}
               label="Save"
               disabled={this.state.creatingCoupon}
             />

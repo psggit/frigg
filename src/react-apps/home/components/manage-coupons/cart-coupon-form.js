@@ -4,6 +4,7 @@ import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
 import Checkbox from 'material-ui/Checkbox'
 import TextField from 'material-ui/TextField'
+import RaisedButton from 'material-ui/RaisedButton'
 //import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
 // import Radio from '@material-ui/core/Radio'
 // import RadioGroup from '@material-ui/core/RadioGroup'
@@ -17,11 +18,11 @@ class CartForm extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      couponName: props.data ? props.data.coupon_name : "",
+      couponName: props.data ? props.data.name : "",
       startTime: props.data ? props.data.start_time.slice(0, 16) : "",
       endTime: props.data ? props.data.end_time.slice(0, 16) : "",
-      maxCount: props.data ? props.data.max_count : "",
-      availableCount: props.data ? props.data.available_count : "",
+      maxCount: props.data ? props.data.max_count : 0,
+      availableCount: props.data ? props.data.available_count : 0,
       frequency: props.data ? props.data.frequency : "",
       signUpDate: props.data ? props.data.sign_up_date : "0001-01-01T00:00:00.000Z",
       considerSignUp: props.data ? this.props.consider_sign_up : false,
@@ -29,10 +30,10 @@ class CartForm extends React.Component {
       storePickup: props.data ? props.data.store_pickup : false,
       isConsumerSpecific: props.data ? props.data.is_consumer_specific : false,
       isUnlimited: props.data ? this.props.is_unlimited : false,
-      cityList: props.data ? props.data.city_list : "",
+      cityList: props.data ? props.data.city_list : [],
       limitPerUser: props.data ? props.data.limit_per_user : "",
-      selectedAppIdx: props.data ? props.data.app : 1,
-      selectedDestinationIdx: props.data ? props.data.destination : 1,
+      selectedAppIdx: props.data ? props.data.app === "drinks" ? 1 : 1 : 1,
+      selectedDestinationIdx: props.data ? props.data.destination === "UPI" ? 1 : 1 : 1,
       shortDesc: props.data ? props.data.short_desc : "",
       longDesc: props.data ? props.data.long_desc : "",
       longHtmlDesc: props.data ? props.data.long_html_desc : "",
@@ -278,7 +279,7 @@ class CartForm extends React.Component {
         </div>
 
         {
-          this.state.isConsumerSpecific &&
+          this.state.isConsumerSpecific && !location.pathname.includes("edit") &&
           <div className="form-group">
             <label className="label">Consumer ID's</label>
             <TextField

@@ -1,6 +1,7 @@
 import React from "react"
 import PropTypes from "prop-types"
 import TextField from 'material-ui/TextField'
+import RaisedButton from 'material-ui/RaisedButton'
 
 class CartConstraintForm extends React.Component{
   constructor (props) {
@@ -14,10 +15,12 @@ class CartConstraintForm extends React.Component{
     }
 
     this.state = {
-      min: props.data ? props.data.min : 0,
-      max: props.data ? props.data.max : 0,
-      flat: props.data ? props.data.flat : 0,
-      percent: props.data ? props.data.percent : 0
+      min: props.data ? props.data.min_value : 0,
+      max: props.data ? props.data.max_value : 0,
+      flat: props.data ? props.data.flat_discount : 0,
+      percent: props.data ? props.data.percentage_discount : 0,
+      constraint_id: props.data ? props.data.constraint_id : 0,
+      coupon_id: props.data ? props.data.coupon_id : 0
     }
     this.handleTextFieldChange = this.handleTextFieldChange.bind(this)
     this.handleFlatDiscountChange = this.handleFlatDiscountChange.bind(this)
@@ -78,8 +81,8 @@ class CartConstraintForm extends React.Component{
               name="min"
               required
               value={this.state.min}
-              style={location.pathname.indexOf("edit") !== -1 ? disabledInputStyle : inputStyle}
-              disabled={location.pathname.indexOf("edit") !== -1}
+              //style={location.pathname.indexOf("edit") !== -1 ? disabledInputStyle : inputStyle}
+              //disabled={location.pathname.indexOf("edit") !== -1}
             />
           </div>
 
@@ -90,8 +93,8 @@ class CartConstraintForm extends React.Component{
               name="max"
               required
               value={this.state.max}
-              style={location.pathname.indexOf("edit") !== -1 ? disabledInputStyle : inputStyle}
-              disabled={location.pathname.indexOf("edit") !== -1}
+              // style={location.pathname.indexOf("edit") !== -1 ? disabledInputStyle : inputStyle}
+              // disabled={location.pathname.indexOf("edit") !== -1}
             />
           </div>
 
@@ -102,8 +105,8 @@ class CartConstraintForm extends React.Component{
               name="flat"
               required
               value={this.state.flat}
-              style={location.pathname.indexOf("edit") !== -1 ? disabledInputStyle : inputStyle}
-              disabled={location.pathname.indexOf("edit") !== -1}
+              // style={location.pathname.indexOf("edit") !== -1 ? disabledInputStyle : inputStyle}
+              // disabled={location.pathname.indexOf("edit") !== -1}
             />
           </div>
 
@@ -114,9 +117,19 @@ class CartConstraintForm extends React.Component{
               name="percent"
               required
               value={this.state.percent}
-              style={location.pathname.indexOf("edit") !== -1 ? disabledInputStyle : inputStyle}
+              // style={location.pathname.indexOf("edit") !== -1 ? disabledInputStyle : inputStyle}
             />
           </div>
+          {
+            location.pathname.includes("edit") &&
+            <RaisedButton
+              primary
+              //disabled={this.state.updatingCoupon}
+              label="Update"
+              onClick={this.props.updateCartConstraint}
+              style={{ marginTop: '40px' }}
+            />
+          }
         </React.Fragment>
       </React.Fragment>
     )

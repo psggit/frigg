@@ -115,6 +115,8 @@ import CreateCoupon from "./../components/manage-reward-coupons/create-coupon"
 import UpdateCoupon from "./../components/manage-reward-coupons/update-coupon"
 import ManageCartCoupons from "./../container/manage-cart-coupons"
 import CreateCartCoupons from "./../components/manage-coupons/create-cart-coupons"
+import EditCartCoupons from "./../components/manage-coupons/edit-coupon"
+
 // import asyncComponent from './../../asyncComponent'
 /**
  * Dynamic imports
@@ -361,6 +363,7 @@ class App extends React.Component {
 
                   <Route exact path="/home/manage-cart-coupons" component={ManageCartCoupons} />
                   <Route exact path="/home/manage-cart-coupons/create" component={CreateCartCoupons} />
+                  <Route exact path="/home/manage-cart-coupons/edit" component={EditCartCoupons}/>
                 </Switch>
               </DisplayScreen>
             </div>
