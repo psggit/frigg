@@ -37,7 +37,7 @@ class CartForm extends React.Component {
       shortDesc: props.data ? props.data.short_desc : "",
       longDesc: props.data ? props.data.long_desc : "",
       longHtmlDesc: props.data ? props.data.long_html_desc : "",
-      consumerList: props.data ? props.data.consumer_list: "",
+      consumerList: props.data ? props.data.consumer_list: [],
       listingOrder: props.data ? props.data.listing_order : ""
     }
 
