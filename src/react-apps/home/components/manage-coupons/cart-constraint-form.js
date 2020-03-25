@@ -20,12 +20,14 @@ class CartConstraintForm extends React.Component{
       flat: props.data ? props.data.flat_discount : 0,
       percent: props.data ? props.data.percentage_discount : 0,
       constraint_id: props.data ? props.data.constraint_id : 0,
-      coupon_id: props.data ? props.data.coupon_id : 0
+      coupon_id: props.data ? props.data.coupon_id : 0,
+      disabledInput: props.data ? props.data.disable : false
     }
     this.handleTextFieldChange = this.handleTextFieldChange.bind(this)
     this.handleFlatDiscountChange = this.handleFlatDiscountChange.bind(this)
     this.handlePercentDiscountChange = this.handlePercentDiscountChange.bind(this)
     this.getData = this.getData.bind(this)
+    this.updateConstraint = this.updateConstraint.bind(this)
   }
 
   handleTextFieldChange (e) {
@@ -35,7 +37,7 @@ class CartConstraintForm extends React.Component{
   }
 
   handleFlatDiscountChange (e) {
-    if(this.state.percent === 0) {
+    if(this.state.percent === 0.0) {
       this.setState({
         [e.target.name]: e.target.value
       })
@@ -43,7 +45,7 @@ class CartConstraintForm extends React.Component{
   }
 
   handlePercentDiscountChange (e) {
-    if (this.state.flat === 0) {
+    if (this.state.flat === 0.0) {
       this.setState({
         [e.target.name]: e.target.value
       })
@@ -52,6 +54,17 @@ class CartConstraintForm extends React.Component{
 
   getData () {
     return this.state
+  }
+
+  updateConstraint () {
+    this.props.updateCartConstraint({
+      constraint_id: (this.state.constraint_id),
+      coupon_id: (this.state.coupon_id),
+      min_value: parseFloat(this.state.min),
+      max_value: parseFloat(this.state.max),
+      percentage_discount: parseFloat(this.state.percent),
+      flat_discount: parseFloat(this.state.flat)
+    })
   }
 
   render () {
@@ -81,8 +94,8 @@ class CartConstraintForm extends React.Component{
               name="min"
               required
               value={this.state.min}
-              //style={location.pathname.indexOf("edit") !== -1 ? disabledInputStyle : inputStyle}
-              //disabled={location.pathname.indexOf("edit") !== -1}
+              style={inputStyle}
+              disabled={this.state.disabledInput}
             />
           </div>
 
@@ -93,8 +106,8 @@ class CartConstraintForm extends React.Component{
               name="max"
               required
               value={this.state.max}
-              // style={location.pathname.indexOf("edit") !== -1 ? disabledInputStyle : inputStyle}
-              // disabled={location.pathname.indexOf("edit") !== -1}
+              style={inputStyle}
+              disabled={this.state.disabledInput}
             />
           </div>
 
@@ -104,9 +117,9 @@ class CartConstraintForm extends React.Component{
               onChange={this.handleFlatDiscountChange}
               name="flat"
               required
+              style={inputStyle}
               value={this.state.flat}
-              // style={location.pathname.indexOf("edit") !== -1 ? disabledInputStyle : inputStyle}
-              // disabled={location.pathname.indexOf("edit") !== -1}
+              disabled={this.state.disabledInput}
             />
           </div>
 
@@ -117,7 +130,8 @@ class CartConstraintForm extends React.Component{
               name="percent"
               required
               value={this.state.percent}
-              // style={location.pathname.indexOf("edit") !== -1 ? disabledInputStyle : inputStyle}
+              style={inputStyle}
+              disabled={this.state.disabledInput}
             />
           </div>
           {
@@ -126,7 +140,7 @@ class CartConstraintForm extends React.Component{
               primary
               //disabled={this.state.updatingCoupon}
               label="Update"
-              onClick={this.props.updateCartConstraint}
+              onClick={this.updateConstraint}
               style={{ marginTop: '40px' }}
             />
           }

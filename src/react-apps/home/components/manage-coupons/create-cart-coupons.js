@@ -13,10 +13,11 @@ class CreateCartCoupon extends React.Component {
       creatingCoupon: false,
       cartConstraints: [{
         coupon_constraint_id: 1,
-        min_value: "",
-        max_value: "",
-        flat_discount: "",
-        percentage_discount: ""
+        min_value: 0.0,
+        max_value: 0.0,
+        flat_discount: 0.0,
+        percentage_discount: 0.0,
+        disable: false
       }]
     }
 
@@ -31,9 +32,10 @@ class CreateCartCoupon extends React.Component {
 
     const cartConstraint = this.state.cartConstraints.pop()
     cartConstraint.min_value = cartConstraintData.min ? parseFloat(cartConstraintData.min) : 0.0,
-      cartConstraint.max_value = cartConstraintData.max ? parseFloat(cartConstraintData.max) : 0.0,
-      cartConstraint.flat_discount = cartConstraintData.flat ? parseFloat(cartConstraintData.flat) : 0.0,
-      cartConstraint.percentage_discount = cartConstraintData.percent ? parseFloat(cartConstraintData.percent) : 0.0,
+    cartConstraint.max_value = cartConstraintData.max ? parseFloat(cartConstraintData.max) : 0.0,
+    cartConstraint.flat_discount = cartConstraintData.flat ? parseFloat(cartConstraintData.flat) : 0.0,
+    cartConstraint.percentage_discount = cartConstraintData.percent ? parseFloat(cartConstraintData.percent) : 0.0,
+    cartConstraint.disable = true
 
     console.log("handle add1", [...this.state.cartConstraints, cartConstraint])
 
@@ -43,10 +45,11 @@ class CreateCartCoupon extends React.Component {
     // })
     const defaultConstraint = {
       coupon_constraint_id: this.state.cartConstraints.length + 1,
-      min_value: "",
-      max_value: "",
-      flat_discount: "",
-      percentage_discount: ""
+      min_value: 0.0,
+      max_value: 0.0,
+      flat_discount: 0.0,
+      percentage_discount: 0.0,
+      disable: false
     }
 
     console.log("handle add2", [...updatedCartConstraint, defaultConstraint ])
@@ -62,10 +65,10 @@ class CreateCartCoupon extends React.Component {
 
     const cartConstraint = this.state.cartConstraints.pop()
     cartConstraint.min_value = cartConstraintData.min ? parseFloat(cartConstraintData.min) : 0.0,
-      cartConstraint.max_value = cartConstraintData.max ? parseFloat(cartConstraintData.max) : 0.0,
-      cartConstraint.flat_discount = cartConstraintData.flat ? parseFloat(cartConstraintData.flat) : 0.0,
-      cartConstraint.percentage_discount = cartConstraintData.percent ? parseFloat(cartConstraintData.percent) : 0.0,
-
+    cartConstraint.max_value = cartConstraintData.max ? parseFloat(cartConstraintData.max) : 0.0,
+    cartConstraint.flat_discount = cartConstraintData.flat ? parseFloat(cartConstraintData.flat) : 0.0,
+    cartConstraint.percentage_discount = cartConstraintData.percent ? parseFloat(cartConstraintData.percent) : 0.0,
+    cartConstraint.disable = true
     //console.log("constarint", cartConstraint, "data", [...this.state.cartConstraints, cartConstraint])
     console.log("cart constraints", [...this.state.cartConstraints, cartConstraint])
     this.setState({ cartConstraints: [...this.state.cartConstraints, cartConstraint] })
@@ -107,7 +110,9 @@ class CreateCartCoupon extends React.Component {
         this.props.history.push("/home/manage-cart-coupons")
       })
       .catch((err) => {
-        console.log("Error in creating coupon and mapping cities", err)
+        err.response.json().then((json) => {
+          Notify(json.message, "warning")
+        })
         this.setState({ creatingCoupon: false })
       })
   }

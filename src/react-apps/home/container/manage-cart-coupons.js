@@ -54,7 +54,7 @@ class ManageCartCoupons extends React.Component {
       this.filter[item[0]] = item[1]
     })
 
-    if(queryObj.couponName.length > 0 || queryObj.activityStatus.toString().length > 0) {
+    if (Object.keys(queryObj).length > 0 && (queryObj.couponName.length > 0 || queryObj.activityStatus.toString().length > 0)) {
       this.fetchListCoupons({
         pagination: {
           offset: queryObj.activePage ? this.pageLimit * (parseInt(queryObj.activePage) - 1) : 0,
@@ -80,7 +80,7 @@ class ManageCartCoupons extends React.Component {
   setPage (pageObj) {
     const queryUri = location.search.slice(1)
     const queryObj = getQueryObj(queryUri)
-    if (queryObj.couponName.length > 0 || queryObj.activityStatus.toString().length > 0) {
+    if (Object.keys(queryObj).length > 0 && (queryObj.couponName.length > 0 || queryObj.activityStatus.toString().length > 0)) {
       this.fetchListCoupons({
         pagination: {
           offset: queryObj.activePage ? this.pageLimit * (parseInt(queryObj.activePage) - 1) : 0,

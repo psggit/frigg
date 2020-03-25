@@ -10,7 +10,18 @@ import {
 import TableLoadingShell from '../table-loading-shell'
 import '@sass/components/_table.scss'
 import { overrideTableStyle } from '../../../utils'
+//import Switch from '@material-ui/core/Switch'
+// import { Switch } from '@material-ui/core'
+// import Toggle from 'material-ui/Toggle'
+import Switch from "@components/switch"
 import Moment from "moment"
+import ConfirmModal from '@components/ModalBox/ConfirmModal'
+import ModalBody from '@components/ModalBox/ModalBody'
+import ModalHeader from '@components/ModalBox/ModalHeader'
+import ModalFooter from '@components/ModalBox/ModalFooter'
+import ModalBox from '@components/ModalBox'
+import Notify from "@components/Notification"
+import * as Api from "./../../middleware/api"
 
 
 const TableHeaderItems = [
@@ -23,6 +34,7 @@ const TableHeaderItems = [
   'AVAILABLE COUNT',
   'FREQUENCY',
   'SIGNUP DATE',
+  'STATUS'
 ]
 
 const styles = [
@@ -34,14 +46,28 @@ const styles = [
   { width: '120px' },
   { width: '150px' },
   { width: '150px' },
-  { width: '150px' }
+  { width: '150px' },
+  { width: '100px' }
 ]
 
 class ListCoupons extends React.Component {
   constructor () {
     super()
 
+    this.state = {
+      mountDialog: false,
+      couponId: "",
+      couponName: "",
+      activityStatus: false,
+      //cityList: ""
+    }
+
     this.editCouponDetails = this.editCouponDetails.bind(this)
+    this.onToggleChange = this.onToggleChange.bind(this)
+    this.updateCouponStatus = this.updateCouponStatus.bind(this)
+    this.setDialogState = this.setDialogState.bind(this)
+    this.mountDialog = this.mountDialog.bind(this)
+    this.unmountDialog = this.unmountDialog.bind(this)
   }
 
   componentDidMount () {
@@ -54,6 +80,49 @@ class ListCoupons extends React.Component {
 
   editCouponDetails (e, item) {
     this.props.history.push("/home/manage-cart-coupons/edit", item)
+  }
+
+  mountDialog () {
+    this.setState({
+      mountDialog: true
+    })
+  }
+
+  unmountDialog () {
+    this.setState({
+      mountDialog: false
+    })
+  }
+
+  onToggleChange (item, value) {
+    console.log("hello from toggle", item, value)
+    this.mountDialog()
+    this.setState({
+      couponId: item.id,
+      couponName: item.name,
+      activityStatus: value,
+      //cityList: item.city_list
+    })
+  }
+
+  updateCouponStatus () {
+    this.unmountDialog()
+    Api.updateCouponStatus({
+      id: this.state.couponId,
+      is_active: this.state.activityStatus
+    })
+      .then((response) => {
+        console.log("Successfully updated coupon status")
+        this.props.history.push("/home/manage-cart-coupons")
+      })
+      .catch((error) => {
+        console.log("Error in updating coupon status", error)
+      })
+
+  }
+
+  setDialogState () {
+    this.setState({ mountDialog: false })
   }
 
   render () {
@@ -105,6 +174,10 @@ class ListCoupons extends React.Component {
                         <TableRowColumn style={styles[6]}>{item.available_count}</TableRowColumn>
                         <TableRowColumn style={styles[7]}>{item.frequency}</TableRowColumn>
                         <TableRowColumn style={styles[8]}>{Moment(item.sign_up_date) ? Moment(item.sign_up_date).format("DD-MM-YYYY h:mm a") : ""}</TableRowColumn>
+
+                        <TableRowColumn style={styles[9]}>
+                          <Switch onToggle={this.onToggleChange} toggled={item.is_active} value={item} />
+                        </TableRowColumn>
                       </TableRow>
                     )
                   })
@@ -115,9 +188,35 @@ class ListCoupons extends React.Component {
                   ))
                 )
             }
+            {
+               this.state.mountDialog &&
+              
+               <ModalBox>
+                <ModalHeader>
+                   <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <div style={{ fontSize: '18px' }}>{this.state.activityStatus === false ? 'Deactivate' : 'Activate'} Coupon</div>
+                  </div>
+                </ModalHeader>
+                <ModalBody height="60px">
+                  <table className="table--hovered">
+                    <tbody>
+                     Are you sure you want to {this.state.activityStatus === false ? 'Deactivate' : 'Activate'} {this.state.couponName} ({this.state.couponId}) ?
+                   </tbody>
+                  </table>
+                 </ModalBody>
+                <ModalFooter>
+                  <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', fontWeight: '600' }}>
+                    <button className="btn btn-primary" onClick={() => this.updateCouponStatus()}> Yes </button>
+                    <button className="btn btn-secondary" onClick={() => this.unmountDialog()}> Cancel </button>
+                  </div>
+                </ModalFooter>
+               </ModalBox>
+             
+            }
           </TableBody>
         </Table>
       </div>
+      
     )
   }
 }

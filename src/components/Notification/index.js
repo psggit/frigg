@@ -10,6 +10,7 @@ import './index.scss'
  */
 
 export default function Notify(message, type = "default") {
+  console.log("message", message)
   const className = "notification-container"
 
   const el = document.querySelector(`.${className}`)

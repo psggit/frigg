@@ -631,6 +631,9 @@ export const checkDeliveryAgentRetailer = action => (
   })
 )
 
+
+
+
 export const checkDeliveryTimeForLocality = action => (
   GET({
     api: `/admin/locality/timeCheck/${action.data.cityId}`,
@@ -707,6 +710,7 @@ export const updateImageAdStatus = action => (
     handleError: true
   })
 )
+
 
 export const createUrlAd = action => (
   POST({
@@ -1549,6 +1553,15 @@ export const updateCouponDetails = payload => (
 export const updateCartConstraintDetails = payload => (
   POST({
     api: '/promoengine/edit_cart_constraint',
+    apiBase: 'promoman',
+    data: payload,
+    handleError: true
+  })
+)
+
+export const updateCouponStatus = payload => (
+  POST({
+    api: '/promoengine/update_coupon_status',
     apiBase: 'promoman',
     data: payload,
     handleError: true

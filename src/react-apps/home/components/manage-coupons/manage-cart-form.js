@@ -9,10 +9,20 @@ class ManageCartForm extends React.Component {
     super(props)
     this.state = {
       cartConstraintFormData: {},
-      cartCouponFormData: {}
+      cartCouponFormData: {},
+      cartConstraints: props.totalCartConstraints ? props.totalCartConstraints : []
     }
 
     this.getData = this.getData.bind(this)
+  }
+
+  componentDidUpdate (prevProps) {
+    console.log("manage cart console", this.props, "prev props", prevProps)
+    if(this.props.totalCartConstraints !== prevProps.totalCartConstraints) {
+      this.setState({
+        cartConstraints: this.props.totalCartConstraints
+      })
+    }
   }
 
   getData () {
@@ -29,10 +39,11 @@ class ManageCartForm extends React.Component {
           ref={(node) => { this.cartFormRef = node }}
         />
         {
-          this.props.totalCartConstraints.map((item, i) => {
+          this.state.cartConstraints.map((item, i) => {
             return (
               <CartConstraintForm
                 key={i}
+                data={item}
                 ref={(node) => { this.cartConstraintFormRef = node }}
               />
             )

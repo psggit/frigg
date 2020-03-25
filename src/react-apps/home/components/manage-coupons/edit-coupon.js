@@ -23,6 +23,7 @@ class EditCartCoupons extends React.Component {
     ]
     this.handleUpdationTypeChange = this.handleUpdationTypeChange.bind(this)
     this.updateCouponDetails = this.updateCouponDetails.bind(this)
+    this.handleAddCartConstraint = this.handleAddCartConstraint.bind(this)
     this.updateCouponConstraintDetails = this.updateCouponConstraintDetails.bind(this)
   }
 
@@ -92,16 +93,8 @@ class EditCartCoupons extends React.Component {
     })
   }
 
-  updateCouponConstraintDetails () {
-    const cartConstraintDetails = this.cartConstraintFormRef.getData()
-    Api.updateCartConstraintDetails({
-      constraint_id: cartConstraintDetails.constraint_id,
-      coupon_id: cartConstraintDetails.coupon_id,
-      min_value: cartConstraintDetails.min,
-      max_value: cartConstraintDetails.max,
-      percentage_discount: cartConstraintDetails.percent,
-      flat_discount: cartConstraintDetails.flat
-    })
+  updateCouponConstraintDetails (payload) {
+    Api.updateCartConstraintDetails(payload)
       .then((response) => {
         this.setState({
           updatingCoupon: false
@@ -117,8 +110,23 @@ class EditCartCoupons extends React.Component {
       })
   }
 
+  handleAddCartConstraint () {
+    const defaultConstraint = {
+      min_value: 0.0,
+      max_value: 0.0,
+      flat_discount: 0.0,
+      percentage_discount: 0.0,
+      constraint_id: 0,
+      coupon_id: this.props.location.state.id,
+      disable: false
+    }
+
+    this.setState({
+      cartConstraints: [...this.state.cartConstraints, defaultConstraint]
+    })
+  }
+
   render () {
-    console.log("prop", this.props.location.state)
     return (
       <Card style={{
         padding: '20px',
@@ -170,7 +178,16 @@ class EditCartCoupons extends React.Component {
         {
           this.state.selectedUpdationTypeIdx === 2 && !this.state.fetchingCartConstraintDetails &&
             <React.Fragment>
-              <h3 style={{ marginTop: 0, marginBottom: '40px' }}>Edit Coupon Details</h3>
+              <div style={{ display: "flex", justifyContent: "space-between" }}>
+                <h3 style={{ marginTop: 0, marginBottom: '40px' }}>Edit Coupon Details</h3>
+                <div>
+                  <RaisedButton
+                    primary
+                    onClick={this.handleAddCartConstraint}
+                    label="Add"
+                  />
+                </div>
+              </div>
               {
                 this.state.cartConstraints.map((item, index) => {
                   return (
@@ -183,13 +200,6 @@ class EditCartCoupons extends React.Component {
                   )
                 })
               }
-              {/* <RaisedButton
-                primary
-                disabled={this.state.updatingCoupon}
-                label="Save"
-                onClick={this.updateCouponConstraintDetails}
-                style={{ marginTop: '40px' }}
-              /> */}
             </React.Fragment>
         }
       </Card>
