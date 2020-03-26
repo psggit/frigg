@@ -80,7 +80,6 @@ class ManageCartCoupons extends React.Component {
   setPage (pageObj) {
     const queryUri = location.search.slice(1)
     const queryObj = getQueryObj(queryUri)
-
     if (queryObj && (queryObj.hasOwnProperty('couponName') || queryObj.hasOwnProperty('activityStatus'))) {
       this.fetchListCoupons({
         pagination: {

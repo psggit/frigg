@@ -116,6 +116,8 @@ import UpdateCoupon from "./../components/manage-reward-coupons/update-coupon"
 import ManageCartCoupons from "./../container/manage-cart-coupons"
 import CreateCartCoupons from "./../components/manage-coupons/create-cart-coupons"
 import EditCartCoupons from "./../components/manage-coupons/edit-coupon"
+import ManageConsumerSpecificCartCoupons from "./../container/manage-consumer-specific-cart-coupons"
+import EditConsumerSpecificCartCoupon from "./../components/manage-consumer-specific-cart-coupons/update-consumer"
 
 // import asyncComponent from './../../asyncComponent'
 /**
@@ -364,6 +366,9 @@ class App extends React.Component {
                   <Route exact path="/home/manage-cart-coupons" component={ManageCartCoupons} />
                   <Route exact path="/home/manage-cart-coupons/create" component={CreateCartCoupons} />
                   <Route exact path="/home/manage-cart-coupons/edit" component={EditCartCoupons}/>
+
+                  <Route exact path="/home/manage-consumer-specific-cart-coupons/" component={ManageConsumerSpecificCartCoupons} />
+                  <Route exact path="/home/manage-consumer-specific-cart-coupons/edit/:couponId" component={EditConsumerSpecificCartCoupon} />
                 </Switch>
               </DisplayScreen>
             </div>

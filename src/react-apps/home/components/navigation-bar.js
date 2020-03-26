@@ -149,7 +149,9 @@ class NavigationBar extends React.Component {
         nestedItems: [
          { name: 'Cart Coupon', path: '/home/manage-cart-coupons', id: 38, nestedItems: [] },
 
-         { name: 'Product Coupon', path: '/home/manage-product-form', id: 39, nestedItems: [] }
+         { name: 'Product Coupon', path: '/home/manage-product-form', id: 39, nestedItems: [] },
+
+          { name: 'Manage Consumer', path: '/home/manage-consumer-specific-cart-coupons', id: 40, nestedItems: [] }
         ]
       },
     ]

@@ -1586,6 +1586,45 @@ export const fetchCartConstraintDetails = payload => (
   })
 )
 
+export const fetchConsumerSpecificCartCoupons = payload => (
+  POST({
+    api: '/promoengine/list_consumer_coupon',
+    apiBase: 'promoman',
+    data: payload,
+    handleError: true
+  })
+    .then(json => json)
+)
+
+export const fetchCartSpecificConsumer = payload => (
+  POST({
+    api: '/promoengine/fetch_consumers',
+    apiBase: 'promoman',
+    data: payload,
+    handleError: true
+  })
+    .then(json => json)
+)
+
+export const updateConsumerSpecificConsumer = payload => (
+  POST({
+    api: '/promoengine/update_consumers',
+    apiBase: 'promoman',
+    data: payload,
+    handleError: true
+  })
+    .then(json => json)
+)
+
+export const updateConsumers = payload => (
+  POST({
+    api: '/promoengine/update_consumers',
+    apiBase: 'promoman',
+    data: payload,
+    handleError: true
+  })
+)
+
 export const createTransaction = action => (
   POST({
     api: '/consumer/create/transaction',
