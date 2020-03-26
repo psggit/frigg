@@ -25,6 +25,7 @@ class EditCartCoupons extends React.Component {
     this.updateCouponDetails = this.updateCouponDetails.bind(this)
     this.handleAddCartConstraint = this.handleAddCartConstraint.bind(this)
     this.updateCouponConstraintDetails = this.updateCouponConstraintDetails.bind(this)
+    this.deleteCouponConstraintDetails = this.deleteCouponConstraintDetails.bind(this)
   }
 
   handleUpdationTypeChange (e, k) {
@@ -118,6 +119,31 @@ class EditCartCoupons extends React.Component {
       })
   }
 
+  deleteCouponConstraintDetails () {
+    const cartConstraintDetails = this.cartConstraintFormRef.getData()
+    Api.deleteCartConstraintDetails({
+      constraint_id: cartConstraintDetails.constraint_id,
+      coupon_id: cartConstraintDetails.coupon_id,
+      constraint_type:"cart"
+    })
+      .then((response) => {
+        this.setState({
+          updatingCoupon: false
+        })
+        Notify("Deleted Cart Constraint Details Successfully", "success")
+        this.props.history.push(`/home/manage-cart-coupons`)
+      })
+      .catch((err) => {
+        err.response.json().then((json) => {
+          Notify(json.message, "warning")
+        })
+        this.setState({
+          updatingCoupon: false
+        })
+        console.log("Error in deleting cart constraint details", err)
+      })
+  }
+
   handleAddCartConstraint () {
     const defaultConstraint = {
       min_value: 0.0,
@@ -202,6 +228,7 @@ class EditCartCoupons extends React.Component {
                     <CartConstraintForm 
                       key={index}
                       updateCartConstraint={this.updateCouponConstraintDetails}
+                      deleteCartConstraint={this.deleteCouponConstraintDetails}
                       data={this.state.cartConstraints[index]}
                       ref={(node) => { this.cartConstraintFormRef = node }}
                     />

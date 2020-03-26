@@ -15,19 +15,17 @@ import { overrideTableStyle } from '../../../utils'
 // import Toggle from 'material-ui/Toggle'
 import Switch from "@components/switch"
 import Moment from "moment"
-import ConfirmModal from '@components/ModalBox/ConfirmModal'
 import ModalBody from '@components/ModalBox/ModalBody'
 import ModalHeader from '@components/ModalBox/ModalHeader'
 import ModalFooter from '@components/ModalBox/ModalFooter'
 import ModalBox from '@components/ModalBox'
-import Notify from "@components/Notification"
 import * as Api from "./../../middleware/api"
 
 
 const TableHeaderItems = [
   '',
   'ID',
-  'COUPAN NAME',
+  'COUPON NAME',
   'START TIME',
   'END TIME',
   'MAX COUNT',
