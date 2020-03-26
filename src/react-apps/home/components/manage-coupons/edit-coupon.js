@@ -43,16 +43,18 @@ class EditCartCoupons extends React.Component {
       name: couponDetails.couponName,
       start_time: new Date(couponDetails.startTime),
       end_time: new Date(couponDetails.endTime),
-      max_count: couponDetails.maxCount,
+      max_count: !couponDetails.isUnlimited ? couponDetails.maxCount : 0,
+      limit_per_user: parseInt(couponDetails.limitPerUser),
       available_count: couponDetails.availableCount,
       frequency: couponDetails.frequency,
-      sign_up_date: couponDetails.signUpDate,
+      sign_up_date: new Date(couponDetails.considerSignUp),
       consider_sign_up: couponDetails.considerSignUp,
       app: couponDetails.selectedAppIdx === 1 ? "drinks" : "",
       pay_by_wallet: couponDetails.payByWallet,
       store_pickup: couponDetails.storePickup,
       destination: couponDetails.selectedDestinationIdx === 1 ? "UPI" : "UPI",
       is_unlimited: couponDetails.isUnlimited,
+      listing_order: parseInt(couponDetails.listingOrder),
       is_consumer_specific: couponDetails.isConsumerSpecific,
       long_desc: couponDetails.longDesc,
       short_desc: couponDetails.shortDesc,
@@ -67,11 +69,14 @@ class EditCartCoupons extends React.Component {
         Notify("Updated Coupon Details Successfully", "success")
         this.props.history.push(`/home/manage-cart-coupons`)
       })
-      .catch((error) => {
+      .catch((err) => {
+        err.response.json().then((json) => {
+          Notify(json.message, "warning")
+        })
         this.setState({
           updatingCoupon: false
         })
-        console.log("Error in updating coupon details", error)
+        console.log("Error in updating coupon details", err)
       })
   }
 
@@ -102,11 +107,14 @@ class EditCartCoupons extends React.Component {
         Notify("Updated Cart Constraint Details Successfully", "success")
         this.props.history.push(`/home/manage-cart-coupons`)
       })
-      .catch((error) => {
+      .catch((err) => {
+        err.response.json().then((json) => {
+          Notify(json.message, "warning")
+        })
         this.setState({
           updatingCoupon: false
         })
-        console.log("Error in updating cart constraint details", error)
+        console.log("Error in updating cart constraint details", err)
       })
   }
 
