@@ -138,7 +138,7 @@ class CartConstraintForm extends React.Component{
             location.pathname.includes("edit") &&
             <RaisedButton
               primary
-              //disabled={this.state.updatingCoupon}
+              disabled={this.props.disable}
               label="Update"
               onClick={this.updateConstraint}
               style={{ marginTop: '40px' }}
@@ -148,7 +148,7 @@ class CartConstraintForm extends React.Component{
             location.pathname.includes("edit") &&
             <RaisedButton
               primary
-              //disabled={this.state.updatingCoupon}
+              disabled={this.props.disable}
               label="Delete"
               onClick={this.props.deleteCartConstraint}
               style={{ marginTop: '40px',marginLeft:'20px' }}

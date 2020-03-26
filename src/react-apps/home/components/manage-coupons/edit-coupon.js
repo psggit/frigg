@@ -38,6 +38,7 @@ class EditCartCoupons extends React.Component {
   }
 
   updateCouponDetails () {
+    this.setState({updatingCoupon: true})
     const couponDetails = this.couponDetailsFormRef.getData()
     Api.updateCouponDetails({
       id: this.props.location.state.id,
@@ -100,6 +101,7 @@ class EditCartCoupons extends React.Component {
   }
 
   updateCouponConstraintDetails (payload) {
+    this.setState({updatingCoupon: true})
     Api.updateCartConstraintDetails(payload)
       .then((response) => {
         this.setState({
@@ -120,6 +122,7 @@ class EditCartCoupons extends React.Component {
   }
 
   deleteCouponConstraintDetails () {
+    this.setState({ updatingCoupon: true })
     const cartConstraintDetails = this.cartConstraintFormRef.getData()
     Api.deleteCartConstraintDetails({
       constraint_id: cartConstraintDetails.constraint_id,
@@ -230,6 +233,7 @@ class EditCartCoupons extends React.Component {
                       updateCartConstraint={this.updateCouponConstraintDetails}
                       deleteCartConstraint={this.deleteCouponConstraintDetails}
                       data={this.state.cartConstraints[index]}
+                      disable={this.state.updatingCoupon}
                       ref={(node) => { this.cartConstraintFormRef = node }}
                     />
                   )

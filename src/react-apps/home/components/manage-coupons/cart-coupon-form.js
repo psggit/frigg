@@ -30,14 +30,14 @@ class CartForm extends React.Component {
       storePickup: props.data ? props.data.store_pickup : false,
       isConsumerSpecific: props.data ? props.data.is_consumer_specific : false,
       isUnlimited: props.data ? props.data.is_unlimited : false,
-      cityList: props.data ? props.data.city_list_str : [],
+      cityList: props.data ? props.data.city_list_str : "",
       limitPerUser: props.data ? props.data.limit_per_user : "",
       selectedAppIdx: props.data ? props.data.app === "drinks" ? 1 : 1 : 1,
       selectedDestinationIdx: props.data ? props.data.destination === "UPI" ? 1 : 1 : 1,
       shortDesc: props.data ? props.data.short_desc : "",
       longDesc: props.data ? props.data.long_desc : "",
       longHtmlDesc: props.data ? props.data.long_html_desc : "",
-      consumerList: props.data ? props.data.consumer_list: [],
+      consumerList: props.data ? props.data.consumer_list: "",
       listingOrder: props.data ? props.data.listing_order : ""
     }
 
