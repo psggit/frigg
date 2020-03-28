@@ -76,7 +76,7 @@ class CreateCartCoupon extends React.Component {
     this.setState({ 
       creatingCoupon: true
     })
-    Api.createCartCoupon({
+    Api.createCoupon({
       name: cartCouponData.couponName,
       constraint_type: "cart",
       start_time: cartCouponData.startTime,

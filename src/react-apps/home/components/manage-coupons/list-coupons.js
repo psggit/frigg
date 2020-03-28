@@ -19,7 +19,7 @@ import ModalBody from '@components/ModalBox/ModalBody'
 import ModalHeader from '@components/ModalBox/ModalHeader'
 import ModalFooter from '@components/ModalBox/ModalFooter'
 import ModalBox from '@components/ModalBox'
-import * as Api from "./../../middleware/api"
+import * as Api from "../../middleware/api"
 
 
 const TableHeaderItems = [
@@ -77,7 +77,12 @@ class ListCoupons extends React.Component {
   }
 
   editCouponDetails (e, item) {
-    this.props.history.push("/home/manage-cart-coupons/edit", item)
+    if (location.pathname.includes("cart-coupons")){
+      this.props.history.push("/home/manage-cart-coupons/edit", item)
+    }
+    else {
+      this.props.history.push("/home/manage-product-coupons/edit",item)
+    }
   }
 
   mountDialog () {
@@ -111,7 +116,11 @@ class ListCoupons extends React.Component {
     })
       .then((response) => {
         console.log("Successfully updated coupon status")
-        this.props.history.push("/home/manage-cart-coupons")
+        if(location.pathname.includes("cart-coupons")) {
+          this.props.history.push("/home/manage-cart-coupons")
+        } else {
+          this.props.history.push("/home/manage-product-coupons")
+        }
       })
       .catch((error) => {
         console.log("Error in updating coupon status", error)
@@ -124,7 +133,7 @@ class ListCoupons extends React.Component {
   }
 
   render () {
-    const { loadingListCoupons, listCoupons } = this.props
+    const { loadingListCoupons, couponList } = this.props
     return (
       <div>
         <Table
@@ -144,7 +153,7 @@ class ListCoupons extends React.Component {
             showRowHover
           >
             {
-              !loadingListCoupons && listCoupons.length === 0 &&
+              !loadingListCoupons && couponList.length === 0 &&
               <tr>
                 <td style={{ textAlign: 'center' }} colSpan='10'>
                   <p style={{ fontWeight: '16px' }}>No cart coupons found</p>
@@ -154,7 +163,7 @@ class ListCoupons extends React.Component {
             {
               !loadingListCoupons
                 ? (
-                  listCoupons.map((item, i) => {
+                  couponList.map((item, i) => {
                     return (
                       <TableRow key={i}>
                         <TableRowColumn style={styles[0]}>

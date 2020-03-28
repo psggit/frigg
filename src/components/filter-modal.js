@@ -94,7 +94,7 @@ class FilterModal extends React.Component {
   handleApplyFilter() {
     if (this.props.filter === "brandName") {
       this.props.applyFilter(this.state.brandName)
-    } else if (this.props.filter === "cartCouponFilter") {
+    } else if (this.props.filter === "cartCouponFilter" || this.props.filter === "productCouponFilter") {
       const isActive = this.state.statusIdx === 1 ? true : false
       console.log("filter", this.state.couponName, isActive)
       this.props.applyFilter(this.state.couponName, isActive)
@@ -220,6 +220,42 @@ class FilterModal extends React.Component {
           }
           {
             this.props.filter === "cartCouponFilter" &&
+            <div>
+              <div className="form-group">
+                <label>Coupon Name</label><br />
+                <TextField
+                  style={{ width: '100%' }}
+                  onChange={this.handleTextFields}
+                  name="couponName"
+                  value={this.state.couponName}
+                />
+              </div>
+              <div className="form-group">
+                <label>Activity Status</label><br />
+                <SelectField
+                  style={{ width: '100%' }}
+                  floatingLabelText="Choose status"
+                  value={parseInt(this.state.statusIdx)}
+                  onChange={this.handleStatusChange}
+                  iconStyle={{ fill: '#9b9b9b' }}
+                >
+                  {
+                    this.activityStatus.map((item, i) => {
+                      return (
+                        <MenuItem
+                          value={item.value}
+                          key={item.value}
+                          primaryText={item.text}
+                        />
+                      )
+                    })
+                  }
+                </SelectField>
+              </div>
+            </div>
+          }
+          {
+            this.props.filter === "productCouponFilter" &&
             <div>
               <div className="form-group">
                 <label>Coupon Name</label><br />

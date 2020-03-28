@@ -85,7 +85,7 @@ class ManageConsumerSpecificCartCoupons extends React.Component {
     const { loadingConsumerSpecificCartCoupon, consumerSpecificCartCoupons, consumerSpecificCartCouponCount } = this.state
     return (
       <React.Fragment>
-        <h3>Showing Consumer coupon List</h3>
+        <h3>Showing Consumer Specific Coupon List</h3>
         <ListConsumerSpecificCartCoupons
           consumerSpecificCartCoupons={consumerSpecificCartCoupons}
           loadingConsumerSpecificCartCoupon={this.state.loadingConsumerSpecificCartCoupon}

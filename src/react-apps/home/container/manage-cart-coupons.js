@@ -6,7 +6,7 @@ import Pagination from '@components/pagination'
 import { getQueryObj, getQueryUri } from '@utils/url-utils'
 import FilterModal from '@components/filter-modal'
 import getIcon from '../components/icon-utils'
-import ListCartCoupons from "./../components/manage-coupons/list-cart-coupons"
+import ListCartCoupons from "./../components/manage-coupons/list-coupons"
 
 class ManageCartCoupons extends React.Component {
   constructor () {
@@ -14,9 +14,9 @@ class ManageCartCoupons extends React.Component {
     this.pageLimit = 5
     this.state = {
       activePage: 1,
-      loadingListCoupons: false,
-      listCoupons: [],
-      listCouponsCount: 0,
+      loadingCartCoupons: false,
+      cartCouponList: [],
+      cartCouponCount: 0,
       shouldMountFilterDialog: false
     }
 
@@ -83,7 +83,7 @@ class ManageCartCoupons extends React.Component {
     if (queryObj && (queryObj.hasOwnProperty('couponName') || queryObj.hasOwnProperty('activityStatus'))) {
       this.fetchListCoupons({
         pagination: {
-          offset: queryObj.activePage ? this.pageLimit * (parseInt(queryObj.activePage) - 1) : 0,
+          offset: pageObj.activePage ? this.pageLimit * (parseInt(pageObj.activePage) - 1) : 0,
           limit: this.pageLimit
         },
         filter: {
@@ -95,7 +95,7 @@ class ManageCartCoupons extends React.Component {
     } else {
       this.fetchListCoupons({
         pagination: {
-          offset: queryObj.activePage ? this.pageLimit * (parseInt(queryObj.activePage) - 1) : 0,
+          offset: pageObj.activePage ? this.pageLimit * (parseInt(pageObj.activePage) - 1) : 0,
           limit: this.pageLimit
         },
         constraint_type: "cart"
@@ -110,19 +110,19 @@ class ManageCartCoupons extends React.Component {
   }
 
   fetchListCoupons (payload) {
-    this.setState({ loadingListCoupons: true })
+    this.setState({ loadingCartCoupons: true })
     Api.fetchListCoupons(payload)
       .then((response) => {
         console.log("response", response.message.coupons, response.message.count)
         this.setState({
-          listCoupons: response.message.coupons,
-          loadingListCoupons: false,
-          listCouponsCount: response.message.count
+          cartCouponList: response.message.coupons,
+          loadingCartCoupons: false,
+          cartCouponCount: response.message.count
         })
       })
       .catch((err) => {
         this.setState({
-          loadingListCoupons: false
+          loadingCartCoupons: false
         })
         console.log("Error in fetching cart coupons", err)
       })
@@ -148,7 +148,7 @@ class ManageCartCoupons extends React.Component {
       activePage: 1,
       couponName,
       activityStatus,
-      listCoupons: []
+      cartCouponList: []
     })
 
     history.pushState(queryObj, "cart coupon listing", `/home/manage-cart-coupons?${getQueryUri(queryObj)}`)
@@ -168,7 +168,7 @@ class ManageCartCoupons extends React.Component {
   }
 
   render () {
-    const { loadingListCoupons, listCoupons, listCouponsCount } = this.state
+    const { loadingCartCoupons, cartCouponList, cartCouponCount } = this.state
     return (
       <React.Fragment>
         <div
@@ -205,16 +205,16 @@ class ManageCartCoupons extends React.Component {
 
         <h3>Showing Cart Coupons</h3>
         <ListCartCoupons
-          listCoupons={this.state.listCoupons}
-          loadingListCoupons={this.state.loadingListCoupons}
+          couponList={this.state.cartCouponList}
+          loadingListCoupons={this.state.loadingCartCoupons}
           history={this.props.history}
         />
         {
-          !loadingListCoupons && listCoupons && listCoupons.length 
+          !loadingCartCoupons && cartCouponList && cartCouponList.length 
             ? <Pagination
               activePage={parseInt(this.state.activePage)}
               itemsCountPerPage={this.pageLimit}
-              totalItemsCount={listCouponsCount}
+              totalItemsCount={cartCouponCount}
               setPage={this.setPage}
             />
             : ""

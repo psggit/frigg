@@ -21,9 +21,9 @@ export default class Notification extends Component {
   }
 
   unmountNotify() {
-    // setTimeout(() => {
-    //   unmountComponentAtNode(document.querySelector('.notification-container'))
-    // }, 1000)
+    setTimeout(() => {
+      unmountComponentAtNode(document.querySelector('.notification-container'))
+    }, 1000)
   }
 
   componentDidMount() {
@@ -31,9 +31,9 @@ export default class Notification extends Component {
     setTimeout(() => {
       this.setState({ x })
 
-      // setTimeout(() => {
-      //   this.setState({ x: 0 }, this.unmountNotify)
-      // }, 4000)
+      setTimeout(() => {
+        this.setState({ x: 0 }, this.unmountNotify)
+      }, 4000)
     }, 100)
   }
 

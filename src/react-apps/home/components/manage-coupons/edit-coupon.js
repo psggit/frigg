@@ -84,7 +84,7 @@ class EditCartCoupons extends React.Component {
 
   fetchConstraintDetails () {
     this.setState({ fetchingCartConstraintDetails: true })
-    Api.fetchCartConstraintDetails({
+    Api.fetchCouponConstraintDetails({
       coupon_id: this.props.location.state.id,
       constraint_type: "cart"
     })
@@ -124,7 +124,7 @@ class EditCartCoupons extends React.Component {
   deleteCouponConstraintDetails () {
     this.setState({ updatingCoupon: true })
     const cartConstraintDetails = this.cartConstraintFormRef.getData()
-    Api.deleteCartConstraintDetails({
+    Api.deleteConstraintDetails({
       constraint_id: cartConstraintDetails.constraint_id,
       coupon_id: cartConstraintDetails.coupon_id,
       constraint_type:"cart"

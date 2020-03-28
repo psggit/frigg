@@ -1532,7 +1532,7 @@ export const createCollection = action => (
   })
 )
 
-export const createCartCoupon = payload => (
+export const createCoupon = payload => (
   POST({
     api: '/promoengine/create_coupon',
     apiBase: 'promoman',
@@ -1559,6 +1559,15 @@ export const updateCartConstraintDetails = payload => (
   })
 )
 
+export const updateProductConstraintDetails = payload => (
+  POST({
+    api: '/promoengine/edit_product_constraint',
+    apiBase: 'promoman',
+    data: payload,
+    handleError: true
+  })
+)
+
 export const updateCouponStatus = payload => (
   POST({
     api: '/promoengine/update_coupon_status',
@@ -1568,7 +1577,7 @@ export const updateCouponStatus = payload => (
   })
 )
 
-export const deleteCartConstraintDetails = payload => (
+export const deleteConstraintDetails = payload => (
   POST({
     api: '/promoengine/delete_constraint',
     apiBase: 'promoman',
@@ -1577,7 +1586,7 @@ export const deleteCartConstraintDetails = payload => (
   })
 )
 
-export const fetchCartConstraintDetails = payload => (
+export const fetchCouponConstraintDetails = payload => (
   POST({
     api: '/promoengine/fetch_coupon_constraint',
     apiBase: 'promoman',
