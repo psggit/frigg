@@ -57,13 +57,13 @@ class NavigationBar extends React.Component {
           { name: 'Manage cashback sku', path: '/home/manage-cashback-sku', id: 23 },
         ]
       },
-      // {
-      //   name: 'Map manager',
-      //   nestedItems: [
-      //     { name: 'Delivery agent mapping', path: '/home/delivery-agent-mapping', id: 4 },
-      //     { name: 'Locality mapping', path: '/home/locality-mapping', id: 5 },
-      //   ]
-      // },
+      {
+        name: 'Map manager',
+        nestedItems: [
+          { name: 'Delivery agent mapping', path: '/home/delivery-agent-mapping', id: 4 },
+          { name: 'Locality mapping', path: '/home/locality-mapping', id: 5 },
+        ]
+      },
       // { name: 'Upload search data', path: '/home/upload-search-data', id: 6, nestedItems: [] },
       // { name: 'Delivery system check', path: '/home/delivery-system-check', id: 7, nestedItems: [] },
       {
@@ -72,13 +72,13 @@ class NavigationBar extends React.Component {
           { name: 'Manage consumer ads', path: '/home/manage-consumer-ads', id: 17 }
         ]
       },
-      // {
-      //   name: 'Delivery management',
-      //   nestedItems: [
-      //     { name: 'Delivery person list', path: '/home/delivery-agents', id: 9 },
-      //     { name: 'Manage possession limits', path: '/home/manage-possession-limits', id: 10 }
-      //   ]
-      // },
+      {
+        name: 'Delivery management',
+        nestedItems: [
+          { name: 'Delivery person list', path: '/home/delivery-agents', id: 9 },
+          { name: 'Manage possession limits', path: '/home/manage-possession-limits', id: 10 }
+        ]
+      },
       {
         name: 'Manage retailers',
         nestedItems: [
