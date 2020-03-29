@@ -34,35 +34,35 @@ const styles = [
 ]
 
 class ViewDeliverers extends React.Component {
-  constructor() {
+  constructor () {
     super()
     this.state = {
       selectedDeliveryAgent: null,
       clickedCell: -1
     }
-    this.handleAddDpToLocalityMap = this.handleAddDpToLocalityMap.bind(this)
+    // this.handleAddDpToLocalityMap = this.handleAddDpToLocalityMap.bind(this)
     this.expandColumn = this.expandColumn.bind(this)
   }
 
-  componentDidMount() {
-    this.props.actions.fetchUnmappedDpToLocality({
-      locality_id: parseInt(this.props.locality_id)
-    })
-  }
+  // componentDidMount() {
+  //   this.props.actions.fetchUnmappedDpToLocality({
+  //     locality_id: parseInt(this.props.locality_id)
+  //   })
+  // }
 
-  expandColumn(clickedCell) {
+  expandColumn (clickedCell) {
     this.setState({ clickedCell })
   }
 
-  handleAddDpToLocalityMap(id) {
-    this.props.actions.addDpToLocalityMap({
-      dp_id: parseInt(id),
-      locality_id: parseInt(this.props.locality_id)
-    })
-    this.props.handleClose()
-  }
+  // handleAddDpToLocalityMap(id) {
+  //   this.props.actions.addDpToLocalityMap({
+  //     dp_id: parseInt(id),
+  //     locality_id: parseInt(this.props.locality_id)
+  //   })
+  //   this.props.handleClose()
+  // }
 
-  render() {
+  render () {
     const {
       unmappedDpToLocality,
       loadingUnmappedDpToLocality
@@ -105,7 +105,7 @@ class ViewDeliverers extends React.Component {
                         label="add"
                         primary
                         onClick={() => {
-                          this.handleAddDpToLocalityMap(item.id)
+                          this.props.handleAddDpToLocalityMap(item.id)
                         }}
                       />
                     </TableRowColumn>
@@ -125,13 +125,15 @@ class ViewDeliverers extends React.Component {
   }
 }
 
-const mapStateToProps = state => state.main
+// const mapStateToProps = state => state.main
 
-const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators(Actions, dispatch)
-})
+// const mapDispatchToProps = dispatch => ({
+//   actions: bindActionCreators(Actions, dispatch)
+// })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ViewDeliverers)
+// export default connect(
+//   mapStateToProps,
+//   mapDispatchToProps
+// )(ViewDeliverers)
+
+export default ViewDeliverers

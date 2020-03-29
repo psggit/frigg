@@ -40,7 +40,7 @@ class ViewLocalityMapDetails extends React.Component {
     this.mountAddDeliveryAgentDialog = this.mountAddDeliveryAgentDialog.bind(this)
     this.unmountAddDeliveryAgentDialog = this.unmountAddDeliveryAgentDialog.bind(this)
   }
-  componentDidMount() {
+  componentDidMount () {
     const queryObj = getQueryObj(location.search.slice(1))
     this.locality_id = queryObj.id
     this.props.actions.fetchLocalityRetailersMap({
@@ -60,7 +60,7 @@ class ViewLocalityMapDetails extends React.Component {
     })
   }
 
-  handleDeleteRetailer(id) {
+  handleDeleteRetailer (id) {
     const queryObj = getQueryObj(location.search.slice(1))
     this.props.actions.deleteRetailerFromLocalityMap({
       retailer_id: id,
@@ -68,7 +68,7 @@ class ViewLocalityMapDetails extends React.Component {
     })
   }
 
-  handleDeleteDp(id) {
+  handleDeleteDp (id) {
     const queryObj = getQueryObj(location.search.slice(1))
     this.props.actions.deleteDpFromLocalityMap({
       dp_id: id,
@@ -76,7 +76,7 @@ class ViewLocalityMapDetails extends React.Component {
     })
   }
 
-  handleMakePrimeRetailer(id) {
+  handleMakePrimeRetailer (id) {
     const queryObj = getQueryObj(location.search.slice(1))
     if (!this.primeRetailerId) {
       this.props.actions.mapRetailerToLocalityAsPrime({
@@ -103,47 +103,47 @@ class ViewLocalityMapDetails extends React.Component {
     }
   }
 
-  unmountConfirmDeleteRetailer() {
+  unmountConfirmDeleteRetailer () {
     this.setState({ shouldMountConfirmDeleteRetailer: false })
   }
 
-  mountConfirmDeleteRetailer(retailer_id) {
+  mountConfirmDeleteRetailer (retailer_id) {
     this.setState({ shouldMountConfirmDeleteRetailer: true, retailer_id })
   }
 
-  unmountConfirmDeleteDp() {
+  unmountConfirmDeleteDp () {
     this.setState({ shouldMountConfirmDeleteDp: false })
   }
 
-  mountConfirmDeleteDp(dp_id) {
+  mountConfirmDeleteDp (dp_id) {
     this.setState({ shouldMountConfirmDeleteDp: true, dp_id })
   }
 
-  unmountConfirmMakePrimeRetailer() {
+  unmountConfirmMakePrimeRetailer () {
     this.setState({ shouldMountConfirmMakePrimeRetailer: false })
   }
 
-  mountConfirmMakePrimeRetailer(retailer_id, val) {
+  mountConfirmMakePrimeRetailer (retailer_id, val) {
     this.setState({ shouldMountConfirmMakePrimeRetailer: true, retailer_id, isPrime: val })
   }
 
-  mountAddRetailerDialog() {
+  mountAddRetailerDialog () {
     this.setState({ shouldMountAddRetailerDialog: true })
   }
 
-  mountAddDeliveryAgentDialog(locality_id) {
+  mountAddDeliveryAgentDialog (locality_id) {
     this.setState({ shouldMountAddDeliveryAgentDialog: true, locality_id })
   }
 
-  unmountAddDeliveryAgentDialog() {
+  unmountAddDeliveryAgentDialog () {
     this.setState({ shouldMountAddDeliveryAgentDialog: false })
   }
 
-  unmountAddRetailerDialog() {
+  unmountAddRetailerDialog () {
     this.setState({ shouldMountAddRetailerDialog: false })
   }
 
-  render() {
+  render () {
     console.log("view locality map details actions", this.props.actions)
     const {
       mappedRetailersToLocality,

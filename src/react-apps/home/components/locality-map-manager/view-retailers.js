@@ -33,7 +33,7 @@ const styles = [
 ]
 
 class ViewRetailers extends React.Component {
-  constructor() {
+  constructor () {
     super()
     this.state = {
       clickedCell: -1
@@ -49,7 +49,7 @@ class ViewRetailers extends React.Component {
   //   })
   // }
 
-  expandColumn(clickedCell) {
+  expandColumn (clickedCell) {
     this.setState({ clickedCell })
   }
 
@@ -63,7 +63,7 @@ class ViewRetailers extends React.Component {
   //   this.props.handleClose()
   // }
 
-  render() {
+  render () {
     const {
       loadingUnmappedRetailersToLocality,
       unmappedRetailersToLocality
