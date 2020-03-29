@@ -38,7 +38,7 @@ class NavigationBar extends React.Component {
           { name: 'Manage State Timings', path: '/home/manage-state-timings', id: 30 },
           { name: 'Manage Cities', path: '/home/manage-cities', id: 2 },
           { name: 'Manage City Possession Limit', path: '/home/manage-cities/possession-limit', id: 31 },
-          // { name: 'Manage Localities', path: '/home/manage-localities', id: 3 },
+          { name: 'Manage Localities', path: '/home/manage-localities', id: 3 },
         ]
       },
       {
