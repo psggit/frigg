@@ -38,30 +38,30 @@ class ViewRetailers extends React.Component {
     this.state = {
       clickedCell: -1
     }
-    this.handleAddRetailerToDpMap = this.handleAddRetailerToDpMap.bind(this)
+    //this.handleAddRetailerToDpMap = this.handleAddRetailerToDpMap.bind(this)
     this.expandColumn = this.expandColumn.bind(this)
   }
 
-  componentDidMount() {
-    const queryObj = getQueryObj(location.search.slice(1))
-    this.props.actions.fetchUnmappedRetailersToLocality({
-      locality_id: parseInt(queryObj.id)
-    })
-  }
+  // componentDidMount() {
+  //   const queryObj = getQueryObj(location.search.slice(1))
+  //   this.props.actions.fetchUnmappedRetailersToLocality({
+  //     locality_id: parseInt(queryObj.id)
+  //   })
+  // }
 
   expandColumn(clickedCell) {
     this.setState({ clickedCell })
   }
 
-  handleAddRetailerToDpMap(id) {
-    const queryObj = getQueryObj(location.search.slice(1))
-    this.props.actions.addRetailerToLocalityMap({
-      retailer_id: parseInt(id),
-      locality_id: parseInt(queryObj.id)
-    })
+  // handleAddRetailerToDpMap(id) {
+  //   const queryObj = getQueryObj(location.search.slice(1))
+  //   this.props.actions.addRetailerToLocalityMap({
+  //     retailer_id: parseInt(id),
+  //     locality_id: parseInt(queryObj.id)
+  //   })
 
-    this.props.handleClose()
-  }
+  //   this.props.handleClose()
+  // }
 
   render() {
     const {
@@ -106,7 +106,7 @@ class ViewRetailers extends React.Component {
                         label="add"
                         primary
                         onClick={() => {
-                          this.handleAddRetailerToDpMap(item.id)
+                          this.props.handleAddRetailerToDpMap(item.id)
                         }}
                       />
                     </TableRowColumn>
@@ -126,13 +126,15 @@ class ViewRetailers extends React.Component {
   }
 }
 
-const mapStateToProps = state => state.main
+// const mapStateToProps = state => state.main
 
-const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators(Actions, dispatch)
-})
+// const mapDispatchToProps = dispatch => ({
+//   actions: bindActionCreators(Actions, dispatch)
+// })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ViewRetailers)
+// export default connect(
+//   mapStateToProps,
+//   mapDispatchToProps
+// )(ViewRetailers)
+
+export default ViewRetailers

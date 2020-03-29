@@ -144,6 +144,7 @@ class ViewLocalityMapDetails extends React.Component {
   }
 
   render() {
+    console.log("view locality map details actions", this.props.actions)
     const {
       mappedRetailersToLocality,
       loadingMappedRetailersToLocality,
