@@ -213,6 +213,35 @@ export const fetchRetailers = action => (
     .then(json => json)
 )
 
+export const fetchWarehouses = payload => (
+  POST({
+    api: '/warehouse/list',
+    apiBase: 'gremlinUrl',
+    data: payload,
+    handleError: true
+  })
+    .then(json => json)
+)
+
+export const mapRetailerToWarehouse = payload => (
+  POST({
+    api: '/mapping/retailertowarehouse/create',
+    apiBase: 'gremlinUrl',
+    data: payload,
+    handleError: true
+  })
+    .then(json => json)
+)
+
+export const deleteRetailerMappedToWarehouse = payload => (
+  POST({
+    api: '/mapping/retailertowarehouse/delete',
+    apiBase: 'gremlinUrl',
+    data: payload,
+    handleError: true
+  })
+)
+
 export const fetchRewardCoupons = payload => (
   POST({
     api: '/reward/listCoupons',
@@ -1586,7 +1615,16 @@ export const deleteConstraintDetails = payload => (
   })
 )
 
-export const fetchCouponConstraintDetails = payload => (
+export const fetchRetailerWarehouseMapping = payload => (
+  POST({
+    api: '/mapping/retailertowarehouse/list',
+    apiBase: 'gremlinUrl',
+    data: payload,
+    handleError: true
+  })
+)
+
+export const fetchCartConstraintDetails = payload => (
   POST({
     api: '/promoengine/fetch_coupon_constraint',
     apiBase: 'promoman',

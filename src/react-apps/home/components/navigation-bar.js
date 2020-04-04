@@ -154,6 +154,12 @@ class NavigationBar extends React.Component {
           { name: 'Manage Consumer', path: '/home/manage-consumer-specific-cart-coupons', id: 40, nestedItems: [] }
         ]
       },
+      {
+        name: 'Delivery Management',
+        nestedItems: [
+          { name: 'Retailer Warehouse Mapping', path: '/home/retailer-warehouse-mapping', id: 41 }
+        ]
+      },
     ]
     return (
       <Drawer

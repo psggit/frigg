@@ -118,10 +118,11 @@ import CreateCartCoupons from "./../components/manage-coupons/create-cart-coupon
 import EditCartCoupons from "./../components/manage-coupons/edit-coupon"
 import ManageConsumerSpecificCartCoupons from "./../container/manage-consumer-specific-cart-coupons"
 import EditConsumerSpecificCartCoupon from "./../components/manage-consumer-specific-cart-coupons/update-consumer"
+import ManageRetailerWarehouseMapping from "./manage-retailer-warehouse-mapping"
+import MapRetailerToWarehouse from "./../components/manage-retailer-warehouse-mapping/map-retailer-to-warehouse"
 import ManageProductCoupons from "./../container/manage-product-coupons"
 import CreateProductCoupons from "./../components/manage-coupons/manage-product-coupons/create-product-coupon"
 import EditProductCoupons from "./../components/manage-coupons/manage-product-coupons/edit-product-form"
-
 // import asyncComponent from './../../asyncComponent'
 /**
  * Dynamic imports
@@ -375,6 +376,9 @@ class App extends React.Component {
 
                   <Route exact path="/home/manage-consumer-specific-cart-coupons/" component={ManageConsumerSpecificCartCoupons} />
                   <Route exact path="/home/manage-consumer-specific-cart-coupons/edit/:couponId" component={EditConsumerSpecificCartCoupon} />
+
+                  <Route exact path="/home/retailer-warehouse-mapping" component={ManageRetailerWarehouseMapping} />
+                  <Route exact path="/home/map-retailer-to-warehouse" component={MapRetailerToWarehouse} />
                 </Switch>
               </DisplayScreen>
             </div>
