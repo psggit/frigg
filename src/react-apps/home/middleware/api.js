@@ -1624,7 +1624,7 @@ export const fetchRetailerWarehouseMapping = payload => (
   })
 )
 
-export const fetchCartConstraintDetails = payload => (
+export const fetchCouponConstraintDetails = payload => (
   POST({
     api: '/promoengine/fetch_coupon_constraint',
     apiBase: 'promoman',
