@@ -18,8 +18,8 @@ class EditCartCoupons extends React.Component {
     }
 
     this.updationType = [
-      { text: 'Cart Coupon Form', value: 1 },
-      { text:'Cart Constraint Form', value: 2 }
+      { text: 'Cart Coupon', value: 1 },
+      { text:'Cart Constraint', value: 2 }
     ]
     this.handleUpdationTypeChange = this.handleUpdationTypeChange.bind(this)
     this.updateCouponDetails = this.updateCouponDetails.bind(this)

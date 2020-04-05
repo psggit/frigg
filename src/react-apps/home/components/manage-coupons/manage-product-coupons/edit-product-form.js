@@ -18,8 +18,8 @@ class EditProductCoupons extends React.Component {
     }
 
     this.updationType = [
-      { text: 'Product Coupon Form', value: 1 },
-      { text: 'Product Constraint Form', value: 2 }
+      { text: 'Product Coupon', value: 1 },
+      { text: 'Product Constraint', value: 2 }
     ]
     this.handleUpdationTypeChange = this.handleUpdationTypeChange.bind(this)
     this.updateCouponDetails = this.updateCouponDetails.bind(this)
