@@ -1203,6 +1203,16 @@ export function fetchCityList(payloadObj, successCallback) {
     })
 }
 
+export function fetchWarehouseList (payloadObj) {
+  return POST({
+    api: '/warehouse/list',
+    apiBase: 'gremlinUrl',
+    data: payloadObj,
+    handleError: true
+  })
+    .then(json => json) 
+}
+
 
 export function fetchCityMappedToPrediction(payloadObj, successCallback) {
   return POST({
@@ -1570,6 +1580,24 @@ export const createCoupon = payload => (
   })
 )
 
+export const createDeliveryagent = payload => (
+  POST({
+    api: '/deliveryagent/create',
+    apiBase: 'gremlinUrl',
+    data: payload,
+    handleError: true
+  })
+)
+
+export const updateDeliveryagent = payload => (
+  POST({
+    api: '/deliveryagent/update',
+    apiBase: 'gremlinUrl',
+    data: payload,
+    handleError: true
+  })
+)
+
 export const updateCouponDetails = payload => (
   POST({
     api: '/promoengine/update_coupon',
@@ -1667,6 +1695,15 @@ export const updateConsumers = payload => (
   POST({
     api: '/promoengine/update_consumers',
     apiBase: 'promoman',
+    data: payload,
+    handleError: true
+  })
+)
+
+export const fetchDeliveryAgentList = payload => (
+  POST({
+    api: '/deliveryagent/list',
+    apiBase: 'gremlinUrl',
     data: payload,
     handleError: true
   })

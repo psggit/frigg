@@ -72,13 +72,13 @@ class NavigationBar extends React.Component {
           { name: 'Manage consumer ads', path: '/home/manage-consumer-ads', id: 17 }
         ]
       },
-      {
-        name: 'Delivery management',
-        nestedItems: [
-          { name: 'Delivery person list', path: '/home/delivery-agents', id: 9 },
-          { name: 'Manage possession limits', path: '/home/manage-possession-limits', id: 10 }
-        ]
-      },
+      // {
+      //   name: 'Delivery management',
+      //   nestedItems: [
+      //     { name: 'Delivery person list', path: '/home/delivery-agents', id: 9 },
+      //     { name: 'Manage possession limits', path: '/home/manage-possession-limits', id: 10 }
+      //   ]
+      // },
       {
         name: 'Manage retailers',
         nestedItems: [
@@ -158,8 +158,9 @@ class NavigationBar extends React.Component {
         name: 'Delivery Management',
         nestedItems: [
           { name: 'Retailer Warehouse Mapping', path: '/home/retailer-warehouse-mapping', id: 41 }
+          { name: 'Delivery Agent', path: '/home/delivery-agent/', id: 42, nestedItems: [] },
         ]
-      },
+      }
     ]
     return (
       <Drawer

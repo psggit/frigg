@@ -45,9 +45,9 @@ import ManageCollections from './manage-collections'
 import UploadSearchData from './upload-search-data'
 import UploadGiftCardDetails from './upload-purchased-gift-card-details'
 import GeoFenceCheck from './geo-fence-check'
-import DeliveyAgentList from './../components/delivery-management/delivery-agent-list'
-import CreateDeliveryAgent from './../components/delivery-management/create-delivery-agent'
-import ManagePossessionLimits from './../components/delivery-management/manage-possession-limits'
+// import DeliveyAgentList from './../components/delivery-management/delivery-agent-list'
+// import CreateDeliveryAgent from './../components/delivery-management/create-delivery-agent'
+// import ManagePossessionLimits from './../components/delivery-management/manage-possession-limits'
 import ManageStatePossessionLimits from "./../container/manage-state-possession-limits"
 import CreatePossessionLimit from "./../components/manage-possession-limits/create-possession-limit"
 import EditPossessionLimit from "./../components/manage-possession-limits/update-possession-limit"
@@ -123,6 +123,11 @@ import MapRetailerToWarehouse from "./../components/manage-retailer-warehouse-ma
 import ManageProductCoupons from "./../container/manage-product-coupons"
 import CreateProductCoupons from "./../components/manage-coupons/manage-product-coupons/create-product-coupon"
 import EditProductCoupons from "./../components/manage-coupons/manage-product-coupons/edit-product-form"
+
+import CreateDeliveryagent from "../components/manage-delivery-agent/create-delivery-agent"
+import ManageDeliveryagent from './../container/manage-delivery-agent'
+import EditDeliveryagent from '../components/manage-delivery-agent/edit-delivery-agent'
+
 // import asyncComponent from './../../asyncComponent'
 /**
  * Dynamic imports
@@ -291,9 +296,9 @@ class App extends React.Component {
                   <Route exact path="/home/manage-collection-ads" component={ManageCollectionAds} />
                   <Route exact path="/home/manage-collection-ads/create-new-ad" component={CreateCollectionAd} />
 
-                  <Route exact path="/home/delivery-agents" component={DeliveyAgentList} />
+                  {/* <Route exact path="/home/delivery-agents" component={DeliveyAgentList} />
                   <Route exact path="/home/delivery-agents/create-new-delivery-agent" component={CreateDeliveryAgent} />
-                  <Route exact path="/home/manage-possession-limits" component={ManagePossessionLimits} />
+                  <Route exact path="/home/manage-possession-limits" component={ManagePossessionLimits} /> */}
 
                   <Route exact path="/home/manage-retailers/retailers" component={ManageRetailers} />
                   <Route exact path="/home/manage-retailers/update-retailer-contact/:retailerSlug" component={UpdateRetailerContact} />
@@ -376,7 +381,11 @@ class App extends React.Component {
 
                   <Route exact path="/home/manage-consumer-specific-cart-coupons/" component={ManageConsumerSpecificCartCoupons} />
                   <Route exact path="/home/manage-consumer-specific-cart-coupons/edit/:couponId" component={EditConsumerSpecificCartCoupon} />
-
+      
+                  <Route exact path="/home/delivery-agent/" component={ManageDeliveryagent} />
+                  <Route exact path="/home/delivery-agent/create" component={CreateDeliveryagent} />
+                  <Route exact path="/home/delivery-agent/edit/:id" component={EditDeliveryagent} />
+      
                   <Route exact path="/home/retailer-warehouse-mapping" component={ManageRetailerWarehouseMapping} />
                   <Route exact path="/home/map-retailer-to-warehouse" component={MapRetailerToWarehouse} />
                 </Switch>
