@@ -9,7 +9,6 @@ import Moment from 'moment'
 class CompanyForm extends React.Component {
   constructor(props) {
     super(props)
-    
     this.state = {
       selectedCityId: props.data ? props.data.city_id : "",
       selectedStateId: props.data ? props.data.state_id : "",

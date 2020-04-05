@@ -118,6 +118,9 @@ import CreateCartCoupons from "./../components/manage-coupons/create-cart-coupon
 import EditCartCoupons from "./../components/manage-coupons/edit-coupon"
 import ManageConsumerSpecificCartCoupons from "./../container/manage-consumer-specific-cart-coupons"
 import EditConsumerSpecificCartCoupon from "./../components/manage-consumer-specific-cart-coupons/update-consumer"
+import ManageWareHouse from "./../container/manage-warehouse"
+import CreateWareHouse from "./../components/manage-warehouse/create-warehouse"
+import EditWareHouse from "../components/manage-warehouse/edit-warehouse"
 import ManageRetailerWarehouseMapping from "./manage-retailer-warehouse-mapping"
 import MapRetailerToWarehouse from "./../components/manage-retailer-warehouse-mapping/map-retailer-to-warehouse"
 import ManageProductCoupons from "./../container/manage-product-coupons"
@@ -381,6 +384,10 @@ class App extends React.Component {
 
                   <Route exact path="/home/manage-consumer-specific-cart-coupons/" component={ManageConsumerSpecificCartCoupons} />
                   <Route exact path="/home/manage-consumer-specific-cart-coupons/edit/:couponId" component={EditConsumerSpecificCartCoupon} />
+
+                  <Route exact path="/home/manage-warehouse" component={ManageWareHouse} />
+                  <Route exact path="/home/manage-warehouse/create" component={CreateWareHouse} />
+                  <Route exact path="/home/manage-warehouse/edit/:id" component={EditWareHouse} />
       
                   <Route exact path="/home/delivery-agent/" component={ManageDeliveryagent} />
                   <Route exact path="/home/delivery-agent/create" component={CreateDeliveryagent} />

@@ -61,8 +61,8 @@ class ManageCartCoupons extends React.Component {
           limit: this.pageLimit
         },
         filter: {
-          field: queryObj.couponName ? "name" : "is_active",
-          value: queryObj.couponName ? queryObj.couponName : queryObj.activityStatus.toString()
+           field: queryObj.couponName ? "name" : "is_active",
+           value: queryObj.couponName ? queryObj.couponName : queryObj.activityStatus.toString()
         },
         constraint_type: "cart"
       })

@@ -70,7 +70,7 @@ class FilterModal extends React.Component {
   handleCityChange(e, k) {
     const cityIdx = k + 1
     this.setState({ cityIdx })
-    this.props.handleCityChange(k)
+    //this.props.handleCityChange(k)
   }
 
   handlePredictionChange(e, k) {
@@ -392,7 +392,7 @@ class FilterModal extends React.Component {
             </div>
           }
           {
-            this.props.filter === "cityFilter" &&
+            this.props.filter === "warehouseFilter" &&
             <div>
               <div className="form-group">
                 <label>City</label><br />

@@ -38,7 +38,7 @@ class MapRetailerToWarehouse extends React.Component {
         state_short_name: null,
         is_available: false,
         offset: 0,
-        limit: 10,
+        limit: 1000,
         deliverable_city: true,
         no_filter: true
       }

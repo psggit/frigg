@@ -1140,6 +1140,16 @@ export const fetchPredictionList = (payloadObj, successCallback) => {
     })
 }
 
+export const fetchLocalityList = (payloadObj) => {
+  return POST({
+    api: '/mapping/localitytocity/list',
+    apiBase: 'gremlinUrl',
+    data: payloadObj,
+    handleError: true
+  })
+    .then(json => json)
+}
+
 export function createPrediction(payloadObj, successCallback, failureCallback) {
   return POST({
     api: '/prediction/create',
@@ -1580,9 +1590,27 @@ export const createCoupon = payload => (
   })
 )
 
+export const createWarehouse = payload => (
+  POST({
+    api: '/warehouse/create',
+    apiBase: 'gremlinUrl',
+    data: payload,
+    handleError: true
+  })
+ )
+
 export const createDeliveryagent = payload => (
   POST({
     api: '/deliveryagent/create',
+    apiBase: 'gremlinUrl',
+    data: payload,
+    handleError: true
+  })
+)
+
+export const updateWarehouse = payload => (
+  POST({
+    api: '/warehouse/update',
     apiBase: 'gremlinUrl',
     data: payload,
     handleError: true
@@ -1598,6 +1626,16 @@ export const updateDeliveryagent = payload => (
   })
 )
 
+export const fetchWarehouse = payload => (
+  POST({
+    api: '/warehouse/list',
+    apiBase: 'gremlinUrl',
+    data: payload,
+    handleError: true
+  })
+    .then(json => json)
+)
+
 export const updateCouponDetails = payload => (
   POST({
     api: '/promoengine/update_coupon',
@@ -1606,6 +1644,8 @@ export const updateCouponDetails = payload => (
     handleError: true
   })
 )
+
+
 
 export const updateCartConstraintDetails = payload => (
   POST({
