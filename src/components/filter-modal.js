@@ -18,6 +18,7 @@ class FilterModal extends React.Component {
       brandName: "",
       adId: props.adId || "",
       stateIdx: props.stateId ? this.props.statesData.findIndex(item => item.id === parseInt(props.stateId)) + 1 : null,
+      selectedWarehouseIdx: props.selectedWarehouseIdx ? this.props.warehouseData.findIndex(item => item.id === parseInt(props.selectedWarehouseIdx)) + 1 : null,
       cityIdx: props.cityId ? this.props.citiesData.findIndex(item => item.id === parseInt(props.cityId)) + 1 : null,
       predictionIdx: null
     }
@@ -33,6 +34,7 @@ class FilterModal extends React.Component {
     this.handleApplyFilter = this.handleApplyFilter.bind(this)
     this.handleStateChange = this.handleStateChange.bind(this)
     this.handleCityChange = this.handleCityChange.bind(this)
+    this.handleWarehouseChange = this.handleWarehouseChange.bind(this)
     this.handleStatusChange = this.handleStatusChange.bind(this)
     this.handlePredictionChange = this.handlePredictionChange.bind(this)
     this.handleChangeIsLocalityAvailable = this.handleChangeIsLocalityAvailable.bind(this)
@@ -73,6 +75,13 @@ class FilterModal extends React.Component {
     //this.props.handleCityChange(k)
   }
 
+  handleWarehouseChange (e, k) {
+    const selectedWarehouseIdx = k + 1
+    console.log("warehouse", k)
+    this.setState({ selectedWarehouseIdx })
+    // this.props.handleWarehouseChange(k)
+  }
+
   handlePredictionChange(e, k) {
     const predictionIdx = k + 1
     this.setState({ predictionIdx })
@@ -92,7 +101,9 @@ class FilterModal extends React.Component {
   }
 
   handleApplyFilter() {
-    if (this.props.filter === "brandName") {
+    if (this.props.filterWarehouse) {
+      this.props.applyFilter(this.state.selectedWarehouseIdx)
+    } else if (this.props.filter === "brandName") {
       this.props.applyFilter(this.state.brandName)
     } else if (this.props.filter === "cartCouponFilter" || this.props.filter === "productCouponFilter") {
       const isActive = this.state.statusIdx === 1 ? true : false
@@ -411,6 +422,35 @@ class FilterModal extends React.Component {
                             value={i + 1}
                             key={city.value}
                             primaryText={city.text}
+                          />
+                        ))
+                      )
+                      : ''
+                  }
+                </SelectField>
+              </div>
+            </div>
+          }
+          {
+            this.props.filter === "deliveryagentFilter" &&
+            <div>
+              <div className="form-group">
+                <label>Warehouse</label><br />
+                <SelectField
+                  style={{ width: '100%' }}
+                  floatingLabelText={this.props.floatingLabelText}
+                  value={parseInt(this.state.selectedWarehouseIdx)}
+                  onChange={this.handleWarehouseChange}
+                  iconStyle={{ fill: '#9b9b9b' }}
+                >
+                  {
+                    !this.props.loadingWarehouse
+                      ? (
+                        this.props.warehouseData.map((item, i) => (
+                          <MenuItem
+                            value={i + 1}
+                            key={item.value}
+                            primaryText={item.text}
                           />
                         ))
                       )

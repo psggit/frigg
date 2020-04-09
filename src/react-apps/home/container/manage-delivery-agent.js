@@ -6,6 +6,7 @@ import Pagination from '@components/pagination'
 import { getQueryObj, getQueryUri } from '@utils/url-utils'
 import FilterModal from '@components/filter-modal'
 import ListDeliveryAgent from "../components/manage-delivery-agent/list-delivery-agent"
+import getIcon from '../components/icon-utils'
 
 class ManageDeliveryagent extends React.Component {
   constructor () {
@@ -15,12 +16,14 @@ class ManageDeliveryagent extends React.Component {
       activePage: 1,
       loadingDeliveryagent: false,
       deliveryAgent: [],
+      warehouseData:[],
+      loadingWarehouse:true,
       deliveryAgentCount: 0,
       shouldMountFilterDialog: false
     }
 
     this.filter = {
-      cityId: ""
+      selectedWarehouseIdx : ""
     }
 
     this.setQueryParamas = this.setQueryParamas.bind(this)
@@ -28,9 +31,11 @@ class ManageDeliveryagent extends React.Component {
     this.fetchDeliveryAgentList = this.fetchDeliveryAgentList.bind(this)
     this.mountFilterDialog = this.mountFilterDialog.bind(this)
     this.unmountFilterModal = this.unmountFilterModal.bind(this)
+    this.applyFilter = this.applyFilter.bind(this)
   }
 
   componentDidMount () {
+    this.fetchWarehouseList()
     if (location.search.length) {
       this.setQueryParamas()
     } else {
@@ -49,12 +54,26 @@ class ManageDeliveryagent extends React.Component {
     Object.entries(queryObj).forEach((item) => {
       this.setState({ [item[0]]: item[1] })
     })
-    this.fetchDeliveryAgentList({
-      pagination: {
-        offset: queryObj.activePage ? this.pageLimit * (parseInt(queryObj.activePage) - 1) : 0,
-        limit: this.pageLimit,
-      }
-    })
+    if (queryObj.selectedWarehouseIdx) {
+      this.fetchDeliveryAgentList({
+        pagination: {
+          offset: queryObj.activePage ? this.pageLimit * (parseInt(queryObj.activePage) - 1) : 0,
+          limit: this.pageLimit
+        },
+        filter: {
+          field: "warehouse_id",
+          value: queryObj.selectedWarehouseIdx
+        }
+      })
+    } else {
+      console.log("active page", queryObj)
+      this.fetchDeliveryAgentList({
+        pagination: {
+          offset: queryObj.activePage ? this.pageLimit * (parseInt(queryObj.activePage) - 1) : 0,
+          limit: this.pageLimit,
+        }
+      })
+    }
   }
 
   setPage (pageObj) {
@@ -62,12 +81,26 @@ class ManageDeliveryagent extends React.Component {
     const queryUri = location.search.slice(1)
     const queryObj = getQueryObj(queryUri)
 
-    this.fetchDeliveryAgentList({
-      pagination: {
-        offset: pageObj.offset,
-        limit: this.pageLimit,
-      }
-    })
+    if (queryObj.selectedWarehouseIdx) {
+      this.fetchDeliveryAgentList({
+        pagination: {
+          offset: pageObj.activePage ? this.pageLimit * (parseInt(pageObj.activePage) - 1) : 0,
+          limit: this.pageLimit
+        },
+        filter: {
+          field: "warehouse_id",
+          value: queryObj.selectedWarehouseIdx
+        }
+      })
+    } else {
+      this.fetchDeliveryAgentList({
+        pagination: {
+          offset: pageObj.activePage ? this.pageLimit * (parseInt(pageObj.activePage) - 1) : 0,
+          limit: this.pageLimit,
+        }
+      })
+    }
+
     this.setState({ activePage: pageObj.activePage })
 
     queryObj.activePage = pageObj.activePage
@@ -81,6 +114,31 @@ class ManageDeliveryagent extends React.Component {
 
   unmountFilterModal () {
     this.setState({ shouldMountFilterDialog: false })
+  }
+
+  fetchWarehouseList () {
+    Api.fetchWarehouseList({
+      pagination: {
+        limit: 1000,
+        offset: 0
+      }
+    })
+      .then((response) => {
+        let warehouseList = []
+        if (response.message.length > 0) {
+          warehouseList = response.message.map((item, i) => {
+            return {
+              text: item.name,
+              value: item.id
+            }
+          })
+        }
+
+        this.setState({ warehouseData: warehouseList, loadingWarehouse: false })
+      })
+      .catch((error) => {
+        console.log("Error in fetching Warehouse List", error)
+      })
   }
 
   fetchDeliveryAgentList (payload) {
@@ -98,6 +156,32 @@ class ManageDeliveryagent extends React.Component {
         console.log("Error in fetching delivery agent list", err)
       })
   }
+
+  applyFilter (selectedWarehouseIdx) {
+    const queryObj = {
+      activePage: 1,
+      selectedWarehouseIdx: this.state.warehouseData[selectedWarehouseIdx].value.toString()
+    }
+
+    this.setState({
+      activePage: 1,
+      selectedWarehouseIdx: this.state.warehouseData[selectedWarehouseIdx].value,
+      deliveryAgent: []
+    })
+
+    history.pushState(queryObj, "delivery agent listing", `/home/delivery-agent?${getQueryUri(queryObj)}`)
+
+    this.fetchDeliveryAgentList({
+      pagination: {
+        offset: 0,
+        limit: this.pageLimit,
+      },
+      filter: {
+        field: "warehouse_id",
+        value: this.state.warehouseData[selectedWarehouseIdx].value.toString()
+      }
+    })
+  } 
 
   render () {
     const { loadingDeliveryagent, deliveryAgent, deliveryAgentCount } = this.state
@@ -117,6 +201,12 @@ class ManageDeliveryagent extends React.Component {
               />
             </NavLink>
           </div>
+          <RaisedButton
+            style={{ marginRight: "10px" }}
+            onClick={this.mountFilterDialog}
+            label="Filter"
+            icon={getIcon('filter')}
+          />
         </div>
         <h3>Showing all delivery agents</h3>
         <ListDeliveryAgent
@@ -139,10 +229,12 @@ class ManageDeliveryagent extends React.Component {
             ? (
               <FilterModal
                 applyFilter={this.applyFilter}
-                title="Filter Deliveryagent"
+                title="Filter delivery agent"
                 unmountFilterModal={this.unmountFilterModal}
-              // filter="cartCouponFilter"
-              ></FilterModal>
+                warehouseData={this.state.warehouseData}
+                filter="deliveryagentFilter"
+                filterWarehouse={true}
+              />
             )
             : ''
         }

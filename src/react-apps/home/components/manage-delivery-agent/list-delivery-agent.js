@@ -10,7 +10,12 @@ import {
 import TableLoadingShell from '../table-loading-shell'
 import '@sass/components/_table.scss'
 import { overrideTableStyle } from '../../../utils'
-
+import Switch from "@components/switch"
+import ModalBody from '@components/ModalBox/ModalBody'
+import ModalHeader from '@components/ModalBox/ModalHeader'
+import ModalFooter from '@components/ModalBox/ModalFooter'
+import ModalBox from '@components/ModalBox'
+import * as Api from "../../middleware/api"
 
 const TableHeaderItems = [
   '',
@@ -19,7 +24,8 @@ const TableHeaderItems = [
   'EMPLOYEE ID',
   'WAREHOUSE ID',
   'GCM TOKEN',
-  'CONTACT NUMBER'
+  'CONTACT NUMBER',
+  'ACTIVE'
 ]
 
 const styles = [
@@ -35,25 +41,84 @@ const styles = [
 ]
 
 class ListDeliveryAgent extends React.Component {
-  constructor () {
+  constructor() {
     super()
 
+    this.state = {
+      mountDialog: false,
+      deliveryAgentId: "",
+      deliveryAgentName: "",
+      activityStatus: false,
+    }
+
     this.editDeliveryAgentDetails = this.editDeliveryAgentDetails.bind(this)
+    this.onToggleChange = this.onToggleChange.bind(this)
+    this.updateDeliveryAgentStatus = this.updateDeliveryAgentStatus.bind(this)
+    this.setDialogState = this.setDialogState.bind(this)
+    this.mountDialog = this.mountDialog.bind(this)
+    this.unmountDialog = this.unmountDialog.bind(this)
   }
 
   componentDidMount () {
     this.overrideTableStyle()
   }
 
-  overrideTableStyle () {
+  overrideTableStyle() {
     overrideTableStyle()
   }
 
-  editDeliveryAgentDetails (e, item) {
+  editDeliveryAgentDetails(e, item) {
     this.props.history.push(`/home/delivery-agent/edit/${item.id}`, item)
   }
 
-  render () {
+  mountDialog() {
+    this.setState({
+      mountDialog: true
+    })
+  }
+
+  unmountDialog () {
+    this.setState({
+      mountDialog: false
+    })
+  }
+
+  onToggleChange (item, value) {
+    console.log("hello from toggle", item, value)
+    this.mountDialog()
+    this.setState({
+      deliveryAgentId: item.id,
+      deliveryAgentName: item.name,
+      activityStatus: value,
+    })
+  }
+
+  updateDeliveryAgentStatus() {
+    this.unmountDialog()
+    Api.updateDeliveryAgentStatus({
+      id: this.state.deliveryAgentId,
+      is_active: this.state.activityStatus
+    })
+      .then((response) => {
+        console.log("Successfully Updated Delivery Agent")
+        if (location.pathname.includes("delivery-agent")) {
+          this.props.history.push("/home/delivery-agent")
+        } else {
+          this.props.history.push("/home/delivery-agent")
+        }
+      })
+      .catch((error) => {
+        console.log("Error in updating coupon status", error)
+      })
+
+  }
+
+  setDialogState() {
+    this.setState({ mountDialog: false })
+  }
+
+
+  render() {
     const { loadingDeliveryagent, deliveryAgent } = this.props
     return (
       <div>
@@ -100,6 +165,10 @@ class ListDeliveryAgent extends React.Component {
                         <TableRowColumn style={styles[4]}>{item.warehouse_id}</TableRowColumn>
                         <TableRowColumn style={styles[5]}>{item.gcm_token}</TableRowColumn>
                         <TableRowColumn style={styles[6]}>{item.contact_number}</TableRowColumn>
+                        <TableRowColumn style={styles[6]}>
+                          <Switch onToggle={this.onToggleChange} toggled={item.is_active} value={item} />
+                        </TableRowColumn>
+
                       </TableRow>
                     )
                   })
@@ -109,6 +178,32 @@ class ListDeliveryAgent extends React.Component {
                     <TableLoadingShell key={index} />
                   ))
                 )
+            }
+
+            {
+              this.state.mountDialog &&
+
+              <ModalBox>
+                <ModalHeader>
+                  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <div style={{ fontSize: '18px' }}>{this.state.activityStatus === false ? 'Deactivate' : 'Activate'} Delivery Agent</div>
+                  </div>
+                </ModalHeader>
+                <ModalBody height="60px">
+                  <table className="table--hovered">
+                    <tbody>
+                      Are you sure you want to {this.state.activityStatus === false ? 'Deactivate' : 'Activate'} {this.state.deliveryAgentName} ({this.state.deliveryAgentId}) ?
+                   </tbody>
+                  </table>
+                </ModalBody>
+                <ModalFooter>
+                  <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', fontWeight: '600' }}>
+                    <button className="btn btn-primary" onClick={() => this.updateDeliveryAgentStatus()}> Yes </button>
+                    <button className="btn btn-secondary" onClick={() => this.unmountDialog()}> Cancel </button>
+                  </div>
+                </ModalFooter>
+              </ModalBox>
+
             }
           </TableBody>
         </Table>

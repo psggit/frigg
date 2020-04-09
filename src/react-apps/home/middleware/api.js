@@ -1636,6 +1636,15 @@ export const fetchWarehouse = payload => (
     .then(json => json)
 )
 
+export const updateDeliveryAgentStatus = payload => (
+  POST({
+    api: '/deliveryagent/update/activity',
+    apiBase: 'gremlinUrl',
+    data: payload,
+    handleError: true
+  })
+)
+
 export const updateCouponDetails = payload => (
   POST({
     api: '/promoengine/update_coupon',
