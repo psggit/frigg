@@ -34,7 +34,7 @@ class FilterModal extends React.Component {
     this.handleApplyFilter = this.handleApplyFilter.bind(this)
     this.handleStateChange = this.handleStateChange.bind(this)
     this.handleCityChange = this.handleCityChange.bind(this)
-    this.handleWarehouseChange = this.handleWarehouseChange.bind(this)
+    this.handleWareHouseCityChange = this.handleWareHouseCityChange.bind(this)
     this.handleStatusChange = this.handleStatusChange.bind(this)
     this.handlePredictionChange = this.handlePredictionChange.bind(this)
     this.handleChangeIsLocalityAvailable = this.handleChangeIsLocalityAvailable.bind(this)
@@ -72,7 +72,12 @@ class FilterModal extends React.Component {
   handleCityChange(e, k) {
     const cityIdx = k + 1
     this.setState({ cityIdx })
-    //this.props.handleCityChange(k)
+    this.props.handleCityChange(k)
+  }
+
+  handleWareHouseCityChange(e,k) {
+    const cityIdx = k + 1
+    this.setState({ cityIdx })
   }
 
   handleWarehouseChange (e, k) {
@@ -115,7 +120,10 @@ class FilterModal extends React.Component {
       this.props.applyFilter(this.state.adId)
     } else if (this.props.filterCity) {
       this.props.applyFilter(this.state.cityIdx)
-    } else {
+    } else if (this.props.warehouseFilter) {
+      this.props.applyFilter(this.state.cityIdx)
+    }
+     else {
       this.props.applyFilter(this.state.predictionIdx)
     }
     this.unmountModal()
@@ -172,30 +180,6 @@ class FilterModal extends React.Component {
                             value={i + 1}
                             key={state.id}
                             primaryText={state.state_name}
-                          />
-                        ))
-                      )
-                      : ''
-                  }
-                </SelectField>
-              </div>
-              <div className="form-group">
-                <label>City</label><br />
-                <SelectField
-                  style={{ width: '100%' }}
-                  floatingLabelText={this.props.floatingLabelText}
-                  disabled={this.props.loadingCities || !this.props.citiesData.length}
-                  value={parseInt(this.state.cityIdx)}
-                  onChange={this.handleCityChange}
-                >
-                  {
-                    !this.props.loadingCities && this.props.citiesData.length
-                      ? (
-                        this.props.citiesData.map((city, i) => (
-                          <MenuItem
-                            value={i + 1}
-                            key={city.id}
-                            primaryText={city.name}
                           />
                         ))
                       )
@@ -344,7 +328,7 @@ class FilterModal extends React.Component {
                   floatingLabelText="Choose city"
                   disabled={this.props.loadingCities || !this.props.citiesData.length}
                   value={parseInt(this.state.cityIdx)}
-                  onChange={this.handleCityChange}
+                  onChange={this.handleWareHouseCityChange}
                 >
                   {
                     !this.props.loadingCities && this.props.citiesData.length
@@ -403,7 +387,7 @@ class FilterModal extends React.Component {
             </div>
           }
           {
-            this.props.filter === "warehouseFilter" &&
+            this.props.filter === "cityFilter" &&
             <div>
               <div className="form-group">
                 <label>City</label><br />
@@ -412,6 +396,35 @@ class FilterModal extends React.Component {
                   floatingLabelText={this.props.floatingLabelText}
                   value={parseInt(this.state.cityIdx)}
                   onChange={this.handleCityChange}
+                  iconStyle={{ fill: '#9b9b9b' }}
+                >
+                  {
+                    !this.props.loadingCities
+                      ? (
+                        this.props.citiesData.map((city, i) => (
+                          <MenuItem
+                            value={i + 1}
+                            key={city.value}
+                            primaryText={city.text}
+                          />
+                        ))
+                      )
+                      : ''
+                  }
+                </SelectField>
+              </div>
+            </div>
+          }
+          {
+            this.props.filter === "warehouseFilter" &&
+            <div>
+              <div className="form-group">
+                <label>City</label><br />
+                <SelectField
+                  style={{ width: '100%' }}
+                  floatingLabelText={this.props.floatingLabelText}
+                  value={parseInt(this.state.cityIdx)}
+                  onChange={this.handleWareHouseCityChange}
                   iconStyle={{ fill: '#9b9b9b' }}
                 >
                   {

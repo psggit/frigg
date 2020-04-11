@@ -7,7 +7,7 @@ class EditWareHouse extends React.Component {
   constructor () {
     super()
     this.state = {
-      updatingWarehouse: false
+      updatingWarehouse: false,
     }
     this.handleSave = this.handleSave.bind(this)
   }
@@ -20,8 +20,9 @@ class EditWareHouse extends React.Component {
       name: warehouseFormData.name,
       city_id: parseInt(warehouseFormData.selectedCityIdx),
       locality_id: parseInt(warehouseFormData.selectedLocalityIdx),
-      gps_x_cordinate: parseFloat(warehouseFormData.gps_x_cordinate),
-      gps_y_cordinate: parseFloat(warehouseFormData.gps_y_cordinate)
+      gps_x_cordinate: parseFloat(warehouseFormData.gps_x_coordinate),
+      gps_y_cordinate: parseFloat(warehouseFormData.gps_y_coordinate),
+      //old_locality_id: this.props.location.state.locality_id
     })
       .then((response) => {
         Notify('Successfully updated warehouse', 'success')

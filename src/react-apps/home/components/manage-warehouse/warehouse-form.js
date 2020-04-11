@@ -42,6 +42,7 @@ class WareHouseForm extends React.Component {
     this.handleTextFields = this.handleTextFields.bind(this)
     this.fetchLocalityList = this.fetchLocalityList.bind(this)
     this.fetchCityList = this.fetchCityList.bind(this)
+    this.handleGPSChange = this.handleGPSChange.bind(this)
   }
 
   componentDidMount () {
@@ -81,7 +82,7 @@ class WareHouseForm extends React.Component {
     .then((response) => {
       this.setState({
         localityList: response.message,
-        selectedLocalityIdx: response.message[0].locality_id
+        selectedLocalityIdx: !this.state.selectedLocalityIdx ? response.message[0].locality_id : this.props.data.locality_id
       })
     })
     .catch((error) => {
@@ -147,8 +148,22 @@ class WareHouseForm extends React.Component {
     this.setState({ [e.target.name]: e.target.value })
   }
 
+  handleGPSChange (e) {
+    const errName = `${e.target.name}Err`
+    this.setState({
+      [errName]: {
+        value: "",
+        status: false
+      }
+    })
+    if (!isNaN(event.target.value)) {
+      this.setState({ [e.target.name]: e.target.value })
+    }
+  }
+
   handleSave () {
     if (this.isFormValid()) {
+      console.log("state", this.state)
       this.props.handleSave()
     }
   }
@@ -220,10 +235,11 @@ class WareHouseForm extends React.Component {
             <label className="label">GPS X Cordinate</label><br />
             <TextField
               placeholder="15.4935224"
-              onChange={this.handleTextFields}
+              onChange={this.handleGPSChange}
               name="gps_x_coordinate"
               value={this.state.gps_x_coordinate}
               style={{ width: '100%' }}
+              pattern="[+-]?[0-9]+(\.[0-9]+)?([Ee][+-]?[0-9]+)?"
             />
             {
               gpsXCoordinateErr.status &&
@@ -234,10 +250,11 @@ class WareHouseForm extends React.Component {
             <label className="label">GPS Y Cordinate</label><br />
             <TextField
               placeholder="15.4935224"
-              onChange={this.handleTextFields}
+              onChange={this.handleGPSChange}
               name="gps_y_coordinate"
               value={this.state.gps_y_coordinate}
               style={{ width: '100%' }}
+              pattern="[+-]?[0-9]+(\.[0-9]+)?([Ee][+-]?[0-9]+)?"
             />
             {
               gpsYCoordinateErr.status &&

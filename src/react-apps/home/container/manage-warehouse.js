@@ -19,11 +19,12 @@ class ManageWareHouse extends React.Component {
       citiesData: [],
       loadingCities: true,
       wareHouseCount: 0,
-      shouldMountFilterDialog: false
+      shouldMountFilterDialog: false,
+      cityId: 0
     }
 
     this.filter = {
-      cityId: ""
+      cityId: " "
     }
     
     this.setQueryParamas = this.setQueryParamas.bind(this)
@@ -53,6 +54,7 @@ class ManageWareHouse extends React.Component {
     const queryObj = getQueryObj(queryUri)
     Object.entries(queryObj).forEach((item) => {
       this.setState({ [item[0]]: item[1] })
+      //this.filter[item[0]] = item[1]
     })
 
     if(queryObj.cityId){
@@ -89,7 +91,7 @@ class ManageWareHouse extends React.Component {
           limit: this.pageLimit
         },
         filter: {
-          field: queryObj.cityId ? "city_id" : "city_id",
+          field:  "city_id",
           value: queryObj.cityId
         }
       })
@@ -105,7 +107,7 @@ class ManageWareHouse extends React.Component {
     this.setState({ activePage: pageObj.activePage })
 
     queryObj.activePage = pageObj.activePage
-    queryObj.offset = pageObj.offset
+    //queryObj.offset = pageObj.offset
     history.pushState(queryObj, "warehouse listing", `/home/manage-warehouse?${getQueryUri(queryObj)}`)
   }
 
@@ -138,7 +140,7 @@ class ManageWareHouse extends React.Component {
           }
         })
       }
-
+      console.log("citidata", cityList)
       this.setState({ citiesData: cityList, loadingCities: false })
     })
     .catch((error) => {
@@ -166,12 +168,12 @@ class ManageWareHouse extends React.Component {
     console.log("city", cityId)
     const queryObj = {
       activePage: 1,
-      cityId
+      cityId:this.state.citiesData[cityId-1].value.toString()
     }
 
     this.setState({
       activePage: 1,
-      cityId,
+      cityId:this.state.citiesData[cityId].value,
       wareHouseList: []
     })
 
@@ -184,7 +186,7 @@ class ManageWareHouse extends React.Component {
       },
       filter: {
         field: "city_id",
-        value: cityId
+        value: this.state.citiesData[cityId-1].value.toString()
       }
     })
   } 
@@ -238,6 +240,7 @@ class ManageWareHouse extends React.Component {
                 title="Filter warehouse filter"
                 unmountFilterModal={this.unmountFilterModal}
                 citiesData={this.state.citiesData}
+                loadingCities={this.state.loadingCities}
                 filter="warehouseFilter"
                 filterCity={true}
               />

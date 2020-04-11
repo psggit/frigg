@@ -169,8 +169,6 @@ class MapCityToPrediction extends React.Component {
   }
 
   applyFilter() {
-    
-    console.log(this.filter);
     const queryObj = {
       //offset: 0,
       activePage: 1,
