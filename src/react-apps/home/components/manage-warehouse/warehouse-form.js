@@ -64,11 +64,11 @@ class WareHouseForm extends React.Component {
       this.setState({
         cityList: response.cities,
         loadingCityList: false,
-        selectedCityIdx: !this.state.selectedCityIdx ? response.cities[0].id : this.props.data.city_id
+        selectedCityIdx: !this.state.selectedCityIdx ? response.cities[0].id : this.state.selectedCityIdx
       })
       this.fetchLocalityList({
         pagination: { "limit": 1000, "offset": 0 },
-        filter: { "field": "city_id", "value": !this.state.selectedCityIdx ? response.cities[0].id.toString() : this.props.data.city_id.toString() }
+        filter: { "field": "city_id", "value": !this.state.selectedCityIdx ? response.cities[0].id.toString() : this.state.selectedCityIdx.toString() }
       })
     })
     .catch((error) => {
@@ -82,7 +82,7 @@ class WareHouseForm extends React.Component {
     .then((response) => {
       this.setState({
         localityList: response.message,
-        selectedLocalityIdx: !this.state.selectedLocalityIdx ? response.message[0].locality_id : this.props.data.locality_id
+        selectedLocalityIdx: !this.state.selectedLocalityIdx ? response.message[0].locality_id : this.state.selectedLocalityIdx
       })
     })
     .catch((error) => {
