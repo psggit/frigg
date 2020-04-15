@@ -79,7 +79,7 @@ class CreateProductCoupon extends React.Component {
       start_time: productCouponData.startTime,
       end_time: productCouponData.endTime,
       max_count: parseInt(productCouponData.maxCount),
-      available_count: parseInt(productCouponData.availableCount),
+      //available_count: parseInt(productCouponData.availableCount),
       pay_by_wallet: productCouponData.payByWallet,
       store_pickup: productCouponData.storePickup,
       is_consumer_specific: productCouponData.isConsumerSpecific,

@@ -47,7 +47,7 @@ class EditProductCoupons extends React.Component {
       end_time: new Date(couponDetails.endTime),
       max_count: !couponDetails.isUnlimited ? couponDetails.maxCount : 0,
       limit_per_user: parseInt(couponDetails.limitPerUser),
-      available_count: couponDetails.availableCount,
+      //available_count: couponDetails.availableCount,
       frequency: parseInt(couponDetails.frequency),
       sign_up_date: new Date(couponDetails.signUpDate),
       consider_sign_up: couponDetails.considerSignUp,

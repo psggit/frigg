@@ -22,7 +22,7 @@ class CartForm extends React.Component {
       startTime: props.data ? props.data.start_time.slice(0, 16) : "",
       endTime: props.data ? props.data.end_time.slice(0, 16) : "",
       maxCount: props.data ? props.data.max_count : 0,
-      availableCount: props.data ? props.data.available_count : 0,
+      //availableCount: props.data ? props.data.available_count : 0,
       frequency: props.data ? props.data.frequency : "",
       signUpDate: props.data ? props.data.sign_up_date.slice(0, 16) : "0001-01-01T00:00:00.000Z",
       considerSignUp: props.data ? props.data.consider_sign_up : false,
@@ -46,7 +46,7 @@ class CartForm extends React.Component {
     ]
 
     this.app = [
-      { text: 'HipBar-Drink', value: 1 },
+      { text: 'HipBar-Drinks', value: 1 },
     ]
 
     this.handleTextFieldChange = this.handleTextFieldChange.bind(this)
@@ -269,9 +269,20 @@ class CartForm extends React.Component {
         </div>
 
         <div className="form-group">
+          <label className="label">Listing Order</label><br />
+          <TextField
+            onChange={this.handleTextFieldChange}
+            name="listingOrder"
+            required
+            style={{ width: '100%' }}
+            value={this.state.listingOrder}
+          />
+        </div>
+
+        <div className="form-group">
           <Checkbox
             style={{ marginTop: "10px" }}
-            label="Consumer Specific"
+            label="Is Consumer Specific"
             name="isConsumerSpecific"
             checked={this.state.isConsumerSpecific}
             onCheck={this.handleCheckboxChange}
@@ -295,7 +306,7 @@ class CartForm extends React.Component {
         <div className="form-group">
           <Checkbox
             style={{ marginTop: "10px" }}
-            label="SignUp"
+            label="Is SignUp Specific"
             name="considerSignUp"
             checked={this.state.considerSignUp}
             onCheck={this.handleCheckboxChange}
@@ -345,7 +356,7 @@ class CartForm extends React.Component {
                 value={this.state.maxCount}
               />
             </div>
-            <div className="form-group">
+            {/* <div className="form-group">
               <label className="label">Available Count</label><br />
               <TextField
                 onChange={this.handleTextFieldChange}
@@ -354,19 +365,9 @@ class CartForm extends React.Component {
                 style={{ width: '100%' }}
                 value={this.state.availableCount}
               />
-            </div>
+            </div> */}
           </div>
         }
-        <div className="form-group">
-          <label className="label">Listing Order</label><br />
-          <TextField
-            onChange={this.handleTextFieldChange}
-            name="listingOrder"
-            required
-            style={{ width: '100%' }}
-            value={this.state.listingOrder}
-          />
-        </div>
       </React.Fragment>
     )
   }

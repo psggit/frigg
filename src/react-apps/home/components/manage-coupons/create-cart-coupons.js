@@ -82,7 +82,7 @@ class CreateCartCoupon extends React.Component {
       start_time: cartCouponData.startTime,
       end_time: cartCouponData.endTime,
       max_count: parseInt(cartCouponData.maxCount),
-      available_count: parseInt(cartCouponData.availableCount),
+      //available_count: parseInt(cartCouponData.availableCount),
       // pay_by_wallet: cartCouponData.option === "payByWallet" ? true : false,
       // store_pickup: cartCouponData.option === "storePickup" ? true : false,
       // is_consumer_specific: cartCouponData.option === "isConsumerSpecific" ? true : false,
