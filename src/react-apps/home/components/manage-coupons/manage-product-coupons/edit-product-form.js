@@ -49,7 +49,7 @@ class EditProductCoupons extends React.Component {
       limit_per_user: parseInt(couponDetails.limitPerUser),
       available_count: couponDetails.availableCount,
       frequency: parseInt(couponDetails.frequency),
-      sign_up_date: new Date(couponDetails.considerSignUp),
+      sign_up_date: new Date(couponDetails.signUpDate),
       consider_sign_up: couponDetails.considerSignUp,
       app: couponDetails.selectedAppIdx === 1 ? "drinks" : "",
       pay_by_wallet: couponDetails.payByWallet,

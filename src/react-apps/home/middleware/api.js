@@ -1683,6 +1683,15 @@ export const updateCouponStatus = payload => (
   })
 )
 
+export const updateWarehouseStatus = payload => (
+  POST({
+    api: '/warehouse/update/status',
+    apiBase: 'gremlinUrl',
+    data: payload,
+    handleError: true
+  })
+)
+
 export const deleteConstraintDetails = payload => (
   POST({
     api: '/promoengine/delete_constraint',

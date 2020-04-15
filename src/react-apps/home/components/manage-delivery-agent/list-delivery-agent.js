@@ -101,11 +101,11 @@ class ListDeliveryAgent extends React.Component {
     })
       .then((response) => {
         console.log("Successfully Updated Delivery Agent")
-        if (location.pathname.includes("delivery-agent")) {
-          this.props.history.push("/home/delivery-agent")
-        } else {
-          this.props.history.push("/home/delivery-agent")
-        }
+        // if (location.pathname.includes("delivery-agent")) {
+        //   this.props.history.push("/home/delivery-agent")
+        // } else {
+        this.props.history.push("/home/delivery-agent")
+        //}
       })
       .catch((error) => {
         console.log("Error in updating coupon status", error)
