@@ -21,8 +21,6 @@ class EditDeliveryAgent extends React.Component {
       warehouse_id: parseInt(deliveryAgentForm.selectedWarehouseIdx),
       employee_id: deliveryAgentForm.employeeId,
       gcm_token: deliveryAgentForm.gcmToken,
-      contact_number: deliveryAgentForm.contactNumber,
-      is_active: deliveryAgentForm.isActive,
       dob: deliveryAgentForm.dob.slice(0,10),
       vehicle_number: deliveryAgentForm.vehicleNumber,
       vehicle_volume_capacity: parseInt(deliveryAgentForm.vehicleVolumeCapacity),
@@ -50,6 +48,8 @@ class EditDeliveryAgent extends React.Component {
         <EditDeliveryAgentForm
           ref={(node) => { this.deliveryAgentForm = node }}
           data={this.props.location.state}
+          // disableContactNumber={true}
+          // disableIsActive={true}
           disableSave={this.state.updatingDeliveryagent}
           handleSave={this.handleSave}
         />

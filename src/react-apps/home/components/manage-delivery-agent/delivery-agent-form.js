@@ -159,6 +159,7 @@ class DeliveryAgentForm extends React.Component {
               <TextField
                 onChange={this.handleTextFields}
                 name="contactNumber"
+                disabled={location.pathname.includes("edit")}
                 value={this.state.contactNumber}
                 style={{ width: '100%' }}
               />
@@ -229,6 +230,7 @@ class DeliveryAgentForm extends React.Component {
                 style={{ marginTop: "10px" }}
                 label="is_active"
                 name="isActive"
+                disabled={location.pathname.includes("edit")}
                 checked={this.state.isActive}
                 onCheck={this.handleCheckboxChange}
               />
