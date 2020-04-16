@@ -19,6 +19,7 @@ function getAPIObj() {
       catalog: 'https://catalog.' + appName,
       loki: 'https://loki.' + appName,
       promoman: 'https://promoman.' + appName,
+      apiUrl: 'https://api.' + appName,
     }
   } else {
     let scheme = window.location.href.split(':')[0]
@@ -43,6 +44,8 @@ function getAPIObj() {
       reports: scheme + '://reports' + baseHost,
       loki: scheme + '://loki' + baseHost,
       promoman: scheme + '://promoman' + baseHost,
+      apiUrl: scheme + '://api' + baseHost,
+      
     }
   }
 }

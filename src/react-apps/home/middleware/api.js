@@ -215,8 +215,8 @@ export const fetchRetailers = action => (
 
 export const fetchWarehouses = payload => (
   POST({
-    api: '/warehouse/list',
-    apiBase: 'gremlinUrl',
+    api: '/deliveryman/api/1/warehouse/list',
+    apiBase: 'apiUrl',
     data: payload,
     handleError: true
   })
@@ -225,8 +225,8 @@ export const fetchWarehouses = payload => (
 
 export const mapRetailerToWarehouse = payload => (
   POST({
-    api: '/mapping/retailertowarehouse/create',
-    apiBase: 'gremlinUrl',
+    api: '/deliveryman/api/1/mapping/retailertowarehouse/create',
+    apiBase: 'apiUrl',
     data: payload,
     handleError: true
   })
@@ -235,8 +235,8 @@ export const mapRetailerToWarehouse = payload => (
 
 export const deleteRetailerMappedToWarehouse = payload => (
   POST({
-    api: '/mapping/retailertowarehouse/delete',
-    apiBase: 'gremlinUrl',
+    api: '/deliveryman/api/1/mapping/retailertowarehouse/delete',
+    apiBase: 'apiUrl',
     data: payload,
     handleError: true
   })
@@ -1142,13 +1142,22 @@ export const fetchPredictionList = (payloadObj, successCallback) => {
 
 export const fetchLocalityList = (payloadObj) => {
   return POST({
-    api: '/mapping/localitytocity/list',
-    apiBase: 'gremlinUrl',
+    api: '/deliveryman/api/1/mapping/localitytocity/list',
+    apiBase: 'apiUrl',
     data: payloadObj,
     handleError: true
   })
     .then(json => json)
 }
+
+export const updateWarehouseStatus = payload => (
+  POST({
+    api: '/deliveryman/api/1/warehouse/update/status',
+    apiBase: 'apiUrl',
+    data: payload,
+    handleError: true
+  })
+)
 
 export function createPrediction(payloadObj, successCallback, failureCallback) {
   return POST({
@@ -1213,14 +1222,14 @@ export function fetchCityList(payloadObj, successCallback) {
     })
 }
 
-export function fetchWarehouseList (payloadObj) {
+export function fetchWarehouseList(payloadObj) {
   return POST({
-    api: '/warehouse/list',
-    apiBase: 'gremlinUrl',
+    api: '/deliveryman/api/1/warehouse/list',
+    apiBase: 'apiUrl',
     data: payloadObj,
     handleError: true
   })
-    .then(json => json) 
+    .then(json => json)
 }
 
 
@@ -1592,17 +1601,17 @@ export const createCoupon = payload => (
 
 export const createWarehouse = payload => (
   POST({
-    api: '/warehouse/create',
-    apiBase: 'gremlinUrl',
+    api: '/deliveryman/api/1/warehouse/create',
+    apiBase: 'apiUrl',
     data: payload,
     handleError: true
   })
- )
+)
 
 export const createDeliveryagent = payload => (
   POST({
-    api: '/deliveryagent/create',
-    apiBase: 'gremlinUrl',
+    api: '/deliveryman/api/1/deliveryagent/create',
+    apiBase: 'apiUrl',
     data: payload,
     handleError: true
   })
@@ -1610,8 +1619,8 @@ export const createDeliveryagent = payload => (
 
 export const updateWarehouse = payload => (
   POST({
-    api: '/warehouse/update',
-    apiBase: 'gremlinUrl',
+    api: '/deliveryman/api/1/warehouse/update',
+    apiBase: 'apiUrl',
     data: payload,
     handleError: true
   })
@@ -1619,8 +1628,8 @@ export const updateWarehouse = payload => (
 
 export const updateDeliveryagent = payload => (
   POST({
-    api: '/deliveryagent/update',
-    apiBase: 'gremlinUrl',
+    api: '/deliveryman/api/1/deliveryagent/update',
+    apiBase: 'apiUrl',
     data: payload,
     handleError: true
   })
@@ -1628,8 +1637,8 @@ export const updateDeliveryagent = payload => (
 
 export const fetchWarehouse = payload => (
   POST({
-    api: '/warehouse/list',
-    apiBase: 'gremlinUrl',
+    api: '/deliveryman/api/1/warehouse/list',
+    apiBase: 'apiUrl',
     data: payload,
     handleError: true
   })
@@ -1638,8 +1647,8 @@ export const fetchWarehouse = payload => (
 
 export const updateDeliveryAgentStatus = payload => (
   POST({
-    api: '/deliveryagent/update/activity',
-    apiBase: 'gremlinUrl',
+    api: '/deliveryman/api/1/deliveryagent/update/activity',
+    apiBase: 'apiUrl',
     data: payload,
     handleError: true
   })
@@ -1683,15 +1692,6 @@ export const updateCouponStatus = payload => (
   })
 )
 
-export const updateWarehouseStatus = payload => (
-  POST({
-    api: '/warehouse/update/status',
-    apiBase: 'gremlinUrl',
-    data: payload,
-    handleError: true
-  })
-)
-
 export const deleteConstraintDetails = payload => (
   POST({
     api: '/promoengine/delete_constraint',
@@ -1703,8 +1703,8 @@ export const deleteConstraintDetails = payload => (
 
 export const fetchRetailerWarehouseMapping = payload => (
   POST({
-    api: '/mapping/retailertowarehouse/list',
-    apiBase: 'gremlinUrl',
+    api: '/deliveryman/api/1/mapping/retailertowarehouse/list',
+    apiBase: 'apiUrl',
     data: payload,
     handleError: true
   })
@@ -1760,8 +1760,8 @@ export const updateConsumers = payload => (
 
 export const fetchDeliveryAgentList = payload => (
   POST({
-    api: '/deliveryagent/list',
-    apiBase: 'gremlinUrl',
+    api: '/deliveryman/api/1/deliveryagent/list',
+    apiBase: 'apiUrl',
     data: payload,
     handleError: true
   })

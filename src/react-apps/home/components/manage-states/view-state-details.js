@@ -38,10 +38,18 @@ class ViewState extends React.Component {
         state_name: data.stateName,
         short_name: data.stateShortName,
         price_type: data.priceType,
+        gst_number: data.gst,
+        sgst_percentage: parseFloat(data.sgst),
+        cgst_percentage: parseFloat(data.cgst),
+        igst_percentage: parseFloat(data.igst),
+        //default_city_id: parseInt(data.selectedCityIdx),
         upi_enabled: data.isUPIEnabled,
         hbwallet_enabled: data.isHipbarWalletEnabled,
         gift_wallet_enabled: data.isGiftWalletEnabled,
-        //catalog_enabled: data.isCatalogEnabled
+        //catalog_enabled: data.isCatalogEnabled,
+        //add_money: data.addMoney,
+        is_deliverable: data.isDeliverable,
+        is_active: data.isActive
       })
     }
   }
