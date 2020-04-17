@@ -9,6 +9,7 @@ import IfElse from '@components/declarative-if-else'
 import { Card } from 'material-ui/Card'
 import DefineGeoboundary from './../manage-geofencing/define-geoboundary'
 import { getQueryObj } from '@utils/url-utils'
+import { parseExpressionAt } from 'acorn'
 
 class CreateCity extends React.Component {
   constructor(props) {
@@ -60,11 +61,19 @@ class CreateCity extends React.Component {
       this.setState({ isDisabled: true })
       this.props.actions.createCity({
         is_available: data.isCityActive,
+        is_wallet_city: data.isWalletCityActive,
+        store_pickup_disabled: data.storePickupDisabled,
+        quickpay_disabled: data.quickpayDisabled,
+        add_money_diasable: data.addMoney,
+        catalog_enabled: data.catalogEnabled,
+        is_partial_delivery_enabled: data.partialDeliveryEnabled,
+        homepage_view: data.homepageView,
+        // geoboundary: data.geoboundary,
         deliverable_city: data.isDeliveryActive,
         state_short_name: data.stateShortName,
         gps: data.cityGPS,
         name: data.cityName,
-        geoboundary: cityBoundaryData
+        geoboundary: cityBoundaryData,
       }, this.callbackUpdate)
     }
   }

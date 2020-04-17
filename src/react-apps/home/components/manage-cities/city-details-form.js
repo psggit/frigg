@@ -8,11 +8,27 @@ import RaisedButton from 'material-ui/RaisedButton'
 class CityDetailsForm extends React.Component {
   constructor(props) {
     super(props)
+    this.homepageView = [
+      { text: 'catalog', value: 1 },
+      { text: 'retailer_map', value: 2 },
+      { text: 'retailer_list', value: 3 }
+    ]
     this.initialState = {
       stateIdx: props.stateIdx || 0,
       isCityActive: props.isCityActive !== null ? props.isCityActive : true,
       isDeliveryActive: props.isDeliveryActive !== null ? props.isDeliveryActive : true,
+      isWalletCityActive: props.isWalletCityActive !== null ? props.isWalletCityActive : true,
+      storePickupDisabled: props.storePickupDisabled !== null ? props.storePickupDisabled : true,
+      quickpayDisabled: props.quickpayDisabled !== null ? props.quickpayDisabled : true,
+      addMoney: props.addMoney !== null ? props.addMoney : true,
+      catalogEnabled: props.catalogEnabled !== null ? props.catalogEnabled : true,
+      partialDeliveryEnabled: props.partialDeliveryEnabled !== null ? props.partialDeliveryEnabled : true,
       cityName: props.cityName || '',
+      geoboundary: props.geoboundary || '',
+      selectedHomePageIdx: props.data ? props.data.homepageView
+        ? this.homepageView.find(item => (item.text).toLowerCase() === (props.data.homepageView).toLowerCase()).value
+        : 1 : 1,
+      homepageView: props.data ? props.data.homepageView : 'catalog',
       cityGPS: props.cityGPS || '',
       shouldTrim: true
     }
@@ -23,6 +39,7 @@ class CityDetailsForm extends React.Component {
     this.handleCheckboxes = this.handleCheckboxes.bind(this)
     this.handleStateChange = this.handleStateChange.bind(this)
     this.setCityGPSInputFromMarker = this.setCityGPSInputFromMarker.bind(this)
+    this.handleHomePageChange = this.handleHomePageChange.bind(this)
   }
 
   resetState() {
@@ -91,11 +108,18 @@ class CityDetailsForm extends React.Component {
     return this.state
   }
 
-  render() {
+  handleHomePageChange(e, k) {
+    this.setState({
+      homepageView: this.homepageView[k].text,
+      selectedHomePageIdx: this.homepageView[k].value
+    })
+  }
+
+  render () {
     return (
       <Fragment>
         <div className="form-group">
-          <label className="label">State name</label><br/>
+          <label className="label">State name</label><br />
           <SelectField
             disabled={this.props.isDisabled}
             value={this.state.stateIdx}
@@ -115,7 +139,7 @@ class CityDetailsForm extends React.Component {
         </div>
 
         <div className="form-group">
-          <label className="label">City name</label><br/>
+          <label className="label">City name</label><br />
           <TextField
             disabled={this.props.isDisabled}
             onChange={this.handleTextFields}
@@ -125,16 +149,16 @@ class CityDetailsForm extends React.Component {
         </div>
 
         <div style={{ marginTop: '30px' }} className="form-group">
-          <label className="label">City gps</label><br/>
-            <TextField
-              hintText="12.9542946,77.4908533"
-              style={{width: '48%'}}
-              disabled={this.props.isDisabled}
-              onChange={this.handleTextFields}
-              name="cityGPS"
-              value={this.state.cityGPS}
-              style={{ width: '100%' }}
-            />
+          <label className="label">City gps</label><br />
+          <TextField
+            hintText="12.9542946,77.4908533"
+            style={{ width: '48%' }}
+            disabled={this.props.isDisabled}
+            onChange={this.handleTextFields}
+            name="cityGPS"
+            value={this.state.cityGPS}
+            style={{ width: '100%' }}
+          />
           {
             !this.props.isDisabled &&
             <RaisedButton
@@ -148,6 +172,35 @@ class CityDetailsForm extends React.Component {
               }}
             />
           }
+        </div>
+
+        {/* <div className="form-group">
+          <label className="label">Geoboundary</label><br />
+          <TextField
+            disabled={this.props.isDisabled}
+            onChange={this.handleTextFields}
+            name="geoboundary"
+            value={this.state.geoboundary}
+          />
+        </div> */}
+
+        <div className="form-group">
+          <label className="label">Homepage View</label><br />
+          <SelectField
+            value={this.state.selectedHomePageIdx}
+            onChange={this.handleHomePageChange}
+            disabled={this.props.isDisabled}
+          >
+            {
+              this.homepageView.map((item, i) => (
+                <MenuItem
+                  value={i + 1}
+                  key={item.value}
+                  primaryText={item.text}
+                />
+              ))
+            }
+          </SelectField>
         </div>
 
         <div className="form-group">
@@ -168,6 +221,66 @@ class CityDetailsForm extends React.Component {
             label="is_deliverable"
           />
         </div>
+        <div className="form-group">
+          <Checkbox
+            disabled={this.props.isDisabled}
+            checked={this.state.isWalletCityActive}
+            onCheck={this.handleCheckboxes}
+            name="isWalletCityActive"
+            label="is_wallet_city"
+          />
+        </div>
+
+        <div className="form-group">
+          <Checkbox
+            disabled={this.props.isDisabled}
+            checked={this.state.storePickupDisabled}
+            onCheck={this.handleCheckboxes}
+            name="storePickupDisabled"
+            label="Store Pickup"
+          />
+        </div>
+
+        <div className="form-group">
+          <Checkbox
+            disabled={this.props.isDisabled}
+            checked={this.state.quickpayDisabled}
+            onCheck={this.handleCheckboxes}
+            name="quickpayDisabled"
+            label="Quickpay"
+          />
+        </div>
+
+        <div className="form-group">
+          <Checkbox
+            disabled={this.props.isDisabled}
+            checked={this.state.addMoney}
+            onCheck={this.handleCheckboxes}
+            name="addMoney"
+            label="Add Money"
+          />
+        </div>
+
+        <div className="form-group">
+          <Checkbox
+            disabled={this.props.isDisabled}
+            checked={this.state.catalogEnabled}
+            onCheck={this.handleCheckboxes}
+            name="catalogEnabled"
+            label="Catalog Enabled"
+          />
+        </div>
+
+        <div className="form-group">
+          <Checkbox
+            disabled={this.props.isDisabled}
+            checked={this.state.partialDeliveryEnabled}
+            onCheck={this.handleCheckboxes}
+            name="partialDeliveryEnabled"
+            label="Partial Delivery"
+          />
+        </div>
+
       </Fragment>
     )
   }
