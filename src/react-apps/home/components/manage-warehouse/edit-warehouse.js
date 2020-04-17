@@ -19,10 +19,10 @@ class EditWareHouse extends React.Component {
       id: this.props.location.state.id,
       name: warehouseFormData.name,
       city_id: parseInt(warehouseFormData.selectedCityIdx),
-      locality_id: parseInt(warehouseFormData.selectedLocalityIdx),
+      //locality_id: parseInt(warehouseFormData.selectedLocalityIdx),
       gps_x_cordinate: parseFloat(warehouseFormData.gps_x_coordinate),
       gps_y_cordinate: parseFloat(warehouseFormData.gps_y_coordinate),
-      old_locality_id: this.props.location.state.locality_id
+      //old_locality_id: this.props.location.state.locality_id
     })
       .then((response) => {
         Notify('Successfully updated warehouse', 'success')

@@ -23,7 +23,7 @@ const TableHeaderItems = [
   'ID',
   'WAREHOUSE NAME',
   'CITY ID',
-  'LOCALITY ID',
+  // 'LOCALITY ID',
   'GPS X CORDINATE',
   'GPS Y CORDINATE',
   'STATUS'
@@ -34,7 +34,7 @@ const styles = [
   { width: '120px' },
   { width: '120px' },
   { width: '120px' },
-  { width: '120px' },
+  // { width: '120px' },
   { width: '120px' },
   { width: '120px' },
   { width: '120px' },
@@ -159,9 +159,9 @@ class ListWareHouse extends React.Component {
                           </button>
                         </TableRowColumn>
                         <TableRowColumn style={styles[1]}>{item.id}</TableRowColumn>
-                        <TableRowColumn style={styles[1]}>{item.name}</TableRowColumn>
-                        <TableRowColumn style={styles[2]}>{item.city_id}</TableRowColumn>
-                        <TableRowColumn style={styles[3]}>{item.locality_id}</TableRowColumn>
+                        <TableRowColumn style={styles[2]}>{item.name}</TableRowColumn>
+                        <TableRowColumn style={styles[3]}>{item.city_id}</TableRowColumn>
+                        {/* <TableRowColumn style={styles[3]}>{item.locality_id}</TableRowColumn> */}
                         <TableRowColumn style={styles[4]}>{item.gps_x_cordinate}</TableRowColumn>
                         <TableRowColumn style={styles[5]}>{item.gps_y_cordinate}</TableRowColumn>
                         <TableRowColumn style={styles[6]}>

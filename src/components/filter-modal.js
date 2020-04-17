@@ -39,6 +39,7 @@ class FilterModal extends React.Component {
     this.handlePredictionChange = this.handlePredictionChange.bind(this)
     this.handleChangeIsLocalityAvailable = this.handleChangeIsLocalityAvailable.bind(this)
     this.handleChangeIsCityAvailable = this.handleChangeIsCityAvailable.bind(this)
+    this.handleWarehouseChange = this.handleWarehouseChange.bind(this)
   }
 
   handleClose() {

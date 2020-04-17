@@ -160,12 +160,12 @@ class ManageDeliveryagent extends React.Component {
   applyFilter (selectedWarehouseIdx) {
     const queryObj = {
       activePage: 1,
-      selectedWarehouseIdx: this.state.warehouseData[selectedWarehouseIdx].value.toString()
+      selectedWarehouseIdx: this.state.warehouseData[selectedWarehouseIdx-1].value.toString()
     }
 
     this.setState({
       activePage: 1,
-      selectedWarehouseIdx: this.state.warehouseData[selectedWarehouseIdx].value,
+      selectedWarehouseIdx: this.state.warehouseData[selectedWarehouseIdx-1].value,
       deliveryAgent: []
     })
 
@@ -178,7 +178,7 @@ class ManageDeliveryagent extends React.Component {
       },
       filter: {
         field: "warehouse_id",
-        value: this.state.warehouseData[selectedWarehouseIdx].value.toString()
+        value: this.state.warehouseData[selectedWarehouseIdx-1].value.toString()
       }
     })
   } 

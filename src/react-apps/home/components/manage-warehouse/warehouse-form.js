@@ -11,11 +11,10 @@ class WareHouseForm extends React.Component {
     super(props)
     this.state = {
       selectedCityIdx: props.data ? props.data.city_id : "",
-      selectedLocalityIdx: props.data ? props.data.locality_id : "",
+      //selectedLocalityIdx: props.data ? props.data.locality_id : "",
       cityList: [],
       loadingCityList: true,
-      localityList: [],
-      cityMap: {},
+      //localityList: [],
       name: props.data ? props.data.name: "",
       gps_x_coordinate: props.data ? props.data.gps_x_cordinate : "",
       gps_y_coordinate: props.data ? props.data.gps_y_cordinate : "",
@@ -36,11 +35,11 @@ class WareHouseForm extends React.Component {
 
     this.getData = this.getData.bind(this)
     this.handleCityChange = this.handleCityChange.bind(this)
-    this.handleLocalityChange = this.handleLocalityChange.bind(this)
+    //this.handleLocalityChange = this.handleLocalityChange.bind(this)
     this.isFormValid = this.isFormValid.bind(this)
     this.handleSave = this.handleSave.bind(this)
     this.handleTextFields = this.handleTextFields.bind(this)
-    this.fetchLocalityList = this.fetchLocalityList.bind(this)
+   // this.fetchLocalityList = this.fetchLocalityList.bind(this)
     this.fetchCityList = this.fetchCityList.bind(this)
     this.handleGPSChange = this.handleGPSChange.bind(this)
   }
@@ -66,10 +65,10 @@ class WareHouseForm extends React.Component {
         loadingCityList: false,
         selectedCityIdx: !this.state.selectedCityIdx ? response.cities[0].id : this.state.selectedCityIdx
       })
-      this.fetchLocalityList({
-        pagination: { "limit": 1000, "offset": 0 },
-        filter: { "field": "city_id", "value": !this.state.selectedCityIdx ? response.cities[0].id.toString() : this.state.selectedCityIdx.toString() }
-      })
+      // this.fetchLocalityList({
+      //   pagination: { "limit": 1000, "offset": 0 },
+      //   filter: { "field": "city_id", "value": !this.state.selectedCityIdx ? response.cities[0].id.toString() : this.state.selectedCityIdx.toString() }
+      // })
     })
     .catch((error) => {
       this.setState({loadingCityList: false})
@@ -77,32 +76,32 @@ class WareHouseForm extends React.Component {
     })
   }
 
-  fetchLocalityList (payload) {
-    Api.fetchLocalityList(payload)
-    .then((response) => {
-      this.setState({
-        localityList: response.message,
-        selectedLocalityIdx: !this.state.selectedLocalityIdx ? response.message[0].locality_id : this.state.selectedLocalityIdx
-      })
-    })
-    .catch((error) => {
-      console.log("Error in fetching locality list", error)
-    })
-  }
+  // fetchLocalityList (payload) {
+  //   Api.fetchLocalityList(payload)
+  //   .then((response) => {
+  //     this.setState({
+  //       localityList: response.message,
+  //       selectedLocalityIdx: !this.state.selectedLocalityIdx ? response.message[0].locality_id : this.state.selectedLocalityIdx
+  //     })
+  //   })
+  //   .catch((error) => {
+  //     console.log("Error in fetching locality list", error)
+  //   })
+  // }
 
   handleCityChange (e, k) {
     this.setState({
       selectedCityIdx: (this.state.cityList[k].id),
     })
-    this.fetchLocalityList({
-      pagination: { "limit": 1000, "offset": 0 },
-      filter: { "field": "city_id", "value": this.state.cityList[k].id.toString() }
-    })
+    // this.fetchLocalityList({
+    //   pagination: { "limit": 1000, "offset": 0 },
+    //   filter: { "field": "city_id", "value": this.state.cityList[k].id.toString() }
+    // })
   }
 
-  handleLocalityChange (e, k) {
-    this.setState({selectedLocalityIdx: this.state.localityList[k].locality_id})
-  }
+  // handleLocalityChange (e, k) {
+  //   this.setState({selectedLocalityIdx: this.state.localityList[k].locality_id})
+  // }
 
   isFormValid () {
     if (this.state.name.toString().length === 0) {
@@ -214,7 +213,7 @@ class WareHouseForm extends React.Component {
               }
             </SelectField>
           </div>
-          <div className="form-group">
+          {/* <div className="form-group">
             <label className="label">Locality</label><br />
             <SelectField
               value={this.state.selectedLocalityIdx}
@@ -230,7 +229,7 @@ class WareHouseForm extends React.Component {
                 ))
               }
             </SelectField>
-          </div>
+          </div> */}
           <div className="form-group">
             <label className="label">GPS X Cordinate</label><br />
             <TextField

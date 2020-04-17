@@ -165,7 +165,7 @@ class ManageWareHouse extends React.Component {
   }
 
   applyFilter (cityId) {
-    console.log("city", cityId)
+    console.log("city", cityId, this.state.citiesData[cityId - 1])
     const queryObj = {
       activePage: 1,
       cityId:this.state.citiesData[cityId-1].value.toString()
@@ -173,7 +173,7 @@ class ManageWareHouse extends React.Component {
 
     this.setState({
       activePage: 1,
-      cityId:this.state.citiesData[cityId].value,
+      cityId:this.state.citiesData[cityId-1].value,
       wareHouseList: []
     })
 
