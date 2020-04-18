@@ -134,6 +134,7 @@ class CityFeeForm extends React.Component {
               <SelectField
                 value={this.state.selectedOrderTypeIdx}
                 onChange={this.handleOrderTypeChange}
+                disabled={location.pathname.includes("edit")}
               >
                 {
                   this.state.orderTypeList.map((item, i) => (
@@ -152,6 +153,7 @@ class CityFeeForm extends React.Component {
               <SelectField
                 value={this.state.selectedChargeTypeIdx}
                 onChange={this.handleChargeTypeChange}
+                disabled={location.pathname.includes("edit")}
               >
                 {
                   this.state.chargeTypeList.map((item, i) => (
