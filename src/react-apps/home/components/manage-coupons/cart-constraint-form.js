@@ -37,7 +37,7 @@ class CartConstraintForm extends React.Component{
   }
 
   handleFlatDiscountChange (e) {
-    if(this.state.percent === 0.0) {
+    if(this.state.percent === 0.0 || this.state.percent.trim().length === 0) {
       this.setState({
         [e.target.name]: e.target.value
       })
@@ -45,7 +45,7 @@ class CartConstraintForm extends React.Component{
   }
 
   handlePercentDiscountChange (e) {
-    if (this.state.flat === 0.0) {
+    if (this.state.flat === 0.0 || this.state.flat.trim().length === 0) {
       this.setState({
         [e.target.name]: e.target.value
       })

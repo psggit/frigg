@@ -48,7 +48,7 @@ class EditCartCoupons extends React.Component {
       max_count: !couponDetails.isUnlimited ? parseInt(couponDetails.maxCount) : 0,
       limit_per_user: parseInt(couponDetails.limitPerUser),
       //available_count: couponDetails.availableCount,
-      frequency: couponDetails.frequency,
+      frequency: parseInt(couponDetails.frequency),
       sign_up_date: new Date(couponDetails.signUpDate),
       consider_sign_up: couponDetails.considerSignUp,
       app: couponDetails.selectedAppIdx === 1 ? "drinks" : "",
