@@ -24,7 +24,7 @@ const TableHeaderItems = [
 ]
 
 const styles = [
-  { width: '38px' },
+  { width: '60px' },
   { width: '60px' },
   { width: '120px' },
   { width: '38px' },
@@ -54,18 +54,6 @@ function ViewCities (data) {
           ? (
             data.citiesData.map(item => (
               <TableRow key={item.id}>
-
-                <TableRowColumn style={styles[0]}>
-                  <NavLink
-                    // target="_blank"
-                    // exact
-                    // to={`/home/manage-cities/${item.name}?id=${item.id}`}
-                    to={`/home/manage-city-fee/${item.id}`}
-                  >
-                    <FlatButton primary label="Fee" />
-                  </NavLink>
-                </TableRowColumn>
-
                 <TableRowColumn style={styles[1]}>
                   <NavLink
                     // target="_blank"
@@ -76,6 +64,16 @@ function ViewCities (data) {
                     <FlatButton primary label="View" />
                   </NavLink>
 
+                </TableRowColumn>
+                <TableRowColumn style={styles[0]}>
+                  <NavLink
+                    // target="_blank"
+                    // exact
+                    // to={`/home/manage-cities/${item.name}?id=${item.id}`}
+                    to={`/home/manage-city-fee/${item.id}`}
+                  >
+                    <FlatButton primary label="Fee" />
+                  </NavLink>
                 </TableRowColumn>
                 <TableRowColumn style={styles[1]}>{item.id}</TableRowColumn>
                 <TableRowColumn style={styles[2]}>{item.name}</TableRowColumn>
