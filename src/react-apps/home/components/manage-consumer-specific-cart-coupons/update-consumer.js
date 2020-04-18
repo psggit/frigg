@@ -43,12 +43,12 @@ class UpdateConsumerSpecificCartCoupon extends React.Component {
       consumer_list: this.state.consumerList ? this.state.consumerList.trim().split(",").map((consumer) => parseInt(consumer)) : []
     })
       .then((response) => {
-        Notify("Updated cart specific consumer detail successfully", "success")
+        Notify("Updated consumer list successfully", "success")
         this.setState({ updatingConsumerSpecificCoupon: false })
         this.props.history.push("/home/manage-consumer-specific-cart-coupons")
       })
       .catch((err) => {
-        console.log("Error in updating coupon", err)
+        console.log("Error in updating consumer list", err)
         err.response.json().then((json) => {
           Notify(json.message, "warning")
         })

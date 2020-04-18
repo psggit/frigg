@@ -28,6 +28,7 @@ class CartConstraintForm extends React.Component{
     this.handlePercentDiscountChange = this.handlePercentDiscountChange.bind(this)
     this.getData = this.getData.bind(this)
     this.updateConstraint = this.updateConstraint.bind(this)
+    this.deleteCartConstraint = this.deleteCartConstraint.bind(this)
   }
 
   handleTextFieldChange (e) {
@@ -64,6 +65,14 @@ class CartConstraintForm extends React.Component{
       max_value: parseFloat(this.state.max),
       percentage_discount: parseFloat(this.state.percent),
       flat_discount: parseFloat(this.state.flat)
+    })
+  }
+
+  deleteCartConstraint () {
+    this.props.deleteCartConstraint({
+      constraint_id: this.state.constraint_id,
+      coupon_id: this.state.coupon_id,
+      constraint_type: "cart"
     })
   }
 
@@ -150,7 +159,7 @@ class CartConstraintForm extends React.Component{
               primary
               disabled={this.props.disable}
               label="Delete"
-              onClick={this.props.deleteCartConstraint}
+              onClick={this.deleteCartConstraint}
               style={{ marginTop: '40px',marginLeft:'20px' }}
             />
           }

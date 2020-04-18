@@ -121,14 +121,11 @@ class EditCartCoupons extends React.Component {
       })
   }
 
-  deleteCouponConstraintDetails () {
+  deleteCouponConstraintDetails (payload) {
     this.setState({ updatingCoupon: true })
-    const cartConstraintDetails = this.cartConstraintFormRef.getData()
-    Api.deleteConstraintDetails({
-      constraint_id: cartConstraintDetails.constraint_id,
-      coupon_id: cartConstraintDetails.coupon_id,
-      constraint_type:"cart"
-    })
+    console.log("payload", payload)
+    //const cartConstraintDetails = this.cartConstraintFormRef.getData()
+    Api.deleteConstraintDetails(payload)
       .then((response) => {
         this.setState({
           updatingCoupon: false

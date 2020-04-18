@@ -24,6 +24,7 @@ class ProductConstraintForm extends React.Component {
     this.handleTextFieldChange = this.handleTextFieldChange.bind(this)
     this.getData = this.getData.bind(this)
     this.updateConstraint = this.updateConstraint.bind(this)
+    this.deleteProductConstraint = this.deleteProductConstraint.bind(this)
   }
 
   handleTextFieldChange (e) {
@@ -43,6 +44,14 @@ class ProductConstraintForm extends React.Component {
       sku_id: parseFloat(this.state.skuid),
       quantity: parseFloat(this.state.quantity),
       flat_discount: parseFloat(this.state.flat)
+    })
+  }
+
+  deleteProductConstraint () {
+    this.props.deleteProductConstraint({
+      constraint_id: this.state.constraint_id,
+      coupon_id: this.state.coupon_id,
+      constraint_type: "product"
     })
   }
 
@@ -118,7 +127,7 @@ class ProductConstraintForm extends React.Component {
               primary
               disabled={this.props.disable}
               label="Delete"
-              onClick={this.props.deleteProductConstraint}
+              onClick={this.deleteProductConstraint}
               style={{ marginTop: '40px', marginLeft: '20px' }}
             />
           }
