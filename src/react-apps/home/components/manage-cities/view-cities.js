@@ -17,6 +17,7 @@ import '@sass/components/_table.scss'
 
 const TableHeaderItems = [
   '',
+  '',
   'ID',
   'NAME',
   'SHORT_NAME'
@@ -30,7 +31,7 @@ const styles = [
   { width: '100px' }
 ]
 
-function ViewCities(data) {
+function ViewCities (data) {
   return (
     <Table
       className="bordered--table"
@@ -53,7 +54,19 @@ function ViewCities(data) {
           ? (
             data.citiesData.map(item => (
               <TableRow key={item.id}>
+
                 <TableRowColumn style={styles[0]}>
+                  <NavLink
+                    // target="_blank"
+                    // exact
+                    // to={`/home/manage-cities/${item.name}?id=${item.id}`}
+                    to={`/home/manage-city-fee/${item.id}`}
+                  >
+                    <FlatButton primary label="Fee" />
+                  </NavLink>
+                </TableRowColumn>
+
+                <TableRowColumn style={styles[1]}>
                   <NavLink
                     // target="_blank"
                     // exact

@@ -130,6 +130,9 @@ import EditProductCoupons from "./../components/manage-coupons/manage-product-co
 import CreateDeliveryagent from "../components/manage-delivery-agent/create-delivery-agent"
 import ManageDeliveryagent from './../container/manage-delivery-agent'
 import EditDeliveryagent from '../components/manage-delivery-agent/edit-delivery-agent'
+import ManageCitiesFee from '../container/manage-city-fee'
+import CreateCityFee from '../components/manage-city-fee/create-city-fee'
+import EditCityFee from '../components/manage-city-fee/edit-city-fee'
 
 // import asyncComponent from './../../asyncComponent'
 /**
@@ -269,6 +272,9 @@ class App extends React.Component {
                   <Route exact path="/home/manage-cities/:citySlug/create-boundary" component={ManageLocalities} />
                   <Route exact path="/home/manage-cities/localities/edit/:id" component={ViewLocalities} />
                   <Route exact path="/home/manage-cities/:citySlug" component={ViewCity} />
+                  <Route exact path="/home/manage-city-fee/:cityId" component={ManageCitiesFee} />
+                  <Route exact path="/home/manage-city-fee/:cityId/create" component={CreateCityFee} />
+                  <Route exact path="/home/manage-city-fee/:cityId/edit" component={EditCityFee} />
 
                   <Route exact path="/home/manage-localities/create-new-locality" component={CreateLocality} />
                   <Route exact path="/home/manage-localities/:localitySlug" component={ViewLocality} />
