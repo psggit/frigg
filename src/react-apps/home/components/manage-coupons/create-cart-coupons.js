@@ -33,7 +33,7 @@ class CreateCartCoupon extends React.Component {
     // this.setState({
     //   cartConstraints: [...this.state.cartConstraint, cartConstraint]
     // })
-    //console.log("test", (cartConstraintData.max_value > 0 && cartConstraintData.min_value >= 0 && cartConstraintData.flat_discount > 0 && cartConstraintData.min_value <= cartConstraintData.max_value),  (cartConstraintData.max_value > 0 && cartConstraintData.min_value >= 0 && cartConstraintData.percentage_discount > 0 && cartConstraintData.min_value <= cartConstraintData.max_value))
+    console.log("handle Add", cartConstraintData, (cartConstraintData.max_value > 0 && cartConstraintData.min_value >= 0 && cartConstraintData.flat_discount > 0 && cartConstraintData.min_value <= cartConstraintData.max_value),  (cartConstraintData.max_value > 0 && cartConstraintData.min_value >= 0 && cartConstraintData.percentage_discount > 0 && cartConstraintData.min_value <= cartConstraintData.max_value))
     const isValidConstraint = ((cartConstraintData.max > 0 && cartConstraintData.min >= 0 && cartConstraintData.flat > 0 && cartConstraintData.min <= cartConstraintData.max) || (cartConstraintData.max > 0 && cartConstraintData.min >= 0 && cartConstraintData.percent > 0 && cartConstraintData.min <= cartConstraintData.max)) ? true : false
     
     if (isValidConstraint) {
@@ -46,7 +46,7 @@ class CreateCartCoupon extends React.Component {
       cartConstraint.percentage_discount = cartConstraintData.percent ? parseFloat(cartConstraintData.percent) : 0.0
       cartConstraint.disable = true
 
-      console.log("handle add1", [...this.state.cartConstraints, cartConstraint])
+      //console.log("handle add1", [...this.state.cartConstraints, cartConstraint])
 
       const updatedCartConstraint = [...this.state.cartConstraints, cartConstraint]
 
@@ -59,7 +59,7 @@ class CreateCartCoupon extends React.Component {
         disable: false
       }
 
-      console.log("handle add2", [...updatedCartConstraint, defaultConstraint])
+      //console.log("handle add2", [...updatedCartConstraint, defaultConstraint])
       this.setState({
         cartConstraints: [...updatedCartConstraint, defaultConstraint]
       })
@@ -72,7 +72,7 @@ class CreateCartCoupon extends React.Component {
     const cartConstraintData = couponFormData.cartConstraintFormRef.getData()
    
     // console.log("max", cartConstraintData.max, "min", cartConstraintData.min,"flat", cartConstraintData.flat)
-    // console.log("create", (cartConstraintData.max > 0 && cartConstraintData.min >= 0 && cartConstraintData.flat > 0 && cartConstraintData.min <= cartConstraintData.max), (cartConstraintData.max > 0 && cartConstraintData.min >= 0 && cartConstraintData.percent > 0 && cartConstraintData.min <= cartConstraintData.max))
+    console.log("create coupon", cartConstraintData, (cartConstraintData.max > 0 && cartConstraintData.min >= 0 && cartConstraintData.flat > 0 && cartConstraintData.min <= cartConstraintData.max), (cartConstraintData.max > 0 && cartConstraintData.min >= 0 && cartConstraintData.percent > 0 && cartConstraintData.min <= cartConstraintData.max))
 
     const isValidConstraint = ((cartConstraintData.max > 0 && cartConstraintData.min >= 0 && cartConstraintData.flat > 0 && cartConstraintData.min <= cartConstraintData.max) || (cartConstraintData.max > 0 && cartConstraintData.min >= 0 && cartConstraintData.percent > 0 && cartConstraintData.min <= cartConstraintData.max)) ? true : false
 

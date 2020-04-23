@@ -144,7 +144,7 @@ class CartForm extends React.Component {
         </div>
 
         <div className="form-group">
-          <label className="label">Frequency</label><br />
+          <label className="label">Frequency (in hours)</label><br />
           <TextField
             onChange={this.handleTextFieldChange}
             name="frequency"
