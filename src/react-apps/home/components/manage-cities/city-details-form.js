@@ -21,7 +21,6 @@ class CityDetailsForm extends React.Component {
       storePickupDisabled: props.storePickupDisabled !== null ? props.storePickupDisabled : true,
       quickpayDisabled: props.quickpayDisabled !== null ? props.quickpayDisabled : true,
       addMoney: props.addMoney !== null ? props.addMoney : true,
-      catalogEnabled: props.catalogEnabled !== null ? props.catalogEnabled : true,
       partialDeliveryEnabled: props.partialDeliveryEnabled !== null ? props.partialDeliveryEnabled : true,
       cityName: props.cityName || '',
       geoboundary: props.geoboundary || '',
@@ -237,7 +236,7 @@ class CityDetailsForm extends React.Component {
             checked={this.state.storePickupDisabled}
             onCheck={this.handleCheckboxes}
             name="storePickupDisabled"
-            label="Store Pickup"
+            label="Store Pickup Disabled"
           />
         </div>
 
@@ -247,7 +246,7 @@ class CityDetailsForm extends React.Component {
             checked={this.state.quickpayDisabled}
             onCheck={this.handleCheckboxes}
             name="quickpayDisabled"
-            label="Quickpay"
+            label="Quickpay Disabled"
           />
         </div>
 
@@ -257,17 +256,7 @@ class CityDetailsForm extends React.Component {
             checked={this.state.addMoney}
             onCheck={this.handleCheckboxes}
             name="addMoney"
-            label="Add Money"
-          />
-        </div>
-
-        <div className="form-group">
-          <Checkbox
-            disabled={this.props.isDisabled}
-            checked={this.state.catalogEnabled}
-            onCheck={this.handleCheckboxes}
-            name="catalogEnabled"
-            label="Catalog Enabled"
+            label="Add Money Disabled"
           />
         </div>
 

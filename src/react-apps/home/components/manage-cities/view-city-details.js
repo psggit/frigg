@@ -75,7 +75,7 @@ class ViewCity extends React.Component {
         is_wallet_city: data.isWalletCityActive,
         store_pickup_disabled: data.storePickupDisabled,
         quickpay_disabled: data.quickpayDisabled,
-        add_money_disable: data.addMoney,
+        add_money_disabled: data.addMoney,
         catalog_enabled: data.catalogEnabled,
         is_partial_delivery_enabled: data.partialDeliveryEnabled,
         homepage_view: data.homepageView,
@@ -164,7 +164,12 @@ class ViewCity extends React.Component {
                   ref={(node) => { this.cityDetailsForm = node }}
                   isDisabled={!this.state.isEdit}
                   isCityActive={cityDetails.is_available}
+                  storePickupDisabled={cityDetails.store_pickup_disabled}
+                  addMoney={cityDetails.add_money_disabled}
+                  quickpayDisabled={cityDetails.quickpay_disabled}
                   isDeliveryActive={cityDetails.deliverable_city}
+                  partialDeliveryEnabled={cityDetails.is_partial_delivery_enabled}
+                  isWalletCityActive={cityDetails.is_wallet_city}
                   cityName={cityDetails.name}
                   cityGPS={cityDetails.gps}
                   statesData={statesData}

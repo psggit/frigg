@@ -41,7 +41,9 @@ class Reports extends React.Component {
       { text: 'Unprocessed Reward Report', value: 12 },
       { text: 'Nodal Transaction Report', value: 13 },
       { text: 'Nodal Payments', value: 14 },
-      { text: 'Delivery Order Report', value: 15 }
+      { text: 'Delivery Order Report', value: 15 },
+      {text: 'Giftcard Log Report', value:16},
+      {text: 'Gift Wallets Report', value:17}
     ]
 
     this.reportMap = {
@@ -59,7 +61,9 @@ class Reports extends React.Component {
       'Unprocessed Reward Report': 'unprocessed_reward_report',
       'Nodal Transaction Report': 'nodal_transaction_report',
       'Nodal Payments': 'nodal_payments_report',
-      'Delivery Order Report': 'delivery_order_report'
+      'Delivery Order Report': 'delivery_order_report',
+      'Giftcard Log Report': 'gift_card_log_report',
+      'Gift Wallets Report': 'gift_wallets_report'
     }
 
     this.handleReportChange = this.handleReportChange.bind(this)
