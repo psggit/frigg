@@ -79,7 +79,11 @@ class ViewCity extends React.Component {
         catalog_enabled: data.catalogEnabled,
         is_partial_delivery_enabled: data.partialDeliveryEnabled,
         homepage_view: data.homepageView,
-        // geoboundary: data.geoboundary,
+        wallet_preference: data.walletPreference,
+        is_hw_loading_enabled: data.hipbarWalletLoadingEnabled,
+        is_gw_loading_enabled: data.giftWalletLoadingEnabled,
+        is_hw_usage_enabled: data.hipbarWalletUsageEnabled,
+        is_gw_usage_enabled: data.giftWalletUsageEnabled,
         deliverable_city: data.isDeliveryActive,
         state_short_name: data.stateShortName || cityDetails.state_short_name,
         gps: data.cityGPS,
@@ -170,6 +174,11 @@ class ViewCity extends React.Component {
                   isDeliveryActive={cityDetails.deliverable_city}
                   partialDeliveryEnabled={cityDetails.is_partial_delivery_enabled}
                   isWalletCityActive={cityDetails.is_wallet_city}
+                  walletPreference={cityDetails.wallet_preference}
+                  hipbarWalletLoadingEnabled={cityDetails.is_hw_loading_enabled}
+                  giftWalletLoadingEnabled={cityDetails.is_gw_loading_enabled}
+                  hipbarWalletUsageEnabled={cityDetails.is_hw_usage_enabled}
+                  giftWalletUsageEnabled={cityDetails.is_gw_usage_enabled}
                   cityName={cityDetails.name}
                   cityGPS={cityDetails.gps}
                   statesData={statesData}

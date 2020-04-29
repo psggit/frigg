@@ -13,6 +13,13 @@ class CityDetailsForm extends React.Component {
       { text: 'retailer_map', value: 2 },
       { text: 'retailer_list', value: 3 }
     ]
+
+    this.walletPreference = [
+      { text: 'gift', value: 1 },
+      { text: 'hipbar', value: 2 },
+      { text: '', value: 3 }
+    ]
+
     this.initialState = {
       stateIdx: props.stateIdx || 0,
       isCityActive: props.isCityActive !== null ? props.isCityActive : true,
@@ -21,6 +28,10 @@ class CityDetailsForm extends React.Component {
       storePickupDisabled: props.storePickupDisabled !== null ? props.storePickupDisabled : true,
       quickpayDisabled: props.quickpayDisabled !== null ? props.quickpayDisabled : true,
       addMoney: props.addMoney !== null ? props.addMoney : true,
+      hipbarWalletLoadingEnabled: props.hipbarWalletLoadingEnabled !== null ? props.hipbarWalletLoadingEnabled : true,
+      giftWalletLoadingEnabled: props.giftWalletLoadingEnabled !== null ? props.giftWalletLoadingEnabled : true,
+      hipbarWalletUsageEnabled: props.hipbarWalletUsageEnabled !== null ? props.hipbarWalletUsageEnabled : true,
+      giftWalletUsageEnabled: props.giftWalletUsageEnabled !== null ? props.giftWalletUsageEnabled : true,
       partialDeliveryEnabled: props.partialDeliveryEnabled !== null ? props.partialDeliveryEnabled : true,
       cityName: props.cityName || '',
       geoboundary: props.geoboundary || '',
@@ -28,6 +39,10 @@ class CityDetailsForm extends React.Component {
         ? this.homepageView.find(item => (item.text).toLowerCase() === (props.data.homepageView).toLowerCase()).value
         : 1 : 1,
       homepageView: props.data ? props.data.homepageView : 'catalog',
+      selectedWalletIdx: props.data ? props.data.walletPreference
+        ? this.walletPreference.find(item => (item.text).toLowerCase() === (props.data.walletPreference).toLowerCase()).value
+        : 1 : 1,
+      walletPreference: props.data ? props.data.walletPreference : 'gift',
       cityGPS: props.cityGPS || '',
       shouldTrim: true
     }
@@ -39,6 +54,7 @@ class CityDetailsForm extends React.Component {
     this.handleStateChange = this.handleStateChange.bind(this)
     this.setCityGPSInputFromMarker = this.setCityGPSInputFromMarker.bind(this)
     this.handleHomePageChange = this.handleHomePageChange.bind(this)
+    this.handleWalletPreference = this.handleWalletPreference.bind(this)
   }
 
   resetState() {
@@ -114,6 +130,13 @@ class CityDetailsForm extends React.Component {
     })
   }
 
+  handleWalletPreference(e, k) {
+    this.setState({
+      walletPreference: this.walletPreference[k].text,
+      selectedWalletIdx: this.walletPreference[k].value
+    })
+  }
+
   render () {
     return (
       <Fragment>
@@ -173,16 +196,6 @@ class CityDetailsForm extends React.Component {
           }
         </div>
 
-        {/* <div className="form-group">
-          <label className="label">Geoboundary</label><br />
-          <TextField
-            disabled={this.props.isDisabled}
-            onChange={this.handleTextFields}
-            name="geoboundary"
-            value={this.state.geoboundary}
-          />
-        </div> */}
-
         <div className="form-group">
           <label className="label">Homepage View</label><br />
           <SelectField
@@ -192,6 +205,25 @@ class CityDetailsForm extends React.Component {
           >
             {
               this.homepageView.map((item, i) => (
+                <MenuItem
+                  value={i + 1}
+                  key={item.value}
+                  primaryText={item.text}
+                />
+              ))
+            }
+          </SelectField>
+        </div>
+
+        <div className="form-group">
+          <label className="label">Wallet Preference</label><br />
+          <SelectField
+            value={this.state.selectedWalletIdx}
+            onChange={this.handleWalletPreference}
+            disabled={this.props.isDisabled}
+          >
+            {
+              this.walletPreference.map((item, i) => (
                 <MenuItem
                   value={i + 1}
                   key={item.value}
@@ -220,6 +252,7 @@ class CityDetailsForm extends React.Component {
             label="is_deliverable"
           />
         </div>
+
         <div className="form-group">
           <Checkbox
             disabled={this.props.isDisabled}
@@ -267,6 +300,46 @@ class CityDetailsForm extends React.Component {
             onCheck={this.handleCheckboxes}
             name="partialDeliveryEnabled"
             label="Partial Delivery"
+          />
+        </div>
+
+        <div className="form-group">
+          <Checkbox
+            disabled={this.props.isDisabled}
+            checked={this.state.hipbarWalletLoadingEnabled}
+            onCheck={this.handleCheckboxes}
+            name="hipbarWalletLoadingEnabled"
+            label="Hipbar Wallet Loading"
+          />
+        </div>
+
+        <div className="form-group">
+          <Checkbox
+            disabled={this.props.isDisabled}
+            checked={this.state.giftWalletLoadingEnabled}
+            onCheck={this.handleCheckboxes}
+            name="giftWalletLoadingEnabled"
+            label="Gift Wallet Loading"
+          />
+        </div>
+
+        <div className="form-group">
+          <Checkbox
+            disabled={this.props.isDisabled}
+            checked={this.state.hipbarWalletUsageEnabled}
+            onCheck={this.handleCheckboxes}
+            name="hipbarWalletUsageEnabled"
+            label="Hipbar Wallet Usage"
+          />
+        </div>
+
+        <div className="form-group">
+          <Checkbox
+            disabled={this.props.isDisabled}
+            checked={this.state.giftWalletUsageEnabled}
+            onCheck={this.handleCheckboxes}
+            name="giftWalletUsageEnabled"
+            label="Gift Wallet Usage"
           />
         </div>
 
