@@ -64,7 +64,7 @@ class CreateCity extends React.Component {
         is_wallet_city: data.isWalletCityActive,
         store_pickup_disabled: data.storePickupDisabled,
         quickpay_disabled: data.quickpayDisabled,
-        add_money_diasabled: data.addMoney,
+        add_money_disabled: data.addMoney,
         is_partial_delivery_enabled: data.partialDeliveryEnabled,
         homepage_view: data.homepageView,
         wallet_preference: data.walletPreference,
