@@ -18,9 +18,14 @@ const TableHeaderItems = [
   'JP PAYMENT',
   'UPI TIME LIMIT',
   'ICICI PAYMENT',
-  // 'PERCENTAGE',
-  // 'MIN_VALUE',
-  // 'MAX_VALUE'
+  'UPI LOW RATE MESSAGE',
+  'IS CARD ENABLED',
+  'IS NB ENABLED',
+  'IS UPI LOW SUCCESS RATE',
+  'IS UPI COLLECT LOW SUCCESS RATE',
+  'IS JP UPI COLLECT ENABLED',
+  'IS ICICI UPI INTENT ENABLED',
+  'IS ICICI UPI COLLECT ENABLED'
 ]
 
 const styles = [
@@ -29,9 +34,14 @@ const styles = [
   { width: '100px' },
   { width: '100px' },
   { width: '100px' },
- // { width: '100px' },
-  // { width: '100px' },
-  // { width: '100px' }
+  { width: '100px' },
+  { width: '100px' },
+  { width: '100px' },
+  { width: '100px' },
+  { width: '100px' },
+  { width: '100px' },
+  { width: '100px' },
+  { width: '100px' },
 ]
 
 
@@ -100,9 +110,14 @@ class ListCityPayment extends React.Component {
                       <TableRowColumn style={styles[2]}>{item.jp_payment_method}</TableRowColumn>
                       <TableRowColumn style={styles[3]}>{item.upi_time_limit}</TableRowColumn>
                       <TableRowColumn style={styles[4]}>{item.icici_payment_method}</TableRowColumn>
-                      {/* <TableRowColumn style={styles[5]}>{item.txn_fee_percentage}</TableRowColumn>
-                      <TableRowColumn style={styles[6]}>{item.min_value}</TableRowColumn>
-                      <TableRowColumn style={styles[7]}>{item.max_value}</TableRowColumn> */}
+                      <TableRowColumn style={styles[5]}>{item.upi_low_rate_message}</TableRowColumn>
+                      <TableRowColumn style={styles[6]}>{item.is_card_enabled ? 'Enabled' : 'Disabled'}</TableRowColumn>
+                      <TableRowColumn style={styles[7]}>{item.is_nb_enabled ? 'Enabled': 'Disabled'}</TableRowColumn>
+                      <TableRowColumn style={styles[8]}>{item.is_upi_low_success_rate ? 'Enabled' : 'Disabled'}</TableRowColumn>
+                      <TableRowColumn style={styles[9]}>{item.is_upi_collect_low_success_rate ? 'Enabled' : 'Disabled'}</TableRowColumn>
+                      <TableRowColumn style={styles[10]}>{item.is_jb_upi_collect_enabled ? 'Enabled' : 'Disabled'}</TableRowColumn>
+                      <TableRowColumn style={styles[7]}>{item.is_icici_upi_intent_enabled ? 'Enabled' : 'Disabled'}</TableRowColumn>
+                      <TableRowColumn style={styles[7]}>{item.is_icici_upi_collect_enabled ? 'Enabled' : 'Disabled'}</TableRowColumn>
                     </TableRow>
                   )
                 })
