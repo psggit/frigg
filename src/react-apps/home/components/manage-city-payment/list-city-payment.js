@@ -116,8 +116,8 @@ class ListCityPayment extends React.Component {
                       <TableRowColumn style={styles[8]}>{item.is_upi_low_success_rate ? 'Enabled' : 'Disabled'}</TableRowColumn>
                       <TableRowColumn style={styles[9]}>{item.is_upi_collect_low_success_rate ? 'Enabled' : 'Disabled'}</TableRowColumn>
                       <TableRowColumn style={styles[10]}>{item.is_jb_upi_collect_enabled ? 'Enabled' : 'Disabled'}</TableRowColumn>
-                      <TableRowColumn style={styles[7]}>{item.is_icici_upi_intent_enabled ? 'Enabled' : 'Disabled'}</TableRowColumn>
-                      <TableRowColumn style={styles[7]}>{item.is_icici_upi_collect_enabled ? 'Enabled' : 'Disabled'}</TableRowColumn>
+                      <TableRowColumn style={styles[11]}>{item.is_icici_upi_intent_enabled ? 'Enabled' : 'Disabled'}</TableRowColumn>
+                      <TableRowColumn style={styles[12]}>{item.is_icici_upi_collect_enabled ? 'Enabled' : 'Disabled'}</TableRowColumn>
                     </TableRow>
                   )
                 })
