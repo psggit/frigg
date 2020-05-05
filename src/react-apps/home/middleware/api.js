@@ -1776,6 +1776,33 @@ export const fetchCityFeeList = payload => (
   })
 )
 
+export const fetchCityPaymentList = payload => (
+  POST({
+    api: '/cityManagement/listCityPayments',
+    apiBase: 'odin',
+    data: payload,
+    handleError: true
+  })
+)
+
+export const createCityPayment = payload => (
+  POST({
+    api: '/cityManagement/addCityPayments',
+    apiBase: 'odin',
+    data: payload,
+    handleError: true
+  })
+)
+
+export const updateCityPayment = payload => (
+  POST({
+    api: '/cityManagement/updateCityPayments',
+    apiBase: 'odin',
+    data: payload,
+    handleError: true
+  })
+)
+
 export const fetchOrderTypeList = payload => (
   POST({
     api: '/cityManagement/list_order_type',

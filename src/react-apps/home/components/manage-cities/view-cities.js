@@ -18,6 +18,7 @@ import '@sass/components/_table.scss'
 const TableHeaderItems = [
   '',
   '',
+  '',
   'ID',
   'NAME',
   'SHORT_NAME'
@@ -26,8 +27,9 @@ const TableHeaderItems = [
 const styles = [
   { width: '60px' },
   { width: '60px' },
-  { width: '120px' },
-  { width: '38px' },
+  { width: '75px' },
+  { width: '100px' },
+  { width: '80px' },
   { width: '100px' }
 ]
 
@@ -75,9 +77,16 @@ function ViewCities (data) {
                     <FlatButton primary label="Fee" />
                   </NavLink>
                 </TableRowColumn>
-                <TableRowColumn style={styles[1]}>{item.id}</TableRowColumn>
-                <TableRowColumn style={styles[2]}>{item.name}</TableRowColumn>
-                <TableRowColumn style={styles[3]}>{item.state_short_name}</TableRowColumn>
+                <TableRowColumn style={styles[1]}>
+                  <NavLink
+                    to={`/home/manage-city-payment/${item.id}`}
+                  >
+                    <FlatButton primary label="Payment" />
+                  </NavLink>
+                </TableRowColumn>
+                <TableRowColumn style={styles[2]}>{item.id}</TableRowColumn>
+                <TableRowColumn style={styles[3]}>{item.name}</TableRowColumn>
+                <TableRowColumn style={styles[4]}>{item.state_short_name}</TableRowColumn>
               </TableRow>
             ))
           )
