@@ -11,39 +11,42 @@ class CityPaymentForm extends React.Component {
   constructor (props){
     super(props)
 
-    this.state = {
-     upiTimeLimit:props.data ? props.data.upi_time_limit : "",
-     upiLowRateMessage: props.data ? props.data.upi_low_rate_message: "",
-     isCardEnabled:props.data ? props.data.is_card_enabled: false,
-     isNBEnabled:props.data ? props.data.is_nb_enabled: false,
-     isUpiLowSuccessRate: props.data ? props.data.is_upi_low_success_rate: false,
-     isUpiCollectLowSuccessRate: props.data ? props.data.is_upi_collect_low_success_rate: false,
-     isJPUpiCollectEnabled: props.data ? props.data.is_jp_upi_collect_enabled: false,
-     is_icici_upi_intent_enabled: props.data ? props.data.is_icici_upi_intent_enabled: false,
-     is_icici_upi_collect_enabled: props.data ? props.data.is_icici_upi_collect_enabled: false,
-     selectedAppTypeIdx: props.data ? props.data.app_type ? 1:2:1,
-      selectedJPPaymentMethodIdx: props.data ? props.data.jp_payment_method.toLowerCase().trim() !== "nodel"
-        ? props.data.jp_payment_method.toLowerCase().trim() === "wallet" ? 1 : 2 : 3 : 1,
-     selectedICICIPaymentMethodIdx: props.data ? props.data.icici_payment_method.toLowerCase().trim() !== "nodel"
-        ? props.data.icici_payment_method.toLowerCase().trim() === "wallet" ? 1 : 2 : 3 : 1,
-    }
-
     this.app_type = [
       { text: 'Android', value: 1 },
-      { text: 'Ios', value: 2 },
+      { text: 'iOS', value: 2 },
     ]
 
     this.jp_payment_method = [
       { text: 'Wallet', value: 1 },
       { text: 'Dmo Wallet', value: 2 },
-      { text: 'Nodel', value: 3 },
+      { text: 'Nodal', value: 3 },
     ]
 
     this.icici_payment_method = [
       { text: 'Wallet', value: 1 },
       { text: 'Dmo Wallet', value: 2 },
-      { text: 'Nodel', value: 3 },
+      { text: 'Nodal', value: 3 },
     ]
+
+    this.state = {
+      upiTimeLimit:props.data ? props.data.upi_time_limit : "",
+      upiLowRateMessage: props.data ? props.data.upi_low_rate_message: "",
+      isCardEnabled:props.data ? props.data.is_card_enabled: false,
+      isNBEnabled:props.data ? props.data.is_nb_enabled: false,
+      isUpiLowSuccessRate: props.data ? props.data.is_upi_low_success_rate: false,
+      isUpiCollectLowSuccessRate: props.data ? props.data.is_upi_collect_low_success_rate: false,
+      isJPUpiCollectEnabled: props.data ? props.data.is_jp_upi_collect_enabled: false,
+      is_icici_upi_intent_enabled: props.data ? props.data.is_icici_upi_intent_enabled: false,
+      is_icici_upi_collect_enabled: props.data ? props.data.is_icici_upi_collect_enabled: false,
+      selectedAppTypeIdx: props.data ? this.app_type.find(item => (item.text).toLowerCase() === (props.data.app_type).toLowerCase()).value : 1,
+      // selectedAppTypeIdx: props.data ? props.data.app_type ? 1 : 2 : 1,
+      // selectedJPPaymentMethodIdx: props.data ? props.data.jp_payment_method.toLowerCase().trim() !== "nodal"
+      //   ? props.data.jp_payment_method.toLowerCase().trim() === "wallet" ? 1 : 2 : 3 : 1,
+      selectedJPPaymentMethodIdx: props.data ? this.jp_payment_method.find(item => (item.text).toLowerCase() === (props.data.jp_payment_method).toLowerCase()).value : 1,
+      selectedICICIPaymentMethodIdx: props.data ? this.icici_payment_method.find(item => (item.text).toLowerCase() === (props.data.icici_payment_method).toLowerCase()).value : 1,
+      //  selectedICICIPaymentMethodIdx: props.data ? props.data.icici_payment_method.toLowerCase().trim() !== "nodal"
+      //     ? props.data.icici_payment_method.toLowerCase().trim() === "wallet" ? 1 : 2 : 3 : 1,
+    }
 
     this.handleTextFields = this.handleTextFields.bind(this)
     this.handleCheckboxChange = this.handleCheckboxChange.bind(this)
@@ -200,7 +203,7 @@ class CityPaymentForm extends React.Component {
             <div className="form-group">
               <Checkbox
                 style={{ marginTop: "10px" }}
-                label="Is Nodel Enabled"
+                label="Is Nodal Enabled"
                 name="isNBEnabled"
                 checked={this.state.isNBEnabled}
                 onCheck={this.handleCheckboxChange}

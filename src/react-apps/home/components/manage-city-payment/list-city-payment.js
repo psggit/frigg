@@ -85,7 +85,6 @@ class ListCityPayment extends React.Component {
           showRowHover
         >
           {
-
             !this.props.loadingCityPaymentList && this.props.cityPaymentList.length === 0 &&
             <tr>
               <td style={{ textAlign: 'center' }} colSpan='10'>
