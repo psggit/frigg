@@ -45,7 +45,7 @@ class Reports extends React.Component {
       {text: 'Giftcard Log Report', value:16},
       {text: 'Gift Wallets Report', value:17},
       { text: 'DMO Order Report', value: 18 },
-      { text: 'Retailer Payment Detail Report', value: 19 },
+      { text: 'Retailer Payment Details Report', value: 19 },
     ]
 
     this.reportMap = {
