@@ -35,17 +35,19 @@ class CityDetailsForm extends React.Component {
       partialDeliveryEnabled: props.partialDeliveryEnabled !== null ? props.partialDeliveryEnabled : true,
       cityName: props.cityName || '',
       geoboundary: props.geoboundary || '',
-      selectedHomePageIdx: props.data ? props.data.homepageView
-        ? this.homepageView.find(item => (item.text).toLowerCase() === (props.data.homepageView).toLowerCase()).value
-        : 1 : 1,
-      homepageView: props.data ? props.data.homepageView : 'catalog',
-      selectedWalletIdx: props.data ? props.data.walletPreference
-        ? this.walletPreference.find(item => (item.text).toLowerCase() === (props.data.walletPreference).toLowerCase()).value
-        : 1 : 1,
-      walletPreference: props.data ? props.data.walletPreference : 'gift',
+      selectedHomePageIdx: props.homepageView !== null ? 
+        this.homepageView.find(item => (item.text).toLowerCase() === (props.homepageView).toLowerCase()).value : 
+        1,
+      homepageView: props.homepageView !== null ? props.homepageView : 'catalog',
+      selectedWalletIdx: props.walletPreference !== null ? 
+        this.walletPreference.find(item => (item.text).toLowerCase() === (props.walletPreference).toLowerCase()).value : 
+        1,
+      walletPreference: props.walletPreference !== null ? props.walletPreference : 'gift',
       cityGPS: props.cityGPS || '',
       shouldTrim: true
     }
+    //console.log("data", props.data)
+    //console.log("index", this.homepageView.find(item => (item.text).toLowerCase() === (props.data.homepage_view).toLowerCase()).value, "wallet", this.walletPreference.find(item => (item.text).toLowerCase() === (props.data.wallet_preference).toLowerCase()).value)
 
     this.state = Object.assign({}, this.initialState)
 

@@ -203,7 +203,7 @@ class CityPaymentForm extends React.Component {
             <div className="form-group">
               <Checkbox
                 style={{ marginTop: "10px" }}
-                label="Is Nodal Enabled"
+                label="Is Net Banking Enabled"
                 name="isNBEnabled"
                 checked={this.state.isNBEnabled}
                 onCheck={this.handleCheckboxChange}
