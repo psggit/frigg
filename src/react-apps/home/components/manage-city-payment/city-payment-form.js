@@ -12,20 +12,20 @@ class CityPaymentForm extends React.Component {
     super(props)
 
     this.app_type = [
-      { text: 'Android', value: 1 },
-      { text: 'iOS', value: 2 },
+      { text: 'android', value: 1 },
+      { text: 'ios', value: 2 },
     ]
 
     this.jp_payment_method = [
-      { text: 'Wallet', value: 1 },
-      { text: 'Dmo Wallet', value: 2 },
-      { text: 'Nodal', value: 3 },
+      { text: 'wallet', value: 1 },
+      { text: 'dmo-wallet', value: 2 },
+      { text: 'nodal', value: 3 },
     ]
 
     this.icici_payment_method = [
-      { text: 'Wallet', value: 1 },
-      { text: 'Dmo Wallet', value: 2 },
-      { text: 'Nodal', value: 3 },
+      { text: 'wallet', value: 1 },
+      { text: 'dmo-wallet', value: 2 },
+      { text: 'nodal', value: 3 },
     ]
 
     this.state = {
