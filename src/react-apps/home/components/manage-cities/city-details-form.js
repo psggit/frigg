@@ -39,11 +39,11 @@ class CityDetailsForm extends React.Component {
       selectedHomePageIdx: props.homepageView ? 
         this.homepageView.find(item => (item.text).toLowerCase() === (props.homepageView).toLowerCase()).value : 
         1,
-      homepageView: props.homepageView !== null ? props.homepageView : 'catalog',
+      homepageView: props.homepageView ? props.homepageView : 'catalog',
       selectedWalletIdx: props.walletPreference ? 
         this.walletPreference.find(item => (item.text).toLowerCase() === (props.walletPreference).toLowerCase()).value : 
         1,
-      walletPreference: props.walletPreference !== null ? props.walletPreference : 'gift',
+      walletPreference: props.walletPreference ? props.walletPreference : 'gift',
       cityGPS: props.cityGPS || '',
       shouldTrim: true
     }
@@ -141,6 +141,7 @@ class CityDetailsForm extends React.Component {
   }
 
   render () {
+    //console.log("test", selectedHomePageIdx, "wallet", selectedWalletIdx)
     return (
       <Fragment>
         <div className="form-group">
