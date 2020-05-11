@@ -59,25 +59,25 @@ class CreateCity extends React.Component {
     console.log("data", data)
     if (data.cityName && data.stateShortName && cityBoundaryData && data.cityGPS.length) {
       this.setState({ isDisabled: true })
-      // this.props.actions.createCity({
-      //   is_available: data.isCityActive,
-      //   is_wallet_city: data.isWalletCityActive,
-      //   store_pickup_disabled: data.storePickupDisabled,
-      //   quickpay_disabled: data.quickpayDisabled,
-      //   add_money_disabled: data.addMoney,
-      //   is_partial_delivery_enabled: data.partialDeliveryEnabled,
-      //   homepage_view: data.homepageView,
-      //   wallet_preference: data.walletPreference,
-      //   is_hw_loading_enabled: data.hipbarWalletLoadingEnabled,
-      //   is_gw_loading_enabled : data.giftWalletLoadingEnabled,
-      //   is_hw_usage_enabled: data.hipbarWalletUsageEnabled,
-      //   is_gw_usage_enabled: data.giftWalletUsageEnabled,
-      //   deliverable_city: data.isDeliveryActive,
-      //   state_short_name: data.stateShortName,
-      //   gps: data.cityGPS,
-      //   name: data.cityName,
-      //   geoboundary: cityBoundaryData,
-      // }, this.callbackUpdate)
+      this.props.actions.createCity({
+        is_available: data.isCityActive,
+        is_wallet_city: data.isWalletCityActive,
+        store_pickup_disabled: data.storePickupDisabled,
+        quickpay_disabled: data.quickpayDisabled,
+        add_money_disabled: data.addMoney,
+        is_partial_delivery_enabled: data.partialDeliveryEnabled,
+        homepage_view: data.homepageView,
+        wallet_preference: data.walletPreference,
+        is_hw_loading_enabled: data.hipbarWalletLoadingEnabled,
+        is_gw_loading_enabled : data.giftWalletLoadingEnabled,
+        is_hw_usage_enabled: data.hipbarWalletUsageEnabled,
+        is_gw_usage_enabled: data.giftWalletUsageEnabled,
+        deliverable_city: data.isDeliveryActive,
+        state_short_name: data.stateShortName,
+        gps: data.cityGPS,
+        name: data.cityName,
+        geoboundary: cityBoundaryData,
+      }, this.callbackUpdate)
     }
   }
 
