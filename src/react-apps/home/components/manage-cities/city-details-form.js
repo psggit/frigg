@@ -20,6 +20,7 @@ class CityDetailsForm extends React.Component {
       { text: '', value: 3 }
     ]
 
+    console.log("props", props)
     this.initialState = {
       stateIdx: props.stateIdx || 0,
       isCityActive: props.isCityActive !== null ? props.isCityActive : true,
@@ -35,11 +36,11 @@ class CityDetailsForm extends React.Component {
       partialDeliveryEnabled: props.partialDeliveryEnabled !== null ? props.partialDeliveryEnabled : true,
       cityName: props.cityName || '',
       geoboundary: props.geoboundary || '',
-      selectedHomePageIdx: props.homepageView !== null ? 
+      selectedHomePageIdx: props.homepageView ? 
         this.homepageView.find(item => (item.text).toLowerCase() === (props.homepageView).toLowerCase()).value : 
         1,
       homepageView: props.homepageView !== null ? props.homepageView : 'catalog',
-      selectedWalletIdx: props.walletPreference !== null ? 
+      selectedWalletIdx: props.walletPreference ? 
         this.walletPreference.find(item => (item.text).toLowerCase() === (props.walletPreference).toLowerCase()).value : 
         1,
       walletPreference: props.walletPreference !== null ? props.walletPreference : 'gift',
