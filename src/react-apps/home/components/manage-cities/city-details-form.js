@@ -42,8 +42,8 @@ class CityDetailsForm extends React.Component {
       homepageView: props.homepageView ? props.homepageView : 'catalog',
       selectedWalletIdx: props.walletPreference ? 
         this.walletPreference.find(item => (item.text).toLowerCase() === (props.walletPreference).toLowerCase()).value : 
-        1,
-      walletPreference: props.walletPreference ? props.walletPreference : 'gift',
+        3,
+      walletPreference: props.walletPreference ? props.walletPreference : '',
       cityGPS: props.cityGPS || '',
       shouldTrim: true
     }
