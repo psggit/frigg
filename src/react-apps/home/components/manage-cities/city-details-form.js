@@ -20,6 +20,7 @@ class CityDetailsForm extends React.Component {
       { text: '', value: 3 }
     ]
 
+    console.log("props", props)
     this.initialState = {
       stateIdx: props.stateIdx || 0,
       isCityActive: props.isCityActive !== null ? props.isCityActive : true,
@@ -35,17 +36,19 @@ class CityDetailsForm extends React.Component {
       partialDeliveryEnabled: props.partialDeliveryEnabled !== null ? props.partialDeliveryEnabled : true,
       cityName: props.cityName || '',
       geoboundary: props.geoboundary || '',
-      selectedHomePageIdx: props.data ? props.data.homepageView
-        ? this.homepageView.find(item => (item.text).toLowerCase() === (props.data.homepageView).toLowerCase()).value
-        : 1 : 1,
-      homepageView: props.data ? props.data.homepageView : 'catalog',
-      selectedWalletIdx: props.data ? props.data.walletPreference
-        ? this.walletPreference.find(item => (item.text).toLowerCase() === (props.data.walletPreference).toLowerCase()).value
-        : 1 : 1,
-      walletPreference: props.data ? props.data.walletPreference : 'gift',
+      selectedHomePageIdx: props.homepageView ? 
+        this.homepageView.find(item => (item.text).toLowerCase() === (props.homepageView).toLowerCase()).value : 
+        1,
+      homepageView: props.homepageView ? props.homepageView : 'catalog',
+      selectedWalletIdx: props.walletPreference ? 
+        this.walletPreference.find(item => (item.text).toLowerCase() === (props.walletPreference).toLowerCase()).value : 
+        3,
+      walletPreference: props.walletPreference ? props.walletPreference : '',
       cityGPS: props.cityGPS || '',
       shouldTrim: true
     }
+    //console.log("data", props.data)
+    //console.log("index", this.homepageView.find(item => (item.text).toLowerCase() === (props.data.homepage_view).toLowerCase()).value, "wallet", this.walletPreference.find(item => (item.text).toLowerCase() === (props.data.wallet_preference).toLowerCase()).value)
 
     this.state = Object.assign({}, this.initialState)
 
@@ -138,6 +141,7 @@ class CityDetailsForm extends React.Component {
   }
 
   render () {
+    //console.log("test", selectedHomePageIdx, "wallet", selectedWalletIdx)
     return (
       <Fragment>
         <div className="form-group">

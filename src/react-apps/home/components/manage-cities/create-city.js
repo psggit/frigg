@@ -56,7 +56,7 @@ class CreateCity extends React.Component {
   submit() {
     const data = this.cityDetailsForm.getData()
     const cityBoundaryData = this.cityBoundaryData.getCoordinates()
-
+    console.log("data", data)
     if (data.cityName && data.stateShortName && cityBoundaryData && data.cityGPS.length) {
       this.setState({ isDisabled: true })
       this.props.actions.createCity({

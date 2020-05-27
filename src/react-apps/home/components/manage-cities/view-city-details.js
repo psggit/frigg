@@ -175,6 +175,7 @@ class ViewCity extends React.Component {
                   partialDeliveryEnabled={cityDetails.is_partial_delivery_enabled}
                   isWalletCityActive={cityDetails.is_wallet_city}
                   walletPreference={cityDetails.wallet_preference}
+                  homepageView={cityDetails.homepage_view}
                   hipbarWalletLoadingEnabled={cityDetails.is_hw_loading_enabled}
                   giftWalletLoadingEnabled={cityDetails.is_gw_loading_enabled}
                   hipbarWalletUsageEnabled={cityDetails.is_hw_usage_enabled}
