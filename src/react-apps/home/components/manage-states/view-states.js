@@ -30,7 +30,8 @@ const TableHeaderItems = [
   'CGST NUMBER',
   'IGST NUMBER',
   'STATUS',
-  'DELIVERABLE'
+  'DELIVERABLE',
+  ''
 ]
 
 const styles = [
@@ -48,6 +49,7 @@ const styles = [
   { width: '38px' },
   { width: '38px' },
   { width: '55px' },
+  { width: '100px' }
 ]
 
 class ViewStates extends React.Component {
