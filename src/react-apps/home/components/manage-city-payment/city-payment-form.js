@@ -18,14 +18,14 @@ class CityPaymentForm extends React.Component {
 
     this.jp_payment_method = [
       { text: 'wallet', value: 1 },
-      { text: 'dmo-wallet', value: 2 },
-      { text: 'nodal', value: 3 },
+      // { text: 'dmo-wallet', value: 2 },
+      { text: 'nodal', value: 2 },
     ]
 
     this.icici_payment_method = [
-      { text: 'wallet', value: 1 },
-      { text: 'dmo-wallet', value: 2 },
-      { text: 'nodal', value: 3 },
+      // { text: 'wallet', value: 1 },
+      { text: 'dmo-wallet', value: 1 },
+      { text: 'nodal', value: 2 },
     ]
 
     this.state = {
