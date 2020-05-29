@@ -70,8 +70,8 @@ class Reports extends React.Component {
       'Gift Wallets Report': 'gift_wallets_report',
       'DMO Order Report': 'dmo_order_report',
       'Retailer Payment Details Report': 'retailer_payment_details_report',
-      'Retailer Daily Order Report': 'retailer_daily_order_report',
-      'Retailer Delivery Order Report': 'retailer_delivery_order_report'
+      'Retailer Order Capacity Report': 'retailer_order_capacity_report',
+      'Retailer Delivery Order Summary Report': 'retailer_delivery_order_summary_report'
     }
 
     this.handleReportChange = this.handleReportChange.bind(this)
