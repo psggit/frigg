@@ -20,10 +20,10 @@ class EditCityFee extends React.Component {
       order_type: cityFeeForm.selectedOrderTypeIdx,
       charge_type: cityFeeForm.selectedChargeTypeIdx,
       title: cityFeeForm.title,
-      txn_fee_flat: parseFloat(cityFeeForm.flat),
-      txn_fee_percentage: parseFloat(cityFeeForm.percentage),
-      min_value: parseFloat(cityFeeForm.min),
-      max_value: parseFloat(cityFeeForm.max),
+      txn_fee_flat: parseInt(cityFeeForm.flat),
+      txn_fee_percentage: parseInt(cityFeeForm.percentage),
+      min_value: parseInt(cityFeeForm.min),
+      max_value: parseInt(cityFeeForm.max),
     })
       .then((response) => {
         Notify('Successfully updated City Fee', 'success')
