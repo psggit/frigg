@@ -13,12 +13,12 @@ class MapRetailerToWarehouse extends React.Component {
 
     this.state = {
       mappingRetailerToWarehouse: false,
-      selectedCityIdx: "",
+      // selectedCityIdx: "",
       selectedWarehouseIdx: "",
       selectedRetailerIdx: "",
-      cityList: [],
-      retailerList: [],
-      warehouseList: []
+      // cityList: [],
+      // retailerList: [],
+      // warehouseList: []
     }
 
     // this.handleRetailerChange = this.handleRetailerChange.bind(this) 
