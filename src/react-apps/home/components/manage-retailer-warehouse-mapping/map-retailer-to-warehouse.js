@@ -14,8 +14,8 @@ class MapRetailerToWarehouse extends React.Component {
     this.state = {
       mappingRetailerToWarehouse: false,
       // selectedCityIdx: "",
-      selectedWarehouseIdx: "",
-      selectedRetailerIdx: "",
+      warehouseId: "",
+      retailerId: "",
       // cityList: [],
       // retailerList: [],
       // warehouseList: []
@@ -59,13 +59,13 @@ class MapRetailerToWarehouse extends React.Component {
   // }
 
   // handleRetailerChange (e, k) {
-  //   const selectedRetailerIdx = this.state.retailerList[k].id
-  //   this.setState({ selectedRetailerIdx })
+  //   const retailerId = this.state.retailerList[k].id
+  //   this.setState({ retailerId })
   // }
 
   // handleWarehouseChange (e, k) {
-  //   const selectedWarehouseIdx = this.state.warehouseList[k].id
-  //   this.setState({ selectedWarehouseIdx })
+  //   const warehouseId = this.state.warehouseList[k].id
+  //   this.setState({ warehouseId })
   // }
 
   // handleCityChange (e, k) {
@@ -93,7 +93,7 @@ class MapRetailerToWarehouse extends React.Component {
   //   .then((response) => {
   //     this.setState({
   //       retailerList: response.retailer_data,
-  //       selectedRetailerIdx: response.retailer_data[0].id
+  //       retailerId: response.retailer_data[0].id
   //     })
   //   })
   //   .catch((error) => {
@@ -109,7 +109,7 @@ class MapRetailerToWarehouse extends React.Component {
   //   .then((response) => {
   //     this.setState({
   //       warehouseList: response.message,
-  //       selectedWarehouseIdx: response.message[0].id
+  //       warehouseId: response.message[0].id
   //     })
   //   })
   //   .catch((error) => {
@@ -120,12 +120,12 @@ class MapRetailerToWarehouse extends React.Component {
   handleSave () {
     this.setState({ mappingRetailerToWarehouse: true})
     Api.mapRetailerToWarehouse({
-      retailer_id: parseInt(this.state.selectedRetailerIdx),
-      warehouse_id: parseInt(this.state.selectedWarehouseIdx)
+      retailer_id: parseInt(this.state.retailerId),
+      warehouse_id: parseInt(this.state.warehouseId)
     })
     .then((response) => {
       this.setState({ mappingRetailerToWarehouse: false })
-      this.props.history.push(`/home/retailer-warehouse-mapping?id=${this.state.selectedRetailerIdx}&optionIdx=1`)
+      this.props.history.push(`/home/retailer-warehouse-mapping?id=${this.state.retailerId}&optionIdx=1`)
     })
     .catch((error) => {
       this.setState({ mappingRetailerToWarehouse: false })
@@ -166,8 +166,8 @@ class MapRetailerToWarehouse extends React.Component {
           <label className="label">Retailer</label><br />
           <TextField
             disabled={false}
-            name="selectedRetailerIdx"
-            defaultValue={this.state.selectedRetailerIdx}
+            name="retailerId"
+            //defaultValue={this.state.retailerId}
             style={{ width: '100%' }}
             onChange={this.handleTextFields}
           />
@@ -186,13 +186,13 @@ class MapRetailerToWarehouse extends React.Component {
           <label className="label">Warehouse</label><br />
           <TextField
             disabled={false}
-            name="selectedWarehouseIdx"
-            defaultValue={this.state.selectedWarehouseIdx}
+            name="warehouseId"
+            //defaultValue={this.state.warehouseId}
             style={{ width: '100%' }}
             onChange={this.handleTextFields}
           />
           {/* <SelectField
-            value={this.state.selectedWarehouseIdx}
+            value={this.state.warehouseId}
             onChange={this.handleWarehouseChange}
           >
             {
