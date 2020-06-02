@@ -125,7 +125,7 @@ class MapRetailerToWarehouse extends React.Component {
       warehouse_id: parseInt(this.state.warehouseId)
     })
     .then((response) => {
-      Notify('Successfully created', 'success')
+      Notify('Successfully mapped', 'success')
       this.setState({ mappingRetailerToWarehouse: false })
       this.props.history.push(`/home/retailer-warehouse-mapping?id=${this.state.retailerId}&optionIdx=1`)
     })
