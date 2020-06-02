@@ -3,6 +3,7 @@ import { Card } from 'material-ui/Card'
 import * as Api from "./../../middleware/api"
 // import SelectField from 'material-ui/SelectField'
 import TextField from 'material-ui/TextField'
+import Notify from "@components/Notification"
 // import MenuItem from 'material-ui/MenuItem'
 import RaisedButton from 'material-ui/RaisedButton'
 
@@ -124,13 +125,16 @@ class MapRetailerToWarehouse extends React.Component {
       warehouse_id: parseInt(this.state.warehouseId)
     })
     .then((response) => {
+      Notify('Successfully created', 'success')
       this.setState({ mappingRetailerToWarehouse: false })
       this.props.history.push(`/home/retailer-warehouse-mapping?id=${this.state.retailerId}&optionIdx=1`)
     })
-    .catch((error) => {
-      this.setState({ mappingRetailerToWarehouse: false })
-      console.log("Error in mapping retailer to a warehouse", error)
-    })
+      .catch((error) => {
+        error.response.json().then((json) => {
+          Notify(json.message, "warning")
+        })
+        this.setState({ mappingRetailerToWarehouse: false })
+      })
   }
 
   render () {
