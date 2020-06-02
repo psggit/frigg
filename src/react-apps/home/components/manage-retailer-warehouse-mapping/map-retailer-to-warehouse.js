@@ -124,11 +124,11 @@ class MapRetailerToWarehouse extends React.Component {
       retailer_id: parseInt(this.state.retailerId),
       warehouse_id: parseInt(this.state.warehouseId)
     })
-    .then((response) => {
-      Notify('Successfully mapped', 'success')
-      this.setState({ mappingRetailerToWarehouse: false })
-      this.props.history.push(`/home/retailer-warehouse-mapping?id=${this.state.retailerId}&optionIdx=1`)
-    })
+      .then((response) => {
+        Notify('Successfully mapped', 'success')
+        this.setState({ mappingRetailerToWarehouse: false })
+        this.props.history.push(`/home/retailer-warehouse-mapping?id=${this.state.retailerId}&optionIdx=1`)
+      })
       .catch((error) => {
         error.response.json().then((json) => {
           Notify(json.message, "warning")
