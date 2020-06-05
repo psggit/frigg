@@ -242,7 +242,6 @@ export const deleteRetailerMappedToWarehouse = payload => (
   })
 )
 
-
 export const mapDeliveryAgentToWarehouse = payload => (
   POST({
     api: '/deliveryman/api/1/mapping/datowarehouse/create',
@@ -251,6 +250,24 @@ export const mapDeliveryAgentToWarehouse = payload => (
     handleError: true
   })
     .then(json => json)
+)
+
+export const deleteDeliveryAgentMappedToWarehouse = payload => (
+  POST({
+    api: '/deliveryman/api/1/mapping/datowarehouse/delete',
+    apiBase: 'apiUrl',
+    data: payload,
+    handleError: true
+  })
+)
+
+export const fetchDeliveryAgentWarehouseMapping = payload => (
+  POST({
+    api: '/deliveryman/api/1/mapping/datowarehouse/list',
+    apiBase: 'apiUrl',
+    data: payload,
+    handleError: true
+  })
 )
 
 export const fetchRewardCoupons = payload => (

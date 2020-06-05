@@ -28,7 +28,22 @@ class MapDeliveryAgentToWarehouseForm extends React.Component {
   }
 
   handleDelete () {
-    console.log("Handle Delete",this.state.disableDelete)
+    this.setState({ mappingRetailerToWarehouse: true })
+    console.log("Value from delete", this.state.deliveryAgentId)
+    Api.deleteDeliveryAgentMappedToWarehouse({
+      da_id: parseInt(this.state.deliveryAgentId),
+      warehouse_id: parseInt(this.state.warehouseId)
+    })
+      .then((response) => {
+        Notify('Deleted Succesfully', 'success')
+        this.setState({ mappingRetailerToWarehouse: false, disableSave: false, disableDelete: true })
+      })
+      .catch((error) => {
+        error.response.json().then((json) => {
+          Notify(json.message, "warning")
+        })
+        this.setState({ mappingRetailerToWarehouse: false })
+      })
   }
 
   handleSave () {
@@ -46,7 +61,6 @@ class MapDeliveryAgentToWarehouseForm extends React.Component {
       .catch((error) => {
         error.response.json().then((json) => {
           Notify(json.message, "warning")
-          // this.setState({mapRetailerToWarehouse:true})
         })
         this.setState({ mappingRetailerToWarehouse: false })
       })

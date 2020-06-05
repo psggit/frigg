@@ -1,239 +1,242 @@
 import React from "react"
-import SelectField from 'material-ui/SelectField'
-import MenuItem from 'material-ui/MenuItem'
-import RaisedButton from 'material-ui/RaisedButton'
-import TextField from 'material-ui/TextField'
-import * as Api from "../middleware/api"
-import { Card } from 'material-ui/Card'
-import { getQueryObj, getQueryUri } from '@utils/url-utils'
-import Pagination from '@components/pagination'
 import { NavLink } from 'react-router-dom'
-import ViewMappedRetailerWarehouse from "../components/manage-retailer-warehouse-mapping/view-mapped-retailer-warehouse"
+import RaisedButton from 'material-ui/RaisedButton'
+import * as Api from "../middleware/api"
+import Pagination from '@components/pagination'
+import { getQueryObj, getQueryUri } from '@utils/url-utils'
+import FilterModal from '@components/filter-modal'
+import ListDeliveryAgent from "../components/manage-delivery-agent/list-delivery-agent"
+import getIcon from '../components/icon-utils'
 
 class DeliveryagentWarehouseMapping extends React.Component {
-
-  constructor() {
+  constructor () {
     super()
-
     this.pageLimit = 5
     this.state = {
-      optionIdx: -1,
-      id: "",
       activePage: 1,
-      retailerWarehouseList: [],
-      retailerWarehouseCount: 0,
-      loadingRetailerWarehouseList: false
+      loadingDeliveryagent: false,
+      deliveryAgent: [],
+      warehouseData: [],
+      loadingWarehouse: true,
+      deliveryAgentCount: 0,
+      shouldMountFilterDialog: false
     }
 
     this.filter = {
-      id: "",
-      field: ""
+      selectedWarehouseIdx: ""
     }
-    this.options = [
-      { text: 'Retailer ID', value: 1 },
-      { text: 'Warehouse ID', value: 2 },
-    ]
 
     this.setQueryParamas = this.setQueryParamas.bind(this)
-    this.deleteRetailerMappedToWarehouse = this.deleteRetailerMappedToWarehouse.bind(this)
-    this.handleSearch = this.handleSearch.bind(this)
-    this.handleTextFields = this.handleTextFields.bind(this)
-    this.handleOptionChange = this.handleOptionChange.bind(this)
-    this.fetchRetailerWarehouseMapping = this.fetchRetailerWarehouseMapping.bind(this)
+    this.setPage = this.setPage.bind(this)
+    // this.fetchDeliveryAgentList = this.fetchDeliveryAgentList.bind(this)
+    this.mountFilterDialog = this.mountFilterDialog.bind(this)
+    this.unmountFilterModal = this.unmountFilterModal.bind(this)
+    this.applyFilter = this.applyFilter.bind(this)
+    this.fetchDeliveryAgentWarehouseMapping = this.fetchDeliveryAgentWarehouseMapping.bind(this)
   }
 
-  componentDidMount() {
+  componentDidMount () {
+    this.fetchWarehouseList()
     if (location.search.length) {
       this.setQueryParamas()
+    } else {
+      this.fetchDeliveryAgentWarehouseMapping({
+        pagination: {
+          limit: this.pageLimit,
+          offset: 0
+        }
+      })
     }
   }
 
-  setQueryParamas() {
+  setQueryParamas () {
     const queryUri = location.search.slice(1)
     const queryObj = getQueryObj(queryUri)
     Object.entries(queryObj).forEach((item) => {
       this.setState({ [item[0]]: item[1] })
-      this.filter[item[0]] = item[1]
     })
-
-    this.fetchRetailerWarehouseMapping({
-      filter: {
-        field: this.filter.optionIdx === "1" ? "retailer_id" : "warehouse_id",
-        value: this.filter.id
-      },
-      pagination: {
-        limit: this.pageLimit,
-        offset: queryObj.activePage ? this.pageLimit * (parseInt(queryObj.activePage) - 1) : 0
-      }
-    })
-  }
-
-  // setPage (pageObj) {
-  //   this.setState({ loadingRetailerWarehouseList: true })
-  //   const queryUri = location.search.slice(1)
-  //   const queryObj = getQueryObj(queryUri)
-
-  //   this.fetchRetailerWarehouseMapping({
-  //     filter: {
-  //       field: this.filter.optionIdx === "1" ? "retailer_id" : "warehouse_id",
-  //       value: this.filter.id
-  //     },
-  //     pagination: {
-  //       limit: this.pageLimit,
-  //       offset: pageObj.offset
-  //     }
-  //   })
-  //   this.setState({ activePage: pageObj.activePage })
-
-  //   queryObj.activePage = pageObj.activePage
-  //   history.pushState(queryObj, "retailer warehouse listing", `/home/manage-reward-coupons?${getQueryUri(queryObj)}`)
-  // }
-
-  handleOptionChange(e, k) {
-    const optionIdx = k + 1
-    this.setState({ optionIdx: optionIdx.toString() })
-  }
-
-  deleteRetailerMappedToWarehouse(item) {
-    let payload = {}
-    if (this.state.optionIdx === "1") {
-      payload = {
-        retailer_id: parseInt(this.state.id),
-        warehouse_id: parseInt(item.id)
-      }
+    if (queryObj.selectedWarehouseIdx) {
+      this.fetchDeliveryAgentWarehouseMapping({
+        pagination: {
+          offset: queryObj.activePage ? this.pageLimit * (parseInt(queryObj.activePage) - 1) : 0,
+          limit: this.pageLimit
+        },
+        filter: {
+          field: "warehouse_id",
+          value: queryObj.selectedWarehouseIdx
+        }
+      })
     } else {
-      payload = {
-        warehouse_id: parseInt(this.state.id),
-        retailer_id: parseInt(item.id)
-      }
+      console.log("active page", queryObj)
+      this.fetchDeliveryAgentWarehouseMapping({
+        pagination: {
+          offset: queryObj.activePage ? this.pageLimit * (parseInt(queryObj.activePage) - 1) : 0,
+          limit: this.pageLimit,
+        }
+      })
+    }
+  }
+
+  setPage (pageObj) {
+    this.setState({ loadingDeliveryagent: true })
+    const queryUri = location.search.slice(1)
+    const queryObj = getQueryObj(queryUri)
+
+    if (queryObj.selectedWarehouseIdx) {
+      this.fetchDeliveryAgentWarehouseMapping({
+        pagination: {
+          offset: pageObj.activePage ? this.pageLimit * (parseInt(pageObj.activePage) - 1) : 0,
+          limit: this.pageLimit
+        },
+        filter: {
+          field: "warehouse_id",
+          value: queryObj.selectedWarehouseIdx
+        }
+      })
+    } else {
+      this.fetchDeliveryAgentWarehouseMapping({
+        pagination: {
+          offset: pageObj.activePage ? this.pageLimit * (parseInt(pageObj.activePage) - 1) : 0,
+          limit: this.pageLimit,
+        }
+      })
     }
 
-    Api.deleteRetailerMappedToWarehouse(payload)
-      .then((response) => {
-        location.reload()
-      })
-      .catch((error) => {
-        console.log("Error in deleting retailer mapped to warehouse", error)
-      })
+    this.setState({ activePage: pageObj.activePage })
+
+    queryObj.activePage = pageObj.activePage
+
+    history.pushState(queryObj, "delivery agent listing", `/home/delivery-agent?${getQueryUri(queryObj)}`)
   }
 
-  fetchRetailerWarehouseMapping(payload) {
-    this.setState({ loadingRetailerWarehouseList: true })
-    Api.fetchRetailerWarehouseMapping(payload)
-      .then((response) => {
-        this.setState({
-          retailerWarehouseList: response.data,
-          retailerWarehouseCount: response.count,
-          loadingRetailerWarehouseList: false
-        })
-      })
-      .catch((error) => {
-        this.setState({ loadingRetailerWarehouseList: false })
-        console.log("Error in fetching retailer warehouse list", error)
-      })
+  mountFilterDialog () {
+    this.setState({ shouldMountFilterDialog: true })
   }
 
-  handleTextFields(e) {
-    this.setState({ [e.target.name]: e.target.value })
+  unmountFilterModal () {
+    this.setState({ shouldMountFilterDialog: false })
   }
 
-  handleSearch() {
-    const queryObj = {
-      id: this.state.id,
-      optionIdx: this.state.optionIdx
-    }
-    this.fetchRetailerWarehouseMapping({
-      filter: {
-        field: this.state.optionIdx === "1" ? "retailer_id" : "warehouse_id",
-        value: this.state.id
-      },
+  fetchWarehouseList () {
+    Api.fetchWarehouseList({
       pagination: {
-        limit: this.pageLimit,
+        limit: 1000,
         offset: 0
       }
     })
-    history.pushState(queryObj, "retailer warehouse listing", `/home/retailer-warehouse-mapping?${getQueryUri(queryObj)}`)
+      .then((response) => {
+        let warehouseList = []
+        if (response.message.length > 0) {
+          warehouseList = response.message.map((item, i) => {
+            return {
+              text: item.name,
+              value: item.id
+            }
+          })
+        }
+
+        this.setState({ warehouseData: warehouseList, loadingWarehouse: false })
+      })
+      .catch((error) => {
+        console.log("Error in fetching Warehouse List", error)
+      })
   }
 
-  render() {
-    const { loadingRetailerWarehouseList, retailerWarehouseList, retailerWarehouseCount } = this.state
+  fetchDeliveryAgentWarehouseMapping (payload) {
+    this.setState({ loadingDeliveryagent: true })
+    Api.fetchDeliveryAgentWarehouseMapping(payload)
+      .then((response) => {
+        console.log("response", response, response.data, response.count)
+        this.setState({
+          deliveryAgent: response.data,
+          loadingDeliveryagent: false,
+          deliveryAgentCount: response.count
+        })
+      })
+      .catch((err) => {
+        console.log("Error in fetching delivery agent list", err)
+      })
+  }
+
+  applyFilter (selectedWarehouseIdx) {
+    const queryObj = {
+      activePage: 1,
+      selectedWarehouseIdx: this.state.warehouseData[selectedWarehouseIdx - 1].value.toString()
+    }
+
+    this.setState({
+      activePage: 1,
+      selectedWarehouseIdx: this.state.warehouseData[selectedWarehouseIdx - 1].value,
+      deliveryAgent: []
+    })
+
+    history.pushState(queryObj, "delivery agent listing", `/home/delivery-agent?${getQueryUri(queryObj)}`)
+
+    this.fetchDeliveryAgentWarehouseMapping({
+      pagination: {
+        offset: 0,
+        limit: this.pageLimit,
+      },
+      filter: {
+        field: "warehouse_id",
+        value: this.state.warehouseData[selectedWarehouseIdx - 1].value.toString()
+      }
+    })
+  }
+
+  render () {
+    const { loadingDeliveryagent, deliveryAgent, deliveryAgentCount } = this.state
     return (
       <React.Fragment>
         <div
           style={{
             display: 'flex',
-            justifyContent: 'space-between',
-            marginBottom: '20px'
+            justifyContent: 'space-between'
           }}
         >
-          <NavLink to={`/home/map-deliveryagent-to-warehouse`}>
-            <RaisedButton
-              label="Map Warehouse to DeliveryAgent"
-              primary
-              onClick={this.mountCreateStateDialog}
-            />
-          </NavLink>
-        </div>
-
-        <Card style={{
-          padding: '20px',
-          width: '300px',
-          position: 'relative',
-          display: 'block',
-          verticalAlign: 'top',
-          marginRight: '20px'
-        }}
-        >
-          <SelectField
-            style={{ marginRight: '20px' }}
-            floatingLabelText="Choose Option"
-            value={parseInt(this.state.optionIdx)}
-            onChange={this.handleOptionChange}
-            iconStyle={{ fill: '#9b9b9b' }}
-          >
-            {
-              this.options.map((item, i) => {
-                return (
-                  <MenuItem
-                    value={item.value}
-                    key={item.value}
-                    primaryText={item.text}
-                  />
-                )
-              })
-            }
-          </SelectField>
-          <TextField
-            style={{ marginRight: '20px' }}
-            onChange={this.handleTextFields}
-            name="id"
-            value={this.state.id}
-          />
+          <div>
+            <NavLink to={`/home/map-deliveryagent-to-warehouse`}>
+              <RaisedButton
+                label="Map DeliveryAgent To Warehouse"
+                primary
+              />
+            </NavLink>
+          </div>
           <RaisedButton
-            primary
-            label="Search"
-            disabled={loadingRetailerWarehouseList}
-            onClick={this.handleSearch}
+            style={{ marginRight: "10px" }}
+            onClick={this.mountFilterDialog}
+            label="Filter"
+            icon={getIcon('filter')}
           />
-        </Card>
-        <React.Fragment>
-          <h3>Showing all retailers mapped to warehouse</h3>
-          <ViewMappedRetailerWarehouse
-            retailerWarehouseList={this.state.retailerWarehouseList}
-            deleteRetailerMappedToWarehouse={this.deleteRetailerMappedToWarehouse}
-            loadingRetailerWarehouseList={this.state.loadingRetailerWarehouseList}
-            history={this.props.history}
-          />
-        </React.Fragment>
+        </div>
+        <h3>Delivery Agents Mapped To Warehouse</h3>
+        <ListDeliveryAgent
+          deliveryAgent={this.state.deliveryAgent}
+          loadingDeliveryagent={this.state.loadingDeliveryagent}
+          history={this.props.history}
+        />
         {
-          !loadingRetailerWarehouseList && retailerWarehouseList.length
+          !loadingDeliveryagent && deliveryAgent && deliveryAgent.length
             ? <Pagination
               activePage={parseInt(this.state.activePage)}
-              itemsCountPerPage={10}
-              totalItemsCount={retailerWarehouseCount}
-              pageRangeDisplayed={5}
+              itemsCountPerPage={this.pageLimit}
+              totalItemsCount={deliveryAgentCount}
               setPage={this.setPage}
             />
+            : ''
+        }
+        {
+          this.state.shouldMountFilterDialog
+            ? (
+              <FilterModal
+                applyFilter={this.applyFilter}
+                title="Filter delivery agent"
+                unmountFilterModal={this.unmountFilterModal}
+                warehouseData={this.state.warehouseData}
+                filter="deliveryagentFilter"
+                filterWarehouse={true}
+              />
+            )
             : ''
         }
       </React.Fragment>
