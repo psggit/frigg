@@ -17,7 +17,7 @@ class CreateDeliveryAgent extends React.Component {
     this.setState({ creatingDeliveryagent: true })
     Api.createDeliveryagent({
       name: deliveryAgentForm.name,
-      warehouse_id: parseInt(deliveryAgentForm.selectedWarehouseIdx),
+      // warehouse_id: parseInt(deliveryAgentForm.selectedWarehouseIdx),
       employee_id: deliveryAgentForm.employeeId,
       gcm_token: deliveryAgentForm.gcmToken,
       contact_number: deliveryAgentForm.contactNumber,

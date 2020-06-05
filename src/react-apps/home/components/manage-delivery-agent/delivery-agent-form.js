@@ -1,19 +1,19 @@
 import React from "react"
 import { Card } from 'material-ui/Card'
-import SelectField from 'material-ui/SelectField'
-import MenuItem from 'material-ui/MenuItem'
+// import SelectField from 'material-ui/SelectField'
+// import MenuItem from 'material-ui/MenuItem'
 import Checkbox from 'material-ui/Checkbox'
 import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
-import * as Api from "./../../middleware/api"
+// import * as Api from "./../../middleware/api"
 
 
 class DeliveryAgentForm extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      selectedWarehouseIdx: props.data ? props.data.warehouse_id : "",
-      warehouseList: [],
+      // selectedWarehouseIdx: props.data ? props.data.warehouse_id : "",
+      // warehouseList: [],
       name: props.data ? props.data.name : "",
       employeeId: props.data ? props.data.employee_id : "",
       gcmToken: props.data ? props.data.gcm_token : "",
@@ -34,7 +34,7 @@ class DeliveryAgentForm extends React.Component {
     this.getData = this.getData.bind(this)
     this.handleSave = this.handleSave.bind(this)
     this.handleCheckboxChange = this.handleCheckboxChange.bind(this)
-    this.handleWarehouseChange = this.handleWarehouseChange.bind(this)
+    // this.handleWarehouseChange = this.handleWarehouseChange.bind(this)
   }
 
   // componentWillReceiveProps(newProps) {
@@ -46,32 +46,32 @@ class DeliveryAgentForm extends React.Component {
   //   }
   // }
 
-  componentDidMount () {
-    Api.fetchWarehouseList({
-      pagination: {
-        limit: 1000,
-        offset: 0
-      }
-    })
-    .then((response) => {
-      this.setState({
-        warehouseList: response.message
-      })
-    })
-    .catch((error) => {
-      console.log("Error in fetching warehouse list", error)
-    })
-  }
+  // componentDidMount () {
+  //   Api.fetchWarehouseList({
+  //     pagination: {
+  //       limit: 1000,
+  //       offset: 0
+  //     }
+  //   })
+  //   .then((response) => {
+  //     this.setState({
+  //       warehouseList: response.message
+  //     })
+  //   })
+  //   .catch((error) => {
+  //     console.log("Error in fetching warehouse list", error)
+  //   })
+  // }
 
   handleTextFields (e) {
     this.setState({ [e.target.name]: e.target.value })
   }
 
-  handleWarehouseChange (e, k) {
-    this.setState({
-      selectedWarehouseIdx: (this.state.warehouseList[k].id)
-    })
-  }
+  // handleWarehouseChange (e, k) {
+  //   this.setState({
+  //     selectedWarehouseIdx: (this.state.warehouseList[k].id)
+  //   })
+  // }
 
   handleDate (e) {
     const d = new Date(e.target.value)
@@ -106,7 +106,7 @@ class DeliveryAgentForm extends React.Component {
         >
           <h4 style={{ margin: '0', marginBottom: '40px' }}>Enter Delivery Agent Details</h4>
           <form>
-            <div className="form-group">
+            {/* <div className="form-group">
               <label className="label">WareHouse ID</label><br />
               <SelectField
                 value={this.state.selectedWarehouseIdx}
@@ -122,7 +122,7 @@ class DeliveryAgentForm extends React.Component {
                   ))
                 }
               </SelectField>
-            </div>
+            </div> */}
 
             <div className="form-group">
               <label className="label">Name</label><br />

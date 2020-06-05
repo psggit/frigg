@@ -18,7 +18,7 @@ class EditDeliveryAgent extends React.Component {
     Api.updateDeliveryagent({
       id:this.props.location.state.id,
       name: deliveryAgentForm.name,
-      warehouse_id: parseInt(deliveryAgentForm.selectedWarehouseIdx),
+      // warehouse_id: parseInt(deliveryAgentForm.selectedWarehouseIdx),
       employee_id: deliveryAgentForm.employeeId,
       gcm_token: deliveryAgentForm.gcmToken,
       dob: deliveryAgentForm.dob.slice(0,10),
