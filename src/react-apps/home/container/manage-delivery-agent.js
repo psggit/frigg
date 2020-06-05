@@ -19,11 +19,14 @@ class ManageDeliveryagent extends React.Component {
       warehouseData:[],
       loadingWarehouse:true,
       deliveryAgentCount: 0,
-      shouldMountFilterDialog: false
+      shouldMountFilterDialog: false,
+      citiesData: [],
+      loadingCities: true,
+      cityId: 0
     }
 
     this.filter = {
-      selectedWarehouseIdx : ""
+      cityId : ""
     }
 
     this.setQueryParamas = this.setQueryParamas.bind(this)
@@ -35,7 +38,8 @@ class ManageDeliveryagent extends React.Component {
   }
 
   componentDidMount () {
-    this.fetchWarehouseList()
+    //this.fetchWarehouseList()
+    this.fetchCityList()
     if (location.search.length) {
       this.setQueryParamas()
     } else {
@@ -54,15 +58,15 @@ class ManageDeliveryagent extends React.Component {
     Object.entries(queryObj).forEach((item) => {
       this.setState({ [item[0]]: item[1] })
     })
-    if (queryObj.selectedWarehouseIdx) {
+    if (queryObj.cityId) {
       this.fetchDeliveryAgentList({
         pagination: {
           offset: queryObj.activePage ? this.pageLimit * (parseInt(queryObj.activePage) - 1) : 0,
           limit: this.pageLimit
         },
         filter: {
-          field: "warehouse_id",
-          value: queryObj.selectedWarehouseIdx
+          field: "city_id",
+          value: queryObj.cityId
         }
       })
     } else {
@@ -81,15 +85,15 @@ class ManageDeliveryagent extends React.Component {
     const queryUri = location.search.slice(1)
     const queryObj = getQueryObj(queryUri)
 
-    if (queryObj.selectedWarehouseIdx) {
+    if (queryObj.cityId) {
       this.fetchDeliveryAgentList({
         pagination: {
           offset: pageObj.activePage ? this.pageLimit * (parseInt(pageObj.activePage) - 1) : 0,
           limit: this.pageLimit
         },
         filter: {
-          field: "warehouse_id",
-          value: queryObj.selectedWarehouseIdx
+          field: "city_id",
+          value: queryObj.cityId
         }
       })
     } else {
@@ -116,30 +120,60 @@ class ManageDeliveryagent extends React.Component {
     this.setState({ shouldMountFilterDialog: false })
   }
 
-  fetchWarehouseList () {
-    Api.fetchWarehouseList({
-      pagination: {
+  // fetchWarehouseList () {
+  //   Api.fetchWarehouseList({
+  //     pagination: {
+  //       limit: 1000,
+  //       offset: 0
+  //     }
+  //   })
+  //     .then((response) => {
+  //       let warehouseList = []
+  //       if (response.message.length > 0) {
+  //         warehouseList = response.message.map((item, i) => {
+  //           return {
+  //             text: item.name,
+  //             value: item.id
+  //           }
+  //         })
+  //       }
+
+  //       this.setState({ warehouseData: warehouseList, loadingWarehouse: false })
+  //     })
+  //     .catch((error) => {
+  //       console.log("Error in fetching Warehouse List", error)
+  //     })
+  // }
+
+  fetchCityList() {
+    Api.fetchCities({
+      data: {
+        state_short_name: null,
+        is_available: false,
+        offset: 0,
         limit: 1000,
-        offset: 0
+        deliverable_city: true,
+        no_filter: true
       }
     })
       .then((response) => {
-        let warehouseList = []
-        if (response.message.length > 0) {
-          warehouseList = response.message.map((item, i) => {
+        let cityList = []
+        if (response.cities.length > 0) {
+          cityList = response.cities.map((item, i) => {
             return {
               text: item.name,
               value: item.id
             }
           })
         }
-
-        this.setState({ warehouseData: warehouseList, loadingWarehouse: false })
+        console.log("citidata", cityList)
+        this.setState({ citiesData: cityList, loadingCities: false })
       })
       .catch((error) => {
-        console.log("Error in fetching Warehouse List", error)
+        console.log("Error in fetching city list", error)
       })
   }
+
 
   fetchDeliveryAgentList (payload) {
     this.setState({ loadingDeliveryagent: true })
@@ -157,15 +191,15 @@ class ManageDeliveryagent extends React.Component {
       })
   }
 
-  applyFilter (selectedWarehouseIdx) {
+  applyFilter(cityId) {
     const queryObj = {
       activePage: 1,
-      selectedWarehouseIdx: this.state.warehouseData[selectedWarehouseIdx-1].value.toString()
+      cityId: this.state.citiesData[cityId - 1].value.toString()
     }
 
     this.setState({
       activePage: 1,
-      selectedWarehouseIdx: this.state.warehouseData[selectedWarehouseIdx-1].value,
+      cityId: this.state.citiesData[cityId - 1].value,
       deliveryAgent: []
     })
 
@@ -177,8 +211,8 @@ class ManageDeliveryagent extends React.Component {
         limit: this.pageLimit,
       },
       filter: {
-        field: "warehouse_id",
-        value: this.state.warehouseData[selectedWarehouseIdx-1].value.toString()
+        field: "city_id",
+        value: this.state.citiesData[cityId - 1].value.toString()
       }
     })
   } 
@@ -231,9 +265,11 @@ class ManageDeliveryagent extends React.Component {
                 applyFilter={this.applyFilter}
                 title="Filter delivery agent"
                 unmountFilterModal={this.unmountFilterModal}
-                warehouseData={this.state.warehouseData}
+                //warehouseData={this.state.warehouseData}
+                citiesData={this.state.citiesData}
+                loadingCities={this.state.loadingCities}
                 filter="deliveryagentFilter"
-                filterWarehouse={true}
+                filterCity={true}
               />
             )
             : ''

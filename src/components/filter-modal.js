@@ -417,7 +417,7 @@ class FilterModal extends React.Component {
             </div>
           }
           {
-            this.props.filter === "warehouseFilter" &&
+            this.props.filter === "warehouseFilter" || this.props.filter === "deliveryagentFilter"  &&
             <div>
               <div className="form-group">
                 <label>City</label><br />
@@ -445,7 +445,7 @@ class FilterModal extends React.Component {
               </div>
             </div>
           }
-          {
+          {/* {
             this.props.filter === "deliveryagentFilter" &&
             <div>
               <div className="form-group">
@@ -473,7 +473,7 @@ class FilterModal extends React.Component {
                 </SelectField>
               </div>
             </div>
-          }
+          } */}
           {
             this.props.filter === "predictionFilter" &&
             <div>
