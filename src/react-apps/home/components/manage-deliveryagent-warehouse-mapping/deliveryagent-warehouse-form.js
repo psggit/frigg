@@ -33,7 +33,6 @@ class MapDeliveryAgentToWarehouseForm extends React.Component {
 
   handleSave () {
     this.setState({ mappingRetailerToWarehouse: true })
-    console.log("Value from save",this.state.deliveryAgentId)
     Api.mapDeliveryAgentToWarehouse({
       da_id: parseInt(this.state.deliveryAgentId),
       warehouse_id: parseInt(this.state.warehouseId)
@@ -46,7 +45,6 @@ class MapDeliveryAgentToWarehouseForm extends React.Component {
       .catch((error) => {
         error.response.json().then((json) => {
           Notify(json.message, "warning")
-          // this.setState({mapRetailerToWarehouse:true})
         })
         this.setState({ mappingRetailerToWarehouse: false })
       })
@@ -72,6 +70,8 @@ class MapDeliveryAgentToWarehouseForm extends React.Component {
             style={{ width: '100%' }}
             onChange={this.handleTextFields}
           />
+        </div>
+        <div className="form-group">
           <label className="label">Warehouse ID</label><br />
           <TextField
             disabled={false}

@@ -8,15 +8,15 @@ class MapDeliveryAgentToWarehouse extends React.Component {
     super()
 
     this.state = {
-      Array: [1],
+      totalCardCount: [1]
     }
     this.handleAdd = this.handleAdd.bind(this)
   }
 
   handleAdd () {
-    console.log("Array Length",this.state.Array)
+    //console.log("Array Length", this.state.totalDeliveryAgentWarehouseCount)
     this.setState({
-      Array: [ ...this.state.Array,{id:this.state.Array.length}]
+      totalCardCount: this.state.totalCardCount.length + 1
     })
   }
 
@@ -29,14 +29,12 @@ class MapDeliveryAgentToWarehouse extends React.Component {
             primary
           />
           <div style={{marginTop:"30px",display:"flex",flexWrap:"wrap"}}>
-          {
-            this.state.Array.map((item) => {
-              // eslint-disable-next-line react/jsx-key
-              return <MapDeliveryAgentToWarehouseForm
-                id={item.id}
-              />
-            })
-          }
+            {
+              this.state.totalCardCount.map((item) => {
+                // eslint-disable-next-line react/jsx-key
+                return <MapDeliveryAgentToWarehouseForm />
+              })
+            }
           </div>
       </div>
     )
