@@ -16,7 +16,7 @@ class MapDeliveryAgentToWarehouse extends React.Component {
   handleAdd () {
     //console.log("Array Length", this.state.totalDeliveryAgentWarehouseCount)
     this.setState({
-      totalCardCount: this.state.totalCardCount.length + 1
+      totalCardCount: [...this.state.totalCardCount,this.state.totalCardCount.length+1],
     })
   }
 
