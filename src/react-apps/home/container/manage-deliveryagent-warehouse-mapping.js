@@ -102,7 +102,7 @@ class DeliveryagentWarehouseMapping extends React.Component {
     this.setState({ activePage: pageObj.activePage })
 
     queryObj.activePage = pageObj.activePage
-    history.pushState(queryObj, "delivery agent warehouse listing", `/home/deliveryagent-warehouse-mapping?${getQueryUri(queryObj)}`)
+    history.pushState(queryObj, "delivery agent warehouse listing", `/home/delivery-agent-warehouse-mapping?${getQueryUri(queryObj)}`)
   }
 
   mountFilterDialog () {
@@ -140,7 +140,7 @@ class DeliveryagentWarehouseMapping extends React.Component {
       mappedDeliveryAgentWarehouseList: []
     })
 
-    history.pushState(queryObj, "Delivery Agents Mapped to Warehouse Listing", "/home/deliveryagent-warehouse-mapping")
+    history.pushState(queryObj, "Delivery Agents Mapped to Warehouse Listing", "/home/delivery-agent-warehouse-mapping")
 
     this.fetchMappedDeliveryAgentWarehouseList({
       pagination: {
@@ -167,7 +167,7 @@ class DeliveryagentWarehouseMapping extends React.Component {
           <div>
             <NavLink to={`/home/map-deliveryagent-to-warehouse`}>
               <RaisedButton
-                label="Map DeliveryAgent To Warehouse"
+                label="Map Delivery Agent To Warehouse"
                 primary
               />
             </NavLink>
@@ -200,7 +200,7 @@ class DeliveryagentWarehouseMapping extends React.Component {
             ? (
               <FilterModal
                 applyFilter={this.applyFilter}
-                title="Filter DeliveryAgent Warehouse Mapping"
+                title="Filter Delivery Agents"
                 unmountFilterModal={this.unmountFilterModal}
                 filter="filterDeliveryAgentWarehouseMapped"
                 filterDeliveryAgentWarehouseMapped={true}

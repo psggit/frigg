@@ -10,18 +10,13 @@ import {
 import TableLoadingShell from '../table-loading-shell'
 import '@sass/components/_table.scss'
 import { overrideTableStyle } from '../../../utils'
-import Switch from "@components/switch"
-import ModalBody from '@components/ModalBox/ModalBody'
-import ModalHeader from '@components/ModalBox/ModalHeader'
-import ModalFooter from '@components/ModalBox/ModalFooter'
-import ModalBox from '@components/ModalBox'
 import * as Api from "../../middleware/api"
 import Notify from "@components/Notification"
 
 const TableHeaderItems = [
   '',
   'DELIVERY AGENT ID',
-  'NAME',
+  'DELIVERY AGENT NAME',
   'WAREHOUSE ID',
   'WAREHOUSE NAME',
 ]
@@ -58,7 +53,7 @@ class ListDeliveryAgentWarehouseMapping extends React.Component {
 
   deleteDeliveryAgentMappedToWarehouseData (e, item) {
     console.log("DELETE",item.da_id,item.warehouse_id)
-    this.props.history.push("/home/deliveryagent-warehouse-mapping")
+    this.props.history.push("/home/delivery-agent-warehouse-mapping")
     Api.deleteDeliveryAgentMappedToWarehouse({
       da_id: item.da_id,
       warehouse_id: item.warehouse_id
