@@ -110,8 +110,7 @@ class FilterModal extends React.Component {
   handleApplyFilter() {
     if (this.props.filterWarehouse) {
       this.props.applyFilter(this.state.selectedWarehouseIdx)
-    } 
-    else if (this.props.filter === "filterDeliveryAgentWarehouseMapped") {
+    } else if (this.props.filter === "filterDeliveryAgentWarehouseMapped") {
       this.props.applyFilter(this.state.warehouseId)
     }
     else if (this.props.filter === "brandName") {
@@ -435,8 +434,8 @@ class FilterModal extends React.Component {
               </div>
             </div>
           }
-          {
-            this.props.filter === "warehouseFilter" || this.props.filter === "deliveryagentFilter"  &&
+          {/* {
+            this.props.filterCity  &&
             <div>
               <div className="form-group">
                 <label>City</label><br />
@@ -463,7 +462,7 @@ class FilterModal extends React.Component {
                 </SelectField>
               </div>
             </div>
-          }
+          } */}
           {/* {
             this.props.filter === "deliveryagentFilter" &&
             <div>

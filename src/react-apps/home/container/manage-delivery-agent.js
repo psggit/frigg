@@ -268,7 +268,7 @@ class ManageDeliveryagent extends React.Component {
                 //warehouseData={this.state.warehouseData}
                 citiesData={this.state.citiesData}
                 loadingCities={this.state.loadingCities}
-                filter="deliveryagentFilter"
+                filter="cityFilter"
                 filterCity={true}
               />
             )

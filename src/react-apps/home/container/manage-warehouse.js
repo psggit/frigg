@@ -241,7 +241,7 @@ class ManageWareHouse extends React.Component {
                 unmountFilterModal={this.unmountFilterModal}
                 citiesData={this.state.citiesData}
                 loadingCities={this.state.loadingCities}
-                filter="warehouseFilter"
+                filter="cityFilter"
                 filterCity={true}
               />
             )
