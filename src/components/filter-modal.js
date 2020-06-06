@@ -16,6 +16,7 @@ class FilterModal extends React.Component {
       isCityAvailable: false,
       statusIdx: props.activityStatus ? props.activityStatus : 1,
       brandName: "",
+      warehouseId: "",
       adId: props.adId || "",
       stateIdx: props.stateId ? this.props.statesData.findIndex(item => item.id === parseInt(props.stateId)) + 1 : null,
       selectedWarehouseIdx: props.selectedWarehouseIdx ? this.props.warehouseData.findIndex(item => item.id === parseInt(props.selectedWarehouseIdx)) + 1 : null,
@@ -109,7 +110,11 @@ class FilterModal extends React.Component {
   handleApplyFilter() {
     if (this.props.filterWarehouse) {
       this.props.applyFilter(this.state.selectedWarehouseIdx)
-    } else if (this.props.filter === "brandName") {
+    } 
+    else if (this.props.filter === "filterDeliveryAgentWarehouseMapped") {
+      this.props.applyFilter(this.state.warehouseId)
+    }
+    else if (this.props.filter === "brandName") {
       this.props.applyFilter(this.state.brandName)
     } else if (this.props.filter === "cartCouponFilter" || this.props.filter === "productCouponFilter") {
       const isActive = this.state.statusIdx === 1 ? true : false
@@ -210,6 +215,20 @@ class FilterModal extends React.Component {
                   onChange={this.handleTextFields}
                   name="brandName"
                   value={this.state.brandName}
+                />
+              </div>
+            </div>
+          }
+          {
+            this.props.filter === "filterDeliveryAgentWarehouseMapped" &&
+            <div>
+              <div className="form-group">
+                <label>Warehouse ID</label><br />
+                <TextField
+                  style={{ width: '100%' }}
+                  onChange={this.handleTextFields}
+                  name="warehouseId"
+                  value={this.state.warehouseId}
                 />
               </div>
             </div>
@@ -417,7 +436,7 @@ class FilterModal extends React.Component {
             </div>
           }
           {
-            this.props.filter === "warehouseFilter" &&
+            this.props.filter === "warehouseFilter" || this.props.filter === "deliveryagentFilter"  &&
             <div>
               <div className="form-group">
                 <label>City</label><br />
@@ -445,7 +464,7 @@ class FilterModal extends React.Component {
               </div>
             </div>
           }
-          {
+          {/* {
             this.props.filter === "deliveryagentFilter" &&
             <div>
               <div className="form-group">
@@ -473,7 +492,7 @@ class FilterModal extends React.Component {
                 </SelectField>
               </div>
             </div>
-          }
+          } */}
           {
             this.props.filter === "predictionFilter" &&
             <div>

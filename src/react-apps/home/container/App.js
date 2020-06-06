@@ -136,6 +136,8 @@ import EditCityFee from '../components/manage-city-fee/edit-city-fee'
 import ManageCityPayment from "../container/manage-city-payment"
 import CreateCityPayment from "../components/manage-city-payment/create-city-payment"
 import UpdateCityPayment from "../components/manage-city-payment/edit-city-payment"
+import DeliveryagentWarehouseMapping from "../container/manage-deliveryagent-warehouse-mapping"
+import MapDeliveryAgentToWarehouse from "./../components/manage-deliveryagent-warehouse-mapping/map-deliveryagent-to-warehouse"
 
 // import asyncComponent from './../../asyncComponent'
 /**
@@ -408,6 +410,9 @@ class App extends React.Component {
       
                   <Route exact path="/home/retailer-warehouse-mapping" component={ManageRetailerWarehouseMapping} />
                   <Route exact path="/home/map-retailer-to-warehouse" component={MapRetailerToWarehouse} />
+
+                  <Route exact path="/home/deliveryagent-warehouse-mapping" component={DeliveryagentWarehouseMapping} />
+                  <Route exact path="/home/map-deliveryagent-to-warehouse" component={MapDeliveryAgentToWarehouse} />
                 </Switch>
               </DisplayScreen>
             </div>
