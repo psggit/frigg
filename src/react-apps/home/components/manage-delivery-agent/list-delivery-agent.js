@@ -22,7 +22,7 @@ const TableHeaderItems = [
   'DELIVERY AGENT ID',
   'NAME',
   'EMPLOYEE ID',
-  // 'WAREHOUSE ID',
+  'CITY ID',
   'GCM TOKEN',
   'CONTACT NUMBER',
   'ACTIVE'
@@ -162,10 +162,10 @@ class ListDeliveryAgent extends React.Component {
                         <TableRowColumn style={styles[1]}>{item.id}</TableRowColumn>
                         <TableRowColumn style={styles[2]}>{item.name}</TableRowColumn>
                         <TableRowColumn style={styles[3]}>{item.employee_id}</TableRowColumn>
-                        {/* <TableRowColumn style={styles[4]}>{item.warehouse_id}</TableRowColumn> */}
+                        <TableRowColumn style={styles[4]}>{item.city_id}</TableRowColumn>
                         <TableRowColumn style={styles[5]}>{item.gcm_token}</TableRowColumn>
                         <TableRowColumn style={styles[6]}>{item.contact_number}</TableRowColumn>
-                        <TableRowColumn style={styles[5]}>
+                        <TableRowColumn style={styles[7]}>
                           <Switch onToggle={this.onToggleChange} toggled={item.is_active} value={item} />
                         </TableRowColumn>
 

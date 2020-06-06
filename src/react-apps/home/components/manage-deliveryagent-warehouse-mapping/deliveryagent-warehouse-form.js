@@ -55,7 +55,6 @@ class MapDeliveryAgentToWarehouseForm extends React.Component {
       .then((response) => {
         Notify('Successfully mapped', 'success')
         this.setState({ mappingRetailerToWarehouse: false, disableSave: true, disableDelete: false })
-        this.props.history.push(`/home/retailer-warehouse-mapping?id=${this.state.deliveryAgentId}&optionIdx=1`)
       })
       .catch((error) => {
         error.response.json().then((json) => {

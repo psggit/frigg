@@ -11,13 +11,17 @@ class MapDeliveryAgentToWarehouse extends React.Component {
       totalCardCount: [1]
     }
     this.handleAdd = this.handleAdd.bind(this)
+    this.handleClick = this.handleClick.bind(this)
   }
 
   handleAdd () {
-    //console.log("Array Length", this.state.totalDeliveryAgentWarehouseCount)
     this.setState({
       totalCardCount: [...this.state.totalCardCount,this.state.totalCardCount.length+1],
     })
+  }
+
+  handleClick() {
+    this.props.history.push(`/home/deliveryagent-warehouse-mapping`)
   }
 
   render () {
@@ -26,6 +30,12 @@ class MapDeliveryAgentToWarehouse extends React.Component {
           <RaisedButton
             label="Add"
             onClick={this.handleAdd}
+            style={{marginRight: "20px"}}
+            primary
+          />
+          <RaisedButton
+            label="Deliver Agent Mapped to Warehouse"
+            onClick={this.handleClick}
             primary
           />
           <div style={{marginTop:"30px",display:"flex",flexWrap:"wrap"}}>

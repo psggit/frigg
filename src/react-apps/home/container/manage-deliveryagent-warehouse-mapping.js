@@ -14,10 +14,9 @@ class DeliveryagentWarehouseMapping extends React.Component {
     this.pageLimit = 5
     this.state = {
       activePage: 1,
-      loadingDeliveryagentWarehouseMapped: false,
-      deliveryAgentWarehouseMapped: [],
-      loadingWarehouse: true,
-      deliveryAgentWarehouseMappedCount: 0,
+      loadingMappedDeliveryagentWarehouseList: false,
+      mappedDeliveryAgentWarehouseList: [],
+      mappedDeliveryAgentWarehouseCount: 0,
       shouldMountFilterDialog: false
     }
 
@@ -31,14 +30,14 @@ class DeliveryagentWarehouseMapping extends React.Component {
     this.mountFilterDialog = this.mountFilterDialog.bind(this)
     this.unmountFilterModal = this.unmountFilterModal.bind(this)
     this.applyFilter = this.applyFilter.bind(this)
-    this.fetchDeliveryAgentWarehouseMapping = this.fetchDeliveryAgentWarehouseMapping.bind(this)
+    this.fetchMappedDeliveryAgentWarehouseList = this.fetchMappedDeliveryAgentWarehouseList.bind(this)
   }
 
   componentDidMount () {
     if (location.search.length) {
       this.setQueryParamas()
     } else {
-      this.fetchDeliveryAgentWarehouseMapping({
+      this.fetchMappedDeliveryAgentWarehouseList({
         pagination: {
           limit: this.pageLimit,
           offset: 0
@@ -54,7 +53,7 @@ class DeliveryagentWarehouseMapping extends React.Component {
       this.setState({ [item[0]]: item[1] })
     })
     if (queryObj.warehouseId) {
-      this.fetchDeliveryAgentWarehouseMapping({
+      this.fetchMappedDeliveryAgentWarehouseList({
         pagination: {
           offset: queryObj.activePage ? this.pageLimit * (parseInt(queryObj.activePage) - 1) : 0,
           limit: this.pageLimit
@@ -66,7 +65,7 @@ class DeliveryagentWarehouseMapping extends React.Component {
       })
     } else {
       console.log("active page", queryObj)
-      this.fetchDeliveryAgentWarehouseMapping({
+      this.fetchMappedDeliveryAgentWarehouseList({
         pagination: {
           offset: queryObj.activePage ? this.pageLimit * (parseInt(queryObj.activePage) - 1) : 0,
           limit: this.pageLimit,
@@ -76,12 +75,12 @@ class DeliveryagentWarehouseMapping extends React.Component {
   }
 
   setPage (pageObj) {
-    this.setState({ loadingDeliveryagentWarehouseMapped: true })
+    this.setState({ loadingMappedDeliveryagentWarehouseList: true })
     const queryUri = location.search.slice(1)
     const queryObj = getQueryObj(queryUri)
 
     if (queryObj.warehouseId) {
-      this.fetchDeliveryAgentWarehouseMapping({
+      this.fetchMappedDeliveryAgentWarehouseList({
         pagination: {
           offset: pageObj.activePage ? this.pageLimit * (parseInt(pageObj.activePage) - 1) : 0,
           limit: this.pageLimit
@@ -92,7 +91,7 @@ class DeliveryagentWarehouseMapping extends React.Component {
         }
       })
     } else {
-      this.fetchDeliveryAgentWarehouseMapping({
+      this.fetchMappedDeliveryAgentWarehouseList({
         pagination: {
           offset: pageObj.activePage ? this.pageLimit * (parseInt(pageObj.activePage) - 1) : 0,
           limit: this.pageLimit,
@@ -103,7 +102,7 @@ class DeliveryagentWarehouseMapping extends React.Component {
     this.setState({ activePage: pageObj.activePage })
 
     queryObj.activePage = pageObj.activePage
-
+    history.pushState(queryObj, "delivery agent warehouse listing", `/home/deliveryagent-warehouse-mapping?${getQueryUri(queryObj)}`)
   }
 
   mountFilterDialog () {
@@ -114,19 +113,18 @@ class DeliveryagentWarehouseMapping extends React.Component {
     this.setState({ shouldMountFilterDialog: false })
   }
 
-  fetchDeliveryAgentWarehouseMapping (payload) {
-    this.setState({ loadingDeliveryagentWarehouseMapped: true })
-    Api.fetchDeliveryAgentWarehouseMapping(payload)
+  fetchMappedDeliveryAgentWarehouseList (payload) {
+    this.setState({ loadingMappedDeliveryagentWarehouseList: true })
+    Api.fetchMappedDeliveryAgentWarehouseList(payload)
       .then((response) => {
-        console.log("response", response, response.data, response.count)
         this.setState({
-          deliveryAgentWarehouseMapped: response.data,
-          loadingDeliveryagentWarehouseMapped: false,
-          deliveryAgentWarehouseMappedCount: response.count
+          mappedDeliveryAgentWarehouseList: response.data,
+          loadingMappedDeliveryagentWarehouseList: false,
+          mappedDeliveryAgentWarehouseCount: response.count
         })
       })
       .catch((err) => {
-        console.log("Error in fetching delivery agent list", err)
+        console.log("Error in fetching mapped delivery agent warehouse list", err)
       })
   }
 
@@ -139,12 +137,12 @@ class DeliveryagentWarehouseMapping extends React.Component {
 
     this.setState({
       activePage: 1,
-      deliveryAgentWarehouseMapped: []
+      mappedDeliveryAgentWarehouseList: []
     })
 
     history.pushState(queryObj, "Delivery Agents Mapped to Warehouse Listing", "/home/deliveryagent-warehouse-mapping")
 
-    this.fetchDeliveryAgentWarehouseMapping({
+    this.fetchMappedDeliveryAgentWarehouseList({
       pagination: {
         offset: 0,
         limit: this.pageLimit,
@@ -157,7 +155,7 @@ class DeliveryagentWarehouseMapping extends React.Component {
   }
 
   render () {
-    const { loadingDeliveryagentWarehouseMapped, deliveryAgentWarehouseMapped, deliveryAgentWarehouseMappedCount } = this.state
+    const { loadingMappedDeliveryagentWarehouseList, mappedDeliveryAgentWarehouseList, mappedDeliveryAgentWarehouseCount } = this.state
     return (
       <React.Fragment>
         <div
@@ -183,16 +181,16 @@ class DeliveryagentWarehouseMapping extends React.Component {
         </div>
         <h3>Delivery Agents Mapped To Warehouse</h3>
         <ListDeliveryAgentWarehouseMapping
-          deliveryAgentWarehouseMapped={this.state.deliveryAgentWarehouseMapped}
-          loadingDeliveryagentWarehouseMapped={this.state.loadingDeliveryagentWarehouseMapped}
+          deliveryAgentWarehouseMapped={this.state.mappedDeliveryAgentWarehouseList}
+          loadingDeliveryagentWarehouseMapped={this.state.loadingMappedDeliveryagentWarehouseList}
           history={this.props.history}
         />
         {
-          !loadingDeliveryagentWarehouseMapped && deliveryAgentWarehouseMapped && deliveryAgentWarehouseMapped.length
+          !loadingMappedDeliveryagentWarehouseList && mappedDeliveryAgentWarehouseList && mappedDeliveryAgentWarehouseList.length
             ? <Pagination
               activePage={parseInt(this.state.activePage)}
               itemsCountPerPage={this.pageLimit}
-              totalItemsCount={deliveryAgentWarehouseMappedCount}
+              totalItemsCount={mappedDeliveryAgentWarehouseCount}
               setPage={this.setPage}
             />
             : ''
