@@ -434,64 +434,6 @@ class FilterModal extends React.Component {
               </div>
             </div>
           }
-          {/* {
-            this.props.filterCity  &&
-            <div>
-              <div className="form-group">
-                <label>City</label><br />
-                <SelectField
-                  style={{ width: '100%' }}
-                  floatingLabelText={this.props.floatingLabelText}
-                  value={parseInt(this.state.cityIdx)}
-                  onChange={this.handleWareHouseCityChange}
-                  iconStyle={{ fill: '#9b9b9b' }}
-                >
-                  {
-                    !this.props.loadingCities
-                      ? (
-                        this.props.citiesData.map((city, i) => (
-                          <MenuItem
-                            value={i + 1}
-                            key={city.value}
-                            primaryText={city.text}
-                          />
-                        ))
-                      )
-                      : ''
-                  }
-                </SelectField>
-              </div>
-            </div>
-          } */}
-          {/* {
-            this.props.filter === "deliveryagentFilter" &&
-            <div>
-              <div className="form-group">
-                <label>Warehouse</label><br />
-                <SelectField
-                  style={{ width: '100%' }}
-                  floatingLabelText={this.props.floatingLabelText}
-                  value={parseInt(this.state.selectedWarehouseIdx)}
-                  onChange={this.handleWarehouseChange}
-                  iconStyle={{ fill: '#9b9b9b' }}
-                >
-                  {
-                    !this.props.loadingWarehouse
-                      ? (
-                        this.props.warehouseData.map((item, i) => (
-                          <MenuItem
-                            value={i + 1}
-                            key={item.value}
-                            primaryText={item.text}
-                          />
-                        ))
-                      )
-                      : ''
-                  }
-                </SelectField>
-              </div>
-            </div>
-          } */}
           {
             this.props.filter === "predictionFilter" &&
             <div>
