@@ -92,7 +92,7 @@ class ListDeliveryAgentWarehouseMapping extends React.Component {
               !loadingDeliveryagentWarehouseMapped && deliveryAgentWarehouseMapped.length === 0 &&
               <tr>
                 <td style={{ textAlign: 'center' }} colSpan='10'>
-                  <p style={{ fontWeight: '16px' }}>No DeliveryAgent Warehouse Mapped details found</p>
+                  <p style={{ fontWeight: '16px' }}>No Delivery Agent Warehouse Mapped details found</p>
                 </td>
               </tr>
             }
