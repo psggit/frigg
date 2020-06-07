@@ -181,8 +181,8 @@ class DeliveryagentWarehouseMapping extends React.Component {
         </div>
         <h3>Delivery Agents Mapped To Warehouse</h3>
         <ListDeliveryAgentWarehouseMapping
-          deliveryAgentWarehouseMapped={[]}
-          loadingDeliveryagentWarehouseMapped={false}
+          deliveryAgentWarehouseMapped={this.state.mappedDeliveryAgentWarehouseList}
+          loadingDeliveryagentWarehouseMapped={this.state.loadingMappedDeliveryagentWarehouseList}
           history={this.props.history}
         />
         {

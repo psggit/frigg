@@ -26,7 +26,6 @@ const styles = [
   { width: '120px' },
   { width: '120px' },
   { width: '120px' },
-  { width: '120px' },
   { width: '120px' }
 ]
 
@@ -91,7 +90,7 @@ class ListDeliveryAgentWarehouseMapping extends React.Component {
             {
               !loadingDeliveryagentWarehouseMapped && deliveryAgentWarehouseMapped.length === 0 &&
               <tr>
-                <td style={{ textAlign: 'center' }} colSpan='10'>
+                <td style={{ textAlign: 'center' }} colSpan='12'>
                   <p style={{ fontWeight: '16px' }}>No Delivery Agent Warehouse Mapped details found</p>
                 </td>
               </tr>
@@ -111,8 +110,8 @@ class ListDeliveryAgentWarehouseMapping extends React.Component {
                         </TableRowColumn>
                         <TableRowColumn style={styles[1]}>{item.da_id}</TableRowColumn>
                         <TableRowColumn style={styles[2]}>{item.da_name}</TableRowColumn>
-                        <TableRowColumn style={styles[2]}>{item.warehouse_id}</TableRowColumn>
-                        <TableRowColumn style={styles[3]}>{item.warehouse_name}</TableRowColumn>
+                        <TableRowColumn style={styles[3]}>{item.warehouse_id}</TableRowColumn>
+                        <TableRowColumn style={styles[4]}>{item.warehouse_name}</TableRowColumn>
                       </TableRow>
                     )
                   })
