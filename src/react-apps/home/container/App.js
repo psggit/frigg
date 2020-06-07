@@ -411,7 +411,7 @@ class App extends React.Component {
                   <Route exact path="/home/retailer-warehouse-mapping" component={ManageRetailerWarehouseMapping} />
                   <Route exact path="/home/map-retailer-to-warehouse" component={MapRetailerToWarehouse} />
 
-                  <Route exact path="/home/deliveryagent-warehouse-mapping" component={DeliveryagentWarehouseMapping} />
+                  <Route exact path="/home/delivery-agent-warehouse-mapping" component={DeliveryagentWarehouseMapping} />
                   <Route exact path="/home/map-deliveryagent-to-warehouse" component={MapDeliveryAgentToWarehouse} />
                 </Switch>
               </DisplayScreen>

@@ -21,7 +21,7 @@ class MapDeliveryAgentToWarehouse extends React.Component {
   }
 
   handleClick() {
-    this.props.history.push(`/home/deliveryagent-warehouse-mapping`)
+    this.props.history.push(`/home/delivery-agent-warehouse-mapping`)
   }
 
   render () {
@@ -34,7 +34,7 @@ class MapDeliveryAgentToWarehouse extends React.Component {
             primary
           />
           <RaisedButton
-            label="Deliver Agent Mapped to Warehouse"
+            label="Back to Listing"
             onClick={this.handleClick}
             primary
           />

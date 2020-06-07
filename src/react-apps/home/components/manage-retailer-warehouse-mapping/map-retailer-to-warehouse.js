@@ -167,7 +167,7 @@ class MapRetailerToWarehouse extends React.Component {
           </SelectField>
         </div> */}
         <div className="form-group">
-          <label className="label">Retailer</label><br />
+          <label className="label">Retailer ID</label><br />
           <TextField
             disabled={false}
             name="retailerId"
@@ -187,7 +187,7 @@ class MapRetailerToWarehouse extends React.Component {
           </SelectField> */}
         </div>
         <div className="form-group">
-          <label className="label">Warehouse</label><br />
+          <label className="label">Warehouse ID</label><br />
           <TextField
             disabled={false}
             name="warehouseId"
