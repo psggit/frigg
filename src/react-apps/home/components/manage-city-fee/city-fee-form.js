@@ -16,8 +16,8 @@ class CityFeeForm extends React.Component {
       selectedChargeTypeIdx: props.data ? props.data.charge_type : "",
       chargeTypeList: [],
       title: props.data ? props.data.title : "",
-      flat: props.data ? props.data.txn_fee_flat : "",
-      percentage: props.data ? props.data.txn_fee_percentage : "",
+      flat: props.data ? props.data.txn_fee_flat : 0,
+      percentage: props.data ? props.data.txn_fee_percentage : 0,
       min: props.data ? props.data.min_value : 0,
       max: props.data ? props.data.max_value : 0,
     }
@@ -89,7 +89,7 @@ class CityFeeForm extends React.Component {
   }
 
   handleFlatChange (e) {
-    if(this.state.percentage.length === 0) {
+    if(this.state.percentage === 0) {
       this.setState({
         [e.target.name]: e.target.value
       })
@@ -97,7 +97,7 @@ class CityFeeForm extends React.Component {
   }
 
   handlePercentageChange (e) {
-    if (this.state.flat.length === 0) {
+    if (this.state.flat === 0) {
       this.setState({
         [e.target.name]: e.target.value
       })
