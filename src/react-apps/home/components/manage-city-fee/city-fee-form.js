@@ -89,7 +89,7 @@ class CityFeeForm extends React.Component {
   }
 
   handleFlatChange (e) {
-    if(this.state.percentage <= 0) {
+    if(this.state.percentage === 0) {
       this.setState({
         [e.target.name]: e.target.value
       })
@@ -97,7 +97,7 @@ class CityFeeForm extends React.Component {
   }
 
   handlePercentageChange (e) {
-    if (this.state.flat <= 0) {
+    if (this.state.flat === 0) {
       this.setState({
         [e.target.name]: e.target.value
       })
