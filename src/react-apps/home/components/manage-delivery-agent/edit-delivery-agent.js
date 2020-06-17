@@ -28,7 +28,9 @@ class EditDeliveryAgent extends React.Component {
       vehicle_order_capacity: parseInt(deliveryAgentForm.vehicleOrderCapacity),
       consider_vehicle_order_capacity: deliveryAgentForm.considerVehicleOrderCapacity,
       vehicle_sku_capacity: parseInt(deliveryAgentForm.vehicleSkuCapacity),
-      consider_vehicle_sku_capacity: deliveryAgentForm.considerVehicleSkuCapacity
+      consider_vehicle_sku_capacity: deliveryAgentForm.considerVehicleSkuCapacity,
+      order_distance: parseFloat(deliveryAgentForm.orderDistance),
+      consider_distance_check: deliveryAgentForm.considerDistanceCheck
     })
       .then((response) => {
         Notify('Successfully updated Delivery Agent', 'success')

@@ -19,6 +19,7 @@ class DeliveryAgentForm extends React.Component {
       gcmToken: props.data ? props.data.gcm_token : "",
       contactNumber: props.data ? props.data.contact_number : "",
       dob: props.data ? props.data.dob: "",
+      orderDistance: props.data ? props.data.order_distance: "",
       vehicleNumber: props.data ? props.data.vehicle_number : "",
       vehicleVolumeCapacity: props.data ? props.data.vehicle_volume_capacity : "",
       considerVehicleVolumeCapacity: props.data ? props.data.consider_vehicle_volume_capacity : false,
@@ -27,9 +28,11 @@ class DeliveryAgentForm extends React.Component {
       considerVehicleOrderCapacity: props.data ? props.data.consider_vehicle_order_capacity : false,
       vehicleSkuCapacity: props.data ? props.data.vehicle_sku_capacity : "",
       considerVehicleSkuCapacity: props.data ? props.data.consider_vehicle_sku_capacity : false,
+      considerDistanceCheck: props.data ? props.data.consider_distance_check : false
     }
 
     this.handleTextFields = this.handleTextFields.bind(this)
+    this.handleDecimalFields = this.handleDecimalFields.bind(this)
     this.handleDate = this.handleDate.bind(this)
     this.getData = this.getData.bind(this)
     this.handleSave = this.handleSave.bind(this)
@@ -97,6 +100,14 @@ class DeliveryAgentForm extends React.Component {
 
   handleTextFields (e) {
     this.setState({ [e.target.name]: e.target.value })
+  }
+
+  handleDecimalFields (e) {
+    const regex = /^[0-9.\b]*$/;
+
+    if (regex.test(e.target.value)) {
+      this.setState({ [e.target.name]: e.target.value })
+    }
   }
 
   handleCityChange(e, k) {
@@ -204,6 +215,17 @@ class DeliveryAgentForm extends React.Component {
             </div>
 
             <div className="form-group">
+              <label className="label">Order Distance</label><br />
+              <TextField
+                onChange={this.handleDecimalFields}
+                name="orderDistance"
+                //disabled={location.pathname.includes("edit")}
+                value={this.state.orderDistance}
+                style={{ width: '100%' }}
+              />
+            </div>
+
+            <div className="form-group">
               <label className="label">DOB</label><br />
               <input
                 type="date"
@@ -300,6 +322,16 @@ class DeliveryAgentForm extends React.Component {
                 label="Vehicle SKU Capacity"
                 name="considerVehicleSkuCapacity"
                 checked={this.state.considerVehicleSkuCapacity}
+                onCheck={this.handleCheckboxChange}
+              />
+            </div>
+
+            <div className="form-group">
+              <Checkbox
+                style={{ marginTop: "10px" }}
+                label="Consider Distance Check"
+                name="considerDistanceCheck"
+                checked={this.state.considerDistanceCheck}
                 onCheck={this.handleCheckboxChange}
               />
             </div>
