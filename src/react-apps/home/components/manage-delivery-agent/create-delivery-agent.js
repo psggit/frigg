@@ -14,6 +14,7 @@ class CreateDeliveryAgent extends React.Component {
 
   handleSave () {
     const deliveryAgentForm = this.deliveryAgentForm.getData()
+    console.log("data", deliveryAgentForm)
     this.setState({ creatingDeliveryagent: true })
     Api.createDeliveryagent({
       name: deliveryAgentForm.name,
@@ -30,8 +31,10 @@ class CreateDeliveryAgent extends React.Component {
       consider_vehicle_order_capacity: deliveryAgentForm.considerVehicleOrderCapacity,
       vehicle_sku_capacity: parseInt(deliveryAgentForm.vehicleSkuCapacity),
       consider_vehicle_sku_capacity: deliveryAgentForm.considerVehicleSkuCapacity,
-      order_distance: parseFloat(deliveryAgentForm.orderDistance),
-      consider_distance_check: deliveryAgentForm.considerDistanceCheck
+      radial_distance: parseFloat(deliveryAgentForm.radialDistance),
+      consider_radial_batching: deliveryAgentForm.selectedBatching.includes("RadialBatching") ? true : false,
+      subsequent_distance: parseFloat(deliveryAgentForm.subsequentDistance),
+      consider_subsequent_batching: deliveryAgentForm.selectedBatching.includes("SubsequentBatching") ? true : false
     })
       .then((response) => {
         Notify('Successfully created Delivery Agent', 'success')

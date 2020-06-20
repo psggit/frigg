@@ -6,7 +6,7 @@ import Checkbox from 'material-ui/Checkbox'
 import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
 import * as Api from "./../../middleware/api"
-
+import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
 
 class DeliveryAgentForm extends React.Component {
   constructor (props) {
@@ -19,7 +19,8 @@ class DeliveryAgentForm extends React.Component {
       gcmToken: props.data ? props.data.gcm_token : "",
       contactNumber: props.data ? props.data.contact_number : "",
       dob: props.data ? props.data.dob: "",
-      orderDistance: props.data ? props.data.order_distance: "",
+      radialDistance: props.data ? props.data.radial_distance: "",
+      subsequentDistance: props.data ? props.data.subsequent_distance: "",
       vehicleNumber: props.data ? props.data.vehicle_number : "",
       vehicleVolumeCapacity: props.data ? props.data.vehicle_volume_capacity : "",
       considerVehicleVolumeCapacity: props.data ? props.data.consider_vehicle_volume_capacity : false,
@@ -28,7 +29,7 @@ class DeliveryAgentForm extends React.Component {
       considerVehicleOrderCapacity: props.data ? props.data.consider_vehicle_order_capacity : false,
       vehicleSkuCapacity: props.data ? props.data.vehicle_sku_capacity : "",
       considerVehicleSkuCapacity: props.data ? props.data.consider_vehicle_sku_capacity : false,
-      considerDistanceCheck: props.data ? props.data.consider_distance_check : false
+      selectedBatching: props.data ? props.data.consider_radial_batching ? "considerRadialBatching" : "considerSubsequentBatching" : ""
     }
 
     this.handleTextFields = this.handleTextFields.bind(this)
@@ -38,6 +39,7 @@ class DeliveryAgentForm extends React.Component {
     this.handleSave = this.handleSave.bind(this)
     this.handleCheckboxChange = this.handleCheckboxChange.bind(this)
     this.handleCityChange = this.handleCityChange.bind(this)
+    this.handleRadioChange = this.handleRadioChange.bind(this)
   }
 
   // componentWillReceiveProps(newProps) {
@@ -108,6 +110,12 @@ class DeliveryAgentForm extends React.Component {
     if (regex.test(e.target.value)) {
       this.setState({ [e.target.name]: e.target.value })
     }
+  }
+  
+  handleRadioChange(e, value) {
+    this.setState({
+      selectedBatching: value
+    })
   }
 
   handleCityChange(e, k) {
@@ -215,13 +223,23 @@ class DeliveryAgentForm extends React.Component {
             </div>
 
             <div className="form-group">
-              <label className="label">Order Distance</label><br />
+              <label className="label">Radial Distance</label><br />
               <TextField
                 onChange={this.handleDecimalFields}
-                name="orderDistance"
+                name="radialDistance"
                 //disabled={location.pathname.includes("edit")}
-                value={this.state.orderDistance}
+                value={this.state.radialDistance}
                 style={{ width: '100%' }}
+              />
+            </div>
+
+            <div className="form-group">
+              <label className="label">Subsequent Distance</label><br />
+              <TextField
+                onChange={this.handleDecimalFields}
+                name="subsequentDistance"
+                //disabled={location.pathname.includes("edit")}
+                value={this.state.subsequentDistance}
               />
             </div>
 
@@ -325,7 +343,20 @@ class DeliveryAgentForm extends React.Component {
                 onCheck={this.handleCheckboxChange}
               />
             </div>
-
+            <div className="form-group">
+              <RadioButtonGroup name="selectedBatching" onChange={this.handleRadioChange} defaultSelected={this.state.selectedBatching}>
+                <RadioButton
+                  label="considerRadialBatching"
+                  value="considerRadialBatching"
+                  //defaultSelected={this.state.selectedBatching}
+                />
+                <RadioButton
+                  label="considerSubsequentBatching"
+                  value="considerSubsequentBatching"
+                  //defaultSelected={this.state.selectedBatching}
+                />
+              </RadioButtonGroup>
+            </div>
             <div className="form-group">
               <Checkbox
                 style={{ marginTop: "10px" }}
