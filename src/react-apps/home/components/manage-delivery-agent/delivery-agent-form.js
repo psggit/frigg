@@ -29,7 +29,7 @@ class DeliveryAgentForm extends React.Component {
       considerVehicleOrderCapacity: props.data ? props.data.consider_vehicle_order_capacity : false,
       vehicleSkuCapacity: props.data ? props.data.vehicle_sku_capacity : "",
       considerVehicleSkuCapacity: props.data ? props.data.consider_vehicle_sku_capacity : false,
-      selectedBatching: props.data ? props.data.consider_radial_batching ? "considerRadialBatching" : "considerSubsequentBatching" : ""
+      selectedBatching: props.data ? props.data.consider_radial_batching ? "considerRadialBatching" : props.data.consider_radial_batching ? "considerSubsequentBatching" : "" : ""
     }
 
     this.handleTextFields = this.handleTextFields.bind(this)
@@ -111,7 +111,7 @@ class DeliveryAgentForm extends React.Component {
       this.setState({ [e.target.name]: e.target.value })
     }
   }
-  
+
   handleRadioChange(e, value) {
     this.setState({
       selectedBatching: value
@@ -240,6 +240,7 @@ class DeliveryAgentForm extends React.Component {
                 name="subsequentDistance"
                 //disabled={location.pathname.includes("edit")}
                 value={this.state.subsequentDistance}
+                style={{ width: '100%' }}
               />
             </div>
 
@@ -355,6 +356,11 @@ class DeliveryAgentForm extends React.Component {
                   value="considerSubsequentBatching"
                   //defaultSelected={this.state.selectedBatching}
                 />
+                <RadioButton
+                  label="none"
+                  value=""
+                //defaultSelected={this.state.selectedBatching}
+                />
               </RadioButtonGroup>
             </div>
             <div className="form-group">
@@ -366,7 +372,6 @@ class DeliveryAgentForm extends React.Component {
                 onCheck={this.handleCheckboxChange}
               />
             </div>
-
             <div className="form-group">
               <RaisedButton
                 label="Save"
