@@ -53,7 +53,7 @@ class CreateDeliveryAgent extends React.Component {
         <CreateDeliveryAgentForm
           ref={(node) => { this.deliveryAgentForm = node }}
           data={this.props.location.state}
-          disableSave={this.state.creatingWarehouse}
+          disableSave={this.state.creatingDeliveryagent}
           handleSave={this.handleSave}
         />
       </React.Fragment>
