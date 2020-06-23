@@ -349,28 +349,16 @@ class DeliveryAgentForm extends React.Component {
                 <RadioButton
                   label="considerRadialBatching"
                   value="considerRadialBatching"
-                  //defaultSelected={this.state.selectedBatching}
                 />
                 <RadioButton
                   label="considerSubsequentBatching"
                   value="considerSubsequentBatching"
-                  //defaultSelected={this.state.selectedBatching}
                 />
                 <RadioButton
                   label="none"
                   value=""
-                //defaultSelected={this.state.selectedBatching}
                 />
               </RadioButtonGroup>
-            </div>
-            <div className="form-group">
-              <Checkbox
-                style={{ marginTop: "10px" }}
-                label="Consider Distance Check"
-                name="considerDistanceCheck"
-                checked={this.state.considerDistanceCheck}
-                onCheck={this.handleCheckboxChange}
-              />
             </div>
             <div className="form-group">
               <RaisedButton
