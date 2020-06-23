@@ -42,6 +42,9 @@ class CreateDeliveryAgent extends React.Component {
         this.props.history.push("/home/delivery-agent/")
       })
       .catch((err) => {
+        err.response.json().then((json) => {
+          Notify(json.message, "warning")
+        })
         console.log("Error in creating delivery agent", err)
         this.setState({ creatingDeliveryagent: false })
       })
