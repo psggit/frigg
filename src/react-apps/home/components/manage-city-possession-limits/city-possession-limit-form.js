@@ -12,7 +12,8 @@ class CityPossessionLimitForm extends React.Component {
     this.state = {
       selectedCityIdx: props.data ? props.data.city_id : "",
       bottleCount: props.data ? props.data.bottle_count : "",
-      volume: props.data ? props.data.volume : ""
+      volume: props.data ? props.data.volume : "",
+      DAPossessionVolumeLimit: props.data ? props.data.da_possession_volume_limit : "",
     }
 
     this.handleTextFields = this.handleTextFields.bind(this)
@@ -81,6 +82,16 @@ class CityPossessionLimitForm extends React.Component {
               onChange={this.handleTextFields}
               name="bottleCount"
               value={this.state.bottleCount}
+              style={{ width: '100%' }}
+            />
+          </div>
+
+          <div className="form-group">
+            <label className="label">DA Possession Volume Limit</label><br />
+            <TextField
+              onChange={this.handleTextFields}
+              name="DAPossessionVolumeLimit"
+              value={this.state.DAPossessionVolumeLimit}
               style={{ width: '100%' }}
             />
           </div>
