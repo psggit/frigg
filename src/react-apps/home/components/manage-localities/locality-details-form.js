@@ -10,7 +10,9 @@ class LocalityDetailsForm extends React.Component {
     this.intialState = {
       isLocalityActive: props.isLocalityActive,
       localityName: props.localityName || '',
-      shouldTrim: true
+      shouldTrim: true,
+      maxDeliveryOrderPerBatch: props.maxDeliveryOrderPerBatch || '0',
+      considerLocalityOrderlimit: props.considerLocalityOrderlimit,
     }
 
     this.state = Object.assign({}, this.intialState)
@@ -72,6 +74,15 @@ class LocalityDetailsForm extends React.Component {
             value={this.state.localityName}
           />
         </div>
+        <div className="form-group">
+          <label className="label">Max delivery orders per batch</label><br />
+          <TextField
+            disabled={this.props.isDisabled}
+            onChange={this.handleTextFields}
+            name="maxDeliveryOrderPerBatch"
+            value={this.state.maxDeliveryOrderPerBatch}
+          />
+        </div>
 
         <div className="form-group">
           <Checkbox
@@ -80,6 +91,16 @@ class LocalityDetailsForm extends React.Component {
             onCheck={this.handleCheckboxes}
             name="isLocalityActive"
             label="is_available"
+          />
+        </div>
+
+        <div className="form-group">
+          <Checkbox
+            disabled={this.props.isDisabled}
+            checked={this.state.considerLocalityOrderlimit}
+            onCheck={this.handleCheckboxes}
+            name="considerLocalityOrderlimit"
+            label="Consider locality order limit "
           />
         </div>
       </Fragment>

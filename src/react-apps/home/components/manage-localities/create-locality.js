@@ -97,7 +97,9 @@ class CreateLocality extends React.Component {
         city_id: this.state.cityId,
         coordinates: localityData,
         name: data.localityName,
-        is_available: data.isLocalityActive
+        is_available: data.isLocalityActive,
+        max_dorders_per_batch: data.maxDeliveryOrderPerBatch,
+        consider_locality_order_limit: data.considerLocalityOrderlimit
       }, this.callbackUpdate)
     }
   }
