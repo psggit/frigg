@@ -12,7 +12,7 @@ class LocalityDetailsForm extends React.Component {
       localityName: props.localityName || '',
       shouldTrim: true,
       maxDeliveryOrderPerBatch: props.maxDeliveryOrderPerBatch || '0',
-      considerLocalityOrderlimit: props.considerLocalityOrderlimit,
+      considerLocalityOrderlimit: props.considerLocalityOrderlimit || false
     }
 
     this.state = Object.assign({}, this.intialState)
@@ -62,7 +62,7 @@ class LocalityDetailsForm extends React.Component {
     return this.state
   }
 
-  render() {
+  render () {
     return (
       <Fragment>
         <div className="form-group">
