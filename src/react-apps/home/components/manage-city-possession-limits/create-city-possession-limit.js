@@ -34,10 +34,6 @@ class CreateCityPossessionLimit extends React.Component {
     } else if (possessionLimitForm.volume.toString().length === 0) {
       return false
     }
-    // else if (possessionLimitForm.DAPossessionVolumeLimit.toString().length === 0) {
-    //   return false
-    // }
-
     return true
   }
 
@@ -48,7 +44,6 @@ class CreateCityPossessionLimit extends React.Component {
         city_id: possessionLimitForm.selectedCityIdx,
         bottle_count: parseInt(possessionLimitForm.bottleCount),
         volume: parseInt(possessionLimitForm.volume),
-        da_possession_volume_limit: parseInt(possessionLimitForm.DAPossessionVolumeLimit)
       })
     }
   }
