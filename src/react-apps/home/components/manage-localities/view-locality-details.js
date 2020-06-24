@@ -58,7 +58,7 @@ class ViewCity extends React.Component {
       coordinates: localityData || this.localityCoordinates,
       name: data.localityName || this.localityName,
       is_available: data.isLocalityActive,
-      max_dorders_per_batch: data.maxDeliveryOrderPerBatch || this.maxDeliveryOrderPerBatch,
+      max_dorders_per_batch: parseInt(data.maxDeliveryOrderPerBatch) || this.maxDeliveryOrderPerBatch,
       consider_locality_order_limit: data.considerLocalityOrderlimit
     }, this.callbackUpdate)
   }

@@ -98,7 +98,7 @@ class CreateLocality extends React.Component {
         coordinates: localityData,
         name: data.localityName,
         is_available: data.isLocalityActive,
-        max_dorders_per_batch: data.maxDeliveryOrderPerBatch,
+        max_dorders_per_batch: parseInt(data.maxDeliveryOrderPerBatch),
         consider_locality_order_limit: data.considerLocalityOrderlimit
       }, this.callbackUpdate)
     }
