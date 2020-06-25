@@ -16,7 +16,7 @@ const TableHeaderItems = [
   'TYPE NAME',
   'BOTTLE COUNT',
   'VOLUME',
-  'DA Possession Volume Limit'
+  'DA POSSESSION VOLUME LIMIT'
 ]
 
 const styles = [
