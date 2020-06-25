@@ -15,13 +15,15 @@ const TableHeaderItems = [
   'TYPE ID',
   'TYPE NAME',
   'BOTTLE COUNT',
-  'VOLUME'
+  'VOLUME',
+  'DA POSSESSION VOLUME LIMIT'
 ]
 
 const styles = [
   { width: '38px' },
   { width: '38px' },
   { width: '120px' },
+  { width: '38px' },
   { width: '38px' },
   { width: '100px' }
 ]
@@ -88,6 +90,7 @@ class ViewPossessionLimits extends React.Component {
                         <TableRowColumn style={styles[2]}>{item.type_name}</TableRowColumn>
                         <TableRowColumn style={styles[3]}>{item.bottle_count}</TableRowColumn>
                         <TableRowColumn style={styles[4]}>{item.volume}</TableRowColumn>
+                        <TableRowColumn style={styles[5]}>{item.da_possession_volume_limit}</TableRowColumn>
                       </TableRow> 
                     )
                   })
