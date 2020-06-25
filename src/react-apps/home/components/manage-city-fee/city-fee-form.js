@@ -98,7 +98,6 @@ class CityFeeForm extends React.Component {
 
   handlePercentageChange (e) {
     if (parseInt(this.state.flat) === 0) {
-      console.log("")
       this.setState({
         [e.target.name]: e.target.value
       })
