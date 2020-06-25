@@ -26,6 +26,8 @@ class UpdatePossessionLimit extends React.Component {
       return false
     } else if (possessionLimitForm.volume.toString().length === 0) {
       return false
+    } else if (possessionLimitForm.DAPossessionVolumeLimit.toString().length === 0) {
+      return false
     }
 
     return true
@@ -39,7 +41,9 @@ class UpdatePossessionLimit extends React.Component {
         type_id: possessionLimitForm.selectedTypeIdx,
         state_short_name: this.props.match.params.stateShortName,
         bottle_count: parseInt(possessionLimitForm.bottleCount),
-        volume: parseInt(possessionLimitForm.volume)
+        volume: parseInt(possessionLimitForm.volume),
+        da_possession_volume_limit: parseInt(possessionLimitForm.DAPossessionVolumeLimit)
+
       })
     }
   }

@@ -15,14 +15,12 @@ const TableHeaderItems = [
   'CITY ID',
   'CITY NAME',
   'BOTTLE COUNT',
-  'VOLUME'
 ]
 
 const styles = [
   { width: '38px' },
   { width: '38px' },
   { width: '120px' },
-  { width: '38px' },
   { width: '100px' }
 ]
 
@@ -86,7 +84,6 @@ class ViewCityPossessionLimits extends React.Component {
                         <TableRowColumn style={styles[1]}>{item.city_id}</TableRowColumn>
                         <TableRowColumn style={styles[2]}>{item.city_name}</TableRowColumn>
                         <TableRowColumn style={styles[3]}>{item.bottle_count}</TableRowColumn>
-                        <TableRowColumn style={styles[4]}>{item.volume}</TableRowColumn>
                       </TableRow> 
                     )
                   })

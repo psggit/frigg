@@ -57,7 +57,9 @@ class ViewCity extends React.Component {
       city_id: parseInt(queryObj.cityId),
       coordinates: localityData || this.localityCoordinates,
       name: data.localityName || this.localityName,
-      is_available: data.isLocalityActive
+      is_available: data.isLocalityActive,
+      max_dorders_per_batch: parseInt(data.maxDeliveryOrderPerBatch) || this.maxDeliveryOrderPerBatch,
+      consider_locality_order_limit: data.considerLocalityOrderlimit
     }, this.callbackUpdate)
   }
 
@@ -107,6 +109,8 @@ class ViewCity extends React.Component {
         this.localityName = selectedLocality.name
         this.isLocalityActive = selectedLocality.is_available
         this.localityCoordinates = selectedLocality.coordinates
+        this.considerLocalityOrderlimit = selectedLocality.consider_locality_order_limit
+        this.maxDeliveryOrderPerBatch = selectedLocality.max_dorders_per_batch
       }
     }
 
@@ -153,6 +157,8 @@ class ViewCity extends React.Component {
                   isDisabled={!this.state.isEdit}
                   localityName={this.localityName}
                   isLocalityActive={this.isLocalityActive}
+                  maxDeliveryOrderPerBatch={this.maxDeliveryOrderPerBatch}
+                  considerLocalityOrderlimit={this.considerLocalityOrderlimit}
                 />
               </Card>
             </div>

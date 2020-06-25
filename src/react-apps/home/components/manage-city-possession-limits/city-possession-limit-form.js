@@ -12,7 +12,7 @@ class CityPossessionLimitForm extends React.Component {
     this.state = {
       selectedCityIdx: props.data ? props.data.city_id : "",
       bottleCount: props.data ? props.data.bottle_count : "",
-      volume: props.data ? props.data.volume : ""
+      volume: props.data ? props.data.volume : "",
     }
 
     this.handleTextFields = this.handleTextFields.bind(this)
@@ -84,7 +84,7 @@ class CityPossessionLimitForm extends React.Component {
               style={{ width: '100%' }}
             />
           </div>
-
+          
           <div className="form-group">
             <RaisedButton
               label="Save"

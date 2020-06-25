@@ -12,7 +12,8 @@ class PossessionLimitForm extends React.Component {
     this.state = {
       selectedTypeIdx: props.data ? props.data.type_id : 1,
       bottleCount: props.data ? props.data.bottle_count : "",
-      volume: props.data ? props.data.volume : ""
+      volume: props.data ? props.data.volume : "",
+      DAPossessionVolumeLimit: props.data ? props.data.da_possession_volume_limit: ""
     }
 
     this.brandType = [
@@ -100,6 +101,15 @@ class PossessionLimitForm extends React.Component {
                 ))
               }
             </SelectField>
+          </div>
+          <div className="form-group">
+            <label className="label">DA Possession Volume Limit</label><br />
+            <TextField
+              onChange={this.handleTextFields}
+              name="DAPossessionVolumeLimit"
+              value={this.state.DAPossessionVolumeLimit}
+              style={{ width: '100%' }}
+            />
           </div>
           <div className="form-group">
             <RaisedButton
