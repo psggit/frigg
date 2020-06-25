@@ -20,12 +20,10 @@ const TableHeaderItems = [
   'ID',
   'NAME',
   'REMAINING ORDER COUNT'
-  // ''
 ]
 
 const styles = [
   { width: '38px' },
-  { width: '120px' },
   { width: '120px' },
   { width: '120px' },
   { width: '120px' }
@@ -67,7 +65,7 @@ function ViewLocalities(data) {
                 </TableRowColumn>
                 <TableRowColumn style={styles[1]}>{item.id}</TableRowColumn>
                 <TableRowColumn style={styles[2]}>{item.name}</TableRowColumn>
-                <TableRowColumn style={styles[2]}>{item.remaining_order_count}</TableRowColumn>
+                <TableRowColumn style={styles[3]}>{item.remaining_order_count}</TableRowColumn>
               </TableRow>
             ))
           )
