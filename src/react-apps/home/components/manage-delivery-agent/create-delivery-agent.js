@@ -14,6 +14,7 @@ class CreateDeliveryAgent extends React.Component {
 
   handleSave () {
     const deliveryAgentForm = this.deliveryAgentForm.getData()
+    console.log("data", deliveryAgentForm)
     this.setState({ creatingDeliveryagent: true })
     Api.createDeliveryagent({
       name: deliveryAgentForm.name,
@@ -29,7 +30,11 @@ class CreateDeliveryAgent extends React.Component {
       vehicle_order_capacity: parseInt(deliveryAgentForm.vehicleOrderCapacity),
       consider_vehicle_order_capacity: deliveryAgentForm.considerVehicleOrderCapacity,
       vehicle_sku_capacity: parseInt(deliveryAgentForm.vehicleSkuCapacity),
-      consider_vehicle_sku_capacity: deliveryAgentForm.considerVehicleSkuCapacity
+      consider_vehicle_sku_capacity: deliveryAgentForm.considerVehicleSkuCapacity,
+      radial_distance: parseFloat(deliveryAgentForm.radialDistance),
+      consider_radial_batching: deliveryAgentForm.selectedBatching.includes("RadialBatching") ? true : false,
+      subsequent_distance: parseFloat(deliveryAgentForm.subsequentDistance),
+      consider_subsequent_batching: deliveryAgentForm.selectedBatching.includes("SubsequentBatching") ? true : false
     })
       .then((response) => {
         Notify('Successfully created Delivery Agent', 'success')
@@ -37,6 +42,9 @@ class CreateDeliveryAgent extends React.Component {
         this.props.history.push("/home/delivery-agent/")
       })
       .catch((err) => {
+        err.response.json().then((json) => {
+          Notify(json.message, "warning")
+        })
         console.log("Error in creating delivery agent", err)
         this.setState({ creatingDeliveryagent: false })
       })
@@ -48,7 +56,7 @@ class CreateDeliveryAgent extends React.Component {
         <CreateDeliveryAgentForm
           ref={(node) => { this.deliveryAgentForm = node }}
           data={this.props.location.state}
-          disableSave={this.state.creatingWarehouse}
+          disableSave={this.state.creatingDeliveryagent}
           handleSave={this.handleSave}
         />
       </React.Fragment>
