@@ -29,12 +29,6 @@ class EditDeliveryAgent extends React.Component {
       consider_vehicle_order_capacity: deliveryAgentForm.considerVehicleOrderCapacity,
       vehicle_sku_capacity: parseInt(deliveryAgentForm.vehicleSkuCapacity),
       consider_vehicle_sku_capacity: deliveryAgentForm.considerVehicleSkuCapacity,
-      radial_distance: parseFloat(deliveryAgentForm.radialDistance),
-      //consider_radial_batching: deliveryAgentForm.considerRadialBatching,
-      subsequent_distance: parseFloat(deliveryAgentForm.subsequentDistance),
-      //consider_subsequent_batching: deliveryAgentForm.considerSubsequentBatching,
-      consider_radial_batching: deliveryAgentForm.selectedBatching.includes("RadialBatching") ? true : false,
-      //consider_subsequent_batching: deliveryAgentForm.selectedBatching.includes("SubsequentBatching") ? true : false,
     })
       .then((response) => {
         console.log("message")
