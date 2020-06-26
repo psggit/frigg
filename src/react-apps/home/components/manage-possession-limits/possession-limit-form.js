@@ -13,7 +13,7 @@ class PossessionLimitForm extends React.Component {
       selectedTypeIdx: props.data ? props.data.type_id : 1,
       bottleCount: props.data ? props.data.bottle_count : "",
       volume: props.data ? props.data.volume : "",
-      DAPossessionVolumeLimit: props.data ? props.data.da_possession_volume_limit: ""
+      DAPossessionVolumeLimit: props.data ? props.data.da_possession_volume_limit: 0
     }
 
     this.brandType = [
