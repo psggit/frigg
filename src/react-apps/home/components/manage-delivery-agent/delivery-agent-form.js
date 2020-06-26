@@ -29,6 +29,7 @@ class DeliveryAgentForm extends React.Component {
       considerVehicleOrderCapacity: props.data ? props.data.consider_vehicle_order_capacity : false,
       vehicleSkuCapacity: props.data ? props.data.vehicle_sku_capacity : "",
       considerVehicleSkuCapacity: props.data ? props.data.consider_vehicle_sku_capacity : false,
+      //considerRadialBatching: props.data ? props.data.consider_radial_batching : false,
       selectedBatching: props.data ? props.data.consider_radial_batching ? "considerRadialBatching" : props.data.consider_radial_batching ? "considerSubsequentBatching" : "" : ""
     }
 
@@ -222,18 +223,7 @@ class DeliveryAgentForm extends React.Component {
               />
             </div>
 
-            <div className="form-group">
-              <label className="label">Radial Distance</label><br />
-              <TextField
-                onChange={this.handleDecimalFields}
-                name="radialDistance"
-                //disabled={location.pathname.includes("edit")}
-                value={this.state.radialDistance}
-                style={{ width: '100%' }}
-              />
-            </div>
-
-            <div className="form-group">
+            {/* <div className="form-group">
               <label className="label">Subsequent Distance</label><br />
               <TextField
                 onChange={this.handleDecimalFields}
@@ -242,7 +232,7 @@ class DeliveryAgentForm extends React.Component {
                 value={this.state.subsequentDistance}
                 style={{ width: '100%' }}
               />
-            </div>
+            </div> */}
 
             <div className="form-group">
               <label className="label">DOB</label><br />
@@ -305,6 +295,17 @@ class DeliveryAgentForm extends React.Component {
             </div>
 
             <div className="form-group">
+              <label className="label">Radial Distance</label><br />
+              <TextField
+                onChange={this.handleDecimalFields}
+                name="radialDistance"
+                //disabled={location.pathname.includes("edit")}
+                value={this.state.radialDistance}
+                style={{ width: '100%' }}
+              />
+            </div>
+
+            <div className="form-group">
               <Checkbox
                 style={{ marginTop: "10px" }}
                 label="is_active"
@@ -347,15 +348,15 @@ class DeliveryAgentForm extends React.Component {
             <div className="form-group">
               <RadioButtonGroup name="selectedBatching" onChange={this.handleRadioChange} defaultSelected={this.state.selectedBatching}>
                 <RadioButton
-                  label="considerRadialBatching"
+                  label="Consider Radial Batching"
                   value="considerRadialBatching"
                 />
-                <RadioButton
+                {/* <RadioButton
                   label="considerSubsequentBatching"
                   value="considerSubsequentBatching"
-                />
+                /> */}
                 <RadioButton
-                  label="none"
+                  label="None"
                   value=""
                 />
               </RadioButtonGroup>
