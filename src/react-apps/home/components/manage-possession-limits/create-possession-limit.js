@@ -26,9 +26,7 @@ class CreatePossessionLimit extends React.Component {
       return false
     } else if (possessionLimitForm.volume.toString().length === 0) {
       return false
-    } else if (possessionLimitForm.DAPossessionVolumeLimit.toString().length === 0) {
-      return false
-    }
+    } 
 
     return true
   }
