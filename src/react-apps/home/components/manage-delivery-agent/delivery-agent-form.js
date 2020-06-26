@@ -221,9 +221,6 @@ class DeliveryAgentForm extends React.Component {
                 style={{ width: '100%' }}
               />
             </div>
-<<<<<<< HEAD
-
-
             {/* <div className="form-group">
               <label className="label">Subsequent Distance</label><br />
               <TextField
@@ -234,9 +231,6 @@ class DeliveryAgentForm extends React.Component {
                 style={{ width: '100%' }}
               />
             </div> */}
-
-=======
->>>>>>> DeliveryAgentChangee
             <div className="form-group">
               <label className="label">DOB</label><br />
               <input
@@ -349,7 +343,6 @@ class DeliveryAgentForm extends React.Component {
               />
             </div>
             <div className="form-group">
-<<<<<<< HEAD
               <RadioButtonGroup name="selectedBatching" onChange={this.handleRadioChange} defaultSelected={this.state.selectedBatching}>
                 <RadioButton
                   label="Consider Radial Batching"
@@ -369,8 +362,6 @@ class DeliveryAgentForm extends React.Component {
               </RadioButtonGroup>
             </div>
             <div className="form-group">
-=======
->>>>>>> DeliveryAgentChangee
               <RaisedButton
                 label="Save"
                 primary
