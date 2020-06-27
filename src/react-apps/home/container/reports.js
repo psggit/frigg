@@ -13,6 +13,8 @@ class Reports extends React.Component {
     this.state = {
       selectedReportId: 1,
       selectedReport: 'Retailer Redemption Report',
+      reportOptions: [],
+      selectedReport: {},
       fromDate: "",
       toDate: "",
       isDownloading: false,
@@ -26,64 +28,35 @@ class Reports extends React.Component {
       }
     }
 
-    this.reportOptions = [
-      { text: 'Retailer Redemption Report', value: 1 },
-      { text: 'Brand Sales Report', value: 2 },
-      { text: 'Loading Cash Into Wallet', value: 3 },
-      { text: 'Retailer Manual Credits and Debits', value: 4 },
-      { text: 'Consumer Manual Credit and Debit', value: 5 },
-      { text: 'Customer Notepad Report', value: 6 },
-      { text: 'Gifts Cancelled', value: 7 },
-      { text: 'Gifts Sent', value: 8 },
-      { text: 'Gifts Redeemed', value: 9 },
-      { text: 'Prediction Cashback Report', value: 10 },
-      { text: 'Processed Reward Report', value: 11 },
-      { text: 'Unprocessed Reward Report', value: 12 },
-      { text: 'Nodal Transaction Report', value: 13 },
-      { text: 'Nodal Payments', value: 14 },
-      { text: 'Delivery Order Report', value: 15 },
-      {text: 'Giftcard Log Report', value:16},
-      {text: 'Gift Wallets Report', value:17},
-      { text: 'DMO Order Report', value: 18 },
-      { text: 'Retailer Payment Details Report', value: 19 },
-      { text: 'Retailer Order Capacity Report', value: 20 },
-      { text: 'Retailer Delivery Order Summary Report', value: 21 }
-    ]
-
-    this.reportMap = {
-      'Retailer Redemption Report': 'retailer_redemption_report',
-      'Brand Sales Report': 'brand_sales_report',
-      'Customer Notepad Report': 'consumer_notepad_report',
-      'Loading Cash Into Wallet': 'loading_cash_into_wallet',
-      'Retailer Manual Credits and Debits': 'retailer_manual_credits_and_debits_report',
-      'Consumer Manual Credit and Debit': 'consumer_manual_credits_and_debits_view',
-      'Gifts Cancelled': 'gifts_cancellation',
-      'Gifts Sent': 'gifts_sent',
-      'Gifts Redeemed': 'gifts_redeemed',
-      'Prediction Cashback Report': 'prediction_cashback_report',
-      'Processed Reward Report': 'processed_reward_report',
-      'Unprocessed Reward Report': 'unprocessed_reward_report',
-      'Nodal Transaction Report': 'nodal_transaction_report',
-      'Nodal Payments': 'nodal_payments_report',
-      'Delivery Order Report': 'delivery_order_report',
-      'Giftcard Log Report': 'gift_card_log_report',
-      'Gift Wallets Report': 'gift_wallets_report',
-      'DMO Order Report': 'dmo_order_report',
-      'Retailer Payment Details Report': 'retailer_payment_details_report',
-      'Retailer Order Capacity Report': 'retailer_order_capacity_report',
-      'Retailer Delivery Order Summary Report': 'retailer_delivery_order_summary_report'
-    }
-
     this.handleReportChange = this.handleReportChange.bind(this)
     this.handleDate = this.handleDate.bind(this)
     this.downloadReport = this.downloadReport.bind(this)
   }
 
+  componentDidMount() {
+    Api.reportOptions()
+     .then((response) => {
+       const reportList = response.reports.map((item, index) => {
+         return ({
+           text: item.display_name,
+           value: index,
+           report_name: item.report_name
+         })
+       })
+        this.setState({
+          reportOptions: reportList,
+          selectedReport: reportList[0]
+        })
+     })
+     .catch((error) => {
+       console.log("Error in fetching report list", error)
+     })
+  }
+
   handleReportChange(e, k) {
     this.setState({
-      selectedReportId: this.reportOptions[k].value,
-      selectedReport: this.reportOptions[k].text
-    }, this.successReportDownloadCallback)
+      selectedReport: this.state.reportOptions[k]
+    })
   }
 
   handleDate(e) {
@@ -95,13 +68,13 @@ class Reports extends React.Component {
   downloadReport() {
     this.setState({ isDownloading: true })
     Api.downloadReport({
-      url: this.reportMap[this.state.selectedReport],
+      url: this.state.selectedReport.report_name,
       start_date: this.state.fromDate,
       end_date: this.state.toDate
     })
       .then((csv) => {
         this.setState({ isDownloading: false })
-        exportCSV(csv, this.state.selectedReport)
+        exportCSV(csv, this.state.selectedReport.report_name)
       })
       .catch((err) => {
         console.log("Error in downloading reports", err)
@@ -136,12 +109,12 @@ class Reports extends React.Component {
 
           <div className="form-group">
             <SelectField
-              value={this.state.selectedReportId}
+              value={this.state.selectedReport.value}
               onChange={this.handleReportChange}
               disabled={this.props.isDisabled}
             >
               {
-                this.reportOptions.map((item, i) => (
+                this.state.reportOptions.map((item, i) => (
                   <MenuItem
                     value={item.value}
                     key={item.value}
@@ -150,7 +123,7 @@ class Reports extends React.Component {
                 ))
               }
             </SelectField>
-          </div>
+          </div> 
           <div className="form-group" style={{ width: '100%' }}>
             <label className="label">From</label><br />
             <input
