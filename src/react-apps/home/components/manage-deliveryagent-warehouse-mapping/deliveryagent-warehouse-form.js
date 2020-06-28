@@ -15,7 +15,7 @@ class MapDeliveryAgentToWarehouseForm extends React.Component {
     super()
 
     this.state = {
-      mappingRetailerToWarehouse: false,
+      mappingDAToWarehouse: false,
       warehouseId: "",
       deliveryAgentId: "",
       disableSave: false,
@@ -37,7 +37,7 @@ class MapDeliveryAgentToWarehouseForm extends React.Component {
   }
 
   handleDelete () {
-    this.setState({ mappingRetailerToWarehouse: true })
+    this.setState({ mappingDAToWarehouse: true })
     console.log("Value from delete", this.state.deliveryAgentId)
     Api.deleteDeliveryAgentMappedToWarehouse({
       da_id: parseInt(this.state.deliveryAgentId),
@@ -45,13 +45,16 @@ class MapDeliveryAgentToWarehouseForm extends React.Component {
     })
       .then((response) => {
         Notify('Deleted Succesfully', 'success')
-        this.setState({ mappingRetailerToWarehouse: false, disableSave: false, disableDelete: true })
+        setTimeout(() => {
+          location.reload()
+        }, 300)
+        this.setState({ mappingDAToWarehouse: false, disableSave: false, disableDelete: true })
       })
       .catch((error) => {
         error.response.json().then((json) => {
           Notify(json.message, "warning")
         })
-        this.setState({ mappingRetailerToWarehouse: false })
+        this.setState({ mappingDAToWarehouse: false })
       })
   }
 
@@ -60,6 +63,7 @@ class MapDeliveryAgentToWarehouseForm extends React.Component {
       da_id: parseInt(this.state.deliveryAgentId),
     })
     .then((response) => {
+      console.log("response", response)
       if (!response.is_mapped) this.mapDeliveryAgentToWarehouse()
       else {
         this.setState({ message: response.message})
@@ -80,20 +84,21 @@ class MapDeliveryAgentToWarehouseForm extends React.Component {
   }
 
   mapDeliveryAgentToWarehouse () {
-    this.setState({ mappingRetailerToWarehouse: true })
+    this.setState({ mappingDAToWarehouse: true, showConfirmDialog: false })
     Api.mapDeliveryAgentToWarehouse({
       da_id: parseInt(this.state.deliveryAgentId),
       warehouse_id: parseInt(this.state.warehouseId)
     })
       .then((response) => {
         Notify('Successfully mapped', 'success')
-        this.setState({ mappingRetailerToWarehouse: false, disableSave: true, disableDelete: false })
+        this.setState({ mappingDAToWarehouse: false, disableSave: true, disableDelete: false })
       })
       .catch((error) => {
-        error.response.json().then((json) => {
-          Notify(json.message, "warning")
-        })
-        this.setState({ mappingRetailerToWarehouse: false })
+        // error.json().then((json) => {
+        //   Notify(json.message, "warning")
+        // })
+        Notify("Error in mapping DA to warehouse", "warning")
+        this.setState({ mappingDAToWarehouse: false })
       })
   }
 
@@ -131,13 +136,13 @@ class MapDeliveryAgentToWarehouseForm extends React.Component {
           <RaisedButton
             label="Save"
             primary
-            disabled={this.state.mappingRetailerToWarehouse || this.state.disableSave}
+            disabled={this.state.mappingDAToWarehouse || this.state.disableSave}
             onClick={this.handleSave}
           />
           <RaisedButton
             label="Delete"
             primary
-            disabled={this.state.mappingRetailerToWarehouse || this.state.disableDelete}
+            disabled={this.state.mappingDAToWarehouse || this.state.disableDelete}
             onClick={this.handleDelete}
             style={{marginLeft:"50px"}}
           />
@@ -146,7 +151,7 @@ class MapDeliveryAgentToWarehouseForm extends React.Component {
           this.state.showConfirmDialog &&
           <ModalBox>
             <ModalHeader>Notification</ModalHeader>
-            <ModalBody>{message}</ModalBody>
+            <ModalBody>{this.state.message}</ModalBody>
             <ModalFooter>
               <button className="btn btn-secondary" onClick={() => this.unmountConfirmDialog()}> Cancel </button>
               <button className="btn btn-secondary" onClick={() => this.mapDeliveryAgentToWarehouse()}> Confirm </button>
