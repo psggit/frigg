@@ -4,6 +4,10 @@ import * as Api from "../../middleware/api"
 import TextField from 'material-ui/TextField'
 import Notify from "@components/Notification"
 import RaisedButton from 'material-ui/RaisedButton'
+import ModalHeader from '@components/ModalBox/ModalHeader'
+import ModalFooter from '@components/ModalBox/ModalFooter'
+import ModalBody from '@components/ModalBox/ModalBody'
+import ModalBox from '@components/ModalBox'
 
 class MapDeliveryAgentToWarehouseForm extends React.Component {
 
@@ -16,11 +20,16 @@ class MapDeliveryAgentToWarehouseForm extends React.Component {
       deliveryAgentId: "",
       disableSave: false,
       disableDelete: true,
+      showConfirmDialog: false,
+      message: ""
     }
 
     this.handleTextFields = this.handleTextFields.bind(this)
     this.handleSave = this.handleSave.bind(this)
     this.handleDelete = this.handleDelete.bind(this)
+    this.mountConfirmDialog = this.mountConfirmDialog.bind(this)
+    this.unmountConfirmDialog = this.unmountConfirmDialog.bind(this)
+    this.mapDeliveryAgentToWarehouse = this.mapDeliveryAgentToWarehouse.bind(this)
   }
 
   handleTextFields (e) {
@@ -47,6 +56,30 @@ class MapDeliveryAgentToWarehouseForm extends React.Component {
   }
 
   handleSave () {
+    Api.fetchWarhouseCount({
+      da_id: parseInt(this.state.deliveryAgentId),
+    })
+    .then((response) => {
+      if (!response.is_mapped) this.mapDeliveryAgentToWarehouse()
+      else {
+        this.setState({ message: response.message})
+        this.mountConfirmDialog()
+      }
+    })
+    .catch((error) => {
+      console.log("Error fetching warehouse count", error)
+    })
+  }
+
+  mountConfirmDialog () {
+    this.setState({ showConfirmDialog: true })
+  }
+
+  unmountConfirmDialog () {
+    this.setState({ showConfirmDialog: false })
+  }
+
+  mapDeliveryAgentToWarehouse () {
     this.setState({ mappingRetailerToWarehouse: true })
     Api.mapDeliveryAgentToWarehouse({
       da_id: parseInt(this.state.deliveryAgentId),
@@ -109,6 +142,17 @@ class MapDeliveryAgentToWarehouseForm extends React.Component {
             style={{marginLeft:"50px"}}
           />
         </div>
+        {
+          this.state.showConfirmDialog &&
+          <ModalBox>
+            <ModalHeader>Notification</ModalHeader>
+            <ModalBody>{message}</ModalBody>
+            <ModalFooter>
+              <button className="btn btn-secondary" onClick={() => this.unmountConfirmDialog()}> Cancel </button>
+              <button className="btn btn-secondary" onClick={() => this.mapDeliveryAgentToWarehouse()}> Confirm </button>
+            </ModalFooter>
+          </ModalBox>
+        }
       </Card>
     )
   }
