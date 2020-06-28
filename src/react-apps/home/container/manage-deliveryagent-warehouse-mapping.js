@@ -7,6 +7,11 @@ import { getQueryObj, getQueryUri } from '@utils/url-utils'
 import FilterModal from '@components/filter-modal'
 import ListDeliveryAgentWarehouseMapping from "../components/manage-deliveryagent-warehouse-mapping/list-deliveryagent-warehouse-mapping"
 import getIcon from '../components/icon-utils'
+import ModalHeader from '@components/ModalBox/ModalHeader'
+import ModalFooter from '@components/ModalBox/ModalFooter'
+import ModalBody from '@components/ModalBox/ModalBody'
+import ModalBox from '@components/ModalBox'
+import Notify from "@components/Notification"
 
 class DeliveryagentWarehouseMapping extends React.Component {
   constructor () {
@@ -17,7 +22,8 @@ class DeliveryagentWarehouseMapping extends React.Component {
       loadingMappedDeliveryagentWarehouseList: false,
       mappedDeliveryAgentWarehouseList: [],
       mappedDeliveryAgentWarehouseCount: 0,
-      shouldMountFilterDialog: false
+      shouldMountFilterDialog: false,
+      mountConfirmDialog: false
     }
 
     this.filter = {
@@ -30,6 +36,8 @@ class DeliveryagentWarehouseMapping extends React.Component {
     this.mountFilterDialog = this.mountFilterDialog.bind(this)
     this.unmountFilterModal = this.unmountFilterModal.bind(this)
     this.applyFilter = this.applyFilter.bind(this)
+    this.mountConfirmDialogBox = this.mountConfirmDialogBox.bind(this)
+    this.unmountConfirmDialogBox = this.unmountConfirmDialogBox.bind(this)
     this.fetchMappedDeliveryAgentWarehouseList = this.fetchMappedDeliveryAgentWarehouseList.bind(this)
   }
 
@@ -113,6 +121,32 @@ class DeliveryagentWarehouseMapping extends React.Component {
     this.setState({ shouldMountFilterDialog: false })
   }
 
+  clearAllMappings() {
+    unmountConfirmDialogBox()
+    Api.clearAllMappings()
+      .then((response) => {
+        Notify('Deleted Succesfully', 'success')
+      })
+      .catch((error) => {
+        error.response.json().then((json) => {
+          Notify(json.message, "warning")
+        })
+        console.log("Error in deleting all the mappings", error)
+      })
+  }
+
+  mountConfirmDialogBox () {
+    this.setState({
+      mountConfirmDialog: true
+    })
+  }
+
+  unmountConfirmDialogBox () {
+    this.setState({
+      mountConfirmDialog: false
+    })
+  }
+
   fetchMappedDeliveryAgentWarehouseList (payload) {
     this.setState({ loadingMappedDeliveryagentWarehouseList: true })
     Api.fetchMappedDeliveryAgentWarehouseList(payload)
@@ -172,12 +206,19 @@ class DeliveryagentWarehouseMapping extends React.Component {
               />
             </NavLink>
           </div>
-          <RaisedButton
-            style={{ marginRight: "10px" }}
-            onClick={this.mountFilterDialog}
-            label="Filter"
-            icon={getIcon('filter')}
-          />
+          <div>
+            <RaisedButton
+              style={{ marginRight: "10px" }}
+              onClick={this.mountConfirmDialogBox}
+              label="Clear All"
+            />
+            <RaisedButton
+              style={{ marginRight: "10px" }}
+              onClick={this.mountFilterDialog}
+              label="Filter"
+              icon={getIcon('filter')}
+            />
+          </div>
         </div>
         <h3>Delivery Agents Mapped To Warehouse</h3>
         <ListDeliveryAgentWarehouseMapping
@@ -207,6 +248,17 @@ class DeliveryagentWarehouseMapping extends React.Component {
               />
             )
             : ''
+        }
+        {
+          this.state.mountConfirmDialog &&
+          <ModalBox>
+            <ModalHeader>ClearAll Mappings</ModalHeader>
+            <ModalBody>Are you sure do you want to clearall the mappings?</ModalBody>
+            <ModalFooter>
+              <button className="btn btn-secondary" onClick={() => this.unmountConfirmDialogBox()}> Cancel </button>
+              <button className="btn btn-secondary" onClick={() => this.clearAllMappings()}> Confirm </button>
+            </ModalFooter>
+          </ModalBox>
         }
       </React.Fragment>
     )
