@@ -60,15 +60,15 @@ class DeliveryagentWarehouseMapping extends React.Component {
     Object.entries(queryObj).forEach((item) => {
       this.setState({ [item[0]]: item[1] })
     })
-    if (queryObj.warehouseId) {
+    if (queryObj.selectedField) {
       this.fetchMappedDeliveryAgentWarehouseList({
         pagination: {
           offset: queryObj.activePage ? this.pageLimit * (parseInt(queryObj.activePage) - 1) : 0,
           limit: this.pageLimit
         },
         filter: {
-          field: "warehouse_id",
-          value: queryObj.warehouseId
+          field: queryObj.selectedField,
+          value: queryObj.selectedValue
         }
       })
     } else {
@@ -87,15 +87,15 @@ class DeliveryagentWarehouseMapping extends React.Component {
     const queryUri = location.search.slice(1)
     const queryObj = getQueryObj(queryUri)
 
-    if (queryObj.warehouseId) {
+    if (queryObj.selectedField) {
       this.fetchMappedDeliveryAgentWarehouseList({
         pagination: {
           offset: pageObj.activePage ? this.pageLimit * (parseInt(pageObj.activePage) - 1) : 0,
           limit: this.pageLimit
         },
         filter: {
-          field: "warehouse_id",
-          value: queryObj.warehouseId
+          field: queryObj.selectedField,
+          value: queryObj.selectedValue
         }
       })
     } else {
@@ -162,11 +162,12 @@ class DeliveryagentWarehouseMapping extends React.Component {
       })
   }
 
-  applyFilter (warehouseId) {
+  applyFilter (selectedField, selectedValue) {
+    console.log("fiels", selectedField, "value", selectedValue)
     const queryObj = {
       activePage: 1,
-      field: "warehouse_id",
-      warehouseId :warehouseId
+      selectedField,
+      selectedValue
     }
 
     this.setState({
@@ -182,8 +183,8 @@ class DeliveryagentWarehouseMapping extends React.Component {
         limit: this.pageLimit,
       },
       filter: {
-        field: "warehouse_id",
-        value: warehouseId
+        field: selectedField,
+        value: selectedValue
       }
     })
   }
@@ -244,6 +245,17 @@ class DeliveryagentWarehouseMapping extends React.Component {
                 title="Filter Delivery Agents"
                 unmountFilterModal={this.unmountFilterModal}
                 filter="filterDeliveryAgentWarehouseMapped"
+                floatingLabelText="Select Option"
+                dropdownOptions={[
+                  {
+                    id: 1,
+                    name: "warehouse_id"
+                  },
+                  {
+                    id: 2,
+                    name: "da_id"
+                  }
+                ]}
                 filterDeliveryAgentWarehouseMapped={true}
               />
             )
