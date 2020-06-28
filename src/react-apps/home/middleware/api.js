@@ -261,6 +261,14 @@ export const deleteDeliveryAgentMappedToWarehouse = payload => (
   })
 )
 
+export const reportOptions = () => (
+  GET({
+    api: '/Api/reports/list',
+    apiBase: 'reports',
+    handleError: true
+  })
+)
+
 export const fetchMappedDeliveryAgentWarehouseList = payload => (
   POST({
     api: '/deliveryman/api/1/mapping/datowarehouse/list',
