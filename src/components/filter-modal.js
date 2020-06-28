@@ -15,6 +15,8 @@ class FilterModal extends React.Component {
       isLocalityAvailable: false,
       isCityAvailable: false,
       statusIdx: props.activityStatus ? props.activityStatus : 1,
+      selectedFieldIdx: 1,
+      selectedFieldValue: "",
       brandName: "",
       warehouseId: "",
       adId: props.adId || "",
@@ -41,6 +43,7 @@ class FilterModal extends React.Component {
     this.handleChangeIsLocalityAvailable = this.handleChangeIsLocalityAvailable.bind(this)
     this.handleChangeIsCityAvailable = this.handleChangeIsCityAvailable.bind(this)
     this.handleWarehouseChange = this.handleWarehouseChange.bind(this)
+    this.handleSelectChange = this.handleSelectChange.bind(this)
   }
 
   handleClose() {
@@ -95,6 +98,10 @@ class FilterModal extends React.Component {
     this.props.handlePredictionChange(k)
   }
 
+  handleSelectChange(e, k) {
+    this.setState({ selectedFieldIdx: k + 1 })
+  }
+
   handleChangeIsLocalityAvailable(e) {
     this.setState({ isLocalityAvailable: e.target.checked })
   }
@@ -111,7 +118,7 @@ class FilterModal extends React.Component {
     if (this.props.filterWarehouse) {
       this.props.applyFilter(this.state.selectedWarehouseIdx)
     } else if (this.props.filter === "filterDeliveryAgentWarehouseMapped") {
-      this.props.applyFilter(this.state.warehouseId)
+      this.props.applyFilter(this.props.dropdownOptions.find(item => item.id === this.state.selectedFieldIdx).name, this.state.selectedFieldValue)
     }
     else if (this.props.filter === "brandName") {
       this.props.applyFilter(this.state.brandName)
@@ -222,12 +229,31 @@ class FilterModal extends React.Component {
             this.props.filter === "filterDeliveryAgentWarehouseMapped" &&
             <div>
               <div className="form-group">
-                <label>Warehouse ID</label><br />
+                <SelectField
+                  style={{ width: '100%' }}
+                  floatingLabelText={this.props.floatingLabelText}
+                  value={parseInt(this.state.selectedFieldIdx)}
+                  onChange={this.handleSelectChange}
+                  iconStyle={{ fill: '#9b9b9b' }}
+                >
+                  {
+                    this.props.dropdownOptions.map((item, i) => (
+                      <MenuItem
+                        value={i + 1}
+                        key={item.id}
+                        primaryText={item.name}
+                      />
+                    ))
+                  }
+                </SelectField>
+              </div>
+              <div className="form-group">
+                <label>{ this.state.selectedFieldIdx === 1 ? "Warehouse Id" : "Delivery Agent Id" }</label><br />
                 <TextField
                   style={{ width: '100%' }}
                   onChange={this.handleTextFields}
-                  name="warehouseId"
-                  value={this.state.warehouseId}
+                  name="selectedFieldValue"
+                  value={this.state.selectedFieldValue}
                 />
               </div>
             </div>
