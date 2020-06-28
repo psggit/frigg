@@ -11,6 +11,7 @@ export default function confirmModal (data) {
       super(props)
     }
     render () {
+      console.log("data", data)
       return (
         <ModalBox>
           <ModalHeader>{ data.heading }</ModalHeader>

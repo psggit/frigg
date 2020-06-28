@@ -278,6 +278,23 @@ export const fetchMappedDeliveryAgentWarehouseList = payload => (
   })
 )
 
+export const fetchWarhouseCount = payload => (
+  GET({
+    api: `/deliveryman/api/1/mapping/datowarehouse/fetchWhCount/${payload.da_id}`,
+    apiBase: 'apiUrl',
+    handleError: true
+  })
+)
+
+export const clearAllMappings = payload => (
+  POST({
+    api: '/deliveryman/api/1/mapping/datowarehouse/delete/all ',
+    apiBase: 'api',
+    data: payload,
+    handleError: true
+  })
+)
+
 export const fetchRewardCoupons = payload => (
   POST({
     api: '/reward/listCoupons',
