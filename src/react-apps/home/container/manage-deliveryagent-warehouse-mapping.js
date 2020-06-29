@@ -38,6 +38,7 @@ class DeliveryagentWarehouseMapping extends React.Component {
     this.applyFilter = this.applyFilter.bind(this)
     this.mountConfirmDialogBox = this.mountConfirmDialogBox.bind(this)
     this.unmountConfirmDialogBox = this.unmountConfirmDialogBox.bind(this)
+    this.clearAllMappings = this.clearAllMappings.bind(this)
     this.fetchMappedDeliveryAgentWarehouseList = this.fetchMappedDeliveryAgentWarehouseList.bind(this)
   }
 
@@ -122,7 +123,7 @@ class DeliveryagentWarehouseMapping extends React.Component {
   }
 
   clearAllMappings() {
-    unmountConfirmDialogBox()
+    this.unmountConfirmDialogBox()
     Api.clearAllMappings()
       .then((response) => {
         Notify('Deleted Succesfully', 'success')
@@ -166,7 +167,7 @@ class DeliveryagentWarehouseMapping extends React.Component {
     console.log("fiels", selectedField, "value", selectedValue)
     const queryObj = {
       activePage: 1,
-      selectedField,
+      selectedField: selectedField.includes("Warehouse") ? "warehouse_id" : "da_id",
       selectedValue
     }
 
@@ -183,7 +184,7 @@ class DeliveryagentWarehouseMapping extends React.Component {
         limit: this.pageLimit,
       },
       filter: {
-        field: selectedField,
+        field: selectedField.includes("Warehouse") ? "warehouse_id" : "da_id",
         value: selectedValue
       }
     })
@@ -249,11 +250,11 @@ class DeliveryagentWarehouseMapping extends React.Component {
                 dropdownOptions={[
                   {
                     id: 1,
-                    name: "warehouse_id"
+                    name: "Warehouse Id"
                   },
                   {
                     id: 2,
-                    name: "da_id"
+                    name: "Delivery Agent Id"
                   }
                 ]}
                 filterDeliveryAgentWarehouseMapped={true}
@@ -264,8 +265,8 @@ class DeliveryagentWarehouseMapping extends React.Component {
         {
           this.state.mountConfirmDialog &&
           <ModalBox>
-            <ModalHeader>ClearAll Mappings</ModalHeader>
-            <ModalBody>Are you sure do you want to clearall the mappings?</ModalBody>
+            <ModalHeader>Confirmation</ModalHeader>
+            <ModalBody>Are you sure do you want to clear all the mappings?</ModalBody>
             <ModalFooter>
               <button className="btn btn-secondary" onClick={() => this.unmountConfirmDialogBox()}> Cancel </button>
               <button className="btn btn-secondary" onClick={() => this.clearAllMappings()}> Confirm </button>

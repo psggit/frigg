@@ -150,7 +150,7 @@ class MapDeliveryAgentToWarehouseForm extends React.Component {
         {
           this.state.showConfirmDialog &&
           <ModalBox>
-            <ModalHeader>Notification</ModalHeader>
+            <ModalHeader>Confirmation</ModalHeader>
             <ModalBody>{this.state.message}</ModalBody>
             <ModalFooter>
               <button className="btn btn-secondary" onClick={() => this.unmountConfirmDialog()}> Cancel </button>
