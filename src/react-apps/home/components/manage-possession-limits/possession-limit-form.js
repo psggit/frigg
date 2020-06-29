@@ -26,6 +26,7 @@ class PossessionLimitForm extends React.Component {
     this.handleTextFields = this.handleTextFields.bind(this)
     this.getData = this.getData.bind(this)
     this.handleChange = this.handleChange.bind(this)
+    this.handleNumberChange = this.handleNumberChange.bind(this)
   }
 
   getData() {
@@ -39,6 +40,12 @@ class PossessionLimitForm extends React.Component {
   handleChange(e, k) {
     const selectedTypeIdx = k + 1
     this.setState({ selectedTypeIdx })
+  }
+
+  handleNumberChange (e){
+    if (!isNaN(e.target.value)) {
+      this.setState({ [e.target.name]: e.target.value })
+    }
   }
 
   render() {
@@ -67,7 +74,7 @@ class PossessionLimitForm extends React.Component {
           <div className="form-group">
             <label className="label">Volume (ml)</label><br />
             <TextField
-              onChange={this.handleTextFields}
+              onChange={this.handleNumberChange}
               name="volume"
               value={this.state.volume}
               style={{ width: '100%' }}
@@ -105,7 +112,7 @@ class PossessionLimitForm extends React.Component {
           <div className="form-group">
             <label className="label">DA Possession Volume Limit</label><br />
             <TextField
-              onChange={this.handleTextFields}
+              onChange={this.handleNumberChange}
               name="DAPossessionVolumeLimit"
               value={this.state.DAPossessionVolumeLimit}
               style={{ width: '100%' }}

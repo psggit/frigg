@@ -292,7 +292,7 @@ class DeliveryAgentForm extends React.Component {
             </div>
 
             <div className="form-group">
-              <label className="label">Radial Distance</label><br />
+              <label className="label">Radial Distance (Km)</label><br />
               <TextField
                 onChange={this.handleDecimalFields}
                 name="radialDistance"
