@@ -289,7 +289,7 @@ export const fetchWarhouseCount = payload => (
 export const clearAllMappings = payload => (
   POST({
     api: '/deliveryman/api/1/mapping/datowarehouse/delete/all ',
-    apiBase: 'api',
+    apiBase: 'apiUrl',
     data: payload,
     handleError: true
   })
