@@ -72,7 +72,7 @@ class MapDeliveryAgentToWarehouseForm extends React.Component {
     })
     .catch((error) => {
       error.response.json().then((json) => {
-        Notify(json.message, "error")
+        Notify(json.message, "warning")
       })
       console.log("Error fetching warehouse count", error)
     })
@@ -98,6 +98,7 @@ class MapDeliveryAgentToWarehouseForm extends React.Component {
       })
       .catch((error) => {
         error.json().then((json) => {
+          console.log("error", json)
           Notify(json.message, "warning")
         })
         //Notify("Error in mapping DA to warehouse", "warning")
