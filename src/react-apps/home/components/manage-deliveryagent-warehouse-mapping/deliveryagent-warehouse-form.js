@@ -97,8 +97,7 @@ class MapDeliveryAgentToWarehouseForm extends React.Component {
         this.setState({ mappingDAToWarehouse: false, disableSave: true, disableDelete: false })
       })
       .catch((error) => {
-        error.json().then((json) => {
-          console.log("error", json)
+        error.response.json().then((json) => {
           Notify(json.message, "warning")
         })
         //Notify("Error in mapping DA to warehouse", "warning")
