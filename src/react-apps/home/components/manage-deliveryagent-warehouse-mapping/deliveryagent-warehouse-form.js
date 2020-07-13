@@ -114,7 +114,8 @@ class MapDeliveryAgentToWarehouseForm extends React.Component {
         display: 'block',
         verticalAlign: 'top',
         marginRight: '30px',
-        marginBottom:"30px"
+        marginBottom:"30px",
+        zIndex: "auto"
       }}
       >
         <div className="form-group">
