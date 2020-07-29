@@ -11,9 +11,13 @@ import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
 class DeliveryAgentForm extends React.Component {
   constructor (props) {
     super(props)
+    console.log("city", props.data ? props.data.city_id : "")
+    console.log("service", props.data ? props.data.service_provider : "")
     this.state = {
       selectedCityIdx: props.data ? props.data.city_id : "",
       cityList: [],
+      serviceProviderList: [],
+      serviceProvider: props.data ? props.data.service_provider : "",
       name: props.data ? props.data.name : "",
       employeeId: props.data ? props.data.employee_id : "",
       gcmToken: props.data ? props.data.gcm_token : "",
@@ -40,6 +44,7 @@ class DeliveryAgentForm extends React.Component {
     this.handleCheckboxChange = this.handleCheckboxChange.bind(this)
     this.handleCityChange = this.handleCityChange.bind(this)
     this.handleRadioChange = this.handleRadioChange.bind(this)
+    this.handleServiceProviderChange = this.handleServiceProviderChange.bind(this)
   }
 
   // componentWillReceiveProps(newProps) {
@@ -53,7 +58,8 @@ class DeliveryAgentForm extends React.Component {
 
   componentDidMount() {
     this.fetchCityList()
-  }
+    this.fetchServiceProviderList()
+  } 
 
   fetchCityList() {
     Api.fetchCities({
@@ -81,6 +87,19 @@ class DeliveryAgentForm extends React.Component {
         this.setState({ loadingCityList: false })
         console.log("Error in fetching city list", error)
       })
+  }
+
+  fetchServiceProviderList() {
+    Api.fetchServiceProvider()
+    .then((response) => {
+      this.setState({
+        serviceProviderList: response.service_providers,
+        serviceProvider: !this.state.serviceProvider ? response.service_providers[0].service_provider : this.state.serviceProvider
+      })
+    })
+    .catch((error) => {
+      console.log("Error in fetching service provider list", error)
+    })
   }
 
   // componentDidMount () {
@@ -121,6 +140,13 @@ class DeliveryAgentForm extends React.Component {
   handleCityChange(e, k) {
     this.setState({
       selectedCityIdx: (this.state.cityList[k].id),
+    })
+  }
+
+  handleServiceProviderChange(e,k) {
+    console.log("from handleServiceProvider", this.state.serviceProviderList[k].service_provider)
+    this.setState({
+      serviceProvider: (this.state.serviceProviderList[k].service_provider)
     })
   }
 
@@ -300,6 +326,24 @@ class DeliveryAgentForm extends React.Component {
                 value={this.state.radialDistance}
                 style={{ width: '100%' }}
               />
+            </div>
+
+            <div className="form-group">
+              <label className="label">Service Provider</label><br />
+              <SelectField
+                value={this.state.serviceProvider}
+                onChange={this.handleServiceProviderChange}
+              >
+                {
+                  this.state.serviceProviderList.map((item, i) => (
+                    <MenuItem
+                      value={item.service_provider}
+                      key={item.service_provider}
+                      primaryText={item.service_provider_name}
+                    />
+                  ))
+                }
+              </SelectField>
             </div>
 
             <div className="form-group">
