@@ -92,12 +92,9 @@ class DeliveryAgentForm extends React.Component {
   fetchServiceProviderList() {
     Api.fetchServiceProvider()
     .then((response) => {
-      // console.log(selectedAdIdx, this.state.adIdsList.find((item) => item.value === selectedAdIdx))
-      // this.state.adIdsList.find((item) => item.value === selectedAdIdx).text 
       this.setState({
         serviceProviderList: response.service_providers,
         loadingServiceProviderList: false,
-        // serviceProviderIdx: this.state.serviceProviderList.find((item) => item.value === serviceProviderIdx).service_provider
         serviceProviderIdx: !this.state.serviceProviderIdx ? response.service_providers[0].service_provider : this.state.serviceProviderIdx
       })
     })
@@ -208,24 +205,6 @@ class DeliveryAgentForm extends React.Component {
                       value={item.id}
                       key={item.id}
                       primaryText={item.name}
-                    />
-                  ))
-                }
-              </SelectField>
-            </div>
-
-            <div className="form-group">
-              <label className="label">Service Provider</label><br />
-              <SelectField
-                value={this.state.serviceProviderIdx}
-                onChange={this.handleServiceProviderChange}
-              >
-                {
-                  this.state.serviceProviderList.map((item, i) => (
-                    <MenuItem
-                      value={item.service_provider}
-                      key={item.service_provider}
-                      primaryText={item.service_provider_name}
                     />
                   ))
                 }
@@ -351,6 +330,24 @@ class DeliveryAgentForm extends React.Component {
                 value={this.state.radialDistance}
                 style={{ width: '100%' }}
               />
+            </div>
+
+            <div className="form-group">
+              <label className="label">Service Provider</label><br />
+              <SelectField
+                value={this.state.serviceProviderIdx}
+                onChange={this.handleServiceProviderChange}
+              >
+                {
+                  this.state.serviceProviderList.map((item, i) => (
+                    <MenuItem
+                      value={item.service_provider}
+                      key={item.service_provider}
+                      primaryText={item.service_provider_name}
+                    />
+                  ))
+                }
+              </SelectField>
             </div>
 
             <div className="form-group">
