@@ -295,6 +295,15 @@ export const clearAllMappings = payload => (
   })
 )
 
+export const fetchServiceProvider = action => (
+  GET({
+    api: '/deliveryman/api/1/deliveryagent/service_provider/list',
+    apiBase: 'apiUrl',
+    handleError: true
+  })
+)
+
+
 export const fetchRewardCoupons = payload => (
   POST({
     api: '/reward/listCoupons',

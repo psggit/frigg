@@ -166,7 +166,6 @@ class ManageDeliveryagent extends React.Component {
             }
           })
         }
-        console.log("citidata", cityList)
         this.setState({ citiesData: cityList, loadingCities: false })
       })
       .catch((error) => {
@@ -179,7 +178,6 @@ class ManageDeliveryagent extends React.Component {
     this.setState({ loadingDeliveryagent: true })
     Api.fetchDeliveryAgentList(payload)
       .then((response) => {
-        console.log("response", response, response.data, response.count)
         this.setState({
           deliveryAgent: response.data,
           loadingDeliveryagent: false,
