@@ -17,7 +17,7 @@ class DeliveryAgentForm extends React.Component {
       selectedCityIdx: props.data ? props.data.city_id : "",
       cityList: [],
       serviceProviderList: [],
-      serviceProviderIdx: props.data ? props.data.service_provider : "",
+      serviceProvider: props.data ? props.data.service_provider : "",
       name: props.data ? props.data.name : "",
       employeeId: props.data ? props.data.employee_id : "",
       gcmToken: props.data ? props.data.gcm_token : "",
@@ -94,14 +94,10 @@ class DeliveryAgentForm extends React.Component {
     .then((response) => {
       this.setState({
         serviceProviderList: response.service_providers,
-        loadingServiceProviderList: false,
-        serviceProviderIdx: !this.state.serviceProviderIdx ? response.service_providers[0].service_provider : this.state.serviceProviderIdx
+        serviceProvider: !this.state.serviceProvider ? response.service_providers[0].service_provider : this.state.serviceProvider
       })
     })
     .catch((error) => {
-      this.setState({
-        loadingServiceProviderList: false
-      })
       console.log("Error in fetching service provider list", error)
     })
   }
@@ -150,7 +146,7 @@ class DeliveryAgentForm extends React.Component {
   handleServiceProviderChange(e,k) {
     console.log("from handleServiceProvider", this.state.serviceProviderList[k].service_provider)
     this.setState({
-      serviceProviderIdx: (this.state.serviceProviderList[k].service_provider)
+      serviceProvider: (this.state.serviceProviderList[k].service_provider)
     })
   }
 
@@ -335,7 +331,7 @@ class DeliveryAgentForm extends React.Component {
             <div className="form-group">
               <label className="label">Service Provider</label><br />
               <SelectField
-                value={this.state.serviceProviderIdx}
+                value={this.state.serviceProvider}
                 onChange={this.handleServiceProviderChange}
               >
                 {
