@@ -84,6 +84,7 @@ class ViewCity extends React.Component {
         is_gw_loading_enabled: data.giftWalletLoadingEnabled,
         is_hw_usage_enabled: data.hipbarWalletUsageEnabled,
         is_gw_usage_enabled: data.giftWalletUsageEnabled,
+        fk_enabled:data.fkEnabled,
         deliverable_city: data.isDeliveryActive,
         state_short_name: data.stateShortName || cityDetails.state_short_name,
         gps: data.cityGPS,
@@ -180,6 +181,7 @@ class ViewCity extends React.Component {
                   giftWalletLoadingEnabled={cityDetails.is_gw_loading_enabled}
                   hipbarWalletUsageEnabled={cityDetails.is_hw_usage_enabled}
                   giftWalletUsageEnabled={cityDetails.is_gw_usage_enabled}
+                  fkEnabled={cityDetails.fk_enabled}
                   cityName={cityDetails.name}
                   cityGPS={cityDetails.gps}
                   statesData={statesData}

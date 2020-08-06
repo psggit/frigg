@@ -49,7 +49,8 @@ class ViewState extends React.Component {
         //catalog_enabled: data.isCatalogEnabled,
         //add_money: data.addMoney,
         is_deliverable: data.isDeliverable,
-        is_active: data.isActive
+        is_active: data.isActive,
+        fk_enabled:data.fkEnabled,
       })
     }
   }
