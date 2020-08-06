@@ -295,6 +295,15 @@ export const clearAllMappings = payload => (
   })
 )
 
+export const fetchFenceList = payload => (
+  GET({
+    api: `/fenceManagement/listcityfences/${payload.city_id}`,
+    apiBase: 'odin',
+    data: payload,
+    handleError: true
+  })
+)
+
 export const fetchServiceProvider = action => (
   GET({
     api: '/deliveryman/api/1/deliveryagent/service_provider/list',

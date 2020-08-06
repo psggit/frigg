@@ -23,6 +23,7 @@ import LocalityMapManager from './locality-map-manager'
 import ViewLocalities from './../components/manage-geofencing/view-locality'
 import NotFound from './../../../react-apps/not-found'
 import ViewCity from './../components/manage-cities/view-city-details'
+import ViewFence from './../components/manage-cities/view-fences'
 import ViewState from './../components/manage-states/view-state-details'
 import ViewLocality from './../components/manage-localities/view-locality-details'
 import ViewDeliverer from './../components/delivery-map-manager/view-deliverer-details'
@@ -356,6 +357,8 @@ class App extends React.Component {
                   <Route exact path="/home/manage-campaign" component={ManageCampaign} />
                   <Route exact path="/home/manage-campaign/create" component={CreateCampaign} />
                   <Route exact path="/home/manage-campaign/edit/:campaignId" component={UpdateCampaign} />
+
+                  <Route exact path="/home/manage-fences/:cityId" component={ViewFence} />
 
                   <Route exact path="/home/manage-sku-promo" component={ManageSkuPromo} />
                   <Route exact path="/home/manage-sku-promo/create" component={CreateSkuPromo} />

@@ -19,12 +19,14 @@ const TableHeaderItems = [
   '',
   '',
   '',
+  '',
   'ID',
   'NAME',
   'SHORT_NAME'
 ]
 
 const styles = [
+  { width: '60px' },
   { width: '60px' },
   { width: '60px' },
   { width: '75px' },
@@ -56,7 +58,7 @@ function ViewCities (data) {
           ? (
             data.citiesData.map(item => (
               <TableRow key={item.id}>
-                <TableRowColumn style={styles[1]}>
+                <TableRowColumn style={styles[0]}>
                   <NavLink
                     // target="_blank"
                     // exact
@@ -67,7 +69,7 @@ function ViewCities (data) {
                   </NavLink>
 
                 </TableRowColumn>
-                <TableRowColumn style={styles[0]}>
+                <TableRowColumn style={styles[1]}>
                   <NavLink
                     // target="_blank"
                     // exact
@@ -77,16 +79,26 @@ function ViewCities (data) {
                     <FlatButton primary label="Fee" />
                   </NavLink>
                 </TableRowColumn>
-                <TableRowColumn style={styles[1]}>
+                <TableRowColumn style={styles[2]}>
                   <NavLink
                     to={`/home/manage-city-payment/${item.id}`}
                   >
                     <FlatButton primary label="Payment" />
                   </NavLink>
                 </TableRowColumn>
-                <TableRowColumn style={styles[2]}>{item.id}</TableRowColumn>
-                <TableRowColumn style={styles[3]}>{item.name}</TableRowColumn>
-                <TableRowColumn style={styles[4]}>{item.state_short_name}</TableRowColumn>
+                <TableRowColumn style={styles[3]}>
+                  <NavLink
+                    // target="_blank"
+                    // exact
+                    // to={`/home/manage-cities/${item.name}?id=${item.id}`}
+                    to={`/home/manage-fences/${item.id}`}
+                  >
+                    <FlatButton primary label="Fences" />
+                  </NavLink>
+                </TableRowColumn>
+                <TableRowColumn style={styles[4]}>{item.id}</TableRowColumn>
+                <TableRowColumn style={styles[5]}>{item.name}</TableRowColumn>
+                <TableRowColumn style={styles[6]}>{item.state_short_name}</TableRowColumn>
               </TableRow>
             ))
           )
