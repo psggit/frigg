@@ -308,18 +308,19 @@ class DefineLocality extends React.Component {
 
       const lat = geoLocalitiesData.city.gps.split(',')[0]
       const lng = geoLocalitiesData.city.gps.split(',')[1]
-      //
       this.setState({ lat, lng })
       this.setGeoBoundary(map, geoLocalitiesData.city.geoboundary)
       setupEventListeners(drawingManager, map, {
         setSelection: this.setGeoLocality
       })
 
-      if (localityId) {
-        localities = localities.filter(locality => locality.id === localityId)
-      } else {
+      if (!localityId) {
+        //localities = localities.filter(locality => locality.id === localityId)
         this.createNewLocality()
       }
+      //  else {
+      //   this.createNewLocality()
+      // }
 
       const polygonsCoordiantes = localities.map((geoLocalityData, i) => ({
         coordinates: getCoordinatesInObjects(geoLocalityData.coordinates),
