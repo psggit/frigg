@@ -321,6 +321,7 @@ class DefineLocality extends React.Component {
         editableLocality = geoLocalitiesData.fences.filter(locality => locality.id === localityId)
       } else {
         localities = geoLocalitiesData.fences
+      }
 
       const polygonsCoordiantes = localities.map((geoLocalityData, i) => ({
         coordinates: getCoordinatesInObjects(geoLocalityData.coordinates),
