@@ -357,9 +357,11 @@ class DefineLocality extends React.Component {
         })
       })
     }
+   }
   }
 
   render() {
+
     const { lat, lng, stateIdx } = this.state
 
     const { geoLocalitiesData } = this.props
