@@ -142,6 +142,7 @@ class DefineLocality extends React.Component {
 
   editGeolocality() {
     this.newLocality = this.geoLocalities[0]
+    console.log("newlocality", this.newLocality, this.geoLocalities)
     this.newLocality.setEditable(true)
     this.setState({ isEdit: false })
   }
@@ -300,7 +301,8 @@ class DefineLocality extends React.Component {
 
   handleMapCreation(map) {
     const { geoLocalitiesData, localityId, cityId, loadingGeolocalities } = this.props
-    let localities = geoLocalitiesData.fences
+    let localities;
+    let editableLocality;
     console.log(cityId, loadingGeolocalities);
     if (cityId && !loadingGeolocalities) {
       const drawingManager = configureDrawingManager(map)
@@ -314,13 +316,13 @@ class DefineLocality extends React.Component {
         setSelection: this.setGeoLocality
       })
 
-      if (!localityId) {
-        //localities = localities.filter(locality => locality.id === localityId)
+      if (localityId) {
+        localities = geoLocalitiesData.fences.filter(locality => locality.id !== localityId);
+        editableLocality = geoLocalitiesData.fences.filter(locality => locality.id === localityId)
+      } else {
+        localities = geoLocalitiesData.fences
         this.createNewLocality()
       }
-      //  else {
-      //   this.createNewLocality()
-      // }
 
       const polygonsCoordiantes = localities.map((geoLocalityData, i) => ({
         coordinates: getCoordinatesInObjects(geoLocalityData.coordinates),
@@ -333,8 +335,21 @@ class DefineLocality extends React.Component {
         createPolygonFromCoordinates(polygonCoordiantes)
       ))
 
-      this.geoLocalities = polygons
-      polygons.forEach((polygon) => {
+      const editablePolygonCoordinates = editableLocality.map((geoLocalityData, i) => ({
+        coordinates: getCoordinatesInObjects(geoLocalityData.coordinates),
+        color: geoLocalityData.is_available ? this.colorMap[i % this.colorMap.length] : '#9b9b9b',
+        stroke: geoLocalityData.is_available ? this.colorMap[i % this.colorMap.length] : '#9b9b9b',
+        name: geoLocalityData.name
+      }))
+
+      const editablePolygons = editablePolygonCoordinates.map(polygonCoordiantes => (
+        createPolygonFromCoordinates(polygonCoordiantes)
+      ))
+
+      this.geoLocalities = editablePolygons
+
+      const polygonsToRender = [...polygons, ...editablePolygons]
+      polygonsToRender.forEach((polygon) => {
         displayPolygonOnMap(map, polygon)
         attachClickEventOnPolygon(polygon, () => {
           labelPolygon(map, polygon)
