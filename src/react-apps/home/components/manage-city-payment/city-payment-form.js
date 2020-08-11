@@ -40,7 +40,7 @@ class CityPaymentForm extends React.Component {
       is_icici_upi_intent_enabled: props.data ? props.data.is_icici_upi_intent_enabled: false,
       is_icici_upi_collect_enabled: props.data ? props.data.is_icici_upi_collect_enabled: false,
       selectedAppTypeIdx: props.data ? this.app_type.find(item => (item.text).toLowerCase() === (props.data.app_type).toLowerCase()).value : 1,
-      app_type:props.app_type ? props.app_type : 'android',
+      app_type: props.app_type ? props.app_type : 'android',
       // selectedAppTypeIdx: props.data ? props.data.app_type ? 1 : 2 : 1,
       // selectedJPPaymentMethodIdx: props.data ? props.data.jp_payment_method.toLowerCase().trim() !== "nodal"
       //   ? props.data.jp_payment_method.toLowerCase().trim() === "wallet" ? 1 : 2 : 3 : 1,

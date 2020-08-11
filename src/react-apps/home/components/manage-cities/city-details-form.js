@@ -33,7 +33,7 @@ class CityDetailsForm extends React.Component {
       giftWalletLoadingEnabled: props.giftWalletLoadingEnabled !== null ? props.giftWalletLoadingEnabled : true,
       hipbarWalletUsageEnabled: props.hipbarWalletUsageEnabled !== null ? props.hipbarWalletUsageEnabled : true,
       giftWalletUsageEnabled: props.giftWalletUsageEnabled !== null ? props.giftWalletUsageEnabled : true,
-      fkEnabled: props.fkEnabled !== null ? props.fkEnabled : true,
+      fkEnabled: props.fkEnabled !== null ? props.fkEnabled : false,
       partialDeliveryEnabled: props.partialDeliveryEnabled !== null ? props.partialDeliveryEnabled : true,
       cityName: props.cityName || '',
       geoboundary: props.geoboundary || '',

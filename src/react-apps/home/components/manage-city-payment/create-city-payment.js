@@ -20,7 +20,7 @@ class createCityPayment extends React.Component {
       upi_time_limit: parseInt(CityPaymentForm.upiTimeLimit),
       upi_low_rate_message: CityPaymentForm.upiLowRateMessage,
       // app_type: CityPaymentForm.selectedAppTypeIdx === 1 ? "android" : "ios",
-      app_type:CityPaymentForm.app_type,
+      app_type: CityPaymentForm.app_type,
       jp_payment_method: CityPaymentForm.selectedJPPaymentMethodIdx === 1 ? "wallet" : "nodal",
       icici_payment_method: CityPaymentForm.selectedICICIPaymentMethodIdx === 1 ? "dmo-wallet" : "nodal",
       is_card_enabled: CityPaymentForm.isCardEnabled,
