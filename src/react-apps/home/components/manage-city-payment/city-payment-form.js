@@ -14,6 +14,7 @@ class CityPaymentForm extends React.Component {
     this.app_type = [
       { text: 'android', value: 1 },
       { text: 'ios', value: 2 },
+      { text:'fk-web', value: 3},
     ]
 
     this.jp_payment_method = [
@@ -39,6 +40,7 @@ class CityPaymentForm extends React.Component {
       is_icici_upi_intent_enabled: props.data ? props.data.is_icici_upi_intent_enabled: false,
       is_icici_upi_collect_enabled: props.data ? props.data.is_icici_upi_collect_enabled: false,
       selectedAppTypeIdx: props.data ? this.app_type.find(item => (item.text).toLowerCase() === (props.data.app_type).toLowerCase()).value : 1,
+      app_type: props.app_type ? props.app_type : 'android',
       // selectedAppTypeIdx: props.data ? props.data.app_type ? 1 : 2 : 1,
       // selectedJPPaymentMethodIdx: props.data ? props.data.jp_payment_method.toLowerCase().trim() !== "nodal"
       //   ? props.data.jp_payment_method.toLowerCase().trim() === "wallet" ? 1 : 2 : 3 : 1,
@@ -69,6 +71,7 @@ class CityPaymentForm extends React.Component {
 
   handleAppTypeChange (e, k) {
     this.setState({
+      app_type: (this.app_type[k].text),
       selectedAppTypeIdx: (this.app_type[k].value)
     })
   }

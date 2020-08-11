@@ -81,6 +81,7 @@ class ViewStates extends React.Component {
       sgst: item.sgst_percentage,
       cgst: item.cgst_percentage,
       igst: item.igst_percentage,
+      fkEnabled: item.fk_enabled,
       // selectedCityIdx:item.default_city_id,
       isUPIEnabled: item.upi_enabled,
       isGiftWalletEnabled: item.gift_wallet_enabled,
