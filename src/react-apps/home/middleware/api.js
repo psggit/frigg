@@ -1937,6 +1937,15 @@ export const requestTriggerSMS = (action) => (
   })
 )
 
+export const fetchFenceList = payload => (
+  GET({
+    api: `/fenceManagement/listcityfences/${payload.city_id}`,
+    apiBase: 'odin',
+    data: payload,
+    handleError: true
+  })
+)
+
 export const fetchCredits = (action) => (
   POST({
     api: '/consumer/view/credits',
