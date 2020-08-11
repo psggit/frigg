@@ -277,7 +277,7 @@ class StateDetailsForm extends React.Component {
             disabled={this.props.isDisabled}
             checked={this.state.fkEnabled}
             onCheck={this.handleCheckboxChange}
-            label="Fk Enabled"
+            label="fk_enabled"
             name="fkEnabled"
           />
           </div>
