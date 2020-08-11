@@ -33,7 +33,7 @@ class StateDetailsForm extends React.Component {
       // addMoney: props.data ? props.data.addMoney: false,
       isDeliverable: props.data ? props.data.isDeliverable : false,
       isActive: props.data ? props.data.isActive : false,
-      fkEnabled: props.data ? props.data.fkEnabled : false,
+      fkEnabled: props.data ? props.data.fkEnabled : false,      
       //isCatalogEnabled: props.data ? props.data.isCatalogEnabled : false,
       selectedPriceTypeIdx: props.data ? props.data.priceType
         ? this.priceType.find(item => (item.text).toLowerCase() === (props.data.priceType).toLowerCase()).value
@@ -277,7 +277,7 @@ class StateDetailsForm extends React.Component {
             disabled={this.props.isDisabled}
             checked={this.state.fkEnabled}
             onCheck={this.handleCheckboxChange}
-            label="fk_enabled"
+            label="Fk Enabled"
             name="fkEnabled"
           />
           </div>

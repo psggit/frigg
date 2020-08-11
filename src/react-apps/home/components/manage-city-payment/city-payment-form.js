@@ -14,6 +14,7 @@ class CityPaymentForm extends React.Component {
     this.app_type = [
       { text: 'android', value: 1 },
       { text: 'ios', value: 2 },
+      { text:'fk-web', value: 3},
     ]
 
     this.jp_payment_method = [
