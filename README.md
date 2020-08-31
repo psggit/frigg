@@ -48,6 +48,7 @@ Superadmin follows a pretty simple file structure. It's something like this:
 1. **server.js**
       -  For running express server usually for production
 
+
 ### Development
 Please follow the below stated set of instructions while working on the code.
 
