@@ -1,6 +1,8 @@
+import {difference} from 'lodash';
+
 export function getHasuraRole(data) {
   const hasuraRoles = data.hasura_roles
-  // const hasuraRoles = ["user", "support_person", "excise", "support_admin"]
+  //const hasuraRoles = ["user", "excise"]
   const rolesMap = {
     admin: 8,
     opadmin: 8,
@@ -15,7 +17,8 @@ export function getHasuraRole(data) {
     product_team: 5,
     delivery_support_person: 3,
     user: 1,
-    ops_delivery_manager: 2
+    ops_delivery_manager: 2,
+    opsmas: 6
   }
   let maxRole = rolesMap["user"]
   let xHasuraRole = "user"
@@ -25,7 +28,13 @@ export function getHasuraRole(data) {
       xHasuraRole = hasuraRoles[i]
     }
   }
-  return xHasuraRole
+
+  if(xHasuraRole === "user") {
+    let rolesList = _.difference(hasuraRoles, Object.keys(rolesMap))
+    xHasuraRole = rolesList && rolesList.length > 0 ? rolesList[0] : xHasuraRole
+  }
+
+  return xHasuraRole;
 }
 
 // export function getAuthToken(data) {
