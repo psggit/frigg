@@ -33,6 +33,7 @@ class CityDetailsForm extends React.Component {
       giftWalletLoadingEnabled: props.giftWalletLoadingEnabled !== null ? props.giftWalletLoadingEnabled : true,
       hipbarWalletUsageEnabled: props.hipbarWalletUsageEnabled !== null ? props.hipbarWalletUsageEnabled : true,
       giftWalletUsageEnabled: props.giftWalletUsageEnabled !== null ? props.giftWalletUsageEnabled : true,
+      fkEnabled: props.fkEnabled !== null ? props.fkEnabled : false,
       partialDeliveryEnabled: props.partialDeliveryEnabled !== null ? props.partialDeliveryEnabled : true,
       cityName: props.cityName || '',
       geoboundary: props.geoboundary || '',
@@ -344,6 +345,16 @@ class CityDetailsForm extends React.Component {
             onCheck={this.handleCheckboxes}
             name="giftWalletUsageEnabled"
             label="Gift Wallet Usage"
+          />
+        </div>
+
+        <div className="form-group">
+          <Checkbox
+            disabled={this.props.isDisabled}
+            checked={this.state.fkEnabled}
+            onCheck={this.handleCheckboxes}
+            name="fkEnabled"
+            label="Fk Enabled"
           />
         </div>
 

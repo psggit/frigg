@@ -72,6 +72,7 @@ class CreateCity extends React.Component {
         is_gw_loading_enabled : data.giftWalletLoadingEnabled,
         is_hw_usage_enabled: data.hipbarWalletUsageEnabled,
         is_gw_usage_enabled: data.giftWalletUsageEnabled,
+        fk_enabled: data.fkEnabled,
         deliverable_city: data.isDeliveryActive,
         state_short_name: data.stateShortName,
         gps: data.cityGPS,
