@@ -5,6 +5,7 @@ import { Card } from 'material-ui/Card'
 import RaisedButton from 'material-ui/RaisedButton'
 import * as Api from "../middleware/api"
 import { exportCSV } from './../../utils'
+import Notify from "@components/Notification"
 
 class Reports extends React.Component {
   constructor() {
@@ -78,6 +79,9 @@ class Reports extends React.Component {
       })
       .catch((err) => {
         console.log("Error in downloading reports", err)
+        err.response.json().then((json) => {
+          Notify(json.message, "warning")
+        })
       })
   }
 
@@ -111,7 +115,7 @@ class Reports extends React.Component {
             <SelectField
               value={this.state.selectedReport.value}
               onChange={this.handleReportChange}
-              disabled={this.props.isDisabled}
+              disabled={this.state.isDownloading}
             >
               {
                 this.state.reportOptions.map((item, i) => (
