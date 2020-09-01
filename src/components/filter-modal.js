@@ -15,11 +15,12 @@ class FilterModal extends React.Component {
       isLocalityAvailable: false,
       isCityAvailable: false,
       statusIdx: props.activityStatus ? props.activityStatus : 1,
-      selectedFieldIdx: 1,
+      selectedFieldIdx: -1,
       selectedFieldValue: "",
       brandName: "",
       warehouseId: "",
       adId: props.adId || "",
+      daId: props.daId || "",
       stateIdx: props.stateId ? this.props.statesData.findIndex(item => item.id === parseInt(props.stateId)) + 1 : null,
       selectedWarehouseIdx: props.selectedWarehouseIdx ? this.props.warehouseData.findIndex(item => item.id === parseInt(props.selectedWarehouseIdx)) + 1 : null,
       cityIdx: props.cityId ? this.props.citiesData.findIndex(item => item.id === parseInt(props.cityId)) + 1 : null,
@@ -29,6 +30,11 @@ class FilterModal extends React.Component {
     this.activityStatus = [
       { text: 'Active', value: 1 },
       { text: 'Inactive', value: 2 },
+    ]
+
+    this.filterOptions = [
+      { text: 'City', value: 1 },
+      { text: 'Delivery Agent', value: 2 },
     ]
 
     this.handleClose = this.handleClose.bind(this)
@@ -77,7 +83,7 @@ class FilterModal extends React.Component {
   handleCityChange(e, k) {
     const cityIdx = k + 1
     this.setState({ cityIdx })
-    this.props.handleCityChange(k)
+    this.props.handleCityChange ? this.props.handleCityChange(k) : {}
   }
 
   handleWareHouseCityChange(e,k) {
@@ -124,8 +130,11 @@ class FilterModal extends React.Component {
       this.props.applyFilter(this.state.brandName)
     } else if (this.props.filter === "cartCouponFilter" || this.props.filter === "productCouponFilter") {
       const isActive = this.state.statusIdx === 1 ? true : false
-      console.log("filter", this.state.couponName, isActive)
       this.props.applyFilter(this.state.couponName, isActive)
+    } else if (this.props.filter === "daFilter") {
+      const fieldName = this.state.selectedFieldIdx === 1 ? "city_id" : "da_id"
+      const fieldValue = this.state.selectedFieldIdx === 1 ? this.state.cityIdx : this.state.daId
+      this.props.applyFilter(fieldName, fieldValue)
     } else if (this.props.filterStateAndCity) {
       this.props.applyFilter(this.state.stateIdx, this.state.isLocalityAvailable)
     } else if (!this.props.filterStateAndCity && !this.props.filterCity) {
@@ -458,6 +467,70 @@ class FilterModal extends React.Component {
                   }
                 </SelectField>
               </div>
+            </div>
+          }
+          {
+            this.props.filter === "daFilter" &&
+            <div>
+              <div className="form-group">
+                <label>Select Option</label><br />
+                <SelectField
+                  style={{ width: '100%' }}
+                  floatingLabelText={this.props.floatingLabelText}
+                  value={parseInt(this.state.selectedFieldIdx)}
+                  onChange={this.handleSelectChange}
+                  iconStyle={{ fill: '#9b9b9b' }}
+                >
+                  {
+                    this.filterOptions.map((item, i) => (
+                      <MenuItem
+                        value={i + 1}
+                        key={item.value}
+                        primaryText={item.text}
+                      />
+                    ))
+                  }
+                </SelectField>
+              </div>
+              {
+                this.state.selectedFieldIdx === 1 &&
+                <div className="form-group">
+                  <label>City Id</label><br />
+                  <SelectField
+                    style={{ width: '100%' }}
+                    floatingLabelText={this.props.floatingLabelText}
+                    value={parseInt(this.state.cityIdx)}
+                    onChange={this.handleCityChange}
+                    iconStyle={{ fill: '#9b9b9b' }}
+                  >
+                    {
+                      !this.props.loadingCities
+                        ? (
+                          this.props.citiesData.map((city, i) => (
+                            <MenuItem
+                              value={i + 1}
+                              key={city.value}
+                              primaryText={city.text}
+                            />
+                          ))
+                        )
+                        : ''
+                    }
+                  </SelectField>
+                </div>
+              }
+              {
+                this.state.selectedFieldIdx === 2 &&
+                <div className="form-group">
+                  <label>DA Id</label><br />
+                  <TextField
+                    style={{ width: '100%' }}
+                    onChange={this.handleTextFields}
+                    name="daId"
+                    value={this.state.daId}
+                  />
+                </div>
+              }
             </div>
           }
           {

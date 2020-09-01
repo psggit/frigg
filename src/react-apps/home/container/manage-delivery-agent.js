@@ -22,11 +22,13 @@ class ManageDeliveryagent extends React.Component {
       shouldMountFilterDialog: false,
       citiesData: [],
       loadingCities: true,
-      cityId: 0
+      fieldName: "",
+      fieldValue: 0
     }
 
     this.filter = {
-      cityId : ""
+      fieldName: "",
+      fieldValue: 0
     }
 
     this.setQueryParamas = this.setQueryParamas.bind(this)
@@ -58,15 +60,15 @@ class ManageDeliveryagent extends React.Component {
     Object.entries(queryObj).forEach((item) => {
       this.setState({ [item[0]]: item[1] })
     })
-    if (queryObj.cityId) {
+    if (queryObj.fieldValue) {
       this.fetchDeliveryAgentList({
         pagination: {
           offset: queryObj.activePage ? this.pageLimit * (parseInt(queryObj.activePage) - 1) : 0,
           limit: this.pageLimit
         },
         filter: {
-          field: "city_id",
-          value: queryObj.cityId
+          field: queryObj.fieldName,
+          value: queryObj.fieldValue
         }
       })
     } else {
@@ -85,15 +87,15 @@ class ManageDeliveryagent extends React.Component {
     const queryUri = location.search.slice(1)
     const queryObj = getQueryObj(queryUri)
 
-    if (queryObj.cityId) {
+    if (queryObj.fieldValue) {
       this.fetchDeliveryAgentList({
         pagination: {
           offset: pageObj.activePage ? this.pageLimit * (parseInt(pageObj.activePage) - 1) : 0,
           limit: this.pageLimit
         },
         filter: {
-          field: "city_id",
-          value: queryObj.cityId
+          field: queryObj.fieldName,
+          value: queryObj.fieldValue
         }
       })
     } else {
@@ -189,15 +191,17 @@ class ManageDeliveryagent extends React.Component {
       })
   }
 
-  applyFilter(cityId) {
+  applyFilter(fieldName, fieldValue) {
     const queryObj = {
       activePage: 1,
-      cityId: this.state.citiesData[cityId - 1].value.toString()
+      fieldName,
+      fieldValue: fieldName === "city_id" ? this.state.citiesData[fieldValue - 1].value.toString() : fieldValue
     }
 
     this.setState({
       activePage: 1,
-      cityId: this.state.citiesData[cityId - 1].value,
+      fieldName,
+      fieldValue: fieldName === "city_id" ? this.state.citiesData[fieldValue - 1].value : fieldValue,
       deliveryAgent: []
     })
 
@@ -209,8 +213,8 @@ class ManageDeliveryagent extends React.Component {
         limit: this.pageLimit,
       },
       filter: {
-        field: "city_id",
-        value: this.state.citiesData[cityId - 1].value.toString()
+        field: fieldName,
+        value: fieldName === "city_id" ? this.state.citiesData[fieldValue - 1].value.toString() : fieldValue
       }
     })
   } 
@@ -266,7 +270,7 @@ class ManageDeliveryagent extends React.Component {
                 //warehouseData={this.state.warehouseData}
                 citiesData={this.state.citiesData}
                 loadingCities={this.state.loadingCities}
-                filter="cityFilter"
+                filter="daFilter"
                 filterCity={true}
               />
             )
