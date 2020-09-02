@@ -78,6 +78,7 @@ class Reports extends React.Component {
         exportCSV(csv, this.state.selectedReport.report_name)
       })
       .catch((err) => {
+        this.setState({ isDownloading:false })
         console.log("Error in downloading reports", err)
         err.response.json().then((json) => {
           Notify(json.message, "warning")
