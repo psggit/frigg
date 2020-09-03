@@ -19,6 +19,7 @@ const TableHeaderItems = [
   'UPI TIME LIMIT',
   'ICICI PAYMENT',
   'UPI LOW RATE MESSAGE',
+  'IS JP WALLETS ENABLED',
   'IS CARD ENABLED',
   'IS NET BANKING ENABLED',
   'IS UPI LOW SUCCESS RATE',
@@ -30,6 +31,7 @@ const TableHeaderItems = [
 
 const styles = [
   { width: '38px' },
+  { width: '100px' },
   { width: '100px' },
   { width: '100px' },
   { width: '100px' },
@@ -110,13 +112,14 @@ class ListCityPayment extends React.Component {
                       <TableRowColumn style={styles[3]}>{item.upi_time_limit}</TableRowColumn>
                       <TableRowColumn style={styles[4]}>{item.icici_payment_method}</TableRowColumn>
                       <TableRowColumn style={styles[5]}>{item.upi_low_rate_message}</TableRowColumn>
-                      <TableRowColumn style={styles[6]}>{item.is_card_enabled ? 'Enabled' : 'Disabled'}</TableRowColumn>
-                      <TableRowColumn style={styles[7]}>{item.is_nb_enabled ? 'Enabled': 'Disabled'}</TableRowColumn>
-                      <TableRowColumn style={styles[8]}>{item.is_upi_low_success_rate ? 'Enabled' : 'Disabled'}</TableRowColumn>
-                      <TableRowColumn style={styles[9]}>{item.is_upi_collect_low_success_rate ? 'Enabled' : 'Disabled'}</TableRowColumn>
-                      <TableRowColumn style={styles[10]}>{item.is_jp_upi_collect_enabled ? 'Enabled' : 'Disabled'}</TableRowColumn>
-                      <TableRowColumn style={styles[11]}>{item.is_icici_upi_intent_enabled ? 'Enabled' : 'Disabled'}</TableRowColumn>
-                      <TableRowColumn style={styles[12]}>{item.is_icici_upi_collect_enabled ? 'Enabled' : 'Disabled'}</TableRowColumn>
+                      <TableRowColumn style={styles[6]}>{item.is_jp_wallets_enabled ? 'Enabled': 'Disabled'}</TableRowColumn>
+                      <TableRowColumn style={styles[7]}>{item.is_card_enabled ? 'Enabled' : 'Disabled'}</TableRowColumn>
+                      <TableRowColumn style={styles[8]}>{item.is_nb_enabled ? 'Enabled': 'Disabled'}</TableRowColumn>
+                      <TableRowColumn style={styles[9]}>{item.is_upi_low_success_rate ? 'Enabled' : 'Disabled'}</TableRowColumn>
+                      <TableRowColumn style={styles[10]}>{item.is_upi_collect_low_success_rate ? 'Enabled' : 'Disabled'}</TableRowColumn>
+                      <TableRowColumn style={styles[11]}>{item.is_jp_upi_collect_enabled ? 'Enabled' : 'Disabled'}</TableRowColumn>
+                      <TableRowColumn style={styles[12]}>{item.is_icici_upi_intent_enabled ? 'Enabled' : 'Disabled'}</TableRowColumn>
+                      <TableRowColumn style={styles[13]}>{item.is_icici_upi_collect_enabled ? 'Enabled' : 'Disabled'}</TableRowColumn>
                     </TableRow>
                   )
                 })
