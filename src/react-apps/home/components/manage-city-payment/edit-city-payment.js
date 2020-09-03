@@ -23,6 +23,7 @@ class EditCityPayment extends React.Component {
       jp_payment_method: CityPaymentForm.selectedJPPaymentMethodIdx === 1 ? "wallet" : "nodal",
       icici_payment_method: CityPaymentForm.selectedICICIPaymentMethodIdx === 1 ? "dmo-wallet" : "nodal",
       is_card_enabled: CityPaymentForm.isCardEnabled,
+      is_jp_wallets_enabled: CityPaymentForm.isJpWalletEnabled,
       is_nb_enabled: CityPaymentForm.isNBEnabled,
       is_upi_low_success_rate: CityPaymentForm.isUpiLowSuccessRate,
       is_upi_collect_low_success_rate: CityPaymentForm.isUpiCollectLowSuccessRate,

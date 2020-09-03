@@ -33,6 +33,7 @@ class CityPaymentForm extends React.Component {
       upiTimeLimit:props.data ? props.data.upi_time_limit : "",
       upiLowRateMessage: props.data ? props.data.upi_low_rate_message: "",
       isCardEnabled:props.data ? props.data.is_card_enabled: false,
+      isJpWalletEnabled: props.data ? props.data.is_jp_wallets_enabled: false,
       isNBEnabled:props.data ? props.data.is_nb_enabled: false,
       isUpiLowSuccessRate: props.data ? props.data.is_upi_low_success_rate: false,
       isUpiCollectLowSuccessRate: props.data ? props.data.is_upi_collect_low_success_rate: false,
@@ -199,6 +200,16 @@ class CityPaymentForm extends React.Component {
                 label="Is Card Enabled"
                 name="isCardEnabled"
                 checked={this.state.isCardEnabled}
+                onCheck={this.handleCheckboxChange}
+              />
+            </div>
+
+            <div className="form-group">
+              <Checkbox
+                style={{ marginTop: "10px" }}
+                label="Is JP Wallet Enabled"
+                name="isJpWalletEnabled"
+                checked={this.state.isJpWalletEnabled}
                 onCheck={this.handleCheckboxChange}
               />
             </div>
