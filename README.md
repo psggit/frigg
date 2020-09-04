@@ -9,7 +9,7 @@ Made with :heart: by [Hipbar](http://hipbar.com)!
 Make sure you've got NodeJS and NPM installed on your machine. Recommended versions are >= v8.x for NodeJS and >= v6.x for NPM. (Use [nvm](https://github.com/creationix/nvm) to install different versions of node)
 
 
-1. Open up your terminal
+1. Open up your terminal 
 1. Download/Clone the [latest code](https://bitbucket.org/hipbar-dev/frigg) of frigg
 1. `npm install`
 1. Build Files
@@ -24,6 +24,7 @@ Welcome to the developer section. It'd help you get ready with enough informatio
 
 ### File Structure
 Superadmin follows a pretty simple file structure. It's something like this:
+
 
 ```ruby
 /
@@ -46,6 +47,7 @@ Superadmin follows a pretty simple file structure. It's something like this:
 
 1. **server.js**
       -  For running express server usually for production
+
 
 ### Development
 Please follow the below stated set of instructions while working on the code.
