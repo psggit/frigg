@@ -124,7 +124,7 @@ class DeliveryagentLocalityMapping extends React.Component {
 
   clearAllMappings() {
     this.unmountConfirmDialogBox()
-    Api.clearAllMappings()
+    Api.clearAllDaLocalityMappings()
       .then((response) => {
         Notify('Deleted Succesfully', 'success')
       })
@@ -150,16 +150,19 @@ class DeliveryagentLocalityMapping extends React.Component {
 
   fetchMappedDeliveryAgentLocalityList(payload) {
     this.setState({ loadingMappedDeliveryagentLocalityList: true })
-    Api.fetchMappedDeliveryAgentWarehouseList(payload)
+    Api.fetchMappedDeliveryAgentLocalityList(payload)
       .then((response) => {
         this.setState({
-          mappedDeliveryAgentLocalityList: response.data,
+          mappedDeliveryAgentLocalityList: response.message,
           loadingMappedDeliveryagentLocalityList: false,
           mappedDeliveryAgentLocalityCount: response.count
         })
       })
       .catch((err) => {
         console.log("Error in fetching mapped delivery agent locality list", err)
+        err.response.json().then((json) => {
+          Notify(json.message, "warning")
+        })
       })
   }
 
@@ -167,7 +170,7 @@ class DeliveryagentLocalityMapping extends React.Component {
     console.log("fiels", selectedField, "value", selectedValue)
     const queryObj = {
       activePage: 1,
-      selectedField: selectedField.includes("Warehouse") ? "warehouse_id" : "locality_id",
+      selectedField: selectedField.includes("Locality") ? "locality_id" : "da_id",
       selectedValue
     }
 
@@ -184,7 +187,7 @@ class DeliveryagentLocalityMapping extends React.Component {
         limit: this.pageLimit,
       },
       filter: {
-        field: selectedField.includes("Warehouse") ? "warehouse_id" : "locality_id",
+        field: selectedField.includes("Locality") ? "locality_id" : "da_id",
         value: selectedValue
       }
     })
@@ -250,7 +253,7 @@ class DeliveryagentLocalityMapping extends React.Component {
                 dropdownOptions={[
                   {
                     id: 1,
-                    name: "City Id"
+                    name: "Locality Id"
                   },
                   {
                     id: 2,

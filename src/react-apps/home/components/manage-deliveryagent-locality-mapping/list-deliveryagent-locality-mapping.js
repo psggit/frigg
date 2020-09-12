@@ -51,14 +51,13 @@ class ListDeliveryAgentLocalityMapping extends React.Component {
   }
 
   deleteDeliveryAgentMappedToLocalityData (e, item) {
-    console.log("DELETE",item.da_id,item.warehouse_id)
-    this.props.history.push("/home/delivery-agent-locality-mapping")
-    Api.deleteDeliveryAgentMappedToWarehouse({
-      da_id: item.da_id,
-      warehouse_id: item.warehouse_id
+    Api.deleteDeliveryAgentMappedToLocality({
+      delivery_agent_id: item.da_id,
+      locality_id: item.locality_id
     })
       .then((response) => {
         Notify('Deleted Succesfully', 'success')
+        this.props.history.push("/home/delivery-agent-locality-mapping")
       })
       .catch((error) => {
         error.response.json().then((json) => {
@@ -110,8 +109,8 @@ class ListDeliveryAgentLocalityMapping extends React.Component {
                         </TableRowColumn>
                         <TableRowColumn style={styles[1]}>{item.da_id}</TableRowColumn>
                         <TableRowColumn style={styles[2]}>{item.da_name}</TableRowColumn>
-                        <TableRowColumn style={styles[3]}>{item.warehouse_id}</TableRowColumn>
-                        <TableRowColumn style={styles[4]}>{item.warehouse_name}</TableRowColumn>
+                        <TableRowColumn style={styles[3]}>{item.locality_id}</TableRowColumn>
+                        <TableRowColumn style={styles[4]}>{item.locality_name}</TableRowColumn>
                       </TableRow>
                     )
                   })
