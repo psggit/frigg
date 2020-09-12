@@ -12,7 +12,6 @@ import ModalFooter from '@components/ModalBox/ModalFooter'
 import ModalBody from '@components/ModalBox/ModalBody'
 import ModalBox from '@components/ModalBox'
 import Notify from "@components/Notification"
-import ListDeliveryAgentWarehouseMapping from "../components/manage-deliveryagent-warehouse-mapping/list-deliveryagent-warehouse-mapping"
 
 class DeliveryagentLocalityMapping extends React.Component {
   constructor() {
@@ -20,9 +19,9 @@ class DeliveryagentLocalityMapping extends React.Component {
     this.pageLimit = 5
     this.state = {
       activePage: 1,
-      loadingMappedDeliveryagentWarehouseList: false,
-      mappedDeliveryAgentWarehouseList: [],
-      mappedDeliveryAgentWarehouseCount: 0,
+      loadingMappedDeliveryagentLocalityList: false,
+      mappedDeliveryAgentLocalityList: [],
+      mappedDeliveryAgentLocalityCount: 0,
       shouldMountFilterDialog: false,
       mountConfirmDialog: false
     }
@@ -40,14 +39,14 @@ class DeliveryagentLocalityMapping extends React.Component {
     this.mountConfirmDialogBox = this.mountConfirmDialogBox.bind(this)
     this.unmountConfirmDialogBox = this.unmountConfirmDialogBox.bind(this)
     this.clearAllMappings = this.clearAllMappings.bind(this)
-    this.fetchMappedDeliveryAgentWarehouseList = this.fetchMappedDeliveryAgentWarehouseList.bind(this)
+    this.fetchMappedDeliveryAgentLocalityList = this.fetchMappedDeliveryAgentLocalityList.bind(this)
   }
 
   componentDidMount() {
     if (location.search.length) {
       this.setQueryParamas()
     } else {
-      this.fetchMappedDeliveryAgentWarehouseList({
+      this.fetchMappedDeliveryAgentLocalityList({
         pagination: {
           limit: this.pageLimit,
           offset: 0
@@ -63,7 +62,7 @@ class DeliveryagentLocalityMapping extends React.Component {
       this.setState({ [item[0]]: item[1] })
     })
     if (queryObj.selectedField) {
-      this.fetchMappedDeliveryAgentWarehouseList({
+      this.fetchMappedDeliveryAgentLocalityList({
         pagination: {
           offset: queryObj.activePage ? this.pageLimit * (parseInt(queryObj.activePage) - 1) : 0,
           limit: this.pageLimit
@@ -75,7 +74,7 @@ class DeliveryagentLocalityMapping extends React.Component {
       })
     } else {
       console.log("active page", queryObj)
-      this.fetchMappedDeliveryAgentWarehouseList({
+      this.fetchMappedDeliveryAgentLocalityList({
         pagination: {
           offset: queryObj.activePage ? this.pageLimit * (parseInt(queryObj.activePage) - 1) : 0,
           limit: this.pageLimit,
@@ -85,12 +84,12 @@ class DeliveryagentLocalityMapping extends React.Component {
   }
 
   setPage(pageObj) {
-    this.setState({ loadingMappedDeliveryagentWarehouseList: true })
+    this.setState({ loadingMappedDeliveryagentLocalityList: true })
     const queryUri = location.search.slice(1)
     const queryObj = getQueryObj(queryUri)
 
     if (queryObj.selectedField) {
-      this.fetchMappedDeliveryAgentWarehouseList({
+      this.fetchMappedDeliveryAgentLocalityList({
         pagination: {
           offset: pageObj.activePage ? this.pageLimit * (parseInt(pageObj.activePage) - 1) : 0,
           limit: this.pageLimit
@@ -101,7 +100,7 @@ class DeliveryagentLocalityMapping extends React.Component {
         }
       })
     } else {
-      this.fetchMappedDeliveryAgentWarehouseList({
+      this.fetchMappedDeliveryAgentLocalityList({
         pagination: {
           offset: pageObj.activePage ? this.pageLimit * (parseInt(pageObj.activePage) - 1) : 0,
           limit: this.pageLimit,
@@ -112,7 +111,7 @@ class DeliveryagentLocalityMapping extends React.Component {
     this.setState({ activePage: pageObj.activePage })
 
     queryObj.activePage = pageObj.activePage
-    history.pushState(queryObj, "delivery agent warehouse listing", `/home/delivery-agent-warehouse-mapping?${getQueryUri(queryObj)}`)
+    history.pushState(queryObj, "delivery agent locality listing", `/home/delivery-agent-locality-mapping?${getQueryUri(queryObj)}`)
   }
 
   mountFilterDialog() {
@@ -149,18 +148,18 @@ class DeliveryagentLocalityMapping extends React.Component {
     })
   }
 
-  fetchMappedDeliveryAgentWarehouseList(payload) {
-    this.setState({ loadingMappedDeliveryagentWarehouseList: true })
+  fetchMappedDeliveryAgentLocalityList(payload) {
+    this.setState({ loadingMappedDeliveryagentLocalityList: true })
     Api.fetchMappedDeliveryAgentWarehouseList(payload)
       .then((response) => {
         this.setState({
-          mappedDeliveryAgentWarehouseList: response.data,
-          loadingMappedDeliveryagentWarehouseList: false,
-          mappedDeliveryAgentWarehouseCount: response.count
+          mappedDeliveryAgentLocalityList: response.data,
+          loadingMappedDeliveryagentLocalityList: false,
+          mappedDeliveryAgentLocalityCount: response.count
         })
       })
       .catch((err) => {
-        console.log("Error in fetching mapped delivery agent warehouse list", err)
+        console.log("Error in fetching mapped delivery agent locality list", err)
       })
   }
 
@@ -168,31 +167,31 @@ class DeliveryagentLocalityMapping extends React.Component {
     console.log("fiels", selectedField, "value", selectedValue)
     const queryObj = {
       activePage: 1,
-      selectedField: selectedField.includes("Warehouse") ? "warehouse_id" : "da_id",
+      selectedField: selectedField.includes("Warehouse") ? "warehouse_id" : "locality_id",
       selectedValue
     }
 
     this.setState({
       activePage: 1,
-      mappedDeliveryAgentWarehouseList: []
+      mappedDeliveryAgentLocalityList: []
     })
 
-    history.pushState(queryObj, "Delivery Agents Mapped to Warehouse Listing", "/home/delivery-agent-warehouse-mapping")
+    history.pushState(queryObj, "Delivery Agents Mapped to Locality Listing", "/home/delivery-agent-locality-mapping")
 
-    this.fetchMappedDeliveryAgentWarehouseList({
+    this.fetchMappedDeliveryAgentLocalityList({
       pagination: {
         offset: 0,
         limit: this.pageLimit,
       },
       filter: {
-        field: selectedField.includes("Warehouse") ? "warehouse_id" : "da_id",
+        field: selectedField.includes("Warehouse") ? "warehouse_id" : "locality_id",
         value: selectedValue
       }
     })
   }
 
   render() {
-    const { loadingMappedDeliveryagentWarehouseList, mappedDeliveryAgentWarehouseList, mappedDeliveryAgentWarehouseCount } = this.state
+    const { loadingMappedDeliveryagentLocalityList, mappedDeliveryAgentLocalityList, mappedDeliveryAgentLocalityCount } = this.state
     return (
       <React.Fragment>
         <div
@@ -225,16 +224,16 @@ class DeliveryagentLocalityMapping extends React.Component {
         </div>
         <h3>Delivery Agents Mapped To Locality</h3>
         <ListDeliveryAgentLocalityMapping
-          deliveryAgentWarehouseMapped={this.state.mappedDeliveryAgentWarehouseList}
-          loadingDeliveryagentWarehouseMapped={this.state.loadingMappedDeliveryagentWarehouseList}
+          deliveryAgentLocalityMapped={mappedDeliveryAgentLocalityList}
+          loadingDeliveryagentLocalityMapped={loadingMappedDeliveryagentLocalityList}
           history={this.props.history}
         />
         {
-          !loadingMappedDeliveryagentWarehouseList && mappedDeliveryAgentWarehouseList && mappedDeliveryAgentWarehouseList.length
+          !loadingMappedDeliveryagentLocalityList && mappedDeliveryAgentLocalityList && mappedDeliveryAgentLocalityList.length
             ? <Pagination
               activePage={parseInt(this.state.activePage)}
               itemsCountPerPage={this.pageLimit}
-              totalItemsCount={mappedDeliveryAgentWarehouseCount}
+              totalItemsCount={mappedDeliveryAgentLocalityCount}
               setPage={this.setPage}
             />
             : ''
@@ -246,19 +245,19 @@ class DeliveryagentLocalityMapping extends React.Component {
                 applyFilter={this.applyFilter}
                 title="Filter Delivery Agents"
                 unmountFilterModal={this.unmountFilterModal}
-                filter="filterDeliveryAgentWarehouseMapped"
+                filter="filterDeliveryAgentLocalityMapped"
                 floatingLabelText="Select Option"
                 dropdownOptions={[
                   {
                     id: 1,
-                    name: "Warehouse Id"
+                    name: "City Id"
                   },
                   {
                     id: 2,
                     name: "Delivery Agent Id"
                   }
                 ]}
-                filterDeliveryAgentWarehouseMapped={true}
+                filterDeliveryAgentLocalityMapped={true}
               />
             )
             : ''

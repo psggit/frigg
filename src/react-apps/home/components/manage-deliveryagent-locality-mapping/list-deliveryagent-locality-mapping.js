@@ -39,7 +39,7 @@ class ListDeliveryAgentLocalityMapping extends React.Component {
       deliveryAgentName: "",
       activityStatus: false,
     }
-    this.deleteDeliveryAgentMappedToWarehouseData = this.deleteDeliveryAgentMappedToWarehouseData.bind(this)
+    this.deleteDeliveryAgentMappedToLocalityData = this.deleteDeliveryAgentMappedToLocalityData.bind(this)
   }
 
   componentDidMount () {
@@ -50,9 +50,9 @@ class ListDeliveryAgentLocalityMapping extends React.Component {
     overrideTableStyle()
   }
 
-  deleteDeliveryAgentMappedToWarehouseData (e, item) {
+  deleteDeliveryAgentMappedToLocalityData (e, item) {
     console.log("DELETE",item.da_id,item.warehouse_id)
-    this.props.history.push("/home/delivery-agent-warehouse-mapping")
+    this.props.history.push("/home/delivery-agent-locality-mapping")
     Api.deleteDeliveryAgentMappedToWarehouse({
       da_id: item.da_id,
       warehouse_id: item.warehouse_id
@@ -68,7 +68,7 @@ class ListDeliveryAgentLocalityMapping extends React.Component {
   }
 
   render () {
-    const { loadingDeliveryagentWarehouseMapped, deliveryAgentWarehouseMapped } = this.props
+    const { loadingDeliveryagentLocalityMapped, deliveryAgentLocalityMapped } = this.props
     return (
       <div>
         <Table
@@ -88,22 +88,22 @@ class ListDeliveryAgentLocalityMapping extends React.Component {
             showRowHover
           >
             {
-              !loadingDeliveryagentWarehouseMapped && deliveryAgentWarehouseMapped.length === 0 &&
+              !loadingDeliveryagentLocalityMapped && deliveryAgentLocalityMapped.length === 0 &&
               <tr>
                 <td style={{ textAlign: 'center' }} colSpan='10'>
-                  <p style={{ fontWeight: '16px' }}>No Delivery Agent Warehouse Mapped details found</p>
+                  <p style={{ fontWeight: '16px' }}>No Delivery Agent Locality Mapped details found</p>
                 </td>
               </tr>
             }
             {
-              !loadingDeliveryagentWarehouseMapped
+              !loadingDeliveryagentLocalityMapped
                 ? (
-                  deliveryAgentWarehouseMapped.map((item, i) => {
+                  deliveryAgentLocalityMapped.map((item, i) => {
                     return (
                       <TableRow key={i}>
                         <TableRowColumn style={styles[0]}>
                           <button
-                            onClick={e => this.deleteDeliveryAgentMappedToWarehouseData(e, item)}
+                            onClick={e => this.deleteDeliveryAgentMappedToLocalityData(e, item)}
                           >
                             Delete
                           </button>
