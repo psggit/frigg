@@ -139,6 +139,8 @@ import CreateCityPayment from "../components/manage-city-payment/create-city-pay
 import UpdateCityPayment from "../components/manage-city-payment/edit-city-payment"
 import DeliveryagentWarehouseMapping from "../container/manage-deliveryagent-warehouse-mapping"
 import MapDeliveryAgentToWarehouse from "./../components/manage-deliveryagent-warehouse-mapping/map-deliveryagent-to-warehouse"
+import DeliveryAgentLocalityMapping from "../container/manage-deliveryagent-locality-mapping"
+import MapDeliveryAgentToLocality from "../components/manage-deliveryagent-locality-mapping/map-deliveryagent-to-locality"
 
 // import asyncComponent from './../../asyncComponent'
 /**
@@ -416,6 +418,10 @@ class App extends React.Component {
 
                   <Route exact path="/home/delivery-agent-warehouse-mapping" component={DeliveryagentWarehouseMapping} />
                   <Route exact path="/home/map-deliveryagent-to-warehouse" component={MapDeliveryAgentToWarehouse} />
+
+                  <Route exact path="/home/delivery-agent-locality-mapping" component={DeliveryAgentLocalityMapping} />
+                  <Route exact path="/home/map-deliveryagent-to-locality" component={MapDeliveryAgentToLocality} />
+
                 </Switch>
               </DisplayScreen>
             </div>
