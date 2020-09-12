@@ -16,7 +16,7 @@ class MapDeliveryAgentToLocalityForm extends React.Component {
 
     this.state = {
       mappingDAToWarehouse: false,
-      warehouseId: "",
+      localityId: "",
       deliveryAgentId: "",
       disableSave: false,
       disableDelete: true,
@@ -41,7 +41,7 @@ class MapDeliveryAgentToLocalityForm extends React.Component {
     console.log("Value from delete", this.state.deliveryAgentId)
     Api.deleteDeliveryAgentMappedToWarehouse({
       da_id: parseInt(this.state.deliveryAgentId),
-      warehouse_id: parseInt(this.state.warehouseId)
+      warehouse_id: parseInt(this.state.localityId)
     })
       .then((response) => {
         Notify('Deleted Succesfully', 'success')
@@ -90,7 +90,7 @@ class MapDeliveryAgentToLocalityForm extends React.Component {
     this.setState({ mappingDAToWarehouse: true, showConfirmDialog: false })
     Api.mapDeliveryAgentToWarehouse({
       da_id: parseInt(this.state.deliveryAgentId),
-      warehouse_id: parseInt(this.state.warehouseId)
+      warehouse_id: parseInt(this.state.localityId)
     })
       .then((response) => {
         Notify('Successfully mapped', 'success')
@@ -128,10 +128,10 @@ class MapDeliveryAgentToLocalityForm extends React.Component {
           />
         </div>
         <div className="form-group">
-          <label className="label">Warehouse ID</label><br />
+          <label className="label">Locality ID</label><br />
           <TextField
             disabled={false}
-            name="warehouseId"
+            name="localityId"
             style={{ width: '100%' }}
             onChange={this.handleTextFields}
           />

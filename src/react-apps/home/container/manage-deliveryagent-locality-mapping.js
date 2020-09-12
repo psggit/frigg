@@ -5,13 +5,14 @@ import * as Api from "../middleware/api"
 import Pagination from '@components/pagination'
 import { getQueryObj, getQueryUri } from '@utils/url-utils'
 import FilterModal from '@components/filter-modal'
-import ListDeliveryAgentWarehouseMapping from "../components/manage-deliveryagent-warehouse-mapping/list-deliveryagent-warehouse-mapping"
+import ListDeliveryAgentLocalityMapping from "../components/manage-deliveryagent-locality-mapping/list-deliveryagent-locality-mapping"
 import getIcon from '../components/icon-utils'
 import ModalHeader from '@components/ModalBox/ModalHeader'
 import ModalFooter from '@components/ModalBox/ModalFooter'
 import ModalBody from '@components/ModalBox/ModalBody'
 import ModalBox from '@components/ModalBox'
 import Notify from "@components/Notification"
+import ListDeliveryAgentWarehouseMapping from "../components/manage-deliveryagent-warehouse-mapping/list-deliveryagent-warehouse-mapping"
 
 class DeliveryagentLocalityMapping extends React.Component {
   constructor() {
@@ -223,7 +224,7 @@ class DeliveryagentLocalityMapping extends React.Component {
           </div>
         </div>
         <h3>Delivery Agents Mapped To Locality</h3>
-        <ListDeliveryAgentWarehouseMapping
+        <ListDeliveryAgentLocalityMapping
           deliveryAgentWarehouseMapped={this.state.mappedDeliveryAgentWarehouseList}
           loadingDeliveryagentWarehouseMapped={this.state.loadingMappedDeliveryagentWarehouseList}
           history={this.props.history}

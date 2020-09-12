@@ -21,7 +21,7 @@ class MapDeliveryAgentToLocality extends React.Component {
   }
 
   handleClick() {
-    this.props.history.push(`/home/delivery-agent-warehouse-mapping`)
+    this.props.history.push(`/home/delivery-agent-locality-mapping`)
   }
 
   render () {

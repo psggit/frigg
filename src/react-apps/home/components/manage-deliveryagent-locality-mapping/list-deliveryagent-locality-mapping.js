@@ -17,8 +17,8 @@ const TableHeaderItems = [
   '',
   'DELIVERY AGENT ID',
   'DELIVERY AGENT NAME',
-  'WAREHOUSE ID',
-  'WAREHOUSE NAME',
+  'LOCALITY ID',
+  'LOCALITY NAME',
 ]
 
 const styles = [
