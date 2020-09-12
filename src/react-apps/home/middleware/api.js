@@ -261,6 +261,15 @@ export const deleteDeliveryAgentMappedToWarehouse = payload => (
   })
 )
 
+export const deleteDeliveryAgentMappedToLocality = payload => (
+  POST({
+    api: '/deliveryman/api/1/mapping/datolocality/delete',
+    apiBase: 'apiUrl',
+    data: payload,
+    handleError: true
+  })
+)
+
 export const reportOptions = () => (
   GET({
     api: '/Api/reports/list',
@@ -278,6 +287,15 @@ export const fetchMappedDeliveryAgentWarehouseList = payload => (
   })
 )
 
+export const fetchMappedDeliveryAgentLocalityList = payload => (
+  POST({
+    api: '/deliveryman/api/1/mapping/datolocality/list',
+    apiBase: 'apiUrl',
+    data: payload,
+    handleError: true
+  })
+)
+
 export const fetchWarhouseCount = payload => (
   GET({
     api: `/deliveryman/api/1/mapping/datowarehouse/fetchWhCount/${payload.da_id}`,
@@ -286,9 +304,26 @@ export const fetchWarhouseCount = payload => (
   })
 )
 
+export const fetchLocalityCount = payload => (
+  GET({
+    api: `/deliveryman/api/1/mapping/datolocality/fetch-locality-count/${payload.delivery_agent_id}`,
+    apiBase: 'apiUrl',
+    handleError: true
+  })
+)
+
 export const clearAllMappings = payload => (
   GET({
     api: '/deliveryman/api/1/mapping/datowarehouse/delete/all ',
+    apiBase: 'apiUrl',
+    data: payload,
+    handleError: true
+  })
+)
+
+export const clearAllDaLocalityMappings = payload => (
+  GET({
+    api: '/deliveryman/api/1/mapping/datolocality/clear-all',
     apiBase: 'apiUrl',
     data: payload,
     handleError: true
@@ -1962,4 +1997,14 @@ export const updateBrandListingOrder = action => (
     data: action.data,
     handleError: true
   })
+)
+
+export const mapDeliveryAgentToLocality = payload => (
+  POST({
+    api: '/deliveryman/api/1/mapping/datolocality/create',
+    apiBase: 'apiUrl',
+    data: payload,
+    handleError: true
+  })
+    .then(json => json)
 )
