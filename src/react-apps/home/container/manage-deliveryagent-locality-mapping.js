@@ -127,6 +127,7 @@ class DeliveryagentLocalityMapping extends React.Component {
     Api.clearAllDaLocalityMappings()
       .then((response) => {
         Notify('Deleted Succesfully', 'success')
+        location.reload()
       })
       .catch((error) => {
         error.response.json().then((json) => {

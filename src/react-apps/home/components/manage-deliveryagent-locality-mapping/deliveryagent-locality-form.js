@@ -15,7 +15,7 @@ class MapDeliveryAgentToLocalityForm extends React.Component {
     super()
 
     this.state = {
-      mappingDAToWarehouse: false,
+      mappingDAToLocality: false,
       localityId: "",
       deliveryAgentId: "",
       disableSave: false,
@@ -29,7 +29,7 @@ class MapDeliveryAgentToLocalityForm extends React.Component {
     this.handleDelete = this.handleDelete.bind(this)
     this.mountConfirmDialog = this.mountConfirmDialog.bind(this)
     this.unmountConfirmDialog = this.unmountConfirmDialog.bind(this)
-    this.mapDeliveryAgentToWarehouse = this.mapDeliveryAgentToWarehouse.bind(this)
+    this.mapDeliveryAgentToLocality = this.mapDeliveryAgentToLocality.bind(this)
   }
 
   handleTextFields (e) {
@@ -37,34 +37,34 @@ class MapDeliveryAgentToLocalityForm extends React.Component {
   }
 
   handleDelete () {
-    this.setState({ mappingDAToWarehouse: true })
+    this.setState({ mappingDAToLocality: true })
     console.log("Value from delete", this.state.deliveryAgentId)
-    Api.deleteDeliveryAgentMappedToWarehouse({
-      da_id: parseInt(this.state.deliveryAgentId),
-      warehouse_id: parseInt(this.state.localityId)
+    Api.deleteDeliveryAgentMappedToLocality({
+      delivery_agent_id: parseInt(this.state.deliveryAgentId),
+      locality_id: parseInt(this.state.localityId)
     })
       .then((response) => {
         Notify('Deleted Succesfully', 'success')
         setTimeout(() => {
           location.reload()
         }, 300)
-        this.setState({ mappingDAToWarehouse: false, disableSave: false, disableDelete: true })
+        this.setState({ mappingDAToLocality: false, disableSave: false, disableDelete: true })
       })
       .catch((error) => {
         error.response.json().then((json) => {
           Notify(json.message, "warning")
         })
-        this.setState({ mappingDAToWarehouse: false })
+        this.setState({ mappingDAToLocality: false })
       })
   }
 
   handleSave () {
-    Api.fetchWarhouseCount({
-      da_id: parseInt(this.state.deliveryAgentId),
+    Api.fetchLocalityCount({
+      delivery_agent_id: parseInt(this.state.deliveryAgentId),
     })
     .then((response) => {
       console.log("response", response)
-      if (!response.is_mapped) this.mapDeliveryAgentToWarehouse()
+      if (!response.is_mapped) this.mapDeliveryAgentToLocality()
       else {
         this.setState({ message: response.message})
         this.mountConfirmDialog()
@@ -86,22 +86,22 @@ class MapDeliveryAgentToLocalityForm extends React.Component {
     this.setState({ showConfirmDialog: false })
   }
 
-  mapDeliveryAgentToWarehouse () {
-    this.setState({ mappingDAToWarehouse: true, showConfirmDialog: false })
-    Api.mapDeliveryAgentToWarehouse({
-      da_id: parseInt(this.state.deliveryAgentId),
-      warehouse_id: parseInt(this.state.localityId)
+  mapDeliveryAgentToLocality () {
+    this.setState({ mappingDAToLocality: true, showConfirmDialog: false })
+    Api.mapDeliveryAgentToLocality({
+      delivery_agent_id: parseInt(this.state.deliveryAgentId),
+      locality_id: parseInt(this.state.localityId)
     })
       .then((response) => {
         Notify('Successfully mapped', 'success')
-        this.setState({ mappingDAToWarehouse: false, disableSave: true, disableDelete: false })
+        this.setState({ mappingDAToLocality: false, disableSave: true, disableDelete: false })
       })
       .catch((error) => {
         error.response.json().then((json) => {
           Notify(json.message, "warning")
         })
         //Notify("Error in mapping DA to warehouse", "warning")
-        this.setState({ mappingDAToWarehouse: false })
+        this.setState({ mappingDAToLocality: false })
       })
   }
 
@@ -140,13 +140,13 @@ class MapDeliveryAgentToLocalityForm extends React.Component {
           <RaisedButton
             label="Save"
             primary
-            disabled={this.state.mappingDAToWarehouse || this.state.disableSave}
+            disabled={this.state.mappingDAToLocality || this.state.disableSave}
             onClick={this.handleSave}
           />
           <RaisedButton
             label="Delete"
             primary
-            disabled={this.state.mappingDAToWarehouse || this.state.disableDelete}
+            disabled={this.state.mappingDAToLocality || this.state.disableDelete}
             onClick={this.handleDelete}
             style={{marginLeft:"50px"}}
           />
@@ -158,7 +158,7 @@ class MapDeliveryAgentToLocalityForm extends React.Component {
             <ModalBody>{this.state.message}</ModalBody>
             <ModalFooter>
               <button className="btn btn-secondary" onClick={() => this.unmountConfirmDialog()}> Cancel </button>
-              <button className="btn btn-secondary" onClick={() => this.mapDeliveryAgentToWarehouse()}> Confirm </button>
+              <button className="btn btn-secondary" onClick={() => this.mapDeliveryAgentToLocality()}> Confirm </button>
             </ModalFooter>
           </ModalBox>
         }
