@@ -51,9 +51,11 @@ class EditProductCoupons extends React.Component {
       frequency: parseInt(couponDetails.frequency),
       sign_up_date: new Date(couponDetails.signUpDate),
       consider_sign_up: couponDetails.considerSignUp,
-      app: couponDetails.selectedAppIdx === 1 ? "drinks" : "",
+      revise_delivery_fee: couponDetails.isReviseDeliveryFee,
+      app: couponDetails.selectedAppIdx === 1 ? "drinks" : "fk-web",
       pay_by_wallet: couponDetails.payByWallet,
       store_pickup: couponDetails.storePickup,
+      delivery: couponDetails.delivery,
       destination: couponDetails.selectedDestinationIdx === 1 ? "UPI" : "UPI",
       is_unlimited: couponDetails.isUnlimited,
       listing_order: parseInt(couponDetails.listingOrder),
@@ -62,7 +64,8 @@ class EditProductCoupons extends React.Component {
       short_desc: couponDetails.shortDesc,
       constraint_type: "product",
       long_html_desc: couponDetails.longHtmlDesc,
-      city_list: couponDetails.cityList ? couponDetails.cityList.trim().split(",").map((city) => parseInt(city)) : []
+      city_list: couponDetails.cityList ? couponDetails.cityList.trim().split(",").map((city) => parseInt(city)) : [],
+      // new_delivery_fee: couponDetails.newDeliveryFee,
     })
       .then((response) => {
         this.setState({

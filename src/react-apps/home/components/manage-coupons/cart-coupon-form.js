@@ -28,16 +28,19 @@ class CartForm extends React.Component {
       considerSignUp: props.data ? props.data.consider_sign_up : false,
       payByWallet: props.data ? props.data.pay_by_wallet : false,
       storePickup: props.data ? props.data.store_pickup : false,
+      delivery: props.data ? props.data.delivery : false,
       isConsumerSpecific: props.data ? props.data.is_consumer_specific : false,
+      isReviseDeliveryFee: props.data ? props.data.revise_delivery_fee : false,
       isUnlimited: props.data ? props.data.is_unlimited : false,
       cityList: props.data ? props.data.city_list_str : "",
       limitPerUser: props.data ? props.data.limit_per_user : "",
-      selectedAppIdx: props.data ? props.data.app === "drinks" ? 1 : 1 : 1,
+      selectedAppIdx: props.data ? props.data.app === "drinks" ? 1 : 1 : 2,
       selectedDestinationIdx: props.data ? props.data.destination === "UPI" ? 1 : 1 : 1,
       shortDesc: props.data ? props.data.short_desc : "",
       longDesc: props.data ? props.data.long_desc : "",
       longHtmlDesc: props.data ? props.data.long_html_desc : "",
       consumerList: props.data ? props.data.consumer_list: "",
+      newDeliveryFee: props.data ? props.data.new_delivery_fee: "",
       listingOrder: props.data ? props.data.listing_order : ""
     }
 
@@ -47,6 +50,7 @@ class CartForm extends React.Component {
 
     this.app = [
       { text: 'HipBar-Drinks', value: 1 },
+      { text: 'fk-web', value: 2},
     ]
 
     this.handleTextFieldChange = this.handleTextFieldChange.bind(this)
@@ -251,6 +255,30 @@ class CartForm extends React.Component {
         </div>
 
         <div className="form-group">
+          <Checkbox
+            style={{ marginTop: "10px" }}
+            label="Revise Delivery Fee"
+            name="isReviseDeliveryFee"
+            checked={this.state.isReviseDeliveryFee}
+            onCheck={this.handleCheckboxChange}
+          />
+        </div>
+
+        {
+          this.state.isReviseDeliveryFee && !location.pathname.includes("edit") &&
+          <div className="form-group">
+            <label className="label">New Delivery Fee</label>
+            <TextField
+              onChange={this.handleTextFieldChange}
+              name="newDeliveryFee"
+              required
+              style={{ width: '100%' }}
+              value={this.state.newDeliveryFee}
+            />
+          </div>
+        }
+
+        <div className="form-group">
           <label className="label">Order Type</label>
           <Checkbox
             style={{ marginTop: "10px" }}
@@ -264,6 +292,13 @@ class CartForm extends React.Component {
             label="Store Pickup"
             name="storePickup"
             checked={this.state.storePickup}
+            onCheck={this.handleCheckboxChange}
+          />
+          <Checkbox
+            style={{ marginTop: "10px" }}
+            label="Delivery"
+            name="delivery"
+            checked={this.state.delivery}
             onCheck={this.handleCheckboxChange}
           />
         </div>
