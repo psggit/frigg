@@ -296,6 +296,15 @@ export const fetchMappedDeliveryAgentLocalityList = payload => (
   })
 )
 
+export const fetchMappedDeliveryServiceProviderCityList = payload => (
+  POST({
+    api: '/delivery_service_provider/list_city_map',
+    apiBase: 'odin',
+    data: payload,
+    handleError: true
+  })
+)
+
 export const fetchWarhouseCount = payload => (
   GET({
     api: `/deliveryman/api/1/mapping/datowarehouse/fetchWhCount/${payload.da_id}`,
