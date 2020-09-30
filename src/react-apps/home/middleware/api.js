@@ -1705,6 +1705,16 @@ export const createWarehouse = payload => (
   })
 )
 
+export const createDeliveryServiceProvider = payload => (
+  POST({
+    api: '/delivery_service_provider/create',
+    apiBase: 'odin',
+    data: payload,
+    handleError: true
+  })
+)
+// https://odin.hipbar-dev.com/delivery_service_provider/create
+
 export const createDeliveryagent = payload => (
   POST({
     api: '/deliveryman/api/1/deliveryagent/create',
@@ -1723,6 +1733,15 @@ export const updateWarehouse = payload => (
   })
 )
 
+export const updateDeliveryServiceProvider = payload => (
+  POST({
+    api: '/delivery_service_provider/update',
+    apiBase: 'odin',
+    data: payload,
+    handleError: true
+  })
+)
+
 export const updateDeliveryagent = payload => (
   POST({
     api: '/deliveryman/api/1/deliveryagent/update',
@@ -1736,6 +1755,16 @@ export const fetchWarehouse = payload => (
   POST({
     api: '/deliveryman/api/1/warehouse/list',
     apiBase: 'apiUrl',
+    data: payload,
+    handleError: true
+  })
+    .then(json => json)
+)
+
+export const fetchDeliveryServiceProvider = payload => (
+  POST({
+    api: '/delivery_service_provider/list',
+    apiBase: 'odin',
     data: payload,
     handleError: true
   })

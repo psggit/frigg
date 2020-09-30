@@ -142,6 +142,10 @@ import MapDeliveryAgentToWarehouse from "./../components/manage-deliveryagent-wa
 import DeliveryAgentLocalityMapping from "../container/manage-deliveryagent-locality-mapping"
 import MapDeliveryAgentToLocality from "../components/manage-deliveryagent-locality-mapping/map-deliveryagent-to-locality"
 
+import DeliveryServiceProvider from "./../container/manage-delivery-service-provider"
+import CreateDeliveryServiceProvider from "../components/manage-delivery-service-provider/create-delivery-service-provider"
+import EditDeliveryServiceProvider from "../components/manage-delivery-service-provider/edit-delivery-service-provider"
+
 // import asyncComponent from './../../asyncComponent'
 /**
  * Dynamic imports
@@ -421,6 +425,10 @@ class App extends React.Component {
 
                   <Route exact path="/home/delivery-agent-locality-mapping" component={DeliveryAgentLocalityMapping} />
                   <Route exact path="/home/map-deliveryagent-to-locality" component={MapDeliveryAgentToLocality} />
+
+                  <Route exact path="/home/manage-delivery-service-provider" component={DeliveryServiceProvider} />
+                  <Route exact path="/home/manage-delivery-service-provider/create" component={CreateDeliveryServiceProvider} />
+                  <Route exact path="/home/manage-delivery-service-provider/edit/:id" component={EditDeliveryServiceProvider} />
 
                 </Switch>
               </DisplayScreen>
