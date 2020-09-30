@@ -41,10 +41,8 @@ class DeliveryServiceProvider extends React.Component {
       this.setState({ [item[0]]: item[1] })
     })
     this.fetchServiceProvider({
-        // offset: queryObj.activePage ? this.pageLimit * (parseInt(queryObj.activePage) - 1) : 0,
-        // limit: this.pageLimit,
-      offset: queryObj.offset ? parseInt(queryObj.offset) : 0,
-      limit: this.pageLimit,
+        offset: queryObj.activePage ? this.pageLimit * (parseInt(queryObj.activePage) - 1) : 0,
+        limit: this.pageLimit,
     })
   }
 
@@ -60,9 +58,8 @@ class DeliveryServiceProvider extends React.Component {
 
     this.setState({ activePage: pageObj.activePage })
 
-    // queryObj.activePage = pageObj.activePage
     queryObj.activePage = pageObj.activePage
-    queryObj.offset = pageObj.offset
+
     history.pushState(queryObj, "delivery service provider listing", `/home/manage-delivery-service-provider?${getQueryUri(queryObj)}`)
   }
 
