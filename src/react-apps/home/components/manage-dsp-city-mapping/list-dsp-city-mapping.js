@@ -105,7 +105,7 @@ class ListDSPCityMapping extends React.Component {
       city_id: item.city_id
     })
       .then((response) => {
-        Notify('Deleted Succesfully', 'success')
+        Notify(response.message, 'success')
         this.props.history.push("/home/dsp-city-mapping")
       })
       .catch((error) => {
