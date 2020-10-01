@@ -144,6 +144,10 @@ import MapDeliveryAgentToLocality from "../components/manage-deliveryagent-local
 import DSPCityMapping from "../container/manage-dsp-city-mapping"
 import MapDSPToCity from '../components/manage-dsp-city-mapping/map-dsp-to-city'
 
+import DeliveryServiceProvider from "./../container/manage-delivery-service-provider"
+import CreateDeliveryServiceProvider from "../components/manage-delivery-service-provider/create-delivery-service-provider"
+import EditDeliveryServiceProvider from "../components/manage-delivery-service-provider/edit-delivery-service-provider"
+
 // import asyncComponent from './../../asyncComponent'
 /**
  * Dynamic imports
@@ -426,6 +430,10 @@ class App extends React.Component {
 
                   <Route exact path="/home/dsp-city-mapping" component={DSPCityMapping} />
                   <Route exact path="/home/map-dsp-to-city" component={MapDSPToCity} />
+                  
+                  <Route exact path="/home/manage-delivery-service-provider" component={DeliveryServiceProvider} />
+                  <Route exact path="/home/manage-delivery-service-provider/create" component={CreateDeliveryServiceProvider} />
+                  <Route exact path="/home/manage-delivery-service-provider/edit/:id" component={EditDeliveryServiceProvider} />
 
                 </Switch>
               </DisplayScreen>

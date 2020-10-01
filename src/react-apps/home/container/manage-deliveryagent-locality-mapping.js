@@ -126,7 +126,7 @@ class DeliveryagentLocalityMapping extends React.Component {
     this.unmountConfirmDialogBox()
     Api.clearAllDaLocalityMappings()
       .then((response) => {
-        Notify('Deleted Succesfully', 'success')
+        Notify(response.message, 'success')
         location.reload()
       })
       .catch((error) => {

@@ -56,7 +56,7 @@ class ListDeliveryAgentLocalityMapping extends React.Component {
       locality_id: item.locality_id
     })
       .then((response) => {
-        Notify('Deleted Succesfully', 'success')
+        Notify(response.message, 'success')
         this.props.history.push("/home/delivery-agent-locality-mapping")
       })
       .catch((error) => {
