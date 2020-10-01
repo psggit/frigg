@@ -270,7 +270,7 @@ export const deleteDeliveryAgentMappedToLocality = payload => (
   })
 )
 
-export const deleteDeliveryServiceProviderMappedToCity = payload => (
+export const deleteDSPMappedToCity = payload => (
   POST({
     api: '/delivery_service_provider/delete_city_mapping',
     apiBase: 'odin',
@@ -305,7 +305,7 @@ export const fetchMappedDeliveryAgentLocalityList = payload => (
   })
 )
 
-export const fetchMappedDeliveryServiceProviderCityList = payload => (
+export const fetchMappedDSPCityList = payload => (
   POST({
     api: '/delivery_service_provider/list_city_map',
     apiBase: 'odin',
@@ -1769,7 +1769,7 @@ export const updateDeliveryAgentStatus = payload => (
   })
 )
 
-export const updateDeliveryServiceProviderCityMappedStatus = payload => (
+export const updateDSPCityMappedStatus = payload => (
   POST({
     api: '/delivery_service_provider/disable',
     apiBase: 'odin',

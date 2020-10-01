@@ -36,7 +36,7 @@ const styles = [
   { width: '120px' },
 ]
 
-class ListDeliveryServiceProviderCityMapping extends React.Component {
+class ListDSPCityMapping extends React.Component {
   constructor () {
     super()
 
@@ -46,11 +46,11 @@ class ListDeliveryServiceProviderCityMapping extends React.Component {
       cityId: "",
       activityStatus: false,
     }
-    this.deleteDeliveryServiceProviderMappedToCityData = this.deleteDeliveryServiceProviderMappedToCityData.bind(this)
+    this.deleteDSPMappedToCityData = this.deleteDSPMappedToCityData.bind(this)
     this.mountDialog = this.mountDialog.bind(this)
     this.unmountDialog = this.unmountDialog.bind(this)
     this.onToggleChange = this.onToggleChange.bind(this)
-    this.updateDeliveryServiceProviderCityMappedStatus = this.updateDeliveryServiceProviderCityMappedStatus.bind(this)
+    this.updateDSPCityMappedStatus = this.updateDSPCityMappedStatus.bind(this)
   }
 
   componentDidMount () {
@@ -74,7 +74,6 @@ class ListDeliveryServiceProviderCityMapping extends React.Component {
   }
 
   onToggleChange(item, value) {
-    console.log("hello from toggle", item, value)
     this.mountDialog()
     this.setState({
       deliveryServiceProviderId: item.delivery_service_provider_id,
@@ -83,16 +82,16 @@ class ListDeliveryServiceProviderCityMapping extends React.Component {
     })
   }
 
-  updateDeliveryServiceProviderCityMappedStatus() {
+  updateDSPCityMappedStatus() {
     this.unmountDialog()
-    Api.updateDeliveryServiceProviderCityMappedStatus({
+    Api.updateDSPCityMappedStatus({
       delivery_service_provider_id: this.state.deliveryServiceProviderId,
       city_id: this.state.cityId,
       is_active: this.state.activityStatus
     })
       .then((response) => {
         Notify(response.message,'success')
-        this.props.history.push("/home/delivery-service-provider-city-mapping")
+        this.props.history.push("/home/dsp-city-mapping")
       })
       .catch((error) => {
         console.log("Error in updating", error)
@@ -100,14 +99,14 @@ class ListDeliveryServiceProviderCityMapping extends React.Component {
 
   }
 
-  deleteDeliveryServiceProviderMappedToCityData (e, item) {
-    Api.deleteDeliveryServiceProviderMappedToCity({
+  deleteDSPMappedToCityData (e, item) {
+    Api.deleteDSPMappedToCity({
       delivery_service_provider_id: item.delivery_service_provider_id,
       city_id: item.city_id
     })
       .then((response) => {
         Notify('Deleted Succesfully', 'success')
-        this.props.history.push("/home/delivery-service-provider-city-mapping")
+        this.props.history.push("/home/dsp-city-mapping")
       })
       .catch((error) => {
         error.response.json().then((json) => {
@@ -117,7 +116,8 @@ class ListDeliveryServiceProviderCityMapping extends React.Component {
   }
 
   render () {
-    const { loadingDeliveryserviceproviderCityMapped, deliveryServiceProviderCityMapped } = this.props
+    const { loadingDeliveryserviceproviderCityMapped, 
+      deliveryServiceProviderCityMapped } = this.props
     return (
       <div>
         <Table
@@ -152,7 +152,7 @@ class ListDeliveryServiceProviderCityMapping extends React.Component {
                       <TableRow key={i}>
                         <TableRowColumn style={styles[0]}>
                           <button
-                            onClick={e => this.deleteDeliveryServiceProviderMappedToCityData(e, item)}
+                            onClick={e => this.deleteDSPMappedToCityData(e, item)}
                           >
                             Delete
                           </button>
@@ -174,10 +174,8 @@ class ListDeliveryServiceProviderCityMapping extends React.Component {
                   ))
                 )
             }
-
             {
               this.state.mountDialog &&
-
               <ModalBox>
                 <ModalHeader>
                   <div style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -198,9 +196,7 @@ class ListDeliveryServiceProviderCityMapping extends React.Component {
                   </div>
                 </ModalFooter>
               </ModalBox>
-
             }
-
           </TableBody>
         </Table>
       </div>
@@ -208,4 +204,4 @@ class ListDeliveryServiceProviderCityMapping extends React.Component {
   }
 }
 
-export default ListDeliveryServiceProviderCityMapping
+export default ListDSPCityMapping

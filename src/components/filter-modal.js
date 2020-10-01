@@ -110,7 +110,7 @@ class FilterModal extends React.Component {
   }
 
   handleSelectChange(e, k) {
-    this.setState({ selectedFieldIdx: k + 1 })
+    this.setState({ selectedFieldIdx: k + 1, selectedFieldValue: "" })
   }
 
   handleChangeIsLocalityAvailable(e) {
@@ -132,11 +132,9 @@ class FilterModal extends React.Component {
       this.props.applyFilter(this.props.dropdownOptions.find(item => item.id === this.state.selectedFieldIdx).name, this.state.selectedFieldValue)
     } else if (this.props.filter === "filterDeliveryAgentLocalityMapped") {
       this.props.applyFilter(this.props.dropdownOptions.find(item => item.id === this.state.selectedFieldIdx).name, this.state.selectedFieldValue)
-    }
-    else if (this.props.filter === "filterDeliveryServiceProviderCityMapped") {
+    } else if (this.props.filter === "filterDSPCityMapped") {
       this.props.applyFilter(this.props.dropdownOptions.find(item => item.id === this.state.selectedFieldIdx).name, this.state.selectedFieldValue)
-    }
-    else if (this.props.filter === "brandName") {
+    } else if (this.props.filter === "brandName") {
       this.props.applyFilter(this.state.brandName)
     } else if (this.props.filter === "cartCouponFilter" || this.props.filter === "productCouponFilter") {
       const isActive = this.state.statusIdx === 1 ? true : false
@@ -314,7 +312,7 @@ class FilterModal extends React.Component {
             </div>
           }
           {
-            this.props.filter === "filterDeliveryServiceProviderCityMapped" &&
+            this.props.filter === "filterDSPCityMapped" &&
             <div>
               <div className="form-group">
                 <SelectField

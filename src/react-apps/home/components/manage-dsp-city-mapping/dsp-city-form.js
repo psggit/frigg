@@ -6,12 +6,8 @@ import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
 import Notify from "@components/Notification"
 import RaisedButton from 'material-ui/RaisedButton'
-import ModalHeader from '@components/ModalBox/ModalHeader'
-import ModalFooter from '@components/ModalBox/ModalFooter'
-import ModalBody from '@components/ModalBox/ModalBody'
-import ModalBox from '@components/ModalBox'
 
-class MapDeliveryServiceProviderToCityForm extends React.Component {
+class MapDSPToCityForm extends React.Component {
 
   constructor() {
     super()
@@ -21,7 +17,6 @@ class MapDeliveryServiceProviderToCityForm extends React.Component {
       turnaroundDuration: "",
       disableSave: false,
       disableDelete: true,
-      // showConfirmDialog: false,
       message: "",
       cityList: [],
       dspList: [],
@@ -30,11 +25,8 @@ class MapDeliveryServiceProviderToCityForm extends React.Component {
     }
 
     this.handleTextFields = this.handleTextFields.bind(this)
-    // this.handleSave = this.handleSave.bind(this)
     this.handleDelete = this.handleDelete.bind(this)
-    // this.mountConfirmDialog = this.mountConfirmDialog.bind(this)
-    // this.unmountConfirmDialog = this.unmountConfirmDialog.bind(this)
-    this.mapDeliveryServiceProviderToCity = this.mapDeliveryServiceProviderToCity.bind(this)
+    this.mapDSPToCity = this.mapDSPToCity.bind(this)
     this.handleCityChange = this.handleCityChange.bind(this)
     this.handleDspChange = this.handleDspChange.bind(this)
   }
@@ -103,55 +95,24 @@ class MapDeliveryServiceProviderToCityForm extends React.Component {
 
 
   handleDelete() {
-    Api.deleteDeliveryServiceProviderMappedToCity({
+    Api.deleteDSPMappedToCity({
       delivery_service_provider_id: this.state.selectedDspIdx,
       city_id: this.state.selectedCityIdx,
     })
       .then((response) => {
         Notify('Deleted Succesfully', 'success')
-        setTimeout(() => {
-          location.reload()
-        }, 3000)
-        this.setState({ disableSave: false, disableDelete: true })
+        this.setState({ disableSave: true, disableDelete: true })
       })
       .catch((error) => {
         error.response.json().then((json) => {
           Notify(json.message, "warning")
         })
-        this.setState({ mappingDAToLocality: false })
+        this.setState({ disableSave: false })
       })
   }
 
-  // handleSave() {
-  //   Api.fetchLocalityCount({
-  //     delivery_agent_id: parseInt(this.state.deliveryAgentId),
-  //   })
-  //     .then((response) => {
-  //       console.log("response", response)
-  //       if (!response.is_mapped) this.mapDeliveryServiceProviderToCity()
-  //       else {
-  //         this.setState({ message: response.message })
-  //         this.mountConfirmDialog()
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       error.response.json().then((json) => {
-  //         Notify(json.message, "warning")
-  //       })
-  //       console.log("Error fetching warehouse count", error)
-  //     })
-  // }
-
-  // mountConfirmDialog() {
-  //   this.setState({ showConfirmDialog: true })
-  // }
-
-  // unmountConfirmDialog() {
-  //   this.setState({ showConfirmDialog: false })
-  // }
-
-  mapDeliveryServiceProviderToCity() {
-    // this.setState({ mappingDAToLocality: true, showConfirmDialog: false })
+  mapDSPToCity() {
+    this.setState({  disableSave: true })
     Api.mapDeliveryServiceProviderToCity({
       delivery_service_provider_id: this.state.selectedDspIdx,
       city_id: this.state.selectedCityIdx,
@@ -160,12 +121,13 @@ class MapDeliveryServiceProviderToCityForm extends React.Component {
     })
       .then((response) => {
         Notify(response.message, 'success')
-        this.setState({  disableSave: true, disableDelete: false })
+        this.setState({  disableSave: false, disableDelete: false })
       })
       .catch((error) => {
         error.response.json().then((json) => {
           Notify(json.message, "warning")
         })
+        this.setState({disableSave: false})
       })
   }
 
@@ -242,31 +204,20 @@ class MapDeliveryServiceProviderToCityForm extends React.Component {
           <RaisedButton
             label="Save"
             primary
-            disabled={this.state.mappingDAToLocality || this.state.disableSave}
-            onClick={this.mapDeliveryServiceProviderToCity}
+            disabled={this.state.disableSave}
+            onClick={this.mapDSPToCity}
           />
           <RaisedButton
             label="Delete"
             primary
-            disabled={this.state.mappingDAToLocality || this.state.disableDelete}
+            disabled={this.state.disableDelete}
             onClick={this.handleDelete}
             style={{ marginLeft: "50px" }}
           />
         </div>
-        {
-          this.state.showConfirmDialog &&
-          <ModalBox>
-            <ModalHeader>Confirmation</ModalHeader>
-            <ModalBody>{this.state.message}</ModalBody>
-            <ModalFooter>
-              <button className="btn btn-secondary" onClick={() => this.unmountConfirmDialog()}> Cancel </button>
-              <button className="btn btn-secondary" onClick={() => this.mapDeliveryServiceProviderToCity()}> Confirm </button>
-            </ModalFooter>
-          </ModalBox>
-        }
       </Card>
     )
   }
 }
 
-export default MapDeliveryServiceProviderToCityForm
+export default MapDSPToCityForm

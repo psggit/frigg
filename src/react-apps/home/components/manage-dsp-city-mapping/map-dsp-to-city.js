@@ -1,8 +1,8 @@
 import React from "react"
 import RaisedButton from 'material-ui/RaisedButton'
-import MapDeliveryServiceProviderToCityForm from "./deliveryserviceprovider-city-form"
+import MapDSPToCityForm from "./dsp-city-form"
 
-class MapDeliveryServiceProviderToCity extends React.Component {
+class MapDSPToCity extends React.Component {
 
   constructor () {
     super()
@@ -16,12 +16,12 @@ class MapDeliveryServiceProviderToCity extends React.Component {
 
   handleAdd () {
     this.setState({
-      totalCardCount: [...this.state.totalCardCount,this.state.totalCardCount.length+1],
+      totalCardCount: [...this.state.totalCardCount,this.state.totalCardCount.length + 1],
     })
   }
 
   handleClick() {
-    this.props.history.push(`/home/delivery-service-provider-city-mapping`)
+    this.props.history.push(`/home/dsp-city-mapping`)
   }
 
   render () {
@@ -42,7 +42,7 @@ class MapDeliveryServiceProviderToCity extends React.Component {
             {
               this.state.totalCardCount.map((item) => {
                 // eslint-disable-next-line react/jsx-key
-                return <MapDeliveryServiceProviderToCityForm />
+                return <MapDSPToCityForm />
               })
             }
           </div>
@@ -51,4 +51,4 @@ class MapDeliveryServiceProviderToCity extends React.Component {
   }
 }
 
-export default MapDeliveryServiceProviderToCity
+export default MapDSPToCity

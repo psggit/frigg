@@ -141,8 +141,8 @@ import DeliveryagentWarehouseMapping from "../container/manage-deliveryagent-war
 import MapDeliveryAgentToWarehouse from "./../components/manage-deliveryagent-warehouse-mapping/map-deliveryagent-to-warehouse"
 import DeliveryAgentLocalityMapping from "../container/manage-deliveryagent-locality-mapping"
 import MapDeliveryAgentToLocality from "../components/manage-deliveryagent-locality-mapping/map-deliveryagent-to-locality"
-import DeliveryServiceProviderCityMapping from "../container/manage-deliveryserviceprovider-city-mapping"
-import MapDeliveryServiceProviderToCity from '../components/manage-deliveryserviceprovider-city-mapping/map-deliveryserviceprovider-to-city'
+import DSPCityMapping from "../container/manage-dsp-city-mapping"
+import MapDSPToCity from '../components/manage-dsp-city-mapping/map-dsp-to-city'
 
 // import asyncComponent from './../../asyncComponent'
 /**
@@ -424,8 +424,8 @@ class App extends React.Component {
                   <Route exact path="/home/delivery-agent-locality-mapping" component={DeliveryAgentLocalityMapping} />
                   <Route exact path="/home/map-deliveryagent-to-locality" component={MapDeliveryAgentToLocality} />
 
-                  <Route exact path="/home/delivery-service-provider-city-mapping" component={DeliveryServiceProviderCityMapping} />
-                  <Route exact path="/home/map-deliveryserviceprovider-to-city" component={MapDeliveryServiceProviderToCity} />
+                  <Route exact path="/home/dsp-city-mapping" component={DSPCityMapping} />
+                  <Route exact path="/home/map-dsp-to-city" component={MapDSPToCity} />
 
                 </Switch>
               </DisplayScreen>
