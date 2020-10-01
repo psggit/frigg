@@ -31,7 +31,6 @@ class DeliveryServiceProvider extends React.Component {
         offset: 0
       })
     }
-    
   }
 
   setQueryParamas() {
@@ -67,7 +66,6 @@ class DeliveryServiceProvider extends React.Component {
     this.setState({ loadingDeliveryServiceProvider: true })
     Api.fetchDeliveryServiceProvider(payload)
       .then((response) => {
-        console.log("count", response.count, response.message )
         this.setState({
           serviceProviderList: response.message,
           loadingDeliveryServiceProvider: false,

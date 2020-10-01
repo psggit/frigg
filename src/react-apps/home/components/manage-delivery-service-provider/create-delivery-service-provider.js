@@ -1,5 +1,4 @@
 import React from "react"
-//import WareHouseForm from "./warehouse-form"
 import DeliveryServiceProviderForm from "./delivery-service-provider-form"
 import * as Api from "./../../middleware/api"
 import Notify from "@components/Notification"
@@ -15,7 +14,6 @@ class CreateDeliveryServiceProvider extends React.Component {
 
   handleSave() {
     const serviceProviderFormData = this.DeliveryServiceProviderForm.getData()
-    console.log("service-provider form data", serviceProviderFormData)
     this.setState({ creatingDeliveryServiceProvider: true })
     Api.createDeliveryServiceProvider({
       delivery_service_provider_name: serviceProviderFormData.name,

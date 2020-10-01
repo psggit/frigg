@@ -50,7 +50,6 @@ class DeliveryServiceProviderForm extends React.Component {
 
   handleSave() {
     if (this.isFormValid()) {
-      console.log("state", this.state)
       this.props.handleSave()
     }
   }
@@ -69,7 +68,7 @@ class DeliveryServiceProviderForm extends React.Component {
           marginRight: '20px'
         }}
         >
-          <h4 style={{ margin: '0', marginBottom: '40px' }}>Enter delivery service provider details</h4>
+          <h4 style={{ margin: '0', marginBottom: '40px' }}>Enter DSP details</h4>
           <div className="form-group">
             <label className="label">Name</label><br />
             <TextField

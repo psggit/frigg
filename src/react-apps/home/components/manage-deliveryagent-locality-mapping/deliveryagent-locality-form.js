@@ -44,7 +44,7 @@ class MapDeliveryAgentToLocalityForm extends React.Component {
       locality_id: parseInt(this.state.localityId)
     })
       .then((response) => {
-        Notify('Deleted Succesfully', 'success')
+        Notify(response.message, 'success')
         setTimeout(() => {
           location.reload()
         }, 300)

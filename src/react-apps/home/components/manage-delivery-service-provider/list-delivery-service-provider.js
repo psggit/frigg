@@ -65,7 +65,7 @@ class ListDeliveryServiceProvider extends React.Component {
             {
               !loadingDeliveryServiceProvider && serviceProviderList.length === 0 &&
               <tr>
-                <td style={{ textAlign: 'center' }} colSpan='10'>
+                <td style={{ textAlign: 'center' }} colSpan='3'>
                   <p style={{ fontWeight: '16px' }}>No data found</p>
                 </td>
               </tr>
