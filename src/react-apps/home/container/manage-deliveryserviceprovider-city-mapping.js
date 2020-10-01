@@ -49,10 +49,6 @@ class DeliveryServiceProviderCityMapping extends React.Component {
       this.fetchMappedDeliveryServiceProviderCityList({
         limit:this.pageLimit,
         offset:0
-        // pagination: {
-        //   limit: this.pageLimit,
-        //   offset: 0
-        // }
       })
     }
   }
@@ -65,10 +61,6 @@ class DeliveryServiceProviderCityMapping extends React.Component {
     })
     if (queryObj.selectedField) {
       this.fetchMappedDeliveryServiceProviderCityList({
-        // pagination: {
-        //   offset: queryObj.activePage ? this.pageLimit * (parseInt(queryObj.activePage) - 1) : 0,
-        //   limit: this.pageLimit
-        // },
         offset: queryObj.activePage ? this.pageLimit * (parseInt(queryObj.activePage) - 1) : 0,
         limit: this.pageLimit,
         
@@ -80,10 +72,8 @@ class DeliveryServiceProviderCityMapping extends React.Component {
     } else {
       console.log("active page", queryObj)
       this.fetchMappedDeliveryServiceProviderCityList({
-        pagination: {
           offset: queryObj.activePage ? this.pageLimit * (parseInt(queryObj.activePage) - 1) : 0,
           limit: this.pageLimit,
-        }
       })
     }
   }
@@ -95,10 +85,9 @@ class DeliveryServiceProviderCityMapping extends React.Component {
 
     if (queryObj.selectedField) {
       this.fetchMappedDeliveryServiceProviderCityList({
-        pagination: {
           offset: pageObj.activePage ? this.pageLimit * (parseInt(pageObj.activePage) - 1) : 0,
           limit: this.pageLimit
-        },
+        ,
         filter: {
           field: queryObj.selectedField,
           value: queryObj.selectedValue
@@ -106,17 +95,15 @@ class DeliveryServiceProviderCityMapping extends React.Component {
       })
     } else {
       this.fetchMappedDeliveryServiceProviderCityList({
-        pagination: {
           offset: pageObj.activePage ? this.pageLimit * (parseInt(pageObj.activePage) - 1) : 0,
           limit: this.pageLimit,
-        }
       })
     }
 
     this.setState({ activePage: pageObj.activePage })
 
     queryObj.activePage = pageObj.activePage
-    history.pushState(queryObj, "delivery agent locality listing", `/home/delivery-agent-locality-mapping?${getQueryUri(queryObj)}`)
+    history.pushState(queryObj, "delivery service provider city listing", `/home/delivery-service-provider-city-mapping?${getQueryUri(queryObj)}`)
   }
 
   mountFilterDialog() {
@@ -166,7 +153,7 @@ class DeliveryServiceProviderCityMapping extends React.Component {
         console.log("[fetchMappedDSPToCity]",response)
       })
       .catch((err) => {
-        console.log("Error in fetching mapped delivery agent locality list", err)
+        console.log("Error in fetching mapped delivery service provider city list", err)
         err.response.json().then((json) => {
           Notify(json.message, "warning")
         })
@@ -189,10 +176,9 @@ class DeliveryServiceProviderCityMapping extends React.Component {
     history.pushState(queryObj, "Delivery Agents Mapped to Locality Listing", "/home/delivery-agent-locality-mapping")
 
     this.fetchMappedDeliveryServiceProviderCityList({
-      pagination: {
         offset: 0,
-        limit: this.pageLimit,
-      },
+        limit: this.pageLimit
+      ,
       filter: {
         field: selectedField.includes("Locality") ? "locality_id" : "da_id",
         value: selectedValue
@@ -253,18 +239,22 @@ class DeliveryServiceProviderCityMapping extends React.Component {
             ? (
               <FilterModal
                 applyFilter={this.applyFilter}
-                title="Filter Delivery Agents"
+                title="Filter Delivery Service Provider"
                 unmountFilterModal={this.unmountFilterModal}
-                filter="filterDeliveryAgentLocalityMapped"
+                filter="filterDeliveryServiceProviderCityMapped"
                 floatingLabelText="Select Option"
                 dropdownOptions={[
                   {
                     id: 1,
-                    name: "Locality Id"
+                    name: "City Id"
                   },
                   {
                     id: 2,
-                    name: "Delivery Agent Id"
+                    name: "Delivery Service Provider Id"
+                  },
+                  {
+                    id: 3,
+                    name: "Is Active"
                   }
                 ]}
                 filterDeliveryAgentLocalityMapped={true}

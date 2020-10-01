@@ -264,7 +264,7 @@ class FilterModal extends React.Component {
                 </SelectField>
               </div>
               <div className="form-group">
-                <label>{ this.state.selectedFieldIdx === 1 ? "Warehouse Id" : "Delivery Agent Id" }</label><br />
+                <label>{ this.state.selectedFieldIdx === 1 ? "Warehouse Id" : this.state.selectedFieldIdx === 2 ? "Delivery Agent Id": "Is Active" }</label><br />
                 <TextField
                   style={{ width: '100%' }}
                   onChange={this.handleTextFields}
@@ -300,6 +300,44 @@ class FilterModal extends React.Component {
                 this.state.selectedFieldIdx !== -1 &&
                 <div className="form-group">
                   <label>{this.state.selectedFieldIdx === 1 ? "Locality Id" : "Delivery Agent Id"}</label><br />
+                  <TextField
+                    style={{ width: '100%' }}
+                    onChange={this.handleTextFields}
+                    name="selectedFieldValue"
+                    value={this.state.selectedFieldValue}
+                  />
+                </div>
+              }
+            </div>
+          }
+          {
+            this.props.filter === "filterDeliveryServiceProviderCityMapped" &&
+            <div>
+              <div className="form-group">
+                <SelectField
+                  style={{ width: '100%' }}
+                  floatingLabelText={this.props.floatingLabelText}
+                  value={parseInt(this.state.selectedFieldIdx)}
+                  onChange={this.handleSelectChange}
+                  iconStyle={{ fill: '#9b9b9b' }}
+                >
+                  {
+                    this.props.dropdownOptions.map((item, i) => (
+                      <MenuItem
+                        value={i + 1}
+                        key={item.id}
+                        primaryText={item.name}
+                      />
+                    ))
+                  }
+                </SelectField>
+              </div>
+              {
+                this.state.selectedFieldIdx !== -1 &&
+                <div className="form-group">
+                  <label> 
+                    {this.state.selectedFieldIdx === 1 ? "City Id" : "Delivery Service Provider Id" }
+                  </label><br />
                   <TextField
                     style={{ width: '100%' }}
                     onChange={this.handleTextFields}

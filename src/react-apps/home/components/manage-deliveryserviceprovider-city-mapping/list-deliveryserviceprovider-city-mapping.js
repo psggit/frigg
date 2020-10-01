@@ -15,10 +15,11 @@ import Notify from "@components/Notification"
 
 const TableHeaderItems = [
   '',
-  'DELIVERY AGENT ID',
-  'DELIVERY AGENT NAME',
-  'LOCALITY ID',
-  'LOCALITY NAME',
+  'CITY NAME',
+  'DSP NAME',
+  'PRIORITY',
+  'IS ACTIVE',
+  'TURNAROUND DURATION',
 ]
 
 const styles = [
@@ -26,7 +27,8 @@ const styles = [
   { width: '120px' },
   { width: '120px' },
   { width: '120px' },
-  { width: '120px' }
+  { width: '120px' },
+  { width: '120px' },
 ]
 
 class ListDeliveryServiceProviderCityMapping extends React.Component {
@@ -39,7 +41,7 @@ class ListDeliveryServiceProviderCityMapping extends React.Component {
       deliveryAgentName: "",
       activityStatus: false,
     }
-    this.deleteDeliveryAgentMappedToLocalityData = this.deleteDeliveryAgentMappedToLocalityData.bind(this)
+    this.deleteDeliveryServiceProviderMappedToCityData = this.deleteDeliveryServiceProviderMappedToCityData.bind(this)
   }
 
   componentDidMount () {
@@ -50,14 +52,14 @@ class ListDeliveryServiceProviderCityMapping extends React.Component {
     overrideTableStyle()
   }
 
-  deleteDeliveryAgentMappedToLocalityData (e, item) {
-    Api.deleteDeliveryAgentMappedToLocality({
-      delivery_agent_id: item.da_id,
-      locality_id: item.locality_id
+  deleteDeliveryServiceProviderMappedToCityData (e, item) {
+    Api.deleteDeliveryServiceProviderMappedToCity({
+      delivery_service_provider_id: item.delivery_service_provider_id,
+      city_id: item.city_id
     })
       .then((response) => {
         Notify('Deleted Succesfully', 'success')
-        this.props.history.push("/home/delivery-agent-locality-mapping")
+        this.props.history.push("/home/delivery-service-provider-city-mapping")
       })
       .catch((error) => {
         error.response.json().then((json) => {
@@ -90,7 +92,7 @@ class ListDeliveryServiceProviderCityMapping extends React.Component {
               !loadingDeliveryserviceproviderCityMapped && deliveryServiceProviderCityMapped.length === 0 &&
               <tr>
                 <td style={{ textAlign: 'center' }} colSpan='10'>
-                  <p style={{ fontWeight: '16px' }}>No Delivery Agent Locality Mapped details found</p>
+                  <p style={{ fontWeight: '16px' }}>No Delivery Service Provider City Mapped details found</p>
                 </td>
               </tr>
             }
@@ -102,15 +104,16 @@ class ListDeliveryServiceProviderCityMapping extends React.Component {
                       <TableRow key={i}>
                         <TableRowColumn style={styles[0]}>
                           <button
-                            onClick={e => this.deleteDeliveryAgentMappedToLocalityData(e, item)}
+                            onClick={e => this.deleteDeliveryServiceProviderMappedToCityData(e, item)}
                           >
                             Delete
                           </button>
                         </TableRowColumn>
-                        <TableRowColumn style={styles[1]}>{item.city_id}</TableRowColumn>
-                        <TableRowColumn style={styles[2]}>{item.da_name}</TableRowColumn>
-                        <TableRowColumn style={styles[3]}>{item.locality_id}</TableRowColumn>
-                        <TableRowColumn style={styles[4]}>{item.locality_name}</TableRowColumn>
+                        <TableRowColumn style={styles[1]}>{item.city_name}</TableRowColumn>
+                        <TableRowColumn style={styles[2]}>{item.delivery_service_provider_name}</TableRowColumn>
+                        <TableRowColumn style={styles[3]}>{item.priority}</TableRowColumn>
+                        <TableRowColumn style={styles[4]}>{item.is_active ? "true" : "false"}</TableRowColumn>
+                        <TableRowColumn style={styles[5]}>{item.turnaround_duration}</TableRowColumn>
                       </TableRow>
                     )
                   })

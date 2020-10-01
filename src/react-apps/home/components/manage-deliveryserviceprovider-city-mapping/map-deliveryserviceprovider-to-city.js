@@ -21,7 +21,7 @@ class MapDeliveryServiceProviderToCity extends React.Component {
   }
 
   handleClick() {
-    this.props.history.push(`/home/delivery-agent-locality-mapping`)
+    this.props.history.push(`/home/delivery-service-provider-city-mapping`)
   }
 
   render () {

@@ -270,6 +270,15 @@ export const deleteDeliveryAgentMappedToLocality = payload => (
   })
 )
 
+export const deleteDeliveryServiceProviderMappedToCity = payload => (
+  POST({
+    api: '/delivery_service_provider/delete_city_mapping',
+    apiBase: 'odin',
+    data: payload,
+    handleError: true
+  })
+)
+
 export const reportOptions = () => (
   GET({
     api: '/Api/reports/list',
@@ -2012,6 +2021,26 @@ export const mapDeliveryAgentToLocality = payload => (
   POST({
     api: '/deliveryman/api/1/mapping/datolocality/create',
     apiBase: 'apiUrl',
+    data: payload,
+    handleError: true
+  })
+    .then(json => json)
+)
+
+export const mapDeliveryServiceProviderToCity = payload => (
+  POST({
+    api: '/delivery_service_provider/create_sp_city_map',
+    apiBase: 'odin',
+    data: payload,
+    handleError: true
+  })
+    .then(json => json)
+)
+
+export const fetchDeliveryServiceProvider = payload => (
+  POST({
+    api: '/delivery_service_provider/list',
+    apiBase: 'odin',
     data: payload,
     handleError: true
   })
