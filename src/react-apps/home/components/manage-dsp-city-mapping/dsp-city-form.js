@@ -100,7 +100,7 @@ class MapDSPToCityForm extends React.Component {
       city_id: this.state.selectedCityIdx,
     })
       .then((response) => {
-        Notify('Deleted Succesfully', 'success')
+        Notify(response.message, 'success')
         this.setState({ disableSave: true, disableDelete: true })
       })
       .catch((error) => {
