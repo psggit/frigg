@@ -14,23 +14,13 @@ import { overrideTableStyle } from '../../../utils'
 const TableHeaderItems = [
   '',
   'DELIVERY SERVICE PROVIDER ID',
-  ' DELIVERY SERVICE PROVIDER NAME',
-  // 'CITY ID',
-  // 'LOCALITY ID',
-  // 'GPS X CORDINATE',
-  // 'GPS Y CORDINATE',
-  // 'STATUS'
+  'DELIVERY SERVICE PROVIDER NAME',
 ]
 
 const styles = [
   { width: '38px' },
   { width: '120px' },
   { width: '120px' },
-  // { width: '120px' },
-  // { width: '120px' },
-  // { width: '120px' },
-  // { width: '120px' },
-  // { width: '120px' },
 ]
 
 class ListDeliveryServiceProvider extends React.Component {
