@@ -93,7 +93,7 @@ class MapDeliveryAgentToLocalityForm extends React.Component {
       locality_id: parseInt(this.state.localityId)
     })
       .then((response) => {
-        Notify('Successfully mapped', 'success')
+        Notify(response.message, 'success')
         this.setState({ mappingDAToLocality: false, disableSave: true, disableDelete: false })
       })
       .catch((error) => {
