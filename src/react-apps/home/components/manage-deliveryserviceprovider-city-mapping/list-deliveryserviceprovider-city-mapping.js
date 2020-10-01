@@ -79,7 +79,7 @@ class ListDeliveryServiceProviderCityMapping extends React.Component {
     this.setState({
       deliveryServiceProviderId: item.delivery_service_provider_id,
       cityId: item.city_id,
-      activityStatus: item.is_active,
+      activityStatus: value,
     })
   }
 
@@ -91,7 +91,7 @@ class ListDeliveryServiceProviderCityMapping extends React.Component {
       is_active: this.state.activityStatus
     })
       .then((response) => {
-        console.log("Successfully Updated")
+        Notify(response.message,'success')
         this.props.history.push("/home/delivery-service-provider-city-mapping")
       })
       .catch((error) => {
@@ -187,7 +187,7 @@ class ListDeliveryServiceProviderCityMapping extends React.Component {
                 <ModalBody height="60px">
                   <table className="table--hovered">
                     <tbody>
-                      Are you sure you want to {this.state.activityStatus === false ? 'Deactivate' : 'Activate'} {this.state.deliveryServiceProviderId} ({this.state.deliveryServiceProviderId}) ?
+                      Are you sure you want to {this.state.activityStatus === false ? 'Deactivate' : 'Activate'} {this.state.cityId} ({this.state.deliveryServiceProviderId}) ?
                    </tbody>
                   </table>
                 </ModalBody>

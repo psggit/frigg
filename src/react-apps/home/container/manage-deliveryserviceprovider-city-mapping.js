@@ -7,10 +7,10 @@ import { getQueryObj, getQueryUri } from '@utils/url-utils'
 import FilterModal from '@components/filter-modal'
 import ListDeliveryServiceProviderCityMapping from "../components/manage-deliveryserviceprovider-city-mapping/list-deliveryserviceprovider-city-mapping"
 import getIcon from '../components/icon-utils'
-import ModalHeader from '@components/ModalBox/ModalHeader'
-import ModalFooter from '@components/ModalBox/ModalFooter'
-import ModalBody from '@components/ModalBox/ModalBody'
-import ModalBox from '@components/ModalBox'
+// import ModalHeader from '@components/ModalBox/ModalHeader'
+// import ModalFooter from '@components/ModalBox/ModalFooter'
+// import ModalBody from '@components/ModalBox/ModalBody'
+// import ModalBox from '@components/ModalBox'
 import Notify from "@components/Notification"
 
 class DeliveryServiceProviderCityMapping extends React.Component {
@@ -36,9 +36,9 @@ class DeliveryServiceProviderCityMapping extends React.Component {
     this.mountFilterDialog = this.mountFilterDialog.bind(this)
     this.unmountFilterModal = this.unmountFilterModal.bind(this)
     this.applyFilter = this.applyFilter.bind(this)
-    this.mountConfirmDialogBox = this.mountConfirmDialogBox.bind(this)
-    this.unmountConfirmDialogBox = this.unmountConfirmDialogBox.bind(this)
-    this.clearAllMappings = this.clearAllMappings.bind(this)
+    // this.mountConfirmDialogBox = this.mountConfirmDialogBox.bind(this)
+    // this.unmountConfirmDialogBox = this.unmountConfirmDialogBox.bind(this)
+    // this.clearAllMappings = this.clearAllMappings.bind(this)
     this.fetchMappedDeliveryServiceProviderCityList = this.fetchMappedDeliveryServiceProviderCityList.bind(this)
   }
   
@@ -114,32 +114,32 @@ class DeliveryServiceProviderCityMapping extends React.Component {
     this.setState({ shouldMountFilterDialog: false })
   }
 
-  clearAllMappings() {
-    this.unmountConfirmDialogBox()
-    Api.clearAllDaLocalityMappings()
-      .then((response) => {
-        Notify('Deleted Succesfully', 'success')
-        location.reload()
-      })
-      .catch((error) => {
-        error.response.json().then((json) => {
-          Notify(json.message, "warning")
-        })
-        console.log("Error in deleting all the mappings", error)
-      })
-  }
+  // clearAllMappings() {
+  //   this.unmountConfirmDialogBox()
+  //   Api.clearAllDaLocalityMappings()
+  //     .then((response) => {
+  //       Notify('Deleted Succesfully', 'success')
+  //       location.reload()
+  //     })
+  //     .catch((error) => {
+  //       error.response.json().then((json) => {
+  //         Notify(json.message, "warning")
+  //       })
+  //       console.log("Error in deleting all the mappings", error)
+  //     })
+  // }
 
-  mountConfirmDialogBox() {
-    this.setState({
-      mountConfirmDialog: true
-    })
-  }
+  // mountConfirmDialogBox() {
+  //   this.setState({
+  //     mountConfirmDialog: true
+  //   })
+  // }
 
-  unmountConfirmDialogBox() {
-    this.setState({
-      mountConfirmDialog: false
-    })
-  }
+  // unmountConfirmDialogBox() {
+  //   this.setState({
+  //     mountConfirmDialog: false
+  //   })
+  // }
 
   fetchMappedDeliveryServiceProviderCityList(payload) {
     this.setState({ loadingMappedDeliveryserviceProviderCityList: true })
@@ -205,11 +205,11 @@ class DeliveryServiceProviderCityMapping extends React.Component {
             </NavLink>
           </div>
           <div>
-            <RaisedButton
+            {/* <RaisedButton
               style={{ marginRight: "10px" }}
               onClick={this.mountConfirmDialogBox}
               label="Clear All"
-            />
+            /> */}
             <RaisedButton
               style={{ marginRight: "10px" }}
               onClick={this.mountFilterDialog}
@@ -262,7 +262,7 @@ class DeliveryServiceProviderCityMapping extends React.Component {
             )
             : ''
         }
-        {
+        {/* {
           this.state.mountConfirmDialog &&
           <ModalBox>
             <ModalHeader>Confirmation</ModalHeader>
@@ -272,7 +272,7 @@ class DeliveryServiceProviderCityMapping extends React.Component {
               <button className="btn btn-secondary" onClick={() => this.clearAllMappings()}> Confirm </button>
             </ModalFooter>
           </ModalBox>
-        }
+        } */}
       </React.Fragment>
     )
   }
