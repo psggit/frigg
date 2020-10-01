@@ -1779,15 +1779,15 @@ export const fetchWarehouse = payload => (
     .then(json => json)
 )
 
-export const fetchDeliveryServiceProvider = payload => (
-  POST({
-    api: '/delivery_service_provider/list',
-    apiBase: 'odin',
-    data: payload,
-    handleError: true
-  })
-    .then(json => json)
-)
+// export const fetchDeliveryServiceProvider = payload => (
+//   POST({
+//     api: '/delivery_service_provider/list',
+//     apiBase: 'odin',
+//     data: payload,
+//     handleError: true
+//   })
+//     .then(json => json)
+// )
 
 export const updateDeliveryAgentStatus = payload => (
   POST({

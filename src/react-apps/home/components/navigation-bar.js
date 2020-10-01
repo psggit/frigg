@@ -162,8 +162,8 @@ class NavigationBar extends React.Component {
           { name: 'Retailer Warehouse Mapping', path: '/home/retailer-warehouse-mapping', id: 41 },
           { name: 'Delivery Agent Warehouse Mapping', path: '/home/delivery-agent-warehouse-mapping', id: 44 },
           { name: 'Delivery Agent Locality Mapping', path: '/home/delivery-agent-locality-mapping', id:45 },
-          { name: 'Delivery Service Provider City Mapping', path: '/home/dsp-city-mapping', id: 46 },
           { name: 'Delivery Service Provider', path: '/home/manage-delivery-service-provider', id: 46, nestedItems: [] },
+          { name: 'Delivery Service Provider City Mapping', path: '/home/dsp-city-mapping', id: 47 },
         ]
       }
     ]
