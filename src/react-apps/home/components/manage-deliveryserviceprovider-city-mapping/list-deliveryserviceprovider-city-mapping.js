@@ -12,14 +12,19 @@ import '@sass/components/_table.scss'
 import { overrideTableStyle } from '../../../utils'
 import * as Api from "../../middleware/api"
 import Notify from "@components/Notification"
+import Switch from "@components/switch"
+import ModalBody from '@components/ModalBox/ModalBody'
+import ModalHeader from '@components/ModalBox/ModalHeader'
+import ModalFooter from '@components/ModalBox/ModalFooter'
+import ModalBox from '@components/ModalBox'
 
 const TableHeaderItems = [
   '',
   'CITY NAME',
   'DSP NAME',
   'PRIORITY',
-  'IS ACTIVE',
   'TURNAROUND DURATION',
+  'IS ACTIVE',
 ]
 
 const styles = [
@@ -37,19 +42,62 @@ class ListDeliveryServiceProviderCityMapping extends React.Component {
 
     this.state = {
       mountDialog: false,
-      deliveryAgentId: "",
-      deliveryAgentName: "",
+      deliveryServiceProviderId: "",
+      cityId: "",
       activityStatus: false,
     }
     this.deleteDeliveryServiceProviderMappedToCityData = this.deleteDeliveryServiceProviderMappedToCityData.bind(this)
+    this.mountDialog = this.mountDialog.bind(this)
+    this.unmountDialog = this.unmountDialog.bind(this)
+    this.onToggleChange = this.onToggleChange.bind(this)
+    this.updateDeliveryServiceProviderCityMappedStatus = this.updateDeliveryServiceProviderCityMappedStatus.bind(this)
   }
 
   componentDidMount () {
     this.overrideTableStyle()
   }
 
+  mountDialog() {
+    this.setState({
+      mountDialog: true
+    })
+  }
+
+  unmountDialog() {
+    this.setState({
+      mountDialog: false
+    })
+  }
+
   overrideTableStyle () {
     overrideTableStyle()
+  }
+
+  onToggleChange(item, value) {
+    console.log("hello from toggle", item, value)
+    this.mountDialog()
+    this.setState({
+      deliveryServiceProviderId: item.delivery_service_provider_id,
+      cityId: item.city_id,
+      activityStatus: item.is_active,
+    })
+  }
+
+  updateDeliveryServiceProviderCityMappedStatus() {
+    this.unmountDialog()
+    Api.updateDeliveryServiceProviderCityMappedStatus({
+      delivery_service_provider_id: this.state.deliveryServiceProviderId,
+      city_id: this.state.cityId,
+      is_active: this.state.activityStatus
+    })
+      .then((response) => {
+        console.log("Successfully Updated")
+        this.props.history.push("/home/delivery-service-provider-city-mapping")
+      })
+      .catch((error) => {
+        console.log("Error in updating", error)
+      })
+
   }
 
   deleteDeliveryServiceProviderMappedToCityData (e, item) {
@@ -112,8 +160,10 @@ class ListDeliveryServiceProviderCityMapping extends React.Component {
                         <TableRowColumn style={styles[1]}>{item.city_name}</TableRowColumn>
                         <TableRowColumn style={styles[2]}>{item.delivery_service_provider_name}</TableRowColumn>
                         <TableRowColumn style={styles[3]}>{item.priority}</TableRowColumn>
-                        <TableRowColumn style={styles[4]}>{item.is_active ? "true" : "false"}</TableRowColumn>
-                        <TableRowColumn style={styles[5]}>{item.turnaround_duration}</TableRowColumn>
+                        <TableRowColumn style={styles[4]}>{item.turnaround_duration}</TableRowColumn>
+                        <TableRowColumn style={styles[5]}>
+                          <Switch onToggle={this.onToggleChange} toggled={item.is_active} value={item} />
+                        </TableRowColumn>
                       </TableRow>
                     )
                   })
@@ -123,6 +173,32 @@ class ListDeliveryServiceProviderCityMapping extends React.Component {
                     <TableLoadingShell key={index} />
                   ))
                 )
+            }
+
+            {
+              this.state.mountDialog &&
+
+              <ModalBox>
+                <ModalHeader>
+                  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <div style={{ fontSize: '18px' }}>{this.state.activityStatus === false ? 'Deactivate' : 'Activate'} Delivery Service Provider City Mapped</div>
+                  </div>
+                </ModalHeader>
+                <ModalBody height="60px">
+                  <table className="table--hovered">
+                    <tbody>
+                      Are you sure you want to {this.state.activityStatus === false ? 'Deactivate' : 'Activate'} {this.state.deliveryServiceProviderId} ({this.state.deliveryServiceProviderId}) ?
+                   </tbody>
+                  </table>
+                </ModalBody>
+                <ModalFooter>
+                  <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', fontWeight: '600' }}>
+                    <button className="btn btn-primary" onClick={() => this.updateDeliveryServiceProviderCityMappedStatus()}> Yes </button>
+                    <button className="btn btn-secondary" onClick={() => this.unmountDialog()}> Cancel </button>
+                  </div>
+                </ModalFooter>
+              </ModalBox>
+
             }
 
           </TableBody>

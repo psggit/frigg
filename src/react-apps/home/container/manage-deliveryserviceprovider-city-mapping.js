@@ -27,8 +27,8 @@ class DeliveryServiceProviderCityMapping extends React.Component {
     }
 
     this.filter = {
-      field: "",
-      value: ""
+      filter_by: "",
+      filter_value: ""
     }
 
     this.setQueryParamas = this.setQueryParamas.bind(this)
@@ -65,8 +65,8 @@ class DeliveryServiceProviderCityMapping extends React.Component {
         limit: this.pageLimit,
         
         filter: {
-          field: queryObj.selectedField,
-          value: queryObj.selectedValue
+          filter_by: queryObj.selectedField,
+          filter_value: queryObj.selectedValue
         }
       })
     } else {
@@ -89,8 +89,8 @@ class DeliveryServiceProviderCityMapping extends React.Component {
           limit: this.pageLimit
         ,
         filter: {
-          field: queryObj.selectedField,
-          value: queryObj.selectedValue
+          filter_by: queryObj.selectedField,
+          filter_value: queryObj.selectedValue
         }
       })
     } else {
@@ -164,7 +164,7 @@ class DeliveryServiceProviderCityMapping extends React.Component {
     console.log("fiels", selectedField, "value", selectedValue)
     const queryObj = {
       activePage: 1,
-      selectedField: selectedField.includes("Locality") ? "locality_id" : "da_id",
+      selectedField: selectedField.includes("City") ? "city_id" : selectedField.includes("Delivery") ? "delivery_service_provider_id": "is_active",
       selectedValue
     }
 
@@ -173,15 +173,15 @@ class DeliveryServiceProviderCityMapping extends React.Component {
       mappedDeliveryServiceProviderCityList: []
     })
 
-    history.pushState(queryObj, "Delivery Agents Mapped to Locality Listing", "/home/delivery-agent-locality-mapping")
+    history.pushState(queryObj, "Delivery Service provider Mapped To City ", "/delivery-service-provider-city-mapping")
 
     this.fetchMappedDeliveryServiceProviderCityList({
         offset: 0,
         limit: this.pageLimit
       ,
       filter: {
-        field: selectedField.includes("Locality") ? "locality_id" : "da_id",
-        value: selectedValue
+        filter_by: selectedField.includes("City") ? "city_id" : selectedField.includes("Delivery") ? "delivery_service_provider_id" : "is_active",
+        filter_value: selectedValue
       }
     })
   }
@@ -257,7 +257,7 @@ class DeliveryServiceProviderCityMapping extends React.Component {
                     name: "Is Active"
                   }
                 ]}
-                filterDeliveryAgentLocalityMapped={true}
+                filterDeliveryServiceProviderCityMapped = {true}
               />
             )
             : ''

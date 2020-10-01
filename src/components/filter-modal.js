@@ -133,6 +133,9 @@ class FilterModal extends React.Component {
     } else if (this.props.filter === "filterDeliveryAgentLocalityMapped") {
       this.props.applyFilter(this.props.dropdownOptions.find(item => item.id === this.state.selectedFieldIdx).name, this.state.selectedFieldValue)
     }
+    else if (this.props.filter === "filterDeliveryServiceProviderCityMapped") {
+      this.props.applyFilter(this.props.dropdownOptions.find(item => item.id === this.state.selectedFieldIdx).name, this.state.selectedFieldValue)
+    }
     else if (this.props.filter === "brandName") {
       this.props.applyFilter(this.state.brandName)
     } else if (this.props.filter === "cartCouponFilter" || this.props.filter === "productCouponFilter") {
@@ -264,7 +267,7 @@ class FilterModal extends React.Component {
                 </SelectField>
               </div>
               <div className="form-group">
-                <label>{ this.state.selectedFieldIdx === 1 ? "Warehouse Id" : this.state.selectedFieldIdx === 2 ? "Delivery Agent Id": "Is Active" }</label><br />
+                <label>{ this.state.selectedFieldIdx === 1 ? "Warehouse Id" : "Delivery Agent Id" }</label><br />
                 <TextField
                   style={{ width: '100%' }}
                   onChange={this.handleTextFields}
@@ -335,9 +338,7 @@ class FilterModal extends React.Component {
               {
                 this.state.selectedFieldIdx !== -1 &&
                 <div className="form-group">
-                  <label> 
-                    {this.state.selectedFieldIdx === 1 ? "City Id" : "Delivery Service Provider Id" }
-                  </label><br />
+                  <label>{this.state.selectedFieldIdx === 1 ? "City Id" : this.state.selectedFieldIdx === 2 ? "Delivery Service Provider Id": "Is Active" }</label><br />
                   <TextField
                     style={{ width: '100%' }}
                     onChange={this.handleTextFields}

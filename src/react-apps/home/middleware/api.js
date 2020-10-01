@@ -1769,6 +1769,15 @@ export const updateDeliveryAgentStatus = payload => (
   })
 )
 
+export const updateDeliveryServiceProviderCityMappedStatus = payload => (
+  POST({
+    api: '/delivery_service_provider/disable',
+    apiBase: 'odin',
+    data: payload,
+    handleError: true
+  })
+)
+
 export const updateCouponDetails = payload => (
   POST({
     api: '/promoengine/update_coupon',
