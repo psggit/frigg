@@ -270,6 +270,15 @@ export const deleteDeliveryAgentMappedToLocality = payload => (
   })
 )
 
+export const deleteDSPMappedToCity = payload => (
+  POST({
+    api: '/delivery_service_provider/delete_city_mapping',
+    apiBase: 'odin',
+    data: payload,
+    handleError: true
+  })
+)
+
 export const reportOptions = () => (
   GET({
     api: '/Api/reports/list',
@@ -291,6 +300,15 @@ export const fetchMappedDeliveryAgentLocalityList = payload => (
   POST({
     api: '/deliveryman/api/1/mapping/datolocality/list',
     apiBase: 'apiUrl',
+    data: payload,
+    handleError: true
+  })
+)
+
+export const fetchMappedDSPCityList = payload => (
+  POST({
+    api: '/delivery_service_provider/list_city_map',
+    apiBase: 'odin',
     data: payload,
     handleError: true
   })
@@ -1705,6 +1723,16 @@ export const createWarehouse = payload => (
   })
 )
 
+export const createDeliveryServiceProvider = payload => (
+  POST({
+    api: '/delivery_service_provider/create',
+    apiBase: 'odin',
+    data: payload,
+    handleError: true
+  })
+)
+// https://odin.hipbar-dev.com/delivery_service_provider/create
+
 export const createDeliveryagent = payload => (
   POST({
     api: '/deliveryman/api/1/deliveryagent/create',
@@ -1718,6 +1746,15 @@ export const updateWarehouse = payload => (
   POST({
     api: '/deliveryman/api/1/warehouse/update',
     apiBase: 'apiUrl',
+    data: payload,
+    handleError: true
+  })
+)
+
+export const updateDeliveryServiceProvider = payload => (
+  POST({
+    api: '/delivery_service_provider/update',
+    apiBase: 'odin',
     data: payload,
     handleError: true
   })
@@ -1742,10 +1779,29 @@ export const fetchWarehouse = payload => (
     .then(json => json)
 )
 
+// export const fetchDeliveryServiceProvider = payload => (
+//   POST({
+//     api: '/delivery_service_provider/list',
+//     apiBase: 'odin',
+//     data: payload,
+//     handleError: true
+//   })
+//     .then(json => json)
+// )
+
 export const updateDeliveryAgentStatus = payload => (
   POST({
     api: '/deliveryman/api/1/deliveryagent/update/activity',
     apiBase: 'apiUrl',
+    data: payload,
+    handleError: true
+  })
+)
+
+export const updateDSPCityMappedStatus = payload => (
+  POST({
+    api: '/delivery_service_provider/disable',
+    apiBase: 'odin',
     data: payload,
     handleError: true
   })
@@ -2003,6 +2059,26 @@ export const mapDeliveryAgentToLocality = payload => (
   POST({
     api: '/deliveryman/api/1/mapping/datolocality/create',
     apiBase: 'apiUrl',
+    data: payload,
+    handleError: true
+  })
+    .then(json => json)
+)
+
+export const mapDeliveryServiceProviderToCity = payload => (
+  POST({
+    api: '/delivery_service_provider/create_sp_city_map',
+    apiBase: 'odin',
+    data: payload,
+    handleError: true
+  })
+    .then(json => json)
+)
+
+export const fetchDeliveryServiceProvider = payload => (
+  POST({
+    api: '/delivery_service_provider/list',
+    apiBase: 'odin',
     data: payload,
     handleError: true
   })
