@@ -31,16 +31,18 @@ class CartForm extends React.Component {
       delivery: props.data ? props.data.delivery : false,
       isConsumerSpecific: props.data ? props.data.is_consumer_specific : false,
       isReviseDeliveryFee: props.data ? props.data.revise_delivery_fee : false,
+      isRetailerSpecific: props.data ? props.data.is_retailer_specific : false,
       isUnlimited: props.data ? props.data.is_unlimited : false,
       cityList: props.data ? props.data.city_list_str : "",
       limitPerUser: props.data ? props.data.limit_per_user : "",
-      selectedAppIdx: props.data ? props.data.app === "drinks" ? 1 : 1 : 2,
+      selectedAppIdx: props.data ? props.data.app === "drinks" ? 1 : 2 : 1,
       selectedDestinationIdx: props.data ? props.data.destination === "UPI" ? 1 : 1 : 1,
       shortDesc: props.data ? props.data.short_desc : "",
       longDesc: props.data ? props.data.long_desc : "",
       longHtmlDesc: props.data ? props.data.long_html_desc : "",
       consumerList: props.data ? props.data.consumer_list: "",
       newDeliveryFee: props.data ? props.data.new_delivery_fee: "",
+      retailerList: props.data ? props.data.retailer_list: "",
       listingOrder: props.data ? props.data.listing_order : ""
     }
 
@@ -49,7 +51,7 @@ class CartForm extends React.Component {
     ]
 
     this.app = [
-      { text: 'HipBar-Drinks', value: 1 },
+      { text: 'drinks', value: 1 },
       { text: 'fk-web', value: 2},
     ]
 
@@ -274,6 +276,30 @@ class CartForm extends React.Component {
               required
               style={{ width: '100%' }}
               value={this.state.newDeliveryFee}
+            />
+          </div>
+        }
+
+        <div className="form-group">
+          <Checkbox
+            style={{ marginTop: "10px" }}
+            label="Retailer Specific"
+            name="isRetailerSpecific"
+            checked={this.state.isRetailerSpecific}
+            onCheck={this.handleCheckboxChange}
+          />
+        </div>
+
+        {
+          this.state.isRetailerSpecific && !location.pathname.includes("edit") &&
+          <div className="form-group">
+            <label className="label">Retailer List</label>
+            <TextField
+              onChange={this.handleTextFieldChange}
+              name="retailerList"
+              required
+              style={{ width: '100%' }}
+              value={this.state.retailerList}
             />
           </div>
         }

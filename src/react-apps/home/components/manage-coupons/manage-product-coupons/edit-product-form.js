@@ -52,6 +52,7 @@ class EditProductCoupons extends React.Component {
       sign_up_date: new Date(couponDetails.signUpDate),
       consider_sign_up: couponDetails.considerSignUp,
       revise_delivery_fee: couponDetails.isReviseDeliveryFee,
+      is_retailer_specific: couponDetails.isRetailerSpecific,
       app: couponDetails.selectedAppIdx === 1 ? "drinks" : "fk-web",
       pay_by_wallet: couponDetails.payByWallet,
       store_pickup: couponDetails.storePickup,
