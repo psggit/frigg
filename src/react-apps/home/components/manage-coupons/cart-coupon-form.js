@@ -35,7 +35,9 @@ class CartForm extends React.Component {
       isUnlimited: props.data ? props.data.is_unlimited : false,
       cityList: props.data ? props.data.city_list_str : "",
       limitPerUser: props.data ? props.data.limit_per_user : "",
-      selectedAppIdx: props.data ? props.data.app === "drinks" ? 1 : 2 : 1,
+      // selectedAppIdx: props.data ? props.data.app === "drinks" ? 1 : 2 : 1,
+      drinks: props.data ? props.data.hipbar_drinks : false,
+      fkWeb: props.data ? props.data.fk_web : false,
       selectedDestinationIdx: props.data ? props.data.destination === "UPI" ? 1 : 1 : 1,
       shortDesc: props.data ? props.data.short_desc : "",
       longDesc: props.data ? props.data.long_desc : "",
@@ -50,16 +52,16 @@ class CartForm extends React.Component {
       { text: 'UPI', value: 1 },
     ]
 
-    this.app = [
-      { text: 'drinks', value: 1 },
-      { text: 'fk-web', value: 2},
-    ]
+    // this.app = [
+    //   { text: 'drinks', value: 1 },
+    //   { text: 'fk-web', value: 2},
+    // ]
 
     this.handleTextFieldChange = this.handleTextFieldChange.bind(this)
     this.handleDate = this.handleDate.bind(this)
     this.getData = this.getData.bind(this)
     this.handleDestinationChange = this.handleDestinationChange.bind(this)
-    this.handleAppChange = this.handleAppChange.bind(this)
+    // this.handleAppChange = this.handleAppChange.bind(this)
     this.handleCheckboxChange = this.handleCheckboxChange.bind(this)
   }
 
@@ -73,11 +75,11 @@ class CartForm extends React.Component {
     })
   }
 
-  handleAppChange (e, k) {
-    this.setState({
-      selectedAppIdx: (this.app[k].value)
-    })
-  }
+  // handleAppChange (e, k) {
+  //   this.setState({
+  //     selectedAppIdx: (this.app[k].value)
+  //   })
+  // }
 
   handleDate (e) {
     const d = new Date(e.target.value)
@@ -237,6 +239,26 @@ class CartForm extends React.Component {
         </div>
 
         <div className="form-group">
+          <Checkbox
+            style={{ marginTop: "10px" }}
+            label="Drinks"
+            name="drinks"
+            checked={this.state.drinks}
+            onCheck={this.handleCheckboxChange}
+          />
+        </div>
+
+        <div className="form-group">
+          <Checkbox
+            style={{ marginTop: "10px" }}
+            label="Fk-web"
+            name="fkWeb"
+            checked={this.state.fkWeb}
+            onCheck={this.handleCheckboxChange}
+          />
+        </div>
+
+        {/* <div className="form-group">
           <label className="label">App</label><br />
           <SelectField
             name="app"
@@ -254,7 +276,7 @@ class CartForm extends React.Component {
               ))
             }
           </SelectField>
-        </div>
+        </div> */}
 
         <div className="form-group">
           <Checkbox
