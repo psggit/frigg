@@ -44,6 +44,8 @@ class ListDSPCityMapping extends React.Component {
       mountDialog: false,
       deliveryServiceProviderId: "",
       cityId: "",
+      cityName: "",
+      dspName: "",
       activityStatus: false,
     }
     this.deleteDSPMappedToCityData = this.deleteDSPMappedToCityData.bind(this)
@@ -78,6 +80,8 @@ class ListDSPCityMapping extends React.Component {
     this.setState({
       deliveryServiceProviderId: item.delivery_service_provider_id,
       cityId: item.city_id,
+      cityName: item.city_name,
+      dspName: item.delivery_service_provider_name,
       activityStatus: value,
     })
   }
@@ -185,13 +189,13 @@ class ListDSPCityMapping extends React.Component {
                 <ModalBody height="60px">
                   <table className="table--hovered">
                     <tbody>
-                      Are you sure you want to {this.state.activityStatus === false ? 'Deactivate' : 'Activate'} {this.state.cityId} ({this.state.deliveryServiceProviderId}) ?
+                      Are you sure you want to {this.state.activityStatus === false ? 'Deactivate' : 'Activate'} "{this.state.cityName}" ({this.state.dspName}) ?
                    </tbody>
                   </table>
                 </ModalBody>
                 <ModalFooter>
                   <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', fontWeight: '600' }}>
-                    <button className="btn btn-primary" onClick={() => this.updateDeliveryServiceProviderCityMappedStatus()}> Yes </button>
+                    <button className="btn btn-primary" onClick={() => this.updateDSPCityMappedStatus()}> Yes </button>
                     <button className="btn btn-secondary" onClick={() => this.unmountDialog()}> Cancel </button>
                   </div>
                 </ModalFooter>

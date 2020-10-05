@@ -195,6 +195,7 @@ class MapDSPToCityForm extends React.Component {
           <TextField
             disabled={false}
             name="turnaroundDuration"
+            placeholder="Enter in seconds"
             style={{ width: '100%' }}
             onChange={this.handleTextFields}
           />
