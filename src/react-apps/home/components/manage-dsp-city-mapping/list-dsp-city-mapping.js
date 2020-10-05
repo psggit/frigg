@@ -20,6 +20,7 @@ import ModalBox from '@components/ModalBox'
 
 const TableHeaderItems = [
   '',
+  '',
   'CITY NAME',
   'DSP NAME',
   'PRIORITY',
@@ -29,6 +30,7 @@ const TableHeaderItems = [
 
 const styles = [
   { width: '38px' },
+  { width: '38px' },
   { width: '120px' },
   { width: '120px' },
   { width: '120px' },
@@ -37,15 +39,13 @@ const styles = [
 ]
 
 class ListDSPCityMapping extends React.Component {
-  constructor () {
+  constructor() {
     super()
 
     this.state = {
       mountDialog: false,
       deliveryServiceProviderId: "",
       cityId: "",
-      cityName: "",
-      dspName: "",
       activityStatus: false,
     }
     this.deleteDSPMappedToCityData = this.deleteDSPMappedToCityData.bind(this)
@@ -53,9 +53,10 @@ class ListDSPCityMapping extends React.Component {
     this.unmountDialog = this.unmountDialog.bind(this)
     this.onToggleChange = this.onToggleChange.bind(this)
     this.updateDSPCityMappedStatus = this.updateDSPCityMappedStatus.bind(this)
+    this.editDSPMappedToCityDetails = this.editDSPMappedToCityDetails.bind(this)
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.overrideTableStyle()
   }
 
@@ -71,8 +72,12 @@ class ListDSPCityMapping extends React.Component {
     })
   }
 
-  overrideTableStyle () {
+  overrideTableStyle() {
     overrideTableStyle()
+  }
+
+  editDSPMappedToCityDetails(e, item) {
+    this.props.history.push(`/home/dsp-city-mapping/edit/${item.delivery_service_provider_id}`, item)
   }
 
   onToggleChange(item, value) {
@@ -94,7 +99,7 @@ class ListDSPCityMapping extends React.Component {
       is_active: this.state.activityStatus
     })
       .then((response) => {
-        Notify(response.message,'success')
+        Notify(response.message, 'success')
         this.props.history.push("/home/dsp-city-mapping")
       })
       .catch((error) => {
@@ -103,7 +108,7 @@ class ListDSPCityMapping extends React.Component {
 
   }
 
-  deleteDSPMappedToCityData (e, item) {
+  deleteDSPMappedToCityData(e, item) {
     Api.deleteDSPMappedToCity({
       delivery_service_provider_id: item.delivery_service_provider_id,
       city_id: item.city_id
@@ -119,8 +124,8 @@ class ListDSPCityMapping extends React.Component {
       })
   }
 
-  render () {
-    const { loadingDeliveryserviceproviderCityMapped, 
+  render() {
+    const { loadingDeliveryserviceproviderCityMapped,
       deliveryServiceProviderCityMapped } = this.props
     return (
       <div>
@@ -161,11 +166,18 @@ class ListDSPCityMapping extends React.Component {
                             Delete
                           </button>
                         </TableRowColumn>
-                        <TableRowColumn style={styles[1]}>{item.city_name}</TableRowColumn>
-                        <TableRowColumn style={styles[2]}>{item.delivery_service_provider_name}</TableRowColumn>
-                        <TableRowColumn style={styles[3]}>{item.priority}</TableRowColumn>
-                        <TableRowColumn style={styles[4]}>{item.turnaround_duration}</TableRowColumn>
-                        <TableRowColumn style={styles[5]}>
+                        <TableRowColumn style={styles[1]}>
+                          <button
+                            onClick={e => this.editDSPMappedToCityDetails(e, item)}
+                          >
+                            Edit
+                          </button>
+                        </TableRowColumn>
+                        <TableRowColumn style={styles[2]}>{item.city_name}</TableRowColumn>
+                        <TableRowColumn style={styles[3]}>{item.delivery_service_provider_name}</TableRowColumn>
+                        <TableRowColumn style={styles[4]}>{item.priority}</TableRowColumn>
+                        <TableRowColumn style={styles[5]}>{item.turnaround_duration}</TableRowColumn>
+                        <TableRowColumn style={styles[6]}>
                           <Switch onToggle={this.onToggleChange} toggled={item.is_active} value={item} />
                         </TableRowColumn>
                       </TableRow>

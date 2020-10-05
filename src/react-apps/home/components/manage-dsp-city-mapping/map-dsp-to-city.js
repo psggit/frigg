@@ -4,7 +4,7 @@ import MapDSPToCityForm from "./dsp-city-form"
 
 class MapDSPToCity extends React.Component {
 
-  constructor () {
+  constructor() {
     super()
 
     this.state = {
@@ -14,9 +14,9 @@ class MapDSPToCity extends React.Component {
     this.handleClick = this.handleClick.bind(this)
   }
 
-  handleAdd () {
+  handleAdd() {
     this.setState({
-      totalCardCount: [...this.state.totalCardCount,this.state.totalCardCount.length + 1],
+      totalCardCount: [...this.state.totalCardCount, this.state.totalCardCount.length + 1],
     })
   }
 
@@ -24,28 +24,36 @@ class MapDSPToCity extends React.Component {
     this.props.history.push(`/home/dsp-city-mapping`)
   }
 
-  render () {
+  render() {
+    console.log("hello", location.pathname.includes(`/dsp-city-mapping`))
+
     return (
       <div>
-          <RaisedButton
-            label="Add"
-            onClick={this.handleAdd}
-            style={{marginRight: "20px"}}
-            primary
-          />
-          <RaisedButton
-            label="Back to Listing"
-            onClick={this.handleClick}
-            primary
-          />
-          <div style={{marginTop:"30px",display:"flex",flexWrap:"wrap"}}>
-            {
-              this.state.totalCardCount.map((item) => {
-                // eslint-disable-next-line react/jsx-key
-                return <MapDSPToCityForm />
-              })
-            }
+        {
+          !location.pathname.includes(`/dsp-city-mapping`) &&
+          <div>
+            < RaisedButton
+              label="Add"
+              onClick={this.handleAdd}
+              style={{ marginRight: "20px" }}
+              primary
+            />
+            <RaisedButton
+              label="Back to Listing"
+              onClick={this.handleClick}
+              primary
+            />
           </div>
+        }
+        <div style={{ marginTop: "30px", display: "flex", flexWrap: "wrap" }}>
+          {
+            this.state.totalCardCount.map((item) => {
+              // eslint-disable-next-line react/jsx-key
+              return <MapDSPToCityForm />
+            })
+          }
+        </div>
+
       </div>
     )
   }
