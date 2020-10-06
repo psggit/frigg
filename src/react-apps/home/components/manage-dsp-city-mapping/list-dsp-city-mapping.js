@@ -20,6 +20,7 @@ import ModalBox from '@components/ModalBox'
 
 const TableHeaderItems = [
   '',
+  '',
   'CITY NAME',
   'DSP NAME',
   'PRIORITY',
@@ -29,6 +30,7 @@ const TableHeaderItems = [
 
 const styles = [
   { width: '38px' },
+  { width: '38px' },
   { width: '120px' },
   { width: '120px' },
   { width: '120px' },
@@ -37,7 +39,7 @@ const styles = [
 ]
 
 class ListDSPCityMapping extends React.Component {
-  constructor () {
+  constructor() {
     super()
 
     this.state = {
@@ -51,9 +53,10 @@ class ListDSPCityMapping extends React.Component {
     this.unmountDialog = this.unmountDialog.bind(this)
     this.onToggleChange = this.onToggleChange.bind(this)
     this.updateDSPCityMappedStatus = this.updateDSPCityMappedStatus.bind(this)
+    this.editDSPMappedToCityDetails = this.editDSPMappedToCityDetails.bind(this)
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.overrideTableStyle()
   }
 
@@ -69,8 +72,12 @@ class ListDSPCityMapping extends React.Component {
     })
   }
 
-  overrideTableStyle () {
+  overrideTableStyle() {
     overrideTableStyle()
+  }
+
+  editDSPMappedToCityDetails(e, item) {
+    this.props.history.push(`/home/dsp-city-mapping/edit/${item.delivery_service_provider_id}`, item)
   }
 
   onToggleChange(item, value) {
@@ -78,6 +85,8 @@ class ListDSPCityMapping extends React.Component {
     this.setState({
       deliveryServiceProviderId: item.delivery_service_provider_id,
       cityId: item.city_id,
+      cityName: item.city_name,
+      dspName: item.delivery_service_provider_name,
       activityStatus: value,
     })
   }
@@ -90,7 +99,7 @@ class ListDSPCityMapping extends React.Component {
       is_active: this.state.activityStatus
     })
       .then((response) => {
-        Notify(response.message,'success')
+        Notify(response.message, 'success')
         this.props.history.push("/home/dsp-city-mapping")
       })
       .catch((error) => {
@@ -99,7 +108,7 @@ class ListDSPCityMapping extends React.Component {
 
   }
 
-  deleteDSPMappedToCityData (e, item) {
+  deleteDSPMappedToCityData(e, item) {
     Api.deleteDSPMappedToCity({
       delivery_service_provider_id: item.delivery_service_provider_id,
       city_id: item.city_id
@@ -115,8 +124,8 @@ class ListDSPCityMapping extends React.Component {
       })
   }
 
-  render () {
-    const { loadingDeliveryserviceproviderCityMapped, 
+  render() {
+    const { loadingDeliveryserviceproviderCityMapped,
       deliveryServiceProviderCityMapped } = this.props
     return (
       <div>
@@ -157,11 +166,18 @@ class ListDSPCityMapping extends React.Component {
                             Delete
                           </button>
                         </TableRowColumn>
-                        <TableRowColumn style={styles[1]}>{item.city_name}</TableRowColumn>
-                        <TableRowColumn style={styles[2]}>{item.delivery_service_provider_name}</TableRowColumn>
-                        <TableRowColumn style={styles[3]}>{item.priority}</TableRowColumn>
-                        <TableRowColumn style={styles[4]}>{item.turnaround_duration}</TableRowColumn>
-                        <TableRowColumn style={styles[5]}>
+                        <TableRowColumn style={styles[1]}>
+                          <button
+                            onClick={e => this.editDSPMappedToCityDetails(e, item)}
+                          >
+                            Edit
+                          </button>
+                        </TableRowColumn>
+                        <TableRowColumn style={styles[2]}>{item.city_name}</TableRowColumn>
+                        <TableRowColumn style={styles[3]}>{item.delivery_service_provider_name}</TableRowColumn>
+                        <TableRowColumn style={styles[4]}>{item.priority}</TableRowColumn>
+                        <TableRowColumn style={styles[5]}>{item.turnaround_duration}</TableRowColumn>
+                        <TableRowColumn style={styles[6]}>
                           <Switch onToggle={this.onToggleChange} toggled={item.is_active} value={item} />
                         </TableRowColumn>
                       </TableRow>
@@ -185,13 +201,13 @@ class ListDSPCityMapping extends React.Component {
                 <ModalBody height="60px">
                   <table className="table--hovered">
                     <tbody>
-                      Are you sure you want to {this.state.activityStatus === false ? 'Deactivate' : 'Activate'} {this.state.cityId} ({this.state.deliveryServiceProviderId}) ?
+                      Are you sure you want to {this.state.activityStatus === false ? 'Deactivate' : 'Activate'} "{this.state.cityName}" ({this.state.dspName}) ?
                    </tbody>
                   </table>
                 </ModalBody>
                 <ModalFooter>
                   <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', fontWeight: '600' }}>
-                    <button className="btn btn-primary" onClick={() => this.updateDeliveryServiceProviderCityMappedStatus()}> Yes </button>
+                    <button className="btn btn-primary" onClick={() => this.updateDSPCityMappedStatus()}> Yes </button>
                     <button className="btn btn-secondary" onClick={() => this.unmountDialog()}> Cancel </button>
                   </div>
                 </ModalFooter>

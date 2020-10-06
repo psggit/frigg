@@ -9,19 +9,19 @@ import RaisedButton from 'material-ui/RaisedButton'
 
 class MapDSPToCityForm extends React.Component {
 
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
 
     this.state = {
-      priority: "",
-      turnaroundDuration: "",
+      priority: props.data ? props.data.priority : "",
+      turnaroundDuration: props.data ? props.data.turnaround_duration : "",
       disableSave: false,
       disableDelete: true,
       message: "",
       cityList: [],
       dspList: [],
-      selectedDspIdx:"",
-      selectedCityIdx: "",
+      selectedDspIdx: props.data ? props.data.delivery_service_provider_id : 0,
+      selectedCityIdx: props.data ? props.data.city_id : 0
     }
 
     this.handleTextFields = this.handleTextFields.bind(this)
@@ -29,11 +29,27 @@ class MapDSPToCityForm extends React.Component {
     this.mapDSPToCity = this.mapDSPToCity.bind(this)
     this.handleCityChange = this.handleCityChange.bind(this)
     this.handleDspChange = this.handleDspChange.bind(this)
+    this.handleSave = this.handleSave.bind(this)
+    this.getData = this.getData.bind(this)
   }
 
-  componentDidMount () {
+
+  componentDidMount() {
     this.fetchCityList()
     this.fetchDspList()
+  }
+
+  getData() {
+    return this.state
+  }
+
+  handleSave() {
+    if (location.pathname.includes(`/edit`)) {
+      this.props.handleSave()
+    }
+    else {
+      this.mapDSPToCity()
+    }
   }
 
   handleTextFields(e) {
@@ -78,15 +94,15 @@ class MapDSPToCityForm extends React.Component {
 
   fetchDspList() {
     Api.fetchDeliveryServiceProvider({
-        offset: 0,
-        limit: 1000,
+      offset: 0,
+      limit: 1000,
     })
       .then((response) => {
         this.setState({
           dspList: response.message,
           selectedDspIdx: !this.state.selectedDspIdx ? response.message[0].delivery_service_provider_id : this.state.selectedDspIdx
         })
-        console.log("[fetchDspList]",response)
+        console.log("[fetchDspList]", response)
       })
       .catch((error) => {
         console.log("Error in fetching dsp list", error)
@@ -112,7 +128,7 @@ class MapDSPToCityForm extends React.Component {
   }
 
   mapDSPToCity() {
-    this.setState({  disableSave: true })
+    this.setState({ disableSave: true })
     Api.mapDeliveryServiceProviderToCity({
       delivery_service_provider_id: this.state.selectedDspIdx,
       city_id: this.state.selectedCityIdx,
@@ -121,13 +137,13 @@ class MapDSPToCityForm extends React.Component {
     })
       .then((response) => {
         Notify(response.message, 'success')
-        this.setState({  disableSave: false, disableDelete: false })
+        this.setState({ disableSave: false, disableDelete: false })
       })
       .catch((error) => {
         error.response.json().then((json) => {
           Notify(json.message, "warning")
         })
-        this.setState({disableSave: false})
+        this.setState({ disableSave: false })
       })
   }
 
@@ -150,6 +166,7 @@ class MapDSPToCityForm extends React.Component {
           <SelectField
             value={this.state.selectedCityIdx}
             onChange={this.handleCityChange}
+            disabled={location.pathname.includes("edit")}
           >
             {
               this.state.cityList.map((item, i) => (
@@ -168,6 +185,7 @@ class MapDSPToCityForm extends React.Component {
           <SelectField
             value={this.state.selectedDspIdx}
             onChange={this.handleDspChange}
+            disabled={location.pathname.includes("edit")}
           >
             {
               this.state.dspList.map((item, i) => (
@@ -184,6 +202,7 @@ class MapDSPToCityForm extends React.Component {
         <div className="form-group">
           <label className="label">Priority</label><br />
           <TextField
+            value={this.state.priority}
             disabled={false}
             name="priority"
             style={{ width: '100%' }}
@@ -193,27 +212,33 @@ class MapDSPToCityForm extends React.Component {
         <div className="form-group">
           <label className="label">Turnaround Duration</label><br />
           <TextField
+            value={this.state.turnaroundDuration}
             disabled={false}
             name="turnaroundDuration"
+            placeholder="Enter in seconds"
             style={{ width: '100%' }}
             onChange={this.handleTextFields}
           />
         </div>
-        
+
         <div className="form-group">
           <RaisedButton
             label="Save"
             primary
             disabled={this.state.disableSave}
-            onClick={this.mapDSPToCity}
+            onClick={this.handleSave}
+            data={this.props.location}
           />
-          <RaisedButton
-            label="Delete"
-            primary
-            disabled={this.state.disableDelete}
-            onClick={this.handleDelete}
-            style={{ marginLeft: "50px" }}
-          />
+          {
+            !location.pathname.includes(`/edit`) &&
+            <RaisedButton
+              label="Delete"
+              primary
+              disabled={this.state.disableDelete}
+              onClick={this.handleDelete}
+              style={{ marginLeft: "50px" }}
+            />
+          }
         </div>
       </Card>
     )

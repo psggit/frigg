@@ -2055,6 +2055,17 @@ export const updateBrandListingOrder = action => (
   })
 )
 
+export const updateMapDeliveryServiceProviderToCity = payload => (
+  POST({
+    api: '/delivery_service_provider/update_sp_city_map',
+    apiBase: 'odin',
+    data: payload,
+    handleError: true
+  })
+    .then(json => json)
+)
+
+
 export const mapDeliveryAgentToLocality = payload => (
   POST({
     api: '/deliveryman/api/1/mapping/datolocality/create',
