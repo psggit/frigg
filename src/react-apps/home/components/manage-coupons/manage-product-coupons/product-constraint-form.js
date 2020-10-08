@@ -2,6 +2,7 @@ import React from "react"
 import PropTypes from "prop-types"
 import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
+import Checkbox from 'material-ui/Checkbox'
 
 class ProductConstraintForm extends React.Component {
   constructor (props) {
@@ -10,7 +11,8 @@ class ProductConstraintForm extends React.Component {
     this.inputNameMap = {
       skuid: 'SKU ID',
       quantity: 'Quantity',
-      flat: 'Flat'
+      flat: 'Flat',
+      newDeliveryFee: 'New Delivery Fee'
     }
 
     this.state = {
@@ -19,12 +21,22 @@ class ProductConstraintForm extends React.Component {
       flat: props.data ? props.data.flat_discount : 0,
       constraint_id: props.data ? props.data.constraint_id : 0,
       coupon_id: props.data ? props.data.coupon_id : 0,
-      disabledInput: props.data ? props.data.disable : false
+      disabledInput: props.data ? props.data.disable : false,
+      isReviseDeliveryFee: props.data ? props.data.revise_delivery_fee : false,
+      newDeliveryFee: props.data ? props.data.new_delivery_fee : 0,
     }
     this.handleTextFieldChange = this.handleTextFieldChange.bind(this)
     this.getData = this.getData.bind(this)
     this.updateConstraint = this.updateConstraint.bind(this)
     this.deleteProductConstraint = this.deleteProductConstraint.bind(this)
+    this.handleCheckboxChange = this.handleCheckboxChange.bind(this)
+
+  }
+
+  handleCheckboxChange(e) {
+    this.setState({
+      [e.target.name]: e.target.checked
+    })
   }
 
   handleTextFieldChange (e) {
@@ -43,7 +55,9 @@ class ProductConstraintForm extends React.Component {
       coupon_id: (this.state.coupon_id),
       sku_id: parseFloat(this.state.skuid),
       quantity: parseFloat(this.state.quantity),
-      flat_discount: parseFloat(this.state.flat)
+      flat_discount: parseFloat(this.state.flat),
+      revise_delivery_fee: (this.state.isReviseDeliveryFee),
+      new_delivery_fee: parseFloat(this.state.newDeliveryFee)
     })
   }
 
@@ -99,7 +113,7 @@ class ProductConstraintForm extends React.Component {
             />
           </div>
 
-          <div className="form-group">
+          <div className="form-group">     
             <label className="label">Flat</label><br />
             <TextField
               onChange={this.handleTextFieldChange}
@@ -109,8 +123,32 @@ class ProductConstraintForm extends React.Component {
               value={this.state.flat}
               disabled={this.state.disabledInput}
             />
-          </div>
+          </div> 
 
+          <div className="form-group">
+            <Checkbox
+              style={{ marginTop: "10px" }}
+              label="Revise Delivery Fee"
+              name="isReviseDeliveryFee"
+              checked={this.state.isReviseDeliveryFee}
+              onCheck={this.handleCheckboxChange}
+              disabled={this.state.disabledInput}
+            />
+          </div>
+          {
+            this.state.isReviseDeliveryFee && !location.pathname.includes("edit") &&
+            <div className="form-group">
+              <label className="label">New Delivery Fee</label>
+              <TextField
+                onChange={this.handleTextFieldChange}
+                name="newDeliveryFee"
+                required
+                style={{ width: '100%' }}
+                value={this.state.newDeliveryFee}
+                disabled={this.state.disabledInput}
+              />
+            </div>
+          }
           {
             location.pathname.includes("edit") &&
             <RaisedButton
@@ -140,7 +178,9 @@ class ProductConstraintForm extends React.Component {
 ProductConstraintForm.propTypes = {
   skuid: PropTypes.string,
   quantity: PropTypes.string,
-  flat: PropTypes.string
+  flat: PropTypes.string,
+  isReviseDeliveryFee: PropTypes.bool,
+  newDeliveryFee: PropTypes.string
 }
 
 export default ProductConstraintForm

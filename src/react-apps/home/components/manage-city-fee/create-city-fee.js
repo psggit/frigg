@@ -24,6 +24,8 @@ class CreateCityFee extends React.Component {
       txn_fee_percentage: parseFloat(cityFeeForm.percentage),
       min_value: parseFloat(cityFeeForm.min),
       max_value: parseFloat(cityFeeForm.max),
+      platform: cityFeeForm.selectedPlatformIdx === 1 ? "hb" : "fk-web",
+
     })
       .then((response) => {
         Notify('Successfully created City Fee', 'success')

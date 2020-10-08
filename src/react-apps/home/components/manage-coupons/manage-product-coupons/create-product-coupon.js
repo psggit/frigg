@@ -16,7 +16,9 @@ class CreateProductCoupon extends React.Component {
         sku_id: 0.0,
         quantity: 0.0,
         flat_discount: 0.0,
-        disable: false
+        disable: false,
+        revise_delivery_fee: false,
+        new_delivery_fee: 0.0
       }]
     }
 
@@ -30,9 +32,11 @@ class CreateProductCoupon extends React.Component {
     const productConstraintData = couponFormData.productConstraintFormRef.getData()
 
     const productConstraint = this.state.productConstraints.pop()
-    productConstraint.sku_id = productConstraintData.skuid ? parseFloat(productConstraintData.skuid) : 0.0,
+      productConstraint.sku_id = productConstraintData.skuid ? parseFloat(productConstraintData.skuid) : 0.0,
       productConstraint.quantity = productConstraintData.quantity ? parseFloat(productConstraintData.quantity) : 0.0,
       productConstraint.flat_discount = productConstraintData.flat ? parseFloat(productConstraintData.flat) : 0.0,
+      productConstraint.revise_delivery_fee = productConstraintData.isReviseDeliveryFee ? productConstraintData.isReviseDeliveryFee : false
+      productConstraint.new_delivery_fee = productConstraintData.newDeliveryFee ? parseFloat(productConstraintData.newDeliveryFee) : 0.0
       productConstraint.disable = true
 
     console.log("handle add1", [...this.state.productConstraints, productConstraint])
@@ -46,7 +50,9 @@ class CreateProductCoupon extends React.Component {
       sku_id: 0.0,
       quantity: 0.0,
       flat_discount: 0.0,
-      disable: false
+      disable: false,
+      revise_delivery_fee: false,
+      new_delivery_fee: 0.0
     }
 
     console.log("handle add2", [...updatedProductConstraint, defaultConstraint])
@@ -65,7 +71,10 @@ class CreateProductCoupon extends React.Component {
     productConstraint.sku_id = productConstraintData.skuid ? parseFloat(productConstraintData.skuid) : 0.0,
     productConstraint.quantity = productConstraintData.quantity ? parseFloat(productConstraintData.quantity) : 0.0,
     productConstraint.flat_discount = productConstraintData.flat ? parseFloat(productConstraintData.flat) : 0.0,
+      productConstraint.revise_delivery_fee = productConstraintData.isReviseDeliveryFee ? productConstraintData.isReviseDeliveryFee : false
+    productConstraint.new_delivery_fee = productConstraintData.newDeliveryFee ? parseFloat(productConstraintData.newDeliveryFee) : 0.0
     productConstraint.disable = true
+    
     //console.log("constarint", cartConstraint, "data", [...this.state.cartConstraints, cartConstraint])
     console.log("product constraints", [...this.state.productConstraints, productConstraint])
     this.setState({ productConstraints: [...this.state.productConstraints, productConstraint] })
@@ -84,9 +93,11 @@ class CreateProductCoupon extends React.Component {
       store_pickup: productCouponData.storePickup,
       delivery: productCouponData.delivery,
       is_consumer_specific: productCouponData.isConsumerSpecific,
-      revise_delivery_fee: productCouponData.isReviseDeliveryFee,
+      //revise_delivery_fee: productCouponData.isReviseDeliveryFee,
       is_retailer_specific: productCouponData.isRetailerSpecific,
-      app: productCouponData.selectedAppIdx === 1 ? "drinks" : "fk-web",
+      // app: productCouponData.selectedAppIdx === 1 ? "drinks" : "fk-web",
+      hipbar_drinks: productCouponData.drinks,
+      fk_web: productCouponData.fkWeb,
       city_list: productCouponData.cityList ? productCouponData.cityList.trim().split(",").map((cityId) => parseInt(cityId)) : [],
       limit_per_user: parseInt(productCouponData.limitPerUser),
       consider_sign_up: productCouponData.considerSignUp,
@@ -96,7 +107,7 @@ class CreateProductCoupon extends React.Component {
       is_unlimited: productCouponData.isUnlimited,
       sign_up_date: productCouponData.signUpDate,
       consumer_list: productCouponData.consumerList ? productCouponData.consumerList.trim().split(",").map((consumerId) => parseInt(consumerId)) : [],
-      new_delivery_fee: parseFloat(productCouponData.newDeliveryFee),
+      //new_delivery_fee: parseFloat(productCouponData.newDeliveryFee),
       retailer_list: productCouponData.retailerList,
       destination: productCouponData.selectedDestinationIdx === 1 ? "UPI" : "UPI",
       listing_order: parseInt(productCouponData.listingOrder),

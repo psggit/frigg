@@ -51,7 +51,9 @@ class EditCartCoupons extends React.Component {
       frequency: parseInt(couponDetails.frequency),
       sign_up_date: new Date(couponDetails.signUpDate),
       consider_sign_up: couponDetails.considerSignUp,
-      app: couponDetails.selectedAppIdx === 1 ? "drinks" : "fk-web",
+      // app: couponDetails.selectedAppIdx === 1 ? "drinks" : "fk-web",
+      hipbar_drinks: couponDetails.drinks,
+      fk_web: couponDetails.fkWeb,
       pay_by_wallet: couponDetails.payByWallet,
       store_pickup: couponDetails.storePickup,
       delivery: couponDetails.delivery,
@@ -59,7 +61,7 @@ class EditCartCoupons extends React.Component {
       is_unlimited: couponDetails.isUnlimited,
       listing_order: parseInt(couponDetails.listingOrder),
       is_consumer_specific: couponDetails.isConsumerSpecific,
-      revise_delivery_fee: couponDetails.isReviseDeliveryFee,
+     // revise_delivery_fee: couponDetails.isReviseDeliveryFee,
       is_retailer_specific: couponDetails.isRetailerSpecific,
       long_desc: couponDetails.longDesc,
       short_desc: couponDetails.shortDesc,
@@ -156,7 +158,9 @@ class EditCartCoupons extends React.Component {
       percentage_discount: 0.0,
       constraint_id: 0,
       coupon_id: this.props.location.state.id,
-      disable: false
+      disable: false,
+      revise_delivery_fee: false,
+      new_delivery_fee: 0.0
     }
 
     this.setState({

@@ -17,7 +17,10 @@ class CreateCartCoupon extends React.Component {
         max_value: 0.0,
         flat_discount: 0.0,
         percentage_discount: 0.0,
-        disable: false
+        disable: false,
+        revise_delivery_fee: false,
+        new_delivery_fee: 0.0
+
       }]
     }
 
@@ -44,6 +47,8 @@ class CreateCartCoupon extends React.Component {
       cartConstraint.max_value = cartConstraintData.max ? parseFloat(cartConstraintData.max) : 0.0
       cartConstraint.flat_discount = cartConstraintData.flat ? parseFloat(cartConstraintData.flat) : 0.0
       cartConstraint.percentage_discount = cartConstraintData.percent ? parseFloat(cartConstraintData.percent) : 0.0
+      cartConstraint.revise_delivery_fee = cartConstraintData.isReviseDeliveryFee ? cartConstraintData.isReviseDeliveryFee : false
+      cartConstraint.new_delivery_fee = cartConstraintData.newDeliveryFee ? parseFloat(cartConstraintData.newDeliveryFee) : 0.0
       cartConstraint.disable = true
 
       //console.log("handle add1", [...this.state.cartConstraints, cartConstraint])
@@ -56,7 +61,9 @@ class CreateCartCoupon extends React.Component {
         max_value: 0.0,
         flat_discount: 0.0,
         percentage_discount: 0.0,
-        disable: false
+        disable: false,
+        revise_delivery_fee: false,
+        new_delivery_fee: 0.0
       }
 
       //console.log("handle add2", [...updatedCartConstraint, defaultConstraint])
@@ -84,6 +91,8 @@ class CreateCartCoupon extends React.Component {
       cartConstraint.max_value = cartConstraintData.max ? parseFloat(cartConstraintData.max) : 0.0
       cartConstraint.flat_discount = cartConstraintData.flat ? parseFloat(cartConstraintData.flat) : 0.0
       cartConstraint.percentage_discount = cartConstraintData.percent ? parseFloat(cartConstraintData.percent) : 0.0
+      cartConstraint.revise_delivery_fee = cartConstraintData.isReviseDeliveryFee ? cartConstraintData.isReviseDeliveryFee : false
+      cartConstraint.new_delivery_fee = cartConstraintData.newDeliveryFee ? parseFloat(cartConstraintData.newDeliveryFee) : 0.0
 
 
       cartConstraint.disable = true
@@ -108,9 +117,11 @@ class CreateCartCoupon extends React.Component {
         store_pickup: cartCouponData.storePickup,
         delivery: cartCouponData.delivery,
         is_consumer_specific: cartCouponData.isConsumerSpecific,
-        revise_delivery_fee: cartCouponData.isReviseDeliveryFee,
+        //revise_delivery_fee: cartCouponData.isReviseDeliveryFee,
         is_retailer_specific: cartCouponData.isRetailerSpecific,
-        app: cartCouponData.selectedAppIdx === 1 ? "drinks" : "fk-web",
+        // app: cartCouponData.selectedAppIdx === 1 ? "drinks" : "fk-web",
+        hipbar_drinks: cartCouponData.drinks,
+        fk_web: cartCouponData.fkWeb,
         city_list: cartCouponData.cityList ? cartCouponData.cityList.trim().split(",").map((cityId) => parseInt(cityId)) : [],
         limit_per_user: parseInt(cartCouponData.limitPerUser),
         consider_sign_up: cartCouponData.considerSignUp,
@@ -120,7 +131,7 @@ class CreateCartCoupon extends React.Component {
         is_unlimited: cartCouponData.isUnlimited,
         sign_up_date: cartCouponData.signUpDate,
         consumer_list: cartCouponData.consumerList ? cartCouponData.consumerList.trim().split(",").map((consumerId) => parseInt(consumerId)) : [],
-        new_delivery_fee: parseFloat(cartCouponData.newDeliveryFee),
+        //new_delivery_fee: parseFloat(cartCouponData.newDeliveryFee),
         retailer_list: cartCouponData.retailerList,
         destination: cartCouponData.selectedDestinationIdx === 1 ? "UPI" : "UPI",
         listing_order: parseInt(cartCouponData.listingOrder),

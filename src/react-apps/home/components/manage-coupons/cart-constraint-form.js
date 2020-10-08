@@ -2,6 +2,7 @@ import React from "react"
 import PropTypes from "prop-types"
 import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
+import Checkbox from 'material-ui/Checkbox'
 
 class CartConstraintForm extends React.Component{
   constructor (props) {
@@ -11,7 +12,8 @@ class CartConstraintForm extends React.Component{
       min:'Min',
       max:'Max',
       flat:'Flat',
-      percent:'Percent'
+      percent:'Percent',
+      newDeliveryFee: 'New Delivery Fee'
     }
 
     this.state = {
@@ -21,7 +23,10 @@ class CartConstraintForm extends React.Component{
       percent: props.data ? props.data.percentage_discount : 0,
       constraint_id: props.data ? props.data.constraint_id : 0,
       coupon_id: props.data ? props.data.coupon_id : 0,
-      disabledInput: props.data ? props.data.disable : false
+      disabledInput: props.data ? props.data.disable : false,
+      isReviseDeliveryFee: props.data ? props.data.revise_delivery_fee : false,
+      newDeliveryFee: props.data ? props.data.new_delivery_fee : "",
+
     }
     this.handleTextFieldChange = this.handleTextFieldChange.bind(this)
     this.handleFlatDiscountChange = this.handleFlatDiscountChange.bind(this)
@@ -29,6 +34,14 @@ class CartConstraintForm extends React.Component{
     this.getData = this.getData.bind(this)
     this.updateConstraint = this.updateConstraint.bind(this)
     this.deleteCartConstraint = this.deleteCartConstraint.bind(this)
+    this.handleCheckboxChange = this.handleCheckboxChange.bind(this)
+
+  }
+
+  handleCheckboxChange(e) {
+    this.setState({
+      [e.target.name]: e.target.checked
+    })
   }
 
   handleTextFieldChange (e) {
@@ -64,7 +77,9 @@ class CartConstraintForm extends React.Component{
       min_value: parseFloat(this.state.min),
       max_value: parseFloat(this.state.max),
       percentage_discount: parseFloat(this.state.percent),
-      flat_discount: parseFloat(this.state.flat)
+      flat_discount: parseFloat(this.state.flat),
+      revise_delivery_fee: (this.state.isReviseDeliveryFee),
+      new_delivery_fee: parseFloat(this.state.newDeliveryFee)
     })
   }
 
@@ -143,6 +158,33 @@ class CartConstraintForm extends React.Component{
               disabled={this.state.disabledInput}
             />
           </div>
+          
+          <div className="form-group">
+            <Checkbox
+              style={{ marginTop: "10px" }}
+              label="Revise Delivery Fee"
+              name="isReviseDeliveryFee"
+              checked={this.state.isReviseDeliveryFee}
+              onCheck={this.handleCheckboxChange}
+              disabled={this.state.disabledInput}
+
+            />
+          </div>
+
+          {
+            this.state.isReviseDeliveryFee && !location.pathname.includes("edit") &&
+            <div className="form-group">
+              <label className="label">New Delivery Fee</label>
+              <TextField
+                onChange={this.handleTextFieldChange}
+                name="newDeliveryFee"
+                required
+                style={{ width: '100%' }}
+                value={this.state.newDeliveryFee}
+                disabled={this.state.disabledInput}
+              />
+            </div>
+          }
           {
             location.pathname.includes("edit") &&
             <RaisedButton
@@ -173,7 +215,9 @@ CartConstraintForm.propTypes = {
   min:PropTypes.string,
   max: PropTypes.string,
   flat: PropTypes.string,
-  percent: PropTypes.string
+  percent: PropTypes.string,
+  isReviseDeliveryFee: PropTypes.bool,
+  newDeliveryFee: PropTypes.string
 }
 
 export default CartConstraintForm
