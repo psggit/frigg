@@ -10,6 +10,11 @@ import * as Api from "./../../middleware/api"
 class CityFeeForm extends React.Component {
   constructor (props) {
     super(props)
+
+    this.platform = [
+      { text: 'hb', value: 1 },
+      { text: 'fk-web', value: 2 },
+    ]
     this.state = {
       selectedOrderTypeIdx: props.data ? props.data.order_type : "",
       orderTypeList: [],
@@ -20,6 +25,7 @@ class CityFeeForm extends React.Component {
       percentage: props.data ? props.data.txn_fee_percentage : 0,
       min: props.data ? props.data.min_value : 0,
       max: props.data ? props.data.max_value : 0,
+      selectedPlatformIdx: props.data ? this.platform.find(item => (item.text).toLowerCase() === (props.data.platform).toLowerCase()).value : 1,
     }
 
     this.handleTextFields = this.handleTextFields.bind(this)
@@ -31,6 +37,7 @@ class CityFeeForm extends React.Component {
     this.fetchChargeTypes = this.fetchChargeTypes.bind(this)
     this.handleFlatChange = this.handleFlatChange.bind(this)
     this.handlePercentageChange = this.handlePercentageChange.bind(this)
+    this.handlePlatformChange = this.handlePlatformChange.bind(this)
   }
 
   componentDidMount () {
@@ -62,6 +69,12 @@ class CityFeeForm extends React.Component {
       .catch((error) => {
         console.log("Error in fetching City Charges List", error)
       })
+  }
+
+  handlePlatformChange(e, k) {
+    this.setState({
+      selectedPlatformIdx: (this.platform[k].value)
+    })
   }
 
   handleTextFields (e) {
@@ -215,6 +228,26 @@ class CityFeeForm extends React.Component {
                 value={this.state.max}
                 style={{ width: '100%' }}
               />
+            </div>
+
+            <div className="form-group">
+              <label className="label">Platform</label><br />
+              <SelectField
+                name="platform"
+                value={this.state.selectedPlatformIdx}
+                onChange={this.handlePlatformChange}
+                style={{ width: '100%' }}
+              >
+                {
+                  this.platform.map((item, i) => (
+                    <MenuItem
+                      value={parseInt(item.value)}
+                      key={parseInt(item.value)}
+                      primaryText={item.text}
+                    />
+                  ))
+                }
+              </SelectField>
             </div>
 
             <div className="form-group">

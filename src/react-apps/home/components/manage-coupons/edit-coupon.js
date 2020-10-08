@@ -61,7 +61,7 @@ class EditCartCoupons extends React.Component {
       is_unlimited: couponDetails.isUnlimited,
       listing_order: parseInt(couponDetails.listingOrder),
       is_consumer_specific: couponDetails.isConsumerSpecific,
-      revise_delivery_fee: couponDetails.isReviseDeliveryFee,
+     // revise_delivery_fee: couponDetails.isReviseDeliveryFee,
       is_retailer_specific: couponDetails.isRetailerSpecific,
       long_desc: couponDetails.longDesc,
       short_desc: couponDetails.shortDesc,
@@ -158,7 +158,9 @@ class EditCartCoupons extends React.Component {
       percentage_discount: 0.0,
       constraint_id: 0,
       coupon_id: this.props.location.state.id,
-      disable: false
+      disable: false,
+      revise_delivery_fee: false,
+      new_delivery_fee: 0.0
     }
 
     this.setState({

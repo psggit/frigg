@@ -20,7 +20,8 @@ const TableHeaderItems = [
   'FLAT',
   'PERCENTAGE',
   'MIN_VALUE',
-  'MAX_VALUE'
+  'MAX_VALUE',
+  'PLATFORM'
 ]
 
 const styles = [
@@ -31,6 +32,7 @@ const styles = [
   { width: '100px' },
   { width: '100px' },
   { width: '100px' }, 
+  { width: '100px' },
   { width: '100px' }
 ]
 
@@ -103,6 +105,7 @@ class ListCityFee extends React.Component {
                       <TableRowColumn style={styles[5]}>{item.txn_fee_percentage}</TableRowColumn>
                       <TableRowColumn style={styles[6]}>{item.min_value}</TableRowColumn>
                       <TableRowColumn style={styles[7]}>{item.max_value}</TableRowColumn>
+                      <TableRowColumn style={styles[7]}>{item.platform}</TableRowColumn>
                     </TableRow>
                   )
                 })

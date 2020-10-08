@@ -30,7 +30,7 @@ class CartForm extends React.Component {
       storePickup: props.data ? props.data.store_pickup : false,
       delivery: props.data ? props.data.delivery : false,
       isConsumerSpecific: props.data ? props.data.is_consumer_specific : false,
-      isReviseDeliveryFee: props.data ? props.data.revise_delivery_fee : false,
+      // isReviseDeliveryFee: props.data ? props.data.revise_delivery_fee : false,
       isRetailerSpecific: props.data ? props.data.is_retailer_specific : false,
       isUnlimited: props.data ? props.data.is_unlimited : false,
       cityList: props.data ? props.data.city_list_str : "",
@@ -43,7 +43,7 @@ class CartForm extends React.Component {
       longDesc: props.data ? props.data.long_desc : "",
       longHtmlDesc: props.data ? props.data.long_html_desc : "",
       consumerList: props.data ? props.data.consumer_list: "",
-      newDeliveryFee: props.data ? props.data.new_delivery_fee: "",
+      // newDeliveryFee: props.data ? props.data.new_delivery_fee: "",
       retailerList: props.data ? props.data.retailer_list: "",
       listingOrder: props.data ? props.data.listing_order : ""
     }
@@ -278,7 +278,7 @@ class CartForm extends React.Component {
           </SelectField>
         </div> */}
 
-        <div className="form-group">
+        {/* <div className="form-group">
           <Checkbox
             style={{ marginTop: "10px" }}
             label="Revise Delivery Fee"
@@ -300,7 +300,7 @@ class CartForm extends React.Component {
               value={this.state.newDeliveryFee}
             />
           </div>
-        }
+        } */}
 
         <div className="form-group">
           <Checkbox
