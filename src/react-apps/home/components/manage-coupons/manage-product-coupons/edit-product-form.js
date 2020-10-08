@@ -51,7 +51,7 @@ class EditProductCoupons extends React.Component {
       frequency: parseInt(couponDetails.frequency),
       sign_up_date: new Date(couponDetails.signUpDate),
       consider_sign_up: couponDetails.considerSignUp,
-      revise_delivery_fee: couponDetails.isReviseDeliveryFee,
+      //revise_delivery_fee: couponDetails.isReviseDeliveryFee,
       is_retailer_specific: couponDetails.isRetailerSpecific,
       // app: couponDetails.selectedAppIdx === 1 ? "drinks" : "fk-web",
       hipbar_drinks: couponDetails.drinks,
@@ -134,7 +134,9 @@ class EditProductCoupons extends React.Component {
       flat_discount: 0.0,
       constraint_id: 0,
       coupon_id: this.props.location.state.id,
-      disable: false
+      disable: false,
+      revise_delivery_fee: false,
+      new_delivery_fee: 0.0
     }
 
     this.setState({
