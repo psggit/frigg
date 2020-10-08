@@ -136,7 +136,7 @@ class ProductConstraintForm extends React.Component {
             />
           </div>
           {
-            this.state.isReviseDeliveryFee && !location.pathname.includes("edit") &&
+            this.state.isReviseDeliveryFee && 
             <div className="form-group">
               <label className="label">New Delivery Fee</label>
               <TextField
