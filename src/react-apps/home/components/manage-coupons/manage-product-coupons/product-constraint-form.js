@@ -132,6 +132,7 @@ class ProductConstraintForm extends React.Component {
               name="isReviseDeliveryFee"
               checked={this.state.isReviseDeliveryFee}
               onCheck={this.handleCheckboxChange}
+              disabled={this.state.disabledInput}
             />
           </div>
           {
@@ -144,6 +145,7 @@ class ProductConstraintForm extends React.Component {
                 required
                 style={{ width: '100%' }}
                 value={this.state.newDeliveryFee}
+                disabled={this.state.disabledInput}
               />
             </div>
           }

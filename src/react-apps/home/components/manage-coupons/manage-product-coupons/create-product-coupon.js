@@ -35,8 +35,8 @@ class CreateProductCoupon extends React.Component {
       productConstraint.sku_id = productConstraintData.skuid ? parseFloat(productConstraintData.skuid) : 0.0,
       productConstraint.quantity = productConstraintData.quantity ? parseFloat(productConstraintData.quantity) : 0.0,
       productConstraint.flat_discount = productConstraintData.flat ? parseFloat(productConstraintData.flat) : 0.0,
-      productConstraint.revise_delivery_fee = productConstraint.isReviseDeliveryFee ? productConstraint.isReviseDeliveryFee : false
-      productConstraint.new_delivery_fee = productConstraint.newDeliveryFee ? parseFloat(productConstraint.newDeliveryFee) : 0.0
+      productConstraint.revise_delivery_fee = productConstraintData.isReviseDeliveryFee ? productConstraintData.isReviseDeliveryFee : false
+      productConstraint.new_delivery_fee = productConstraintData.newDeliveryFee ? parseFloat(productConstraintData.newDeliveryFee) : 0.0
       productConstraint.disable = true
 
     console.log("handle add1", [...this.state.productConstraints, productConstraint])
@@ -71,8 +71,8 @@ class CreateProductCoupon extends React.Component {
     productConstraint.sku_id = productConstraintData.skuid ? parseFloat(productConstraintData.skuid) : 0.0,
     productConstraint.quantity = productConstraintData.quantity ? parseFloat(productConstraintData.quantity) : 0.0,
     productConstraint.flat_discount = productConstraintData.flat ? parseFloat(productConstraintData.flat) : 0.0,
-    productConstraint.revise_delivery_fee = productConstraint.isReviseDeliveryFee ? productConstraint.isReviseDeliveryFee : false
-    productConstraint.new_delivery_fee = productConstraint.newDeliveryFee ? parseFloat(productConstraint.newDeliveryFee) : 0.0
+      productConstraint.revise_delivery_fee = productConstraintData.isReviseDeliveryFee ? productConstraintData.isReviseDeliveryFee : false
+    productConstraint.new_delivery_fee = productConstraintData.newDeliveryFee ? parseFloat(productConstraintData.newDeliveryFee) : 0.0
     productConstraint.disable = true
     
     //console.log("constarint", cartConstraint, "data", [...this.state.cartConstraints, cartConstraint])

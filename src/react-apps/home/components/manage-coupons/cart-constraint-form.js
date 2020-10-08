@@ -158,6 +158,7 @@ class CartConstraintForm extends React.Component{
               disabled={this.state.disabledInput}
             />
           </div>
+          
           <div className="form-group">
             <Checkbox
               style={{ marginTop: "10px" }}
@@ -165,6 +166,8 @@ class CartConstraintForm extends React.Component{
               name="isReviseDeliveryFee"
               checked={this.state.isReviseDeliveryFee}
               onCheck={this.handleCheckboxChange}
+              disabled={this.state.disabledInput}
+
             />
           </div>
 
@@ -178,6 +181,7 @@ class CartConstraintForm extends React.Component{
                 required
                 style={{ width: '100%' }}
                 value={this.state.newDeliveryFee}
+                disabled={this.state.disabledInput}
               />
             </div>
           }
