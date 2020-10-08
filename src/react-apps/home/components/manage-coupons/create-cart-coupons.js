@@ -120,7 +120,7 @@ class CreateCartCoupon extends React.Component {
         //revise_delivery_fee: cartCouponData.isReviseDeliveryFee,
         is_retailer_specific: cartCouponData.isRetailerSpecific,
         // app: cartCouponData.selectedAppIdx === 1 ? "drinks" : "fk-web",
-        drinks: cartCouponData.drinks,
+        hipbar_drinks: cartCouponData.drinks,
         fk_web: cartCouponData.fkWeb,
         city_list: cartCouponData.cityList ? cartCouponData.cityList.trim().split(",").map((cityId) => parseInt(cityId)) : [],
         limit_per_user: parseInt(cartCouponData.limitPerUser),
