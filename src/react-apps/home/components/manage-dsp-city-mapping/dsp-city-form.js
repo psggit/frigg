@@ -6,6 +6,10 @@ import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
 import Notify from "@components/Notification"
 import RaisedButton from 'material-ui/RaisedButton'
+import ModalBody from '@components/ModalBox/ModalBody'
+import ModalHeader from '@components/ModalBox/ModalHeader'
+import ModalFooter from '@components/ModalBox/ModalFooter'
+import ModalBox from '@components/ModalBox'
 
 class MapDSPToCityForm extends React.Component {
 
@@ -14,43 +18,70 @@ class MapDSPToCityForm extends React.Component {
 
     this.state = {
       priority: props.data ? props.data.priority : "",
-      turnaroundDuration: props.data ? props.data.turnaround_duration : "",
+      turnaroundDuration: props.data ? props.data.turnaround_duration : 0,
       disableSave: false,
       disableDelete: true,
       message: "",
       cityList: [],
       dspList: [],
       selectedDspIdx: props.data ? props.data.delivery_service_provider_id : 0,
-      selectedCityIdx: props.data ? props.data.city_id : 0
+      selectedCityIdx: props.data ? props.data.city_id : 0,
+      mountDialog: false,
     }
 
     this.handleTextFields = this.handleTextFields.bind(this)
     this.handleDelete = this.handleDelete.bind(this)
     this.mapDSPToCity = this.mapDSPToCity.bind(this)
+    //this.updateMapDSPToCity = this.updateMapDSPToCity.bind(this)
     this.handleCityChange = this.handleCityChange.bind(this)
     this.handleDspChange = this.handleDspChange.bind(this)
     this.handleSave = this.handleSave.bind(this)
     this.getData = this.getData.bind(this)
+    this.unmountDialog = this.unmountDialog.bind(this)
+    //this.handleTurnaroundChange = this.handleTurnaroundChange.bind(this)
+    this.handleMountSubmit = this.handleMountSubmit.bind(this)
   }
-
 
   componentDidMount() {
     this.fetchCityList()
     this.fetchDspList()
   }
 
-  getData() {
+  getData(){
     return this.state
   }
 
-  handleSave() {
+  unmountDialog(){
+    this.setState({
+      mountDialog: false
+    })
+  }
+
+   handleMountSubmit() {
+    this.unmountDialog()
     if (location.pathname.includes(`/edit`)) {
       this.props.handleSave()
-    }
-    else {
+    } else {
       this.mapDSPToCity()
     }
+   }
+
+  handleSave() {
+    if(this.state.turnaroundDuration.toString() === '0') {
+      this.setState({
+        mountDialog: true
+      })
+    } else if (this.state.turnaroundDuration) {
+      this.handleMountSubmit()
+    }
   }
+
+  // handleTurnaroundChange(e) {
+  //   if (e.target.value === '0') {
+  //     this.setState({ mountDialog: true })
+  //   }
+  //     this.setState({ [e.target.name]: e.target.value })
+  // }
 
   handleTextFields(e) {
     this.setState({ [e.target.name]: e.target.value })
@@ -240,6 +271,25 @@ class MapDSPToCityForm extends React.Component {
             />
           }
         </div>
+        {
+          this.state.mountDialog &&
+          <ModalBox>
+            <ModalBody height="60px">
+              <table className="table--hovered">
+                <tbody>
+                  Empty or 0 will immediately assign the selected delivery service provider, are you sure ?
+                </tbody>
+              </table>
+            </ModalBody>
+            <ModalFooter>
+              <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', fontWeight: '600' }}>
+                <button className="btn btn-primary" onClick={this.handleMountSubmit}> Yes </button>
+                <button className="btn btn-secondary" onClick={this.unmountDialog}> Cancel </button>
+              </div>
+            </ModalFooter>
+          </ModalBox>
+
+        }
       </Card>
     )
   }

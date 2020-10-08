@@ -24,6 +24,7 @@ class EditDSPMapping extends React.Component {
     })
       .then((response) => {
         Notify(response.message, 'success')
+        this.props.history.push("/home/dsp-city-mapping")
       })
       .catch((error) => {
         error.response.json().then((json) => {

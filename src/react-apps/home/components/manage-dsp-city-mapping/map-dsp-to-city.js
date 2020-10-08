@@ -24,9 +24,7 @@ class MapDSPToCity extends React.Component {
     this.props.history.push(`/home/dsp-city-mapping`)
   }
 
-  render() {
-    console.log("hello", location.pathname.includes(`/dsp-city-mapping`))
-
+  render () {
     return (
       <div>
         {
@@ -45,7 +43,7 @@ class MapDSPToCity extends React.Component {
             />
           </div>
         }
-        <div style={{ marginTop: "30px", display: "flex", flexWrap: "wrap" }}>
+        <div style={{marginTop:"30px",display:"flex",flexWrap:"wrap"}}>
           {
             this.state.totalCardCount.map((item) => {
               // eslint-disable-next-line react/jsx-key
@@ -53,7 +51,6 @@ class MapDSPToCity extends React.Component {
             })
           }
         </div>
-
       </div>
     )
   }

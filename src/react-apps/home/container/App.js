@@ -143,8 +143,10 @@ import DeliveryAgentLocalityMapping from "../container/manage-deliveryagent-loca
 import MapDeliveryAgentToLocality from "../components/manage-deliveryagent-locality-mapping/map-deliveryagent-to-locality"
 import DSPCityMapping from "../container/manage-dsp-city-mapping"
 import MapDSPToCity from '../components/manage-dsp-city-mapping/map-dsp-to-city'
+//import EditDSPMappedToCity from "../components/manage-dsp-city-mapping/edit-dsp-city-mapping"
 import EditDSPMappedToCity from "../components/manage-dsp-city-mapping/edit-dsp-city-mapping"
-
+// import CreateDSPMapping from "../components/manage-dsp-city-mapping/create-dsp-city-mapping"
+// import EditDSPMapping from "../components/manage-dsp-city-mapping/edit-dsp-city-mapping"
 import DeliveryServiceProvider from "./../container/manage-delivery-service-provider"
 import CreateDeliveryServiceProvider from "../components/manage-delivery-service-provider/create-delivery-service-provider"
 import EditDeliveryServiceProvider from "../components/manage-delivery-service-provider/edit-delivery-service-provider"
@@ -397,11 +399,7 @@ class App extends React.Component {
                   <Route exact path="/home/manage-reports" component={ManageReports} />
 
                   <Route exact path="/home/manage-gift-reconciliation" component={UploadGiftCardDetails} />
-
-                  <Route exact path="/home/manage-reward-coupons" component={RewardCouponList} />
-                  <Route exact path="/home/manage-reward-coupons/create" component={CreateCoupon} />
-                  <Route exact path="/home/manage-reward-coupons/edit" component={UpdateCoupon} />
-
+manage-delivery-service-provider
                   <Route exact path="/home/manage-cart-coupons" component={ManageCartCoupons} />
                   <Route exact path="/home/manage-product-coupons" component={ManageProductCoupons} />
                   <Route exact path="/home/manage-cart-coupons/create" component={CreateCartCoupons} />
@@ -430,6 +428,8 @@ class App extends React.Component {
                   <Route exact path="/home/map-deliveryagent-to-locality" component={MapDeliveryAgentToLocality} />
       
                   <Route exact path="/home/dsp-city-mapping" component={DSPCityMapping} />
+                  <Route exact path="/home/dsp-city-mapping/edit/:id" component={EditDSPMappedToCity} />  
+                  {/* <Route exact path="/home/dsp-city-mapping/edit/:id" component={EditDSPMappedToCity} />                   */}
                   <Route exact path="/home/map-dsp-to-city" component={MapDSPToCity} />
                   <Route exact path="/home/dsp-city-mapping/edit/:id" component={EditDSPMappedToCity} />
                   

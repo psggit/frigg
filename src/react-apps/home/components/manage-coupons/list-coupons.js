@@ -21,7 +21,6 @@ import ModalFooter from '@components/ModalBox/ModalFooter'
 import ModalBox from '@components/ModalBox'
 import * as Api from "../../middleware/api"
 
-
 const TableHeaderItems = [
   '',
   'ID',
