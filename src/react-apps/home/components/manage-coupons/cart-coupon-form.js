@@ -163,7 +163,7 @@ class CartForm extends React.Component {
         </div>
 
         <div className="form-group">
-          <label className="label">City</label><br />
+          <label className="label">City ID's (Comma Separated)</label><br />
           <TextField
             onChange={this.handleTextFieldChange}
             name="cityList"
@@ -219,7 +219,7 @@ class CartForm extends React.Component {
         </div>
 
         <div className="form-group">
-          <label className="label">Destination</label><br />
+          <label className="label">Cashback Destination</label><br />
           <SelectField
             name="destination"
             value={this.state.selectedDestinationIdx}
@@ -315,7 +315,7 @@ class CartForm extends React.Component {
         {
           this.state.isRetailerSpecific && !location.pathname.includes("edit") &&
           <div className="form-group">
-            <label className="label">Retailer List</label>
+            <label className="label">Retailer ID's (Comma Separated)</label>
             <TextField
               onChange={this.handleTextFieldChange}
               name="retailerList"
@@ -375,7 +375,7 @@ class CartForm extends React.Component {
         {
           this.state.isConsumerSpecific && !location.pathname.includes("edit") &&
           <div className="form-group">
-            <label className="label">Consumer ID's</label>
+            <label className="label">Consumer ID's (Comma Separated)</label>
             <TextField
               onChange={this.handleTextFieldChange}
               name="consumerList"
