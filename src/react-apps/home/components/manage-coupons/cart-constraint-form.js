@@ -136,7 +136,7 @@ class CartConstraintForm extends React.Component{
           </div>
 
           <div className="form-group">
-            <label className="label">Flat</label><br />
+            <label className="label">Flat Cashback</label><br />
             <TextField
               onChange={this.handleFlatDiscountChange}
               name="flat"
@@ -148,7 +148,7 @@ class CartConstraintForm extends React.Component{
           </div>
 
           <div className="form-group">
-            <label className="label">Percent</label><br />
+            <label className="label">Percent Cashback</label><br />
             <TextField
               onChange={this.handlePercentDiscountChange}
               name="percent"

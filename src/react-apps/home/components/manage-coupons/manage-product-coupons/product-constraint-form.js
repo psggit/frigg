@@ -114,7 +114,7 @@ class ProductConstraintForm extends React.Component {
           </div>
 
           <div className="form-group">     
-            <label className="label">Flat</label><br />
+            <label className="label">Flat Cashback</label><br />
             <TextField
               onChange={this.handleTextFieldChange}
               name="flat"
