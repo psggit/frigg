@@ -126,7 +126,7 @@ class DeliveryagentLocalityMapping extends React.Component {
     this.unmountConfirmDialogBox()
     Api.clearAllDaLocalityMappings()
       .then((response) => {
-        Notify('Deleted Succesfully', 'success')
+        Notify(response.message, 'success')
         location.reload()
       })
       .catch((error) => {
@@ -180,7 +180,7 @@ class DeliveryagentLocalityMapping extends React.Component {
       mappedDeliveryAgentLocalityList: []
     })
 
-    history.pushState(queryObj, "Delivery Agents Mapped to Locality Listing", "/home/delivery-agent-locality-mapping")
+    history.pushState(queryObj, "Delivery Agents Mapped to Locality Listing", `/home/delivery-agent-locality-mapping?${getQueryUri(queryObj)}`)
 
     this.fetchMappedDeliveryAgentLocalityList({
       pagination: {
