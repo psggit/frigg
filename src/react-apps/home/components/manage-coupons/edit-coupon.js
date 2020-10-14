@@ -63,6 +63,8 @@ class EditCartCoupons extends React.Component {
       is_consumer_specific: couponDetails.isConsumerSpecific,
      // revise_delivery_fee: couponDetails.isReviseDeliveryFee,
       is_retailer_specific: couponDetails.isRetailerSpecific,
+      retailer_list: couponDetails.retailerList,
+      consumer_list: couponDetails.consumerList,
       long_desc: couponDetails.longDesc,
       short_desc: couponDetails.shortDesc,
       constraint_type: "cart",

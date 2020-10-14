@@ -313,7 +313,7 @@ class CartForm extends React.Component {
         </div>
 
         {
-          this.state.isRetailerSpecific && !location.pathname.includes("edit") &&
+          this.state.isRetailerSpecific &&
           <div className="form-group">
             <label className="label">Retailer ID's (Comma Separated)</label>
             <TextField

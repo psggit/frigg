@@ -53,6 +53,8 @@ class EditProductCoupons extends React.Component {
       consider_sign_up: couponDetails.considerSignUp,
       //revise_delivery_fee: couponDetails.isReviseDeliveryFee,
       is_retailer_specific: couponDetails.isRetailerSpecific,
+      retailer_list: couponDetails.retailerList,
+      consumer_list: couponDetails.consumerList,
       // app: couponDetails.selectedAppIdx === 1 ? "drinks" : "fk-web",
       hipbar_drinks: couponDetails.drinks,
       fk_web: couponDetails.fkWeb,
