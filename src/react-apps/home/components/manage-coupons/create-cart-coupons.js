@@ -36,7 +36,7 @@ class CreateCartCoupon extends React.Component {
     // this.setState({
     //   cartConstraints: [...this.state.cartConstraint, cartConstraint]
     // })
-    console.log("handle Add", cartConstraintData, (cartConstraintData.max_value > 0 && cartConstraintData.min_value >= 0 && cartConstraintData.flat_discount >= 0 && cartConstraintData.min_value <= cartConstraintData.max_value),  (cartConstraintData.max_value > 0 && cartConstraintData.min_value >= 0 && cartConstraintData.percentage_discount >= 0 && cartConstraintData.min_value <= cartConstraintData.max_value))
+    // console.log("handle Add", cartConstraintData, (cartConstraintData.max_value > 0 && cartConstraintData.min_value >= 0 && cartConstraintData.flat_discount >= 0 && cartConstraintData.min_value <= cartConstraintData.max_value),  (cartConstraintData.max_value > 0 && cartConstraintData.min_value >= 0 && cartConstraintData.percentage_discount >= 0 && cartConstraintData.min_value <= cartConstraintData.max_value))
     const isValidConstraint = ((cartConstraintData.max > 0 && cartConstraintData.min >= 0 && cartConstraintData.flat >= 0 && cartConstraintData.min <= cartConstraintData.max) || (cartConstraintData.max > 0 && cartConstraintData.min >= 0 && cartConstraintData.percent >= 0 && cartConstraintData.min <= cartConstraintData.max)) ? true : false
     
     if (isValidConstraint) {
