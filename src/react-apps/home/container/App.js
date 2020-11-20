@@ -137,6 +137,9 @@ import EditCityFee from '../components/manage-city-fee/edit-city-fee'
 import ManageCityPayment from "../container/manage-city-payment"
 import CreateCityPayment from "../components/manage-city-payment/create-city-payment"
 import UpdateCityPayment from "../components/manage-city-payment/edit-city-payment"
+import ManageLocalityFee from "../container/manage-locality-fee"
+import CreateLocalityFee from "../components/manage-locality-fee/create-locality-fee"
+import UpdateLocalityFee from "../components/manage-locality-fee/edit-locality-fee"
 import DeliveryagentWarehouseMapping from "../container/manage-deliveryagent-warehouse-mapping"
 import MapDeliveryAgentToWarehouse from "./../components/manage-deliveryagent-warehouse-mapping/map-deliveryagent-to-warehouse"
 import DeliveryAgentLocalityMapping from "../container/manage-deliveryagent-locality-mapping"
@@ -296,6 +299,10 @@ class App extends React.Component {
                   <Route exact path="/home/manage-city-payment/:cityId" component={ManageCityPayment} />
                   <Route exact path="/home/manage-city-payment/:cityId/create" component={CreateCityPayment} />
                   <Route exact path="/home/manage-city-payment/:cityId/edit" component={UpdateCityPayment} />
+
+                  <Route exact path="/home/manage-locality-fee/:localityId" component={ManageLocalityFee} />
+                  <Route exact path="/home/manage-locality-fee/:localityId/create" component={CreateLocalityFee} />
+                  <Route exact path="/home/manage-locality-fee/:localityId/edit" component={UpdateLocalityFee} />
 
                   <Route exact path="/home/manage-localities/create-new-locality" component={CreateLocality} />
                   <Route exact path="/home/manage-localities/:localitySlug" component={ViewLocality} />

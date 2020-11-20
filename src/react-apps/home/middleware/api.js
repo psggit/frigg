@@ -2095,3 +2095,57 @@ export const fetchDeliveryServiceProvider = payload => (
   })
     .then(json => json)
 )
+
+export const updateFeeStatus = payload => (
+  POST({
+    api: '/cityManagement/enable_city_fee',
+    apiBase: 'odin',
+    data: payload,
+    handleError: true
+  })
+)
+
+export const updateConsiderLocalityFee = payload => (
+  POST({
+    api: '/fenceManagement/consider_locality_fee',
+    apiBase: 'odin',
+    data: payload,
+    handleError: true
+  })
+)
+
+export const fetchLocalityFeeList = payload => (
+  POST({
+    api: '/fenceManagement/list_locality_fee',
+    apiBase: 'odin',
+    data: payload,
+    handleError: true
+  })
+)
+
+export const updateLocalityFeeStatus = payload => (
+  POST({
+    api: '/fenceManagement/enable_locality_fee',
+    apiBase: 'odin',
+    data: payload,
+    handleError: true
+  })
+)
+
+export const createLocalityFee = payload => (
+  POST({
+    api: '/fenceManagement/add_locality_fee',
+    apiBase: 'odin',
+    data: payload,
+    handleError: true
+  })
+)
+
+export const updateLocalityFee = payload => (
+  POST({
+    api: '/fenceManagement/update_locality_fee',
+    apiBase: 'odin',
+    data: payload,
+    handleError: true
+  })
+)

@@ -7,8 +7,8 @@ import RaisedButton from 'material-ui/RaisedButton'
 import * as Api from "./../../middleware/api"
 
 
-class CityFeeForm extends React.Component {
-  constructor (props) {
+class LocalityFeeForm extends React.Component {
+  constructor(props) {
     super(props)
 
     this.platform = [
@@ -47,12 +47,12 @@ class CityFeeForm extends React.Component {
     this.handleTimeChange = this.handleTimeChange.bind(this)
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.fetchOrderTypes()
     this.fetchChargeTypes()
   }
 
-  fetchOrderTypes () {
+  fetchOrderTypes() {
     Api.fetchOrderTypeList({})
       .then((response) => {
         this.setState({
@@ -65,7 +65,7 @@ class CityFeeForm extends React.Component {
       })
   }
 
-  fetchChargeTypes () {
+  fetchChargeTypes() {
     Api.fetchChargeTypeList({})
       .then((response) => {
         this.setState({
@@ -84,11 +84,11 @@ class CityFeeForm extends React.Component {
     })
   }
 
-  handleTextFields (e) {
+  handleTextFields(e) {
     this.setState({ [e.target.name]: e.target.value })
   }
 
-  handleNumberChange (e) {
+  handleNumberChange(e) {
     const regex = /^[0-9.\b]*$/;
 
     if (regex.test(e.target.value)) {
@@ -96,35 +96,35 @@ class CityFeeForm extends React.Component {
     }
   }
 
-  handleOrderTypeChange (e, k) {
+  handleOrderTypeChange(e, k) {
     this.setState({
       selectedOrderTypeIdx: (this.state.orderTypeList[k].Order_type)
     })
   }
 
-  handleChargeTypeChange (e, k) {
+  handleChargeTypeChange(e, k) {
     this.setState({
       selectedChargeTypeIdx: (this.state.chargeTypeList[k].Charge_type)
     })
   }
 
-  getData () {
+  getData() {
     return this.state
   }
 
-  handleSave () {
+  handleSave() {
     this.props.handleSave()
   }
 
-  handleFlatChange (e) {
-    if(parseInt(this.state.percentage) === 0) {
+  handleFlatChange(e) {
+    if (parseInt(this.state.percentage) === 0) {
       this.setState({
         [e.target.name]: e.target.value
       })
     }
   }
 
-  handlePercentageChange (e) {
+  handlePercentageChange(e) {
     if (parseInt(this.state.flat) === 0) {
       this.setState({
         [e.target.name]: e.target.value
@@ -136,7 +136,7 @@ class CityFeeForm extends React.Component {
     this.setState({ [e.target.name]: e.target.value })
   }
 
-  render () {
+  render() {
     return (
       <React.Fragment>
         <Card style={{
@@ -148,7 +148,7 @@ class CityFeeForm extends React.Component {
           marginRight: '20px'
         }}
         >
-          <h4 style={{ margin: '0', marginBottom: '40px' }}>{`Enter City Fee Details (${this.props.cityId})`}</h4>
+          <h4 style={{ margin: '0', marginBottom: '40px' }}>{`Enter Locality Fee Details (${this.props.localityId})`}</h4>
           <form>
 
             {/* <div className="form-group">
@@ -341,4 +341,4 @@ class CityFeeForm extends React.Component {
   }
 }
 
-export default CityFeeForm
+export default LocalityFeeForm
