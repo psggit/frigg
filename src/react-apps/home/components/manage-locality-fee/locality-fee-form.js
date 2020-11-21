@@ -16,6 +16,7 @@ class LocalityFeeForm extends React.Component {
       { text: 'fk-web', value: 2 },
     ]
     this.state = {
+      error: {},
       id: props.data ? props.data.id : "",
       selectedOrderTypeIdx: props.data ? props.data.order_type : "",
       orderTypeList: [],
@@ -45,6 +46,7 @@ class LocalityFeeForm extends React.Component {
     this.handlePercentageChange = this.handlePercentageChange.bind(this)
     this.handlePlatformChange = this.handlePlatformChange.bind(this)
     this.handleTimeChange = this.handleTimeChange.bind(this)
+    this.isFormValid = this.isFormValid.bind(this)
   }
 
   componentDidMount() {
@@ -85,11 +87,25 @@ class LocalityFeeForm extends React.Component {
   }
 
   handleTextFields(e) {
+    const errName = `${e.target.name}Status`
+    this.setState({
+      error: {
+        value: "",
+        [errName]: false
+      }
+    })
     this.setState({ [e.target.name]: e.target.value })
   }
 
   handleNumberChange(e) {
     const regex = /^[0-9.\b]*$/;
+    const errName = `${e.target.name}Status`
+    this.setState({
+      error: {
+        value: "",
+        [errName]: false
+      }
+    })
 
     if (regex.test(e.target.value)) {
       this.setState({ [e.target.name]: e.target.value })
@@ -112,11 +128,107 @@ class LocalityFeeForm extends React.Component {
     return this.state
   }
 
+  isFormValid() {
+    if (this.state.title.toString().length === 0) {
+      this.setState(prevState => ({
+        error: {
+          ...prevState.error,
+          value: "Title is required",
+          titleStatus: true
+        }
+      }))
+      return false
+    } else if (this.state.flat.toString().length === 0) {
+      this.setState(prevState => ({
+        error: {
+          ...prevState.error,
+          value: "Flat is required",
+          flatStatus: true
+        }
+      }))
+      return false
+    } else if (this.state.percentage.toString().length === 0) {
+      this.setState(prevState => ({
+        error: {
+          ...prevState.error,
+          value: "Percent is required",
+          percentageStatus: true
+        }
+      }))
+      return false
+    } else if (this.state.min.toString().length === 0) {
+      this.setState(prevState => ({
+        error: {
+          ...prevState.error,
+          value: "Min is required",
+          minStatus: true
+        }
+      }))
+      return false
+    } else if (this.state.max.toString().length === 0) {
+      this.setState(prevState => ({
+        error: {
+          ...prevState.error,
+          value: "Max is required",
+          maxStatus: true
+        }
+      }))
+      return false
+    } else if (this.state.minCartValue.toString().length === 0) {
+      this.setState(prevState => ({
+        error: {
+          ...prevState.error,
+          value: "Min Cart Value is required",
+          minCartValueStatus: true
+        }
+      }))
+      return false
+    } else if (this.state.maxCartValue.toString().length === 0) {
+      this.setState(prevState => ({
+        error: {
+          ...prevState.error,
+          value: "Max Cart Value is required",
+          maxCartValueStatus: true
+        }
+      }))
+      return false
+    } else if (this.state.startTime.toString().length === 0) {
+      this.setState(prevState => ({
+        error: {
+          ...prevState.error,
+          value: "Start Time is required",
+          startTimeStatus: true
+        }
+      }))
+      return false
+    } else if (this.state.endTime.toString().length === 0) {
+      console.log("etime", this.state.startTime)
+      this.setState(prevState => ({
+        error: {
+          ...prevState.error,
+          value: "End Time is required",
+          endTimeStatus: true
+        }
+      }))
+      return false
+    }
+    return true
+  }
+
   handleSave() {
-    this.props.handleSave()
+    if (this.isFormValid())
+      this.props.handleSave()
   }
 
   handleFlatChange(e) {
+    const errName = `${e.target.name}Status`
+    this.setState({
+      error: {
+        value: "",
+        [errName]: false
+      }
+    })
+
     if (parseInt(this.state.percentage) === 0) {
       this.setState({
         [e.target.name]: e.target.value
@@ -125,6 +237,14 @@ class LocalityFeeForm extends React.Component {
   }
 
   handlePercentageChange(e) {
+    const errName = `${e.target.name}Status`
+    this.setState({
+      error: {
+        value: "",
+        [errName]: false
+      }
+    })
+
     if (parseInt(this.state.flat) === 0) {
       this.setState({
         [e.target.name]: e.target.value
@@ -133,6 +253,14 @@ class LocalityFeeForm extends React.Component {
   }
 
   handleTimeChange(e) {
+    const errName = `${e.target.name}Status`
+    this.setState({
+      error: {
+        value: "",
+        [errName]: false
+      }
+    })
+
     this.setState({ [e.target.name]: e.target.value })
   }
 
@@ -207,6 +335,10 @@ class LocalityFeeForm extends React.Component {
                 value={this.state.title}
                 style={{ width: '100%' }}
               />
+              {
+                this.state.error.titleStatus &&
+                <p className="error-message">* {this.state.error.value}</p>
+              }
             </div>
 
             <div className="form-group">
@@ -217,6 +349,10 @@ class LocalityFeeForm extends React.Component {
                 value={this.state.flat}
                 style={{ width: '100%' }}
               />
+              {
+                this.state.error.flatStatus &&
+                <p className="error-message">* {this.state.error.value}</p>
+              }
             </div>
 
             <div className="form-group">
@@ -227,6 +363,10 @@ class LocalityFeeForm extends React.Component {
                 value={this.state.percentage}
                 style={{ width: '100%' }}
               />
+              {
+                this.state.error.percentageStatus &&
+                <p className="error-message">* {this.state.error.value}</p>
+              }
             </div>
 
             <div className="form-group">
@@ -237,6 +377,10 @@ class LocalityFeeForm extends React.Component {
                 value={this.state.min}
                 style={{ width: '100%' }}
               />
+              {
+                this.state.error.minStatus &&
+                <p className="error-message">* {this.state.error.value}</p>
+              }
             </div>
 
             <div className="form-group">
@@ -247,6 +391,10 @@ class LocalityFeeForm extends React.Component {
                 value={this.state.max}
                 style={{ width: '100%' }}
               />
+              {
+                this.state.error.maxStatus &&
+                <p className="error-message">* {this.state.error.value}</p>
+              }
             </div>
 
             <div className="form-group">
@@ -286,6 +434,10 @@ class LocalityFeeForm extends React.Component {
                 }}
                 name="startTime"
               />
+              {
+                this.state.error.startTimeStatus &&
+                <p className="error-message">* {this.state.error.value}</p>
+              }
             </div>
 
             <div className="form-group">
@@ -305,6 +457,10 @@ class LocalityFeeForm extends React.Component {
                 }}
                 name="endTime"
               />
+              {
+                this.state.error.endTimeStatus &&
+                <p className="error-message">* {this.state.error.value}</p>
+              }
             </div>
 
             <div className="form-group">
@@ -315,6 +471,10 @@ class LocalityFeeForm extends React.Component {
                 value={this.state.minCartValue}
                 style={{ width: '100%' }}
               />
+              {
+                this.state.error.minCartValueStatus &&
+                <p className="error-message">* {this.state.error.value}</p>
+              }
             </div>
             <div className="form-group">
               <label className="label">Max Cart Value</label><br />
@@ -324,6 +484,10 @@ class LocalityFeeForm extends React.Component {
                 value={this.state.maxCartValue}
                 style={{ width: '100%' }}
               />
+              {
+                this.state.error.maxCartValueStatus &&
+                <p className="error-message">* {this.state.error.value}</p>
+              }
             </div>
 
             <div className="form-group">
