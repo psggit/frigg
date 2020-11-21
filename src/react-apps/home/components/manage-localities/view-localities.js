@@ -6,7 +6,7 @@ import {
   TableHeaderColumn,
   TableRow,
   TableRowColumn,
-} from 'material-ui/Table'
+} from 'material-ui/Table';
 
 import RaisedButton from 'material-ui/RaisedButton'
 import { overrideTableStyle } from './../../../utils'
