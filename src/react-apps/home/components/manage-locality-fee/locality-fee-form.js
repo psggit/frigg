@@ -27,8 +27,8 @@ class LocalityFeeForm extends React.Component {
       percentage: props.data ? props.data.txn_fee_percentage : 0,
       min: props.data ? props.data.min_value : 0,
       max: props.data ? props.data.max_value : 0,
-      startTime: props.data ? props.data.start_time.substring(11, 16) : "",
-      endTime: props.data ? props.data.end_time.substring(11, 16) : "",
+      startTime: props.data ? props.data.start_time.substring(11, 16) : "00:00",
+      endTime: props.data ? props.data.end_time.substring(11, 16) : "23:59",
       minCartValue: props.data ? props.data.cart_min : 0,
       maxCartValue: props.data ? props.data.cart_max : 0,
       selectedPlatformIdx: props.data ? this.platform.find(item => (item.text).toLowerCase() === (props.data.platform).toLowerCase()).value : 1,
@@ -260,7 +260,6 @@ class LocalityFeeForm extends React.Component {
         [errName]: false
       }
     })
-
     this.setState({ [e.target.name]: e.target.value })
   }
 
@@ -423,6 +422,7 @@ class LocalityFeeForm extends React.Component {
                 type='time'
                 onChange={this.handleTimeChange}
                 defaultValue={this.state.startTime}
+                //value={this.state.startTime}
                 className="inline-input"
                 style={{
                   width: '100%',
