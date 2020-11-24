@@ -10,6 +10,7 @@ import {
 
 import TableLoadingShell from './../table-loading-shell'
 import '@sass/components/_table.scss'
+import Notify from "@components/Notification"
 import { overrideTableStyle } from './../../../utils'
 import Switch from "@components/switch"
 import ModalBody from '@components/ModalBox/ModalBody'
@@ -120,6 +121,9 @@ class ListCityFee extends React.Component {
     })
     .catch((error) => {
       console.log("Error in updating fee status", error)
+      error.response.json().then((json) => {
+        Notify(json.message, "error")
+      })
     })
   }
 

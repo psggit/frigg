@@ -10,6 +10,7 @@ import {
 
 import TableLoadingShell from './../table-loading-shell'
 import '@sass/components/_table.scss'
+import Notify from "@components/Notification"
 import { overrideTableStyle } from './../../../utils'
 import Switch from "@components/switch"
 import ModalBody from '@components/ModalBox/ModalBody'
@@ -119,6 +120,9 @@ class ListLocalityFee extends React.Component {
         location.reload()
       })
       .catch((error) => {
+        error.response.json().then((json) => {
+          Notify(json.message, "error")
+        })
         console.log("Error in updating locality fee status", error)
       })
   }

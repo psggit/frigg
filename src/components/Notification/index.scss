@@ -60,7 +60,7 @@
     }
   }
 
-  &.warning {
+  &.warning, &.error {
     border-color: #ffeeba;
     background: #fff3cd;
     color: #856404;

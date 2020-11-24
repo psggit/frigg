@@ -38,6 +38,9 @@ class EditCityFee extends React.Component {
       })
       .catch((err) => {
         console.log("Error in Updating City Fee", err)
+        err.response.json().then((json) => {
+          Notify(json.message, "error")
+        })
         this.setState({ updatingCityFee: false })
       })
   }

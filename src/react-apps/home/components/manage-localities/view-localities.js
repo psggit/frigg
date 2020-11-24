@@ -17,6 +17,7 @@ import ModalHeader from '@components/ModalBox/ModalHeader'
 import ModalFooter from '@components/ModalBox/ModalFooter'
 import ModalBox from '@components/ModalBox'
 import Switch from "@components/switch"
+import Notify from "@components/Notification"
 import CircularProgress from 'material-ui/CircularProgress'
 import { NavLink } from 'react-router-dom'
 import TableLoadingShell from './../table-loading-shell'
@@ -97,6 +98,9 @@ class ViewLocalities extends React.Component {
       })
       .catch((error) => {
         console.log("Error in updating consider city fee", error)
+        error.response.json().then((json) => {
+          Notify(json.message, "error")
+        })
       })
   }
 

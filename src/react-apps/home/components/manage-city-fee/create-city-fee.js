@@ -37,6 +37,9 @@ class CreateCityFee extends React.Component {
       })
       .catch((err) => {
         console.log("Error in creating City Fee", err)
+        err.response.json().then((json) => {
+          Notify(json.message, "error")
+        })
         this.setState({ creatingCityFee: false })
       })
   }

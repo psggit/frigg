@@ -37,6 +37,9 @@ class CreateLocalityFee extends React.Component {
       })
       .catch((err) => {
         console.log("Error in creating Locality Fee", err)
+        err.response.json().then((json) => {
+          Notify(json.message, "error")
+        })
         this.setState({ creatingLocalityFee: false })
       })
   }

@@ -38,6 +38,9 @@ class EditLocalityFee extends React.Component {
       })
       .catch((err) => {
         console.log("Error in Updating Locality Fee", err)
+        err.response.json().then((json) => {
+          Notify(json.message, "error")
+        })
         this.setState({ updatingLocalityFee: false })
       })
   }
