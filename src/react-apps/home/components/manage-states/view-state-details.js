@@ -51,6 +51,8 @@ class ViewState extends React.Component {
         is_deliverable: data.isDeliverable,
         is_active: data.isActive,
         fk_enabled: data.fkEnabled,
+        is_presentation_enabled: data.isPresentationEnabled,
+        is_brand_details_enabled: data.isBrandDetailsEnabled,
       })
     }
   }

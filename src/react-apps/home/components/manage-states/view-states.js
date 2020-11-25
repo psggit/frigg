@@ -25,6 +25,8 @@ const TableHeaderItems = [
   'UPI',
   'GIFT WALLET',
   'HIPBAR WALLET',
+  'PRESENTATION',
+  'BRANDS',
   'GST NUMBER',
   'SGST NUMBER',
   'CGST NUMBER',
@@ -43,7 +45,9 @@ const styles = [
   { width: '38px' },
   { width: '38px' },
   { width: '38px' },
+  { width: '56px' },
   { width: '38px' },
+  { width: '50px' },
   { width: '38px' },
   { width: '38px' },
   { width: '38px' },
@@ -89,7 +93,9 @@ class ViewStates extends React.Component {
       //isCatalogEnabled: item.catalog_enabled,
       // addMoney:item.add_money,
       isActive: item.is_active,
-      isDeliverable: item.is_deliverable
+      isDeliverable: item.is_deliverable,
+      isPresentationEnabled: item.is_presentation_enabled,
+      isBrandDetailsEnabled: item.is_brand_details_enabled,
     }
     //console.log("histry", props.history.location)
     this.props.history.push(`/home/manage-states/${item.state_name}`, queryParams)
@@ -132,13 +138,15 @@ class ViewStates extends React.Component {
                     <TableRowColumn style={styles[5]}>{item.upi_enabled ? 'Enabled' : 'Disabled'}</TableRowColumn>
                     <TableRowColumn style={styles[6]}>{item.gift_wallet_enabled ? 'Enabled' : 'Disabled'}</TableRowColumn>
                     <TableRowColumn style={styles[7]}>{item.hbwallet_enabled ? 'Enabled' : 'Disabled'}</TableRowColumn>
-                    <TableRowColumn style={styles[8]}>{item.gst_number}</TableRowColumn>
-                    <TableRowColumn style={styles[9]}>{item.sgst_percentage}</TableRowColumn>
-                    <TableRowColumn style={styles[10]}>{item.cgst_percentage}</TableRowColumn>
-                    <TableRowColumn style={styles[11]}>{item.igst_percentage}</TableRowColumn>
-                    <TableRowColumn style={styles[12]}>{item.is_active ? 'Active' : 'Inactive'}</TableRowColumn>
-                    <TableRowColumn style={styles[13]}>{item.is_deliverable ? 'Deliverable' : 'Undeliverable'}</TableRowColumn>
-                    <TableRowColumn style={styles[14]}>
+                    <TableRowColumn style={styles[8]}>{item.is_presentation_enabled ? 'Enabled' : 'Disabled'}</TableRowColumn>
+                    <TableRowColumn style={styles[9]}>{item.is_brand_details_enabled ? 'Enabled' : 'Disabled'}</TableRowColumn>
+                    <TableRowColumn style={styles[10]}>{item.gst_number}</TableRowColumn>
+                    <TableRowColumn style={styles[11]}>{item.sgst_percentage}</TableRowColumn>
+                    <TableRowColumn style={styles[12]}>{item.cgst_percentage}</TableRowColumn>
+                    <TableRowColumn style={styles[13]}>{item.igst_percentage}</TableRowColumn>
+                    <TableRowColumn style={styles[14]}>{item.is_active ? 'Active' : 'Inactive'}</TableRowColumn>
+                    <TableRowColumn style={styles[15]}>{item.is_deliverable ? 'Deliverable' : 'Undeliverable'}</TableRowColumn>
+                    <TableRowColumn style={styles[16]}>
                       <NavLink to={`/home/manage-states/possession-limits/${item.short_name}`}>Possession Limits</NavLink>
                     </TableRowColumn>
                   </TableRow>

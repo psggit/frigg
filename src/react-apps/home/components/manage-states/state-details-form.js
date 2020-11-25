@@ -30,6 +30,8 @@ class StateDetailsForm extends React.Component {
       isUPIEnabled: props.data ? props.data.isUPIEnabled : false,
       isGiftWalletEnabled: props.data ? props.data.isGiftWalletEnabled : false,
       isHipbarWalletEnabled: props.data ? props.data.isHipbarWalletEnabled : false,
+      isPresentationEnabled: props.data ? props.data.isPresentationEnabled : false,
+      isBrandDetailsEnabled: props.data ? props.data.isBrandDetailsEnabled : false,
       // addMoney: props.data ? props.data.addMoney: false,
       isDeliverable: props.data ? props.data.isDeliverable : false,
       isActive: props.data ? props.data.isActive : false,
@@ -254,6 +256,20 @@ class StateDetailsForm extends React.Component {
             onCheck={this.handleCheckboxChange}
             label="is_deliverable"
             name="isDeliverable"
+          />
+          <Checkbox
+            disabled={this.props.isDisabled}
+            checked={this.state.isPresentationEnabled}
+            onCheck={this.handleCheckboxChange}
+            label="is_presentation"
+            name="isPresentationEnabled"
+          />
+          <Checkbox
+            disabled={this.props.isDisabled}
+            checked={this.state.isBrandDetailsEnabled}
+            onCheck={this.handleCheckboxChange}
+            label="is_brand_details"
+            name="isBrandDetailsEnabled"
           />
           <Checkbox
             disabled={this.props.isDisabled}
