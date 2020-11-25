@@ -46,7 +46,7 @@ const styles = [
   { width: '38px' },
   { width: '38px' },
   { width: '50px' },
-  { width: '48px' },
+  { width: '38px' },
   { width: '50px' },
   { width: '38px' },
   { width: '38px' },
@@ -96,7 +96,6 @@ class ViewStates extends React.Component {
       isDeliverable: item.is_deliverable,
       isPresentationEnabled: item.is_presentation_enabled,
       isBrandDetailsEnabled: item.is_brand_details_enabled,
-
     }
     //console.log("histry", props.history.location)
     this.props.history.push(`/home/manage-states/${item.state_name}`, queryParams)
