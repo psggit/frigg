@@ -21,6 +21,7 @@ class CartForm extends React.Component {
       couponName: props.data ? props.data.name : "",
       startTime: props.data ? props.data.start_time.slice(0, 16) : "",
       endTime: props.data ? props.data.end_time.slice(0, 16) : "",
+      cashbackExpiry: props.data ? props.data.cashback_expiry.slice(0, 16) : "",
       maxCount: props.data ? props.data.max_count : 0,
       //availableCount: props.data ? props.data.available_count : 0,
       frequency: props.data ? props.data.frequency : "",
@@ -50,6 +51,7 @@ class CartForm extends React.Component {
 
     this.destination = [
       { text: 'UPI', value: 1 },
+      { text: 'hipcoin', value: 2 },
     ]
 
     // this.app = [
@@ -237,6 +239,28 @@ class CartForm extends React.Component {
             }
           </SelectField>
         </div>
+        {
+          this.state.selectedDestinationIdx === 2 &&
+          <div className="form-group">
+            <label className="label">Cashback Expiry</label><br />
+            <input
+              type="datetime-local"
+              onChange={this.handleDate}
+              defaultValue={this.state.cashbackExpiry}
+              className="inline-input"
+              style={{
+                width: '100%',
+                marginTop: '10px',
+                border: '0',
+                borderBottom: '1px solid #9b9b9b',
+                fontSize: '14px',
+                padding: '5px 0'
+              }}
+              required
+              name="cashbackExpiry"
+            />
+          </div>
+        }
 
         <div className="form-group">
           <Checkbox

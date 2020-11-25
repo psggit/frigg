@@ -108,6 +108,7 @@ class CreateCartCoupon extends React.Component {
         constraint_type: "cart",
         start_time: cartCouponData.startTime,
         end_time: cartCouponData.endTime,
+        cashback_expiry: cartCouponData.cashbackExpiry,
         max_count: parseInt(cartCouponData.maxCount),
         //available_count: parseInt(cartCouponData.availableCount),
         // pay_by_wallet: cartCouponData.option === "payByWallet" ? true : false,
@@ -133,7 +134,7 @@ class CreateCartCoupon extends React.Component {
         consumer_list: cartCouponData.consumerList ? cartCouponData.consumerList.trim().split(",").map((consumerId) => parseInt(consumerId)) : [],
         //new_delivery_fee: parseFloat(cartCouponData.newDeliveryFee),
         retailer_list: cartCouponData.retailerList,
-        destination: cartCouponData.selectedDestinationIdx === 1 ? "UPI" : "UPI",
+        destination: cartCouponData.selectedDestinationIdx === 1 ? "UPI" : "hipcoin",
         listing_order: parseInt(cartCouponData.listingOrder),
         long_html_desc: cartCouponData.longHtmlDesc,
         cart_constraints: [...this.state.cartConstraints, cartConstraint]
