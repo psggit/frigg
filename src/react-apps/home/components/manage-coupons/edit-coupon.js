@@ -163,7 +163,8 @@ class EditCartCoupons extends React.Component {
       coupon_id: this.props.location.state.id,
       disable: false,
       revise_delivery_fee: false,
-      new_delivery_fee: 0.0
+      new_delivery_fee: 0.0,
+      cashback_expiry: "",
     }
 
     this.setState({

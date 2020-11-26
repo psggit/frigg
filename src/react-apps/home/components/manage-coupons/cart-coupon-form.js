@@ -21,7 +21,7 @@ class CartForm extends React.Component {
       couponName: props.data ? props.data.name : "",
       startTime: props.data ? props.data.start_time.slice(0, 16) : "",
       endTime: props.data ? props.data.end_time.slice(0, 16) : "",
-      cashbackExpiry: props.data ? props.data.cashback_expiry.slice(0, 16) : "",
+     // cashbackExpiry: props.data ? props.data.cashback_expiry.slice(0, 16) : "",
       maxCount: props.data ? props.data.max_count : 0,
       //availableCount: props.data ? props.data.available_count : 0,
       frequency: props.data ? props.data.frequency : "",
@@ -39,7 +39,7 @@ class CartForm extends React.Component {
       // selectedAppIdx: props.data ? props.data.app === "drinks" ? 1 : 2 : 1,
       drinks: props.data ? props.data.hipbar_drinks : false,
       fkWeb: props.data ? props.data.fk_web : false,
-      selectedDestinationIdx: props.data ? props.data.destination === "UPI" ? 1 : 1 : 1,
+      selectedDestinationIdx: props.data ? props.data.destination === "UPI" ? 1 : 2 : 1,
       shortDesc: props.data ? props.data.short_desc : "",
       longDesc: props.data ? props.data.long_desc : "",
       longHtmlDesc: props.data ? props.data.long_html_desc : "",
@@ -239,7 +239,7 @@ class CartForm extends React.Component {
             }
           </SelectField>
         </div>
-        {
+        {/* {
           this.state.selectedDestinationIdx === 2 &&
           <div className="form-group">
             <label className="label">Cashback Expiry</label><br />
@@ -260,7 +260,7 @@ class CartForm extends React.Component {
               name="cashbackExpiry"
             />
           </div>
-        }
+        } */}
 
         <div className="form-group">
           <Checkbox

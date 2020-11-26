@@ -45,7 +45,7 @@ class EditProductCoupons extends React.Component {
       name: couponDetails.couponName,
       start_time: new Date(couponDetails.startTime),
       end_time: new Date(couponDetails.endTime),
-      cashback_expiry: new Date(couponDetails.cashbackExpiry),
+      //cashback_expiry: new Date(couponDetails.cashbackExpiry),
       max_count: !couponDetails.isUnlimited ? parseInt(couponDetails.maxCount ): 0,
       limit_per_user: parseInt(couponDetails.limitPerUser),
       //available_count: couponDetails.availableCount,
@@ -139,7 +139,8 @@ class EditProductCoupons extends React.Component {
       coupon_id: this.props.location.state.id,
       disable: false,
       revise_delivery_fee: false,
-      new_delivery_fee: 0.0
+      new_delivery_fee: 0.0,
+      cashback_expiry: "",
     }
 
     this.setState({
