@@ -173,6 +173,7 @@ class CartConstraintForm extends React.Component{
               onChange={this.handleDate}
               defaultValue={this.state.cashbackExpiry}
               className="inline-input"
+              disabled={this.state.disabledInput}
               style={{
                 width: '100%',
                 marginTop: '10px',
