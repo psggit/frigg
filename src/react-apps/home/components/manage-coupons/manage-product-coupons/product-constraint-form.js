@@ -24,13 +24,14 @@ class ProductConstraintForm extends React.Component {
       disabledInput: props.data ? props.data.disable : false,
       isReviseDeliveryFee: props.data ? props.data.revise_delivery_fee : false,
       newDeliveryFee: props.data ? props.data.new_delivery_fee : 0,
+      cashbackExpiry: props.data ? props.data.cashback_expiry.slice(0, 16) : "",
     }
     this.handleTextFieldChange = this.handleTextFieldChange.bind(this)
     this.getData = this.getData.bind(this)
     this.updateConstraint = this.updateConstraint.bind(this)
     this.deleteProductConstraint = this.deleteProductConstraint.bind(this)
     this.handleCheckboxChange = this.handleCheckboxChange.bind(this)
-
+    this.handleDate = this.handleDate.bind(this)
   }
 
   handleCheckboxChange(e) {
@@ -45,6 +46,11 @@ class ProductConstraintForm extends React.Component {
     })
   }
 
+  handleDate(e) {
+    const d = new Date(e.target.value)
+    this.setState({ [e.target.name]: d.toISOString() })
+  }
+
   getData () {
     return this.state
   }
@@ -57,7 +63,8 @@ class ProductConstraintForm extends React.Component {
       quantity: parseFloat(this.state.quantity),
       flat_discount: parseFloat(this.state.flat),
       revise_delivery_fee: (this.state.isReviseDeliveryFee),
-      new_delivery_fee: parseFloat(this.state.newDeliveryFee)
+      new_delivery_fee: parseFloat(this.state.newDeliveryFee),
+      cashback_expiry: (this.state.cashbackExpiry),
     })
   }
 
@@ -124,6 +131,27 @@ class ProductConstraintForm extends React.Component {
               disabled={this.state.disabledInput}
             />
           </div> 
+
+          <div className="form-group">
+            <label className="label">Cashback Expiry</label><br />
+            <input
+              type="datetime-local"
+              onChange={this.handleDate}
+              defaultValue={this.state.cashbackExpiry}
+              className="inline-input"
+              disabled={this.state.disabledInput}
+              style={{
+                width: '100%',
+                marginTop: '10px',
+                border: '0',
+                borderBottom: '1px solid #9b9b9b',
+                fontSize: '14px',
+                padding: '5px 0'
+              }}
+              required
+              name="cashbackExpiry"
+            />
+          </div>
 
           <div className="form-group">
             <Checkbox

@@ -38,7 +38,7 @@ class CartForm extends React.Component {
       // selectedAppIdx: props.data ? props.data.app === "drinks" ? 1 : 2 : 1,
       drinks: props.data ? props.data.hipbar_drinks : false,
       fkWeb: props.data ? props.data.fk_web : false,
-      selectedDestinationIdx: props.data ? props.data.destination === "UPI" ? 1 : 1 : 1,
+      selectedDestinationIdx: props.data ? props.data.destination === "UPI" ? 1 : 2 : 1,
       shortDesc: props.data ? props.data.short_desc : "",
       longDesc: props.data ? props.data.long_desc : "",
       longHtmlDesc: props.data ? props.data.long_html_desc : "",
@@ -50,6 +50,7 @@ class CartForm extends React.Component {
 
     this.destination = [
       { text: 'UPI', value: 1 },
+      { text: 'hipcoin', value: 2 },
     ]
 
     // this.app = [

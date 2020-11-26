@@ -45,6 +45,7 @@ class EditProductCoupons extends React.Component {
       name: couponDetails.couponName,
       start_time: new Date(couponDetails.startTime),
       end_time: new Date(couponDetails.endTime),
+      //cashback_expiry: new Date(couponDetails.cashbackExpiry),
       max_count: !couponDetails.isUnlimited ? parseInt(couponDetails.maxCount ): 0,
       limit_per_user: parseInt(couponDetails.limitPerUser),
       //available_count: couponDetails.availableCount,
@@ -61,7 +62,7 @@ class EditProductCoupons extends React.Component {
       pay_by_wallet: couponDetails.payByWallet,
       store_pickup: couponDetails.storePickup,
       delivery: couponDetails.delivery,
-      destination: couponDetails.selectedDestinationIdx === 1 ? "UPI" : "UPI",
+      destination: couponDetails.selectedDestinationIdx === 1 ? "UPI" : "hipcoin",
       is_unlimited: couponDetails.isUnlimited,
       listing_order: parseInt(couponDetails.listingOrder),
       is_consumer_specific: couponDetails.isConsumerSpecific,
@@ -138,7 +139,8 @@ class EditProductCoupons extends React.Component {
       coupon_id: this.props.location.state.id,
       disable: false,
       revise_delivery_fee: false,
-      new_delivery_fee: 0.0
+      new_delivery_fee: 0.0,
+      cashback_expiry: "",
     }
 
     this.setState({
