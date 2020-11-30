@@ -261,14 +261,14 @@ class StateDetailsForm extends React.Component {
             disabled={this.props.isDisabled}
             checked={this.state.isPresentationEnabled}
             onCheck={this.handleCheckboxChange}
-            label="is_presentation"
+            label="Presentation"
             name="isPresentationEnabled"
           />
           <Checkbox
             disabled={this.props.isDisabled}
             checked={this.state.isBrandDetailsEnabled}
             onCheck={this.handleCheckboxChange}
-            label="is_brand_details"
+            label="Brand Details"
             name="isBrandDetailsEnabled"
           />
           <Checkbox

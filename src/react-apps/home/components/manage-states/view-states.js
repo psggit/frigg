@@ -26,7 +26,7 @@ const TableHeaderItems = [
   'GIFT WALLET',
   'HIPBAR WALLET',
   'PRESENTATION',
-  'BRANDS',
+  'BRAND DETAILS',
   'GST NUMBER',
   'SGST NUMBER',
   'CGST NUMBER',
