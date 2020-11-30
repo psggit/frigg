@@ -171,34 +171,6 @@ class StateDetailsForm extends React.Component {
             </SelectField>
           </div>
         </Card>
-        {/* <div className="form-group">
-          <label className="label">City</label><br />
-          <SelectField
-            value={this.state.selectedCityIdx}
-            onChange={this.handleCityChange}
-            disabled={this.props.isDisabled}
-          >
-            {
-              !this.state.loadingCityList && this.state.cityList.map((item, i) => (
-                <MenuItem
-                  value={item.id}
-                  key={item.id}
-                  primaryText={item.name}
-                />
-              ))
-            }
-          </SelectField>
-        </div> */}
-       
-        {/* <div className="form-group">
-            <Checkbox
-              disabled={this.props.isDisabled}
-              checked={this.state.isCatalogEnabled}
-              onCheck={this.handleCheckboxChange}
-              label="Catalog Enabled"
-              name="isCatalogEnabled"
-            />
-          </div> */}
         <Card
           style={{
             padding: '20px',
@@ -326,6 +298,35 @@ class StateDetailsForm extends React.Component {
     )
   }
 }
+
+{/* <div className="form-group">
+          <label className="label">City</label><br />
+          <SelectField
+            value={this.state.selectedCityIdx}
+            onChange={this.handleCityChange}
+            disabled={this.props.isDisabled}
+          >
+            {
+              !this.state.loadingCityList && this.state.cityList.map((item, i) => (
+                <MenuItem
+                  value={item.id}
+                  key={item.id}
+                  primaryText={item.name}
+                />
+              ))
+            }
+          </SelectField>
+        </div> */}
+
+{/* <div className="form-group">
+            <Checkbox
+              disabled={this.props.isDisabled}
+              checked={this.state.isCatalogEnabled}
+              onCheck={this.handleCheckboxChange}
+              label="Catalog Enabled"
+              name="isCatalogEnabled"
+            />
+          </div> */}
 
 StateDetailsForm.propTypes = {
   data: PropTypes.object,
