@@ -130,7 +130,7 @@ class StateDetailsForm extends React.Component {
         <Card
           style={{
             padding: '20px',
-            width: '100%'
+            width: '100%',
           }}
         >
           <div className="form-group">
@@ -220,6 +220,7 @@ class StateDetailsForm extends React.Component {
             padding: '20px',
             width: '100%',
             marginLeft: '12px',
+            minWidth: '240px',
           }}
         >
           <div className="form-group">
