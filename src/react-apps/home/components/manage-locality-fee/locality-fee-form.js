@@ -420,6 +420,7 @@ class LocalityFeeForm extends React.Component {
               <label className="label">Start Time</label><br />
               <input
                 type='time'
+                step="2"
                 onChange={this.handleTimeChange}
                 defaultValue={this.state.startTime}
                 //value={this.state.startTime}
@@ -444,6 +445,7 @@ class LocalityFeeForm extends React.Component {
               <label className="label">End Time</label><br />
               <input
                 type='time'
+                step="2"
                 onChange={this.handleTimeChange}
                 defaultValue={this.state.endTime}
                 className="inline-input"
