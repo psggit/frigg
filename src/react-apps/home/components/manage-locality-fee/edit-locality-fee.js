@@ -28,8 +28,8 @@ class EditLocalityFee extends React.Component {
       platform: localityFeeForm.selectedPlatformIdx === 1 ? "hb" : "fk-web",
       cart_min: parseInt(localityFeeForm.minCartValue),
       cart_max: parseInt(localityFeeForm.maxCartValue),
-      start_time: localityFeeForm.startTime + ":00+05:30",
-      end_time: localityFeeForm.endTime + ":00+05:30"
+      start_time: localityFeeForm.startTime + "+05:30",
+      end_time: localityFeeForm.endTime + "+05:30"
     })
       .then((response) => {
         Notify('Successfully updated Locality Fee', 'success')
