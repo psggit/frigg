@@ -84,12 +84,12 @@ class ViewState extends React.Component {
               style={{ marginBottom: '40px' }}
             />
           </IfElse>
-          <Card
+          {/* <Card
             style={{
               padding: '20px',
               width: '100%'
             }}
-          >
+          > */}
             <StateDetailsForm
               isDisabled={!this.state.isEdit}
               ref={(node) => { this.stateDetailsForm = node }}
@@ -102,7 +102,7 @@ class ViewState extends React.Component {
               // isGiftWalletPressed={queryObj.isGiftWalletPressed}
               // isCatalogPressed={queryObj.isCatalogPressed}
             />
-          </Card>
+          {/* </Card> */}
           <RaisedButton
             primary
             label="Save Changes"

@@ -5,6 +5,7 @@ import '@sass/components/_form.scss'
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
 import PropTypes from "prop-types"
+import { Card } from 'material-ui/Card'
 //import * as Api from "./../../middleware/api"
 
 class StateDetailsForm extends React.Component {
@@ -125,81 +126,181 @@ class StateDetailsForm extends React.Component {
 
   render() {
     return (
-      <Fragment>
-        <div className="form-group">
-          <label className="label">State name</label><br />
-          <TextField
-            disabled={this.props.isDisabled}
-            onChange={this.handleTextFields}
-            name="stateName"
-            value={this.state.stateName}
-          />
-        </div>
+      <div className="form-container" style={{display: "flex", justifyContent: "space-between", width: "100%"}}>
+        <Card
+          style={{
+            padding: '20px',
+            width: '100%',
+          }}
+        >
+          <div className="form-group">
+            <label className="label">State name</label><br />
+            <TextField
+              disabled={this.props.isDisabled}
+              onChange={this.handleTextFields}
+              name="stateName"
+              value={this.state.stateName}
+            />
+          </div>
 
-        <div className="form-group">
-          <label className="label">State short name</label><br />
-          <TextField
+          <div className="form-group">
+            <label className="label">State short name</label><br />
+            <TextField
+              disabled={this.props.isDisabled}
+              onChange={this.handleTextFields}
+              name="stateShortName"
+              value={this.state.stateShortName}
+            />
+          </div>
+          <div className="form-group">
+            <label className="label">Price type</label><br />
+            <SelectField
+              value={this.state.selectedPriceTypeIdx}
+              onChange={this.handlePriceTypeChange}
+              disabled={this.props.isDisabled}
+            >
+              {
+                this.priceType.map((item, i) => (
+                  <MenuItem
+                    value={i + 1}
+                    key={item.value}
+                    primaryText={item.text}
+                  />
+                ))
+              }
+            </SelectField>
+          </div>
+        </Card>
+        <Card
+          style={{
+            padding: '20px',
+            width: '100%',
+            marginLeft: '12px',
+          }}
+        >
+          <div className="form-group">
+            <label className="label">GST Number</label><br />
+            <TextField
+              disabled={this.props.isDisabled}
+              onChange={this.handleTextFields}
+              name="gst"
+              value={this.state.gst}
+            />
+          </div>
+          <div className="form-group">
+            <label className="label">SGST Percentage</label><br />
+            <TextField
+              disabled={this.props.isDisabled}
+              onChange={this.handleTextFields}
+              name="sgst"
+              value={this.state.sgst}
+            />
+          </div>
+          <div className="form-group">
+            <label className="label">CGST Percentage</label><br />
+            <TextField
+              disabled={this.props.isDisabled}
+              onChange={this.handleTextFields}
+              name="cgst"
+              value={this.state.cgst}
+            />
+          </div>
+          <div className="form-group">
+            <label className="label">IGST Percentage</label><br />
+            <TextField
+              disabled={this.props.isDisabled}
+              onChange={this.handleTextFields}
+              name="igst"
+              value={this.state.igst}
+            />
+          </div>
+        </Card>
+        <Card
+          style={{
+            padding: '20px',
+            width: '100%',
+            marginLeft: '12px',
+            minWidth: '240px',
+          }}
+        >
+          <div className="form-group">
+            <label className="label">Payment Option</label><br />
+            <Checkbox
+              style={{ marginTop: "10px" }}
+              checked={this.state.isUPIEnabled}
+              onCheck={this.handleCheckboxChange}
+              disabled={this.props.isDisabled}
+              label="UPI"
+              name="isUPIEnabled"
+              value={this.state.isUPIEnabled}
+            />
+            <Checkbox
+              disabled={this.props.isDisabled}
+              checked={this.state.isGiftWalletEnabled}
+              value={this.state.isGiftWalletEnabled}
+              onCheck={this.handleCheckboxChange}
+              label="Gift Wallet"
+              name="isGiftWalletEnabled"
+            />
+            <Checkbox
+              disabled={this.props.isDisabled}
+              checked={this.state.isHipbarWalletEnabled}
+              onCheck={this.handleCheckboxChange}
+              label="Hipbar Wallet"
+              name="isHipbarWalletEnabled"
+            />
+            {/* <Checkbox
             disabled={this.props.isDisabled}
-            onChange={this.handleTextFields}
-            name="stateShortName"
-            value={this.state.stateShortName}
-          />
-        </div>
-        <div className="form-group">
-          <label className="label">Price type</label><br />
-          <SelectField
-            value={this.state.selectedPriceTypeIdx}
-            onChange={this.handlePriceTypeChange}
-            disabled={this.props.isDisabled}
-          >
-            {
-              this.priceType.map((item, i) => (
-                <MenuItem
-                  value={i + 1}
-                  key={item.value}
-                  primaryText={item.text}
-                />
-              ))
-            }
-          </SelectField>
-        </div>
-        <div className="form-group">
-          <label className="label">GST Number</label><br />
-          <TextField
-            disabled={this.props.isDisabled}
-            onChange={this.handleTextFields}
-            name="gst"
-            value={this.state.gst}
-          />
-        </div>
-        <div className="form-group">
-          <label className="label">SGST Percentage</label><br />
-          <TextField
-            disabled={this.props.isDisabled}
-            onChange={this.handleTextFields}
-            name="sgst"
-            value={this.state.sgst}
-          />
-        </div>
-        <div className="form-group">
-          <label className="label">CGST Percentage</label><br />
-          <TextField
-            disabled={this.props.isDisabled}
-            onChange={this.handleTextFields}
-            name="cgst"
-            value={this.state.cgst}
-          />
-        </div>
-        <div className="form-group">
-          <label className="label">IGST Percentage</label><br />
-          <TextField
-            disabled={this.props.isDisabled}
-            onChange={this.handleTextFields}
-            name="igst"
-            value={this.state.igst}
-          />
-        </div>
-        {/* <div className="form-group">
+            checked={this.state.addMoney}
+            onCheck={this.handleCheckboxChange}
+            label="Add Money"
+            name="addMoney"
+          /> */}
+            <Checkbox
+              disabled={this.props.isDisabled}
+              checked={this.state.isDeliverable}
+              onCheck={this.handleCheckboxChange}
+              label="is_deliverable"
+              name="isDeliverable"
+            />
+            <Checkbox
+              disabled={this.props.isDisabled}
+              checked={this.state.isPresentationEnabled}
+              onCheck={this.handleCheckboxChange}
+              label="Presentation"
+              name="isPresentationEnabled"
+            />
+            <Checkbox
+              disabled={this.props.isDisabled}
+              checked={this.state.isBrandDetailsEnabled}
+              onCheck={this.handleCheckboxChange}
+              label="Brand Details"
+              name="isBrandDetailsEnabled"
+            />
+            <Checkbox
+              disabled={this.props.isDisabled}
+              checked={this.state.isActive}
+              onCheck={this.handleCheckboxChange}
+              label="is_active"
+              name="isActive"
+            />
+          </div>
+          <div className="form-group">
+            <Checkbox
+              disabled={this.props.isDisabled}
+              checked={this.state.fkEnabled}
+              onCheck={this.handleCheckboxChange}
+              label="fk_enabled"
+              name="fkEnabled"
+            />
+          </div>
+        </Card>
+      </div>
+    )
+  }
+}
+
+{/* <div className="form-group">
           <label className="label">City</label><br />
           <SelectField
             value={this.state.selectedCityIdx}
@@ -217,69 +318,8 @@ class StateDetailsForm extends React.Component {
             }
           </SelectField>
         </div> */}
-        <div className="form-group">
-          <label className="label">Payment Option</label><br />
-          <Checkbox
-            style={{ marginTop: "10px" }}
-            checked={this.state.isUPIEnabled}
-            onCheck={this.handleCheckboxChange}
-            disabled={this.props.isDisabled}
-            label="UPI"
-            name="isUPIEnabled"
-            value={this.state.isUPIEnabled}
-          />
-          <Checkbox
-            disabled={this.props.isDisabled}
-            checked={this.state.isGiftWalletEnabled}
-            value={this.state.isGiftWalletEnabled}
-            onCheck={this.handleCheckboxChange}
-            label="Gift Wallet"
-            name="isGiftWalletEnabled"
-          />
-          <Checkbox
-            disabled={this.props.isDisabled}
-            checked={this.state.isHipbarWalletEnabled}
-            onCheck={this.handleCheckboxChange}
-            label="Hipbar Wallet"
-            name="isHipbarWalletEnabled"
-          />
-          {/* <Checkbox
-            disabled={this.props.isDisabled}
-            checked={this.state.addMoney}
-            onCheck={this.handleCheckboxChange}
-            label="Add Money"
-            name="addMoney"
-          /> */}
-          <Checkbox
-            disabled={this.props.isDisabled}
-            checked={this.state.isDeliverable}
-            onCheck={this.handleCheckboxChange}
-            label="is_deliverable"
-            name="isDeliverable"
-          />
-          <Checkbox
-            disabled={this.props.isDisabled}
-            checked={this.state.isPresentationEnabled}
-            onCheck={this.handleCheckboxChange}
-            label="is_presentation"
-            name="isPresentationEnabled"
-          />
-          <Checkbox
-            disabled={this.props.isDisabled}
-            checked={this.state.isBrandDetailsEnabled}
-            onCheck={this.handleCheckboxChange}
-            label="is_brand_details"
-            name="isBrandDetailsEnabled"
-          />
-          <Checkbox
-            disabled={this.props.isDisabled}
-            checked={this.state.isActive}
-            onCheck={this.handleCheckboxChange}
-            label="is_active"
-            name="isActive"
-          />
-        </div>
-        {/* <div className="form-group">
+
+{/* <div className="form-group">
             <Checkbox
               disabled={this.props.isDisabled}
               checked={this.state.isCatalogEnabled}
@@ -288,19 +328,6 @@ class StateDetailsForm extends React.Component {
               name="isCatalogEnabled"
             />
           </div> */}
-          <div className="form-group">
-          <Checkbox
-            disabled={this.props.isDisabled}
-            checked={this.state.fkEnabled}
-            onCheck={this.handleCheckboxChange}
-            label="fk_enabled"
-            name="fkEnabled"
-          />
-          </div>
-      </Fragment>
-    )
-  }
-}
 
 StateDetailsForm.propTypes = {
   data: PropTypes.object,
