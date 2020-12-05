@@ -2176,3 +2176,12 @@ export const deleteStoryMappedToCity = payload => (
     handleError: true
   })
 )
+
+export const mapStoryToCity = payload => (
+  POST({
+    api: '/story/city_mapping/create',
+    apiBase: 'odin',
+    data: payload,
+    handleError: true
+  })
+)
