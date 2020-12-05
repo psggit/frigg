@@ -14,7 +14,7 @@ class FilterModal extends React.Component {
       open: true,
       isLocalityAvailable: false,
       isCityAvailable: false,
-      statusIdx: props.activityStatus ? props.activityStatus : 1,
+      statusIdx: props.activityStatus ? props.activityStatus : -1,
       selectedFieldIdx: -1,
       selectedFieldValue: "",
       brandName: "",
@@ -136,6 +136,9 @@ class FilterModal extends React.Component {
       this.props.applyFilter(this.props.dropdownOptions.find(item => item.id === this.state.selectedFieldIdx).name, this.state.selectedFieldValue)
     } else if (this.props.filter === "brandName") {
       this.props.applyFilter(this.state.brandName)
+    } else if (this.props.filter === "storyFilter") {
+      console.log("index", this.state.statusIdx)
+      this.props.applyFilter(this.state.statusIdx)
     } else if (this.props.filter === "cartCouponFilter" || this.props.filter === "productCouponFilter") {
       const isActive = this.state.statusIdx === 1 ? true : false
       this.props.applyFilter(this.state.couponName, isActive)
@@ -151,8 +154,7 @@ class FilterModal extends React.Component {
       this.props.applyFilter(this.state.cityIdx)
     } else if (this.props.warehouseFilter) {
       this.props.applyFilter(this.state.cityIdx)
-    }
-     else {
+    } else {
       this.props.applyFilter(this.state.predictionIdx)
     }
     this.unmountModal()
@@ -383,6 +385,33 @@ class FilterModal extends React.Component {
               </div>
             </div>
           }
+          {
+            this.props.filter === "storyFilter" &&
+            <div>
+              <div className="form-group">
+                <label>Status</label><br />
+                <SelectField
+                  style={{ width: '100%' }}
+                  floatingLabelText="Choose status"
+                  value={parseInt(this.state.statusIdx)}
+                  onChange={this.handleStatusChange}
+                  iconStyle={{ fill: '#9b9b9b' }}
+                >
+                  {
+                    this.activityStatus.map((item, i) => {
+                      return (
+                        <MenuItem
+                          value={item.value}
+                          key={item.value}
+                          primaryText={item.text}
+                        />
+                      )
+                    })
+                  }
+                </SelectField>
+              </div>
+            </div>
+          } 
           {
             this.props.filter === "productCouponFilter" &&
             <div>

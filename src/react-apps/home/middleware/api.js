@@ -2149,3 +2149,30 @@ export const updateLocalityFee = payload => (
     handleError: true
   })
 )
+
+export const fetchStories = payload => (
+  POST({
+    api: '/story/list',
+    apiBase: 'odin',
+    data: payload,
+    handleError: true
+  })
+)
+
+export const fetchMappedStories = payload => (
+  POST({
+    api: '/story/city_mapping/list',
+    apiBase: 'odin',
+    data: payload,
+    handleError: true
+  })
+)
+
+export const deleteStoryMappedToCity = payload => (
+  POST({
+    api: '/story/city_mapping/delete',
+    apiBase: 'odin',
+    data: payload,
+    handleError: true
+  })
+)

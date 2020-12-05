@@ -116,6 +116,13 @@ class NavigationBar extends React.Component {
           // { name: 'Promos', path: '/home/user-specific-promos', id: 20 },
         ]
       },
+      {
+        name: 'Manage Stories',
+        nestedItems: [
+          { name: 'Story List', path: '/home/manage-stories', id: 48 },
+          { name: 'Map Story to City', path: '/home/manage-mapped-stories', id: 49 },
+        ]
+      },
       // {
       //   name: 'Retailer Specific',
       //   nestedItems: [
