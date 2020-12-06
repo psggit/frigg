@@ -10,18 +10,18 @@ import {
 import TableLoadingShell from '../table-loading-shell'
 import '@sass/components/_table.scss'
 import { overrideTableStyle } from '../../../utils'
-import Moment from 'moment'
-import * as Api from "../../middleware/api"
 
 const TableHeaderItems = [
   '',
   'ID',
   'STORY ID',
-  'NAME',
+  'STORY NAME',
+  'CITY_ID'
 ]
 
 const styles = [
   { width: '38px' },
+  { width: '120px' },
   { width: '120px' },
   { width: '120px' },
   { width: '120px' }
@@ -84,6 +84,7 @@ class ViewMappedStories extends React.Component {
                         <TableRowColumn style={styles[1]}>{item.mapping_id}</TableRowColumn>
                         <TableRowColumn style={styles[2]}>{item.id}</TableRowColumn>
                         <TableRowColumn style={styles[3]}>{item.name}</TableRowColumn>
+                        <TableRowColumn style={styles[4]}>{item.city_id}</TableRowColumn>
                       </TableRow>
                     )
                   })

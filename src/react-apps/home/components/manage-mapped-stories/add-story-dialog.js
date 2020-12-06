@@ -4,8 +4,6 @@ import FlatButton from 'material-ui/FlatButton'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as Actions from './../../actions'
-import RaisedButton from 'material-ui/RaisedButton'
-import { getQueryObj } from '@utils/url-utils'
 import Notify from "@components/Notification"
 import ViewStories from './view-stories'
 import * as Api from "../../middleware/api"
@@ -65,10 +63,14 @@ class AddStoryDialog extends React.Component {
       id: storyId
     })
     .then((response) => {
-      Notify(response.message, "success")
-      setTimeout(() => {
-        location.href = '/home/manage-mapped-stories'
-      }, 500)
+      if(!response.error) {
+        Notify(response.message, "success")
+        setTimeout(() => {
+          location.href = '/home/manage-mapped-stories'
+        }, 500)
+      } else {
+        Notify(response.message, "error")
+      }
     })
     .catch((error) => {
       error.response.json().then((json) => {

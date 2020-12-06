@@ -2185,3 +2185,22 @@ export const mapStoryToCity = payload => (
     handleError: true
   })
 )
+
+export const createStory = payload => (
+  POST({
+    api: '/story/create',
+    apiBase: 'odin',
+    data: payload.data,
+    handleError: true,
+    type: 'FormData'
+  })
+)
+
+export const updateStory = payload => (
+  POST({
+    api: '/story/update',
+    apiBase: 'odin',
+    data: payload.data,
+    handleError: true
+  })
+)
