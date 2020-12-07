@@ -82,7 +82,7 @@ class ManageStories extends React.Component {
         limit: this.pageLimit,
         filter: {
           name: queryObj.fieldName,
-          value: queryObj.fieldValue
+          value: queryObj.fieldValue.toString()
         }
       })
     } else {

@@ -29,7 +29,7 @@ class StoryForm extends React.Component {
 
     this.status = [
       { text: 'Active', value: 1 },
-      { text: 'Inctive', value: 2 }
+      { text: 'Inactive', value: 2 }
     ]
 
     this.handleTypeChange = this.handleTypeChange.bind(this)
@@ -209,13 +209,15 @@ class StoryForm extends React.Component {
               onChange={this.handleStatusChange}
             >
               {
-                this.status.map((item, i) => (
-                  <MenuItem
-                    value={i + 1}
-                    key={item.value}
-                    primaryText={item.text}
-                  />
-                ))
+                this.status.map((item, i) => {
+                  return (
+                    <MenuItem
+                      value={i + 1}
+                      key={item.value}
+                      primaryText={item.text}
+                    />
+                  )
+                })
               }
             </SelectField>
           </div>
