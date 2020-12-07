@@ -11,8 +11,8 @@ class StoryForm extends React.Component {
     super(props)
     console.log("data", props.data)
     this.state = {
-      selectedTypeIdx: props.data ? props.data.type === "image" ? 1 : -1 : -1,
-      selectedStatusIdx: props.data ? props.data.is_active ? 1 : -1 : -1,
+      selectedTypeIdx: props.data ? props.data.type === "image" ? 1 : 2 : -1,
+      selectedStatusIdx: props.data ? props.data.is_active ? 1 : 2 : -1,
       file: '',
       fileUrl: props.data ? props.data.url : '',
       storyName: props.data ? props.data.name : '',

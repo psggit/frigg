@@ -53,7 +53,7 @@ class ManageStories extends React.Component {
     Object.entries(queryObj).forEach((item) => {
       this.setState({ [item[0]]: item[1] })
     })
-    if (queryObj.fieldValue.toString().length > 0) {
+    if (queryObj.fieldValue && queryObj.fieldValue.toString().length > 0) {
       this.fetchStories({
         offset: queryObj.activePage ? this.pageLimit * (parseInt(queryObj.activePage) - 1) : 0,
         limit: this.pageLimit,
@@ -76,7 +76,7 @@ class ManageStories extends React.Component {
     const queryUri = location.search.slice(1)
     const queryObj = getQueryObj(queryUri)
 
-    if (queryObj.fieldValue) {
+    if (queryObj.fieldValue && queryObj.fieldValue.toString().length > 0) {
       this.fetchStories({
         offset: pageObj.activePage ? this.pageLimit * (parseInt(pageObj.activePage) - 1) : 0,
         limit: this.pageLimit,
@@ -85,18 +85,7 @@ class ManageStories extends React.Component {
           value: queryObj.fieldValue.toString()
         }
       })
-    } 
-    else if(queryObj.fieldValue === false) {
-      this.fetchStories({
-        offset: pageObj.activePage ? this.pageLimit * (parseInt(pageObj.activePage) - 1) : 0,
-        limit: this.pageLimit,
-        filter: {
-          name: queryObj.fieldName,
-          value: queryObj.fieldValue.toString(),
-        }
-      })
-    }
-     else {
+    } else {
       this.fetchStories({
         offset: pageObj.activePage ? this.pageLimit * (parseInt(pageObj.activePage) - 1) : 0,
         limit: this.pageLimit,

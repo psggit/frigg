@@ -206,15 +206,17 @@ class ManageMappedStories extends React.Component {
             onClick={this.handleSearch}
           />
         </Card>
-        <React.Fragment>
-          <h3>Showing all mapped stories</h3>
-          <ViewMappedStories
-            mappedStories={this.state.mappedStories}
-            deleteStoryMappedToCity={this.deleteStoryMappedToCity}
-            loadingMappedStories={this.state.loadingMappedStories}
-            history={this.props.history}
-          />
-        </React.Fragment>
+        {
+          <React.Fragment>
+            <h3>Showing all mapped stories</h3>
+            <ViewMappedStories
+              mappedStories={this.state.mappedStories}
+              deleteStoryMappedToCity={this.deleteStoryMappedToCity}
+              loadingMappedStories={this.state.loadingMappedStories}
+              history={this.props.history}
+            />
+          </React.Fragment>
+        }
         {
           !loadingMappedStories && mappedStories.length
             ? <Pagination
