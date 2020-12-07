@@ -85,7 +85,18 @@ class ManageStories extends React.Component {
           value: queryObj.fieldValue.toString()
         }
       })
-    } else {
+    } 
+    else if(queryObj.fieldValue === false) {
+      this.fetchStories({
+        offset: pageObj.activePage ? this.pageLimit * (parseInt(pageObj.activePage) - 1) : 0,
+        limit: this.pageLimit,
+        filter: {
+          name: queryObj.fieldName,
+          value: queryObj.fieldValue.toString(),
+        }
+      })
+    }
+     else {
       this.fetchStories({
         offset: pageObj.activePage ? this.pageLimit * (parseInt(pageObj.activePage) - 1) : 0,
         limit: this.pageLimit,
