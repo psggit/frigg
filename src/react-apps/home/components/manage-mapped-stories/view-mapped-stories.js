@@ -28,19 +28,19 @@ const styles = [
 ]
 
 class ViewMappedStories extends React.Component {
-  constructor() {
+  constructor () {
     super()
   }
 
-  componentDidMount() {
+  componentDidMount () {
     this.overrideTableStyle()
   }
 
-  overrideTableStyle() {
+  overrideTableStyle () {
     overrideTableStyle()
   }
 
-  render() {
+  render () {
     const { loadingMappedStories, mappedStories } = this.props
     return (
       <div>
@@ -63,7 +63,7 @@ class ViewMappedStories extends React.Component {
             {
               !loadingMappedStories && mappedStories.length === 0 &&
               <tr>
-                <td style={{ textAlign: 'center' }} colSpan='10'>
+                <td style={{ textAlign: 'center' }} colSpan="10">
                   <p style={{ fontWeight: '16px' }}>No data found</p>
                 </td>
               </tr>

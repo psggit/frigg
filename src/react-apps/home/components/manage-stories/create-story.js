@@ -50,7 +50,7 @@ class CreateStory extends React.Component {
       })
   }
 
-  render() {
+  render () {
     return (
       <React.Fragment>
         <StoryForm
