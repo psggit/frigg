@@ -76,7 +76,7 @@ class ManageStories extends React.Component {
     const queryUri = location.search.slice(1)
     const queryObj = getQueryObj(queryUri)
 
-    if (queryObj.fieldValue && queryObj.fieldValue.toString().length > 0) {
+    if (typeof queryObj.fieldValue === "boolean" && queryObj.fieldValue.toString().length > 0) {
       this.fetchStories({
         offset: pageObj.activePage ? this.pageLimit * (parseInt(pageObj.activePage) - 1) : 0,
         limit: this.pageLimit,
@@ -127,6 +127,7 @@ class ManageStories extends React.Component {
   }
 
   applyFilter(fieldValue) {
+    // console.log("applyFilter", fieldValue);
     const filterValue = fieldValue === 1 ? true : false;
     const queryObj = {
       activePage: 1,

@@ -23,8 +23,8 @@ class CreateStory extends React.Component {
     formData.append('type', storyFormData.selectedTypeIdx === 1 ? "image" : "video")
     formData.append('thumbnail_url', storyFormData.thumbnailUrl)
     formData.append('default_display_duration', storyFormData.displayDuration)
-    formData.append('starts_on', storyFormData.startsOn)
-    formData.append('expires_on', storyFormData.expiresOn)
+    formData.append('starts_on', (storyFormData.startsOn).toString())
+    formData.append('expires_on', (storyFormData.expiresOn).toString())
     formData.append('is_active', storyFormData.selectedStatusIdx === 1 ? true : false)
 
     this.setState({ creatingStory: true })
