@@ -7,7 +7,6 @@ module.exports = merge(common, {
   devServer: {
     contentBase: './dist',
     port: 8003,
-    host: "superadmin-local.hipbar-dev.com",
     compress: true
   },
   module: {
