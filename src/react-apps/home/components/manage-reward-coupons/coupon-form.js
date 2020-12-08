@@ -31,7 +31,7 @@ class CouponForm extends React.Component {
     }
     this.status = [
       { text: 'Active', value: 1 },
-      { text: 'Inctive', value: 2 }
+      { text: 'Inactive', value: 2 }
     ]
 
     this.orderType = [

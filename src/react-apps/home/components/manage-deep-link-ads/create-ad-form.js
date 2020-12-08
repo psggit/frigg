@@ -67,6 +67,7 @@ class CreateAdForm extends React.Component {
   submitUploadedImage() {
     const formData = new FormData()
     formData.append('file', this.state.data)
+    formData.append("data", "134")
     this.setState({ isImageUploading: true, isImageSelected: false })
     POST({
       api: '/upload',

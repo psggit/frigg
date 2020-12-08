@@ -7,8 +7,8 @@ import RaisedButton from 'material-ui/RaisedButton'
 import * as Api from "./../../middleware/api"
 
 
-class CityFeeForm extends React.Component {
-  constructor (props) {
+class LocalityFeeForm extends React.Component {
+  constructor(props) {
     super(props)
 
     this.platform = [
@@ -49,12 +49,12 @@ class CityFeeForm extends React.Component {
     this.isFormValid = this.isFormValid.bind(this)
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.fetchOrderTypes()
     this.fetchChargeTypes()
   }
 
-  fetchOrderTypes () {
+  fetchOrderTypes() {
     Api.fetchOrderTypeList({})
       .then((response) => {
         this.setState({
@@ -67,7 +67,7 @@ class CityFeeForm extends React.Component {
       })
   }
 
-  fetchChargeTypes () {
+  fetchChargeTypes() {
     Api.fetchChargeTypeList({})
       .then((response) => {
         this.setState({
@@ -86,7 +86,7 @@ class CityFeeForm extends React.Component {
     })
   }
 
-  handleTextFields (e) {
+  handleTextFields(e) {
     const errName = `${e.target.name}Status`
     this.setState({
       error: {
@@ -97,7 +97,7 @@ class CityFeeForm extends React.Component {
     this.setState({ [e.target.name]: e.target.value })
   }
 
-  handleNumberChange (e) {
+  handleNumberChange(e) {
     const regex = /^[0-9.\b]*$/;
     const errName = `${e.target.name}Status`
     this.setState({
@@ -106,77 +106,32 @@ class CityFeeForm extends React.Component {
         [errName]: false
       }
     })
+
     if (regex.test(e.target.value)) {
       this.setState({ [e.target.name]: e.target.value })
     }
   }
 
-  handleOrderTypeChange (e, k) {
+  handleOrderTypeChange(e, k) {
     this.setState({
       selectedOrderTypeIdx: (this.state.orderTypeList[k].Order_type)
     })
   }
 
-  handleChargeTypeChange (e, k) {
+  handleChargeTypeChange(e, k) {
     this.setState({
       selectedChargeTypeIdx: (this.state.chargeTypeList[k].Charge_type)
     })
   }
 
-  getData () {
+  getData() {
     return this.state
-  }
-
-  handleSave () {
-    if (this.isFormValid())
-      this.props.handleSave()
-  }
-
-  handleFlatChange (e) {
-    const errName = `${e.target.name}Status`
-    this.setState({
-      error: {
-        value: "",
-        [errName]: false
-      }
-    })
-    if(parseInt(this.state.percentage) === 0) {
-      this.setState({
-        [e.target.name]: e.target.value
-      })
-    }
-  }
-
-  handlePercentageChange (e) {
-    const errName = `${e.target.name}Status`
-    this.setState({
-      error: {
-        value: "",
-        [errName]: false
-      }
-    })
-    if (parseInt(this.state.flat) === 0) {
-      this.setState({
-        [e.target.name]: e.target.value
-      })
-    }
-  }
-
-  handleTimeChange(e) {
-    const errName = `${e.target.name}Status`
-    this.setState({
-      error: {
-        value: "",
-        [errName]: false
-      }
-    })
-    this.setState({ [e.target.name]: e.target.value })
   }
 
   isFormValid() {
     if (this.state.title.toString().length === 0) {
       this.setState(prevState => ({
-        error: {                
+        error: {
           ...prevState.error,
           value: "Title is required",
           titleStatus: true
@@ -202,14 +157,14 @@ class CityFeeForm extends React.Component {
       }))
       return false
     } else if (this.state.min.toString().length === 0) {
-        this.setState(prevState => ({
-          error: {
-            ...prevState.error,
-            value: "Min is required",
-            minStatus: true
-          }
-        }))
-        return false
+      this.setState(prevState => ({
+        error: {
+          ...prevState.error,
+          value: "Min is required",
+          minStatus: true
+        }
+      }))
+      return false
     } else if (this.state.max.toString().length === 0) {
       this.setState(prevState => ({
         error: {
@@ -259,8 +214,56 @@ class CityFeeForm extends React.Component {
     }
     return true
   }
-  
-  render () {
+
+  handleSave() {
+    if (this.isFormValid())
+      this.props.handleSave()
+  }
+
+  handleFlatChange(e) {
+    const errName = `${e.target.name}Status`
+    this.setState({
+      error: {
+        value: "",
+        [errName]: false
+      }
+    })
+
+    if (parseInt(this.state.percentage) === 0) {
+      this.setState({
+        [e.target.name]: e.target.value
+      })
+    }
+  }
+
+  handlePercentageChange(e) {
+    const errName = `${e.target.name}Status`
+    this.setState({
+      error: {
+        value: "",
+        [errName]: false
+      }
+    })
+
+    if (parseInt(this.state.flat) === 0) {
+      this.setState({
+        [e.target.name]: e.target.value
+      })
+    }
+  }
+
+  handleTimeChange(e) {
+    const errName = `${e.target.name}Status`
+    this.setState({
+      error: {
+        value: "",
+        [errName]: false
+      }
+    })
+    this.setState({ [e.target.name]: e.target.value })
+  }
+
+  render() {
     return (
       <React.Fragment>
         <Card style={{
@@ -272,7 +275,7 @@ class CityFeeForm extends React.Component {
           marginRight: '20px'
         }}
         >
-          <h4 style={{ margin: '0', marginBottom: '40px' }}>{`Enter City Fee Details (${this.props.cityId})`}</h4>
+          <h4 style={{ margin: '0', marginBottom: '40px' }}>{`Enter Locality Fee Details (${this.props.localityId})`}</h4>
           <form>
 
             {/* <div className="form-group">
@@ -420,6 +423,7 @@ class CityFeeForm extends React.Component {
                 step="2"
                 onChange={this.handleTimeChange}
                 defaultValue={this.state.startTime}
+                //value={this.state.startTime}
                 className="inline-input"
                 style={{
                   width: '100%',
@@ -503,4 +507,4 @@ class CityFeeForm extends React.Component {
   }
 }
 
-export default CityFeeForm
+export default LocalityFeeForm

@@ -22,7 +22,7 @@ import * as Api from "../../middleware/api"
 const TableHeaderItems = [
   '',
   'ID',
-  'CITY ID',
+  'LOCALITY ID',
   'TITLE',
   'ORDER TYPE',
   'CHARGE TYPE',
@@ -47,7 +47,7 @@ const styles = [
   { width: '100px' },
   { width: '100px' },
   { width: '100px' },
-  { width: '100px' }, 
+  { width: '100px' },
   { width: '100px' },
   { width: '100px' },
   { width: '100px' },
@@ -58,9 +58,9 @@ const styles = [
 ]
 
 
-class ListCityFee extends React.Component {
+class ListLocalityFee extends React.Component {
 
-  constructor () {
+  constructor() {
     super()
 
     this.state = {
@@ -69,39 +69,39 @@ class ListCityFee extends React.Component {
       feeId: "",
       feeTitle: ""
     }
-    
-    this.editCityFee = this.editCityFee.bind(this)
+
+    this.editLocalityFee = this.editLocalityFee.bind(this)
     this.mountDialog = this.mountDialog.bind(this)
     this.onToggleChange = this.onToggleChange.bind(this)
     this.unmountDialog = this.unmountDialog.bind(this)
     this.updateFeeStatus = this.updateFeeStatus.bind(this)
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.overrideTableStyle()
   }
 
-  overrideTableStyle () {
+  overrideTableStyle() {
     overrideTableStyle()
   }
 
-  editCityFee (item) {
-    this.props.history.push(`/home/manage-city-fee/${item.city_id}/edit`, item)
+  editLocalityFee(item) {
+    this.props.history.push(`/home/manage-locality-fee/${item.locality_id}/edit`, item)
   }
 
-  mountDialog () {
+  mountDialog() {
     this.setState({
       mountDialog: true
     })
   }
 
-  unmountDialog () {
+  unmountDialog() {
     this.setState({
       mountDialog: false
     })
   }
 
-  onToggleChange (item, value) {
+  onToggleChange(item, value) {
     this.mountDialog()
     this.setState({
       feeId: item.id,
@@ -110,24 +110,24 @@ class ListCityFee extends React.Component {
     })
   }
 
-  updateFeeStatus () {
+  updateFeeStatus() {
     this.unmountDialog()
-    Api.updateFeeStatus({
+    Api.updateLocalityFeeStatus({
       id: this.state.feeId,
       is_active: this.state.activityStatus
     })
-    .then((response) => {
-      location.reload()
-    })
-    .catch((error) => {
-      console.log("Error in updating fee status", error)
-      error.response.json().then((json) => {
-        Notify(json.message, "error")
+      .then((response) => {
+        location.reload()
       })
-    })
+      .catch((error) => {
+        error.response.json().then((json) => {
+          Notify(json.message, "error")
+        })
+        console.log("Error in updating locality fee status", error)
+      })
   }
 
-  render () {
+  render() {
     return (
       <Table
         //wrapperStyle={{ height: 'auto' }}
@@ -148,7 +148,7 @@ class ListCityFee extends React.Component {
         >
           {
 
-            !this.props.loadingCityFeeList && this.props.cityFeeList.length === 0 &&
+            !this.props.loadingLocalityFeeList && this.props.localityFeeList.length === 0 &&
             <tr>
               <td style={{ textAlign: 'center' }} colSpan='10'>
                 <p style={{ fontWeight: '16px' }}>No records found</p>
@@ -156,20 +156,20 @@ class ListCityFee extends React.Component {
             </tr>
           }
           {
-            !this.props.loadingCityFeeList
+            !this.props.loadingLocalityFeeList
               ? (
-                this.props.cityFeeList.map((item, i) => {
+                this.props.localityFeeList.map((item, i) => {
                   return (
                     <TableRow key={i}>
                       <TableRowColumn style={styles[0]}>
                         <button
-                          onClick={() => this.editCityFee(item)}
+                          onClick={() => this.editLocalityFee(item)}
                         >
                           Edit
                       </button>
                       </TableRowColumn>
                       <TableRowColumn style={styles[1]}>{item.id}</TableRowColumn>
-                      <TableRowColumn style={styles[2]}>{item.city_id}</TableRowColumn>
+                      <TableRowColumn style={styles[2]}>{item.locality_id}</TableRowColumn>
                       <TableRowColumn style={styles[3]}>{item.title}</TableRowColumn>
                       <TableRowColumn style={styles[4]}>{item.order_type}</TableRowColumn>
                       <TableRowColumn style={styles[5]}>{item.charge_type}</TableRowColumn>
@@ -226,4 +226,4 @@ class ListCityFee extends React.Component {
   }
 }
 
-export default ListCityFee
+export default ListLocalityFee
