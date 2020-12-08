@@ -17,20 +17,21 @@ class CreateStory extends React.Component {
   handleSave() {
     const storyFormData = this.storyFormData.getData()
 
-    const formData = new FormData()
-    formData.append('file', storyFormData.file)
-    formData.append('name', storyFormData.storyName)
-    formData.append('type', storyFormData.selectedTypeIdx === 1 ? "image" : "video")
-    formData.append('thumbnail_url', storyFormData.thumbnailUrl)
-    formData.append('default_display_duration', storyFormData.displayDuration)
-    formData.append('starts_on', (storyFormData.startsOn).toString())
-    formData.append('expires_on', (storyFormData.expiresOn).toString())
-    formData.append('is_active', storyFormData.selectedStatusIdx === 1 ? true : false)
+    const payload = {
+      url: storyFormData.url,
+      name: storyFormData.storyName,
+      type: storyFormData.selectedTypeIdx === 1 ? "image" : "video",
+      thumbnail_url: storyFormData.thumbnailUrl,
+      default_display_duration: parseInt(storyFormData.displayDuration),
+      starts_on: new Date(storyFormData.startsOn).toISOString(),
+      expires_on: new Date(storyFormData.expiresOn).toISOString(),
+      is_active: storyFormData.selectedStatusIdx === 1 ? true : false
+    }
 
     this.setState({ creatingStory: true })
 
     Api.createStory({
-      data: formData
+      data: payload
     })
       .then((response) => {
         this.setState({ creatingStory: false })

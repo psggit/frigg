@@ -9,12 +9,11 @@ class StoryForm extends React.Component {
 
   constructor(props) {
     super(props)
-    console.log("data", props.data)
     this.state = {
-      selectedTypeIdx: props.data ? props.data.type === "image" ? 1 : 2 : -1,
-      selectedStatusIdx: props.data ? props.data.is_active ? 1 : 2 : -1,
-      file: '',
-      fileUrl: props.data ? props.data.url : '',
+      error: {},
+      selectedTypeIdx: props.data ? props.data.type === "image" ? 1 : 2 : 1,
+      selectedStatusIdx: props.data ? props.data.is_active ? 1 : 2 : 1,
+      url: props.data ? props.data.url : '',
       storyName: props.data ? props.data.name : '',
       thumbnailUrl: props.data ? props.data.thumbnail_url :'',
       displayDuration: props.data ? props.data.default_display_duration :'',
@@ -37,39 +36,118 @@ class StoryForm extends React.Component {
     this.handleTextFields = this.handleTextFields.bind(this)
     this.handleDate = this.handleDate.bind(this)
     this.getData = this.getData.bind(this)
-    this.handleUploadChange = this.handleUploadChange.bind(this)
+    this.isFormValid = this.isFormValid.bind(this)
+    this.handleSave = this.handleSave.bind(this)
+    //this.handleUploadChange = this.handleUploadChange.bind(this)
   }
 
   handleTypeChange(e, k) {
     const typeIdx = k + 1
-    console.log("status", typeIdx)
     this.setState({ selectedTypeIdx: typeIdx })
   }
 
   handleStatusChange(e, k) {
     const statusIdx = k + 1
-    console.log("status", statusIdx)
     this.setState({ selectedStatusIdx: statusIdx })
   }
 
   handleTextFields(e) {
+    const errName = `${e.target.name}Status`
+    this.setState({
+      error: {
+        value: "",
+        [errName]: false
+      }
+    })
     this.setState({ [e.target.name]: e.target.value })
   }
 
   handleDate(e) {
+    const errName = `${e.target.name}Status`
+    this.setState({
+      error: {
+        value: "",
+        [errName]: false
+      }
+    })
     const d = new Date(e.target.value)
     this.setState({ [e.target.name]: d.toISOString() })
   }
 
-  handleUploadChange(e) {
-    const file = e.target.files[0]
-    this.setState({
-      file
-    })
-  }
+  // handleUploadChange(e) {
+  //   const file = e.target.files[0]
+  //   this.setState({
+  //     file
+  //   })
+  // }
 
   getData() {
     return this.state
+  }
+
+  isFormValid() {
+    if (this.state.storyName.toString().length === 0) {
+      this.setState(prevState => ({
+        error: {
+          ...prevState.error,
+          value: "Storyname is required",
+          storyNameStatus: true
+        }
+      }))
+      return false
+    } else if (this.state.url.toString().length === 0) {
+      this.setState(prevState => ({
+        error: {
+          ...prevState.error,
+          value: "Url is required",
+          urlStatus: true
+        }
+      }))
+      return false
+    } else if (this.state.thumbnailUrl.toString().length === 0) {
+      this.setState(prevState => ({
+        error: {
+          ...prevState.error,
+          value: "Thumbnail Url is required",
+          thumbnailUrlStatus: true
+        }
+      }))
+      return false
+    } else if (this.state.displayDuration.toString().length === 0) {
+      this.setState(prevState => ({
+        error: {
+          ...prevState.error,
+          value: "Display duration is required",
+          displayDurationStatus: true
+        }
+      }))
+      return false
+    } else if (this.state.startsOn.toString().length === 0) {
+      this.setState(prevState => ({
+        error: {
+          ...prevState.error,
+          value: "Starts on is required",
+          startsOnStatus: true
+        }
+      }))
+      return false
+    } else if (this.state.expiresOn.toString().length === 0) {
+      this.setState(prevState => ({
+        error: {
+          ...prevState.error,
+          value: "Expires on is required",
+          expiresOnStatus: true
+        }
+      }))
+      return false
+    }
+    return true
+  }
+
+  handleSave() {
+    if(this.isFormValid()) {
+      this.props.handleSave()
+    }
   }
 
   render() {
@@ -77,7 +155,7 @@ class StoryForm extends React.Component {
       <React.Fragment>
         <Card style={{
           padding: '20px',
-          width: '300px',
+          width: '600px',
           position: 'relative',
           display: 'block',
           verticalAlign: 'top',
@@ -93,6 +171,10 @@ class StoryForm extends React.Component {
               value={this.state.storyName}
               style={{ width: '100%' }}
             />
+            {
+              this.state.error.storyNameStatus &&
+              <p className="error-message">* {this.state.error.value}</p>
+            }
           </div>
 
           <div className="form-group">
@@ -101,6 +183,7 @@ class StoryForm extends React.Component {
               disabled={this.props.isDisabled}
               value={this.state.selectedTypeIdx}
               onChange={this.handleTypeChange}
+              style={{ width: '100%' }}
             >
               {
                 this.fileType.map((item, i) => (
@@ -113,7 +196,7 @@ class StoryForm extends React.Component {
               }
             </SelectField>
           </div>
-          {
+          {/* {
             this.props.action === "create" &&
             <div className="form-group">
               <label className="label">Upload File</label><br />
@@ -130,20 +213,23 @@ class StoryForm extends React.Component {
                 />
               </div>
             </div>
-          }
-
-          {
-            this.props.action === "edit" &&
-            <div className="form-group">
-              <label className="label">Uploaded File Url</label><br />
-              <TextField
-                disabled={this.props.isDisabled}
-                name="fileUrl"
-                value={this.state.fileUrl}
-              />
-            </div>
-          }
-
+          } */}
+         
+          <div className="form-group">
+            <label className="label">Url</label><br />
+            <TextField
+              onChange={this.handleTextFields}
+              disabled={this.props.isDisabled}
+              name="url"
+              value={this.state.url}
+              style={{ width: '100%' }}
+            />
+            {
+              this.state.error.urlStatus &&
+              <p className="error-message">* {this.state.error.value}</p>
+            }
+          </div>
+          
           <div className="form-group">
             <label className="label">Thumbnail Url</label><br />
             <TextField
@@ -151,7 +237,12 @@ class StoryForm extends React.Component {
               onChange={this.handleTextFields}
               name="thumbnailUrl"
               value={this.state.thumbnailUrl}
+              style={{ width: '100%' }}
             />
+            {
+              this.state.error.thumbnailUrlStatus &&
+              <p className="error-message">* {this.state.error.value}</p>
+            }
           </div>
 
           <div className="form-group">
@@ -161,7 +252,12 @@ class StoryForm extends React.Component {
               onChange={this.handleTextFields}
               name="displayDuration"
               value={this.state.displayDuration}
+              style={{ width: '100%' }}
             />
+            {
+              this.state.error.displayDurationStatus &&
+              <p className="error-message">* {this.state.error.value}</p>
+            }
           </div>
 
           <div className="form-group" style={{ width: '100%' }}>
@@ -181,6 +277,10 @@ class StoryForm extends React.Component {
               }}
               name="startsOn"
             />
+            {
+              this.state.error.startsOnStatus &&
+              <p className="error-message">* {this.state.error.value}</p>
+            }
           </div>
 
           <div className="form-group" style={{ width: '100%' }}>
@@ -200,6 +300,10 @@ class StoryForm extends React.Component {
               }}
               name="expiresOn"
             />
+            {
+              this.state.error.expiresOnStatus &&
+              <p className="error-message">* {this.state.error.value}</p>
+            }
           </div>
           
           <div className="form-group">
@@ -207,6 +311,7 @@ class StoryForm extends React.Component {
             <SelectField
               value={this.state.selectedStatusIdx}
               onChange={this.handleStatusChange}
+              style={{ width: '100%' }}
             >
               {
                 this.status.map((item, i) => {
@@ -227,7 +332,7 @@ class StoryForm extends React.Component {
               label="Save"
               primary
               disabled={this.props.disableSave}
-              onClick={this.props.handleSave}
+              onClick={this.handleSave}
             />
           </div>
         </Card>

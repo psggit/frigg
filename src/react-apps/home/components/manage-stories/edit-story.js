@@ -22,7 +22,7 @@ class EditStory extends React.Component {
       name: storyFormData.storyName,
       type: storyFormData.selectedTypeIdx === 1 ? "image" : "video",
       thumbnail_url: storyFormData.thumbnailUrl,
-      default_display_duration: storyFormData.displayDuration,
+      default_display_duration: parseInt(storyFormData.displayDuration),
       starts_on: new Date(storyFormData.startsOn).toISOString(),
       expires_on: new Date(storyFormData.expiresOn).toISOString(),
       is_active: storyFormData.selectedStatusIdx === 1 ? true : false

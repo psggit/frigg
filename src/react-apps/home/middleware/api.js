@@ -2191,8 +2191,7 @@ export const createStory = payload => (
     api: '/story/create',
     apiBase: 'odin',
     data: payload.data,
-    handleError: true,
-    type: 'FormData'
+    handleError: true
   })
 )
 
