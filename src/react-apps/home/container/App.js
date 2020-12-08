@@ -46,6 +46,11 @@ import ManageCollections from './manage-collections'
 import UploadSearchData from './upload-search-data'
 import UploadGiftCardDetails from './upload-purchased-gift-card-details'
 import GeoFenceCheck from './geo-fence-check'
+import ManageStories from './manage-stories'
+import CreateStory from './../components/manage-stories/create-story'
+import UpdateStory from './../components/manage-stories/edit-story'
+import ManageMappedStories from './manage-story-city-mapping'
+import MapStoryToCity from './../components/manage-mapped-stories/map-stories'
 // import DeliveyAgentList from './../components/delivery-management/delivery-agent-list'
 // import CreateDeliveryAgent from './../components/delivery-management/create-delivery-agent'
 // import ManagePossessionLimits from './../components/delivery-management/manage-possession-limits'
@@ -317,6 +322,12 @@ class App extends React.Component {
                   <Route exact path="/home/delivery-system-check" component={GeoFenceCheck} />
                   <Route exact path="/home/manage-image-ads" component={ManageImageAds} />
                   <Route exact path="/home/manage-image-ads/create-new-ad" component={CreateAd} />
+
+                  <Route exact path="/home/manage-stories" component={ManageStories} />
+                  <Route exact path="/home/manage-stories/create" component={CreateStory} />
+                  <Route exact path="/home/manage-stories/edit/:storyId" component={UpdateStory} />
+                  <Route exact path="/home/manage-mapped-stories" component={ManageMappedStories} />
+                  <Route exact path="/home/map-story-to-city" component={MapStoryToCity} />
 
                   <Route exact path="/home/manage-deep-link-ads" component={ManageDeepLinkAds} />
                   <Route exact path="/home/manage-deep-link-ads/create-new-deep-link-ad" component={CreateDeepLinkAd} />

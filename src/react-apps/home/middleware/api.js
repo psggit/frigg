@@ -2149,3 +2149,57 @@ export const updateLocalityFee = payload => (
     handleError: true
   })
 )
+
+export const fetchStories = payload => (
+  POST({
+    api: '/story/list',
+    apiBase: 'odin',
+    data: payload,
+    handleError: true
+  })
+)
+
+export const fetchMappedStories = payload => (
+  POST({
+    api: '/story/city_mapping/list',
+    apiBase: 'odin',
+    data: payload,
+    handleError: true
+  })
+)
+
+export const deleteStoryMappedToCity = payload => (
+  POST({
+    api: '/story/city_mapping/delete',
+    apiBase: 'odin',
+    data: payload,
+    handleError: true
+  })
+)
+
+export const mapStoryToCity = payload => (
+  POST({
+    api: '/story/city_mapping/create',
+    apiBase: 'odin',
+    data: payload,
+    handleError: true
+  })
+)
+
+export const createStory = payload => (
+  POST({
+    api: '/story/create',
+    apiBase: 'odin',
+    data: payload.data,
+    handleError: true
+  })
+)
+
+export const updateStory = payload => (
+  POST({
+    api: '/story/update',
+    apiBase: 'odin',
+    data: payload.data,
+    handleError: true
+  })
+)
