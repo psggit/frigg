@@ -33,6 +33,7 @@ class ManageStories extends React.Component {
     this.mountFilterDialog = this.mountFilterDialog.bind(this)
     this.unmountFilterModal = this.unmountFilterModal.bind(this)
     this.applyFilter = this.applyFilter.bind(this)
+    this.resetFilter = this.resetFilter.bind(this)
   }
 
   componentDidMount() {
@@ -154,6 +155,11 @@ class ManageStories extends React.Component {
     })
   }
 
+  resetFilter() {
+    this.setState({ fieldValue: 0 })
+    this.props.history.push("/home/manage-stories")
+  }
+
   render() {
     const { loadingStories, stories, storiesCount } = this.state
     return (
@@ -172,12 +178,21 @@ class ManageStories extends React.Component {
               />
             </NavLink>
           </div>
-          <RaisedButton
-            style={{ marginRight: "10px" }}
-            onClick={this.mountFilterDialog}
-            label="Filter"
-            icon={getIcon('filter')}
-          />
+          <div>
+            {
+              this.state.fieldValue !== 0 &&
+              <RaisedButton
+                onClick={this.resetFilter}
+                label="Reset Filter"
+              />
+            }
+            <RaisedButton
+              style={{ marginLeft: "10px" }}
+              onClick={this.mountFilterDialog}
+              label="Filter"
+              icon={getIcon('filter')}
+            />
+          </div>
         </div>
         <h3>Showing all stories</h3>
         <ListStories
