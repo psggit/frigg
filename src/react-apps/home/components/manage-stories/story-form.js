@@ -113,6 +113,15 @@ class StoryForm extends React.Component {
         }
       }))
       return false
+    } else if (this.state.displayDuration.trim().toString() === "0") {
+      this.setState(prevState => ({
+        error: {
+          ...prevState.error,
+          value: "Display duration should not be zero",
+          displayDurationStatus: true
+        }
+      }))
+      return false
     } else if (this.state.startsOn.toString().length === 0) {
       this.setState(prevState => ({
         error: {
@@ -220,22 +229,24 @@ class StoryForm extends React.Component {
               <p className="error-message">* {this.state.error.value}</p>
             }
           </div>
+          {
+            this.state.selectedTypeIdx === 2 &&
+            <div className="form-group">
+              <label className="label">Thumbnail Url</label><br />
+              <TextField
+                //disabled={this.props.isDisabled}
+                onChange={this.handleTextFields}
+                name="thumbnailUrl"
+                value={this.state.thumbnailUrl}
+                style={{ width: '100%' }}
+              />
+              {
+                this.state.error.thumbnailUrlStatus &&
+                <p className="error-message">* {this.state.error.value}</p>
+              }
+            </div>
+          }
           
-          <div className="form-group">
-            <label className="label">Thumbnail Url</label><br />
-            <TextField
-              //disabled={this.props.isDisabled}
-              onChange={this.handleTextFields}
-              name="thumbnailUrl"
-              value={this.state.thumbnailUrl}
-              style={{ width: '100%' }}
-            />
-            {
-              this.state.error.thumbnailUrlStatus &&
-              <p className="error-message">* {this.state.error.value}</p>
-            }
-          </div>
-
           <div className="form-group">
             <label className="label">Default Display Duration (in secs)</label><br />
             <TextField
