@@ -18,7 +18,7 @@ class EditStory extends React.Component {
     const storyFormData = this.storyFormData.getData()
     const payload = {
       id: parseInt(this.props.match.params.storyId),
-      url: storyFormData.file,
+      url: storyFormData.url,
       name: storyFormData.storyName,
       type: storyFormData.selectedTypeIdx === 1 ? "image" : "video",
       thumbnail_url: storyFormData.thumbnailUrl,

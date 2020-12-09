@@ -58,7 +58,7 @@ class ManageMappedStories extends React.Component {
         this.setState({
           cityList: response.cities,
           loadingCityList: false,
-          cityIdx: !this.state.cityId ? response.cities[0].id : this.state.cityId
+          cityIdx: !this.state.cityIdx ? response.cities[0].id : this.state.cityIdx
         })
       })
       .catch((error) => {
@@ -79,7 +79,7 @@ class ManageMappedStories extends React.Component {
     this.fetchMappedStories({
       limit: this.pageLimit,
       offset: queryObj.activePage ? this.pageLimit * (parseInt(queryObj.activePage) - 1) : 0,
-      city_id: parseInt(queryObj.cityId)
+      city_id: parseInt(queryObj.cityIdx)
     })
   }
 
@@ -90,7 +90,7 @@ class ManageMappedStories extends React.Component {
     this.fetchMappedStories({
       limit: this.pageLimit,
       offset: pageObj.offset,
-      city_id: parseInt(this.state.cityId)
+      city_id: parseInt(this.state.cityIdx)
     })
     this.setState({ activePage: pageObj.activePage })
 
@@ -141,12 +141,12 @@ class ManageMappedStories extends React.Component {
 
   handleSearch() {
     const queryObj = {
-      cityId: this.state.cityIdx
+      cityIdx: this.state.cityIdx
     }
     this.fetchMappedStories({
       limit: this.pageLimit,
       offset: 0,
-      city_id: this.state.cityIdx
+      city_id: parseInt(this.state.cityIdx)
     })
     history.pushState(queryObj, "mapped stories listing", `/home/manage-mapped-stories?${getQueryUri(queryObj)}`)
   }
