@@ -4,30 +4,31 @@ import RaisedButton from 'material-ui/RaisedButton'
 import * as Api from "./../middleware/api"
 import Pagination from '@components/pagination'
 import { getQueryObj, getQueryUri } from '@utils/url-utils'
-import ListDenominations from "./../components/manage-denominations/list-denominations"
+//import ListDenominations from "./../components/manage-denominations/list-denominations"
+import ListConversionRate from "./../components/manage-conversion-rate/list-conversion-rate"
 
-class ManageDenominations extends React.Component {
+class ManageConversionRate extends React.Component {
   constructor() {
     super()
     this.pageLimit = 5
     this.state = {
       activePage: 1,
-      loadingDenomination: false,
-      denominationList: [],
-      denominationCount: 0,
+      loadingConversionRate: false,
+      conversionRateList: [],
+      conversionRateCount: 0,
     }
     this.setQueryParamas = this.setQueryParamas.bind(this)
     this.setPage = this.setPage.bind(this)
-    this.fetchDenomination = this.fetchDenomination.bind(this)
+    this.fetchConversionRate = this.fetchConversionRate.bind(this)
   }
 
   componentDidMount() {
     if (location.search.length) {
       this.setQueryParamas()
     } else {
-      this.fetchDenomination({
-          limit: this.pageLimit,
-          offset: 0
+      this.fetchConversionRate({
+        limit: this.pageLimit,
+        offset: 0
       })
     }
   }
@@ -39,18 +40,18 @@ class ManageDenominations extends React.Component {
       this.setState({ [item[0]]: item[1] })
     })
 
-    this.fetchDenomination({
+    this.fetchConversionRate({
       limit: this.pageLimit,
       offset: queryObj.activePage ? this.pageLimit * (parseInt(queryObj.activePage) - 1) : 0,
     })
   }
 
   setPage(pageObj) {
-    this.setState({ loadingDenomination: true })
+    this.setState({ loadingConversionRate: true })
     const queryUri = location.search.slice(1)
     const queryObj = getQueryObj(queryUri)
 
-    this.fetchDenomination({
+    this.fetchConversionRate({
       limit: this.pageLimit,
       offset: pageObj.activePage ? this.pageLimit * (parseInt(pageObj.activePage) - 1) : 0,
     })
@@ -58,27 +59,27 @@ class ManageDenominations extends React.Component {
 
     queryObj.activePage = pageObj.activePage
 
-    history.pushState(queryObj, "denominations list", `/home/manage-denominations?${getQueryUri(queryObj)}`)
+     history.pushState(queryObj, "conversion rate list", `/home/manage-conversion-rate?${getQueryUri(queryObj)}`)
   }
 
-  fetchDenomination(payload) {
-    this.setState({ loadingDenomination: true })
-    Api.fetchDenomination(payload)
+  fetchConversionRate(payload) {
+    this.setState({ loadingConversionRate: true })
+    Api.fetchConversionRate(payload)
       .then((response) => {
         this.setState({
-          denominationList: response.data,
-          loadingDenomination: false,
-          denominationCount: response.count
+          conversionRateList: response.data,
+          loadingConversionRate: false,
+          conversionRateCount: response.count
         })
       })
       .catch((err) => {
-        this.setState({ loadingDenomination: false })
+        this.setState({ loadingConversionRate: false })
         console.log("Error in fetching denomination list", err)
       })
   }
 
   render() {
-    const { loadingDenomination, denominationList, denominationCount } = this.state
+    const { loadingConversionRate, conversionRateList, conversionRateCount } = this.state
     return (
       <React.Fragment>
         <div
@@ -87,27 +88,19 @@ class ManageDenominations extends React.Component {
             justifyContent: 'space-between'
           }}
         >
-          <div>
-            <NavLink to={`/home/manage-denominations/create`}>
-              <RaisedButton
-                label="Create Demoninations"
-                primary
-              />
-            </NavLink>
-          </div>
         </div>
-        <h3>Showing Denominations list</h3>
-        <ListDenominations
-          denominationList={denominationList}
-          loadingDenomination={this.state.loadingDenomination}
+        <h3>Showing Conversion rate list</h3>
+        <ListConversionRate
+          conversionRateList={conversionRateList}
+          loadingConversionRate={this.state.loadingConversionRate}
           history={this.props.history}
         />
         {
-          !loadingDenomination && denominationList && denominationList.length > 0
+          !loadingConversionRate && conversionRateList && conversionRateList.length > 0
             ? <Pagination
               activePage={parseInt(this.state.activePage)}
               itemsCountPerPage={this.pageLimit}
-              totalItemsCount={denominationCount}
+              totalItemsCount={conversionRateCount}
               setPage={this.setPage}
             />
             : ''
@@ -117,6 +110,6 @@ class ManageDenominations extends React.Component {
   }
 }
 
-export default ManageDenominations
+export default ManageConversionRate
 
 

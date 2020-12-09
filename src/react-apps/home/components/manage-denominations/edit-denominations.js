@@ -18,7 +18,7 @@ class EditDenominations extends React.Component {
     Api.updateDenomination({
       id: this.props.location.state.id,
       product_id: "1222",
-      denomination: denominationsFormData.denominations,
+      denomination: parseInt(denominationsFormData.denominations),
       hipcoin_limit_percentage: parseFloat(denominationsFormData.hipcoinLimitPercent),
       hipcoin_limit_flat: parseFloat(denominationsFormData.hipcoinLimitFlat),
       listing_order: parseInt(denominationsFormData.listingOrder),
@@ -26,7 +26,7 @@ class EditDenominations extends React.Component {
     })
       .then((response) => {
         this.setState({ updateDenominations: false })
-        // this.props.history.push("/home/manage-denominations")
+        this.props.history.push("/home/manage-denominations")
       })
       .catch((err) => {
         this.setState({ updateDenominations: false })

@@ -156,6 +156,8 @@ import EditDeliveryServiceProvider from "../components/manage-delivery-service-p
 import ManageDenominations from "./../container/manage-denominations"
 import CreateDenominations from "./../components/manage-denominations/create-denominations"
 import EditDenominations from "../components/manage-denominations/edit-denominations"
+
+import ManageConversionRate from "./../container/manage-conversion-rate"
 // import asyncComponent from './../../asyncComponent'
 /**
  * Dynamic imports
@@ -450,6 +452,7 @@ manage-delivery-service-provider
                   <Route exact path="/home/manage-denominations/create" component={CreateDenominations} />
                   <Route exact path="/home/manage-denominations/edit/:id" component={EditDenominations} />
                 
+                  <Route exact path="/home/manage-conversion-rate" component={ManageConversionRate} />
                 </Switch>
               </DisplayScreen>
             </div>

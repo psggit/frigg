@@ -1733,6 +1733,25 @@ export const fetchDenomination = payload => (
     .then(json => json)
 )
 
+export const fetchConversionRate = payload => (
+  POST({
+    api: '/odin/api/1/loyaltycard/list-vouchers',
+    apiBase: 'odin',
+    data: payload,
+    handleError: true
+  })
+    .then(json => json)
+)
+
+export const updateConversionRate = payload => (
+  POST({
+    api: '/odin/api/1/loyaltycard/voucher/update',
+    apiBase: 'odin',
+    data: payload,
+    handleError: true
+  })
+)
+
 export const createDenomination = payload => (
   POST({
     api: '/odin/api/1/loyaltycard/create',

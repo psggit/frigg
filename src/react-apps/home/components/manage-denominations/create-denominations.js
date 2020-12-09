@@ -25,7 +25,7 @@ class CreateDenominations extends React.Component {
     })
       .then((response) => {
         this.setState({ creatingDenominations: false })
-        // this.props.history.push("/home/manage-denominations")
+        this.props.history.push("/home/manage-denominations")
       })
       .catch((err) => {
         this.setState({ creatingDenominations: false })

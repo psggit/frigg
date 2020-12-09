@@ -22,7 +22,6 @@ class DenominationsForm extends React.Component {
       hipcoinLimitFlat: props.data ? props.data.hipcoin_limit_flat : "",
       listingOrder: props.data ? props.data.listing_order : "",
       selectedIsActiveIdx: props.data ? this.is_active.find(item => (item.text).toLowerCase() === (props.data.is_active).toLowerCase()).value : 1,
-     
     }
 
     this.getData = this.getData.bind(this)
