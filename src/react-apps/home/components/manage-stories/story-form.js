@@ -104,15 +104,6 @@ class StoryForm extends React.Component {
         }
       }))
       return false
-    } else if (this.state.thumbnailUrl.toString().length === 0) {
-      this.setState(prevState => ({
-        error: {
-          ...prevState.error,
-          value: "Thumbnail Url is required",
-          thumbnailUrlStatus: true
-        }
-      }))
-      return false
     } else if (this.state.displayDuration.toString().length === 0) {
       this.setState(prevState => ({
         error: {
