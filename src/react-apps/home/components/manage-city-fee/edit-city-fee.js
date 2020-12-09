@@ -28,8 +28,8 @@ class EditCityFee extends React.Component {
       platform: cityFeeForm.selectedPlatformIdx === 1 ? "hb" : "fk-web",
       cart_min: parseInt(cityFeeForm.minCartValue),
       cart_max: parseInt(cityFeeForm.maxCartValue),
-      start_time: cityFeeForm.startTime + ":00+05:30",
-      end_time: cityFeeForm.endTime + ":00+05:30"
+      start_time: cityFeeForm.startTime + "+05:30",
+      end_time: cityFeeForm.endTime + "+05:30"
     })
       .then((response) => {
         Notify('Successfully updated City Fee', 'success')
