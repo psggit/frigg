@@ -16,6 +16,7 @@ import * as Api from "../../middleware/api"
 const TableHeaderItems = [
   '',
   'ID',
+  'PRODUCT ID',
   'DENOMINATION',
   'HIPCOIN LIMIT PERCENTAGE',
   'HIPCOIN LIMIT FLAT',
@@ -25,6 +26,7 @@ const TableHeaderItems = [
 
 const styles = [
   { width: '28px' },
+  { width: '30px' },
   { width: '30px' },
   { width: '50px' },
   { width: '50px' },
@@ -94,11 +96,12 @@ class ListDenominations extends React.Component {
                           </button>
                         </TableRowColumn>
                         <TableRowColumn style={styles[1]}>{item.id}</TableRowColumn>
-                        <TableRowColumn style={styles[2]}>{item.denomination}</TableRowColumn>
-                        <TableRowColumn style={styles[3]}>{item.hipcoin_limit_percentage}</TableRowColumn>
-                        <TableRowColumn style={styles[4]}>{item.hipcoin_limit_flat}</TableRowColumn>
-                        <TableRowColumn style={styles[5]}>{item.listing_order}</TableRowColumn>
-                        <TableRowColumn style={styles[6]}>{item.is_active ? "True" : "False"}</TableRowColumn>
+                        <TableRowColumn style={styles[2]}>{item.product_id}</TableRowColumn>
+                        <TableRowColumn style={styles[3]}>{item.denomination}</TableRowColumn>
+                        <TableRowColumn style={styles[4]}>{item.hipcoin_limit_percentage}</TableRowColumn>
+                        <TableRowColumn style={styles[5]}>{item.hipcoin_limit_flat}</TableRowColumn>
+                        <TableRowColumn style={styles[6]}>{item.listing_order}</TableRowColumn>
+                        <TableRowColumn style={styles[7]}>{item.is_active ? "True" : "False"}</TableRowColumn>
                       </TableRow>
                     )
                   })

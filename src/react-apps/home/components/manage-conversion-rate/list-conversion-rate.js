@@ -21,17 +21,19 @@ const TableHeaderItems = [
   'MIN PRICE',
   'MAX PRICE',
   'CONVERSION RATE',
-  'STATUS'
+  'STATUS',
+  'QC ACTIVE STATUS'
 ]
 
 const styles = [
   { width: '28px' },
   { width: '80px' },
   { width: '80px' },
-  { width: '80px' },
-  { width: '80px' },
-  { width: '80px' },
-  { width: '80px' },
+  { width: '40px' },
+  { width: '40px' },
+  { width: '40px' },
+  { width: '40px' },
+  { width: '40px' }
 ]
 
 class ListConversionRate extends React.Component {
@@ -40,8 +42,7 @@ class ListConversionRate extends React.Component {
 
     this.state = {
       conversionRate: 0,
-      isActive: '',
-      productId: '',
+      isActive: false,
       isDisabled: true,
       updatingConversionRate: false,
     }
@@ -68,11 +69,10 @@ class ListConversionRate extends React.Component {
       isDisabled: false
     })
     if(!this.state.isDisabled){
-      console.log("helloooooo happinesss")
       this.setState({ updatingConversionRate: true })
       Api.updateConversionRate({
-        product_id: this.state.productId,
-        conversion_rate: this.state.conversionRate,
+        product_id: item.product_id,
+        conversion_rate: parseInt(this.state.conversionRate),
         is_active: this.state.isActive,
       })
         .then((response) => {
@@ -82,6 +82,16 @@ class ListConversionRate extends React.Component {
           this.setState({ updatingConversionRate: false })
         })
     }
+  }
+
+  handleConversionRateChange(e, item){
+    // let updatedMap = Object.assign({}, item)
+    // updatedMap[item.conversion_rate] = e.target.value
+    // console.log("uuuuuuuu", updatedMap[item.conversion_rate], e.target.value)
+    // this.setState({conversionRate: updatedMap})
+    this.setState({
+      conversionRate: e.target.value
+    })
   }
 
   render() {
@@ -134,12 +144,23 @@ class ListConversionRate extends React.Component {
                           <TextField
                             type="text"
                             name="conversionRate"
-                            value={item.conversion_rate}
+                            //value={item.conversion_rate}
+                            value={this.state.conversionRate}
+                            //onChange={this.handleTextFields}
+                            onChange={(e) => this.handleConversionRateChange(e, item)}
+                            disabled={this.state.isDisabled}
+                          />
+                        </TableRowColumn>
+                        <TableRowColumn style={styles[6]}>
+                          <TextField
+                            type="text"
+                            name="conversionRate"
+                            value={item.is_active ? "True" : "False"}
                             onChange={this.handleTextFields}
                             disabled={this.state.isDisabled}
                           />
                         </TableRowColumn>
-                        <TableRowColumn style={styles[6]}>{item.is_active ? "True" : "False"}</TableRowColumn>
+                        <TableRowColumn style={styles[7]}>{item.qc_active_status ? "True" : "False"}</TableRowColumn>
                       </TableRow>
                     )
                   })

@@ -16,7 +16,7 @@ class CreateDenominations extends React.Component {
     const denominationsFormData = this.denominationsForm.getData()
     this.setState({ creatingDenominations: true })
     Api.createDenomination({
-      product_id: "1222",
+      product_id: denominationsFormData.productName,
       denomination: parseInt(denominationsFormData.denominations),
       hipcoin_limit_percentage: parseFloat(denominationsFormData.hipcoinLimitPercent),
       hipcoin_limit_flat: parseFloat(denominationsFormData.hipcoinLimitFlat),
@@ -26,8 +26,12 @@ class CreateDenominations extends React.Component {
       .then((response) => {
         this.setState({ creatingDenominations: false })
         this.props.history.push("/home/manage-denominations")
+        Notify(response.message, "success")
       })
       .catch((err) => {
+        err.response.json().then((json) => {
+          Notify(json.message, "warning")
+        })
         this.setState({ creatingDenominations: false })
       })
   }

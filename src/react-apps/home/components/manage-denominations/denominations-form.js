@@ -5,6 +5,8 @@ import { Card } from 'material-ui/Card'
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
 import * as Api from "./../../middleware/api"
+import Dialog from 'material-ui/Dialog'
+import AddProductDialog from "./add-product-dialog"
 
 class DenominationsForm extends React.Component {
   constructor(props) {
@@ -14,21 +16,34 @@ class DenominationsForm extends React.Component {
       { text: 'true', value: 1 },
       { text: 'false', value: 2 },
     ]
-
+    console.log("product name", props.data ? props.data.product_id : "")
     this.state = {
-      productName: props.data ? props.data.productName : "",
+      shouldMountDialog: false,
+      productName: props.data ? props.data.product_id : "",
       denominations: props.data ? props.data.denomination : "",
       hipcoinLimitPercent: props.data ? props.data.hipcoin_limit_percentage : "",
       hipcoinLimitFlat: props.data ? props.data.hipcoin_limit_flat : "",
       listingOrder: props.data ? props.data.listing_order : "",
-      selectedIsActiveIdx: props.data ? this.is_active.find(item => (item.text).toLowerCase() === (props.data.is_active).toLowerCase()).value : 1,
+      //selectedIsActiveIdx: props.data ? this.is_active.find(item => (item.text).toLowerCase() === (props.data.is_active).toLowerCase()).value : 1,
     }
 
     this.getData = this.getData.bind(this)
     this.handleSave = this.handleSave.bind(this)
     this.handleTextFields = this.handleTextFields.bind(this)
     this.handleIsActiveChange = this.handleIsActiveChange.bind(this)
+    this.mountDialog = this.mountDialog.bind(this)
+    this.unmountDialog = this.unmountDialog.bind(this)
+    this.addProduct = this.addProduct.bind(this)
   }
+
+  mountDialog() {
+    this.setState({ shouldMountDialog: true })
+  }
+
+  unmountDialog() {
+    this.setState({ shouldMountDialog: false })
+  }
+
 
   getData() {
     return this.state
@@ -48,6 +63,14 @@ class DenominationsForm extends React.Component {
       this.props.handleSave()
   }
 
+  addProduct(item){
+    // console.log("hello from denomination-form", item.product_id)
+    this.setState({
+      productName: item.product_id
+    })
+    this.unmountDialog()
+  }
+
   render() {
     return (
       <Fragment>
@@ -63,22 +86,29 @@ class DenominationsForm extends React.Component {
         >
           <h4 style={{ margin: '0', marginBottom: '40px' }}>Enter denomination details</h4>
           <div className="form-group">
-            <label className="label">Product Name</label><br />
-            <SelectField
-              //value={this.state.selectedCityIdx}
-              //onChange={this.handleCityChange}
-            >
-              {/* {
-                !this.state.loadingCityList && this.state.cityList.map((item, i) => (
-                  <MenuItem
-                    value={item.id}
-                    key={item.id}
-                    primaryText={item.name}
-                  />
-                ))
-              } */}
-            </SelectField>
+            <RaisedButton
+              label="Add Product Name"
+              primary
+              onClick={this.mountDialog}
+              disabled={location.pathname.includes("edit")}
+            />
+            {
+              this.state.shouldMountDialog &&
+              <AddProductDialog unmountDialog={this.unmountDialog}  addProduct={this.addProduct}/>
+            }
           </div>
+
+          <div className="form-group">
+            <label className="label">Product Name</label><br />
+            <TextField
+              onChange={this.handleTextFields}
+               name="productName"
+               value={this.state.productName}
+              style={{ width: '100%' }}
+              disabled={location.pathname.includes("edit")}
+            />
+          </div>
+
           <div className="form-group">
             <label className="label">Denomination</label><br />
             <TextField
