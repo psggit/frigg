@@ -19,8 +19,8 @@ const TableHeaderItems = [
   'NAME',
   'TYPE',
   'DISPLAY DURATION',
-  'EXPIRES ON',
   'STARTS ON',
+  'EXPIRES ON',
   'STATUS'
 ]
 
