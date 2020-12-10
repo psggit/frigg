@@ -66,7 +66,7 @@ class AddStoryDialog extends React.Component {
       if(!response.error) {
         Notify(response.message, "success")
         setTimeout(() => {
-          location.href = '/home/manage-mapped-stories'
+          location.href = `/home/manage-mapped-stories?cityIdx=${this.props.cityId}`
         }, 500)
       } else {
         Notify(response.message, "error")

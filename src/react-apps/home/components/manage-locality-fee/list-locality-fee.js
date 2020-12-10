@@ -178,8 +178,8 @@ class ListLocalityFee extends React.Component {
                       <TableRowColumn style={styles[8]}>{item.min_value}</TableRowColumn>
                       <TableRowColumn style={styles[9]}>{item.max_value}</TableRowColumn>
                       <TableRowColumn style={styles[10]}>{item.platform}</TableRowColumn>
-                      <TableRowColumn style={styles[11]}>{item.start_time.substring(11, 16)}</TableRowColumn>
-                      <TableRowColumn style={styles[12]}>{item.end_time.substring(11, 16)}</TableRowColumn>
+                      <TableRowColumn style={styles[11]}>{item.start_time.substring(11, 19)}</TableRowColumn>
+                      <TableRowColumn style={styles[12]}>{item.end_time.substring(11, 19)}</TableRowColumn>
                       <TableRowColumn style={styles[13]}>{item.cart_min}</TableRowColumn>
                       <TableRowColumn style={styles[14]}>{item.cart_max}</TableRowColumn>
                       <TableRowColumn style={styles[15]}>
