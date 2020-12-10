@@ -21,7 +21,7 @@ const TableHeaderItems = [
   'HIPCOIN LIMIT PERCENTAGE',
   'HIPCOIN LIMIT FLAT',
   'LISTING ORDER',
-  'STATUS'
+  'IS ACTIVE'
 ]
 
 const styles = [

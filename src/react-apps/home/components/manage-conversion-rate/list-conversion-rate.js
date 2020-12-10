@@ -48,7 +48,7 @@ class ListConversionRate extends React.Component {
     }
 
     this.updateConversionRate = this.updateConversionRate.bind(this)
-    this.handleTextFields = this.handleTextFields.bind(this)
+    //this.handleTextFields = this.handleTextFields.bind(this)
 
   }
 
@@ -56,18 +56,21 @@ class ListConversionRate extends React.Component {
     this.overrideTableStyle()
   }
 
-  handleTextFields(e) {
-    this.setState({ [e.target.name]: e.target.value })
-  }
+  // handleTextFields(e) {
+  //   this.setState({ [e.target.name]: e.target.value })
+  // }
 
   overrideTableStyle() {
     overrideTableStyle()
   }
 
   updateConversionRate(e, item) {
-    this.setState({
-      isDisabled: false
-    })
+    console.log("product_id", e.target == item)
+    // if(e.target == item){
+      this.setState({
+        isDisabled: false
+      })
+
     if(!this.state.isDisabled){
       this.setState({ updatingConversionRate: true })
       Api.updateConversionRate({
@@ -91,6 +94,12 @@ class ListConversionRate extends React.Component {
     // this.setState({conversionRate: updatedMap})
     this.setState({
       conversionRate: e.target.value
+    })
+  }
+
+  handleIsActiveChange(e, item){
+    this.setState({
+      isActive: e.target.value
     })
   }
 
@@ -144,8 +153,8 @@ class ListConversionRate extends React.Component {
                           <TextField
                             type="text"
                             name="conversionRate"
-                            //value={item.conversion_rate}
-                            value={this.state.conversionRate}
+                            value={item.conversion_rate}
+                            //value={this.state.conversionRate}
                             //onChange={this.handleTextFields}
                             onChange={(e) => this.handleConversionRateChange(e, item)}
                             disabled={this.state.isDisabled}
@@ -154,9 +163,9 @@ class ListConversionRate extends React.Component {
                         <TableRowColumn style={styles[6]}>
                           <TextField
                             type="text"
-                            name="conversionRate"
+                            name="is_active"
                             value={item.is_active ? "True" : "False"}
-                            onChange={this.handleTextFields}
+                            onChange={(e) => this.handleIsActiveChange(e, item)}
                             disabled={this.state.isDisabled}
                           />
                         </TableRowColumn>

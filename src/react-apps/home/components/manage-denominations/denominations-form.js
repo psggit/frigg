@@ -16,7 +16,6 @@ class DenominationsForm extends React.Component {
       { text: 'true', value: 1 },
       { text: 'false', value: 2 },
     ]
-    console.log("product name", props.data ? props.data.product_id : "")
     this.state = {
       shouldMountDialog: false,
       productName: props.data ? props.data.product_id : "",
@@ -24,6 +23,7 @@ class DenominationsForm extends React.Component {
       hipcoinLimitPercent: props.data ? props.data.hipcoin_limit_percentage : "",
       hipcoinLimitFlat: props.data ? props.data.hipcoin_limit_flat : "",
       listingOrder: props.data ? props.data.listing_order : "",
+      selectedIsActiveIdx: props.data ? props.data.is_active : 1
       //selectedIsActiveIdx: props.data ? this.is_active.find(item => (item.text).toLowerCase() === (props.data.is_active).toLowerCase()).value : 1,
     }
 
@@ -54,6 +54,7 @@ class DenominationsForm extends React.Component {
   }
 
   handleIsActiveChange(e, k) {
+    console.log("isactivechange", this.is_active[k].value)
     this.setState({
       selectedIsActiveIdx: (this.is_active[k].value)
     })
