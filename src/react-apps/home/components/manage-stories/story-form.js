@@ -113,7 +113,7 @@ class StoryForm extends React.Component {
         }
       }))
       return false
-    } else if (this.state.displayDuration.trim().toString() === "0") {
+    } else if (this.state.displayDuration.toString() === "0") {
       this.setState(prevState => ({
         error: {
           ...prevState.error,
