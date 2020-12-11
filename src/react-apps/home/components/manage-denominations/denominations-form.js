@@ -11,11 +11,15 @@ import AddProductDialog from "./add-product-dialog"
 class DenominationsForm extends React.Component {
   constructor(props) {
     super(props)
-
+    
     this.is_active = [
       { text: 'true', value: 1 },
       { text: 'false', value: 2 },
     ]
+    // console.log("is-active", 
+    // this.is_active.find(item => (item.text).toLowerCase()).value, 
+    //  )
+
     this.state = {
       shouldMountDialog: false,
       productName: props.data ? props.data.product_id : "",

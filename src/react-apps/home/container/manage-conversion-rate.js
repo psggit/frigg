@@ -66,7 +66,7 @@ class ManageConversionRate extends React.Component {
     this.setState({ loadingConversionRate: true })
     Api.fetchConversionRate(payload)
       .then((response) => {
-        console.log("response",response.data)
+        //console.log("response",response.data)
         this.setState({
           conversionRateList: response.data,
           loadingConversionRate: false,

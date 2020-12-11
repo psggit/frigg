@@ -37,36 +37,51 @@ const styles = [
 ]
 
 class ListConversionRate extends React.Component {
-  constructor() {
-    super()
-
+  constructor(props) {
+    super(props)
     this.state = {
       conversionRate: 0,
       isActive: false,
       isDisabled: true,
       updatingConversionRate: false,
+      conversionList: [],
+      stateMap: {},
+      productId: '',
     }
 
     this.updateConversionRate = this.updateConversionRate.bind(this)
-    //this.handleTextFields = this.handleTextFields.bind(this)
 
   }
 
   componentDidMount() {
     this.overrideTableStyle()
+    this.mapStates()
   }
 
-  // handleTextFields(e) {
-  //   this.setState({ [e.target.name]: e.target.value })
-  // }
+  componentDidUpdate(prevProps) {
+    if (this.props.conversionRateList !== prevProps.conversionRateList) {
+      console.log("CDM", this.props.conversionRateList)
+      this.mapStates()
+    }
+    // else if (prevProps.disableSave !== this.props.disableSave && !this.props.disableSave) {
+    //   let updatedStateMap = Object.assign({}, this.state.stateMap)
+    //   updatedStateMap[this.state.productId].is_modified = false
+    //   this.setState({ stateMap: updatedStateMap })
+    // }
+  }
+
+  mapStates() {
+    if (this.props.conversionRateList) {
+      console.log("mapStates", this.props.conversionRateList)
+      this.setState({ conversionList: this.props.conversionRateList, stateMap: this.props.productStateMap })
+    }
+  }
 
   overrideTableStyle() {
     overrideTableStyle()
   }
 
   updateConversionRate(e, item) {
-    console.log("product_id", e.target == item)
-    // if(e.target == item){
       this.setState({
         isDisabled: false
       })
@@ -88,10 +103,11 @@ class ListConversionRate extends React.Component {
   }
 
   handleConversionRateChange(e, item){
-    // let updatedMap = Object.assign({}, item)
-    // updatedMap[item.conversion_rate] = e.target.value
-    // console.log("uuuuuuuu", updatedMap[item.conversion_rate], e.target.value)
-    // this.setState({conversionRate: updatedMap})
+    // let updatedMap = Object.assign({}, this.state.stateMap)
+    // updatedMap[item].product_id = (e.target.value)
+    // console.log("updatedMap", updatedMap[item].product_id, e.target.value)
+    // this.setState({ stateMap: updatedMap, conversionList: Object.values(updatedMap) })
+
     this.setState({
       conversionRate: e.target.value
     })
@@ -105,6 +121,7 @@ class ListConversionRate extends React.Component {
 
   render() {
     const { loadingConversionRate, conversionRateList } = this.props
+    console.log("render", conversionRateList)
     const { isDisabled } = this.state
     return (
       <div>
@@ -154,7 +171,7 @@ class ListConversionRate extends React.Component {
                             type="text"
                             name="conversionRate"
                             value={item.conversion_rate}
-                            //value={this.state.conversionRate}
+                            //value={this.state.stateMap[item].conversion_rate}
                             //onChange={this.handleTextFields}
                             onChange={(e) => this.handleConversionRateChange(e, item)}
                             disabled={this.state.isDisabled}
