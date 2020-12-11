@@ -16,10 +16,7 @@ class DenominationsForm extends React.Component {
       { text: 'true', value: 1 },
       { text: 'false', value: 2 },
     ]
-    // console.log("is-active", 
-    // this.is_active.find(item => (item.text).toLowerCase()).value, 
-    //  )
-    console.log("selectedvalue", props.data ? props.data.is_active : 1 )
+
     this.state = {
       shouldMountDialog: false,
       productName: props.data ? props.data.product_id : "",
@@ -28,8 +25,6 @@ class DenominationsForm extends React.Component {
       hipcoinLimitFlat: props.data ? props.data.hipcoin_limit_flat : "",
       listingOrder: props.data ? props.data.listing_order : "",
       selectedIsActiveIdx: props.data ? props.data.is_active : 1,
-      disableProductName: false,
-     // selectedIsActiveIdx: props.data ? this.is_active.find(item => (item.text).toLowerCase() === (props.data.is_active).toLowerCase()).value : 1,
     }
 
     this.getData = this.getData.bind(this)
@@ -64,12 +59,6 @@ class DenominationsForm extends React.Component {
       selectedIsActiveIdx: (this.is_active[k].value)
     })
   }
-
-  // handleProductChange(){
-  //   if(this.state.productName.length === '0'){
-  //     this.setState({disableProductName:})
-  //   }
-  // }
 
   handleSave() {
       this.props.handleSave()
@@ -161,7 +150,7 @@ class DenominationsForm extends React.Component {
             <label className="label">Is Active</label><br />
             <SelectField
               name="is_active"
-              value={this.state.selectedIsActiveIdx}
+              value={this.state.selectedIsActiveIdx === true ? 1 : 2}
               onChange={this.handleIsActiveChange}
               style={{ width: '100%' }}
             >
