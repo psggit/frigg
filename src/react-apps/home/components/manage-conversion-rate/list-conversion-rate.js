@@ -58,22 +58,9 @@ class ListConversionRate extends React.Component {
     this.mapStates()
   }
 
-  componentDidUpdate(prevProps) {
-    if (this.props.conversionRateList !== prevProps.conversionRateList) {
-      console.log("CDM", this.props.conversionRateList)
-      this.mapStates()
-    }
-    // else if (prevProps.disableSave !== this.props.disableSave && !this.props.disableSave) {
-    //   let updatedStateMap = Object.assign({}, this.state.stateMap)
-    //   updatedStateMap[this.state.productId].is_modified = false
-    //   this.setState({ stateMap: updatedStateMap })
-    // }
-  }
-
   mapStates() {
     if (this.props.conversionRateList) {
-      console.log("mapStates", this.props.conversionRateList)
-      this.setState({ conversionList: this.props.conversionRateList, stateMap: this.props.productStateMap })
+      this.setState({ conversionList: this.props.conversionRateList })
     }
   }
 
@@ -81,11 +68,11 @@ class ListConversionRate extends React.Component {
     overrideTableStyle()
   }
 
-  updateConversionRate(e, item) {
+  updateConversionRate(e, item, i) {
+    console.log("....", i)
       this.setState({
         isDisabled: false
       })
-
     if(!this.state.isDisabled){
       this.setState({ updatingConversionRate: true })
       Api.updateConversionRate({
@@ -157,7 +144,7 @@ class ListConversionRate extends React.Component {
                       <TableRow key={i}>
                         <TableRowColumn style={styles[0]}>
                           <button
-                            onClick={e => this.updateConversionRate(e, item)}
+                            onClick={e => this.updateConversionRate(e, item, i)}
                           >
                             {isDisabled ? "Edit" : "Save"}
                           </button>
@@ -170,7 +157,7 @@ class ListConversionRate extends React.Component {
                           <TextField
                             type="text"
                             name="conversionRate"
-                            value={item.conversion_rate}
+                            value={this.state.conversionRate}
                             //value={this.state.stateMap[item].conversion_rate}
                             //onChange={this.handleTextFields}
                             onChange={(e) => this.handleConversionRateChange(e, item)}

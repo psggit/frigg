@@ -4,7 +4,6 @@ import RaisedButton from 'material-ui/RaisedButton'
 import * as Api from "./../middleware/api"
 import Pagination from '@components/pagination'
 import { getQueryObj, getQueryUri } from '@utils/url-utils'
-//import ListDenominations from "./../components/manage-denominations/list-denominations"
 import ListConversionRate from "./../components/manage-conversion-rate/list-conversion-rate"
 
 class ManageConversionRate extends React.Component {
@@ -66,7 +65,6 @@ class ManageConversionRate extends React.Component {
     this.setState({ loadingConversionRate: true })
     Api.fetchConversionRate(payload)
       .then((response) => {
-        //console.log("response",response.data)
         this.setState({
           conversionRateList: response.data,
           loadingConversionRate: false,
