@@ -19,7 +19,7 @@ class DenominationsForm extends React.Component {
     // console.log("is-active", 
     // this.is_active.find(item => (item.text).toLowerCase()).value, 
     //  )
-
+    console.log("selectedvalue", props.data ? props.data.is_active : 1 )
     this.state = {
       shouldMountDialog: false,
       productName: props.data ? props.data.product_id : "",
@@ -27,8 +27,9 @@ class DenominationsForm extends React.Component {
       hipcoinLimitPercent: props.data ? props.data.hipcoin_limit_percentage : "",
       hipcoinLimitFlat: props.data ? props.data.hipcoin_limit_flat : "",
       listingOrder: props.data ? props.data.listing_order : "",
-      selectedIsActiveIdx: props.data ? props.data.is_active : 1
-      //selectedIsActiveIdx: props.data ? this.is_active.find(item => (item.text).toLowerCase() === (props.data.is_active).toLowerCase()).value : 1,
+      selectedIsActiveIdx: props.data ? props.data.is_active : 1,
+      disableProductName: false,
+     // selectedIsActiveIdx: props.data ? this.is_active.find(item => (item.text).toLowerCase() === (props.data.is_active).toLowerCase()).value : 1,
     }
 
     this.getData = this.getData.bind(this)
@@ -64,12 +65,17 @@ class DenominationsForm extends React.Component {
     })
   }
 
+  // handleProductChange(){
+  //   if(this.state.productName.length === '0'){
+  //     this.setState({disableProductName:})
+  //   }
+  // }
+
   handleSave() {
       this.props.handleSave()
   }
 
   addProduct(item){
-    // console.log("hello from denomination-form", item.product_id)
     this.setState({
       productName: item.product_id
     })
@@ -110,7 +116,8 @@ class DenominationsForm extends React.Component {
                name="productName"
                value={this.state.productName}
               style={{ width: '100%' }}
-              disabled={location.pathname.includes("edit")}
+              autoComplete="off"
+              disabled={location.pathname.includes("edit") || location.pathname.includes("create")}
             />
           </div>
 
