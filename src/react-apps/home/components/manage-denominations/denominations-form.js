@@ -11,24 +11,40 @@ import AddProductDialog from "./add-product-dialog"
 class DenominationsForm extends React.Component {
   constructor(props) {
     super(props)
-    
+
     this.is_active = [
       { text: 'true', value: 1 },
       { text: 'false', value: 2 },
     ]
-    // console.log("is-active", 
-    // this.is_active.find(item => (item.text).toLowerCase()).value, 
-    //  )
-    console.log("selectedvalue", props.data ? props.data.is_active : 1 )
     this.state = {
       shouldMountDialog: false,
       productName: props.data ? props.data.product_id : "",
       denominations: props.data ? props.data.denomination : "",
-      hipcoinLimitPercent: props.data ? props.data.hipcoin_limit_percentage : "",
-      hipcoinLimitFlat: props.data ? props.data.hipcoin_limit_flat : "",
+      hipcoinLimitPercent: props.data ? props.data.hipcoin_limit_percentage : 0,
+      hipcoinLimitFlat: props.data ? props.data.hipcoin_limit_flat : 0,
       listingOrder: props.data ? props.data.listing_order : "",
       selectedIsActiveIdx: props.data ? props.data.is_active ? 1 : 2 : 1,
-      //selectedIsActiveIdx: props.data ? this.is_active.find(item => (item.text).toLowerCase() === (props.data.is_active).toLowerCase()).value : 1,
+
+      denominationsErr: {
+        status: false,
+        value: ""
+      },
+      hipcoinLimitPercentErr: {
+        status: false,
+        value: ""
+      },
+      hipcoinLimitFlatErr: {
+        status: false,
+        value: ""
+      },
+      listingOrderErr: {
+        status: false,
+        value: ""
+      },
+      productNameErr: {
+        status: false,
+        value: ""
+      }
     }
 
     this.getData = this.getData.bind(this)
@@ -38,6 +54,7 @@ class DenominationsForm extends React.Component {
     this.mountDialog = this.mountDialog.bind(this)
     this.unmountDialog = this.unmountDialog.bind(this)
     this.addProduct = this.addProduct.bind(this)
+    this.isFormValid = this.isFormValid.bind(this)
   }
 
   mountDialog() {
@@ -48,12 +65,65 @@ class DenominationsForm extends React.Component {
     this.setState({ shouldMountDialog: false })
   }
 
+  isFormValid() {
+    if (this.state.hipcoinLimitPercent.length === 0) {
+      this.setState({
+        hipcoinLimitPercentErr: {
+          value: " hipcoinLimitPercent is required",
+          status: true
+        }
+      })
+      return false
+    } else if (this.state.hipcoinLimitFlat.length === 0) {
+      this.setState({
+        hipcoinLimitFlatErr: {
+          value: "hipcoinLimitFlat is required",
+          status: true
+        }
+      })
+      return false
+    } else if (this.state.denominations.length === 0) {
+      this.setState({
+        denominationsErr: {
+          value: " denominations is required",
+          status: true
+        }
+      })
+      return false
+    }
+    else if (this.state.listingOrder.length === 0) {
+      this.setState({
+        listingOrderErr: {
+          value: "listingOrder is required",
+          status: true
+        }
+      })
+      return false
+    }
+    else if (this.state.productName.length === 0) {
+      this.setState({
+        productNameErr: {
+          value: "productName is required",
+          status: true
+        }
+      })
+      return false
+    }
+    return true
+  }
 
   getData() {
     return this.state
   }
 
   handleTextFields(e) {
+    const errName = `${e.target.name}Err`
+    this.setState({
+      [errName]: {
+        value: "",
+        status: false
+      }
+    })
     this.setState({ [e.target.name]: e.target.value })
   }
 
@@ -65,10 +135,13 @@ class DenominationsForm extends React.Component {
   }
 
   handleSave() {
+    if (this.isFormValid()) {
+      console.log("state", this.state)
       this.props.handleSave()
+    }
   }
 
-  addProduct(item){
+  addProduct(item) {
     this.setState({
       productName: item.product_id
     })
@@ -76,6 +149,8 @@ class DenominationsForm extends React.Component {
   }
 
   render() {
+    const { denominationsErr, hipcoinLimitFlatErr, hipcoinLimitPercentErr, listingOrderErr, productNameErr } = this.state
+
     return (
       <Fragment>
 
@@ -98,7 +173,7 @@ class DenominationsForm extends React.Component {
             />
             {
               this.state.shouldMountDialog &&
-              <AddProductDialog unmountDialog={this.unmountDialog}  addProduct={this.addProduct}/>
+              <AddProductDialog unmountDialog={this.unmountDialog} addProduct={this.addProduct} />
             }
           </div>
 
@@ -106,12 +181,16 @@ class DenominationsForm extends React.Component {
             <label className="label">Product Name</label><br />
             <TextField
               onChange={this.handleTextFields}
-               name="productName"
-               value={this.state.productName}
+              name="productName"
+              value={this.state.productName}
               style={{ width: '100%' }}
               autoComplete="off"
               disabled={location.pathname.includes("edit") || location.pathname.includes("create")}
             />
+            {
+              productNameErr.status &&
+              <p className="error-message">* {productNameErr.value}</p>
+            }
           </div>
 
           <div className="form-group">
@@ -121,7 +200,12 @@ class DenominationsForm extends React.Component {
               name="denominations"
               value={this.state.denominations}
               style={{ width: '100%' }}
+              autoComplete="off"
             />
+            {
+              denominationsErr.status &&
+              <p className="error-message">* {denominationsErr.value}</p>
+            }
           </div>
           <div className="form-group">
             <label className="label">HipCoin Limit Percent</label><br />
@@ -130,7 +214,12 @@ class DenominationsForm extends React.Component {
               name="hipcoinLimitPercent"
               value={this.state.hipcoinLimitPercent}
               style={{ width: '100%' }}
+              autoComplete="off"
             />
+            {
+              hipcoinLimitPercentErr.status &&
+              <p className="error-message">* {hipcoinLimitPercentErr.value}</p>
+            }
           </div>
           <div className="form-group">
             <label className="label">HipCoin Limit Flat</label><br />
@@ -139,7 +228,12 @@ class DenominationsForm extends React.Component {
               name="hipcoinLimitFlat"
               value={this.state.hipcoinLimitFlat}
               style={{ width: '100%' }}
+              autoComplete="off"
             />
+            {
+              hipcoinLimitFlatErr.status &&
+              <p className="error-message">* {hipcoinLimitFlatErr.value}</p>
+            }
           </div>
           <div className="form-group">
             <label className="label">Listing Order</label><br />
@@ -148,7 +242,12 @@ class DenominationsForm extends React.Component {
               name="listingOrder"
               value={this.state.listingOrder}
               style={{ width: '100%' }}
+              autoComplete="off"
             />
+            {
+              listingOrderErr.status &&
+              <p className="error-message">* {listingOrderErr.value}</p>
+            }
           </div>
           <div className="form-group">
             <label className="label">Is Active</label><br />
@@ -184,17 +283,3 @@ class DenominationsForm extends React.Component {
 }
 
 export default DenominationsForm
-
-// import React from "react"
-
-// class DenominationsForm extends React.Component {
-//   render(){
-//     return(
-//       <div>
-//         Denominations
-//       </div>
-//     )
-//   }
-// }
-
-// export default DenominationsForm
