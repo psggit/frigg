@@ -7,6 +7,8 @@ import {
   TableRow,
   TableRowColumn,
 } from 'material-ui/Table'
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
 import TableLoadingShell from '../table-loading-shell'
 import '@sass/components/_table.scss'
 import { overrideTableStyle } from '../../../utils'
@@ -42,15 +44,13 @@ class ListConversionRate extends React.Component {
     this.state = {
       conversionRate: 0,
       isActive: false,
-      isDisabled: true,
       updatingConversionRate: false,
       conversionList: [],
       stateMap: {},
       productId: '',
+      updateOnce: false,
     }
-
     this.updateConversionRate = this.updateConversionRate.bind(this)
-
   }
 
   componentDidMount() {
@@ -59,8 +59,19 @@ class ListConversionRate extends React.Component {
   }
 
   mapStates() {
-    if (this.props.conversionRateList) {
-      this.setState({ conversionList: this.props.conversionRateList })
+    if (this.props.conversionRateList.length > 0) {
+      const newList = this.props.conversionRateList.map(item => {
+        item.mode = "edit";
+        return item;
+      })
+      console.log(newList);
+      this.setState({ conversionList: this.props.conversionRateList, updateOnce: true })
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if(prevProps.loadingConversionRate === true && !this.state.updateOnce){
+      this.mapStates();
     }
   }
 
@@ -68,12 +79,19 @@ class ListConversionRate extends React.Component {
     overrideTableStyle()
   }
 
-  updateConversionRate(e, item, i) {
-    console.log("....", i)
-      this.setState({
-        isDisabled: false
-      })
-    if(!this.state.isDisabled){
+  updateConversionRate(e, item, i, itemId) {
+    let updatedItem = this.state.conversionList[i];
+    updatedItem = {
+      ...updatedItem,
+      mode: this.state.conversionList[i].mode === "edit" ? "save" : "edit"
+    }
+    
+
+    if(this.state.conversionList[i].mode === "save"){
+      updatedItem = {
+        ...updatedItem,
+        mode: this.state.conversionList[i].mode === "edit" ? "save" : "edit"
+      }
       this.setState({ updatingConversionRate: true })
       Api.updateConversionRate({
         product_id: item.product_id,
@@ -87,29 +105,41 @@ class ListConversionRate extends React.Component {
           this.setState({ updatingConversionRate: false })
         })
     }
-  }
-
-  handleConversionRateChange(e, item){
-    // let updatedMap = Object.assign({}, this.state.stateMap)
-    // updatedMap[item].product_id = (e.target.value)
-    // console.log("updatedMap", updatedMap[item].product_id, e.target.value)
-    // this.setState({ stateMap: updatedMap, conversionList: Object.values(updatedMap) })
-
+    let updatedArray = [...this.state.conversionList];
+    updatedArray[i] = updatedItem;
     this.setState({
-      conversionRate: e.target.value
+      conversionList: updatedArray
     })
   }
 
-  handleIsActiveChange(e, item){
+  handleConversionRateChange(e, i){
+    let updatedItem = this.state.conversionList[i];
+    updatedItem = {
+      ...updatedItem,
+      conversion_rate: e.target.value
+    }
+    let updatedArray = [...this.state.conversionList];
+    updatedArray[i] = updatedItem;
     this.setState({
-      isActive: e.target.value
+      conversionList: updatedArray
+    })
+  }
+
+  handleIsActiveChange(event, index, value, i){
+    let updatedItem = this.state.conversionList[i];
+    updatedItem = {
+      ...updatedItem,
+      is_active: value
+    }
+    let updatedArray = [...this.state.conversionList];
+    updatedArray[i] = updatedItem;
+    this.setState({
+      conversionList: updatedArray
     })
   }
 
   render() {
     const { loadingConversionRate, conversionRateList } = this.props
-    console.log("render", conversionRateList)
-    const { isDisabled } = this.state
     return (
       <div>
         <Table
@@ -139,14 +169,14 @@ class ListConversionRate extends React.Component {
             {
               !loadingConversionRate
                 ? (
-                  conversionRateList.map((item, i) => {
+                  this.state.conversionList.map((item, i) => {
                     return (
                       <TableRow key={i}>
                         <TableRowColumn style={styles[0]}>
                           <button
-                            onClick={e => this.updateConversionRate(e, item, i)}
+                            onClick={e => this.updateConversionRate(e, item, i, item.product_id)}
                           >
-                            {isDisabled ? "Edit" : "Save"}
+                            {item.mode === "edit" ? "Edit" : "Save"}
                           </button>
                         </TableRowColumn>
                         <TableRowColumn style={styles[1]}>{item.product_id}</TableRowColumn>
@@ -157,21 +187,31 @@ class ListConversionRate extends React.Component {
                           <TextField
                             type="text"
                             name="conversionRate"
-                            value={this.state.conversionRate}
+                            value={item.conversion_rate}
                             //value={this.state.stateMap[item].conversion_rate}
                             //onChange={this.handleTextFields}
-                            onChange={(e) => this.handleConversionRateChange(e, item)}
-                            disabled={this.state.isDisabled}
+                            onChange={(e) => this.handleConversionRateChange(e, i)}
+                            disabled={item.mode === "edit" ? true : false}
                           />
                         </TableRowColumn>
                         <TableRowColumn style={styles[6]}>
-                          <TextField
+                          {/* <TextField
                             type="text"
                             name="is_active"
                             value={item.is_active ? "True" : "False"}
-                            onChange={(e) => this.handleIsActiveChange(e, item)}
-                            disabled={this.state.isDisabled}
-                          />
+                            onChange={(e) => this.handleIsActiveChange(e, i)}
+                            disabled={this.state.selectedItem === item.product_id ? false : true}
+                          /> */}
+                           <SelectField
+                            value={item.is_active ? 1 : 2}
+                            onChange={(event, index, value) => {
+                              this.handleIsActiveChange(event, index, value, i)
+                            }}
+                            disabled={item.mode === "edit" ? true : false}
+                          >
+                            <MenuItem value={1} primaryText="True" />
+                            <MenuItem value={2} primaryText="False" />
+                          </SelectField>
                         </TableRowColumn>
                         <TableRowColumn style={styles[7]}>{item.qc_active_status ? "True" : "False"}</TableRowColumn>
                       </TableRow>
