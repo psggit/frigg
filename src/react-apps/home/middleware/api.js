@@ -1723,6 +1723,53 @@ export const createWarehouse = payload => (
   })
 )
 
+export const fetchDenomination = payload => (
+  POST({
+    api: '/odin/api/1/loyaltycard/list-denominations',
+    apiBase: 'odin',
+    data: payload,
+    handleError: true
+  })
+    .then(json => json)
+)
+
+export const fetchConversionRate = payload => (
+  POST({
+    api: '/odin/api/1/loyaltycard/list-vouchers',
+    apiBase: 'odin',
+    data: payload,
+    handleError: true
+  })
+    .then(json => json)
+)
+
+export const updateConversionRate = payload => (
+  POST({
+    api: '/odin/api/1/loyaltycard/voucher/update',
+    apiBase: 'odin',
+    data: payload,
+    handleError: true
+  })
+)
+
+export const createDenomination = payload => (
+  POST({
+    api: '/odin/api/1/loyaltycard/create',
+    apiBase: 'odin',
+    data: payload,
+    handleError: true
+  })
+)
+
+export const updateDenomination = payload => (
+  POST({
+    api: '/odin/api/1/loyaltycard/denomination/update',
+    apiBase: 'odin',
+    data: payload,
+    handleError: true
+  })
+)
+
 export const createDeliveryServiceProvider = payload => (
   POST({
     api: '/delivery_service_provider/create',

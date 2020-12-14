@@ -172,6 +172,14 @@ class NavigationBar extends React.Component {
           { name: 'Delivery Service Provider', path: '/home/manage-delivery-service-provider', id: 46, nestedItems: [] },
           { name: 'Delivery Service Provider City Mapping', path: '/home/dsp-city-mapping', id: 47 },
         ]
+      },
+      {
+        name: 'Loyalty Card',
+        nestedItems: [
+          { name: 'Denominations', path: '/home/manage-denominations', id: 48 },
+          { name: 'Conversion Rates', path: '/home/manage-conversion-rate', id: 49},
+          
+        ]
       }
     ]
     return (

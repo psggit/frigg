@@ -158,7 +158,11 @@ import EditDSPMappedToCity from "../components/manage-dsp-city-mapping/edit-dsp-
 import DeliveryServiceProvider from "./../container/manage-delivery-service-provider"
 import CreateDeliveryServiceProvider from "../components/manage-delivery-service-provider/create-delivery-service-provider"
 import EditDeliveryServiceProvider from "../components/manage-delivery-service-provider/edit-delivery-service-provider"
+import ManageDenominations from "./../container/manage-denominations"
+import CreateDenominations from "./../components/manage-denominations/create-denominations"
+import EditDenominations from "../components/manage-denominations/edit-denominations"
 
+import ManageConversionRate from "./../container/manage-conversion-rate"
 // import asyncComponent from './../../asyncComponent'
 /**
  * Dynamic imports
@@ -454,6 +458,12 @@ manage-delivery-service-provider
                   <Route exact path="/home/manage-delivery-service-provider" component={DeliveryServiceProvider} />
                   <Route exact path="/home/manage-delivery-service-provider/create" component={CreateDeliveryServiceProvider} />
                   <Route exact path="/home/manage-delivery-service-provider/edit/:id" component={EditDeliveryServiceProvider} />
+                
+                  <Route exact path="/home/manage-denominations" component={ManageDenominations} />
+                  <Route exact path="/home/manage-denominations/create" component={CreateDenominations} />
+                  <Route exact path="/home/manage-denominations/edit/:id" component={EditDenominations} />
+                
+                  <Route exact path="/home/manage-conversion-rate" component={ManageConversionRate} />
                 </Switch>
               </DisplayScreen>
             </div>
