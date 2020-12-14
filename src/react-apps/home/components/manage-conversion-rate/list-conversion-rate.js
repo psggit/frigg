@@ -96,7 +96,7 @@ class ListConversionRate extends React.Component {
       Api.updateConversionRate({
         product_id: item.product_id,
         conversion_rate: parseInt(item.conversion_rate),
-        is_active: item.is_active ? false : true,
+        is_active: item.is_active === 1 || item.is_active === true ? true : false,
       })
         .then((response) => {
           this.setState({ updatingConversionRate: false })
@@ -208,7 +208,7 @@ class ListConversionRate extends React.Component {
                             disabled={this.state.selectedItem === item.product_id ? false : true}
                           /> */}
                            <SelectField
-                            value={item.is_active === 1 ? 1 : 2}
+                            value={item.is_active === true || item.is_active === 1 ? 1 : 2}
                             onChange={(event, index, value) => {
                               this.handleIsActiveChange(event, index, value, i)
                             }}
