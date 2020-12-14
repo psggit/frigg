@@ -95,7 +95,7 @@ class ListConversionRate extends React.Component {
       this.setState({ updatingConversionRate: true })
       Api.updateConversionRate({
         product_id: item.product_id,
-        conversion_rate: parseInt(item.conversion_rate),
+        conversion_rate: parseFloat(item.conversion_rate),
         is_active: item.is_active === 1 || item.is_active === true ? true : false,
       })
         .then((response) => {
