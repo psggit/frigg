@@ -14,7 +14,7 @@ import '@sass/components/_table.scss'
 import { overrideTableStyle } from '../../../utils'
 import TextField from 'material-ui/TextField'
 import * as Api from "../../middleware/api"
-
+import Notify from "@components/Notification"
 
 const TableHeaderItems = [
   '',
@@ -96,12 +96,16 @@ class ListConversionRate extends React.Component {
       Api.updateConversionRate({
         product_id: item.product_id,
         conversion_rate: parseInt(item.conversion_rate),
-        is_active: item.is_active ? true : false,
+        is_active: item.is_active ? false : true,
       })
         .then((response) => {
           this.setState({ updatingConversionRate: false })
+          Notify(response.message, "success")
         })
         .catch((err) => {
+          err.response.json().then((json) => {
+            Notify(json.message, "warning")
+          })
           this.setState({ updatingConversionRate: false })
         })
     }
