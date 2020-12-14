@@ -126,6 +126,7 @@ class ListConversionRate extends React.Component {
   }
 
   handleIsActiveChange(event, index, value, i){
+    // console.log(value);
     let updatedItem = this.state.conversionList[i];
     updatedItem = {
       ...updatedItem,
@@ -203,7 +204,7 @@ class ListConversionRate extends React.Component {
                             disabled={this.state.selectedItem === item.product_id ? false : true}
                           /> */}
                            <SelectField
-                            value={item.is_active ? 1 : 2}
+                            value={item.is_active === 1 ? 1 : 2}
                             onChange={(event, index, value) => {
                               this.handleIsActiveChange(event, index, value, i)
                             }}
