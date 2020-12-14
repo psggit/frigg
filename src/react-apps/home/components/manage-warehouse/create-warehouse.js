@@ -16,7 +16,7 @@ class CreateWareHouse extends React.Component {
     const warehouseFormData = this.warehouseForm.getData()
     console.log("warehouse form data", warehouseFormData)
     this.setState({ creatingWarehouse: true })
-    Api.createDenomination({
+    Api.createWarehouse({
       name: warehouseFormData.name,
       city_id: parseInt(warehouseFormData.selectedCityIdx),
       //locality_id: parseInt(warehouseFormData.selectedLocalityIdx),
