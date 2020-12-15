@@ -27,7 +27,7 @@ class CartConstraintForm extends React.Component{
       disabledInput: props.data ? props.data.disable : false,
       isReviseDeliveryFee: props.data ? props.data.revise_delivery_fee : false,
       newDeliveryFee: props.data ? props.data.new_delivery_fee : "",
-      cashbackExpiry: props.data ? props.data.cashback_expiry.slice(0, 16) : "",
+      //cashbackExpiry: props.data ? props.data.cashback_expiry.slice(0, 16) : "",
     }
     this.handleTextFieldChange = this.handleTextFieldChange.bind(this)
     this.handleFlatDiscountChange = this.handleFlatDiscountChange.bind(this)
@@ -87,7 +87,7 @@ class CartConstraintForm extends React.Component{
       flat_discount: parseFloat(this.state.flat),
       revise_delivery_fee: (this.state.isReviseDeliveryFee),
       new_delivery_fee: parseFloat(this.state.newDeliveryFee),
-      cashback_expiry: (this.state.cashbackExpiry),
+      //cashback_expiry: (this.state.cashbackExpiry),
     })
   }
 
@@ -166,7 +166,7 @@ class CartConstraintForm extends React.Component{
               disabled={this.state.disabledInput}
             />
           </div>
-          <div className="form-group">
+          {/* <div className="form-group">
             <label className="label">Cashback Expiry</label><br />
             <input
               type="datetime-local"
@@ -185,7 +185,7 @@ class CartConstraintForm extends React.Component{
               required
               name="cashbackExpiry"
             />
-          </div>
+          </div> */}
           
           <div className="form-group">
             <Checkbox
