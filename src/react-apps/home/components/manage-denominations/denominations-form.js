@@ -16,6 +16,10 @@ class DenominationsForm extends React.Component {
       { text: 'true', value: 1 },
       { text: 'false', value: 2 },
     ]
+    // this.qc_den_active_status = [
+    //   { text: 'true', value: 1 },
+    //   { text: 'false', value: 2 },
+    // ]
     this.state = {
       shouldMountDialog: false,
       productName: props.data ? props.data.product_id : "",
@@ -24,6 +28,7 @@ class DenominationsForm extends React.Component {
       hipcoinLimitFlat: props.data ? props.data.hipcoin_limit_flat : 0,
       listingOrder: props.data ? props.data.listing_order : "",
       selectedIsActiveIdx: props.data ? props.data.is_active ? 1 : 2 : 1,
+      //selectedQcDenActiveIdx: props.data ? props.data.qc_den_active_status ? 1 : 2 : 1,
 
       denominationsErr: {
         status: false,
@@ -51,6 +56,7 @@ class DenominationsForm extends React.Component {
     this.handleSave = this.handleSave.bind(this)
     this.handleTextFields = this.handleTextFields.bind(this)
     this.handleIsActiveChange = this.handleIsActiveChange.bind(this)
+   // this.handleQcDenActiveChange = this.handleQcDenActiveChange.bind(this)
     this.mountDialog = this.mountDialog.bind(this)
     this.unmountDialog = this.unmountDialog.bind(this)
     this.addProduct = this.addProduct.bind(this)
@@ -128,11 +134,16 @@ class DenominationsForm extends React.Component {
   }
 
   handleIsActiveChange(e, k) {
-    console.log("isactivechange", this.is_active[k].value)
     this.setState({
       selectedIsActiveIdx: (this.is_active[k].value)
     })
   }
+
+  // handleQcDenActiveChange(e, k) {
+  //   this.setState({
+  //     selectedQcDenActiveIdx: (this.qc_den_active_status[k].value)
+  //   })
+  // }
 
   handleSave() {
     if (this.isFormValid()) {
@@ -268,6 +279,26 @@ class DenominationsForm extends React.Component {
               }
             </SelectField>
           </div>
+          {/* <div className="form-group">
+            <label className="label">Qc Den Active Status</label><br />
+            <SelectField
+              name="is_active"
+              value={this.state.selectedQcDenActiveIdx}
+              onChange={this.handleQcDenActiveChange}
+              style={{ width: '100%' }}
+              disabled={location.pathname.includes("edit")}
+            >
+              {
+                this.qc_den_active_status.map((item, i) => (
+                  <MenuItem
+                    value={parseInt(item.value)}
+                    key={parseInt(item.value)}
+                    primaryText={item.text}
+                  />
+                ))
+              }
+            </SelectField>
+          </div> */}
           <div className="form-group">
             <RaisedButton
               label="Save"
