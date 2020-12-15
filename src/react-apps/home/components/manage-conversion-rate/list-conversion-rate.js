@@ -30,7 +30,7 @@ const TableHeaderItems = [
 const styles = [
   { width: '28px' },
   { width: '80px', wordBreak: 'break-all' },
-  { width: '100%' },
+  { width: '100px', wordBreak: 'break-all' },
   { width: '40px' },
   { width: '40px' },
   { width: '40px' },
