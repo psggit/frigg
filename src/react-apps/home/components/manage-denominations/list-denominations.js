@@ -22,7 +22,7 @@ const TableHeaderItems = [
   'HIPCOIN LIMIT FLAT',
   'LISTING ORDER',
   'STATUS',
-  'ACTIVE STATUS - QC'
+  'QC DENOMINATION ACTIVE STATUS'
 ]
 
 const styles = [
@@ -34,7 +34,7 @@ const styles = [
   { width: '50px' },
   { width: '30px' },
   { width: '30px' },
-  { width: '30px'},
+  { width: '70px'},
 ]
 
 class ListDenominations extends React.Component {
