@@ -22,6 +22,7 @@ class CreateDenominations extends React.Component {
       hipcoin_limit_flat: parseFloat(denominationsFormData.hipcoinLimitFlat),
       listing_order: parseInt(denominationsFormData.listingOrder),
       is_active: denominationsFormData.selectedIsActiveIdx === 1 ? true : false,
+      //qc_den_active_status: denominationsFormData.selectedQcDenActiveIdx === 1 ? true : false,
     })
       .then((response) => {
         this.setState({ creatingDenominations: false })

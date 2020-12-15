@@ -21,7 +21,8 @@ const TableHeaderItems = [
   'HIPCOIN LIMIT PERCENTAGE',
   'HIPCOIN LIMIT FLAT',
   'LISTING ORDER',
-  'STATUS'
+  'STATUS',
+  'ACTIVE STATUS - QC'
 ]
 
 const styles = [
@@ -33,6 +34,7 @@ const styles = [
   { width: '50px' },
   { width: '30px' },
   { width: '30px' },
+  { width: '30px'},
 ]
 
 class ListDenominations extends React.Component {
@@ -102,6 +104,7 @@ class ListDenominations extends React.Component {
                         <TableRowColumn style={styles[5]}>{item.hipcoin_limit_flat}</TableRowColumn>
                         <TableRowColumn style={styles[6]}>{item.listing_order}</TableRowColumn>
                         <TableRowColumn style={styles[7]}>{item.is_active ? "True" : "False"}</TableRowColumn>
+                        <TableRowColumn style={styles[8]}>{item.qc_den_active_status ? "True" : "False"}</TableRowColumn>
                       </TableRow>
                     )
                   })
