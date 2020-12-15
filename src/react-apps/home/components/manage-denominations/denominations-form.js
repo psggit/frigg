@@ -16,10 +16,10 @@ class DenominationsForm extends React.Component {
       { text: 'true', value: 1 },
       { text: 'false', value: 2 },
     ]
-    this.qc_den_active_status = [
-      { text: 'true', value: 1 },
-      { text: 'false', value: 2 },
-    ]
+    // this.qc_den_active_status = [
+    //   { text: 'true', value: 1 },
+    //   { text: 'false', value: 2 },
+    // ]
     this.state = {
       shouldMountDialog: false,
       productName: props.data ? props.data.product_id : "",
