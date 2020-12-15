@@ -27,8 +27,8 @@ const TableHeaderItems = [
 
 const styles = [
   { width: '28px' },
-  { width: '20px' },
-  { width: '40px' },
+  { width: '20px', paddingLeft: '14px', paddingRight: '14px' },
+  { width: '100%' },
   { width: '50px' },
   { width: '50px' },
   { width: '50px' },

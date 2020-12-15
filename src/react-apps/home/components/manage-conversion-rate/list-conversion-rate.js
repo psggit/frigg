@@ -24,18 +24,18 @@ const TableHeaderItems = [
   'MAX PRICE',
   'CONVERSION RATE',
   'STATUS',
-  'QC ACTIVE STATUS'
+  'QC DENOMINATION ACTIVE STATUS'
 ]
 
 const styles = [
   { width: '28px' },
-  { width: '80px' },
-  { width: '80px' },
+  { width: '80px', wordBreak: 'break-all' },
+  { width: '100%' },
   { width: '40px' },
   { width: '40px' },
   { width: '40px' },
   { width: '40px' },
-  { width: '40px' }
+  { width: '40px', wordBreak: 'break-all' }
 ]
 
 class ListConversionRate extends React.Component {
@@ -48,7 +48,6 @@ class ListConversionRate extends React.Component {
       conversionList: [],
       stateMap: {},
       productId: '',
-      updateOnce: false,
     }
     this.updateConversionRate = this.updateConversionRate.bind(this)
   }
@@ -64,13 +63,13 @@ class ListConversionRate extends React.Component {
         item.mode = "edit";
         return item;
       })
-      console.log(newList);
-      this.setState({ conversionList: this.props.conversionRateList, updateOnce: true })
+      // console.log(newList);
+      this.setState({ conversionList: this.props.conversionRateList })
     }
   }
 
   componentDidUpdate(prevProps) {
-    if(prevProps.loadingConversionRate === true && !this.state.updateOnce){
+    if(prevProps.loadingConversionRate === true){
       this.mapStates();
     }
   }
@@ -145,6 +144,7 @@ class ListConversionRate extends React.Component {
 
   render() {
     const { loadingConversionRate, conversionRateList } = this.props
+    console.log("conversionRateList", conversionRateList);
     return (
       <div>
         <Table
