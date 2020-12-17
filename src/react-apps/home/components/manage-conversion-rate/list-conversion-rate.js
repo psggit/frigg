@@ -15,16 +15,21 @@ import { overrideTableStyle } from '../../../utils'
 import TextField from 'material-ui/TextField'
 import * as Api from "../../middleware/api"
 import Notify from "@components/Notification"
+import Switch from "@components/switch"
+import ModalBody from '@components/ModalBox/ModalBody'
+import ModalHeader from '@components/ModalBox/ModalHeader'
+import ModalFooter from '@components/ModalBox/ModalFooter'
+import ModalBox from '@components/ModalBox'
 
 const TableHeaderItems = [
   '',
   'PRODUCT ID',
-  'NAME',
+  'PRODUCT NAME',
   'MIN PRICE',
   'MAX PRICE',
   'CONVERSION RATE',
+  'QC DENOMINATION ACTIVE STATUS',
   'STATUS',
-  'QC DENOMINATION ACTIVE STATUS'
 ]
 
 const styles = [
@@ -48,8 +53,14 @@ class ListConversionRate extends React.Component {
       conversionList: [],
       stateMap: {},
       productId: '',
+      mountDialog: false,
+      activityStatus: false,
     }
     this.updateConversionRate = this.updateConversionRate.bind(this)
+    this.mountDialog = this.mountDialog.bind(this)
+    this.unmountDialog = this.unmountDialog.bind(this)
+    this.setDialogState = this.setDialogState.bind(this)
+    this.onToggleChange = this.onToggleChange.bind(this)
   }
 
   componentDidMount() {
@@ -138,7 +149,33 @@ class ListConversionRate extends React.Component {
     let updatedArray = [...this.state.conversionList];
     updatedArray[i] = updatedItem;
     this.setState({
-      conversionList: updatedArray
+      conversionList: updatedArray,
+      mountDialog: false,
+      activityStatus: true,
+    })
+  }
+
+  mountDialog() {
+    this.setState({
+      mountDialog: true
+    })
+  }
+
+  unmountDialog() {
+    this.setState({
+      mountDialog: false
+    })
+  }
+
+  setDialogState() {
+    this.setState({ mountDialog: false })
+  }
+
+  onToggleChange(item, value) {
+    console.log("hello from toggle", item, value)
+    this.mountDialog()
+    this.setState({
+      activityStatus: value,
     })
   }
 
@@ -199,7 +236,7 @@ class ListConversionRate extends React.Component {
                             disabled={item.mode === "edit" ? true : false}
                           />
                         </TableRowColumn>
-                        <TableRowColumn style={styles[6]}>
+                        {/* <TableRowColumn style={styles[6]}> */}
                           {/* <TextField
                             type="text"
                             name="is_active"
@@ -207,7 +244,7 @@ class ListConversionRate extends React.Component {
                             onChange={(e) => this.handleIsActiveChange(e, i)}
                             disabled={this.state.selectedItem === item.product_id ? false : true}
                           /> */}
-                           <SelectField
+                           {/* <SelectField
                             value={item.is_active === true || item.is_active === 1 ? 1 : 2}
                             onChange={(event, index, value) => {
                               this.handleIsActiveChange(event, index, value, i)
@@ -217,8 +254,11 @@ class ListConversionRate extends React.Component {
                             <MenuItem value={1} primaryText="True" />
                             <MenuItem value={2} primaryText="False" />
                           </SelectField>
-                        </TableRowColumn>
+                        </TableRowColumn> */}
                         <TableRowColumn style={styles[7]}>{item.qc_active_status ? "True" : "False"}</TableRowColumn>
+                        <TableRowColumn style={styles[8]}>
+                          <Switch onToggle={this.onToggleChange} toggled={item.is_active} disabled={item.mode === "edit" ? true : false} value={item} />
+                        </TableRowColumn>
                       </TableRow>
                     )
                   })
@@ -228,6 +268,30 @@ class ListConversionRate extends React.Component {
                     <TableLoadingShell key={index} />
                   ))
                 )
+            }
+            {
+              this.state.mountDialog &&
+              <ModalBox>
+                <ModalHeader>
+                  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <div style={{ fontSize: '18px' }}>{this.state.activityStatus === false ? 'Deactivate' : 'Activate'} Conversion</div>
+                  </div>
+                </ModalHeader>
+                <ModalBody height="60px">
+                  <table className="table--hovered">
+                    <tbody>
+                      Are you sure you want to {this.state.activityStatus === false ? 'Deactivate' : 'Activate'} ?
+                   </tbody>
+                  </table>
+                </ModalBody>
+                <ModalFooter>
+                  <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', fontWeight: '600' }}>
+                    <button className="btn btn-primary" onClick={() => this.handleIsActiveChange()}> Yes </button>
+                    <button className="btn btn-secondary" onClick={() => this.unmountDialog()}> Cancel </button>
+                  </div>
+                </ModalFooter>
+              </ModalBox>
+
             }
           </TableBody>
         </Table>

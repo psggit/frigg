@@ -18,11 +18,11 @@ const TableHeaderItems = [
   'ID',
   'PRODUCT ID',
   'DENOMINATION',
-  'HIPCOIN LIMIT PERCENTAGE',
   'HIPCOIN LIMIT FLAT',
+  'HIPCOIN LIMIT PERCENTAGE',
   'LISTING ORDER',
   'STATUS',
-  'QC DENOMINATION ACTIVE STATUS'
+  'QC VOUCHER ACTIVE STATUS'
 ]
 
 const styles = [
@@ -100,8 +100,8 @@ class ListDenominations extends React.Component {
                         <TableRowColumn style={styles[1]}>{item.id}</TableRowColumn>
                         <TableRowColumn style={styles[2]}>{item.product_id}</TableRowColumn>
                         <TableRowColumn style={styles[3]}>{item.denomination}</TableRowColumn>
-                        <TableRowColumn style={styles[4]}>{item.hipcoin_limit_percentage}</TableRowColumn>
-                        <TableRowColumn style={styles[5]}>{item.hipcoin_limit_flat}</TableRowColumn>
+                        <TableRowColumn style={styles[4]}>{item.hipcoin_limit_flat}</TableRowColumn>
+                        <TableRowColumn style={styles[5]}>{item.hipcoin_limit_percentage}</TableRowColumn>
                         <TableRowColumn style={styles[6]}>{item.listing_order}</TableRowColumn>
                         <TableRowColumn style={styles[7]}>{item.is_active ? "True" : "False"}</TableRowColumn>
                         <TableRowColumn style={styles[8]}>{item.qc_den_active_status ? "True" : "False"}</TableRowColumn>
