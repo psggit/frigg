@@ -139,19 +139,19 @@ class ListConversionRate extends React.Component {
     })
   }
 
-  handleIsActiveChange(event, index, value, i){
-    // console.log(value);
+  handleIsActiveChange(event, index, value, item,i){
+    console.log("handleIsActiveChange", item);
     let updatedItem = this.state.conversionList[i];
     updatedItem = {
       ...updatedItem,
-      is_active: value
+      is_active: this.state.activityStatus
     }
     let updatedArray = [...this.state.conversionList];
     updatedArray[i] = updatedItem;
     this.setState({
       conversionList: updatedArray,
       mountDialog: false,
-      activityStatus: true,
+      activityStatus: true ,
     })
   }
 
@@ -257,7 +257,13 @@ class ListConversionRate extends React.Component {
                         </TableRowColumn> */}
                         <TableRowColumn style={styles[7]}>{item.qc_active_status ? "True" : "False"}</TableRowColumn>
                         <TableRowColumn style={styles[8]}>
-                          <Switch onToggle={this.onToggleChange} toggled={item.is_active} disabled={item.mode === "edit" ? true : false} value={item} />
+                          <Switch onToggle={(event, index, value,item) => {
+                            this.handleIsActiveChange(event,item, index, value, i)
+                          }} 
+                          toggled={item.is_active} 
+                          disabled={item.mode === "edit" ? true : false} 
+                          value={item} 
+                          />
                         </TableRowColumn>
                       </TableRow>
                     )
