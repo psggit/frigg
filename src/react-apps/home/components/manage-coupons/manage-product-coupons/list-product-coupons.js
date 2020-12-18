@@ -33,6 +33,7 @@ const TableHeaderItems = [
   'MAX COUNT',
   'AVAILABLE COUNT',
   'FREQUENCY',
+  'DESTINATION',
   'SIGNUP DATE',
   'STATUS'
 ]
@@ -44,6 +45,7 @@ const styles = [
   { width: '120px' },
   { width: '120px' },
   { width: '120px' },
+  { width: '150px' },
   { width: '150px' },
   { width: '150px' },
   { width: '150px' },
@@ -173,9 +175,10 @@ class ListCoupons extends React.Component {
                         <TableRowColumn style={styles[5]}>{item.max_count}</TableRowColumn>
                         <TableRowColumn style={styles[6]}>{item.available_count}</TableRowColumn>
                         <TableRowColumn style={styles[7]}>{item.frequency}</TableRowColumn>
-                        <TableRowColumn style={styles[8]}>{Moment(item.sign_up_date) ? Moment(item.sign_up_date).format("DD-MM-YYYY h:mm a") : ""}</TableRowColumn>
+                        <TableRowColumn style={styles[8]}>{item.destination}</TableRowColumn>
+                        <TableRowColumn style={styles[9]}>{Moment(item.sign_up_date) ? Moment(item.sign_up_date).format("DD-MM-YYYY h:mm a") : ""}</TableRowColumn>
 
-                        <TableRowColumn style={styles[9]}>
+                        <TableRowColumn style={styles[10]}>
                           <Switch onToggle={this.onToggleChange} toggled={item.is_active} value={item} />
                         </TableRowColumn>
                       </TableRow>
