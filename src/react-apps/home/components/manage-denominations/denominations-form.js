@@ -177,7 +177,7 @@ class DenominationsForm extends React.Component {
           <h4 style={{ margin: '0', marginBottom: '40px' }}>Enter denomination details</h4>
           <div className="form-group">
             <RaisedButton
-              label="Add Product Name"
+              label="Add Denomination"
               primary
               onClick={this.mountDialog}
               disabled={location.pathname.includes("edit")}
@@ -219,20 +219,6 @@ class DenominationsForm extends React.Component {
             }
           </div>
           <div className="form-group">
-            <label className="label">HipCoin Limit Percent</label><br />
-            <TextField
-              onChange={this.handleTextFields}
-              name="hipcoinLimitPercent"
-              value={this.state.hipcoinLimitPercent}
-              style={{ width: '100%' }}
-              autoComplete="off"
-            />
-            {
-              hipcoinLimitPercentErr.status &&
-              <p className="error-message">* {hipcoinLimitPercentErr.value}</p>
-            }
-          </div>
-          <div className="form-group">
             <label className="label">HipCoin Limit Flat</label><br />
             <TextField
               onChange={this.handleTextFields}
@@ -244,6 +230,20 @@ class DenominationsForm extends React.Component {
             {
               hipcoinLimitFlatErr.status &&
               <p className="error-message">* {hipcoinLimitFlatErr.value}</p>
+            }
+          </div>
+          <div className="form-group">
+            <label className="label">HipCoin Limit Percent</label><br />
+            <TextField
+              onChange={this.handleTextFields}
+              name="hipcoinLimitPercent"
+              value={this.state.hipcoinLimitPercent}
+              style={{ width: '100%' }}
+              autoComplete="off"
+            />
+            {
+              hipcoinLimitPercentErr.status &&
+              <p className="error-message">* {hipcoinLimitPercentErr.value}</p>
             }
           </div>
           <div className="form-group">
