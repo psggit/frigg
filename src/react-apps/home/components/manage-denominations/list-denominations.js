@@ -22,7 +22,7 @@ const TableHeaderItems = [
   'HIPCOIN LIMIT PERCENTAGE',
   'LISTING ORDER',
   'STATUS',
-  'QC VOUCHER ACTIVE STATUS'
+  'QC DENOMINATION ACTIVE STATUS'
 ]
 
 const styles = [

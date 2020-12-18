@@ -60,7 +60,7 @@ class AddProductDialog extends React.Component {
     return (
       <div>
         <Dialog
-          title="Add Product"
+          title="Add Denomination"
           actions={actions}
           modal={false}
           open={this.state.open}

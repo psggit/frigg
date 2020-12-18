@@ -28,7 +28,7 @@ const TableHeaderItems = [
   'MIN PRICE',
   'MAX PRICE',
   'CONVERSION RATE',
-  'QC DENOMINATION ACTIVE STATUS',
+  'QC VOUCHER ACTIVE STATUS',
   'STATUS',
 ]
 
