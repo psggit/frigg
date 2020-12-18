@@ -214,12 +214,10 @@ class ListCoupons extends React.Component {
                   </div>
                 </ModalFooter>
               </ModalBox>
-
             }
           </TableBody>
         </Table>
       </div>
-
     )
   }
 }
