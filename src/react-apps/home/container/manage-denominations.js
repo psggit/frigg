@@ -90,7 +90,7 @@ class ManageDenominations extends React.Component {
           <div>
             <NavLink to={`/home/manage-denominations/create`}>
               <RaisedButton
-                label="Create Demoninations"
+                label="Create Denominations"
                 primary
               />
             </NavLink>
