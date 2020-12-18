@@ -62,7 +62,7 @@ class EditProductCoupons extends React.Component {
       pay_by_wallet: couponDetails.payByWallet,
       store_pickup: couponDetails.storePickup,
       delivery: couponDetails.delivery,
-      destination: couponDetails.selectedDestinationIdx === 1 ? "UPI" : "UPI",
+      destination: couponDetails.selectedDestinationIdx === 1 ? "UPI" : "hipcoin",
       is_unlimited: couponDetails.isUnlimited,
       listing_order: parseInt(couponDetails.listingOrder),
       is_consumer_specific: couponDetails.isConsumerSpecific,

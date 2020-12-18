@@ -114,7 +114,7 @@ class CreateProductCoupon extends React.Component {
       consumer_list: productCouponData.consumerList ? productCouponData.consumerList.trim().split(",").map((consumerId) => parseInt(consumerId)) : [],
       //new_delivery_fee: parseFloat(productCouponData.newDeliveryFee),
       retailer_list: productCouponData.retailerList,
-      destination: productCouponData.selectedDestinationIdx === 1 ? "UPI" : "UPI",
+      destination: productCouponData.selectedDestinationIdx === 1 ? "UPI" : "hipcoin",
       // destination: productCouponData.selectedDestinationIdx === 1 ? "UPI" : "hipcoin",
       listing_order: parseInt(productCouponData.listingOrder),
       long_html_desc: productCouponData.longHtmlDesc,
