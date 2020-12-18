@@ -34,13 +34,13 @@ const TableHeaderItems = [
 
 const styles = [
   { width: '28px' },
-  { width: '80px', wordBreak: 'break-all' },
-  { width: '100px', wordBreak: 'break-all' },
+  { width: '80px' },
+  { width: '100px' },
+  { width: '60px' },
+  { width: '60px' },
+  { width: '60px' },
+  { width: '90px' },
   { width: '40px' },
-  { width: '40px' },
-  { width: '40px' },
-  { width: '40px' },
-  { width: '40px', wordBreak: 'break-all' }
 ]
 
 class ListConversionRate extends React.Component {
@@ -60,7 +60,6 @@ class ListConversionRate extends React.Component {
     this.mountDialog = this.mountDialog.bind(this)
     this.unmountDialog = this.unmountDialog.bind(this)
     this.setDialogState = this.setDialogState.bind(this)
-    this.onToggleChange = this.onToggleChange.bind(this)
   }
 
   componentDidMount() {
@@ -139,19 +138,18 @@ class ListConversionRate extends React.Component {
     })
   }
 
-  handleIsActiveChange(event, index, value, item,i){
-    console.log("handleIsActiveChange", item);
+  handleIsActiveChange(e, isActive,i) {
     let updatedItem = this.state.conversionList[i];
     updatedItem = {
       ...updatedItem,
-      is_active: this.state.activityStatus
+      is_active: !isActive
     }
     let updatedArray = [...this.state.conversionList];
     updatedArray[i] = updatedItem;
     this.setState({
       conversionList: updatedArray,
-      mountDialog: false,
-      activityStatus: true ,
+      mountDialog: true,
+      activityStatus: !isActive
     })
   }
 
@@ -169,14 +167,6 @@ class ListConversionRate extends React.Component {
 
   setDialogState() {
     this.setState({ mountDialog: false })
-  }
-
-  onToggleChange(item, value) {
-    console.log("hello from toggle", item, value)
-    this.mountDialog()
-    this.setState({
-      activityStatus: value,
-    })
   }
 
   render() {
@@ -236,30 +226,10 @@ class ListConversionRate extends React.Component {
                             disabled={item.mode === "edit" ? true : false}
                           />
                         </TableRowColumn>
-                        {/* <TableRowColumn style={styles[6]}> */}
-                          {/* <TextField
-                            type="text"
-                            name="is_active"
-                            value={item.is_active ? "True" : "False"}
-                            onChange={(e) => this.handleIsActiveChange(e, i)}
-                            disabled={this.state.selectedItem === item.product_id ? false : true}
-                          /> */}
-                           {/* <SelectField
-                            value={item.is_active === true || item.is_active === 1 ? 1 : 2}
-                            onChange={(event, index, value) => {
-                              this.handleIsActiveChange(event, index, value, i)
-                            }}
-                            disabled={item.mode === "edit" ? true : false}
-                          >
-                            <MenuItem value={1} primaryText="True" />
-                            <MenuItem value={2} primaryText="False" />
-                          </SelectField>
-                        </TableRowColumn> */}
-                        <TableRowColumn style={styles[7]}>{item.qc_active_status ? "True" : "False"}</TableRowColumn>
-                        <TableRowColumn style={styles[8]}>
-                          <Switch onToggle={(event, index, value,item) => {
-                            this.handleIsActiveChange(event,item, index, value, i)
-                          }} 
+                        <TableRowColumn style={styles[6]}>{item.qc_active_status ? "True" : "False"}</TableRowColumn>
+                        <TableRowColumn style={styles[7]}>
+                          <Switch
+                          onToggle={(e) => this.handleIsActiveChange(e, item.is_active,i)}
                           toggled={item.is_active} 
                           disabled={item.mode === "edit" ? true : false} 
                           value={item} 
@@ -292,7 +262,7 @@ class ListConversionRate extends React.Component {
                 </ModalBody>
                 <ModalFooter>
                   <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', fontWeight: '600' }}>
-                    <button className="btn btn-primary" onClick={() => this.handleIsActiveChange()}> Yes </button>
+                    <button className="btn btn-primary" onClick={() => this.unmountDialog()}> Yes </button>
                     <button className="btn btn-secondary" onClick={() => this.unmountDialog()}> Cancel </button>
                   </div>
                 </ModalFooter>
