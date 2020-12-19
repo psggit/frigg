@@ -2208,7 +2208,7 @@ export const fetchStories = payload => (
 
 export const triggerRefund = payload => (
   POST({
-    api: '/supportman/api/1/deliveryrefund/bulk',
+    api: '/supportman/api/1/refund/delivery/bulk',
     apiBase: 'apiUrl',
     data: payload,
     handleError: true
