@@ -103,6 +103,7 @@ class CreateProductCoupon extends React.Component {
       // app: productCouponData.selectedAppIdx === 1 ? "drinks" : "fk-web",
       hipbar_drinks: productCouponData.drinks,
       fk_web: productCouponData.fkWeb,
+      show_when_applicable: productCouponData.showWhenApplicable,
       city_list: productCouponData.cityList ? productCouponData.cityList.trim().split(",").map((cityId) => parseInt(cityId)) : [],
       limit_per_user: parseInt(productCouponData.limitPerUser),
       consider_sign_up: productCouponData.considerSignUp,
