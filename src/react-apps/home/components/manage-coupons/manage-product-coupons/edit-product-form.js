@@ -59,6 +59,7 @@ class EditProductCoupons extends React.Component {
       // app: couponDetails.selectedAppIdx === 1 ? "drinks" : "fk-web",
       hipbar_drinks: couponDetails.drinks,
       fk_web: couponDetails.fkWeb,
+      show_when_applicable: couponDetails.showWhenApplicable,
       pay_by_wallet: couponDetails.payByWallet,
       store_pickup: couponDetails.storePickup,
       delivery: couponDetails.delivery,
