@@ -65,9 +65,9 @@ class ViewCity extends React.Component {
   }
 
   unmountDialog() {
-    // this.setState({
-    //   delete: false
-    // })
+    this.setState({
+      delete: false
+    })
     this.setState({
       mountDialog: false
     })
