@@ -10,13 +10,19 @@ import LocalityDetailsForm from './locality-details-form'
 import DefineLocality from './../manage-geofencing/define-locality'
 import IfElse from '@components/declarative-if-else'
 import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card'
+import ModalBody from '@components/ModalBox/ModalBody'
+import ModalHeader from '@components/ModalBox/ModalHeader'
+import ModalFooter from '@components/ModalBox/ModalFooter'
+import ModalBox from '@components/ModalBox'
 
 class ViewCity extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       isEdit: false,
-      isDisabled: false
+      isDisabled: false,
+      mountDialog: false,
+      delete: false,
     }
 
     this.enableEditMode = this.enableEditMode.bind(this)
@@ -24,6 +30,12 @@ class ViewCity extends React.Component {
     this.update = this.update.bind(this)
     this.callbackUpdate = this.callbackUpdate.bind(this)
     this.clearGeoLocality = this.clearGeoLocality.bind(this)
+    this.mountDialog = this.mountDialog.bind(this)
+    this.unmountDialog = this.unmountDialog.bind(this)
+    this.handleDelete = this.handleDelete.bind(this)
+    this.handleYes = this.handleYes.bind(this)
+    //this.deleteLocality = this.deleteLocality.bind(this)
+    this.handleNo = this.handleNo.bind(this)
   }
 
   componentDidMount() {
@@ -46,6 +58,42 @@ class ViewCity extends React.Component {
     })
   }
 
+  mountDialog() {
+    this.setState({
+      mountDialog: true
+    })
+  }
+
+  unmountDialog() {
+    // this.setState({
+    //   delete: false
+    // })
+    this.setState({
+      mountDialog: false
+    })
+  }
+
+   handleDelete(){
+     this.setState({
+       delete: true
+     })
+     this.setState({
+       mountDialog: true
+     })
+  }
+
+  handleNo(){
+    this.unmountDialog()
+    this.update()
+  }
+
+  handleYes(){
+    this.unmountDialog()
+    if(this.state.delete === true){
+      this.update()
+    }
+  }
+
   update() {
     const { cityDetails } = this.props
     const { isCityActive, cityName, queryObj } = this.state
@@ -59,7 +107,8 @@ class ViewCity extends React.Component {
       name: data.localityName || this.localityName,
       is_available: data.isLocalityActive,
       max_dorders_per_batch: parseInt(data.maxDeliveryOrderPerBatch),
-      consider_locality_order_limit: data.considerLocalityOrderlimit
+      consider_locality_order_limit: data.considerLocalityOrderlimit,
+      is_deleted: this.state.delete
     }, this.callbackUpdate)
   }
 
@@ -111,6 +160,7 @@ class ViewCity extends React.Component {
         this.localityCoordinates = selectedLocality.coordinates
         this.considerLocalityOrderlimit = selectedLocality.consider_locality_order_limit
         this.maxDeliveryOrderPerBatch = selectedLocality.max_dorders_per_batch
+        //this.state.delete = selectedLocality.delete
       }
     }
 
@@ -138,6 +188,12 @@ class ViewCity extends React.Component {
               />
 
             </IfElse>
+            <RaisedButton
+              primary
+              label="Delete"
+              onClick={this.handleDelete}
+              style={{ marginBottom: '40px', marginLeft: "20px" }}
+            />
             <div
               style={{
                 width: '30%',
@@ -226,6 +282,24 @@ class ViewCity extends React.Component {
           </div>
           <div>loading..</div>
         </IfElse>
+        {
+          this.state.mountDialog &&
+          <ModalBox>
+            <ModalBody height="60px">
+              <table className="table--hovered">
+                <tbody>
+                  Are you sure you want to delete the location?
+                </tbody>
+              </table>
+            </ModalBody>
+            <ModalFooter>
+              <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', fontWeight: '600' }}>
+                <button className="btn btn-primary" onClick={this.handleYes}> Yes </button>
+                <button className="btn btn-secondary" onClick={this.unmountDialog}> No </button>
+              </div>
+            </ModalFooter>
+          </ModalBox>
+        }
       </div>
     )
   }
