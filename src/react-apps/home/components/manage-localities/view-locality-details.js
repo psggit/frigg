@@ -34,6 +34,8 @@ class ViewCity extends React.Component {
     this.unmountDialog = this.unmountDialog.bind(this)
     this.handleDelete = this.handleDelete.bind(this)
     this.handleYes = this.handleYes.bind(this)
+    //this.deleteLocality = this.deleteLocality.bind(this)
+    this.handleNo = this.handleNo.bind(this)
   }
 
   componentDidMount() {
@@ -64,21 +66,32 @@ class ViewCity extends React.Component {
 
   unmountDialog() {
     this.setState({
+      delete: false
+    })
+    this.setState({
       mountDialog: false
     })
   }
 
    handleDelete(){
      this.setState({
+       delete: true
+     })
+     this.setState({
        mountDialog: true
      })
   }
 
-  handleYes(){
-    this.setState({
-      delete: true
-    })
+  handleNo(){
     this.unmountDialog()
+    this.update()
+  }
+
+  handleYes(){
+    this.unmountDialog()
+    if(this.state.delete === true){
+      this.update()
+    }
   }
 
   update() {
@@ -175,15 +188,12 @@ class ViewCity extends React.Component {
               />
 
             </IfElse>
-            {
-              this.state.isEdit &&
-              <RaisedButton
-                primary
-                label="Delete"
-                onClick={this.handleDelete}
-                style={{ marginBottom: '40px', marginLeft: "30px" }}
-              />
-            }
+            <RaisedButton
+              primary
+              label="Delete"
+              onClick={this.handleDelete}
+              style={{ marginBottom: '40px', marginLeft: "20px" }}
+            />
             <div
               style={{
                 width: '30%',
