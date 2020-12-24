@@ -181,7 +181,7 @@ class ViewCity extends React.Component {
                 primary
                 label="Delete"
                 onClick={this.handleDelete}
-                style={{ marginBottom: '40px', marginLeft: "165px" }}
+                style={{ marginBottom: '40px', marginLeft: "30px" }}
               />
             }
             <div
