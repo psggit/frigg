@@ -20,7 +20,7 @@ import '@sass/components/_table.scss'
 
 const TableHeaderItems = [
   'ID',
-  'PRODUCT NAME',
+  'NAME',
   ''
 ]
 

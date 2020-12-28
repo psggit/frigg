@@ -38,7 +38,8 @@ class CartForm extends React.Component {
       // selectedAppIdx: props.data ? props.data.app === "drinks" ? 1 : 2 : 1,
       drinks: props.data ? props.data.hipbar_drinks : false,
       fkWeb: props.data ? props.data.fk_web : false,
-      selectedDestinationIdx: props.data ? props.data.destination === "UPI" ? 1 : 1 : 1,
+      showWhenApplicable: props.data ? props.data.list_only_when_applicable : true,
+      selectedDestinationIdx: props.data ? props.data.destination === "UPI" ? 1 : 2 : 1,
       shortDesc: props.data ? props.data.short_desc : "",
       longDesc: props.data ? props.data.long_desc : "",
       longHtmlDesc: props.data ? props.data.long_html_desc : "",
@@ -50,7 +51,7 @@ class CartForm extends React.Component {
 
     this.destination = [
       { text: 'UPI', value: 1 },
-      // { text: 'hipcoin', value: 2 },
+      { text: 'hipcoin', value: 2 },
     ]
 
     // this.app = [
@@ -255,6 +256,16 @@ class CartForm extends React.Component {
             label="Fk-web"
             name="fkWeb"
             checked={this.state.fkWeb}
+            onCheck={this.handleCheckboxChange}
+          />
+        </div>
+
+        <div className="form-group">
+          <Checkbox
+            style={{ marginTop: "10px" }}
+            label="List when applicable"
+            name="showWhenApplicable"
+            checked={this.state.showWhenApplicable}
             onCheck={this.handleCheckboxChange}
           />
         </div>

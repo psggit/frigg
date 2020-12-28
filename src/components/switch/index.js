@@ -15,7 +15,7 @@ class Switch2 extends React.Component {
   render () {
     return (
       <div>
-        <Toggle toggled={this.props.toggled} onToggle={(e, isInputChecked) => this.onToggle(e, isInputChecked)} />
+        <Toggle toggled={this.props.toggled}disabled={this.props.disabled} onToggle={(e, isInputChecked) => this.onToggle(e, isInputChecked)} />
       </div>
     )
   }
