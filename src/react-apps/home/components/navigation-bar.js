@@ -147,6 +147,8 @@ class NavigationBar extends React.Component {
       },
       { name: 'Reports', path: '/home/manage-reports', id: 34, nestedItems: [] },
 
+      { name: 'Refund Management', path: '/home/manage-refund', id: 49, nestedItems: [] },
+
       { name: 'Gift Reconciliation', path: '/home/manage-gift-reconciliation', id: 36, nestedItems: [] },
 
       { name: 'Reward Coupons', path: '/home/manage-reward-coupons', id: 35, nestedItems: [] },
