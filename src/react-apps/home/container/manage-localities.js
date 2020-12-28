@@ -97,11 +97,12 @@ class ManageLocalities extends React.Component {
     })
 
     this.props.actions.fetchLocalities({
-      city_id: parseInt(queryObj.cityId) || null,
+      city_id: null,
       is_available: queryObj.isLocalityAvailable || false,
       offset: parseInt(queryObj.offset),
       limit: 10,
-      no_filter: queryObj.filter ? false : true
+      no_filter: queryObj.filter ? false : true,
+      state_short_name: queryObj.stateShortName || ""
     })
   }
 
@@ -112,7 +113,8 @@ class ManageLocalities extends React.Component {
 
     this.setState(pageObj)
     this.props.actions.fetchLocalities({
-      city_id: parseInt(queryObj.cityId) || null,
+      // city_id: parseInt(queryObj.cityId) || null,
+      city_id: null,
       is_available: queryObj.isLocalityAvailable || false,
       offset: pageObj.offset,
       limit: pageObj.offset + 10,
@@ -168,7 +170,7 @@ class ManageLocalities extends React.Component {
       stateShortName: this.filter.stateShortName,
       cityId: this.filter.cityId,
       stateName: this.filter.stateName,
-      isLocalityAvailable: isLocalityAvailable,
+      isLocalityAvailable: this.filter.isLocalityAvailable,
       offset: 0,
       activePage: 1,
       filter: true
@@ -186,11 +188,12 @@ class ManageLocalities extends React.Component {
     history.pushState(queryObj, "city listing", `/home/manage-localities?${getQueryUri(queryObj)}`)
 
     this.props.actions.fetchLocalities({
-      city_id: queryObj.cityId,
-      is_available: queryObj.isLocalityAvailable,
+      city_id: null,
+      is_available: this.filter.isLocalityAvailable,
       offset: 0,
       limit: 10,
-      no_filter: false
+      no_filter: false,
+      state_short_name: queryObj.stateShortName,
     })
   }
 
