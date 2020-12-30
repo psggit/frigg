@@ -218,6 +218,30 @@ class FilterModal extends React.Component {
                   }
                 </SelectField>
               </div>
+                   <div className="form-group">
+                <label>City</label><br />
+                <SelectField
+                  style={{ width: '100%' }}
+                  floatingLabelText="Choose city"
+                  disabled={this.props.loadingCities || !this.props.citiesData.length}
+                  value={parseInt(this.state.cityIdx)}
+                  onChange={this.handleCityChange}
+                >
+                  {
+                    !this.props.loadingCities && this.props.citiesData.length
+                      ? (
+                        this.props.citiesData.map((city, i) => (
+                          <MenuItem
+                            value={i + 1}
+                            key={city.id}
+                            primaryText={city.name}
+                          />
+                        ))
+                      )
+                      : ''
+                  }
+                </SelectField>
+              </div>
               <div className="form-group">
                 <Checkbox
                   style={{ marginTop: '10px' }}
