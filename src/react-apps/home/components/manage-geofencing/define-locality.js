@@ -300,6 +300,8 @@ class DefineLocality extends React.Component {
   }
 
   handleMapCreation(map) {
+    console.clear();
+    console.log("handleMapCreation", this.props);
     const { geoLocalitiesData, localityId, cityId, loadingGeolocalities } = this.props
     let localities, editableLocality, polygonsToRender;
   

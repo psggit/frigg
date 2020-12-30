@@ -115,6 +115,7 @@ class FilterModal extends React.Component {
 
   handleChangeIsLocalityAvailable(e) {
     this.setState({ isLocalityAvailable: e.target.checked })
+    this.props.handleChangeIsLocalityAvailable ? this.props.handleChangeIsLocalityAvailable(e) : {}
   }
 
   handleChangeIsCityAvailable(e) {
