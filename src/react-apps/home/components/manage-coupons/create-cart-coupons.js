@@ -50,7 +50,9 @@ class CreateCartCoupon extends React.Component {
       cartConstraint.percentage_discount = cartConstraintData.percent ? parseFloat(cartConstraintData.percent) : 0.0
       cartConstraint.revise_delivery_fee = cartConstraintData.isReviseDeliveryFee ? cartConstraintData.isReviseDeliveryFee : false
       cartConstraint.new_delivery_fee = cartConstraintData.newDeliveryFee ? parseFloat(cartConstraintData.newDeliveryFee) : 0.0
-      cartConstraint.cashback_expiry = cartConstraintData.cashbackExpiry ? cartConstraintData.cashbackExpiry : "",
+      // cartConstraint.cashback_expiry = cartConstraintData.cashbackExpiry ? cartConstraintData.cashbackExpiry : "",
+      cartConstraint.cashback_expiry = cartConstraintData.cashbackExpiry === "" ? null : cartConstraintData.cashbackExpiry,
+
       cartConstraint.disable = true
 
       //console.log("handle add1", [...this.state.cartConstraints, cartConstraint])

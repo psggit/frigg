@@ -76,7 +76,8 @@ class CreateProductCoupon extends React.Component {
     productConstraint.flat_discount = productConstraintData.flat ? parseFloat(productConstraintData.flat) : 0.0,
     productConstraint.revise_delivery_fee = productConstraintData.isReviseDeliveryFee ? productConstraintData.isReviseDeliveryFee : false
     productConstraint.new_delivery_fee = productConstraintData.newDeliveryFee ? parseFloat(productConstraintData.newDeliveryFee) : 0.0
-    productConstraint.cashback_expiry = productConstraintData.cashbackExpiry ? productConstraintData.cashbackExpiry : "",
+    // productConstraint.cashback_expiry = productConstraintData.cashbackExpiry ? productConstraintData.cashbackExpiry : null,
+    productConstraint.cashback_expiry = productConstraintData.cashbackExpiry === "" ? null : productConstraintData.cashbackExpiry,
     productConstraint.disable = true
     
     //console.log("constarint", cartConstraint, "data", [...this.state.cartConstraints, cartConstraint])

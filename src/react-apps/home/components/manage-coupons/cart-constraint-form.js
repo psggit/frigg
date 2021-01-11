@@ -27,7 +27,9 @@ class CartConstraintForm extends React.Component{
       disabledInput: props.data ? props.data.disable : false,
       isReviseDeliveryFee: props.data ? props.data.revise_delivery_fee : false,
       newDeliveryFee: props.data ? props.data.new_delivery_fee : "",
-      cashbackExpiry: props.data ? props.data.cashback_expiry.slice(0, 16) : "",
+      //cashbackExpiry: props.data ? props.data.cashback_expiry.slice(0, 16) : "",
+      cashbackExpiry: props.data ? props.data.cashback_expiry !== null ? props.data.cashback_expiry.slice(0, 16) : null : null,
+
     }
     this.handleTextFieldChange = this.handleTextFieldChange.bind(this)
     this.handleFlatDiscountChange = this.handleFlatDiscountChange.bind(this)

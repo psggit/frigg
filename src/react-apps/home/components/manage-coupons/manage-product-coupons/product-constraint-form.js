@@ -24,7 +24,8 @@ class ProductConstraintForm extends React.Component {
       disabledInput: props.data ? props.data.disable : false,
       isReviseDeliveryFee: props.data ? props.data.revise_delivery_fee : false,
       newDeliveryFee: props.data ? props.data.new_delivery_fee : 0,
-      cashbackExpiry: props.data ? props.data.cashback_expiry.slice(0, 16) : "",
+      // cashbackExpiry: props.data ? props.data.cashback_expiry.slice(0, 16) : "",
+      cashbackExpiry: props.data ? props.data.cashback_expiry !== null ? props.data.cashback_expiry.slice(0, 16) : null : null ,
     }
     this.handleTextFieldChange = this.handleTextFieldChange.bind(this)
     this.getData = this.getData.bind(this)
