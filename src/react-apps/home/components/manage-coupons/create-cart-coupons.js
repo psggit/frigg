@@ -53,7 +53,6 @@ class CreateCartCoupon extends React.Component {
       cartConstraint.disable = true
 
       //console.log("handle add1", [...this.state.cartConstraints, cartConstraint])
-
       const updatedCartConstraint = [...this.state.cartConstraints, cartConstraint]
 
       const defaultConstraint = {
