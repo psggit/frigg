@@ -16,6 +16,8 @@ class CityFeeForm extends React.Component {
       { text: 'fk-web', value: 2 },
     ]
     this.state = {
+      error: {},
+      id: props.data ? props.data.id : "",
       selectedOrderTypeIdx: props.data ? props.data.order_type : "",
       orderTypeList: [],
       selectedChargeTypeIdx: props.data ? props.data.charge_type : "",
@@ -25,6 +27,10 @@ class CityFeeForm extends React.Component {
       percentage: props.data ? props.data.txn_fee_percentage : 0,
       min: props.data ? props.data.min_value : 0,
       max: props.data ? props.data.max_value : 0,
+      startTime: props.data ? props.data.start_time.substring(11, 19) : "00:00:00",
+      endTime: props.data ? props.data.end_time.substring(11, 19) : "23:59:59",
+      minCartValue: props.data ? props.data.cart_min : 0,
+      maxCartValue: props.data ? props.data.cart_max : 0,
       selectedPlatformIdx: props.data ? this.platform.find(item => (item.text).toLowerCase() === (props.data.platform).toLowerCase()).value : 1,
     }
 
@@ -36,8 +42,11 @@ class CityFeeForm extends React.Component {
     this.fetchOrderTypes = this.fetchOrderTypes.bind(this)
     this.fetchChargeTypes = this.fetchChargeTypes.bind(this)
     this.handleFlatChange = this.handleFlatChange.bind(this)
+    this.handleNumberChange = this.handleNumberChange.bind(this)
     this.handlePercentageChange = this.handlePercentageChange.bind(this)
     this.handlePlatformChange = this.handlePlatformChange.bind(this)
+    this.handleTimeChange = this.handleTimeChange.bind(this)
+    this.isFormValid = this.isFormValid.bind(this)
   }
 
   componentDidMount () {
@@ -78,7 +87,28 @@ class CityFeeForm extends React.Component {
   }
 
   handleTextFields (e) {
+    const errName = `${e.target.name}Status`
+    this.setState({
+      error: {
+        value: "",
+        [errName]: false
+      }
+    })
     this.setState({ [e.target.name]: e.target.value })
+  }
+
+  handleNumberChange (e) {
+    const regex = /^[0-9.\b]*$/;
+    const errName = `${e.target.name}Status`
+    this.setState({
+      error: {
+        value: "",
+        [errName]: false
+      }
+    })
+    if (regex.test(e.target.value)) {
+      this.setState({ [e.target.name]: e.target.value })
+    }
   }
 
   handleOrderTypeChange (e, k) {
@@ -98,10 +128,18 @@ class CityFeeForm extends React.Component {
   }
 
   handleSave () {
-    this.props.handleSave()
+    if (this.isFormValid())
+      this.props.handleSave()
   }
 
   handleFlatChange (e) {
+    const errName = `${e.target.name}Status`
+    this.setState({
+      error: {
+        value: "",
+        [errName]: false
+      }
+    })
     if(parseInt(this.state.percentage) === 0) {
       this.setState({
         [e.target.name]: e.target.value
@@ -110,6 +148,13 @@ class CityFeeForm extends React.Component {
   }
 
   handlePercentageChange (e) {
+    const errName = `${e.target.name}Status`
+    this.setState({
+      error: {
+        value: "",
+        [errName]: false
+      }
+    })
     if (parseInt(this.state.flat) === 0) {
       this.setState({
         [e.target.name]: e.target.value
@@ -117,6 +162,104 @@ class CityFeeForm extends React.Component {
     }
   }
 
+  handleTimeChange(e) {
+    const errName = `${e.target.name}Status`
+    this.setState({
+      error: {
+        value: "",
+        [errName]: false
+      }
+    })
+    this.setState({ [e.target.name]: e.target.value })
+  }
+
+  isFormValid() {
+    if (this.state.title.toString().length === 0) {
+      this.setState(prevState => ({
+        error: {                
+          ...prevState.error,
+          value: "Title is required",
+          titleStatus: true
+        }
+      }))
+      return false
+    } else if (this.state.flat.toString().length === 0) {
+      this.setState(prevState => ({
+        error: {
+          ...prevState.error,
+          value: "Flat is required",
+          flatStatus: true
+        }
+      }))
+      return false
+    } else if (this.state.percentage.toString().length === 0) {
+      this.setState(prevState => ({
+        error: {
+          ...prevState.error,
+          value: "Percent is required",
+          percentageStatus: true
+        }
+      }))
+      return false
+    } else if (this.state.min.toString().length === 0) {
+        this.setState(prevState => ({
+          error: {
+            ...prevState.error,
+            value: "Min is required",
+            minStatus: true
+          }
+        }))
+        return false
+    } else if (this.state.max.toString().length === 0) {
+      this.setState(prevState => ({
+        error: {
+          ...prevState.error,
+          value: "Max is required",
+          maxStatus: true
+        }
+      }))
+      return false
+    } else if (this.state.minCartValue.toString().length === 0) {
+      this.setState(prevState => ({
+        error: {
+          ...prevState.error,
+          value: "Min Cart Value is required",
+          minCartValueStatus: true
+        }
+      }))
+      return false
+    } else if (this.state.maxCartValue.toString().length === 0) {
+      this.setState(prevState => ({
+        error: {
+          ...prevState.error,
+          value: "Max Cart Value is required",
+          maxCartValueStatus: true
+        }
+      }))
+      return false
+    } else if (this.state.startTime.toString().length === 0) {
+      this.setState(prevState => ({
+        error: {
+          ...prevState.error,
+          value: "Start Time is required",
+          startTimeStatus: true
+        }
+      }))
+      return false
+    } else if (this.state.endTime.toString().length === 0) {
+      console.log("etime", this.state.startTime)
+      this.setState(prevState => ({
+        error: {
+          ...prevState.error,
+          value: "End Time is required",
+          endTimeStatus: true
+        }
+      }))
+      return false
+    }
+    return true
+  }
+  
   render () {
     return (
       <React.Fragment>
@@ -188,6 +331,10 @@ class CityFeeForm extends React.Component {
                 value={this.state.title}
                 style={{ width: '100%' }}
               />
+              {
+                this.state.error.titleStatus &&
+                <p className="error-message">* {this.state.error.value}</p>
+              }
             </div>
 
             <div className="form-group">
@@ -198,6 +345,10 @@ class CityFeeForm extends React.Component {
                 value={this.state.flat}
                 style={{ width: '100%' }}
               />
+              {
+                this.state.error.flatStatus &&
+                <p className="error-message">* {this.state.error.value}</p>
+              }
             </div>
 
             <div className="form-group">
@@ -208,6 +359,10 @@ class CityFeeForm extends React.Component {
                 value={this.state.percentage}
                 style={{ width: '100%' }}
               />
+              {
+                this.state.error.percentageStatus &&
+                <p className="error-message">* {this.state.error.value}</p>
+              }
             </div>
 
             <div className="form-group">
@@ -218,6 +373,10 @@ class CityFeeForm extends React.Component {
                 value={this.state.min}
                 style={{ width: '100%' }}
               />
+              {
+                this.state.error.minStatus &&
+                <p className="error-message">* {this.state.error.value}</p>
+              }
             </div>
 
             <div className="form-group">
@@ -228,6 +387,10 @@ class CityFeeForm extends React.Component {
                 value={this.state.max}
                 style={{ width: '100%' }}
               />
+              {
+                this.state.error.maxStatus &&
+                <p className="error-message">* {this.state.error.value}</p>
+              }
             </div>
 
             <div className="form-group">
@@ -248,6 +411,81 @@ class CityFeeForm extends React.Component {
                   ))
                 }
               </SelectField>
+            </div>
+
+            <div className="form-group">
+              <label className="label">Start Time</label><br />
+              <input
+                type='time'
+                step="2"
+                onChange={this.handleTimeChange}
+                defaultValue={this.state.startTime}
+                className="inline-input"
+                style={{
+                  width: '100%',
+                  marginTop: '10px',
+                  border: '0',
+                  borderBottom: '1px solid #9b9b9b',
+                  fontSize: '14px',
+                  padding: '5px 0'
+                }}
+                name="startTime"
+              />
+              {
+                this.state.error.startTimeStatus &&
+                <p className="error-message">* {this.state.error.value}</p>
+              }
+            </div>
+
+            <div className="form-group">
+              <label className="label">End Time</label><br />
+              <input
+                type='time'
+                step="2"
+                onChange={this.handleTimeChange}
+                defaultValue={this.state.endTime}
+                className="inline-input"
+                style={{
+                  width: '100%',
+                  marginTop: '10px',
+                  border: '0',
+                  borderBottom: '1px solid #9b9b9b',
+                  fontSize: '14px',
+                  padding: '5px 0'
+                }}
+                name="endTime"
+              />
+              {
+                this.state.error.endTimeStatus &&
+                <p className="error-message">* {this.state.error.value}</p>
+              }
+            </div>
+
+            <div className="form-group">
+              <label className="label">Min Cart Value</label><br />
+              <TextField
+                onChange={this.handleNumberChange}
+                name="minCartValue"
+                value={this.state.minCartValue}
+                style={{ width: '100%' }}
+              />
+              {
+                this.state.error.minCartValueStatus &&
+                <p className="error-message">* {this.state.error.value}</p>
+              }
+            </div>
+            <div className="form-group">
+              <label className="label">Max Cart Value</label><br />
+              <TextField
+                onChange={this.handleNumberChange}
+                name="maxCartValue"
+                value={this.state.maxCartValue}
+                style={{ width: '100%' }}
+              />
+              {
+                this.state.error.maxCartValueStatus &&
+                <p className="error-message">* {this.state.error.value}</p>
+              }
             </div>
 
             <div className="form-group">

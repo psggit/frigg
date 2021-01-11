@@ -25,7 +25,10 @@ class CreateCityFee extends React.Component {
       min_value: parseFloat(cityFeeForm.min),
       max_value: parseFloat(cityFeeForm.max),
       platform: cityFeeForm.selectedPlatformIdx === 1 ? "hb" : "fk-web",
-
+      cart_min: parseInt(cityFeeForm.minCartValue),
+      cart_max: parseInt(cityFeeForm.maxCartValue),
+      start_time: cityFeeForm.startTime + "+05:30",
+      end_time: cityFeeForm.endTime + "+05:30"
     })
       .then((response) => {
         Notify('Successfully created City Fee', 'success')
@@ -34,6 +37,9 @@ class CreateCityFee extends React.Component {
       })
       .catch((err) => {
         console.log("Error in creating City Fee", err)
+        err.response.json().then((json) => {
+          Notify(json.message, "error")
+        })
         this.setState({ creatingCityFee: false })
       })
   }

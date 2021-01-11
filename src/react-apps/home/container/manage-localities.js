@@ -42,7 +42,7 @@ class ManageLocalities extends React.Component {
     this.fetchData = this.fetchData.bind(this)
     this.setPage = this.setPage.bind(this)
     this.applyFilter = this.applyFilter.bind(this)
-    //this.handleChangeIsLocalityAvailable = this.handleChangeIsLocalityAvailable.bind(this)
+    this.handleChangeIsLocalityAvailable = this.handleChangeIsLocalityAvailable.bind(this)
     this.mountViewFencesDialog = this.mountViewFencesDialog.bind(this)
     this.unmountViewFencesDialog = this.unmountViewFencesDialog.bind(this)
   }
@@ -97,11 +97,12 @@ class ManageLocalities extends React.Component {
     })
 
     this.props.actions.fetchLocalities({
-      city_id: parseInt(queryObj.cityId) || null,
+      city_id: parseInt(queryObj.cityId),
       is_available: queryObj.isLocalityAvailable || false,
       offset: parseInt(queryObj.offset),
       limit: 10,
-      no_filter: queryObj.filter ? false : true
+      no_filter: queryObj.filter ? false : true,
+      state_short_name: queryObj.stateShortName || ""
     })
   }
 
@@ -112,6 +113,7 @@ class ManageLocalities extends React.Component {
 
     this.setState(pageObj)
     this.props.actions.fetchLocalities({
+      // city_id: parseInt(queryObj.cityId) || null,
       city_id: parseInt(queryObj.cityId) || null,
       is_available: queryObj.isLocalityAvailable || false,
       offset: pageObj.offset,
@@ -154,10 +156,10 @@ class ManageLocalities extends React.Component {
     })
   }
 
-  // handleChangeIsLocalityAvailable(e) {
-  //   this.setState({ isLocalityAvailable: e.target.checked })
-  //   // this.filter.isCityAvailable = e.target.checked
-  // }
+  handleChangeIsLocalityAvailable(e) {
+    this.setState({ isLocalityAvailable: e.target.checked })
+    this.filter.isCityAvailable = e.target.checked
+  }
 
   applyFilter(stateIdx, isLocalityAvailable) {
     const { statesData } = this.props
@@ -165,10 +167,10 @@ class ManageLocalities extends React.Component {
 
     const queryObj = {
       stateIdx: stateIdx,
-      stateShortName: this.filter.stateShortName,
+      // stateShortName: this.filter.stateShortName,
       cityId: this.filter.cityId,
       stateName: this.filter.stateName,
-      isLocalityAvailable: isLocalityAvailable,
+      isLocalityAvailable: this.state.isLocalityAvailable,
       offset: 0,
       activePage: 1,
       filter: true
@@ -177,7 +179,7 @@ class ManageLocalities extends React.Component {
     this.setState({
       offset: 0,
       activePage: 1,
-      stateShortName: this.filter.stateShortName,
+      // stateShortName: this.filter.stateShortName,
       stateName: this.filter.stateName,
       cityName: this.filter.cityName,
       cityId: this.filter.cityId
@@ -187,10 +189,11 @@ class ManageLocalities extends React.Component {
 
     this.props.actions.fetchLocalities({
       city_id: queryObj.cityId,
-      is_available: queryObj.isLocalityAvailable,
+      is_available: this.state.isLocalityAvailable,
       offset: 0,
       limit: 10,
-      no_filter: false
+      no_filter: false,
+      state_short_name: queryObj.stateShortName,
     })
   }
 
@@ -292,6 +295,7 @@ class ManageLocalities extends React.Component {
                 unmountFilterModal={this.unmountFilterModal}
                 handleStateChange={this.handleStateChange}
                 handleCityChange={this.handleCityChange}
+                handleChangeIsLocalityAvailable={this.handleChangeIsLocalityAvailable}
                 floatingLabelText="Choose state"
                 citiesData={citiesData}
                 statesData={statesData}

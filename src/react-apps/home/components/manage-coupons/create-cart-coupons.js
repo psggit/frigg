@@ -20,7 +20,7 @@ class CreateCartCoupon extends React.Component {
         disable: false,
         revise_delivery_fee: false,
         new_delivery_fee: 0.0,
-        cashback_expiry: "",
+        //cashback_expiry: "",
 
       }]
     }
@@ -52,7 +52,6 @@ class CreateCartCoupon extends React.Component {
       cartConstraint.new_delivery_fee = cartConstraintData.newDeliveryFee ? parseFloat(cartConstraintData.newDeliveryFee) : 0.0
       // cartConstraint.cashback_expiry = cartConstraintData.cashbackExpiry ? cartConstraintData.cashbackExpiry : "",
       cartConstraint.cashback_expiry = cartConstraintData.cashbackExpiry === "" ? null : cartConstraintData.cashbackExpiry,
-
       cartConstraint.disable = true
 
       //console.log("handle add1", [...this.state.cartConstraints, cartConstraint])
@@ -68,7 +67,7 @@ class CreateCartCoupon extends React.Component {
         disable: false,
         revise_delivery_fee: false,
         new_delivery_fee: 0.0,
-        cashback_expiry: "",
+        //cashback_expiry: "",
       }
 
       //console.log("handle add2", [...updatedCartConstraint, defaultConstraint])
@@ -98,7 +97,7 @@ class CreateCartCoupon extends React.Component {
       cartConstraint.percentage_discount = cartConstraintData.percent ? parseFloat(cartConstraintData.percent) : 0.0
       cartConstraint.revise_delivery_fee = cartConstraintData.isReviseDeliveryFee ? cartConstraintData.isReviseDeliveryFee : false
       cartConstraint.new_delivery_fee = cartConstraintData.newDeliveryFee ? parseFloat(cartConstraintData.newDeliveryFee) : 0.0
-      cartConstraint.cashback_expiry = cartConstraintData.cashbackExpiry ? cartConstraintData.cashbackExpiry : "",
+      //cartConstraint.cashback_expiry = cartConstraintData.cashbackExpiry ? cartConstraintData.cashbackExpiry : "",
       cartConstraint.disable = true
       //console.log("constarint", cartConstraint, "data", [...this.state.cartConstraints, cartConstraint])
       console.log("cart constraints", [...this.state.cartConstraints, cartConstraint])
@@ -112,7 +111,7 @@ class CreateCartCoupon extends React.Component {
         constraint_type: "cart",
         start_time: cartCouponData.startTime,
         end_time: cartCouponData.endTime,
-        cashback_expiry: cartCouponData.cashbackExpiry,
+       // cashback_expiry: cartCouponData.cashbackExpiry,
         max_count: parseInt(cartCouponData.maxCount),
         //available_count: parseInt(cartCouponData.availableCount),
         // pay_by_wallet: cartCouponData.option === "payByWallet" ? true : false,
@@ -127,6 +126,7 @@ class CreateCartCoupon extends React.Component {
         // app: cartCouponData.selectedAppIdx === 1 ? "drinks" : "fk-web",
         hipbar_drinks: cartCouponData.drinks,
         fk_web: cartCouponData.fkWeb,
+        list_only_when_applicable: cartCouponData.showWhenApplicable,
         city_list: cartCouponData.cityList ? cartCouponData.cityList.trim().split(",").map((cityId) => parseInt(cityId)) : [],
         limit_per_user: parseInt(cartCouponData.limitPerUser),
         consider_sign_up: cartCouponData.considerSignUp,

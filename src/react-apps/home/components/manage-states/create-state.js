@@ -44,6 +44,8 @@ class CreateState extends React.Component {
         is_deliverable:data.isDeliverable,
         is_active: data.isActive,
         fk_enabled: data.fkEnabled,
+        is_presentation_enabled: data.isPresentationEnabled,
+        is_brand_details_enabled: data.isBrandDetailsEnabled,
       }, this.callbackUpdate)
     }
   }
@@ -61,17 +63,17 @@ class CreateState extends React.Component {
 
         <div>
 
-          <Card
+          {/* <Card
             style={{
               padding: '20px',
-              width: '100%'
+              width: '75%'
             }}
-          >
+          > */}
             <h3 style={{ marginTop: 0, marginBottom: '40px' }}>Create new state</h3>
             <StateDetailsForm
               ref={(node) => { this.stateDetailsForm = node }}
             />
-          </Card>
+          {/* </Card> */}
           <RaisedButton
             primary
             disabled={this.state.isDisabled}

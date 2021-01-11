@@ -1723,6 +1723,53 @@ export const createWarehouse = payload => (
   })
 )
 
+export const fetchDenomination = payload => (
+  POST({
+    api: '/odin/api/1/loyaltycard/list-denominations',
+    apiBase: 'odin',
+    data: payload,
+    handleError: true
+  })
+    .then(json => json)
+)
+
+export const fetchConversionRate = payload => (
+  POST({
+    api: '/odin/api/1/loyaltycard/list-vouchers',
+    apiBase: 'odin',
+    data: payload,
+    handleError: true
+  })
+    .then(json => json)
+)
+
+export const updateConversionRate = payload => (
+  POST({
+    api: '/odin/api/1/loyaltycard/voucher/update',
+    apiBase: 'odin',
+    data: payload,
+    handleError: true
+  })
+)
+
+export const createDenomination = payload => (
+  POST({
+    api: '/odin/api/1/loyaltycard/create',
+    apiBase: 'odin',
+    data: payload,
+    handleError: true
+  })
+)
+
+export const updateDenomination = payload => (
+  POST({
+    api: '/odin/api/1/loyaltycard/denomination/update',
+    apiBase: 'odin',
+    data: payload,
+    handleError: true
+  })
+)
+
 export const createDeliveryServiceProvider = payload => (
   POST({
     api: '/delivery_service_provider/create',
@@ -2094,4 +2141,121 @@ export const fetchDeliveryServiceProvider = payload => (
     handleError: true
   })
     .then(json => json)
+)
+
+export const updateFeeStatus = payload => (
+  POST({
+    api: '/cityManagement/enable_city_fee',
+    apiBase: 'odin',
+    data: payload,
+    handleError: true
+  })
+)
+
+export const updateConsiderLocalityFee = payload => (
+  POST({
+    api: '/fenceManagement/consider_locality_fee',
+    apiBase: 'odin',
+    data: payload,
+    handleError: true
+  })
+)
+
+export const fetchLocalityFeeList = payload => (
+  POST({
+    api: '/fenceManagement/list_locality_fee',
+    apiBase: 'odin',
+    data: payload,
+    handleError: true
+  })
+)
+
+export const updateLocalityFeeStatus = payload => (
+  POST({
+    api: '/fenceManagement/enable_locality_fee',
+    apiBase: 'odin',
+    data: payload,
+    handleError: true
+  })
+)
+
+export const createLocalityFee = payload => (
+  POST({
+    api: '/fenceManagement/add_locality_fee',
+    apiBase: 'odin',
+    data: payload,
+    handleError: true
+  })
+)
+
+export const updateLocalityFee = payload => (
+  POST({
+    api: '/fenceManagement/update_locality_fee',
+    apiBase: 'odin',
+    data: payload,
+    handleError: true
+  })
+)
+
+export const fetchStories = payload => (
+  POST({
+    api: '/story/list',
+    apiBase: 'odin',
+    data: payload,
+    handleError: true
+  })
+)
+
+export const triggerRefund = payload => (
+  POST({
+    api: '/supportman/api/1/refund/delivery/bulk',
+    apiBase: 'apiUrl',
+    data: payload,
+    handleError: true
+  })
+)
+
+export const fetchMappedStories = payload => (
+  POST({
+    api: '/story/city_mapping/list',
+    apiBase: 'odin',
+    data: payload,
+    handleError: true
+  })
+)
+
+export const deleteStoryMappedToCity = payload => (
+  POST({
+    api: '/story/city_mapping/delete',
+    apiBase: 'odin',
+    data: payload,
+    handleError: true
+  })
+)
+
+export const mapStoryToCity = payload => (
+  POST({
+    api: '/story/city_mapping/create',
+    apiBase: 'odin',
+    data: payload,
+    handleError: true
+  })
+)
+
+export const createStory = payload => (
+  POST({
+    api: '/story/create',
+    apiBase: 'odin',
+    data: payload.data,
+    handleError: true
+  })
+)
+
+export const updateStory = payload => (
+  POST({
+    api: '/story/update',
+    apiBase: 'odin',
+    data: payload.data,
+    handleError: true
+  })
 )

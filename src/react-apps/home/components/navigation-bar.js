@@ -116,6 +116,13 @@ class NavigationBar extends React.Component {
           // { name: 'Promos', path: '/home/user-specific-promos', id: 20 },
         ]
       },
+      {
+        name: 'Manage Stories',
+        nestedItems: [
+          { name: 'Story List', path: '/home/manage-stories', id: 48 },
+          { name: 'Map Story to City', path: '/home/manage-mapped-stories', id: 49 },
+        ]
+      },
       // {
       //   name: 'Retailer Specific',
       //   nestedItems: [
@@ -139,6 +146,8 @@ class NavigationBar extends React.Component {
         ]
       },
       { name: 'Reports', path: '/home/manage-reports', id: 34, nestedItems: [] },
+
+      { name: 'Refund Management', path: '/home/manage-refund', id: 49, nestedItems: [] },
 
       { name: 'Gift Reconciliation', path: '/home/manage-gift-reconciliation', id: 36, nestedItems: [] },
 
@@ -164,6 +173,14 @@ class NavigationBar extends React.Component {
           { name: 'Delivery Agent Locality Mapping', path: '/home/delivery-agent-locality-mapping', id:45 },
           { name: 'Delivery Service Provider', path: '/home/manage-delivery-service-provider', id: 46, nestedItems: [] },
           { name: 'Delivery Service Provider City Mapping', path: '/home/dsp-city-mapping', id: 47 },
+        ]
+      },
+      {
+        name: 'Loyalty Card',
+        nestedItems: [
+          { name: 'Denominations', path: '/home/manage-denominations', id: 48 },
+          { name: 'Conversion Rates', path: '/home/manage-conversion-rate', id: 49},
+          
         ]
       }
     ]

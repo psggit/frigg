@@ -45,7 +45,7 @@ class EditCartCoupons extends React.Component {
       name: couponDetails.couponName,
       start_time: new Date(couponDetails.startTime),
       end_time: new Date(couponDetails.endTime),
-      cashback_expiry: new Date(couponDetails.cashbackExpiry),
+      //cashback_expiry: new Date(couponDetails.cashbackExpiry),
       max_count: !couponDetails.isUnlimited ? parseInt(couponDetails.maxCount) : 0,
       limit_per_user: parseInt(couponDetails.limitPerUser),
       //available_count: couponDetails.availableCount,
@@ -55,6 +55,7 @@ class EditCartCoupons extends React.Component {
       // app: couponDetails.selectedAppIdx === 1 ? "drinks" : "fk-web",
       hipbar_drinks: couponDetails.drinks,
       fk_web: couponDetails.fkWeb,
+      list_only_when_applicable: couponDetails.showWhenApplicable,
       pay_by_wallet: couponDetails.payByWallet,
       store_pickup: couponDetails.storePickup,
       delivery: couponDetails.delivery,
@@ -164,7 +165,7 @@ class EditCartCoupons extends React.Component {
       disable: false,
       revise_delivery_fee: false,
       new_delivery_fee: 0.0,
-      cashback_expiry: "",
+     // cashback_expiry: "",
     }
 
     this.setState({
