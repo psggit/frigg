@@ -141,7 +141,7 @@ class EditProductCoupons extends React.Component {
       disable: false,
       revise_delivery_fee: false,
       new_delivery_fee: 0.0,
-      //cashback_expiry: "",
+      cashback_expiry: null,
     }
 
     this.setState({

@@ -20,8 +20,7 @@ class CreateCartCoupon extends React.Component {
         disable: false,
         revise_delivery_fee: false,
         new_delivery_fee: 0.0,
-        //cashback_expiry: "",
-
+        cashback_expiry: "",
       }]
     }
 
@@ -50,11 +49,10 @@ class CreateCartCoupon extends React.Component {
       cartConstraint.percentage_discount = cartConstraintData.percent ? parseFloat(cartConstraintData.percent) : 0.0
       cartConstraint.revise_delivery_fee = cartConstraintData.isReviseDeliveryFee ? cartConstraintData.isReviseDeliveryFee : false
       cartConstraint.new_delivery_fee = cartConstraintData.newDeliveryFee ? parseFloat(cartConstraintData.newDeliveryFee) : 0.0
-      //cartConstraint.cashback_expiry = cartConstraintData.cashbackExpiry ? cartConstraintData.cashbackExpiry : "",
+      cartConstraint.cashback_expiry = cartConstraintData.cashbackExpiry === "" ? null : cartConstraintData.cashbackExpiry,
       cartConstraint.disable = true
 
       //console.log("handle add1", [...this.state.cartConstraints, cartConstraint])
-
       const updatedCartConstraint = [...this.state.cartConstraints, cartConstraint]
 
       const defaultConstraint = {
@@ -66,7 +64,7 @@ class CreateCartCoupon extends React.Component {
         disable: false,
         revise_delivery_fee: false,
         new_delivery_fee: 0.0,
-        //cashback_expiry: "",
+        cashback_expiry: "",
       }
 
       //console.log("handle add2", [...updatedCartConstraint, defaultConstraint])
@@ -96,7 +94,9 @@ class CreateCartCoupon extends React.Component {
       cartConstraint.percentage_discount = cartConstraintData.percent ? parseFloat(cartConstraintData.percent) : 0.0
       cartConstraint.revise_delivery_fee = cartConstraintData.isReviseDeliveryFee ? cartConstraintData.isReviseDeliveryFee : false
       cartConstraint.new_delivery_fee = cartConstraintData.newDeliveryFee ? parseFloat(cartConstraintData.newDeliveryFee) : 0.0
-      //cartConstraint.cashback_expiry = cartConstraintData.cashbackExpiry ? cartConstraintData.cashbackExpiry : "",
+      //cartConstraint.cashback_expiry = cartConstraintData.cashbackExpiry === "" ? null : cartConstraintData.cashbackExpiry,
+      cartConstraint.cashback_expiry = cartConstraintData.cashbackExpiry === "" ? null : cartConstraintData.cashbackExpiry,
+
       cartConstraint.disable = true
       //console.log("constarint", cartConstraint, "data", [...this.state.cartConstraints, cartConstraint])
       console.log("cart constraints", [...this.state.cartConstraints, cartConstraint])

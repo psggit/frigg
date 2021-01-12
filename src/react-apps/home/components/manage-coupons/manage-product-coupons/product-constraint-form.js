@@ -12,7 +12,8 @@ class ProductConstraintForm extends React.Component {
       skuid: 'SKU ID',
       quantity: 'Quantity',
       flat: 'Flat',
-      newDeliveryFee: 'New Delivery Fee'
+      newDeliveryFee: 'New Delivery Fee',
+      cashbackExpiry: 'Cashback Expiry',
     }
 
     this.state = {
@@ -25,6 +26,7 @@ class ProductConstraintForm extends React.Component {
       isReviseDeliveryFee: props.data ? props.data.revise_delivery_fee : false,
       newDeliveryFee: props.data ? props.data.new_delivery_fee : 0,
       //cashbackExpiry: props.data ? props.data.cashback_expiry.slice(0, 16) : "",
+      cashbackExpiry: props.data ? props.data.cashback_expiry !== null ? props.data.cashback_expiry.slice(0, 16) : null : null ,
     }
     this.handleTextFieldChange = this.handleTextFieldChange.bind(this)
     this.getData = this.getData.bind(this)
@@ -64,7 +66,7 @@ class ProductConstraintForm extends React.Component {
       flat_discount: parseFloat(this.state.flat),
       revise_delivery_fee: (this.state.isReviseDeliveryFee),
       new_delivery_fee: parseFloat(this.state.newDeliveryFee),
-      //cashback_expiry: (this.state.cashbackExpiry),
+      cashback_expiry: (this.state.cashbackExpiry),
     })
   }
 
@@ -132,7 +134,7 @@ class ProductConstraintForm extends React.Component {
             />
           </div> 
 
-          {/* <div className="form-group">
+          <div className="form-group">
             <label className="label">Cashback Expiry</label><br />
             <input
               type="datetime-local"
@@ -151,7 +153,7 @@ class ProductConstraintForm extends React.Component {
               required
               name="cashbackExpiry"
             />
-          </div> */}
+          </div>
 
           <div className="form-group">
             <Checkbox
