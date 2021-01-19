@@ -17,7 +17,7 @@ class CityDetailsForm extends React.Component {
     this.walletPreference = [
       { text: 'gift', value: 1 },
       { text: 'hipbar', value: 2 },
-      { text: 'web', value: 3 }
+      { text: '', value: 3 }
     ]
 
     console.log("props", props)
