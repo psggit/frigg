@@ -88,7 +88,7 @@ class LocalityDetailsForm extends React.Component {
         </div>
 
         <div className="form-group">
-          <label className="label">Max wait time for potential das (Min)</label><br />
+          <label className="label">Prioritise Potential DAs for (Min)</label><br />
           <TextField
             disabled={this.props.isDisabled}
             onChange={this.handleTextFields}
@@ -98,7 +98,7 @@ class LocalityDetailsForm extends React.Component {
         </div>
 
         <div className="form-group">
-          <label className="label">Max Da travel distance (Km)</label><br />
+          <label className="label">Look for Potential DAs within (Km)</label><br />
           <TextField
             disabled={this.props.isDisabled}
             onChange={this.handleTextFields}

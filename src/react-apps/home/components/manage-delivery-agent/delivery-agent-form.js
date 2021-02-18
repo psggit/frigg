@@ -350,7 +350,7 @@ class DeliveryAgentForm extends React.Component {
             </div>
 
             <div className="form-group">
-              <label className="label">Max Travel Distance (Km)</label><br />
+              <label className="label">Max distance from the order to be considered as Potential DA (Km)</label><br />
               <TextField
                 onChange={this.handleTextFields}
                 name="maxTravelDistance"
@@ -362,7 +362,7 @@ class DeliveryAgentForm extends React.Component {
             <div className="form-group">
               <Checkbox
                 style={{ marginTop: "10px" }}
-                label="Consider DA's Maximum Distance Limit"
+                label="Consider DA's Maximum Distance limit for being a Potential DA [Not selecting this will take the  Locality’s DA Distance Limit]"
                 name="considerDaMaxTravelDistance"
                 checked={this.state.considerDaMaxTravelDistance}
                 onCheck={this.handleCheckboxChange}
