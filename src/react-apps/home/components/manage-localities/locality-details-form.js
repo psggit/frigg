@@ -12,7 +12,9 @@ class LocalityDetailsForm extends React.Component {
       localityName: props.localityName || '',
       shouldTrim: true,
       maxDeliveryOrderPerBatch: props.maxDeliveryOrderPerBatch || '0',
-      considerLocalityOrderlimit: props.considerLocalityOrderlimit || false
+      maxWaitTimeForPotentialDas: props.maxWaitTimeForPotentialDas,
+      maxDaTravelDistance: props.maxDaTravelDistance,
+      considerLocalityOrderlimit: props.considerLocalityOrderlimit || false,
     }
 
     this.state = Object.assign({}, this.intialState)
@@ -74,6 +76,7 @@ class LocalityDetailsForm extends React.Component {
             value={this.state.localityName}
           />
         </div>
+
         <div className="form-group">
           <label className="label">Max delivery orders per batch</label><br />
           <TextField
@@ -81,6 +84,26 @@ class LocalityDetailsForm extends React.Component {
             onChange={this.handleTextFields}
             name="maxDeliveryOrderPerBatch"
             value={this.state.maxDeliveryOrderPerBatch}
+          />
+        </div>
+
+        <div className="form-group">
+          <label className="label">Max wait time for potential das (Min)</label><br />
+          <TextField
+            disabled={this.props.isDisabled}
+            onChange={this.handleTextFields}
+            name="maxWaitTimeForPotentialDas"
+            value={this.state.maxWaitTimeForPotentialDas}
+          />
+        </div>
+
+        <div className="form-group">
+          <label className="label">Max Da travel distance (Km)</label><br />
+          <TextField
+            disabled={this.props.isDisabled}
+            onChange={this.handleTextFields}
+            name="maxDaTravelDistance"
+            value={this.state.maxDaTravelDistance}
           />
         </div>
 

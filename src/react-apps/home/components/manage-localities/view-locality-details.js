@@ -107,6 +107,8 @@ class ViewCity extends React.Component {
       name: data.localityName || this.localityName,
       is_available: data.isLocalityActive,
       max_dorders_per_batch: parseInt(data.maxDeliveryOrderPerBatch),
+      max_wait_time_for_potential_das: parseInt(data.maxWaitTimeForPotentialDas),
+      max_da_travel_distance: parseInt(data.maxDaTravelDistance),
       consider_locality_order_limit: data.considerLocalityOrderlimit,
       is_deleted: this.state.delete
     }, this.callbackUpdate)
@@ -160,6 +162,8 @@ class ViewCity extends React.Component {
         this.localityCoordinates = selectedLocality.coordinates
         this.considerLocalityOrderlimit = selectedLocality.consider_locality_order_limit
         this.maxDeliveryOrderPerBatch = selectedLocality.max_dorders_per_batch
+        this.maxWaitTimeForPotentialDas = selectedLocality.max_wait_time_for_potential_das
+        this.maxDaTravelDistance = selectedLocality.max_da_travel_distance
         //this.state.delete = selectedLocality.delete
       }
     }
@@ -215,6 +219,8 @@ class ViewCity extends React.Component {
                   isLocalityActive={this.isLocalityActive}
                   maxDeliveryOrderPerBatch={this.maxDeliveryOrderPerBatch}
                   considerLocalityOrderlimit={this.considerLocalityOrderlimit}
+                  maxWaitTimeForPotentialDas={this.maxWaitTimeForPotentialDas}
+                  maxDaTravelDistance={this.maxDaTravelDistance}
                 />
               </Card>
             </div>

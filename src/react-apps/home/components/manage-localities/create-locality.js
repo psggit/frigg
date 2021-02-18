@@ -99,6 +99,8 @@ class CreateLocality extends React.Component {
         name: data.localityName,
         is_available: data.isLocalityActive,
         max_dorders_per_batch: parseInt(data.maxDeliveryOrderPerBatch),
+        max_wait_time_for_potential_das: parseInt(data.maxWaitTimeForPotentialDas),
+        max_da_travel_distance: parseInt(data.maxDaTravelDistance),
         consider_locality_order_limit: data.considerLocalityOrderlimit
       }, this.callbackUpdate)
     }
