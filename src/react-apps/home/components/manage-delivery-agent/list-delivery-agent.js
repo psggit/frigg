@@ -25,6 +25,8 @@ const TableHeaderItems = [
   'CITY ID',
   'GCM TOKEN',
   'CONTACT NUMBER',
+  'MAX TRAVEL DISTANCE',
+  'CONSIDER DA MAX DISTANCE LIMIT',
   'ACTIVE'
 ]
 
@@ -36,6 +38,8 @@ const styles = [
   { width: '120px' },
   { width: '120px' },
   { width: '150px' },
+  { width: '120px' },
+  { width: '120px' },
   { width: '150px' },
 
 ]
@@ -165,7 +169,9 @@ class ListDeliveryAgent extends React.Component {
                         <TableRowColumn style={styles[4]}>{item.city_id}</TableRowColumn>
                         <TableRowColumn style={styles[5]}>{item.gcm_token}</TableRowColumn>
                         <TableRowColumn style={styles[6]}>{item.contact_number}</TableRowColumn>
-                        <TableRowColumn style={styles[7]}>
+                        <TableRowColumn style={styles[7]}>{item.max_travel_distance}</TableRowColumn>
+                        <TableRowColumn style={styles[8]}>{item.consider_da_max_travel_distance ? 'Enabled' : 'Disabled'}</TableRowColumn>
+                        <TableRowColumn style={styles[9]}>
                           <Switch onToggle={this.onToggleChange} toggled={item.is_active} value={item} />
                         </TableRowColumn>
 

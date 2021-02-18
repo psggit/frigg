@@ -2,6 +2,7 @@ import React from "react"
 import CreateDeliveryAgentForm from "./delivery-agent-form"
 import * as Api from "../../middleware/api"
 import Notify from "@components/Notification"
+import DeliveryAgentForm from "./delivery-agent-form"
 
 class CreateDeliveryAgent extends React.Component {
   constructor () {
@@ -22,6 +23,7 @@ class CreateDeliveryAgent extends React.Component {
       employee_id: deliveryAgentForm.employeeId,
       gcm_token: deliveryAgentForm.gcmToken,
       contact_number: deliveryAgentForm.contactNumber,
+      max_travel_distance: parseInt(deliveryAgentForm.maxTravelDistance),
       is_active: deliveryAgentForm.isActive,
       dob: deliveryAgentForm.dob,
       vehicle_number:deliveryAgentForm.vehicleNumber,
@@ -33,7 +35,8 @@ class CreateDeliveryAgent extends React.Component {
       consider_vehicle_sku_capacity: deliveryAgentForm.considerVehicleSkuCapacity,
       radial_distance: parseFloat(deliveryAgentForm.radialDistance),
       consider_radial_batching: deliveryAgentForm.selectedBatching.includes("RadialBatching") ? true : false,
-      service_provider: deliveryAgentForm.serviceProvider
+      service_provider: deliveryAgentForm.serviceProvider,
+      consider_da_max_travel_distance: deliveryAgentForm.considerDaMaxTravelDistance,
       //subsequent_distance: parseFloat(deliveryAgentForm.subsequentDistance),
       //consider_subsequent_batching: deliveryAgentForm.selectedBatching.includes("SubsequentBatching") ? true : false
     })
