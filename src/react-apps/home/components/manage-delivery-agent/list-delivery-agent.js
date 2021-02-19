@@ -25,8 +25,10 @@ const TableHeaderItems = [
   'CITY ID',
   'GCM TOKEN',
   'CONTACT NUMBER',
-  'MAX TRAVEL DISTANCE',
-  'CONSIDER DA MAX DISTANCE LIMIT',
+  'MAX DISTANCE FROM THE ORDER TO BE CONSIDERED AS POTENTIAL DA',
+  'CONSIDER DA MAXIMUM DISTANCE LIMIT FOR BEING A POTENTIAL DA',
+  // 'MAX TRAVEL DISTANCE',
+  // 'CONSIDER DA MAX DISTANCE LIMIT',
   'ACTIVE'
 ]
 
@@ -38,8 +40,8 @@ const styles = [
   { width: '120px' },
   { width: '120px' },
   { width: '150px' },
-  { width: '120px' },
-  { width: '120px' },
+  { width: '150px' },
+  { width: '150px' },
   { width: '150px' },
 
 ]
