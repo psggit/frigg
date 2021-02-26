@@ -29,6 +29,7 @@ const TableHeaderItems = [
   'CONSIDER DA MAXIMUM DISTANCE LIMIT FOR BEING A POTENTIAL DA',
   // 'MAX TRAVEL DISTANCE',
   // 'CONSIDER DA MAX DISTANCE LIMIT',
+  'DELIVER POD ORDER',
   'ACTIVE'
 ]
 
@@ -174,6 +175,8 @@ class ListDeliveryAgent extends React.Component {
                         <TableRowColumn style={styles[7]}>{item.max_travel_distance}</TableRowColumn>
                         <TableRowColumn style={styles[8]}>{item.consider_da_max_travel_distance ? 'Enabled' : 'Disabled'}</TableRowColumn>
                         <TableRowColumn style={styles[9]}>
+                        <TableRowColumn style={styles[7]}>{item.deliver_pod_order ? 'Enabled' : 'Disabled'}</TableRowColumn>
+                        <TableRowColumn style={styles[8]}>
                           <Switch onToggle={this.onToggleChange} toggled={item.is_active} value={item} />
                         </TableRowColumn>
 

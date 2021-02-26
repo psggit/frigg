@@ -11,6 +11,12 @@ import {
 import TableLoadingShell from './../table-loading-shell'
 import '@sass/components/_table.scss'
 import { overrideTableStyle } from './../../../utils'
+// import * as Api from "../../middleware/api"
+// import Switch from "@components/switch"
+// import ModalBody from '@components/ModalBox/ModalBody'
+// import ModalHeader from '@components/ModalBox/ModalHeader'
+// import ModalFooter from '@components/ModalBox/ModalFooter'
+// import ModalBox from '@components/ModalBox'
 
 const TableHeaderItems = [
   '',
@@ -26,11 +32,17 @@ const TableHeaderItems = [
   'IS UPI COLLECT LOW SUCCESS RATE',
   'IS JP UPI COLLECT ENABLED',
   'IS ICICI UPI INTENT ENABLED',
-  'IS ICICI UPI COLLECT ENABLED'
+  'IS ICICI UPI COLLECT ENABLED',
+  'PAYMENT ON DELIVERY ENABLED',
+  'PAY BY CASH',
+  'PAY BY UPI',
 ]
 
 const styles = [
   { width: '38px' },
+  { width: '100px' },
+  { width: '100px' },
+  { width: '100px' },
   { width: '100px' },
   { width: '100px' },
   { width: '100px' },
@@ -51,7 +63,6 @@ class ListCityPayment extends React.Component {
 
   constructor () {
     super()
-
     this.editCityPayment = this.editCityPayment.bind(this)
   }
 
@@ -120,6 +131,9 @@ class ListCityPayment extends React.Component {
                       <TableRowColumn style={styles[11]}>{item.is_jp_upi_collect_enabled ? 'Enabled' : 'Disabled'}</TableRowColumn>
                       <TableRowColumn style={styles[12]}>{item.is_icici_upi_intent_enabled ? 'Enabled' : 'Disabled'}</TableRowColumn>
                       <TableRowColumn style={styles[13]}>{item.is_icici_upi_collect_enabled ? 'Enabled' : 'Disabled'}</TableRowColumn>
+                      <TableRowColumn style={styles[14]}>{item.payment_on_delivery_enabled ? 'Enabled' : 'Disabled'}</TableRowColumn>
+                      <TableRowColumn style={styles[15]}>{item.pay_by_cash_enabled ? 'Enabled' : 'Disabled'}</TableRowColumn>
+                      <TableRowColumn style={styles[16]}>{item.pay_by_upi_enabled ? 'Enabled' : 'Disabled'}</TableRowColumn>
                     </TableRow>
                   )
                 })

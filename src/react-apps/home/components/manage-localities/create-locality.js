@@ -101,7 +101,11 @@ class CreateLocality extends React.Component {
         max_dorders_per_batch: parseInt(data.maxDeliveryOrderPerBatch),
         max_wait_time_for_potential_das: parseInt(data.maxWaitTimeForPotentialDas),
         max_da_travel_distance: parseInt(data.maxDaTravelDistance),
-        consider_locality_order_limit: data.considerLocalityOrderlimit
+        consider_locality_order_limit: data.considerLocalityOrderlimit,
+        pay_on_delivery_limit: parseInt(data.payOnDeliveryLimit),
+        payment_on_delivery_enabled: data.paymentOnDeliveryEnabled,
+        pay_by_cash_enabled: data.payByCashEnabled,
+        pay_by_upi_enabled: data.payByUpiEnabled,
       }, this.callbackUpdate)
     }
   }
@@ -144,7 +148,8 @@ class CreateLocality extends React.Component {
             padding: '20px',
             width: '300px',
             marginBottom: '20px',
-            marginRight: '20px'
+            marginRight: '20px',
+            //height: 'fit-content',
           }}
           >
             <h3 style={{ marginTop: 0, marginBottom: '40px' }}>Enter city details</h3>

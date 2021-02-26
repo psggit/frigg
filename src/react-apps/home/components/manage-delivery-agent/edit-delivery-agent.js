@@ -36,6 +36,8 @@ class EditDeliveryAgent extends React.Component {
       // consider_subsequent_batching: deliveryAgentForm.selectedBatching.includes("SubsequentBatching") ? true : false,
       service_provider: deliveryAgentForm.serviceProvider,
       consider_da_max_travel_distance: deliveryAgentForm.considerDaMaxTravelDistance,
+      deliver_pod_order: deliveryAgentForm.deliverPodOrder,
+
     })
       .then((response) => {
         console.log("message")

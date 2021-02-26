@@ -36,7 +36,7 @@ class CreateDeliveryAgent extends React.Component {
       radial_distance: parseFloat(deliveryAgentForm.radialDistance),
       consider_radial_batching: deliveryAgentForm.selectedBatching.includes("RadialBatching") ? true : false,
       service_provider: deliveryAgentForm.serviceProvider,
-      consider_da_max_travel_distance: deliveryAgentForm.considerDaMaxTravelDistance,
+      deliver_pod_order: deliveryAgentForm.deliverPodOrder,
       //subsequent_distance: parseFloat(deliveryAgentForm.subsequentDistance),
       //consider_subsequent_batching: deliveryAgentForm.selectedBatching.includes("SubsequentBatching") ? true : false
     })

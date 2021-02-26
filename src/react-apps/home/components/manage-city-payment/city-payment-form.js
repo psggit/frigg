@@ -41,6 +41,9 @@ class CityPaymentForm extends React.Component {
       isJPUpiCollectEnabled: props.data ? props.data.is_jp_upi_collect_enabled: false,
       is_icici_upi_intent_enabled: props.data ? props.data.is_icici_upi_intent_enabled: false,
       is_icici_upi_collect_enabled: props.data ? props.data.is_icici_upi_collect_enabled: false,
+      payByCashEnabled: props.data ? props.data.pay_by_cash_enabled: false,
+      payByUPIEnabled: props.data ? props.data.pay_by_upi_enabled: false,
+      paymentOnDeliveryEnabled: props.data ? props.data.payment_on_delivery_enabled: false,
       selectedAppTypeIdx: props.data ? this.app_type.find(item => (item.text).toLowerCase() === (props.data.app_type).toLowerCase()).value : 1,
       // app_type: props.app_type ? props.app_type : 'android',
       // selectedAppTypeIdx: props.data ? props.data.app_type ? 1 : 2 : 1,
@@ -271,6 +274,36 @@ class CityPaymentForm extends React.Component {
                 label="Is ICICI UPI Collect Enabled "
                 name="is_icici_upi_collect_enabled"
                 checked={this.state.is_icici_upi_collect_enabled}
+                onCheck={this.handleCheckboxChange}
+              />
+            </div>
+
+            <div className="form-group">
+              <Checkbox
+                style={{ marginTop: "10px" }}
+                label="Payment on Delivery Enabled "
+                name="paymentOnDeliveryEnabled"
+                checked={this.state.paymentOnDeliveryEnabled}
+                onCheck={this.handleCheckboxChange}
+              />
+            </div>
+
+            <div className="form-group">
+              <Checkbox
+                style={{ marginTop: "10px" }}
+                label="Pay By Cash"
+                name="payByCashEnabled"
+                checked={this.state.payByCashEnabled}
+                onCheck={this.handleCheckboxChange}
+              />
+            </div>
+
+            <div className="form-group">
+              <Checkbox
+                style={{ marginTop: "10px" }}
+                label="Pay By UPI"
+                name="payByUPIEnabled"
+                checked={this.state.payByUPIEnabled}
                 onCheck={this.handleCheckboxChange}
               />
             </div>

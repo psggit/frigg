@@ -29,11 +29,17 @@ const TableHeaderItems = [
   'ID',
   'NAME',
   'REMAINING ORDER COUNT',
-  'IS_CONSIDER_FEE'
+  'PAYMENT ON DELIVERY ENABLED',
+  'PAY BY CASH',
+  'PAY BY UPI',
+  'IS_CONSIDER_FEE',
 ]
 
 const styles = [
   { width: '38px' },
+  { width: '120px' },
+  { width: '120px' },
+  { width: '120px' },
   { width: '120px' },
   { width: '120px' },
   { width: '120px' },
@@ -148,7 +154,10 @@ class ViewLocalities extends React.Component {
                     <TableRowColumn style={styles[2]}>{item.id}</TableRowColumn>
                     <TableRowColumn style={styles[3]}>{item.name}</TableRowColumn>
                     <TableRowColumn style={styles[4]}>{item.remaining_order_count}</TableRowColumn>
-                    <TableRowColumn style={styles[5]}>
+                    <TableRowColumn style={styles[5]}>{item.payment_on_delivery_enabled ? 'Enabled' : 'Disabled'}</TableRowColumn>
+                    <TableRowColumn style={styles[6]}>{item.pay_by_cash_enabled ? 'Enabled' : 'Disabled'}</TableRowColumn>
+                    <TableRowColumn style={styles[7]}>{item.pay_by_upi_enabled ? 'Enabled' : 'Disabled'}</TableRowColumn>
+                    <TableRowColumn style={styles[8]}>
                       <Switch onToggle={this.onToggleChange} toggled={item.is_consider_fee} value={item} />
                     </TableRowColumn>
                   </TableRow>

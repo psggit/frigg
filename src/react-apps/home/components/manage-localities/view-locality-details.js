@@ -109,7 +109,11 @@ class ViewCity extends React.Component {
       max_dorders_per_batch: parseInt(data.maxDeliveryOrderPerBatch),
       max_wait_time_for_potential_das: parseInt(data.maxWaitTimeForPotentialDas),
       max_da_travel_distance: parseInt(data.maxDaTravelDistance),
+      pay_on_delivery_limit: parseInt(data.payOnDeliveryLimit),
       consider_locality_order_limit: data.considerLocalityOrderlimit,
+      payment_on_delivery_enabled: data.paymentOnDeliveryEnabled,
+      pay_by_cash_enabled: data.payByCashEnabled,
+      pay_by_upi_enabled: data.payByUpiEnabled,
       is_deleted: this.state.delete
     }, this.callbackUpdate)
   }
@@ -161,6 +165,10 @@ class ViewCity extends React.Component {
         this.isLocalityActive = selectedLocality.is_available
         this.localityCoordinates = selectedLocality.coordinates
         this.considerLocalityOrderlimit = selectedLocality.consider_locality_order_limit
+        this.paymentOnDeliveryEnabled = selectedLocality.payment_on_delivery_enabled
+        this.payByCashEnabled = selectedLocality.pay_by_cash_enabled
+        this.payByUpiEnabled = selectedLocality.pay_by_upi_enabled
+        this.payOnDeliveryLimit = selectedLocality.pay_on_delivery_limit
         this.maxDeliveryOrderPerBatch = selectedLocality.max_dorders_per_batch
         this.maxWaitTimeForPotentialDas = selectedLocality.max_wait_time_for_potential_das
         this.maxDaTravelDistance = selectedLocality.max_da_travel_distance
@@ -221,6 +229,10 @@ class ViewCity extends React.Component {
                   considerLocalityOrderlimit={this.considerLocalityOrderlimit}
                   maxWaitTimeForPotentialDas={this.maxWaitTimeForPotentialDas}
                   maxDaTravelDistance={this.maxDaTravelDistance}
+                  payOnDeliveryLimit={this.payOnDeliveryLimit}
+                  paymentOnDeliveryEnabled={this.paymentOnDeliveryEnabled}
+                  payByCashEnabled={this.payByCashEnabled}
+                  payByUpiEnabled={this.payByUpiEnabled}
                 />
               </Card>
             </div>
