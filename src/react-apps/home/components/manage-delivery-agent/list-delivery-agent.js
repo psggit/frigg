@@ -44,7 +44,7 @@ const styles = [
   { width: '150px' },
   { width: '150px' },
   { width: '150px' },
-
+  { width: '150px' },
 ]
 
 class ListDeliveryAgent extends React.Component {
@@ -174,12 +174,10 @@ class ListDeliveryAgent extends React.Component {
                         <TableRowColumn style={styles[6]}>{item.contact_number}</TableRowColumn>
                         <TableRowColumn style={styles[7]}>{item.max_travel_distance}</TableRowColumn>
                         <TableRowColumn style={styles[8]}>{item.consider_da_max_travel_distance ? 'Enabled' : 'Disabled'}</TableRowColumn>
-                        <TableRowColumn style={styles[9]}>
-                        <TableRowColumn style={styles[7]}>{item.deliver_pod_order ? 'Enabled' : 'Disabled'}</TableRowColumn>
-                        <TableRowColumn style={styles[8]}>
+                        <TableRowColumn style={styles[9]}>{item.deliver_pod_order ? 'Enabled' : 'Disabled'}</TableRowColumn>
+                        <TableRowColumn style={styles[10]}>
                           <Switch onToggle={this.onToggleChange} toggled={item.is_active} value={item} />
                         </TableRowColumn>
-
                       </TableRow>
                     )
                   })
