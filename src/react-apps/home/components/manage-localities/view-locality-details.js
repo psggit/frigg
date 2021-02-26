@@ -107,6 +107,8 @@ class ViewCity extends React.Component {
       name: data.localityName || this.localityName,
       is_available: data.isLocalityActive,
       max_dorders_per_batch: parseInt(data.maxDeliveryOrderPerBatch),
+      max_wait_time_for_potential_das: parseInt(data.maxWaitTimeForPotentialDas),
+      max_da_travel_distance: parseInt(data.maxDaTravelDistance),
       pay_on_delivery_limit: parseInt(data.payOnDeliveryLimit),
       consider_locality_order_limit: data.considerLocalityOrderlimit,
       payment_on_delivery_enabled: data.paymentOnDeliveryEnabled,
@@ -168,6 +170,8 @@ class ViewCity extends React.Component {
         this.payByUpiEnabled = selectedLocality.pay_by_upi_enabled
         this.payOnDeliveryLimit = selectedLocality.pay_on_delivery_limit
         this.maxDeliveryOrderPerBatch = selectedLocality.max_dorders_per_batch
+        this.maxWaitTimeForPotentialDas = selectedLocality.max_wait_time_for_potential_das
+        this.maxDaTravelDistance = selectedLocality.max_da_travel_distance
         //this.state.delete = selectedLocality.delete
       }
     }
@@ -223,6 +227,8 @@ class ViewCity extends React.Component {
                   isLocalityActive={this.isLocalityActive}
                   maxDeliveryOrderPerBatch={this.maxDeliveryOrderPerBatch}
                   considerLocalityOrderlimit={this.considerLocalityOrderlimit}
+                  maxWaitTimeForPotentialDas={this.maxWaitTimeForPotentialDas}
+                  maxDaTravelDistance={this.maxDaTravelDistance}
                   payOnDeliveryLimit={this.payOnDeliveryLimit}
                   paymentOnDeliveryEnabled={this.paymentOnDeliveryEnabled}
                   payByCashEnabled={this.payByCashEnabled}

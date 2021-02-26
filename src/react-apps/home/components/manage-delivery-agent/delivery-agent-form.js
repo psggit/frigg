@@ -6,7 +6,12 @@ import Checkbox from 'material-ui/Checkbox'
 import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
 import * as Api from "./../../middleware/api"
+import PropTypes from 'prop-types'
 import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
+
+DeliveryAgentForm.propTypes = {
+  data: PropTypes.any,
+}
 
 class DeliveryAgentForm extends React.Component {
   constructor (props) {
@@ -24,6 +29,7 @@ class DeliveryAgentForm extends React.Component {
       contactNumber: props.data ? props.data.contact_number : "",
       dob: props.data ? props.data.dob: "",
       radialDistance: props.data ? props.data.radial_distance: "",
+      maxTravelDistance: props.data ? props.data.max_travel_distance: "",
       // subsequentDistance: props.data ? props.data.subsequent_distance: "",
       vehicleNumber: props.data ? props.data.vehicle_number : "",
       vehicleVolumeCapacity: props.data ? props.data.vehicle_volume_capacity : "",
@@ -33,6 +39,7 @@ class DeliveryAgentForm extends React.Component {
       considerVehicleOrderCapacity: props.data ? props.data.consider_vehicle_order_capacity : false,
       vehicleSkuCapacity: props.data ? props.data.vehicle_sku_capacity : "",
       considerVehicleSkuCapacity: props.data ? props.data.consider_vehicle_sku_capacity : false,
+      considerDaMaxTravelDistance: props.data ? props.data.consider_da_max_travel_distance : false,
       deliverPodOrder: props.data ? props.data.deliver_pod_order: false,
       selectedBatching: props.data ? props.data.consider_radial_batching ? "considerRadialBatching" : "" : ""
     }
@@ -345,6 +352,26 @@ class DeliveryAgentForm extends React.Component {
                   ))
                 }
               </SelectField>
+            </div>
+
+            <div className="form-group">
+              <label className="label">Max distance from the order to be considered as Potential DA (Km)</label><br />
+              <TextField
+                onChange={this.handleTextFields}
+                name="maxTravelDistance"
+                value={this.state.maxTravelDistance}
+                style={{ width: '100%' }}
+              />
+            </div>
+
+            <div className="form-group">
+              <Checkbox
+                style={{ marginTop: "10px" }}
+                label="Consider DA's Maximum Distance limit for being a Potential DA [Not selecting this will take the  Locality’s DA Distance Limit]"
+                name="considerDaMaxTravelDistance"
+                checked={this.state.considerDaMaxTravelDistance}
+                onCheck={this.handleCheckboxChange}
+              />
             </div>
 
             <div className="form-group">

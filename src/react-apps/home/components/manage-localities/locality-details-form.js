@@ -13,6 +13,9 @@ class LocalityDetailsForm extends React.Component {
       localityName: props.localityName || '',
       shouldTrim: true,
       maxDeliveryOrderPerBatch: props.maxDeliveryOrderPerBatch || '0',
+      maxWaitTimeForPotentialDas: props.maxWaitTimeForPotentialDas,
+      maxDaTravelDistance: props.maxDaTravelDistance,
+      considerLocalityOrderlimit: props.considerLocalityOrderlimit || false,
       payOnDeliveryLimit: props.payOnDeliveryLimit || '0',
       considerLocalityOrderlimit: props.considerLocalityOrderlimit || false,
       payByCashEnabled: props.payByCashEnabled || false,
@@ -79,6 +82,7 @@ class LocalityDetailsForm extends React.Component {
             value={this.state.localityName}
           />
         </div>
+
         <div className="form-group">
           <label className="label">Max delivery orders per batch</label><br />
           <TextField
@@ -90,6 +94,23 @@ class LocalityDetailsForm extends React.Component {
         </div>
 
         <div className="form-group">
+          <label className="label">Prioritise Potential DAs for (Min)</label><br />
+          <TextField
+            disabled={this.props.isDisabled}
+            onChange={this.handleTextFields}
+            name="maxWaitTimeForPotentialDas"
+            value={this.state.maxWaitTimeForPotentialDas}
+          />
+        </div>
+
+        <div className="form-group">
+          <label className="label">Look for Potential DAs within (Km)</label><br />
+          <TextField
+            disabled={this.props.isDisabled}
+            onChange={this.handleTextFields}
+            name="maxDaTravelDistance"
+            value={this.state.maxDaTravelDistance}
+            />
           <label className="label">Cash Limit</label><br />
           <TextField
             disabled={this.props.isDisabled}

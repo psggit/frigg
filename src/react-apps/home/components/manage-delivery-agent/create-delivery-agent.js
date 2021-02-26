@@ -22,6 +22,7 @@ class CreateDeliveryAgent extends React.Component {
       employee_id: deliveryAgentForm.employeeId,
       gcm_token: deliveryAgentForm.gcmToken,
       contact_number: deliveryAgentForm.contactNumber,
+      max_travel_distance: parseInt(deliveryAgentForm.maxTravelDistance),
       is_active: deliveryAgentForm.isActive,
       dob: deliveryAgentForm.dob,
       vehicle_number:deliveryAgentForm.vehicleNumber,

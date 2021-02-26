@@ -21,6 +21,7 @@ class EditDeliveryAgent extends React.Component {
       city_id: parseInt(deliveryAgentForm.selectedCityIdx),
       employee_id: deliveryAgentForm.employeeId,
       gcm_token: deliveryAgentForm.gcmToken,
+      max_travel_distance: parseFloat(deliveryAgentForm.maxTravelDistance),
       dob: deliveryAgentForm.dob.slice(0,10),
       vehicle_number: deliveryAgentForm.vehicleNumber,
       vehicle_volume_capacity: parseInt(deliveryAgentForm.vehicleVolumeCapacity),
@@ -34,6 +35,7 @@ class EditDeliveryAgent extends React.Component {
       consider_radial_batching: deliveryAgentForm.selectedBatching.includes("RadialBatching") ? true : false,
       // consider_subsequent_batching: deliveryAgentForm.selectedBatching.includes("SubsequentBatching") ? true : false,
       service_provider: deliveryAgentForm.serviceProvider,
+      consider_da_max_travel_distance: deliveryAgentForm.considerDaMaxTravelDistance,
       deliver_pod_order: deliveryAgentForm.deliverPodOrder,
 
     })
