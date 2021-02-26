@@ -9,15 +9,13 @@ import * as Api from "./../../middleware/api"
 import PropTypes from 'prop-types'
 import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
 
-DeliveryAgentForm.propTypes = {
-  data: PropTypes.any,
-}
+// DeliveryAgentForm.propTypes = {
+//   data: PropTypes.any,
+// }
 
 class DeliveryAgentForm extends React.Component {
   constructor (props) {
     super(props)
-    console.log("city", props.data ? props.data.city_id : "")
-    console.log("service", props.data ? props.data.service_provider : "")
     this.state = {
       selectedCityIdx: props.data ? props.data.city_id : "",
       cityList: [],
