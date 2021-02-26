@@ -2,7 +2,6 @@ import React from "react"
 import CreateDeliveryAgentForm from "./delivery-agent-form"
 import * as Api from "../../middleware/api"
 import Notify from "@components/Notification"
-import DeliveryAgentForm from "./delivery-agent-form"
 
 class CreateDeliveryAgent extends React.Component {
   constructor () {

@@ -6,7 +6,12 @@ import Checkbox from 'material-ui/Checkbox'
 import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
 import * as Api from "./../../middleware/api"
+import PropTypes from 'prop-types'
 import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
+
+DeliveryAgentForm.propTypes = {
+  data: PropTypes.any,
+}
 
 class DeliveryAgentForm extends React.Component {
   constructor (props) {
