@@ -33,6 +33,7 @@ class DeliveryAgentForm extends React.Component {
       considerVehicleOrderCapacity: props.data ? props.data.consider_vehicle_order_capacity : false,
       vehicleSkuCapacity: props.data ? props.data.vehicle_sku_capacity : "",
       considerVehicleSkuCapacity: props.data ? props.data.consider_vehicle_sku_capacity : false,
+      deliverPodOrder: props.data ? props.data.deliver_pod_order: false,
       selectedBatching: props.data ? props.data.consider_radial_batching ? "considerRadialBatching" : "" : ""
     }
 
@@ -386,6 +387,17 @@ class DeliveryAgentForm extends React.Component {
                 onCheck={this.handleCheckboxChange}
               />
             </div>
+
+            <div className="form-group">
+              <Checkbox
+                style={{ marginTop: "10px" }}
+                label="Deliver POD Order"
+                name="deliverPodOrder"
+                checked={this.state.deliverPodOrder}
+                onCheck={this.handleCheckboxChange}
+              />
+            </div>
+
             <div className="form-group">
               <RadioButtonGroup name="selectedBatching" onChange={this.handleRadioChange} defaultSelected={this.state.selectedBatching}>
                 <RadioButton

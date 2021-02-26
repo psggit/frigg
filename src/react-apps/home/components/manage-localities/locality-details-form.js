@@ -7,12 +7,17 @@ import MenuItem from 'material-ui/MenuItem'
 class LocalityDetailsForm extends React.Component {
   constructor(props) {
     super(props)
+    console.log("name", props.localityName)
     this.intialState = {
       isLocalityActive: props.isLocalityActive,
       localityName: props.localityName || '',
       shouldTrim: true,
       maxDeliveryOrderPerBatch: props.maxDeliveryOrderPerBatch || '0',
-      considerLocalityOrderlimit: props.considerLocalityOrderlimit || false
+      payOnDeliveryLimit: props.payOnDeliveryLimit || '0',
+      considerLocalityOrderlimit: props.considerLocalityOrderlimit || false,
+      payByCashEnabled: props.payByCashEnabled || false,
+      payByUpiEnabled: props.payByUpiEnabled || false,
+      paymentOnDeliveryEnabled: props.paymentOnDeliveryEnabled || false,
     }
 
     this.state = Object.assign({}, this.intialState)
@@ -85,6 +90,16 @@ class LocalityDetailsForm extends React.Component {
         </div>
 
         <div className="form-group">
+          <label className="label">Cash Limit</label><br />
+          <TextField
+            disabled={this.props.isDisabled}
+            onChange={this.handleTextFields}
+            name="payOnDeliveryLimit"
+            value={this.state.payOnDeliveryLimit}
+          />
+        </div>
+
+        <div className="form-group">
           <Checkbox
             disabled={this.props.isDisabled}
             checked={this.state.isLocalityActive}
@@ -101,6 +116,36 @@ class LocalityDetailsForm extends React.Component {
             onCheck={this.handleCheckboxes}
             name="considerLocalityOrderlimit"
             label="Consider locality order limit "
+          />
+        </div>
+
+        <div className="form-group">
+          <Checkbox
+            disabled={this.props.isDisabled}
+            checked={this.state.paymentOnDeliveryEnabled}
+            onCheck={this.handleCheckboxes}
+            name="paymentOnDeliveryEnabled"
+            label="Payment on Delivery Enabled"
+          />
+        </div>
+
+        <div className="form-group">
+          <Checkbox
+            disabled={this.props.isDisabled}
+            checked={this.state.payByCashEnabled}
+            onCheck={this.handleCheckboxes}
+            name="payByCashEnabled"
+            label="Pay By Cash"
+          />
+        </div>
+
+        <div className="form-group">
+          <Checkbox
+            disabled={this.props.isDisabled}
+            checked={this.state.payByUpiEnabled}
+            onCheck={this.handleCheckboxes}
+            name="payByUpiEnabled"
+            label="Pay By UPI"
           />
         </div>
       </Fragment>

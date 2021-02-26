@@ -19,7 +19,7 @@ class EditCityPayment extends React.Component {
       city_id: parseInt(this.props.match.params.cityId),
       upi_time_limit: parseInt(CityPaymentForm.upiTimeLimit),
       upi_low_rate_message: CityPaymentForm.upiLowRateMessage,
-      app_type: CityPaymentForm.selectedAppTypeIdx === 1 ? "android" : CityPaymentForm.selectedAppTypeIdx === 2 ? "ios" : "fk-web",
+      app_type: CityPaymentForm.selectedAppTypeIdx === 1 ? "android" : CityPaymentForm.selectedAppTypeIdx === 2 ? "ios" : CityPaymentForm.selectedAppTypeIdx === 4 ? "web" : "fk-web",
       jp_payment_method: CityPaymentForm.selectedJPPaymentMethodIdx === 1 ? "wallet" : "nodal",
       icici_payment_method: CityPaymentForm.selectedICICIPaymentMethodIdx === 1 ? "dmo-wallet" : "nodal",
       is_card_enabled: CityPaymentForm.isCardEnabled,
@@ -29,7 +29,10 @@ class EditCityPayment extends React.Component {
       is_upi_collect_low_success_rate: CityPaymentForm.isUpiCollectLowSuccessRate,
       is_jp_upi_collect_enabled: CityPaymentForm.isJPUpiCollectEnabled,
       is_icici_upi_intent_enabled: CityPaymentForm.is_icici_upi_intent_enabled,
-      is_icici_upi_collect_enabled: CityPaymentForm.is_icici_upi_collect_enabled
+      is_icici_upi_collect_enabled: CityPaymentForm.is_icici_upi_collect_enabled,
+      payment_on_delivery_enabled: CityPaymentForm.paymentOnDeliveryEnabled,
+      pay_by_cash_enabled: CityPaymentForm.payByCashEnabled,
+      pay_by_upi_enabled: CityPaymentForm.payByUPIEnabled,
     })
       .then((response) => {
         Notify('Successfully Updated City Payment', 'success')

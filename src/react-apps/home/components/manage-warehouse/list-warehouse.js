@@ -88,7 +88,6 @@ class ListWareHouse extends React.Component {
   }
 
   onToggleChange (item, value) {
-    console.log("hello from toggle", item, value)
     this.mountDialog()
     this.setState({
       warehouseId: item.id,

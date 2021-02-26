@@ -33,7 +33,9 @@ class EditDeliveryAgent extends React.Component {
       // subsequent_distance: parseFloat(deliveryAgentForm.subsequentDistance),
       consider_radial_batching: deliveryAgentForm.selectedBatching.includes("RadialBatching") ? true : false,
       // consider_subsequent_batching: deliveryAgentForm.selectedBatching.includes("SubsequentBatching") ? true : false,
-      service_provider: deliveryAgentForm.serviceProvider
+      service_provider: deliveryAgentForm.serviceProvider,
+      deliver_pod_order: deliveryAgentForm.deliverPodOrder,
+
     })
       .then((response) => {
         console.log("message")

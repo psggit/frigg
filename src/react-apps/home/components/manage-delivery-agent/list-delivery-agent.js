@@ -25,6 +25,7 @@ const TableHeaderItems = [
   'CITY ID',
   'GCM TOKEN',
   'CONTACT NUMBER',
+  'DELIVER POD ORDER',
   'ACTIVE'
 ]
 
@@ -35,6 +36,7 @@ const styles = [
   { width: '120px' },
   { width: '120px' },
   { width: '120px' },
+  { width: '150px' },
   { width: '150px' },
   { width: '150px' },
 
@@ -165,7 +167,8 @@ class ListDeliveryAgent extends React.Component {
                         <TableRowColumn style={styles[4]}>{item.city_id}</TableRowColumn>
                         <TableRowColumn style={styles[5]}>{item.gcm_token}</TableRowColumn>
                         <TableRowColumn style={styles[6]}>{item.contact_number}</TableRowColumn>
-                        <TableRowColumn style={styles[7]}>
+                        <TableRowColumn style={styles[7]}>{item.deliver_pod_order ? 'Enabled' : 'Disabled'}</TableRowColumn>
+                        <TableRowColumn style={styles[8]}>
                           <Switch onToggle={this.onToggleChange} toggled={item.is_active} value={item} />
                         </TableRowColumn>
 

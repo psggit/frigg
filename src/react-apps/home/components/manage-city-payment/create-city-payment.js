@@ -30,7 +30,10 @@ class createCityPayment extends React.Component {
       is_upi_collect_low_success_rate: CityPaymentForm.isUpiCollectLowSuccessRate,
       is_jp_upi_collect_enabled: CityPaymentForm.isJPUpiCollectEnabled,
       is_icici_upi_intent_enabled: CityPaymentForm.is_icici_upi_intent_enabled,
-      is_icici_upi_collect_enabled: CityPaymentForm.is_icici_upi_collect_enabled
+      is_icici_upi_collect_enabled: CityPaymentForm.is_icici_upi_collect_enabled,
+      payment_on_delivery_enabled: CityPaymentForm.paymentOnDeliveryEnabled,
+      pay_by_cash_enabled: CityPaymentForm.payByCashEnabled,
+      pay_by_upi_enabled: CityPaymentForm.payByUPIEnabled
     })
       .then((response) => {
         Notify('Successfully created City Payment', 'success')
