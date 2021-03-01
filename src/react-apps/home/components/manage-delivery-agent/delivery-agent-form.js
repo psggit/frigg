@@ -8,6 +8,10 @@ import RaisedButton from 'material-ui/RaisedButton'
 import * as Api from "./../../middleware/api"
 import PropTypes from 'prop-types'
 import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
+import ModalBody from '@components/ModalBox/ModalBody'
+import ModalHeader from '@components/ModalBox/ModalHeader'
+import ModalFooter from '@components/ModalBox/ModalFooter'
+import ModalBox from '@components/ModalBox'
 
 // DeliveryAgentForm.propTypes = {
 //   data: PropTypes.any,
@@ -20,6 +24,7 @@ class DeliveryAgentForm extends React.Component {
       selectedCityIdx: props.data ? props.data.city_id : "",
       cityList: [],
       serviceProviderList: [],
+      mountDialog: false,
       serviceProvider: props.data ? props.data.service_provider : "",
       name: props.data ? props.data.name : "",
       employeeId: props.data ? props.data.employee_id : "",
@@ -51,6 +56,9 @@ class DeliveryAgentForm extends React.Component {
     this.handleCityChange = this.handleCityChange.bind(this)
     this.handleRadioChange = this.handleRadioChange.bind(this)
     this.handleServiceProviderChange = this.handleServiceProviderChange.bind(this)
+    this.mountDialog = this.mountDialog.bind(this)
+    this.unmountDialog = this.unmountDialog.bind(this)
+    this.considerDaMaxTravelDistanceChange = this.considerDaMaxTravelDistanceChange.bind(this)
   }
 
   // componentWillReceiveProps(newProps) {
@@ -172,6 +180,28 @@ class DeliveryAgentForm extends React.Component {
       [e.target.name]: e.target.checked
     })
   }
+
+  considerDaMaxTravelDistanceChange(e) {
+    if(e.target.checked === true){
+      this.mountDialog()
+    }
+    this.setState({
+      [e.target.name]: e.target.checked
+    })
+  }
+
+  mountDialog() {
+    this.setState({
+      mountDialog: true
+    })
+  }
+
+  unmountDialog() {
+    this.setState({
+      mountDialog: false
+    })
+  }
+
 
   getData () {
     return this.state
@@ -368,7 +398,7 @@ class DeliveryAgentForm extends React.Component {
                 label="Consider DA's Maximum Distance limit for being a Potential DA [Not selecting this will take the  Locality’s DA Distance Limit]"
                 name="considerDaMaxTravelDistance"
                 checked={this.state.considerDaMaxTravelDistance}
-                onCheck={this.handleCheckboxChange}
+                onCheck={this.considerDaMaxTravelDistanceChange}
               />
             </div>
 
@@ -451,6 +481,23 @@ class DeliveryAgentForm extends React.Component {
               />
             </div>
           </form>
+          {
+            this.state.mountDialog &&
+            <ModalBox>
+              <ModalBody height="60px">
+                <table className="table--hovered">
+                  <tbody>
+                    Max distance from the order to be considered as Potential DA (Km) can not be empty.
+                </tbody>
+                </table>
+              </ModalBody>
+              <ModalFooter>
+                <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', fontWeight: '600' }}>
+                  <button className="btn btn-primary" onClick={this.unmountDialog}> Ok </button>
+                </div>
+              </ModalFooter>
+            </ModalBox>
+          }
         </Card>
       </React.Fragment>
     )
